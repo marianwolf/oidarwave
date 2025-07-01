@@ -6,31 +6,117 @@
   <title>Meine einfache Webseite</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
+      font-family: 'Circular Std', Arial, sans-serif;
+      background: linear-gradient(135deg, #191414 0%, #232a34 100%);
       margin: 0;
-      padding: 20px;
+      padding: 0;
+      min-height: 100vh;
+      color: #fff;
     }
     header {
-      background-color: #3498db;
-      color: white;
-      padding: 20px;
+      background: #191414;
+      color: #1db954;
+      padding: 36px 0 28px 0;
       text-align: center;
-      border-radius: 10px;
+      border-radius: 0 0 32px 32px;
+      box-shadow: 0 6px 32px rgba(0,0,0,0.4);
+      letter-spacing: 2px;
+    }
+    header h1 {
+      font-size: 2.7rem;
+      letter-spacing: 2px;
+      margin: 0;
+      font-weight: 800;
+      text-shadow: 0 2px 8px #000a;
     }
     main {
-      margin-top: 20px;
+      margin: 48px auto 0 auto;
+      max-width: 600px;
+      width: 92%;
     }
     section {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      background: rgba(25,20,20,0.98);
+      padding: 36px 28px 28px 28px;
+      border-radius: 20px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+      margin-bottom: 28px;
+      color: #fff;
+      transition: box-shadow 0.2s;
+    }
+    section:hover {
+      box-shadow: 0 8px 32px rgba(30,185,84,0.12);
+    }
+    section h2 {
+      color: #1db954;
+      margin-top: 0;
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    a {
+      color: #1db954;
+      text-decoration: none;
+      transition: color 0.2s;
+      font-weight: 500;
+    }
+    a:hover {
+      color: #1ed760;
+      text-decoration: underline;
     }
     footer {
-      margin-top: 20px;
+      margin-top: 48px;
       text-align: center;
-      color: #777;
+      color: #b3b3b3;
+      font-size: 1.05rem;
+      padding-bottom: 28px;
+      letter-spacing: 1px;
+    }
+    #play-btn {
+      background: linear-gradient(135deg, #1db954 60%, #1ed760 100%);
+      border: none;
+      border-radius: 50%;
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 24px rgba(30,185,84,0.25), 0 2px 8px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      margin-bottom: 18px;
+      position: relative;
+      outline: none;
+      z-index: 2;
+    }
+    #play-btn:active {
+      transform: scale(0.96);
+      background: linear-gradient(135deg, #1ed760 60%, #1db954 100%);
+    }
+    #play-btn svg {
+      fill: #fff;
+      filter: drop-shadow(0 2px 4px #000a);
+    }
+    #pause-icon {
+      display: none;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+    #track-title {
+      color: #b3b3b3;
+      font-size: 1.08rem;
+      margin-top: 10px;
+      min-height: 24px;
+      text-align: center;
+      letter-spacing: 0.5px;
+    }
+    #spotify-audio {
+      display: none;
+      width: 100%;
+      margin-top: 18px;
+      border-radius: 10px;
+      background: #232a34;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.18);
     }
   </style>
 </head>
@@ -49,10 +135,96 @@
       <h2>Kontakt</h2>
       <p>Schreib mir eine Mail: <a href="mailto:example@example.com">example@example.com</a></p>
     </section>
+
+    <section style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
+      <button id="play-btn" aria-label="Play" style="background: linear-gradient(135deg, #1db954 60%, #1ed760 100%); border: none; border-radius: 50%; width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 24px rgba(30,185,84,0.25), 0 2px 8px rgba(0,0,0,0.2); cursor: pointer; transition: background 0.2s, transform 0.1s; margin-bottom: 18px; position: relative; outline: none; z-index:2;">
+        <span style="position: relative; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px;">
+          <svg id="play-icon" width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" style="position:absolute;left:0;top:0;">
+            <circle cx="20" cy="20" r="20" fill="#1db954"/>
+            <polygon points="17,13 29,20 17,27" fill="#fff"/>
+          </svg>
+          <svg id="pause-icon" width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" style="display:none;position:absolute;left:0;top:0;">
+            <circle cx="20" cy="20" r="20" fill="#1db954"/>
+            <rect x="15" y="13" width="4" height="14" fill="#fff" rx="1.5"/>
+            <rect x="23" y="13" width="4" height="14" fill="#fff" rx="1.5"/>
+          </svg>
+        </span>
+      </button>
+      <span style="color: #fff; font-size: 1.1rem;">Play</span>
+      <div style="width:100%;display:flex;justify-content:center;align-items:center;margin-top:18px;z-index:1;">
+        <audio id="spotify-audio" controls style="width:95%;border-radius:10px;background:#232a34;box-shadow:0 2px 12px rgba(0,0,0,0.18);"></audio>
+      </div>
+      <div id="track-title" style="color:#b3b3b3;font-size:1rem;margin-top:10px;min-height:24px;text-align:center;"></div>
+    </section>
   </main>
 
   <footer>
     &copy; 2025 Meine Webseite
   </footer>
+
+  <script>
+    // Track-Infos für Titelanzeige und Previews
+    const trackInfos = [
+      { id: '3n3Ppam7vgaVa1iaRUc9Lp', title: 'Red Hot Chili Peppers - Californication', preview: 'https://p.scdn.co/mp3-preview/6c5e3e2e2e2e2e2e2e2e2e2e2e2e2e2e2e2e2e?cid=774b29d4f13844c495f206cafdad9c86' },
+      { id: '7ouMYWpwJ422jRcDASZB7P', title: 'Daft Punk - One More Time', preview: 'https://p.scdn.co/mp3-preview/2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b?cid=774b29d4f13844c495f206cafdad9c86' },
+      { id: '1lDWb6b6ieDQ2xT7ewTC3G', title: 'Avicii - Wake Me Up', preview: 'https://p.scdn.co/mp3-preview/6d6e2e2e2e2e2e2e2e2e2e2e2e2e2e2e2e2e2e2e?cid=774b29d4f13844c495f206cafdad9c86' },
+      { id: '0VjIjW4GlUZAMYd2vXMi3b', title: 'The Weeknd - Blinding Lights', preview: 'https://p.scdn.co/mp3-preview/6b6b6b6b6b6b6b6b6b6b6b6b6b6b6b6b6b6b6b6b?cid=774b29d4f13844c495f206cafdad9c86' },
+      { id: '6habFhsOp2NvshLv26DqMb', title: 'Dua Lipa - New Rules', preview: 'https://p.scdn.co/mp3-preview/6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a?cid=774b29d4f13844c495f206cafdad9c86' }
+    ];
+
+    let isPlaying = false;
+    let currentTrack = null;
+    const playBtn = document.getElementById('play-btn');
+    const playIcon = document.getElementById('play-icon');
+    const pauseIcon = document.getElementById('pause-icon');
+    const audio = document.getElementById('spotify-audio');
+    const trackTitle = document.getElementById('track-title');
+
+    function playRandomTrack() {
+      const random = Math.floor(Math.random() * trackInfos.length);
+      const track = trackInfos[random];
+      if (track.preview) {
+        audio.src = track.preview;
+        audio.load();
+        setTimeout(() => {
+          audio.play().catch(() => {
+            trackTitle.textContent = 'Autoplay nicht möglich. Bitte Play im Player drücken.';
+          });
+        }, 100);
+        trackTitle.textContent = track.title;
+        playIcon.style.display = 'none';
+        pauseIcon.style.display = 'block';
+        isPlaying = true;
+        currentTrack = track;
+      } else {
+        trackTitle.textContent = '';
+        alert('Für diesen Song ist keine Vorschau verfügbar.');
+      }
+    }
+
+    playBtn.addEventListener('click', function() {
+      if (!isPlaying) {
+        playRandomTrack();
+      } else {
+        audio.pause();
+      }
+    });
+
+    audio.addEventListener('play', function() {
+      playIcon.style.display = 'none';
+      pauseIcon.style.display = 'block';
+      isPlaying = true;
+    });
+    audio.addEventListener('pause', function() {
+      playIcon.style.display = 'block';
+      pauseIcon.style.display = 'none';
+      isPlaying = false;
+    });
+    audio.addEventListener('ended', function() {
+      playIcon.style.display = 'block';
+      pauseIcon.style.display = 'none';
+      isPlaying = false;
+    });
+  </script>
 </body>
 </html>
