@@ -1,0 +1,182 @@
+/* Light/Dark Mode, Responsive, Barrierefreiheit */
+:root {
+  --primary: #1db954;
+  --primary-light: #1ed760;
+  --background: #191414;
+  --background-light: #f4f4f4;
+  --section-bg: rgba(25,20,20,0.98);
+  --section-bg-light: #fff;
+  --text: #fff;
+  --text-light: #232a34;
+  --muted: #b3b3b3;
+  --muted-light: #555;
+  --shadow: 0 8px 32px 0 rgba(30,185,84,0.18), 0 2px 16px 0 rgba(0,0,0,0.25);
+  --shadow-hover: 0 16px 48px 0 rgba(30,185,84,0.22), 0 4px 32px 0 rgba(0,0,0,0.30);
+  --font: 'Circular Std', Arial, sans-serif;
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    --background: var(--background-light);
+    --section-bg: var(--section-bg-light);
+    --text: var(--text-light);
+    --muted: var(--muted-light);
+  }
+}
+body[data-theme="light"] {
+  --background: var(--background-light);
+  --section-bg: var(--section-bg-light);
+  --text: var(--text-light);
+  --muted: var(--muted-light);
+}
+body {
+  font-family: var(--font);
+  background: var(--background);
+  color: var(--text);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  transition: background 0.4s, color 0.4s;
+}
+header {
+  background: var(--background);
+  color: var(--primary);
+  padding: 36px 0 28px 0;
+  text-align: center;
+  border-radius: 0 0 32px 32px;
+  box-shadow: 0 6px 32px rgba(0,0,0,0.4);
+  letter-spacing: 2px;
+}
+header h1 {
+  font-size: 2.7rem;
+  letter-spacing: 2px;
+  margin: 0;
+  font-weight: 800;
+  text-shadow: 0 2px 8px #000a;
+}
+main {
+  margin: 48px auto 0 auto;
+  max-width: 600px;
+  width: 92%;
+}
+section {
+  background: var(--section-bg);
+  padding: 36px 28px 28px 28px;
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  margin-bottom: 28px;
+  color: var(--text);
+  transition: box-shadow 0.2s, background 0.4s, color 0.4s;
+}
+section:hover {
+  box-shadow: var(--shadow-hover);
+}
+section h2 {
+  color: var(--primary);
+  margin-top: 0;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+a {
+  color: var(--primary);
+  text-decoration: underline;
+  transition: color 0.2s;
+  font-weight: 500;
+}
+a:focus, button:focus, input:focus, select:focus, textarea:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+a:hover {
+  color: var(--primary-light);
+}
+footer {
+  margin-top: 48px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 1.05rem;
+  padding-bottom: 28px;
+  letter-spacing: 1px;
+}
+#play-btn {
+  background: linear-gradient(135deg, var(--primary) 60%, var(--primary-light) 100%);
+  border: none;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 24px rgba(30,185,84,0.25), 0 2px 8px rgba(0,0,0,0.2);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  margin-bottom: 18px;
+  position: relative;
+  outline: none;
+  z-index: 2;
+}
+#play-btn:active {
+  transform: scale(0.96);
+  background: linear-gradient(135deg, var(--primary-light) 60%, var(--primary) 100%);
+}
+#play-btn svg {
+  fill: #fff;
+  filter: drop-shadow(0 2px 4px #000a);
+}
+#pause-icon {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+#track-title {
+  color: var(--muted);
+  font-size: 1.08rem;
+  margin-top: 10px;
+  min-height: 24px;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+#spotify-audio {
+  display: block;
+  width: 100%;
+  margin-top: 18px;
+  border-radius: 10px;
+  background: #232a34;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+  z-index: 1;
+  position: relative;
+  transition: box-shadow 0.4s cubic-bezier(.4,1.4,.6,1), background 0.3s;
+}
+#spotify-audio:focus-visible {
+  box-shadow: 0 0 0 3px var(--primary), 0 2px 12px rgba(0,0,0,0.18);
+}
+/* Responsive Design */
+@media (max-width: 700px) {
+  main {
+    max-width: 98vw;
+    width: 99vw;
+    margin: 24px auto 0 auto;
+  }
+  section {
+    padding: 20px 8px 16px 8px;
+    border-radius: 12px;
+  }
+  header h1 {
+    font-size: 2rem;
+  }
+}
+@media (max-width: 400px) {
+  section h2 {
+    font-size: 1.1rem;
+  }
+  #play-btn {
+    width: 56px;
+    height: 56px;
+  }
+}
+/* Barrierefreiheit: Kontrast, Fokus, große Klickflächen */
+button, a {
+  min-height: 44px;
+  min-width: 44px;
+}
