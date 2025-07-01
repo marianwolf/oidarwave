@@ -12,55 +12,77 @@
     <h1>Willkommen auf deiner neuen Webseite!</h1>
   </header>
   <main>
-    <section>
-      <h2>Starte jetzt durch</h2>
-      <p>Hier kannst du deine eigene moderne Webpräsenz gestalten. Füge Inhalte, Bilder, Musik, Radio, Projekte oder was immer du willst hinzu!</p>
-      <a href="#webradio" class="cta-btn">Loslegen</a>
-    </section>
     <section id="webradio">
       <h2>Webradio</h2>
-      <div id="webradio-player">[Webradio-Player kommt hier hin]</div>
-    </section>
-    <section id="musikplayer">
-      <h2>Musikplayer</h2>
-      <div id="music-player">[Musikplayer kommt hier hin]</div>
-    </section>
-    <section id="portfolio">
-      <h2>Portfolio</h2>
-      <div id="portfolio-list">[Hier kannst du Projekte, Bilder oder Referenzen präsentieren]</div>
-    </section>
-    <section id="kontakt">
-      <h2>Kontaktformular</h2>
-      <form id="contact-form">
-        <label for="name">Name:</label><br>
-        <input type="text" id="name" name="name" required><br>
-        <label for="email">E-Mail:</label><br>
-        <input type="email" id="email" name="email" required><br>
-        <label for="message">Nachricht:</label><br>
-        <textarea id="message" name="message" rows="4" required></textarea><br>
-        <button type="submit">Absenden</button>
-      </form>
-      <div id="contact-success" style="display:none;color:var(--primary);margin-top:10px;">Danke für deine Nachricht!</div>
-    </section>
-    <section id="blog">
-      <h2>Blog</h2>
-      <div id="blog-list">[Hier erscheinen deine Blogbeiträge]</div>
-    </section>
-    <section id="animationen">
-      <h2>Animationen</h2>
-      <div id="animation-demo">[Hier werden Animationen und Effekte gezeigt]</div>
+      <div id="webradio-player">
+        <label for="radio-station">Sender wählen:</label>
+        <select id="radio-station">
+          <option value="https://st01.sslstream.dlf.de/dlf/01/128/mp3/stream.mp3">Deutschlandfunk</option>
+          <option value="https://stream.radioparadise.com/mp3-192">Radio Paradise</option>
+          <option value="https://radio.bbg-bew.de/">BBG</option>
+        </select>
+        <button id="radio-toggle" aria-label="Play" class="icon-btn"></button>
+        <audio id="radio-audio" preload="true" autoplay></audio>
+      </div>
     </section>
   </main>
   <footer>
     &copy; 2025 Deine neue Webseite
   </footer>
   <script>
-    // Kontaktformular Demo-Handler
-    document.getElementById('contact-form').onsubmit = function(e) {
-      e.preventDefault();
-      document.getElementById('contact-success').style.display = 'block';
-      this.reset();
+    // Webradio-Player Logik
+    const radioAudio = document.getElementById('radio-audio');
+    const radioToggle = document.getElementById('radio-toggle');
+    const radioStation = document.getElementById('radio-station');
+
+    function createRadioIcon(type) {
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('width', '28');
+      svg.setAttribute('height', '28');
+      svg.setAttribute('viewBox', '0 0 40 40');
+      if(type === 'play') {
+        svg.innerHTML = '<circle cx="20" cy="20" r="20" fill="#1db954"/><polygon points="15,10 32,20 15,30" fill="#fff"/>';
+      } else if(type === 'pause') {
+        svg.innerHTML = '<circle cx="20" cy="20" r="20" fill="#f1c40f"/><rect x="13" y="10" width="5" height="20" rx="2" fill="#fff"/><rect x="22" y="10" width="5" height="20" rx="2" fill="#fff"/>';
+      }
+      return svg;
+    }
+    function showRadioPlay() {
+      radioToggle.innerHTML = '';
+      radioToggle.appendChild(createRadioIcon('play'));
+      radioToggle.setAttribute('aria-label', 'Play');
+    }
+    function showRadioPause() {
+      radioToggle.innerHTML = '';
+      radioToggle.appendChild(createRadioIcon('pause'));
+      radioToggle.setAttribute('aria-label', 'Pause');
+    }
+    // Initialisiere mit Play-Icon
+    showRadioPlay();
+    // Play/Pause-Logik
+    radioToggle.onclick = function() {
+      const selectedSrc = radioStation.value;
+      if(radioAudio.paused) {
+        if(radioAudio.src !== selectedSrc) {
+          radioAudio.src = selectedSrc;
+          radioAudio.load();
+        }
+        radioAudio.volume = 1.0;
+        radioAudio.play();
+      } else {
+        radioAudio.pause();
+        radioAudio.currentTime = 0;
+      }
     };
+    // Senderwechsel pausiert und setzt den Stream zurück
+    radioStation.addEventListener('change', () => {
+      radioAudio.pause();
+      radioAudio.currentTime = 0;
+      showRadioPlay();
+    });
+    // Icon-Status synchronisieren
+    radioAudio.addEventListener('play', showRadioPause);
+    radioAudio.addEventListener('pause', showRadioPlay);
   </script>
 </body>
 </html>
