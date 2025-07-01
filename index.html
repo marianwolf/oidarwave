@@ -1,225 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Modern Webradio</title>
+  <title>Willkommen – Deine neue Webseite</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="animations.css">
 </head>
 <body>
-  <canvas id="bg-canvas" style="position:fixed;z-index:0;inset:0;width:100vw;height:100vh;pointer-events:none;"></canvas>
   <header>
-    <h1>Modern Webradio</h1>
+    <h1>Willkommen auf deiner neuen Webseite!</h1>
   </header>
   <main>
     <section>
-      <h2>Choose your station</h2>
-      <div id="station-list" style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-bottom:18px;"></div>
-      <div id="cover-container" class="cover-container">
-        <img id="cover-img" src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Radio_icon_2.svg" alt="Station Cover" style="width:90px;height:90px;border-radius:16px;box-shadow:0 4px 24px #0003;margin-bottom:12px;object-fit:cover;">
-      </div>
-      <div id="song-title" class="song-title" style="min-height:24px;text-align:center;color:var(--muted);margin-bottom:10px;font-size:1.08rem;"></div>
-      <button id="radio-play-btn" aria-label="Play" class="radio-play-btn">
-        <span id="radio-play-icon" class="radio-play-icon"></span>
-        <span id="radio-pause-icon" class="radio-pause-icon" style="display:none;"></span>
-      </button>
-      <div id="radio-title" class="radio-title"></div>
-      <audio id="radio-audio" preload="none"></audio>
+      <h2>Starte jetzt durch</h2>
+      <p>Hier kannst du deine eigene moderne Webpräsenz gestalten. Füge Inhalte, Bilder, Musik, Radio, Projekte oder was immer du willst hinzu!</p>
+      <a href="#webradio" class="cta-btn">Loslegen</a>
+    </section>
+    <section id="webradio">
+      <h2>Webradio</h2>
+      <div id="webradio-player">[Webradio-Player kommt hier hin]</div>
+    </section>
+    <section id="musikplayer">
+      <h2>Musikplayer</h2>
+      <div id="music-player">[Musikplayer kommt hier hin]</div>
+    </section>
+    <section id="portfolio">
+      <h2>Portfolio</h2>
+      <div id="portfolio-list">[Hier kannst du Projekte, Bilder oder Referenzen präsentieren]</div>
+    </section>
+    <section id="kontakt">
+      <h2>Kontaktformular</h2>
+      <form id="contact-form">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" required><br>
+        <label for="email">E-Mail:</label><br>
+        <input type="email" id="email" name="email" required><br>
+        <label for="message">Nachricht:</label><br>
+        <textarea id="message" name="message" rows="4" required></textarea><br>
+        <button type="submit">Absenden</button>
+      </form>
+      <div id="contact-success" style="display:none;color:var(--primary);margin-top:10px;">Danke für deine Nachricht!</div>
+    </section>
+    <section id="blog">
+      <h2>Blog</h2>
+      <div id="blog-list">[Hier erscheinen deine Blogbeiträge]</div>
+    </section>
+    <section id="animationen">
+      <h2>Animationen</h2>
+      <div id="animation-demo">[Hier werden Animationen und Effekte gezeigt]</div>
     </section>
   </main>
   <footer>
-    &copy; 2025 Marian Wolf &nbsp;|&nbsp;
-    <a href="#" id="impressum-link">Impressum</a> &nbsp;|&nbsp;
-    <a href="#" id="agb-link">AGB</a>
+    &copy; 2025 Deine neue Webseite
   </footer>
-  <!-- Impressum Modal -->
-  <dialog id="impressum-modal">
-    <h3>Impressum</h3>
-    <p>Angaben gemäß § 5 TMG:<br>
-    Marian Wolf<br>
-    Musterstraße 1<br>
-    12345 Berlin<br>
-    E-Mail: example@example.com</p>
-    <button onclick="this.closest('dialog').close()">Schließen</button>
-  </dialog>
-  <!-- AGB Modal -->
-  <dialog id="agb-modal">
-    <h3>Allgemeine Geschäftsbedingungen (AGB)</h3>
-    <p>Dies ist ein Beispieltext für die AGB. Hier können Sie Ihre rechtlichen Hinweise und Bedingungen einfügen.</p>
-    <button onclick="this.closest('dialog').close()">Schließen</button>
-  </dialog>
-  <div id="theme-transition-overlay" class="theme-transition-overlay" style="display:none;"></div>
   <script>
-    // Theme Toggle
-    const themeToggle = document.getElementById('theme-toggle');
-    const themeIcon = document.getElementById('theme-icon');
-    const themeOverlay = document.getElementById('theme-transition-overlay');
-    function setTheme(mode) {
-      themeOverlay.style.display = 'block';
-      themeOverlay.style.opacity = '1';
-      themeOverlay.classList.remove('theme-transition-overlay');
-      void themeOverlay.offsetWidth;
-      themeOverlay.classList.add('theme-transition-overlay');
-      setTimeout(() => {
-        themeOverlay.style.opacity = '0';
-        setTimeout(() => { themeOverlay.style.display = 'none'; }, 700);
-      }, 10);
-      document.body.setAttribute('data-theme', mode);
-      if(mode === 'light') {
-        themeIcon.textContent = '☀️';
-      } else {
-        themeIcon.textContent = '🌙';
-      }
-    }
-    themeToggle.addEventListener('click', () => {
-      const current = document.body.getAttribute('data-theme');
-      setTheme(current === 'light' ? 'dark' : 'light');
-    });
-    if(window.matchMedia('(prefers-color-scheme: light)').matches) {
-      setTheme('light');
-    } else {
-      setTheme('dark');
-    }
-    // Impressum & AGB Modal-Logik
-    document.getElementById('impressum-link').onclick = function(e) {
+    // Kontaktformular Demo-Handler
+    document.getElementById('contact-form').onsubmit = function(e) {
       e.preventDefault();
-      document.getElementById('impressum-modal').showModal();
+      document.getElementById('contact-success').style.display = 'block';
+      this.reset();
     };
-    document.getElementById('agb-link').onclick = function(e) {
-      e.preventDefault();
-      document.getElementById('agb-modal').showModal();
-    };
-    // Webradio Sender
-    const stations = [
-      { name: 'Deutschlandfunk', url: 'https://st01.sslstream.dlf.de/dlf/01/128/mp3/stream.mp3' },
-      { name: 'Radio Paradise', url: 'https://stream.radioparadise.com/mp3-192' },
-      { name: 'BBC Radio 1', url: 'https://stream.live.vc.bbcmedia.co.uk/bbc_radio_one' },
-      { name: 'NDR 2', url: 'https://ndr-ndr2-niedersachsen.cast.addradio.de/ndr/ndr2/niedersachsen/mp3/128/stream.mp3' }
-    ];
-    const stationList = document.getElementById('station-list');
-    const radioAudio = document.getElementById('radio-audio');
-    const radioPlayBtn = document.getElementById('radio-play-btn');
-    const radioPlayIcon = document.getElementById('radio-play-icon');
-    const radioPauseIcon = document.getElementById('radio-pause-icon');
-    const radioTitle = document.getElementById('radio-title');
-    const coverImg = document.getElementById('cover-img');
-    const songTitle = document.getElementById('song-title');
-    // Cover und Songtitel mit echten Logos
-    const stationMeta = [
-      { cover: 'https://upload.wikimedia.org/wikipedia/commons/6/6e/Deutschlandfunk_Logo_2017.svg', song: 'Live News & Talk' },
-      { cover: 'https://www.radioparadise.com/img/rp-logo-2020.svg', song: 'Eclectic Mix' },
-      { cover: 'https://upload.wikimedia.org/wikipedia/commons/5/5e/BBC_Radio_1_Logo_2021.svg', song: 'Chart & Pop Music' },
-      { cover: 'https://upload.wikimedia.org/wikipedia/commons/6/6c/NDR2_Logo_2017.svg', song: 'German Pop & Hits' }
-    ];
-    function renderStations() {
-      stationList.innerHTML = '';
-      stations.forEach((station, idx) => {
-        const btn = document.createElement('button');
-        btn.textContent = station.name;
-        btn.className = 'station-btn';
-        btn.onclick = () => selectStation(idx);
-        if(idx === 0) btn.classList.add('active');
-        stationList.appendChild(btn);
-      });
-    }
-    function selectStation(idx) {
-      currentStation = stations[idx];
-      radioAudio.src = currentStation.url;
-      radioTitle.textContent = currentStation.name;
-      coverImg.src = stationMeta[idx]?.cover || stationMeta[0].cover;
-      songTitle.textContent = stationMeta[idx]?.song || '';
-      document.querySelectorAll('.station-btn').forEach((b,i)=>{
-        b.classList.toggle('active', i===idx);
-      });
-      radioAudio.pause();
-      radioPlayIcon.style.display = '';
-      radioPauseIcon.style.display = 'none';
-    }
-    radioPlayBtn.onclick = function() {
-      if(!currentStation) return;
-      if(radioAudio.paused) {
-        radioAudio.play();
-        radioPlayIcon.style.display = 'none';
-        radioPauseIcon.style.display = '';
-      } else {
-        radioAudio.pause();
-        radioPlayIcon.style.display = '';
-        radioPauseIcon.style.display = 'none';
-      }
-    };
-    // Initialisieren
-    renderStations();
-    selectStation(0);
-    // Minimalistischer animierter Hintergrund mit Punkten und Linien (musik- und interaktiv)
-    const canvas = document.getElementById('bg-canvas');
-    const ctx = canvas.getContext('2d');
-    let points = [];
-    const POINTS = 32;
-    const LINE_DIST = 120;
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    function random(min, max) { return Math.random() * (max - min) + min; }
-    function createPoints() {
-      points = [];
-      for(let i=0;i<POINTS;i++) {
-        points.push({
-          x: random(0, canvas.width),
-          y: random(0, canvas.height),
-          vx: random(-0.2,0.2),
-          vy: random(-0.2,0.2)
-        });
-      }
-    }
-    // --- Performance-Optimierung für Canvas-Animation ---
-    let lastDraw = 0;
-    let animating = true;
-    document.addEventListener('visibilitychange', () => {
-      animating = !document.hidden;
-      if(animating) animate();
-    });
-    // Mousemove throttlen
-    let lastMouseMove = 0;
-    canvas.addEventListener('mousemove', e => {
-      const now = performance.now();
-      if(now - lastMouseMove > 24) {
-        mouse.x = e.clientX;
-        mouse.y = e.clientY;
-        lastMouseMove = now;
-      }
-    });
-    // Animation nur bei Bedarf
-    function animate(now) {
-      if(!animating) return;
-      if(now && now - lastDraw < 1000/40) { requestAnimationFrame(animate); return; } // max 40 FPS
-      lastDraw = now || performance.now();
-      audioLevel = getAudioLevel();
-      for(let i=0;i<POINTS;i++){
-        let speed = 0.2 + audioLevel * 1.2;
-        points[i].x += points[i].vx * speed;
-        points[i].y += points[i].vy * speed;
-        const dx = mouse.x - points[i].x;
-        const dy = mouse.y - points[i].y;
-        const dist = Math.sqrt(dx*dx+dy*dy);
-        if(dist < 120) {
-          points[i].x -= dx * 0.01;
-          points[i].y -= dy * 0.01;
-        }
-        if(points[i].x < 0 || points[i].x > canvas.width) points[i].vx *= -1;
-        if(points[i].y < 0 || points[i].y > canvas.height) points[i].vy *= -1;
-      }
-      draw();
-      requestAnimationFrame(animate);
-    }
-    window.addEventListener('resize', ()=>{
-      resizeCanvas();
-      createPoints();
-    });
-    resizeCanvas();
-    createPoints();
-    animate();
   </script>
 </body>
 </html>
