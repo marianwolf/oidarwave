@@ -3,55 +3,68 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Meine einfache Webseite</title>
+  <title>Modern Webradio</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="animations.css">
 </head>
 <body>
+  <canvas id="bg-canvas" style="position:fixed;z-index:0;inset:0;width:100vw;height:100vh;pointer-events:none;"></canvas>
   <header>
-    <h1>Welcome to my website</h1>
+    <h1>Modern Webradio</h1>
   </header>
-
   <main>
     <section>
-      <h2>About me</h2>
-      <p>Hello! This is a simple website with HTML and CSS. You can extend it as you like.</p>
-    </section>
-    <section>
-      <h2>Contact</h2>
-      <p>Send me an email: <a href="mailto:example@example.com">example@example.com</a></p>
-    </section>
-    <section style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
-      <button id="play-btn" aria-label="Play" style="background: linear-gradient(135deg, #1db954 60%, #1ed760 100%); border: none; border-radius: 50%; width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 24px rgba(30,185,84,0.25), 0 2px 8px rgba(0,0,0,0.2); cursor: pointer; transition: background 0.2s, transform 0.1s; margin-bottom: 18px; position: relative; outline: none; z-index:2;">
-        <span style="position: relative; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px;">
-          <svg id="play-icon" width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" style="position:absolute;left:0;top:0;">
-            <circle cx="20" cy="20" r="20" fill="#1db954"/>
-            <polygon points="17,13 29,20 17,27" fill="#fff"/>
-          </svg>
-          <svg id="pause-icon" width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" style="display:none;position:absolute;left:0;top:0;">
-            <circle cx="20" cy="20" r="20" fill="#1db954"/>
-            <rect x="15" y="13" width="4" height="14" fill="#fff" rx="1.5"/>
-            <rect x="23" y="13" width="4" height="14" fill="#fff" rx="1.5"/>
-          </svg>
-        </span>
+      <h2>Choose your station</h2>
+      <div id="station-list" style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-bottom:18px;"></div>
+      <div id="cover-container" class="cover-container">
+        <img id="cover-img" src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Radio_icon_2.svg" alt="Station Cover" style="width:90px;height:90px;border-radius:16px;box-shadow:0 4px 24px #0003;margin-bottom:12px;object-fit:cover;">
+      </div>
+      <div id="song-title" class="song-title" style="min-height:24px;text-align:center;color:var(--muted);margin-bottom:10px;font-size:1.08rem;"></div>
+      <button id="radio-play-btn" aria-label="Play" class="radio-play-btn">
+        <span id="radio-play-icon" class="radio-play-icon"></span>
+        <span id="radio-pause-icon" class="radio-pause-icon" style="display:none;"></span>
       </button>
-      <span style="color: var(--muted); font-size: 1.1rem;">Play</span>
-      <div id="track-title" style="color: var(--muted); font-size:1rem;margin-top:10px;min-height:24px;text-align:center;"></div>
+      <div id="radio-title" class="radio-title"></div>
+      <audio id="radio-audio" preload="none"></audio>
     </section>
   </main>
-
   <footer>
-    &copy; 2025 My Website
+    &copy; 2025 Marian Wolf &nbsp;|&nbsp;
+    <a href="#" id="impressum-link">Impressum</a> &nbsp;|&nbsp;
+    <a href="#" id="agb-link">AGB</a>
   </footer>
-  <button id="theme-toggle" aria-label="Toggle light/dark mode" style="position:fixed;top:16px;right:16px;z-index:10;background:var(--background);color:var(--primary);border:2px solid var(--primary);border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background 0.3s;">
-    <span id="theme-icon" aria-hidden="true" style="font-size:1.5rem;">🌙</span>
-  </button>
-
+  <!-- Impressum Modal -->
+  <dialog id="impressum-modal">
+    <h3>Impressum</h3>
+    <p>Angaben gemäß § 5 TMG:<br>
+    Marian Wolf<br>
+    Musterstraße 1<br>
+    12345 Berlin<br>
+    E-Mail: example@example.com</p>
+    <button onclick="this.closest('dialog').close()">Schließen</button>
+  </dialog>
+  <!-- AGB Modal -->
+  <dialog id="agb-modal">
+    <h3>Allgemeine Geschäftsbedingungen (AGB)</h3>
+    <p>Dies ist ein Beispieltext für die AGB. Hier können Sie Ihre rechtlichen Hinweise und Bedingungen einfügen.</p>
+    <button onclick="this.closest('dialog').close()">Schließen</button>
+  </dialog>
+  <div id="theme-transition-overlay" class="theme-transition-overlay" style="display:none;"></div>
   <script>
     // Theme Toggle
     const themeToggle = document.getElementById('theme-toggle');
     const themeIcon = document.getElementById('theme-icon');
+    const themeOverlay = document.getElementById('theme-transition-overlay');
     function setTheme(mode) {
+      themeOverlay.style.display = 'block';
+      themeOverlay.style.opacity = '1';
+      themeOverlay.classList.remove('theme-transition-overlay');
+      void themeOverlay.offsetWidth;
+      themeOverlay.classList.add('theme-transition-overlay');
+      setTimeout(() => {
+        themeOverlay.style.opacity = '0';
+        setTimeout(() => { themeOverlay.style.display = 'none'; }, 700);
+      }, 10);
       document.body.setAttribute('data-theme', mode);
       if(mode === 'light') {
         themeIcon.textContent = '☀️';
@@ -63,75 +76,150 @@
       const current = document.body.getAttribute('data-theme');
       setTheme(current === 'light' ? 'dark' : 'light');
     });
-    // Initial Theme
     if(window.matchMedia('(prefers-color-scheme: light)').matches) {
       setTheme('light');
     } else {
       setTheme('dark');
     }
-
-    // Track-Infos für Titelanzeige und Previews
-    const trackInfos = [
-      { id: '3n3Ppam7vgaVa1iaRUc9Lp', title: 'Red Hot Chili Peppers - Californication', preview: 'https://p.scdn.co/mp3-preview/6c5e3e2e2e2e2e2e2e2e2e2e2e2e2e2e2e2e2e2e?cid=774b29d4f13844c495f206cafdad9c86' },
-      { id: '7ouMYWpwJ422jRcDASZB7P', title: 'Daft Punk - One More Time', preview: 'https://p.scdn.co/mp3-preview/2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b?cid=774b29d4f13844c495f206cafdad9c86' },
-      { id: '1lDWb6b6ieDQ2xT7ewTC3G', title: 'Avicii - Wake Me Up', preview: 'https://p.scdn.co/mp3-preview/6d6e2e2e2e2e2e2e2e2e2e2e2e2e2e2e2e2e2e2e?cid=774b29d4f13844c495f206cafdad9c86' },
-      { id: '0VjIjW4GlUZAMYd2vXMi3b', title: 'The Weeknd - Blinding Lights', preview: 'https://p.scdn.co/mp3-preview/6b6b6b6b6b6b6b6b6b6b6b6b6b6b6b6b6b6b6b6b?cid=774b29d4f13844c495f206cafdad9c86' },
-      { id: '6habFhsOp2NvshLv26DqMb', title: 'Dua Lipa - New Rules', preview: 'https://p.scdn.co/mp3-preview/6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a?cid=774b29d4f13844c495f206cafdad9c86' }
+    // Impressum & AGB Modal-Logik
+    document.getElementById('impressum-link').onclick = function(e) {
+      e.preventDefault();
+      document.getElementById('impressum-modal').showModal();
+    };
+    document.getElementById('agb-link').onclick = function(e) {
+      e.preventDefault();
+      document.getElementById('agb-modal').showModal();
+    };
+    // Webradio Sender
+    const stations = [
+      { name: 'Deutschlandfunk', url: 'https://st01.sslstream.dlf.de/dlf/01/128/mp3/stream.mp3' },
+      { name: 'Radio Paradise', url: 'https://stream.radioparadise.com/mp3-192' },
+      { name: 'BBC Radio 1', url: 'https://stream.live.vc.bbcmedia.co.uk/bbc_radio_one' },
+      { name: 'NDR 2', url: 'https://ndr-ndr2-niedersachsen.cast.addradio.de/ndr/ndr2/niedersachsen/mp3/128/stream.mp3' }
     ];
-
-    let isPlaying = false;
-    let currentTrack = null;
-    const playBtn = document.getElementById('play-btn');
-    const playIcon = document.getElementById('play-icon');
-    const pauseIcon = document.getElementById('pause-icon');
-    const audio = document.getElementById('spotify-audio');
-    const trackTitle = document.getElementById('track-title');
-
-    function playRandomTrack() {
-      const random = Math.floor(Math.random() * trackInfos.length);
-      const track = trackInfos[random];
-      if (track.preview) {
-        audio.src = track.preview;
-        audio.load();
-        setTimeout(() => {
-          audio.play().catch(() => {
-            trackTitle.textContent = 'Autoplay nicht möglich. Bitte Play im Player drücken.';
-          });
-        }, 100);
-        trackTitle.textContent = track.title;
-        playIcon.style.display = 'none';
-        pauseIcon.style.display = 'block';
-        isPlaying = true;
-        currentTrack = track;
+    const stationList = document.getElementById('station-list');
+    const radioAudio = document.getElementById('radio-audio');
+    const radioPlayBtn = document.getElementById('radio-play-btn');
+    const radioPlayIcon = document.getElementById('radio-play-icon');
+    const radioPauseIcon = document.getElementById('radio-pause-icon');
+    const radioTitle = document.getElementById('radio-title');
+    const coverImg = document.getElementById('cover-img');
+    const songTitle = document.getElementById('song-title');
+    // Cover und Songtitel mit echten Logos
+    const stationMeta = [
+      { cover: 'https://upload.wikimedia.org/wikipedia/commons/6/6e/Deutschlandfunk_Logo_2017.svg', song: 'Live News & Talk' },
+      { cover: 'https://www.radioparadise.com/img/rp-logo-2020.svg', song: 'Eclectic Mix' },
+      { cover: 'https://upload.wikimedia.org/wikipedia/commons/5/5e/BBC_Radio_1_Logo_2021.svg', song: 'Chart & Pop Music' },
+      { cover: 'https://upload.wikimedia.org/wikipedia/commons/6/6c/NDR2_Logo_2017.svg', song: 'German Pop & Hits' }
+    ];
+    function renderStations() {
+      stationList.innerHTML = '';
+      stations.forEach((station, idx) => {
+        const btn = document.createElement('button');
+        btn.textContent = station.name;
+        btn.className = 'station-btn';
+        btn.onclick = () => selectStation(idx);
+        if(idx === 0) btn.classList.add('active');
+        stationList.appendChild(btn);
+      });
+    }
+    function selectStation(idx) {
+      currentStation = stations[idx];
+      radioAudio.src = currentStation.url;
+      radioTitle.textContent = currentStation.name;
+      coverImg.src = stationMeta[idx]?.cover || stationMeta[0].cover;
+      songTitle.textContent = stationMeta[idx]?.song || '';
+      document.querySelectorAll('.station-btn').forEach((b,i)=>{
+        b.classList.toggle('active', i===idx);
+      });
+      radioAudio.pause();
+      radioPlayIcon.style.display = '';
+      radioPauseIcon.style.display = 'none';
+    }
+    radioPlayBtn.onclick = function() {
+      if(!currentStation) return;
+      if(radioAudio.paused) {
+        radioAudio.play();
+        radioPlayIcon.style.display = 'none';
+        radioPauseIcon.style.display = '';
       } else {
-        trackTitle.textContent = '';
-        alert('Für diesen Song ist keine Vorschau verfügbar.');
+        radioAudio.pause();
+        radioPlayIcon.style.display = '';
+        radioPauseIcon.style.display = 'none';
+      }
+    };
+    // Initialisieren
+    renderStations();
+    selectStation(0);
+    // Minimalistischer animierter Hintergrund mit Punkten und Linien (musik- und interaktiv)
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    let points = [];
+    const POINTS = 32;
+    const LINE_DIST = 120;
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    function random(min, max) { return Math.random() * (max - min) + min; }
+    function createPoints() {
+      points = [];
+      for(let i=0;i<POINTS;i++) {
+        points.push({
+          x: random(0, canvas.width),
+          y: random(0, canvas.height),
+          vx: random(-0.2,0.2),
+          vy: random(-0.2,0.2)
+        });
       }
     }
-
-    playBtn.addEventListener('click', function() {
-      if (!isPlaying) {
-        playRandomTrack();
-      } else {
-        audio.pause();
+    // --- Performance-Optimierung für Canvas-Animation ---
+    let lastDraw = 0;
+    let animating = true;
+    document.addEventListener('visibilitychange', () => {
+      animating = !document.hidden;
+      if(animating) animate();
+    });
+    // Mousemove throttlen
+    let lastMouseMove = 0;
+    canvas.addEventListener('mousemove', e => {
+      const now = performance.now();
+      if(now - lastMouseMove > 24) {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+        lastMouseMove = now;
       }
     });
-
-    audio.addEventListener('play', function() {
-      playIcon.style.display = 'none';
-      pauseIcon.style.display = 'block';
-      isPlaying = true;
+    // Animation nur bei Bedarf
+    function animate(now) {
+      if(!animating) return;
+      if(now && now - lastDraw < 1000/40) { requestAnimationFrame(animate); return; } // max 40 FPS
+      lastDraw = now || performance.now();
+      audioLevel = getAudioLevel();
+      for(let i=0;i<POINTS;i++){
+        let speed = 0.2 + audioLevel * 1.2;
+        points[i].x += points[i].vx * speed;
+        points[i].y += points[i].vy * speed;
+        const dx = mouse.x - points[i].x;
+        const dy = mouse.y - points[i].y;
+        const dist = Math.sqrt(dx*dx+dy*dy);
+        if(dist < 120) {
+          points[i].x -= dx * 0.01;
+          points[i].y -= dy * 0.01;
+        }
+        if(points[i].x < 0 || points[i].x > canvas.width) points[i].vx *= -1;
+        if(points[i].y < 0 || points[i].y > canvas.height) points[i].vy *= -1;
+      }
+      draw();
+      requestAnimationFrame(animate);
+    }
+    window.addEventListener('resize', ()=>{
+      resizeCanvas();
+      createPoints();
     });
-    audio.addEventListener('pause', function() {
-      playIcon.style.display = 'block';
-      pauseIcon.style.display = 'none';
-      isPlaying = false;
-    });
-    audio.addEventListener('ended', function() {
-      playIcon.style.display = 'block';
-      pauseIcon.style.display = 'none';
-      isPlaying = false;
-    });
+    resizeCanvas();
+    createPoints();
+    animate();
   </script>
 </body>
 </html>

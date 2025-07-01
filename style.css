@@ -23,10 +23,10 @@
   }
 }
 body[data-theme="light"] {
-  --background: var(--background-light);
-  --section-bg: var(--section-bg-light);
-  --text: var(--text-light);
-  --muted: var(--muted-light);
+  --background: #f8f8f8;
+  --section-bg: #fff;
+  --text: #181818;
+  --muted: #555;
 }
 body {
   font-family: var(--font);
@@ -43,7 +43,7 @@ header {
   padding: 36px 0 28px 0;
   text-align: center;
   border-radius: 0 0 32px 32px;
-  box-shadow: 0 6px 32px rgba(0,0,0,0.4);
+  box-shadow: 0 6px 32px rgba(30,185,84,0.10);
   letter-spacing: 2px;
 }
 header h1 {
@@ -62,13 +62,13 @@ section {
   background: var(--section-bg);
   padding: 36px 28px 28px 28px;
   border-radius: 20px;
-  box-shadow: var(--shadow);
+  box-shadow: 0 8px 32px 0 rgba(30,185,84,0.10), 0 2px 16px 0 rgba(0,0,0,0.08);
   margin-bottom: 28px;
   color: var(--text);
   transition: box-shadow 0.2s, background 0.4s, color 0.4s;
 }
 section:hover {
-  box-shadow: var(--shadow-hover);
+  box-shadow: 0 16px 48px 0 rgba(30,185,84,0.13), 0 4px 32px 0 rgba(0,0,0,0.12);
 }
 section h2 {
   color: var(--primary);
@@ -97,9 +97,10 @@ footer {
   font-size: 1.05rem;
   padding-bottom: 28px;
   letter-spacing: 1px;
+  background: var(--background);
 }
 #play-btn {
-  background: linear-gradient(135deg, var(--primary) 60%, var(--primary-light) 100%);
+  background: linear-gradient(135deg, #1db954 60%, #1ed760 100%);
   border: none;
   border-radius: 50%;
   width: 80px;
@@ -107,7 +108,7 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 24px rgba(30,185,84,0.25), 0 2px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 24px rgba(30,185,84,0.10), 0 2px 8px rgba(0,0,0,0.08);
   cursor: pointer;
   transition: background 0.2s, transform 0.1s;
   margin-bottom: 18px;
@@ -116,8 +117,7 @@ footer {
   z-index: 2;
 }
 #play-btn:active {
-  transform: scale(0.96);
-  background: linear-gradient(135deg, var(--primary-light) 60%, var(--primary) 100%);
+  background: linear-gradient(135deg, #1ed760 60%, #1db954 100%);
 }
 #play-btn svg {
   fill: #fff;
@@ -142,8 +142,8 @@ footer {
   width: 100%;
   margin-top: 18px;
   border-radius: 10px;
-  background: #232a34;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+  background: #f4f4f4;
+  box-shadow: 0 2px 12px rgba(30,185,84,0.10);
   z-index: 1;
   position: relative;
   transition: box-shadow 0.4s cubic-bezier(.4,1.4,.6,1), background 0.3s;
