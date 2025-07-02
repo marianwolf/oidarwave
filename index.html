@@ -17,12 +17,14 @@
       <div id="webradio-player">
         <label for="radio-station">Sender wählen:</label>
         <select id="radio-station">
-          <option value="https://st01.sslstream.dlf.de/dlf/01/128/mp3/stream.mp3">Deutschlandfunk</option>
           <option value="https://stream.radioparadise.com/mp3-192">Radio Paradise</option>
           <option value="https://radio.bbg-bew.de">BBG</option>
           <option value="https://stream.radioparadise.com/mp3-190">The Main Mix</option>
         </select>
         <button id="radio-toggle" aria-label="Play" class="icon-btn"></button>
+        <button id="radio-pause" aria-label="Pause" class="icon-btn" style="display:none;"></button>
+        <button id="radio-stop" aria-label="Stop" class="icon-btn" style="display:none;"></button>
+        <span id="radio-time" style="min-width:60px;display:inline-block;color:var(--muted);font-size:1.05em;margin-left:10px;">00:00</span>
         <audio id="radio-audio" preload="true" autoplay></audio>
       </div>
     </section>
@@ -45,45 +47,151 @@
         svg.innerHTML = '<circle cx="20" cy="20" r="20" fill="#1db954"/><polygon points="15,10 32,20 15,30" fill="#fff"/>';
       } else if(type === 'pause') {
         svg.innerHTML = '<circle cx="20" cy="20" r="20" fill="#f1c40f"/><rect x="13" y="10" width="5" height="20" rx="2" fill="#fff"/><rect x="22" y="10" width="5" height="20" rx="2" fill="#fff"/>';
+      } else if(type === 'stop') {
+        svg.innerHTML = '<circle cx="20" cy="20" r="20" fill="#e74c3c"/><rect x="13" y="13" width="14" height="14" rx="3" fill="#fff"/>';
       }
       return svg;
     }
     function showRadioPlay() {
+      radioToggle.style.display = '';
+      radioPause.style.display = 'none';
+      radioStop.style.display = 'none';
       radioToggle.innerHTML = '';
       radioToggle.appendChild(createRadioIcon('play'));
       radioToggle.setAttribute('aria-label', 'Play');
     }
-    function showRadioPause() {
+    function showRadioPauseStop() {
+      radioToggle.style.display = 'none';
+      radioPause.style.display = '';
+      radioStop.style.display = '';
+      radioPause.innerHTML = '';
+      radioPause.appendChild(createRadioIcon('pause'));
+      radioPause.setAttribute('aria-label', 'Pause');
+      radioStop.innerHTML = '';
+      radioStop.appendChild(createRadioIcon('stop'));
+      radioStop.setAttribute('aria-label', 'Stop');
+    }
+    function showRadioPlayStop() {
+      radioToggle.style.display = '';
+      radioPause.style.display = 'none';
+      radioStop.style.display = '';
       radioToggle.innerHTML = '';
-      radioToggle.appendChild(createRadioIcon('pause'));
-      radioToggle.setAttribute('aria-label', 'Pause');
+      radioToggle.appendChild(createRadioIcon('play'));
+      radioToggle.setAttribute('aria-label', 'Play');
+      radioStop.innerHTML = '';
+      radioStop.appendChild(createRadioIcon('stop'));
+      radioStop.setAttribute('aria-label', 'Stop');
     }
     // Initialisiere mit Play-Icon
-    showRadioPlay();
-    // Play/Pause-Logik
+    const radioPause = document.getElementById('radio-pause');
+    const radioStop = document.getElementById('radio-stop');
+    const radioTime = document.getElementById('radio-time');
+    let timeInterval = null;
+    let streamStartTimestamp = null;
+    let pausedAt = null;
+    function updateRadioTime() {
+      if (streamStartTimestamp !== null) {
+        let elapsed;
+        if (pausedAt !== null) {
+          elapsed = pausedAt - streamStartTimestamp;
+        } else {
+          elapsed = Date.now() - streamStartTimestamp;
+        }
+        elapsed = Math.floor(elapsed / 1000);
+        const min = String(Math.floor(elapsed/60)).padStart(2,'0');
+        const sec = String(elapsed%60).padStart(2,'0');
+        radioTime.textContent = `${min}:${sec}`;
+      } else {
+        radioTime.textContent = '00:00';
+      }
+    }
+    function startRadioTimer() {
+      if (streamStartTimestamp === null) streamStartTimestamp = Date.now();
+      pausedAt = null;
+      updateRadioTime();
+      if (timeInterval) clearInterval(timeInterval);
+      timeInterval = setInterval(updateRadioTime, 500);
+    }
+    function stopRadioTimer(reset=true) {
+      if (timeInterval) clearInterval(timeInterval);
+      if (reset) {
+        radioTime.textContent = '00:00';
+        streamStartTimestamp = null;
+        pausedAt = null;
+      }
+    }
+    function initRadioUI() {
+      stopRadioTimer();
+      streamStartTimestamp = null;
+      pausedAt = null;
+      showRadioPlay();
+      radioTime.textContent = '00:00';
+    }
+    initRadioUI();
+    // Play-Button
     radioToggle.onclick = function() {
       const selectedSrc = radioStation.value;
-      if(radioAudio.paused) {
-        if(radioAudio.src !== selectedSrc) {
-          radioAudio.src = selectedSrc;
-          radioAudio.load();
-        }
-        radioAudio.volume = 1.0;
-        radioAudio.play();
-      } else {
-        radioAudio.pause();
-        radioAudio.currentTime = 0;
+      if (!radioAudio.src) {
+        radioAudio.src = selectedSrc;
+        radioAudio.load();
       }
+      radioAudio.volume = 1.0;
+      radioAudio.play();
+      showRadioPauseStop();
+      if (streamStartTimestamp === null) streamStartTimestamp = Date.now();
+      if (pausedAt !== null) {
+        // Passe Startzeit an, damit die Anzeige weiterläuft
+        streamStartTimestamp += (Date.now() - pausedAt);
+        pausedAt = null;
+      }
+      startRadioTimer();
+    };
+    // Pause-Button
+    radioPause.onclick = function() {
+      radioAudio.pause();
+      showRadioPlayStop();
+      if (streamStartTimestamp !== null) pausedAt = Date.now();
+      stopRadioTimer(false);
+    };
+    // Stop-Button
+    radioStop.onclick = function() {
+      radioAudio.pause();
+      radioAudio.removeAttribute('src');
+      radioAudio.load();
+      showRadioPlay();
+      stopRadioTimer();
     };
     // Senderwechsel pausiert und setzt den Stream zurück
     radioStation.addEventListener('change', () => {
       radioAudio.pause();
-      radioAudio.currentTime = 0;
+      radioAudio.removeAttribute('src');
+      radioAudio.load();
       showRadioPlay();
+      stopRadioTimer();
     });
     // Icon-Status synchronisieren
-    radioAudio.addEventListener('play', showRadioPause);
-    radioAudio.addEventListener('pause', showRadioPlay);
+    radioAudio.addEventListener('play', () => {
+      showRadioPauseStop();
+      if (streamStartTimestamp === null) streamStartTimestamp = Date.now();
+      if (pausedAt !== null) {
+        streamStartTimestamp += (Date.now() - pausedAt);
+        pausedAt = null;
+      }
+      startRadioTimer();
+    });
+    radioAudio.addEventListener('pause', () => {
+      if (!radioAudio.src || radioAudio.currentTime === 0) {
+        showRadioPlay();
+        stopRadioTimer();
+      } else {
+        showRadioPlayStop();
+        if (streamStartTimestamp !== null) pausedAt = Date.now();
+        stopRadioTimer(false);
+      }
+    });
+    radioAudio.addEventListener('ended', () => {
+      stopRadioTimer();
+    });
   </script>
 </body>
 </html>
