@@ -2,6 +2,9 @@
 :root {
   --primary: #1db954;
   --primary-light: #1ed760;
+  --primary-dark: #168f3e;
+  --accent-yellow: #f1c40f;
+  --accent-red: #e74c3c;
   --background: #191414;
   --background-light: #f4f4f4;
   --section-bg: rgba(25,20,20,0.98);
@@ -10,8 +13,8 @@
   --text-light: #232a34;
   --muted: #b3b3b3;
   --muted-light: #555;
-  --shadow: 0 8px 32px 0 rgba(30,185,84,0.18), 0 2px 16px 0 rgba(0,0,0,0.25);
-  --shadow-hover: 0 16px 48px 0 rgba(30,185,84,0.22), 0 4px 32px 0 rgba(0,0,0,0.30);
+  --shadow: 0 0 32px 0 var(--primary), 0 0 0 2px var(--primary);
+  --shadow-hover: 0 0 64px 0 var(--primary), 0 0 0 3px var(--primary);
   --font: 'Circular Std', Arial, sans-serif;
 }
 @media (prefers-color-scheme: light) {
@@ -21,12 +24,6 @@
     --text: var(--text-light);
     --muted: var(--muted-light);
   }
-}
-body[data-theme="light"] {
-  --background: #f8f8f8;
-  --section-bg: #fff;
-  --text: #181818;
-  --muted: #555;
 }
 html {
   scroll-behavior: smooth;
@@ -48,7 +45,7 @@ header {
   padding: 36px 0 28px 0;
   text-align: center;
   border-radius: 0 0 32px 32px;
-  box-shadow: 0 6px 32px rgba(30,185,84,0.10);
+  box-shadow: var(--shadow);
   letter-spacing: 2px;
 }
 header h1 {
@@ -56,7 +53,6 @@ header h1 {
   letter-spacing: 2px;
   margin: 0;
   font-weight: 800;
-  text-shadow: 0 2px 8px #000a;
 }
 main {
   margin: 48px auto 0 auto;
@@ -66,23 +62,23 @@ main {
 section {
   background: var(--section-bg);
   --pad-top: clamp(36px, 8vw, 10px);
-  --pad-right: clamp(16px, 4vw, 40px);
+  --pad-right: clamp(32px, 8vw, 140px);
   --pad-bottom: clamp(18px, 4vw, 8px);
-  --pad-left: clamp(16px, 4vw, 40px);
+  --pad-left: clamp(32px, 8vw, 140px);
   padding: var(--pad-top) var(--pad-right) var(--pad-bottom) var(--pad-left);
   border-radius: 20px;
-  box-shadow: 0 8px 32px 0 rgba(30,185,84,0.10), 0 2px 16px 0 rgba(0,0,0,0.08);
+  box-shadow: var(--shadow);
   margin-bottom: 28px;
   color: var(--text);
   transition: box-shadow 0.2s, background 0.4s, color 0.4s;
   will-change: box-shadow, background, color;
   display: flex;
   flex-direction: column;
-  max-width: 1200px;
+  max-width: 1800px;
   width: 100%;
 }
 section:hover {
-  box-shadow: 0 16px 48px 0 rgba(30,185,84,0.13), 0 4px 32px 0 rgba(0,0,0,0.12);
+  box-shadow: var(--shadow-hover);
 }
 section h2 {
   color: var(--primary);
@@ -114,205 +110,103 @@ footer {
   letter-spacing: 1px;
   background: var(--background);
 }
-/* Webradio Player Styles konsolidiert */
-#webradio-player, #music-player {
+/* --- Webradio Player Styles konsolidiert & optimiert --- */
+#webradio-player {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 10px;
-  margin-bottom: clamp(14px, 6vw, 24px);
+  gap: 32px;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
 }
-#webradio-player label, #music-player label {
+#webradio-player label,
+.radio-label {
+  font-weight: 600;
   margin-right: 6px;
-  font-weight: 600;
 }
-select#radio-station, select#music-select {
-  background: var(--primary);
-  color: #fff;
+#webradio-player select,
+#radio-station {
+  background: linear-gradient(90deg, var(--primary) 50%, var(--background) 100%);
+  color: var(--text);
   border: none;
-  border-radius: 12px;
-  padding: 10px 18px;
-  font-size: 1.08rem;
+  border-radius: 14px;
+  padding: 14px 28px; /* Größer für bessere Klickfläche */
+  font-size: 1.18rem; /* Etwas größer für bessere Lesbarkeit */
   font-weight: 600;
-  box-shadow: 0 2px 8px #0002;
-  margin: 0 6px 0 0;
+  box-shadow: var(--shadow);
   outline: none;
-  transition: box-shadow 0.2s, background 0.2s, color 0.2s;
+  transition: box-shadow 0.2s, background 0.2s, color 0.2s, font-size 0.2s, padding 0.2s;
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
+  min-width: 220px;
+  max-width: 360px;
+  width: min-content;
+  margin-right: 32px;
 }
-select#radio-station:focus, select#music-select:focus {
-  box-shadow: 0 0 0 3px #168f3e99, 0 2px 8px #0002;
-  background: var(--primary);
-  color: #fff;
+#webradio-player select:focus,
+#webradio-player select:active {
+  box-shadow: var(--shadow-hover);
+  background: linear-gradient(90deg, var(--primary-dark) 50%, var(--background) 100%);
+  color: var(--text);
+  font-size: 1.22rem;
+  padding: 16px 32px;
 }
-select#radio-station option, select#music-select option {
-  color: #fff;
-  background: #191414;
+#webradio-player select option {
+  color: var(--text);
+  background: var(--background);
+  font-size: 1.08rem;
 }
-select#radio-station option:checked, select#music-select option:checked {
-  background: #1db954;
-  color: #191414;
+#webradio-player select option:checked {
+  background: var(--primary-dark);
+  color: var(--background);
 }
-#play-btn, .radio-play-btn {
-  background: linear-gradient(135deg, #1db954 60%, #1ed760 100%);
-  border: none;
-  border-radius: 50%;
-  aspect-ratio: 1 / 1;
-  width: 80px;
-  height: 80px;
+#webradio-player button.icon-btn {
+  width: var(--radio-btn-size, 60px);
+  height: var(--radio-btn-size, 60px);
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 24px rgba(30,185,84,0.10), 0 2px 8px rgba(0,0,0,0.08);
+  border-radius: 50%;
+  aspect-ratio: 1/1;
+  background: linear-gradient(135deg, var(--background) 60%, var(--primary) 100%);
+  box-shadow: 0 2px 8px #0002;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+  border: none;
   cursor: pointer;
-  transition: background 0.2s, transform 0.1s;
-  margin-bottom: 18px;
-  position: relative;
-  outline: none;
-  z-index: 2;
 }
-#play-btn:active, .radio-play-btn:active {
-  background: linear-gradient(135deg, #1ed760 60%, #1db954 100%);
-}
-#play-btn svg, .radio-play-btn svg {
+#webradio-player button.icon-btn svg {
   width: 44px;
   height: 44px;
-  fill: #fff;
-  filter: drop-shadow(0 2px 4px #000a);
+  display: block;
 }
-#pause-icon {
-  display: none;
-  position: absolute;
-  left: 0;
-  top: 0;
+#webradio-player button.icon-btn:focus-visible {
+  box-shadow: 0 0 0 3px var(--primary)99, 0 2px 8px #0002;
 }
-#track-title, .song-title {
+#webradio-player button.icon-btn:hover {
+  background: linear-gradient(135deg, var(--primary) 60%, var(--background) 100%);
+  box-shadow: var(--shadow-hover);
+  transform: scale(1.06);
+}
+#webradio-player span#radio-time {
   color: var(--muted);
-  font-size: 1.08rem;
-  margin-top: 10px;
-  min-height: 24px;
-  text-align: center;
-  letter-spacing: 0.5px;
-}
-#spotify-audio {
-  display: block;
-  width: 100%;
-  margin-top: 18px;
-  border-radius: 10px;
-  background: #f4f4f4;
-  box-shadow: 0 2px 12px rgba(30,185,84,0.10);
-  z-index: 1;
-  position: relative;
-  transition: box-shadow 0.4s cubic-bezier(.4,1.4,.6,1), background 0.3s;
-}
-#spotify-audio:focus-visible {
-  box-shadow: 0 0 0 3px var(--primary), 0 2px 12px rgba(0,0,0,0.18);
-}
-/* Webradio Layout-Optimierung */
-.radio-section {
-  background: var(--section-bg);
-  padding: 36px 28px 28px 28px;
-  border-radius: 20px;
-  box-shadow: 0 8px 32px 0 rgba(30,185,84,0.10), 0 2px 16px 0 rgba(0,0,0,0.08);
-  margin: 48px auto 0 auto;
-  max-width: 420px;
-  width: 96%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.station-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  justify-content: center;
-  margin-bottom: 18px;
-}
-.station-btn {
-  background: #232a34;
-  color: #fff;
-  border: none;
-  border-radius: 12px;
-  padding: 10px 18px 10px 16px;
-  font-size: 1.08rem;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 2px 8px #0002;
-  display: flex;
-  align-items: center;
-  position: relative;
-  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
-}
-.station-btn.active, .station-btn:focus {
-  background: var(--primary);
-  color: #fff;
-  box-shadow: 0 4px 16px #ff5e3a33;
-}
-.station-btn:hover {
-  background: #333;
-}
-.fav-star {
-  font-size: 1.2em;
-  margin-left: 8px;
-  color: gold;
-  cursor: pointer;
-  user-select: none;
-}
-.cover-container {
-  margin-bottom: 12px;
-}
-.cover-img {
-  width: 90px;
-  height: 90px;
-  border-radius: 16px;
-  box-shadow: 0 4px 24px #0003;
-  object-fit: cover;
-  background: #222;
-}
-.radio-play-icon {
-  width: 36px;
-  height: 36px;
+  min-width: 60px;
   display: inline-block;
-  background: url('data:image/svg+xml;utf8,<svg fill="white" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><polygon points="15,10 32,20 15,30"/></svg>') center/contain no-repeat;
+  font-size: 1.05em;
+  margin: 0;
+  text-align: left;
 }
-.radio-pause-icon {
-  width: 36px;
-  height: 36px;
-  display: inline-block;
-  background: url('data:image/svg+xml;utf8,<svg fill="white" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect x="13" y="10" width="5" height="20" rx="2"/><rect x="22" y="10" width="5" height="20" rx="2"/></svg>') center/contain no-repeat;
+#radio-pause,
+#radio-stop {
+  display: none;
 }
-.radio-title {
-  color: var(--primary);
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin-top: 8px;
-  margin-bottom: 0;
-  text-align: center;
-}
-/* Icon Button Styles konsolidiert */
-.icon-btn {
-  border: none;
-  border-radius: 50%;
-  padding: 0.2em;
-  cursor: pointer;
-  box-shadow: 0 2px 8px #0002;
-  transition: box-shadow 0.2s, transform 0.15s;
-  outline: none;
+#radio-pause.active,
+#radio-stop.active {
   display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-.icon-btn:focus-visible {
-  box-shadow: 0 2px 8px #0002;
-}
-.icon-btn:hover {
-  transform: scale(1.08);
-  box-shadow: 0 6px 24px #1db95444;
-}
-.icon-btn svg {
-  display: block;
 }
 @media (max-width: 700px) {
   main {
@@ -376,8 +270,8 @@ button, a {
   min-width: 44px;
 }
 .cta-btn, button, input[type="submit"] {
-  background: linear-gradient(135deg, #1db954 60%, #1ed760 100%);
-  color: #fff;
+  background: linear-gradient(135deg, var(--primary) 60%, var(--primary-light) 100%);
+  color: var(--text);
   border: none;
   border-radius: 12px;
   padding: 12px 28px;
@@ -391,8 +285,8 @@ button, a {
   display: inline-block;
 }
 .cta-btn:hover, button:hover, input[type="submit"]:hover {
-  background: linear-gradient(135deg, #1ed760 60%, #1db954 100%);
-  color: #fff;
+  background: linear-gradient(135deg, var(--primary-light) 60%, var(--primary) 100%);
+  color: var(--text);
   box-shadow: 0 8px 32px #0004;
   transform: scale(1.04);
 }

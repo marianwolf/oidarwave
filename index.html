@@ -12,48 +12,44 @@
     <h1>Willkommen auf deiner neuen Webseite!</h1>
   </header>
   <main>
-    <section id="webradio" class="pop-animate mouse-glow" style="transform: perspective(600px) rotateX(-5.55282deg) rotateY(4.43529deg) translateX(5.54412px) translateY(6.94102px);">
+    <section id="webradio">
       <h2>Webradio</h2>
-      <div id="webradio-player" style="display: flex; flex-direction: row; align-items: flex-end; gap: 18px; flex-wrap: wrap;">
-        <div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
-          <button id="radio-toggle" aria-label="Play" class="icon-btn" style="">
-            <svg width="44" height="44" viewBox="0 0 40 40">
-              <circle cx="20" cy="20" r="20" fill="#1db954"></circle>
-              <polygon points="15,10 32,20 15,30" fill="#fff"></polygon>
-            </svg>
-          </button>
-          <button id="radio-pause" aria-label="Pause" class="icon-btn" style="display: none;">
-            <svg width="44" height="44" viewBox="0 0 40 40">
-              <circle cx="20" cy="20" r="20" fill="#f1c40f"></circle>
-              <rect x="13" y="10" width="5" height="20" rx="2" fill="#fff"></rect>
-              <rect x="22" y="10" width="5" height="20" rx="2" fill="#fff"></rect>
-            </svg>
-          </button>
-          <button id="radio-stop" aria-label="Stop" class="icon-btn" style="display: none;">
-            <svg width="44" height="44" viewBox="0 0 40 40">
-              <circle cx="20" cy="20" r="20" fill="#e74c3c"></circle>
-              <rect x="13" y="13" width="14" height="14" rx="3" fill="#fff"></rect>
-            </svg>
-          </button>
-        </div>
-        <div style="display: flex; flex-direction: column; justify-content: flex-start; gap: 8px; min-width: 220px;">
-          <label for="radio-station">Sender wählen:</label>
-          <select id="radio-station">
-            <option value="https://stream.radioparadise.com/mp3-192">Radio Paradise</option>
-            <option value="https://radio.bbg-bew.de">BBG</option>
-            <option value="https://stream.radioparadise.com/mp3-190">The Main Mix</option>
-            <option value="https://st01.sslstream.dlf.de/dlf/01/128/mp3/stream.mp3?aggregator=web">Deutschlandfunk</option>
-            <option value="https://st02.sslstream.dlf.de/dlf/02/128/mp3/stream.mp3?aggregator=web">Deutschlandfunk Kultur</option>
-            <option value="https://st03.sslstream.dlf.de/dlf/03/128/mp3/stream.mp3?aggregator=web">Deutschlandfunk Nova</option>
-          </select>
-          <span id="radio-time" style="min-width:60px;display:inline-block;color:var(--muted);font-size:1.05em;margin-left:0;">00:00</span>
-        </div>
-        <audio id="radio-audio" preload="true" autoplay=""></audio>
+      <div id="webradio-player">
+        <label for="radio-station" class="radio-label">Sender wählen:</label>
+        <select id="radio-station">
+          <option value="https://stream.radioparadise.com/mp3-192">Radio Paradise</option>
+          <option value="https://radio.bbg-bew.de">BBG</option>
+          <option value="https://stream.radioparadise.com/mp3-190">The Main Mix</option>
+          <option value="https://st01.sslstream.dlf.de/dlf/01/128/mp3/stream.mp3?aggregator=web">Deutschlandfunk</option>
+          <option value="https://st02.sslstream.dlf.de/dlf/02/128/mp3/stream.mp3?aggregator=web">Deutschlandfunk Kultur</option>
+          <option value="https://st03.sslstream.dlf.de/dlf/03/128/mp3/stream.mp3?aggregator=web">Deutschlandfunk Nova</option>
+        </select>
+        <button id="radio-toggle" aria-label="Play" class="icon-btn">
+          <svg width="44" height="44" viewBox="0 0 40 40">
+            <circle cx="20" cy="20" r="20" fill="#1db954"></circle>
+            <polygon points="15,10 32,20 15,30" fill="#fff"></polygon>
+          </svg>
+        </button>
+        <button id="radio-pause" aria-label="Pause" class="icon-btn">
+          <svg width="44" height="44" viewBox="0 0 40 40">
+            <circle cx="20" cy="20" r="20" fill="#f1c40f"></circle>
+            <rect x="13" y="10" width="5" height="20" rx="2" fill="#fff"></rect>
+            <rect x="22" y="10" width="5" height="20" rx="2" fill="#fff"></rect>
+          </svg>
+        </button>
+        <button id="radio-stop" aria-label="Stop" class="icon-btn">
+          <svg width="44" height="44" viewBox="0 0 40 40">
+            <circle cx="20" cy="20" r="20" fill="#e74c3c"></circle>
+            <rect x="10" y="10" width="20" height="20" rx="5" fill="#fff"></rect>
+          </svg>
+        </button>
+        <span id="radio-time">00:00</span>
+        <audio id="radio-audio" preload="true" autoplay></audio>
       </div>
     </section>
   </main>
   <footer>
-    © 2025 Deine neue Webseite
+    &copy; 2025 Deine neue Webseite
   </footer>
   <script>
     // Webradio-Player Logik
@@ -67,11 +63,11 @@
       svg.setAttribute('height', '44');
       svg.setAttribute('viewBox', '0 0 40 40');
       if(type === 'play') {
-        svg.innerHTML = '<polygon points="15,10 32,20 15,30" fill="#fff"/>';
+        svg.innerHTML = '<circle cx="20" cy="20" r="20" fill="#1db954"/><polygon points="15,10 32,20 15,30" fill="#fff"/>';
       } else if(type === 'pause') {
         svg.innerHTML = '<circle cx="20" cy="20" r="20" fill="#f1c40f"/><rect x="13" y="10" width="5" height="20" rx="2" fill="#fff"/><rect x="22" y="10" width="5" height="20" rx="2" fill="#fff"/>';
       } else if(type === 'stop') {
-        svg.innerHTML = '<circle cx="20" cy="20" r="20" fill="#e74c3c"/><rect x="13" y="13" width="14" height="14" rx="3" fill="#fff"/>';
+        svg.innerHTML = '<circle cx="20" cy="20" r="20" fill="#e74c3c"/><rect x="10" y="10" width="20" height="20" rx="5" fill="#fff"/>';
       }
       return svg;
     }
@@ -215,6 +211,24 @@
     radioAudio.addEventListener('ended', () => {
       stopRadioTimer();
     });
+    // --- Buttons exakt an Select-Höhe anpassen ---
+    function setRadioBtnSize() {
+      const select = document.getElementById('radio-station');
+      if (!select) return;
+      // Höhe inkl. Padding, Border, etc.
+      const rect = select.getBoundingClientRect();
+      const computed = window.getComputedStyle(select);
+      // add border if any
+      let height = rect.height;
+      // fallback: falls getBoundingClientRect 0 ergibt (z.B. display:none)
+      if (height < 10) height = parseFloat(computed.height);
+      // Buttons minimal 44px, maximal 100px
+      height = Math.max(44, Math.min(height, 100));
+      document.documentElement.style.setProperty('--radio-btn-size', height + 'px');
+    }
+    window.addEventListener('DOMContentLoaded', setRadioBtnSize);
+    window.addEventListener('resize', setRadioBtnSize);
+    setTimeout(setRadioBtnSize, 100); // Fallback für späte Layouts
     // Performance-Optimierung: Mousemove-Handler throttlen
     const section = document.querySelector('section');
     if(section) {
@@ -248,10 +262,19 @@
         navigator.serviceWorker.register('service-worker.js').catch(() => {});
       });
     }
+    // Space-Taste steuert Play/Pause (außer bei Fokus auf Input/Select)
+    document.addEventListener('keydown', function(e) {
+      if (e.code === 'Space' || e.key === ' ') {
+        const active = document.activeElement;
+        if (active && (active.tagName === 'INPUT' || active.tagName === 'SELECT' || active.isContentEditable)) return;
+        e.preventDefault();
+        if (radioAudio.paused) {
+          radioToggle.click();
+        } else {
+          radioPause.click();
+        }
+      }
+    });
   </script>
-
-
-
-
 </body>
 </html>
