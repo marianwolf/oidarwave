@@ -60,12 +60,19 @@ main {
 }
 section {
   background: var(--section-bg);
-  padding: 36px 28px 28px 28px;
+  --pad-top: clamp(36px, 8vw, 10px);
+  --pad-right: clamp(16px, 4vw, 40px);
+  --pad-bottom: clamp(18px, 4vw, 8px);
+  --pad-left: clamp(16px, 4vw, 40px);
+  padding: var(--pad-top) var(--pad-right) var(--pad-bottom) var(--pad-left);
   border-radius: 20px;
   box-shadow: 0 8px 32px 0 rgba(30,185,84,0.10), 0 2px 16px 0 rgba(0,0,0,0.08);
   margin-bottom: 28px;
   color: var(--text);
   transition: box-shadow 0.2s, background 0.4s, color 0.4s;
+  will-change: box-shadow, background, color;
+  display: flex;
+  flex-direction: column;
 }
 section:hover {
   box-shadow: 0 16px 48px 0 rgba(30,185,84,0.13), 0 4px 32px 0 rgba(0,0,0,0.12);
@@ -73,6 +80,7 @@ section:hover {
 section h2 {
   color: var(--primary);
   margin-top: 0;
+  margin-bottom: clamp(6px, 1vw, 16px);
   font-size: 1.6rem;
   font-weight: 700;
   letter-spacing: 1px;
@@ -105,14 +113,14 @@ footer {
   flex-wrap: wrap;
   align-items: center;
   gap: 10px;
-  margin-bottom: 10px;
+  margin-bottom: clamp(14px, 6vw, 24px);
 }
 #webradio-player label, #music-player label {
   margin-right: 6px;
   font-weight: 600;
 }
 select#radio-station, select#music-select {
-  background: linear-gradient(135deg, #191414 60%, #1db954 100%);
+  background: var(--primary);
   color: #fff;
   border: none;
   border-radius: 12px;
@@ -128,8 +136,8 @@ select#radio-station, select#music-select {
   -moz-appearance: none;
 }
 select#radio-station:focus, select#music-select:focus {
-  box-shadow: 0 0 0 3px #1db95499, 0 2px 8px #0002;
-  background: linear-gradient(135deg, #1db954 60%, #191414 100%);
+  box-shadow: 0 0 0 3px #168f3e99, 0 2px 8px #0002;
+  background: var(--primary);
   color: #fff;
 }
 select#radio-station option, select#music-select option {
@@ -304,8 +312,11 @@ select#radio-station option:checked, select#music-select option:checked {
     margin: 24px auto 0 auto;
   }
   section {
-    padding: 20px 8px 16px 8px;
+    --pad-top: clamp(18px, 5vw, 32px);
+    --pad-bottom: clamp(10px, 3vw, 18px);
+    padding: var(--pad-top) var(--pad-right) var(--pad-bottom) var(--pad-left);
     border-radius: 12px;
+    max-width: 98vw;
   }
   header h1 {
     font-size: 2rem;
