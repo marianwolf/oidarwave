@@ -78,6 +78,8 @@ section {
   will-change: box-shadow, background, color;
   display: flex;
   flex-direction: column;
+  max-width: 1200px;
+  width: 100%;
 }
 section:hover {
   box-shadow: 0 16px 48px 0 rgba(30,185,84,0.13), 0 4px 32px 0 rgba(0,0,0,0.12);
