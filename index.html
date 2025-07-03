@@ -222,6 +222,12 @@
         section.classList.add('pop-animate');
       });
     }
+    // Deployment-Optimierung: Service Worker für Offline-Support (optional)
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js').catch(() => {});
+      });
+    }
   </script>
 </body>
 </html>

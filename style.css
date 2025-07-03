@@ -28,6 +28,9 @@ body[data-theme="light"] {
   --text: #181818;
   --muted: #555;
 }
+html {
+  scroll-behavior: smooth;
+}
 body {
   font-family: var(--font);
   background: var(--background);
@@ -36,6 +39,8 @@ body {
   padding: 0;
   min-height: 100vh;
   transition: background 0.4s, color 0.4s;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 header {
   background: var(--background);
