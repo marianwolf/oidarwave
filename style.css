@@ -134,16 +134,26 @@ footer {
   padding: 14px 28px; /* Größer für bessere Klickfläche */
   font-size: 1.18rem; /* Etwas größer für bessere Lesbarkeit */
   font-weight: 600;
-  box-shadow: var(--shadow);
+  box-shadow: none;
   outline: none;
   transition: box-shadow 0.2s, background 0.2s, color 0.2s, font-size 0.2s, padding 0.2s;
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  min-width: 220px;
-  max-width: 360px;
-  width: min-content;
-  margin-right: 32px;
+  min-width: 260px;
+  max-width: 420px;
+  width: 100%;
+  box-sizing: border-box;
+}
+@media (max-width: 600px) {
+  #webradio-player select,
+  #radio-station {
+    min-width: 100px;
+    max-width: 100%;
+    font-size: 1.05rem;
+    padding: 12px 14px;
+    box-shadow: var(--shadow);
+  }
 }
 #webradio-player select:focus,
 #webradio-player select:active {
@@ -174,7 +184,7 @@ footer {
   border-radius: 50%;
   aspect-ratio: 1/1;
   background: linear-gradient(135deg, var(--background) 60%, var(--primary) 100%);
-  box-shadow: 0 2px 8px #0002;
+  box-shadow: none;
   transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
   border: none;
   cursor: pointer;
@@ -185,11 +195,11 @@ footer {
   display: block;
 }
 #webradio-player button.icon-btn:focus-visible {
-  box-shadow: 0 0 0 3px var(--primary)99, 0 2px 8px #0002;
+  box-shadow: none;
 }
 #webradio-player button.icon-btn:hover {
   background: linear-gradient(135deg, var(--primary) 60%, var(--background) 100%);
-  box-shadow: var(--shadow-hover);
+  box-shadow: none;
   transform: scale(1.06);
 }
 #webradio-player span#radio-time {
@@ -277,7 +287,7 @@ button, a {
   padding: 12px 28px;
   font-size: 1.1rem;
   font-weight: 700;
-  box-shadow: 0 4px 24px rgba(30,185,84,0.18), 0 2px 8px rgba(0,0,0,0.12);
+  box-shadow: none;
   cursor: pointer;
   margin: 8px 6px 8px 0;
   transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.15s;
@@ -287,7 +297,7 @@ button, a {
 .cta-btn:hover, button:hover, input[type="submit"]:hover {
   background: linear-gradient(135deg, var(--primary-light) 60%, var(--primary) 100%);
   color: var(--text);
-  box-shadow: 0 8px 32px #0004;
+  box-shadow: none;
   transform: scale(1.04);
 }
 .cta-btn:active, button:active, input[type="submit"]:active {
