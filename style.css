@@ -183,7 +183,7 @@ footer {
   justify-content: center;
   border-radius: 50%;
   aspect-ratio: 1/1;
-  background: linear-gradient(135deg, var(--background) 60%, var(--primary) 100%);
+  background: none;
   box-shadow: none;
   transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
   border: none;
@@ -198,7 +198,7 @@ footer {
   box-shadow: none;
 }
 #webradio-player button.icon-btn:hover {
-  background: linear-gradient(135deg, var(--primary) 60%, var(--background) 100%);
+  background: none;
   box-shadow: none;
   transform: scale(1.06);
 }
@@ -235,46 +235,6 @@ footer {
     font-size: 2rem;
   }
 }
-@media (max-width: 600px) {
-  .radio-section {
-    max-width: 99vw;
-    padding: 18px 4vw 18px 4vw;
-    border-radius: 12px;
-    margin: 16px auto 0 auto;
-  }
-  .cover-img {
-    width: 64px;
-    height: 64px;
-    border-radius: 10px;
-  }
-  .radio-play-btn, #play-btn {
-    width: 48px;
-    height: 48px;
-  }
-  .station-btn {
-    font-size: 0.98rem;
-    padding: 8px 10px 8px 10px;
-  }
-  #webradio-player, #music-player {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 8px;
-  }
-  .icon-btn, select#radio-station, select#music-select {
-    width: 100%;
-    margin: 0 0 8px 0;
-  }
-}
-@media (max-width: 400px) {
-  section h2 {
-    font-size: 1.1rem;
-  }
-  #play-btn, .radio-play-btn {
-    width: 56px;
-    height: 56px;
-  }
-}
-/* Barrierefreiheit: Kontrast, Fokus, große Klickflächen */
 button, a {
   min-height: 44px;
   min-width: 44px;

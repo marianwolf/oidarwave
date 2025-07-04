@@ -45,7 +45,6 @@
     const radioAudio = document.getElementById('radio-audio');
     const radioToggle = document.getElementById('radio-toggle');
     const radioStation = document.getElementById('radio-station');
-
     function getCSSVar(name) {
       return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
     }
@@ -154,7 +153,6 @@
       showRadioPauseStop();
       if (streamStartTimestamp === null) streamStartTimestamp = Date.now();
       if (pausedAt !== null) {
-        // Passe Startzeit an, damit die Anzeige weiterläuft
         streamStartTimestamp += (Date.now() - pausedAt);
         pausedAt = null;
       }
@@ -210,20 +208,16 @@
     function setRadioBtnSize() {
       const select = document.getElementById('radio-station');
       if (!select) return;
-      // Höhe inkl. Padding, Border, etc.
       const rect = select.getBoundingClientRect();
       const computed = window.getComputedStyle(select);
-      // add border if any
       let height = rect.height;
-      // fallback: falls getBoundingClientRect 0 ergibt (z.B. display:none)
       if (height < 10) height = parseFloat(computed.height);
-      // Buttons minimal 44px, maximal 100px
       height = Math.max(44, Math.min(height, 100));
       document.documentElement.style.setProperty('--radio-btn-size', height + 'px');
     }
     window.addEventListener('DOMContentLoaded', setRadioBtnSize);
     window.addEventListener('resize', setRadioBtnSize);
-    setTimeout(setRadioBtnSize, 100); // Fallback für späte Layouts
+    setTimeout(setRadioBtnSize, 100);
     // Performance-Optimierung: Mousemove-Handler throttlen
     const section = document.querySelector('section');
     if(section) {
@@ -231,24 +225,8 @@
       section.addEventListener('mousemove', e => {
         if(animFrame) return;
         animFrame = requestAnimationFrame(() => {
-          const rect = section.getBoundingClientRect();
-          const x = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
-          const y = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
-          const maxTilt = 8;
-          const maxTrans = 10;
-          section.style.transform = `perspective(600px) rotateX(${-y*maxTilt}deg) rotateY(${x*maxTilt}deg) translateX(${x*maxTrans}px) translateY(${y*maxTrans}px)`;
-          section.classList.add('mouse-glow');
           animFrame = null;
         });
-      });
-      section.addEventListener('mouseleave', () => {
-        section.style.transform = '';
-        section.classList.remove('mouse-glow');
-      });
-      section.addEventListener('mouseenter', () => {
-        section.classList.remove('pop-animate');
-        void section.offsetWidth;
-        section.classList.add('pop-animate');
       });
     }
     // Deployment-Optimierung: Service Worker für Offline-Support (optional)
