@@ -49,6 +49,18 @@ header {
   border-radius: 0 0 32px 32px;
   box-shadow: var(--shadow);
   letter-spacing: 2px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+header > div {
+  flex: 1 1 auto;
+}
+header nav {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
 }
 header h1 {
   font-size: 2.6rem;

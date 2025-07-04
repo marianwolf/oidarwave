@@ -9,13 +9,22 @@
 </head>
 <body>
   <header>
-    <h1>Willkommen auf deiner neuen Webseite!</h1>
+    <div>
+      <h1 id="headline-de">Willkommen auf deiner neuen Webseite!</h1>
+      <h1 id="headline-en" style="display:none">Welcome to your new website!</h1>
+    </div>
+    <nav>
+      <button id="menu-toggle" aria-label="Menü öffnen">☰</button>
+      <button id="lang-toggle" aria-label="Sprache wechseln / Switch language">EN/DE</button>
+    </nav>
   </header>
   <main>
     <section id="webradio">
-      <h2>Webradio</h2>
+      <h2 id="radio-title-de">Webradio</h2>
+      <h2 id="radio-title-en" style="display:none">Web Radio</h2>
       <div id="webradio-player">
-        <label for="radio-station" class="radio-label">Sender wählen:</label>
+        <label for="radio-station" class="radio-label" id="label-de">Sender wählen:</label>
+        <label for="radio-station" class="radio-label" id="label-en" style="display:none">Choose station:</label>
         <select id="radio-station">
           <option value="https://stream.radioparadise.com/mp3-192">Radio Paradise</option>
           <option value="https://radio.bbg-bew.de">BBG</option>
@@ -38,9 +47,24 @@
     </section>
   </main>
   <footer>
-    &copy; 2025 Deine neue Webseite
+    <span id="footer-de">&copy; 2025 Deine neue Webseite</span>
+    <span id="footer-en" style="display:none">&copy; 2025 Your new website</span>
   </footer>
   <script>
+    // Sprachumschaltung
+    const langToggle = document.getElementById('lang-toggle');
+    let lang = 'de';
+    langToggle.onclick = function() {
+      lang = lang === 'de' ? 'en' : 'de';
+      document.getElementById('headline-de').style.display = lang === 'de' ? '' : 'none';
+      document.getElementById('headline-en').style.display = lang === 'en' ? '' : 'none';
+      document.getElementById('radio-title-de').style.display = lang === 'de' ? '' : 'none';
+      document.getElementById('radio-title-en').style.display = lang === 'en' ? '' : 'none';
+      document.getElementById('label-de').style.display = lang === 'de' ? '' : 'none';
+      document.getElementById('label-en').style.display = lang === 'en' ? '' : 'none';
+      document.getElementById('footer-de').style.display = lang === 'de' ? '' : 'none';
+      document.getElementById('footer-en').style.display = lang === 'en' ? '' : 'none';
+    };
     // Webradio-Player Logik
     const radioAudio = document.getElementById('radio-audio');
     const radioToggle = document.getElementById('radio-toggle');
