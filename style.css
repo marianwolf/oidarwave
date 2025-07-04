@@ -16,6 +16,8 @@
   --shadow: 0 0 32px 0 var(--primary), 0 0 0 2px var(--primary);
   --shadow-hover: 0 0 64px 0 var(--primary), 0 0 0 3px var(--primary);
   --font: 'Circular Std', Arial, sans-serif;
+  --font-size: 1.05rem;
+  --font-size-large: 1.18rem;
 }
 @media (prefers-color-scheme: light) {
   :root {
@@ -49,7 +51,7 @@ header {
   letter-spacing: 2px;
 }
 header h1 {
-  font-size: 2.7rem;
+  font-size: 2.6rem;
   letter-spacing: 2px;
   margin: 0;
   font-weight: 800;
@@ -105,7 +107,7 @@ footer {
   margin-top: 48px;
   text-align: center;
   color: var(--muted);
-  font-size: 1.05rem;
+  font-size: var(--font-size);
   padding-bottom: 28px;
   letter-spacing: 1px;
   background: var(--background);
@@ -132,7 +134,7 @@ footer {
   border: none;
   border-radius: 14px;
   padding: 14px 28px; /* Größer für bessere Klickfläche */
-  font-size: 1.18rem; /* Etwas größer für bessere Lesbarkeit */
+  font-size: var(--font-size-large);
   font-weight: 600;
   box-shadow: none;
   outline: none;
@@ -150,7 +152,7 @@ footer {
   #radio-station {
     min-width: 100px;
     max-width: 100%;
-    font-size: 1.05rem;
+    font-size: var(--font-size);
     padding: 12px 14px;
     box-shadow: var(--shadow);
   }
@@ -160,8 +162,6 @@ footer {
   box-shadow: var(--shadow-hover);
   background: linear-gradient(90deg, var(--primary-dark) 50%, var(--background) 100%);
   color: var(--text);
-  font-size: 1.22rem;
-  padding: 16px 32px;
 }
 #webradio-player select option {
   color: var(--text);
@@ -206,7 +206,7 @@ footer {
   color: var(--muted);
   min-width: 60px;
   display: inline-block;
-  font-size: 1.05em;
+  font-size: var(--font-size);
   margin: 0;
   text-align: left;
 }
