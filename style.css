@@ -61,12 +61,8 @@ header nav {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-<<<<<<< HEAD
   gap: 30px; /* Weniger Abstand zwischen Menü und Sprachumschaltung */
   margin-right: 10px; /* Kein zusätzlicher rechter Abstand */
-=======
-  gap: 24px; /* Mehr Abstand zwischen Menü und Sprachumschaltung */
->>>>>>> 5167bd0b05fdd36c5e6a2109d2caaa187cc57885
 }
 header h1 {
   font-size: 2.6rem;
