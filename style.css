@@ -51,16 +51,18 @@ header {
   letter-spacing: 2px;
   display: flex;
   align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px;
+  justify-content: flex-start; /* Menü und Sprachumschaltung nach links rücken */
+  gap: 32px; /* Mehr Abstand zwischen Headline und Menü */
 }
 header > div {
   flex: 1 1 auto;
 }
 header nav {
   display: flex;
+  flex-direction: row;
   align-items: flex-start;
-  gap: 8px;
+  gap: 30px; /* Weniger Abstand zwischen Menü und Sprachumschaltung */
+  margin-right: 10px; /* Kein zusätzlicher rechter Abstand */
 }
 header h1 {
   font-size: 2.6rem;
@@ -246,6 +248,109 @@ footer {
   header h1 {
     font-size: 2rem;
   }
+  header {
+    gap: 12px; /* Auf kleineren Screens enger zusammen */
+  }
+  header nav {
+    gap: 8px;
+  }
+}
+/* Flyout-Menü optimiert */
+.flyout-nav {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  width: 100%;
+  background: none;
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
+}
+.flyout-nav > li,
+#lang-toggle {
+  flex: 1 1 0;
+  min-width: 120px;
+  max-width: 220px;
+}
+.flyout-nav > li > a,
+#lang-toggle {
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+}
+.flyout-nav > li > a,
+#lang-toggle {
+  font-size: 1.1rem;
+  padding: 12px 22px;
+  background: linear-gradient(135deg, var(--primary) 60%, var(--primary-light) 100%);
+  color: var(--text);
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  box-shadow: 0 2px 8px #0001;
+  cursor: pointer;
+  margin: 0 0 10px 0;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.15s;
+  outline: none;
+  display: block;
+  text-align: left;
+  margin-right: 10px; /* Abstand zwischen Menü und Sprachumschaltung */
+}
+.flyout-nav > li > a:hover, .flyout-nav > li > a:focus, #lang-toggle:hover, #lang-toggle:focus {
+  background: linear-gradient(135deg, var(--primary-light) 60%, var(--primary) 100%);
+  color: var(--background);
+  box-shadow: 0 4px 24px #1db95433;
+  transform: scale(1.04);
+}
+.flyout-nav li ul {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  min-width: 210px;
+  background: var(--section-bg);
+  border-radius: 0 0 14px 14px;
+  box-shadow: 0 8px 32px 0 #0003;
+  padding: 0;
+  margin: 0;
+  animation: section-fade-in 0.3s;
+}
+.flyout-nav li:hover > ul,
+.flyout-nav li:focus-within > ul {
+  display: block;
+}
+.flyout-nav li ul li {
+  list-style: none;
+}
+.flyout-nav li ul li a {
+  display: block;
+  padding: 12px 22px;
+  color: var(--text);
+  background: none;
+  text-decoration: none;
+  border-bottom: 1px solid var(--primary-dark);
+  border-radius: 0;
+  transition: background 0.2s, color 0.2s;
+  margin-right: 10px;
+}
+.flyout-nav li ul li:last-child a {
+  border-bottom: none;
+}
+.flyout-nav li ul li a:hover,
+.flyout-nav li ul li a:focus {
+  background: var(--primary);
+  color: var(--background);
+}
+@media (max-width: 700px) {
+  .flyout-nav, .flyout-nav li ul {
+    width: 100%;
+    min-width: 0;
+    left: 0;
+  }
+  .flyout-nav > li > a, #lang-toggle {
+    padding: 14px 10px;
+    font-size: 1rem;
+  }
 }
 button, a {
   min-height: 44px;
@@ -274,4 +379,12 @@ button, a {
 }
 .cta-btn:active, button:active, input[type="submit"]:active {
   transform: scale(0.97);
+}
+/* Entferne List Marker für Menü */
+.flyout-nav > li, .flyout-nav li {
+  list-style: none;
+}
+.flyout-nav > li::marker, .flyout-nav li::marker {
+  display: none;
+  content: none;
 }

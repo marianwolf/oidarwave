@@ -14,8 +14,19 @@
       <h1 id="headline-en" style="display:none">Welcome to your new website!</h1>
     </div>
     <nav>
-      <button id="lang-toggle" aria-label="Sprache wechseln / Switch language">EN/DE</button>
-      <button id="menu-toggle" aria-label="Menü öffnen">☰</button>
+      <ul class="flyout-nav">
+        <li>
+          <a href="#">Menü</a>
+          <ul>
+            <li><a href="#webradio">Webradio</a></li>
+            <li><a href="about.html">Über / About</a></li>
+            <li><a href="contact.html">Kontakt / Contact</a></li>
+          </ul>
+        </li>
+        <li>
+          <button id="lang-toggle" aria-label="Sprache wechseln / Switch language">EN/DE</button>
+        </li>
+      </ul>
     </nav>
   </header>
   <main>
@@ -270,6 +281,44 @@
         } else {
           radioPause.click();
         }
+      }
+    });
+    // Menü-Logik
+    const menuToggle = document.getElementById('menu-toggle');
+    const mainMenu = document.getElementById('main-menu');
+    let menuOpen = false;
+    menuToggle.onclick = function() {
+      menuOpen = !menuOpen;
+      mainMenu.style.display = menuOpen ? 'block' : 'none';
+      menuToggle.setAttribute('aria-expanded', menuOpen);
+    };
+    document.addEventListener('click', function(e) {
+      if (menuOpen && !mainMenu.contains(e.target) && e.target !== menuToggle) {
+        mainMenu.style.display = 'none';
+        menuToggle.setAttribute('aria-expanded', 'false');
+        menuOpen = false;
+      }
+    });
+    // Tastatursteuerung für Menü
+    menuToggle.addEventListener('keydown', function(e) {
+      if ((e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') && !menuOpen) {
+        e.preventDefault();
+        menuToggle.click();
+        mainMenu.querySelector('a').focus();
+      }
+    });
+    mainMenu.addEventListener('keydown', function(e) {
+      const items = Array.from(mainMenu.querySelectorAll('a'));
+      let idx = items.indexOf(document.activeElement);
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        items[(idx+1)%items.length].focus();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        items[(idx-1+items.length)%items.length].focus();
+      } else if (e.key === 'Escape') {
+        menuToggle.click();
+        menuToggle.focus();
       }
     });
   </script>
