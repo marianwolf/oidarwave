@@ -9,19 +9,42 @@
 </head>
 <body>
   <header>
-    <h1>Willkommen auf deiner neuen Webseite!</h1>
+    <div>
+      <h1 id="headline-de">Willkommen auf deiner neuen Webseite!</h1>
+      <h1 id="headline-en" style="display:none">Welcome to your new website!</h1>
+    </div>
+    <nav>
+      <ul class="flyout-nav">
+        <li>
+          <a href="#">Menü</a>
+          <ul>
+            <li><a href="#webradio">Webradio</a></li>
+            <li><a href="about.html">Über / About</a></li>
+            <li><a href="contact.html">Kontakt / Contact</a></li>
+          </ul>
+        </li>
+        <li>
+          <button id="lang-toggle" aria-label="Sprache wechseln / Switch language">EN/DE</button>
+        </li>
+      </ul>
+    </nav>
   </header>
   <main>
     <section id="webradio">
-      <h2>Webradio</h2>
+      <h2 id="radio-title-de">Webradio</h2>
+      <h2 id="radio-title-en" style="display:none">Web Radio</h2>
       <div id="webradio-player">
-        <label for="radio-station" class="radio-label">Sender wählen:</label>
+        <label for="radio-station" class="radio-label" id="label-de">Sender wählen:</label>
+        <label for="radio-station" class="radio-label" id="label-en" style="display:none">Choose station:</label>
         <select id="radio-station">
           <option value="https://stream.radioparadise.com/mp3-192">Radio Paradise</option>
           <option value="https://radio.bbg-bew.de">BBG</option>
           <option value="https://st01.sslstream.dlf.de/dlf/01/128/mp3/stream.mp3?aggregator=web">Deutschlandfunk</option>
           <option value="https://st02.sslstream.dlf.de/dlf/02/128/mp3/stream.mp3?aggregator=web">Deutschlandfunk Kultur</option>
           <option value="https://st03.sslstream.dlf.de/dlf/03/128/mp3/stream.mp3?aggregator=web">Deutschlandfunk Nova</option>
+          <option value="http://uk3.internet-radio.com:8405/live">Jazz</option>
+          <option value="https://regiocast.streamabc.net/regc-80s80snds-mp3-192-1969206?sABC=686n6324%231%23r2ps3905q0or49psops1388p88o9n35s%23ubzrcntr&mode=preroll&aw_0_1st.skey=1751802638&cb=249580652&aw_0_req.userConsentV2=CQUIV0AQUIV0AAFADBDEByFgAAAAAAAAAAYgAAASIgNAAEAAyACWAE4AUQAsAC0AIwATgAogBugDkAOYAgwBGACuAGaANUAiYBLQDPgHAAP2AioBGoC3gGAAPeAkQAWGgAwABBIgRABgACCRAqADAAEEiBkAGAAIJEAoAMAAQSICQAYAAgkQOgAwABBIghABgACCRBKADAAEEiCkAGAAIJEFoAMAAQSI.YAAAAAAAAAAA&aw_0_1st.playerid=80s80s_web&listenerid=e2cf3905d0be49cfbcf1388c88b9a35f&amsparams=playerid:homepage;skey:1751802660">80s80s NDS</option>
+          <option value="https://regiocast.streamabc.net/regc-80s80snds-mp3-192-1969206?sABC=686n6664%231%2368o17s52466n4p838033s630328761p4%23ubzrcntr&mode=preroll&aw_0_1st.skey=1751803492&cb=629554872&aw_0_req.userConsentV2=CQUIV0AQUIV0AAFADBDEByFgAAAAAAAAAAYgAAASIgNAAEAAyACWAE4AUQAsAC0AIwATgAogBugDkAOYAgwBGACuAGaANUAiYBLQDPgHAAP2AioBGoC3gGAAPeAkQAWGgAwABBIgRABgACCRAqADAAEEiBkAGAAIJEAoAMAAQSICQAYAAgkQOgAwABBIghABgACCRBKADAAEEiCkAGAAIJEFoAMAAQSI.YAAAAAAAAAAA&aw_0_1st.playerid=80s80s_web&listenerid=68b17f52466a4c838033f630328761c4&amsparams=playerid:homepage;skey:1751803492">80s80s DAB+</option>
         </select>
         <button id="radio-toggle" aria-label="Play" class="icon-btn">
           <!-- Icon wird per JS gesetzt -->
@@ -38,9 +61,24 @@
     </section>
   </main>
   <footer>
-    &copy; 2025 Deine neue Webseite
+    <span id="footer-de">&copy; 2025 Deine neue Webseite</span>
+    <span id="footer-en" style="display:none">&copy; 2025 Your new website</span>
   </footer>
   <script>
+    // Sprachumschaltung
+    const langToggle = document.getElementById('lang-toggle');
+    let lang = 'de';
+    langToggle.onclick = function() {
+      lang = lang === 'de' ? 'en' : 'de';
+      document.getElementById('headline-de').style.display = lang === 'de' ? '' : 'none';
+      document.getElementById('headline-en').style.display = lang === 'en' ? '' : 'none';
+      document.getElementById('radio-title-de').style.display = lang === 'de' ? '' : 'none';
+      document.getElementById('radio-title-en').style.display = lang === 'en' ? '' : 'none';
+      document.getElementById('label-de').style.display = lang === 'de' ? '' : 'none';
+      document.getElementById('label-en').style.display = lang === 'en' ? '' : 'none';
+      document.getElementById('footer-de').style.display = lang === 'de' ? '' : 'none';
+      document.getElementById('footer-en').style.display = lang === 'en' ? '' : 'none';
+    };
     // Webradio-Player Logik
     const radioAudio = document.getElementById('radio-audio');
     const radioToggle = document.getElementById('radio-toggle');
@@ -246,6 +284,44 @@
         } else {
           radioPause.click();
         }
+      }
+    });
+    // Menü-Logik
+    const menuToggle = document.getElementById('menu-toggle');
+    const mainMenu = document.getElementById('main-menu');
+    let menuOpen = false;
+    menuToggle.onclick = function() {
+      menuOpen = !menuOpen;
+      mainMenu.style.display = menuOpen ? 'block' : 'none';
+      menuToggle.setAttribute('aria-expanded', menuOpen);
+    };
+    document.addEventListener('click', function(e) {
+      if (menuOpen && !mainMenu.contains(e.target) && e.target !== menuToggle) {
+        mainMenu.style.display = 'none';
+        menuToggle.setAttribute('aria-expanded', 'false');
+        menuOpen = false;
+      }
+    });
+    // Tastatursteuerung für Menü
+    menuToggle.addEventListener('keydown', function(e) {
+      if ((e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') && !menuOpen) {
+        e.preventDefault();
+        menuToggle.click();
+        mainMenu.querySelector('a').focus();
+      }
+    });
+    mainMenu.addEventListener('keydown', function(e) {
+      const items = Array.from(mainMenu.querySelectorAll('a'));
+      let idx = items.indexOf(document.activeElement);
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        items[(idx+1)%items.length].focus();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        items[(idx-1+items.length)%items.length].focus();
+      } else if (e.key === 'Escape') {
+        menuToggle.click();
+        menuToggle.focus();
       }
     });
   </script>
