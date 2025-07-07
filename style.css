@@ -1,4 +1,4 @@
-/* Light/Dark Mode, Responsive, Barrierefreiheit */
+/* Dark Mode, Responsive, Barrierefreiheit */
 :root {
   --primary: #1db954;
   --primary-light: #1ed760;
@@ -6,7 +6,6 @@
   --accent-yellow: #f1c40f;
   --accent-red: #e74c3c;
   --background: #191414;
-  --background-light: #f4f4f4;
   --section-bg: rgba(25,20,20,0.98);
   --section-bg-light: #fff;
   --text: #fff;
@@ -18,14 +17,6 @@
   --font: 'Circular Std', Arial, sans-serif;
   --font-size: 1.05rem;
   --font-size-large: 1.18rem;
-}
-@media (prefers-color-scheme: light) {
-  :root {
-    --background: var(--background-light);
-    --section-bg: var(--section-bg-light);
-    --text: var(--text-light);
-    --muted: var(--muted-light);
-  }
 }
 html {
   scroll-behavior: smooth;
