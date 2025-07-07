@@ -14,19 +14,17 @@
       <h1 id="headline-en" style="display:none">Welcome to your new website!</h1>
     </div>
     <nav>
-      <ul class="flyout-nav">
-        <li>
-          <a href="#">Menü</a>
-          <ul>
+      <!-- Hamburger-Menü -->
+      <button id="hamburger-toggle" aria-label="Menü öffnen" aria-expanded="false">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
+      <ul id="hamburger-menu" class="flyout-nav" style="display: none;">
             <li><a href="#webradio">Webradio</a></li>
             <li><a href="about.html">Über / About</a></li>
             <li><a href="contact.html">Kontakt / Contact</a></li>
           </ul>
-        </li>
-        <li>
-          <button id="lang-toggle" aria-label="Sprache wechseln / Switch language">EN/DE</button>
-        </li>
-      </ul>
     </nav>
   </header>
   <main>
