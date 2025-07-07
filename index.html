@@ -3,87 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark">
   <title>Willkommen – Deine neue Webseite</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="animations.css">
-  <style>
-    /* Allgemeine Stile für Hamburger-Menü und Toggle */
-    #hamburger-toggle {
-      background: none;
-      border: none;
-      cursor: pointer;
-      width: 40px;
-      height: 40px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-evenly;
-      align-items: center;
-      padding: 0;
-      /* Optional: Für bessere Zugänglichkeit */
-      touch-action: manipulation;
-    }
-
-    #hamburger-toggle .hamburger-bar {
-      width: 30px;
-      height: 4px;
-      background-color: #333;
-      border-radius: 2px;
-      transition: all 0.3s ease;
-    }
-
-    /* Stil für das Flyout-Menü */
-    .flyout-nav {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: none; /* Standardmäßig ausgeblendet */
-      background: #f9f9f9;
-      border-radius: 5px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      position: absolute;
-      top: 60px; /* Anpassen an deine Layout-Bedürfnisse */
-      right: 20px; /* Anpassen an deine Layout-Bedürfnisse */
-      z-index: 1000;
-    }
-
-    .flyout-nav li {
-      padding: 10px 20px;
-      /* Optional: Trennlinien zwischen Menüpunkten */
-      /* border-bottom: 1px solid #eee; */
-    }
-
-    /* Letztes Element ohne Trennlinie */
-    /* .flyout-nav li:last-child {
-      border-bottom: none;
-    } */
-
-    .flyout-nav li a {
-      text-decoration: none;
-      color: #333;
-      display: block; /* Damit der ganze Bereich klickbar ist */
-    }
-
-    .flyout-nav li a:hover,
-    .flyout-nav li a:focus { /* Auch für Tastatur-Fokus */
-      color: #007BFF;
-    }
-
-    /* Additional styles for radio buttons to match select height */
-    :root {
-      --radio-btn-size: 44px; /* Default value */
-    }
-    .icon-btn {
-      width: var(--radio-btn-size);
-      height: var(--radio-btn-size);
-      border: none;
-      background: transparent;
-      padding: 0;
-      cursor: pointer;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-  </style>
 </head>
 <body>
   <header>
@@ -118,7 +41,6 @@
           <option value="https://st01.sslstream.dlf.de/dlf/01/128/mp3/stream.mp3?aggregator=web">Deutschlandfunk</option>
           <option value="https://st02.sslstream.dlf.de/dlf/02/128/mp3/stream.mp3?aggregator=web">Deutschlandfunk Kultur</option>
           <option value="https://st03.sslstream.dlf.de/dlf/03/128/mp3/stream.mp3?aggregator=web">Deutschlandfunk Nova</option>
-          <option value="http://uk3.internet-radio.com:8405/live">Jazz</option>
           <option value="https://regiocast.streamabc.net/regc-80s80snds-mp3-192-1969206?sABC=686n6324%231%23r2ps3905q0or49psops1388p88o9n35s%23ubzrcntr&mode=preroll&aw_0_1st.skey=1751802638&cb=249580652&aw_0_req.userConsentV2=CQUIV0AQUIV0AAFADBDEByFgAAAAAAAAAAYgAAASIgNAAEAAyACWAE4AUQAsAC0AIwATgAogBugDkAOYAgwBGACuAGaANUAiYBLQDPgHAAP2AioBGwC3gGAAPeAkQAWGgAwABBIgRABgACCRAqADAAEEiBkAGAAIJEAoAMAAQSICQAYAAgkQOgAwABBIghABgACCRBKADAAEEiCkAGAAIJEFoAMAAQSI.YAAAAAAAAAAA&aw_0_1st.playerid=80s80s_web&listenerid=e2cf3905d0be49cfbcf1388c88b9a35f&amsparams=playerid:homepage;skey:1751802660">80s80s NDS</option>
         </select>
         <button id="radio-toggle" aria-label="Play" class="icon-btn">

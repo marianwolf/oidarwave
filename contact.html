@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontakt - Deine neue Webseite</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="animations.css">
+</head>
+<body>
+    <header>
+        <div style="flex: 1 1 auto;">
+            <h1>Deine neue Webseite</h1> <!-- `h1` hat eine `font-size` von `2.6rem` und `letter-spacing` von `2px` [4] -->
+        </div>
+        <nav>
+            <!-- Navigationselemente basierend auf Quelle [1] -->
+            <ul class="flyout-nav">
+                <li><a href="#webradio">Webradio</a></li>
+                <li><a href="about.html">Über / About</a></li>
+                <li><a href="contact.html">Kontakt / Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Der `main`-Bereich hat `max-width: 600px` und `width: 92%` auf größeren Bildschirmen und passt sich auf kleineren an [5, 11] -->
+        <section>
+            <!-- `section` Elemente haben `background: var(--section-bg)`, `border-radius: 20px` und `box-shadow: var(--shadow)` [5] -->
+            <!-- Animation `section-fade-in` wird angewendet [17] -->
+            <h2>Kontakt</h2> <!-- `h2` hat `color: var(--primary)`, `font-size: 1.6rem` [6] und `fade-in` Animation [18] -->
+            <p>Bitte verwenden Sie das untenstehende Formular oder die angegebenen Kontaktdaten, um uns zu erreichen.</p>
+            <!-- Beispiel-Inhalt: Diesen Teil müssten Sie mit tatsächlichen Kontaktinformationen oder einem Formular füllen -->
+            <p>E-Mail: info@deinewebseite.de</p>
+            <p>Telefon: +49 (0)123 456789</p>
+            <p>Adresse: Beispielstraße 123, 12345 Beispielstadt</p>
+            <form>
+                <!-- Beispiel-Formularfelder, die ebenfalls mit den CSS-Variablen für `color`, `background` und `font` gestylt werden könnten [2, 8] -->
+                <label for="name">Name:</label><br>
+                <input type="text" id="name" name="name"><br>
+                <label for="email">E-Mail:</label><br>
+                <input type="email" id="email" name="email"><br>
+                <label for="message">Nachricht:</label><br>
+                <textarea id="message" name="message"></textarea><br>
+                <button type="submit" class="cta-btn">Nachricht senden</button> <!-- Buttons wie `.cta-btn` haben einen `linear-gradient` Hintergrund, `color: var(--text)` und eine `transition` für `hover` und `active` Zustände [14, 15] -->
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <!-- Der Footer hat `margin-top: 48px`, `text-align: center`, `color: var(--muted)` und `background: var(--background)` [7] -->
+        <p>© 2025 Deine neue Webseite</p> <!-- Copyright-Information aus Quelle [1] -->
+    </footer>
+</body>
+</html>
