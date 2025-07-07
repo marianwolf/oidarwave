@@ -29,6 +29,11 @@
   background: linear-gradient(135deg, #1ed760 60%, #1db954 100%);
 }
 
+header {
+  animation: section-fade-in 0.8s cubic-bezier(.4,1.4,.6,1) both;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
 section {
   animation: section-fade-in 0.8s cubic-bezier(.4,1.4,.6,1) both;
   opacity: 0;

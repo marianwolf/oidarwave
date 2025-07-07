@@ -33,16 +33,15 @@
             <p>E-Mail: info@deinewebseite.de</p>
             <p>Telefon: +49 (0)123 456789</p>
             <p>Adresse: Beispielstraße 123, 12345 Beispielstadt</p>
-            <form>
-                <!-- Beispiel-Formularfelder, die ebenfalls mit den CSS-Variablen für `color`, `background` und `font` gestylt werden könnten [2, 8] -->
+            <form action="send_mail.php" method="post">
                 <label for="name">Name:</label><br>
                 <input type="text" id="name" name="name"><br>
                 <label for="email">E-Mail:</label><br>
                 <input type="email" id="email" name="email"><br>
                 <label for="message">Nachricht:</label><br>
                 <textarea id="message" name="message"></textarea><br>
-                <button type="submit" class="cta-btn">Nachricht senden</button> <!-- Buttons wie `.cta-btn` haben einen `linear-gradient` Hintergrund, `color: var(--text)` und eine `transition` für `hover` und `active` Zustände [14, 15] -->
-            </form>
+                <button type="submit" class="cta-btn">Nachricht senden</button>
+            </form> <!-- Buttons wie `.cta-btn` haben einen `linear-gradient` Hintergrund, `color: var(--text)` und eine `transition` für `hover` und `active` Zustände [14, 15] -->
         </section>
     </main>
 

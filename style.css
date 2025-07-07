@@ -67,10 +67,10 @@ main {
 }
 section {
   background: var(--section-bg);
-  --pad-top: clamp(36px, 8vw, 10px);
-  --pad-right: clamp(32px, 8vw, 140px);
-  --pad-bottom: clamp(18px, 4vw, 8px);
-  --pad-left: clamp(32px, 8vw, 140px);
+  --pad-top: clamp(36px, 15px, 20px);
+  --pad-right: clamp(15px, 60px, 60px);
+  --pad-bottom: clamp(18px, 7.5px, 10px);
+  --pad-left: clamp(15px, 60px, 60px);
   padding: var(--pad-top) var(--pad-right) var(--pad-bottom) var(--pad-left);
   border-radius: 20px;
   box-shadow: var(--shadow);
@@ -81,10 +81,13 @@ section {
   display: flex;
   flex-direction: column;
   max-width: 1800px;
-  width: 100%;
 }
 section:hover {
   box-shadow: var(--shadow-hover);
+}
+header:hover {
+  box-shadow: var(--shadow-hover);
+  transition: box-shadow 0.2s, background 0.4s, color 0.4s;
 }
 section h2 {
   color: var(--primary);
@@ -142,7 +145,6 @@ footer {
   font-weight: 600;
   box-shadow: none;
   outline: none;
-  transition: box-shadow 0.2s, background 0.2s, color 0.2s, font-size 0.2s, padding 0.2s;
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -229,8 +231,6 @@ footer {
     margin: 24px auto 0 auto;
   }
   section {
-    --pad-top: clamp(18px, 5vw, 32px);
-    --pad-bottom: clamp(10px, 3vw, 18px);
     padding: var(--pad-top) var(--pad-right) var(--pad-bottom) var(--pad-left);
     border-radius: 12px;
     max-width: 98vw;
