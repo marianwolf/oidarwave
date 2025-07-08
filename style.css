@@ -46,8 +46,8 @@ header {
   letter-spacing: 2px;
   display: flex;
   align-items: flex-start;
-  justify-content: flex-start; /* Menü und Sprachumschaltung nach links rücken */
-  gap: 32px; /* Mehr Abstand zwischen Headline und Menü */
+  justify-content: flex-start;
+  gap: 32px;
 }
 header > div {
   flex: 1 1 auto;
@@ -56,8 +56,8 @@ header nav {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  gap: 30px; /* Weniger Abstand zwischen Menü und Sprachumschaltung */
-  margin-right: 10px; /* Kein zusätzlicher rechter Abstand */
+  gap: 30px;
+  margin-right: 10px;
 }
 header h1 {
   font-size: 2.6rem;
@@ -124,7 +124,6 @@ footer {
   letter-spacing: 1px;
   background: var(--background);
 }
-/* --- Webradio Player Styles konsolidiert & optimiert --- */
 #webradio-player {
   font-family: var(--font);
   display: flex;
