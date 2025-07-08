@@ -13,9 +13,14 @@
   --muted-light: #555;
   --shadow: 0 0 32px 0 var(--primary), 0 0 0 2px var(--primary);
   --shadow-hover: 0 0 64px 0 var(--primary), 0 0 0 3px var(--primary);
-  --font: 'Circular Std', Arial, sans-serif;
+  --font: "Varela Round", sans-serif;
   --font-size: 1.05rem;
   --font-size-large: 1.18rem;
+}
+.varela-round-regular {
+  font-family: "Varela Round", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 html {
   scroll-behavior: smooth;
@@ -37,7 +42,7 @@ header {
   padding: 36px 0 28px 0;
   text-align: center;
   border-radius: 0 0 32px 32px;
-  box-shadow: var(--shadow);
+  box-shadow: 0 0 32px 0 var(--primary), 0 2px var(--primary);
   letter-spacing: 2px;
   display: flex;
   align-items: flex-start;
@@ -121,6 +126,7 @@ footer {
 }
 /* --- Webradio Player Styles konsolidiert & optimiert --- */
 #webradio-player {
+  font-family: var(--font);
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -136,6 +142,7 @@ footer {
 }
 #webradio-player select,
 #radio-station {
+  font-family: var(--font);
   background: linear-gradient(90deg, var(--primary) 50%, var(--background) 100%);
   color: var(--text);
   border: none;
@@ -156,29 +163,34 @@ footer {
 @media (max-width: 600px) {
   #webradio-player select,
   #radio-station {
+    font-family: var(--font);
     min-width: 100px;
     max-width: 100%;
-    font-size: var(--font-size);
+    font-family: var(--font);
     padding: 12px 14px;
     box-shadow: var(--shadow);
   }
 }
 #webradio-player select:focus,
 #webradio-player select:active {
+  font-family: var(--font);
   box-shadow: var(--shadow-hover);
   background: linear-gradient(90deg, var(--primary-dark) 50%, var(--background) 100%);
   color: var(--text);
 }
 #webradio-player select option {
+  font-family: var(--font);
   color: var(--text);
   background: var(--background);
   font-size: 1.08rem;
 }
 #webradio-player select option:checked {
+  font-family: var(--font);
   background: var(--primary-dark);
   color: var(--background);
 }
 #webradio-player button.icon-btn {
+  font-family: var(--font);
   width: var(--radio-btn-size, 60px);
   height: var(--radio-btn-size, 60px);
   min-width: 44px;
@@ -246,6 +258,7 @@ footer {
   }
 }
 .flyout-nav, .flyout-nav li ul {
+  font-family: var(--font);
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -256,6 +269,7 @@ footer {
   padding: 0;
 }
 .flyout-nav li ul {
+  font-family: var(--font);
   display: none;
   position: absolute;
   left: 0;
@@ -272,12 +286,14 @@ footer {
 }
 .flyout-nav > li,
 #lang-toggle {
+  font-family: var(--font);
   flex: 1 1 0;
   min-width: 120px;
   max-width: 220px;
 }
 .flyout-nav > li > a,
 #lang-toggle {
+  font-family: var(--font);
   display: block;
   width: 100%;
   font-size: 1.1rem;
@@ -303,6 +319,7 @@ button,
 input[type="submit"],
 .flyout-nav > li > a,
 #lang-toggle {
+  font-family: var(--font);
   background: linear-gradient(135deg, var(--primary) 60%, var(--primary-light) 100%);
   color: var(--text);
   border: none;
@@ -325,6 +342,7 @@ button:hover,
 input[type="submit"]:hover,
 .flyout-nav > li > a:hover,
 #lang-toggle:hover {
+  font-family: var(--font);
   background: linear-gradient(135deg, var(--primary-light) 60%, var(--primary) 100%);
   color: var(--text);
   box-shadow: none;
@@ -335,11 +353,14 @@ button:active,
 input[type="submit"]:active,
 .flyout-nav > li > a:active,
 #lang-toggle:active {
+  font-family: var(--font);
   transform: scale(0.97);
 }
 
 header nav,
 .flyout-nav {
+  font-family: var(--font);
+  flex-wrap: wrap;
   display: flex;
   gap: 20px; /* z.B. 20px Abstand zwischen Buttons/Links */
   align-items: flex-start;
