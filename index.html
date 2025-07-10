@@ -16,12 +16,12 @@
     </div>
     <nav>
       <button id="lang-toggle" aria-label="Sprache umschalten">DE/EN</button>
-      <button id="menu-toggle" aria-label="Menü öffnen" aria-expanded="false">
+      <button id="menu-toggle" aria-label="Menü öffnen" aria-expanded="false" class="icon-btn hamburger-btn">
         <span class="hamburger-bar"></span>
         <span class="hamburger-bar"></span>
         <span class="hamburger-bar"></span>
       </button>
-      <ul id="main-menu" class="flyout-nav" style="display: none;">
+      <ul id="main-menu" class="flyout-nav">
         <li><a href="index.html">Webradio</a></li>
         <li><a href="about.html">Über / About</a></li>
         <li><a href="contact.html">Kontakt / Contact</a></li>
@@ -43,18 +43,16 @@
           <option value="https://st03.sslstream.dlf.de/dlf/03/128/mp3/stream.mp3?aggregator=web">Deutschlandfunk Nova</option>
           <option value="https://regiocast.streamabc.net/regc-80s80snds-mp3-192-1969206?sABC=686n6324%231%23r2ps3905q0or49psops1388p88o9n35s%23ubzrcntr&mode=preroll&aw_0_1st.skey=1751802638&cb=249580652&aw_0_req.userConsentV2=CQUIV0AQUIV0AAFADBDEByFgAAAAAAAAAAYgAAASIgNAAEAAyACWAE4AUQAsAC0AIwATgAogBugDkAOYAgwBGACuAGaANUAiYBLQDPgHAAP2AioBGwC3gGAAPeAkQAWGgAwABBIgRABgACCRAqADAAEEiBkAGAAIJEAoAMAAQSICQAYAAgkQOgAwABBIghABgACCRBKADAAEEiCkAGAAIJEFoAMAAQSI.YAAAAAAAAAAA&aw_0_1st.playerid=80s80s_web&listenerid=e2cf3905d0be49cfbcf1388c88b9a35f&amsparams=playerid:homepage;skey:1751802660">80s80s NDS</option>
           <option value="https://f141.rndfnk.com/ard/ndr/ndr1niedersachsen/hannover/mp3/128/stream.mp3?aggregator=web&cid=01FCT9XYE3C7Y8087XEWPRC38Z&sid=2zYE5ScANtdORzQd1Vs7emzJatm&token=1YbjYVIGfTXwI1GkOA9d48RetKV6_tq9-Ve65rqkCo8&tvf=bgdJM-MSUBhmMTQxLnJuZGZuay5jb20">NDR 1</option>
-          <option value="https://d141.rndfnk.com/ard/ndr/ndrinfo/niedersachsen/mp3/128/stream.mp3?aggregator=web&cid=01FBRKHKTB73QDVNX7A9RT082R&sid=2zYEMrbbJUy6sEbhB4ZhCSzHWVI&token=zASJHmNYdtWW7zxJqs39Z6K2geOIpJ-Mn1z0G-k632A&tvf=eSPbiAMTUBhkMTQxLnJuZGZuay5jb20">NDR Info</option>
+          <option value="https://d141.rndfnk.com/ard/ndr/ndrinfo/niedersachsen/mp3/128/stream.mp3?aggregator=web&cid=01FBRKHKTB73QDVNX7A9RT082R&sid=2zYEMrbbJUy6sEbhB4ZhCSzHWVI&token=zASJHmNYdtWW7zxJqs39Z6K2geOIpJ-Mn1z0G-k632A&tvf=eSPbiAMTUBhkMTQxLnJuZGZuay5jb25">NDR Info</option>
           <option value="https://f131.rndfnk.com/ard/ndr/ndr2/niedersachsen/mp3/128/stream.mp3?aggregator=web&cid=01FBQ2CWDYWJHGF4QAJ0SVV730&sid=2zYEzLbm0tA5V6olqURVbGREiqF&token=ioobdJ4WHmziknOmFsL5R7DzjgnC8mHN-9PKOpSU4jQ&tvf=l76Y00oTUBhmMTMxLnJuZGZuay5jb20">NDR 2</option>
           <option value="https://f111.rndfnk.com/ard/ndr/ndrkultur/live/mp3/128/stream.mp3?aggregator=web&cid=01FBQ2EJ6T7QK3WENQ5KT9S2FB&sid=2zYH870TfKpDrSRPNQwG7G7lJmE&token=QQ3JNVQAas7rUN5m9U82Mg8_4nRR8ZCza51715OJazk&tvf=EK7dzEAUUBhmMTExLnJuZGZuay5jb20">NDR Kultur</option>
         </select>
-        <button id="radio-toggle" aria-label="Play" class="icon-btn">
-          </button>
-        <button id="radio-pause" aria-label="Pause" class="icon-btn" style="display: none;">
-          </button>
-        <button id="radio-stop" aria-label="Stop" class="icon-btn" style="display: none;">
-          </button>
+        <button id="radio-toggle" aria-label="Play" class="icon-btn"></button>
+        <button id="radio-pause" aria-label="Pause" class="icon-btn"></button>
+        <button id="radio-stop" aria-label="Stop" class="icon-btn"></button>
         <span id="radio-time">00:00</span>
-        <audio id="radio-audio" preload="true"></audio> </div>
+        <audio id="radio-audio" preload="true"></audio>
+        <span id="radio-status" class="hidden"></span> </div>
     </section>
   </main>
   <footer>
@@ -81,26 +79,24 @@
     }
 
     // Webradio-Player Logik
-    const radioAudio = document.getElementById('radio-audio'); // Reference existing audio element
+    const radioAudio = document.getElementById('radio-audio');
     const radioToggle = document.getElementById('radio-toggle');
     const radioPause = document.getElementById('radio-pause');
     const radioStop = document.getElementById('radio-stop');
     const radioStation = document.getElementById('radio-station');
     const radioTime = document.getElementById('radio-time');
+    const radioStatus = document.getElementById('radio-status'); // NEU: Referenz zum Status-Element
 
     let timeInterval = null;
     let streamStartTimestamp = null;
     let pausedAt = null;
 
-    // Helper to get CSS variables
     function getCSSVar(name) {
       return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
     }
 
-    // Function to create SVG icons for radio buttons
     function createRadioIcon(type) {
       const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-      // Use CSS variable for button size for width/height
       const btnSize = parseFloat(getCSSVar('--radio-btn-size')) || 44;
       svg.setAttribute('width', btnSize);
       svg.setAttribute('height', btnSize);
@@ -120,51 +116,52 @@
       return svg;
     }
 
-    // Functions to manage button visibility and icons
     function showRadioPlay() {
       if (radioToggle) {
-        radioToggle.style.display = '';
+        radioToggle.classList.add('active');
         radioToggle.innerHTML = '';
         radioToggle.appendChild(createRadioIcon('play'));
         radioToggle.setAttribute('aria-label', 'Play');
       }
-      if (radioPause) radioPause.style.display = 'none';
-      if (radioStop) radioStop.style.display = 'none';
+      if (radioPause) radioPause.classList.remove('active');
+      if (radioStop) radioStop.classList.remove('active');
+      if (radioStatus) radioStatus.classList.add('hidden'); // Status verstecken
     }
 
     function showRadioPauseStop() {
-      if (radioToggle) radioToggle.style.display = 'none';
+      if (radioToggle) radioToggle.classList.remove('active');
       if (radioPause) {
-        radioPause.style.display = '';
+        radioPause.classList.add('active');
         radioPause.innerHTML = '';
         radioPause.appendChild(createRadioIcon('pause'));
         radioPause.setAttribute('aria-label', 'Pause');
       }
       if (radioStop) {
-        radioStop.style.display = '';
+        radioStop.classList.add('active');
         radioStop.innerHTML = '';
         radioStop.appendChild(createRadioIcon('stop'));
         radioStop.setAttribute('aria-label', 'Stop');
       }
+      if (radioStatus) radioStatus.classList.add('hidden'); // Status verstecken
     }
 
     function showRadioPlayStop() {
       if (radioToggle) {
-        radioToggle.style.display = '';
+        radioToggle.classList.add('active');
         radioToggle.innerHTML = '';
         radioToggle.appendChild(createRadioIcon('play'));
         radioToggle.setAttribute('aria-label', 'Play');
       }
-      if (radioPause) radioPause.style.display = 'none';
+      if (radioPause) radioPause.classList.remove('active');
       if (radioStop) {
-        radioStop.style.display = '';
+        radioStop.classList.add('active');
         radioStop.innerHTML = '';
         radioStop.appendChild(createRadioIcon('stop'));
         radioStop.setAttribute('aria-label', 'Stop');
       }
+      if (radioStatus) radioStatus.classList.add('hidden'); // Status verstecken
     }
 
-    // Functions for radio timer
     function updateRadioTime() {
       if (streamStartTimestamp !== null) {
         let elapsed;
@@ -199,13 +196,12 @@
       }
     }
 
-    // Initial setup for radio UI
     function initRadioUI() {
       stopRadioTimer();
       showRadioPlay();
+      if (radioStatus) radioStatus.classList.add('hidden'); // Sicherstellen, dass Status beim Start versteckt ist
     }
 
-    // Event Listeners for Radio Player
     if (radioToggle) {
       radioToggle.onclick = function() {
         const selectedSrc = radioStation.value;
@@ -215,14 +211,12 @@
         }
         radioAudio.volume = 1.0;
         radioAudio.play();
-        // showRadioPauseStop() will be called by 'play' event listener
       };
     }
 
     if (radioPause) {
       radioPause.onclick = function() {
         radioAudio.pause();
-        // showRadioPlayStop() will be called by 'pause' event listener
       };
     }
 
@@ -232,7 +226,7 @@
         radioAudio.removeAttribute('src');
         radioAudio.load();
         stopRadioTimer();
-        showRadioPlay(); // Reset to play button state
+        showRadioPlay();
       };
     }
 
@@ -242,11 +236,35 @@
         radioAudio.removeAttribute('src');
         radioAudio.load();
         stopRadioTimer();
-        showRadioPlay(); // Reset to play button state
+        showRadioPlay();
       });
     }
 
-    // Icon-Status synchronisieren bei Audio-Events
+    // NEU: Event Listener für Lade- und Fehlerzustände
+    radioAudio.addEventListener('waiting', () => {
+      if (radioStatus) {
+        radioStatus.textContent = lang === 'de' ? 'Lädt...' : 'Loading...';
+        radioStatus.classList.remove('hidden');
+      }
+    });
+
+    radioAudio.addEventListener('playing', () => {
+      if (radioStatus) radioStatus.classList.add('hidden'); // Verstecken, wenn die Wiedergabe beginnt
+    });
+
+    radioAudio.addEventListener('error', () => {
+      if (radioStatus) {
+        radioStatus.textContent = lang === 'de' ? 'Fehler beim Laden.' : 'Error loading stream.';
+        radioStatus.classList.remove('hidden');
+        // Optional: Status für eine kurze Zeit anzeigen und dann wieder verstecken
+        setTimeout(() => {
+          if (radioStatus) radioStatus.classList.add('hidden');
+        }, 5000);
+      }
+      stopRadioTimer();
+      showRadioPlay(); // Zurück zum Play-Button
+    });
+
     radioAudio.addEventListener('play', () => {
       showRadioPauseStop();
       if (streamStartTimestamp === null) streamStartTimestamp = Date.now();
@@ -259,21 +277,20 @@
 
     radioAudio.addEventListener('pause', () => {
       if (!radioAudio.src || radioAudio.currentTime === 0) {
-        showRadioPlay(); // If completely stopped or no source
+        showRadioPlay();
         stopRadioTimer();
       } else {
-        showRadioPlayStop(); // If just paused
+        showRadioPlayStop();
         if (streamStartTimestamp !== null) pausedAt = Date.now();
-        stopRadioTimer(false); // Do not reset timer, just pause updates
+        stopRadioTimer(false);
       }
     });
 
     radioAudio.addEventListener('ended', () => {
       stopRadioTimer();
-      showRadioPlay(); // Reset to play button state
+      showRadioPlay();
     });
 
-    // --- Buttons exakt an Select-Höhe anpassen ---
     function setRadioBtnSize() {
       const select = document.getElementById('radio-station');
       if (!select) return;
@@ -283,29 +300,25 @@
       let height = rect.height;
 
       if (height < 10) height = parseFloat(computed.height);
-      height = Math.max(44, Math.min(height, 100)); // Ensure sensible height
+      height = Math.max(44, Math.min(height, 100));
       document.documentElement.style.setProperty('--radio-btn-size', `${height}px`);
     }
 
-    // Call size adjustment on load, resize, and after a slight delay for rendering
     window.addEventListener('DOMContentLoaded', setRadioBtnSize);
     window.addEventListener('resize', setRadioBtnSize);
     setTimeout(setRadioBtnSize, 100);
 
-    // Performance-Optimierung: Mousemove-Handler throttlen
     const section = document.querySelector('section');
     if (section) {
       let animFrame = null;
       section.addEventListener('mousemove', e => {
         if (animFrame) return;
         animFrame = requestAnimationFrame(() => {
-          // You can perform DOM manipulations here based on the mouse event
           animFrame = null;
         });
       });
     }
 
-    // Deployment-Optimierung: Service Worker für Offline-Support (optional)
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('service-worker.js').catch((error) => {
@@ -314,14 +327,13 @@
       });
     }
 
-    // Space-Taste steuert Play/Pause (außer bei Fokus auf Input/Select)
     document.addEventListener('keydown', function(e) {
       if (e.code === 'Space' || e.key === ' ') {
         const active = document.activeElement;
         if (active && (active.tagName === 'INPUT' || active.tagName === 'SELECT' || active.isContentEditable)) {
           return;
         }
-        e.preventDefault(); // Prevent default space bar behavior (e.g., scrolling)
+        e.preventDefault();
 
         if (radioAudio.paused) {
           if (radioToggle) radioToggle.click();
@@ -339,19 +351,20 @@
     if (menuToggle && mainMenu) {
       menuToggle.onclick = function() {
         menuOpen = !menuOpen;
-        mainMenu.style.display = menuOpen ? 'block' : 'none';
+        mainMenu.classList.toggle('active', menuOpen); // Use class for visibility
         menuToggle.setAttribute('aria-expanded', menuOpen.toString());
+        menuToggle.classList.toggle('open', menuOpen); // For hamburger animation
       };
 
       document.addEventListener('click', function(e) {
-        if (menuOpen && !mainMenu.contains(e.target) && e.target !== menuToggle) {
-          mainMenu.style.display = 'none';
+        if (menuOpen && !mainMenu.contains(e.target) && e.target !== menuToggle && !menuToggle.contains(e.target)) {
+          mainMenu.classList.remove('active');
           menuToggle.setAttribute('aria-expanded', 'false');
+          menuToggle.classList.remove('open');
           menuOpen = false;
         }
       });
 
-      // Tastatursteuerung für Menü
       menuToggle.addEventListener('keydown', function(e) {
         if ((e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') && !menuOpen) {
           e.preventDefault();
@@ -380,7 +393,6 @@
       });
     }
 
-    // Call initRadioUI after all functions are defined
     document.addEventListener('DOMContentLoaded', initRadioUI);
   </script>
   <script>
