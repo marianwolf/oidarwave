@@ -16,38 +16,27 @@
   --text-light: #232a34;
   --muted: #b3b3b3;
   --muted-light: #555;
-
-  /* Shadows */
   --shadow-base: 0 0 32px 0 var(--primary), 0 0 0 2px var(--primary);
   --shadow-hover: 0 0 64px 0 var(--primary), 0 0 0 3px var(--primary);
-
-  /* Spacing */
+  --spacing-xs: 4px;
   --spacing-sm: 8px;
   --spacing-md: 20px;
   --spacing-lg: 32px;
-
-  /* Border Radii */
+  --spacing-xl: 48px;
   --border-radius-sm: 12px;
   --border-radius-md: 20px;
   --border-radius-lg: 32px; /* For header */
-
-  /* Transitions */
   --transition-speed-fast: 0.15s;
   --transition-speed-normal: 0.2s;
   --transition-speed-slow: 0.4s;
-  --transition-easing-bounce: cubic-bezier(.4,1.4,.6,1); /* For bouncy animations */
+  --transition-easing-bounce: cubic-bezier(.4,1.4,.6,1);
   --transition-easing-smooth: ease-in-out;
-
-  /* Fonts */
   --font-family-primary: "Varela Round", sans-serif;
   --font-size-base: 1.05rem;
   --font-size-large: 1.18rem;
-
-  /* Player specific */
   --radio-btn-size: 60px;
 }
 
-/* --- Global Resets & Base Styles --- */
 *, *::before, *::after {
   box-sizing: border-box; /* Ensures consistent box model across all elements */
 }
@@ -68,7 +57,30 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* --- Header --- */
+/* --- Animation Keyframes --- */
+@keyframes section-fade-in {
+  0% { opacity: 0; transform: translateY(40px) scale(0.98); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes fade-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes theme-fade {
+  0% { opacity: 0.7; backdrop-filter: blur(0px); }
+  40% { opacity: 1; backdrop-filter: blur(8px); }
+  60% { opacity: 1; backdrop-filter: blur(8px); }
+  100% { opacity: 0; backdrop-filter: blur(0px); }
+}
+
+@keyframes modal-fade-in {
+  0% { opacity: 0; transform: scale(0.92) translateY(40px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* --- Header & Navigation --- */
 header {
   background: var(--background);
   color: var(--primary);
@@ -82,6 +94,10 @@ header {
   justify-content: flex-start;
   gap: var(--spacing-lg);
   transition: box-shadow var(--transition-speed-normal), background var(--transition-speed-slow), color var(--transition-speed-slow);
+  animation: section-fade-in 0.8s var(--transition-easing-bounce) both; /* Apply animation */
+  opacity: 0; /* Hidden before animation */
+  animation-fill-mode: forwards;
+  animation-delay: 0s; /* Start header animation immediately */
 }
 
 header:hover {
@@ -105,19 +121,20 @@ header h1 {
   letter-spacing: 2px;
   margin: 0;
   font-weight: 800;
+  animation: fade-in 1.1s var(--transition-easing-bounce); /* Apply animation */
 }
 
 /* --- Main Content Area --- */
 main {
-  margin: 48px auto 0 auto;
+  margin: var(--spacing-xl) auto 0 auto;
   max-width: 600px;
   width: 92%;
 }
 
-/* --- Section Styling --- */
+/* --- Section Styling & Animation --- */
 section {
   background: var(--section-bg);
-  padding: clamp(36px, 6vw, 60px) clamp(15px, 10vw, 60px); /* Simplified padding, combines vertical and horizontal */
+  padding: clamp(36px, 6vw, 60px) clamp(15px, 10vw, 60px); /* Simplified padding */
   border-radius: var(--border-radius-md);
   box-shadow: var(--shadow-base);
   margin-bottom: 28px;
@@ -127,11 +144,23 @@ section {
   display: flex;
   flex-direction: column;
   max-width: 1800px; /* This seems very wide for a section inside a 600px main */
+  animation: section-fade-in 0.8s var(--transition-easing-bounce) both; /* Apply animation */
+  opacity: 0; /* Hidden before animation */
+  animation-fill-mode: forwards;
 }
 
 section:hover {
   box-shadow: var(--shadow-hover);
 }
+
+/* Staggered animation delays for sections */
+section:nth-of-type(1) { animation-delay: 0.05s; }
+section:nth-of-type(2) { animation-delay: 0.15s; }
+section:nth-of-type(3) { animation-delay: 0.25s; }
+section:nth-of-type(4) { animation-delay: 0.35s; }
+section:nth-of-type(5) { animation-delay: 0.45s; }
+section:nth-of-type(6) { animation-delay: 0.55s; }
+section:nth-of-type(7) { animation-delay: 0.65s; }
 
 section h2 {
   color: var(--primary);
@@ -140,6 +169,7 @@ section h2 {
   font-size: 1.6rem;
   font-weight: 700;
   letter-spacing: 1px;
+  animation: fade-in 1.1s var(--transition-easing-bounce); /* Apply animation */
 }
 
 /* --- Interactive Elements (Links, Buttons, Form Controls) --- */
@@ -169,7 +199,7 @@ textarea:focus-visible,
 
 /* Common button/link styling (CTA, main navigation, language toggle) */
 .cta-btn,
-button:not(.icon-btn), /* Exclude icon buttons from this style */
+button:not(.icon-btn):not(#theme-toggle), /* Exclude icon buttons and theme toggle from this specific style */
 input[type="submit"],
 .flyout-nav > li > a,
 #lang-toggle {
@@ -186,7 +216,7 @@ input[type="submit"],
 }
 
 .cta-btn:hover,
-button:not(.icon-btn):hover,
+button:not(.icon-btn):not(#theme-toggle):hover,
 input[type="submit"]:hover,
 .flyout-nav > li > a:hover,
 #lang-toggle:hover {
@@ -197,7 +227,7 @@ input[type="submit"]:hover,
 }
 
 .cta-btn:active,
-button:not(.icon-btn):active,
+button:not(.icon-btn):not(#theme-toggle):active,
 input[type="submit"]:active,
 .flyout-nav > li > a:active,
 #lang-toggle:active {
@@ -218,15 +248,51 @@ a:hover {
   color: var(--primary-light);
 }
 
+/* Footer Links Animation */
+footer a {
+  position: relative;
+  transition: color var(--transition-speed-normal);
+}
+footer a::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -2px;
+  height: 2px;
+  background: var(--primary);
+  border-radius: 2px;
+  transform: scaleX(0);
+  transition: transform 0.25s var(--transition-easing-bounce);
+}
+footer a:hover::after, footer a:focus::after {
+  transform: scaleX(1);
+}
+
 /* --- Footer --- */
 footer {
-  margin-top: 48px;
+  margin-top: var(--spacing-xl);
   text-align: center;
   color: var(--muted);
   font-size: var(--font-size-base);
   padding-bottom: 28px;
   letter-spacing: 1px;
   background: var(--background);
+}
+
+/* --- Theme-Toggle-Button Animation --- */
+#theme-toggle {
+  transition: background var(--transition-speed-normal), box-shadow var(--transition-speed-normal), transform var(--transition-speed-normal);
+}
+#theme-toggle:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+#theme-toggle:hover {
+  box-shadow: 0 8px 32px 0 var(--primary-light), 0 2px 16px 0 rgba(0,0,0,0.25);
+  transform: scale(1.07);
+}
+#theme-toggle:active {
+  transform: scale(0.96);
+  background: linear-gradient(135deg, var(--primary-light) 60%, var(--primary) 100%);
 }
 
 /* --- WebRadio Player --- */
@@ -335,11 +401,35 @@ footer {
   display: inline-flex; /* Use inline-flex for button display */
 }
 
-/* --- Flyout Navigation --- */
-.flyout-nav,
-.flyout-nav li ul {
+#webradio-player .controls {
   display: flex;
-  flex-direction: row; /* Default for .flyout-nav, override for ul */
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-md);
+  align-items: center;
+  flex-wrap: wrap; /* Allow controls to wrap */
+  justify-content: center;
+}
+
+#webradio-player .playback-status {
+  font-size: var(--font-size-base);
+  color: var(--muted);
+  text-align: center;
+  width: 100%;
+  margin-top: var(--spacing-sm);
+}
+
+.player-control-btn {
+  border: 1px solid rgba(var(--primary), 0.5); /* Example: subtle border */
+}
+
+.player-control-btn:active {
+  border-color: var(--primary-dark);
+}
+
+/* --- Flyout Navigation --- */
+.flyout-nav {
+  display: flex;
+  flex-direction: row;
   align-items: flex-start;
   width: 100%;
   background: none;
@@ -364,6 +454,9 @@ footer {
   border-radius: 0 0 var(--border-radius-sm) var(--border-radius-sm);
   box-shadow: 0 8px 32px 0 rgba(0,0,0,0.2); /* Adjusted shadow for clarity */
   animation: section-fade-in 0.3s forwards; /* Use `forwards` to keep final state */
+  list-style: none; /* Ensure no bullets for sub-menu */
+  padding: 0; /* Reset padding */
+  margin: 0; /* Reset margin */
 }
 
 .flyout-nav li:hover > ul,
@@ -389,6 +482,8 @@ footer {
   color: var(--text);
   font-size: var(--font-size-base);
   font-weight: normal;
+  display: block; /* Ensure the whole area is clickable */
+  width: 100%;
 }
 
 .flyout-nav li ul li a:hover,
@@ -398,12 +493,133 @@ footer {
   transform: none; /* No scaling for dropdown items */
 }
 
+/* --- Page-Specific Layouts (Optional, apply to <body> or <main>) --- */
+.page-about main {
+  max-width: 900px; /* Wider main content for about page */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-lg);
+}
+
+.page-contact main {
+  max-width: 500px; /* Single column layout for contact page */
+  margin: var(--spacing-xl) auto;
+}
+
+/* --- About Page Styles --- */
+.about-intro {
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+.team-member {
+  background: var(--section-bg);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  text-align: center;
+  box-shadow: var(--shadow-base);
+  transition: box-shadow var(--transition-speed-normal);
+}
+
+.team-member:hover {
+  box-shadow: var(--shadow-hover);
+}
+
+.team-member img {
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  margin-bottom: var(--spacing-sm);
+  border: 3px solid var(--primary);
+}
+
+.team-member h3 {
+  color: var(--primary);
+  margin-bottom: 5px;
+}
+
+.team-member p {
+  font-size: var(--font-size-base);
+  color: var(--muted);
+}
+
+/* --- Contact Page Styles --- */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  background: var(--section-bg);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-base);
+}
+
+.contact-form label {
+  font-weight: 600;
+  margin-bottom: var(--spacing-xs);
+  display: block;
+  color: var(--text);
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--muted);
+  border-radius: var(--border-radius-sm);
+  background: var(--background);
+  color: var(--text);
+  font-size: var(--font-size-base);
+  transition: border-color var(--transition-speed-normal), box-shadow var(--transition-speed-normal);
+}
+
+.contact-form input[type="text"]:focus,
+.contact-form input[type="email"]:focus,
+.contact-form textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(var(--primary), 0.5); /* Lighter primary shadow for input focus */
+}
+
+.contact-form textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.contact-form button[type="submit"] {
+  align-self: flex-end; /* Pushes the submit button to the right */
+  margin-top: var(--spacing-sm);
+}
+
+.contact-info {
+  margin-top: var(--spacing-lg);
+  text-align: center;
+  color: var(--muted);
+}
+
+.contact-info p {
+  margin-bottom: var(--spacing-sm);
+}
+
+/* --- Modal Dialog Animation --- */
+dialog[open] {
+  animation: modal-fade-in 0.5s var(--transition-easing-bounce);
+}
+
 /* --- Media Queries for Responsiveness --- */
 @media (max-width: 700px) {
   main {
     max-width: 98vw;
     width: 99vw;
-    margin: 24px auto 0 auto;
+    margin: var(--spacing-md) auto 0 auto;
   }
   section {
     padding: clamp(20px, 5vw, 40px) clamp(15px, 8vw, 30px); /* Adjusted padding for smaller screens */
@@ -444,6 +660,15 @@ footer {
     box-shadow: none; /* Remove shadow when stacked */
     border-radius: var(--border-radius-sm);
     margin-top: var(--spacing-sm); /* Space out dropdown from parent */
+  }
+
+  /* Page-specific adjustments for smaller screens */
+  .page-about main {
+    grid-template-columns: 1fr; /* Stack about page sections on small screens */
+  }
+
+  .team-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   }
 }
 
