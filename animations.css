@@ -21,32 +21,14 @@
   100% { opacity: 1; transform: scale(1) translateY(0); }
 }
 
-/* --- Theme-Toggle-Button Styling & Animation --- */
-#theme-toggle {
-  transition: background 0.3s, box-shadow 0.3s, transform 0.3s; /* Add transform to transition */
-}
-
-#theme-toggle:focus-visible {
-  outline: 2px solid var(--primary);
-  outline-offset: 2px; /* Improves visibility */
-}
-
-#theme-toggle:hover {
-  box-shadow: 0 8px 32px 0 var(--primary-light), 0 2px 16px 0 rgba(0,0,0,0.25);
-  transform: scale(1.07);
-}
-
-#theme-toggle:active {
-  transform: scale(0.96);
-  background: linear-gradient(135deg, var(--primary-light) 60%, var(--primary) 100%);
-}
-
 /* --- Page Section Animations --- */
 header,
 section {
-  animation: section-fade-in 0.8s cubic-bezier(.4,1.4,.6,1) both;
-  opacity: 0; /* Ensures element is hidden before animation starts */
-  animation-fill-mode: forwards;
+  animation: section-fade-in 0.8s cubic-bezier(.4,1.4,.6,1); /* Removed `both` to prevent initial hidden state */
+  /* If you want them to appear from 'hidden' initially but without CLS, */
+  /* you need a more advanced technique that reserves space before animation. */
+  /* For example, by having a placeholder element or using JavaScript to apply the animation class */
+  /* after the layout has settled. */
 }
 
 /* Individual delays for sections for staggered effect */
@@ -65,11 +47,6 @@ h1, h2 {
 }
 
 /* --- Footer Links Animation --- */
-footer a {
-  position: relative;
-  transition: color 0.2s; /* Transition for text color */
-}
-
 footer a::after {
   content: '';
   position: absolute;
@@ -88,6 +65,11 @@ footer a:focus::after {
   transform: scaleX(1);
 }
 
+/* --- Flyout Navigation Animation --- */
+.flyout-nav li ul {
+  animation: section-fade-in 0.3s forwards; /* Animation for dropdown appearance */
+}
+
 /* --- Modal Dialog Animation --- */
 dialog[open] {
   animation: modal-fade-in 0.5s cubic-bezier(.4,1.4,.6,1);
@@ -95,6 +77,8 @@ dialog[open] {
 
 /* --- Accessibility: Reduce Motion --- */
 @media (prefers-reduced-motion: reduce) {
+  /* This media query should override animation properties for users who prefer less motion. */
+  /* Set `opacity: 1 !important` for elements that might start hidden by animations. */
   header,
   section,
   h1,
@@ -105,8 +89,15 @@ dialog[open] {
     opacity: 1 !important; /* Make sure content is visible */
   }
 
+  /* Disable transitions for reduced motion preference */
   #theme-toggle,
-  footer a::after {
+  footer a, /* Need to target the link itself for color transition */
+  footer a::after,
+  a, button, input[type="submit"], #lang-toggle, .cta-btn, .flyout-nav > li > a,
+  header, section,
+  #webradio-player select, #radio-station,
+  .contact-form input[type="text"], .contact-form input[type="email"], .contact-form textarea,
+  .team-member {
     transition: none !important;
   }
 }
