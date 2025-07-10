@@ -1,3 +1,8 @@
+/* Import Google Font (e.g., Varela Round) - Add this to your HTML <head> or your main CSS file
+   @import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+*/
+
+/* --- Variables --- */
 :root {
   --primary: #1db954;
   --primary-light: #1ed760;
@@ -11,89 +16,123 @@
   --text-light: #232a34;
   --muted: #b3b3b3;
   --muted-light: #555;
-  --shadow: 0 0 32px 0 var(--primary), 0 0 0 2px var(--primary);
+
+  /* Shadows */
+  --shadow-base: 0 0 32px 0 var(--primary), 0 0 0 2px var(--primary);
   --shadow-hover: 0 0 64px 0 var(--primary), 0 0 0 3px var(--primary);
-  --font: sans-serif;
-  --font-size: 1.05rem;
+
+  /* Spacing */
+  --spacing-sm: 8px;
+  --spacing-md: 20px;
+  --spacing-lg: 32px;
+
+  /* Border Radii */
+  --border-radius-sm: 12px;
+  --border-radius-md: 20px;
+  --border-radius-lg: 32px; /* For header */
+
+  /* Transitions */
+  --transition-speed-fast: 0.15s;
+  --transition-speed-normal: 0.2s;
+  --transition-speed-slow: 0.4s;
+  --transition-easing-bounce: cubic-bezier(.4,1.4,.6,1); /* For bouncy animations */
+  --transition-easing-smooth: ease-in-out;
+
+  /* Fonts */
+  --font-family-primary: "Varela Round", sans-serif;
+  --font-size-base: 1.05rem;
   --font-size-large: 1.18rem;
+
+  /* Player specific */
+  --radio-btn-size: 60px;
 }
-.varela-round-regular {
-  font-family: "Varela Round", sans-serif;
-  font-weight: 400;
-  font-style: normal;
+
+/* --- Global Resets & Base Styles --- */
+*, *::before, *::after {
+  box-sizing: border-box; /* Ensures consistent box model across all elements */
 }
+
 html {
   scroll-behavior: smooth;
 }
+
 body {
-  font-family: var(--font);
+  font-family: var(--font-family-primary);
   background: var(--background);
   color: var(--text);
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  transition: background 0.4s, color 0.4s;
+  transition: background var(--transition-speed-slow), color var(--transition-speed-slow);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* --- Header --- */
 header {
   background: var(--background);
   color: var(--primary);
-  padding: 36px 0 28px 0;
+  padding: var(--spacing-lg) 0 var(--spacing-md) 0;
   text-align: center;
-  border-radius: 0 0 32px 32px;
-  box-shadow: 0 0 32px 0 var(--primary), 0 2px var(--primary);
+  border-radius: 0 0 var(--border-radius-lg) var(--border-radius-lg);
+  box-shadow: var(--shadow-base);
   letter-spacing: 2px;
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  gap: 32px;
+  gap: var(--spacing-lg);
+  transition: box-shadow var(--transition-speed-normal), background var(--transition-speed-slow), color var(--transition-speed-slow);
 }
+
+header:hover {
+  box-shadow: var(--shadow-hover);
+}
+
 header > div {
   flex: 1 1 auto;
 }
+
 header nav {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  gap: 30px;
-  margin-right: 10px;
+  gap: var(--spacing-md);
+  margin-right: 10px; /* Specific margin for nav positioning */
 }
+
 header h1 {
   font-size: 2.6rem;
   letter-spacing: 2px;
   margin: 0;
   font-weight: 800;
 }
+
+/* --- Main Content Area --- */
 main {
   margin: 48px auto 0 auto;
   max-width: 600px;
   width: 92%;
 }
+
+/* --- Section Styling --- */
 section {
   background: var(--section-bg);
-  --pad-top: clamp(36px, 15px, 20px);
-  --pad-right: clamp(15px, 60px, 60px);
-  --pad-bottom: clamp(18px, 7.5px, 10px);
-  --pad-left: clamp(15px, 60px, 60px);
-  padding: var(--pad-top) var(--pad-right) var(--pad-bottom) var(--pad-left);
-  border-radius: 20px;
-  box-shadow: var(--shadow);
+  padding: clamp(36px, 6vw, 60px) clamp(15px, 10vw, 60px); /* Simplified padding, combines vertical and horizontal */
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-base);
   margin-bottom: 28px;
   color: var(--text);
-  transition: box-shadow 0.2s, background 0.4s, color 0.4s;
-  will-change: box-shadow, background, color;
+  transition: box-shadow var(--transition-speed-normal), background var(--transition-speed-slow), color var(--transition-speed-slow);
+  will-change: box-shadow, background, color; /* Hints for browser optimization */
   display: flex;
   flex-direction: column;
-  max-width: 1800px;
+  max-width: 1800px; /* This seems very wide for a section inside a 600px main */
 }
+
 section:hover {
   box-shadow: var(--shadow-hover);
 }
-header:hover {
-  box-shadow: var(--shadow-hover);
-  transition: box-shadow 0.2s, background 0.4s, color 0.4s;
-}
+
 section h2 {
   color: var(--primary);
   margin-top: 0;
@@ -102,56 +141,122 @@ section h2 {
   font-weight: 700;
   letter-spacing: 1px;
 }
-a {
-  color: var(--primary);
-  text-decoration: underline;
-  transition: color 0.2s;
-  font-weight: 500;
+
+/* --- Interactive Elements (Links, Buttons, Form Controls) --- */
+/* Base styles for all interactive elements to ensure minimum touch targets and consistent focus */
+a, button, input[type="submit"], #lang-toggle, .cta-btn, .flyout-nav > li > a {
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex; /* Use flex for centering if needed, and to respect min-width/height */
+  align-items: center;
+  justify-content: center;
+  text-align: center; /* Default for buttons/inputs */
+  outline: none; /* Handled by :focus-visible */
+  transition: background var(--transition-speed-normal), color var(--transition-speed-normal), box-shadow var(--transition-speed-normal), transform var(--transition-speed-fast);
+  cursor: pointer;
 }
-a:focus, button:focus, input:focus, select:focus, textarea:focus {
+
+/* Focus styles for accessibility */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+#theme-toggle:focus-visible {
   outline: 2px solid var(--primary);
   outline-offset: 2px;
 }
+
+/* Common button/link styling (CTA, main navigation, language toggle) */
+.cta-btn,
+button:not(.icon-btn), /* Exclude icon buttons from this style */
+input[type="submit"],
+.flyout-nav > li > a,
+#lang-toggle {
+  background: linear-gradient(135deg, var(--primary) 60%, var(--primary-light) 100%);
+  color: var(--text);
+  border: none;
+  border-radius: var(--border-radius-sm);
+  padding: 12px 28px;
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  box-shadow: none;
+  margin: 0; /* Override any default margins */
+  text-align: center; /* Ensure text is centered */
+}
+
+.cta-btn:hover,
+button:not(.icon-btn):hover,
+input[type="submit"]:hover,
+.flyout-nav > li > a:hover,
+#lang-toggle:hover {
+  background: linear-gradient(135deg, var(--primary-light) 60%, var(--primary) 100%);
+  color: var(--text);
+  box-shadow: none;
+  transform: scale(1.04);
+}
+
+.cta-btn:active,
+button:not(.icon-btn):active,
+input[type="submit"]:active,
+.flyout-nav > li > a:active,
+#lang-toggle:active {
+  transform: scale(0.97);
+}
+
+/* Specific link styling */
+a {
+  color: var(--primary);
+  text-decoration: underline;
+  font-weight: 500;
+  padding: 0; /* Remove button padding */
+  min-width: unset; /* Remove min-width/height for regular links */
+  min-height: unset;
+}
+
 a:hover {
   color: var(--primary-light);
 }
+
+/* --- Footer --- */
 footer {
   margin-top: 48px;
   text-align: center;
   color: var(--muted);
-  font-size: var(--font-size);
+  font-size: var(--font-size-base);
   padding-bottom: 28px;
   letter-spacing: 1px;
   background: var(--background);
 }
+
+/* --- WebRadio Player --- */
 #webradio-player {
-  font-family: var(--font);
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 32px;
+  gap: var(--spacing-lg);
   width: 100%;
   max-width: 100%;
   margin: 0;
 }
+
 #webradio-player label,
 .radio-label {
   font-weight: 600;
   margin-right: 6px;
 }
+
 #webradio-player select,
-#radio-station {
-  font-family: var(--font);
+#radio-station { /* Combine styles for both, if they are the same */
   background: linear-gradient(90deg, var(--primary) 50%, var(--background) 100%);
   color: var(--text);
   border: none;
-  border-radius: 14px;
-  padding: 14px 28px; /* Größer für bessere Klickfläche */
+  border-radius: var(--border-radius-sm);
+  padding: 14px 28px;
   font-size: var(--font-size-large);
   font-weight: 600;
   box-shadow: none;
-  outline: none;
-  appearance: none;
+  appearance: none; /* Hide default select arrow */
   -webkit-appearance: none;
   -moz-appearance: none;
   min-width: 260px;
@@ -159,39 +264,28 @@ footer {
   width: 100%;
   box-sizing: border-box;
 }
-@media (max-width: 600px) {
-  #webradio-player select,
-  #radio-station {
-    font-family: var(--font);
-    min-width: 100px;
-    max-width: 100%;
-    font-family: var(--font);
-    padding: 12px 14px;
-    box-shadow: var(--shadow);
-  }
-}
+
 #webradio-player select:focus,
 #webradio-player select:active {
-  font-family: var(--font);
   box-shadow: var(--shadow-hover);
   background: linear-gradient(90deg, var(--primary-dark) 50%, var(--background) 100%);
   color: var(--text);
 }
+
 #webradio-player select option {
-  font-family: var(--font);
   color: var(--text);
   background: var(--background);
   font-size: 1.08rem;
 }
+
 #webradio-player select option:checked {
-  font-family: var(--font);
   background: var(--primary-dark);
   color: var(--background);
 }
+
 #webradio-player button.icon-btn {
-  font-family: var(--font);
-  width: var(--radio-btn-size, 60px);
-  height: var(--radio-btn-size, 60px);
+  width: var(--radio-btn-size);
+  height: var(--radio-btn-size);
   min-width: 44px;
   min-height: 44px;
   padding: 0;
@@ -202,39 +296,109 @@ footer {
   aspect-ratio: 1/1;
   background: none;
   box-shadow: none;
-  transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
   border: none;
-  cursor: pointer;
+  /* Transitions are handled by the common .interactive-element */
 }
+
 #webradio-player button.icon-btn svg {
   width: 44px;
   height: 44px;
   display: block;
 }
+
 #webradio-player button.icon-btn:focus-visible {
-  box-shadow: none;
+  box-shadow: none; /* Override common focus for specific icon button look */
 }
+
 #webradio-player button.icon-btn:hover {
   background: none;
   box-shadow: none;
   transform: scale(1.06);
 }
+
 #webradio-player span#radio-time {
   color: var(--muted);
   min-width: 60px;
   display: inline-block;
-  font-size: var(--font-size);
+  font-size: var(--font-size-base);
   margin: 0;
   text-align: left;
 }
+
 #radio-pause,
 #radio-stop {
   display: none;
 }
+
 #radio-pause.active,
 #radio-stop.active {
-  display: inline-flex;
+  display: inline-flex; /* Use inline-flex for button display */
 }
+
+/* --- Flyout Navigation --- */
+.flyout-nav,
+.flyout-nav li ul {
+  display: flex;
+  flex-direction: row; /* Default for .flyout-nav, override for ul */
+  align-items: flex-start;
+  width: 100%;
+  background: none;
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
+  list-style: none; /* Remove default list bullets */
+}
+
+.flyout-nav li {
+  position: relative; /* For dropdown positioning */
+}
+
+.flyout-nav li ul {
+  display: none; /* Hidden by default */
+  position: absolute;
+  flex-direction: column; /* Vertical for dropdown */
+  left: 0;
+  top: 100%;
+  min-width: 210px;
+  background: var(--section-bg);
+  border-radius: 0 0 var(--border-radius-sm) var(--border-radius-sm);
+  box-shadow: 0 8px 32px 0 rgba(0,0,0,0.2); /* Adjusted shadow for clarity */
+  animation: section-fade-in 0.3s forwards; /* Use `forwards` to keep final state */
+}
+
+.flyout-nav li:hover > ul,
+.flyout-nav li:focus-within > ul {
+  display: flex; /* Show as flex column */
+}
+
+.flyout-nav > li,
+#lang-toggle {
+  flex: 1 1 0;
+  min-width: 120px;
+  max-width: 220px;
+  margin-right: var(--spacing-md); /* Spacing between top-level items */
+  margin-bottom: 10px; /* Specific margin for overall layout */
+}
+
+/* Specific styling for dropdown items */
+.flyout-nav li ul li a {
+  padding: 10px 22px; /* Adjust padding for dropdown items */
+  text-align: left;
+  border-radius: 0; /* No radius for internal items */
+  background: none; /* No gradient background */
+  color: var(--text);
+  font-size: var(--font-size-base);
+  font-weight: normal;
+}
+
+.flyout-nav li ul li a:hover,
+.flyout-nav li ul li a:focus-visible {
+  background: var(--primary-dark); /* Highlight on hover/focus */
+  color: var(--text);
+  transform: none; /* No scaling for dropdown items */
+}
+
+/* --- Media Queries for Responsiveness --- */
 @media (max-width: 700px) {
   main {
     max-width: 98vw;
@@ -242,125 +406,55 @@ footer {
     margin: 24px auto 0 auto;
   }
   section {
-    padding: var(--pad-top) var(--pad-right) var(--pad-bottom) var(--pad-left);
-    border-radius: 12px;
+    padding: clamp(20px, 5vw, 40px) clamp(15px, 8vw, 30px); /* Adjusted padding for smaller screens */
+    border-radius: var(--border-radius-sm);
     max-width: 98vw;
   }
   header h1 {
     font-size: 2rem;
   }
   header {
-    gap: 12px; /* Auf kleineren Screens enger zusammen */
+    gap: var(--spacing-sm); /* Tighter gap on smaller screens */
+    padding: var(--spacing-md) 0 var(--spacing-sm) 0; /* Adjust header padding */
   }
   header nav {
-    gap: 8px;
+    gap: var(--spacing-sm);
+    margin-right: 5px; /* Adjust margin */
+  }
+
+  #webradio-player select,
+  #radio-station {
+    min-width: 100px;
+    max-width: 100%;
+    padding: 12px 14px;
+    box-shadow: var(--shadow-base); /* Apply shadow for mobile to match sections */
+  }
+
+  .flyout-nav > li,
+  #lang-toggle {
+    min-width: unset; /* Allow natural sizing */
+    max-width: 100%; /* Take full width if needed */
+    flex: 1 1 auto; /* Distribute space evenly */
+    margin-right: 0; /* Remove right margin in mobile nav */
+    margin-bottom: var(--spacing-sm); /* Add bottom margin for stacking */
+  }
+
+  .flyout-nav li ul {
+    position: static; /* Stack dropdown items statically on mobile */
+    box-shadow: none; /* Remove shadow when stacked */
+    border-radius: var(--border-radius-sm);
+    margin-top: var(--spacing-sm); /* Space out dropdown from parent */
   }
 }
-.flyout-nav, .flyout-nav li ul {
-  font-family: var(--font);
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  width: 100%;
-  background: none;
-  box-shadow: none;
-  margin: 0;
-  padding: 0;
-}
-.flyout-nav li ul {
-  font-family: var(--font);
-  display: none;
-  position: absolute;
-  left: 0;
-  top: 100%;
-  min-width: 210px;
-  background: var(--section-bg);
-  border-radius: 0 0 14px 14px;
-  box-shadow: 0 8px 32px 0 #0003;
-  animation: section-fade-in 0.3s;
-}
-.flyout-nav li:hover > ul,
-.flyout-nav li:focus-within > ul {
-  display: block;
-}
-.flyout-nav > li,
-#lang-toggle {
-  font-family: var(--font);
-  flex: 1 1 0;
-  min-width: 120px;
-  max-width: 220px;
-}
-.flyout-nav > li > a,
-#lang-toggle {
-  font-family: var(--font);
-  display: block;
-  width: 100%;
-  font-size: 1.1rem;
-  padding: 12px 22px;
-  background: linear-gradient(135deg, var(--primary) 60%, var(--primary-light) 100%);
-  color: var(--text);
-  border: none;
-  border-radius: 12px;
-  font-weight: 700;
-  box-shadow: 0 2px 8px #0001;
-  cursor: pointer;
-  margin-bottom: 10px;
-  outline: none;
-  text-align: left;
-  margin-right: 10px;
-}
-button, a {
-  min-height: 44px;
-  min-width: 44px;
-}
-.cta-btn,
-button,
-input[type="submit"],
-.flyout-nav > li > a,
-#lang-toggle {
-  font-family: var(--font);
-  background: linear-gradient(135deg, var(--primary) 60%, var(--primary-light) 100%);
-  color: var(--text);
-  border: none;
-  border-radius: 12px;
-  padding: 12px 28px;
-  font-size: 1.1rem;
-  font-weight: 700;
-  box-shadow: none;
-  cursor: pointer;
-  outline: none;
-  text-align: left;
-  min-height: 44px;
-  min-width: 44px;
-  display: inline-block;
-  margin: 0; /* KEIN margin-right/bottom hier! */
-  transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.15s;
-}
-.cta-btn:hover,
-button:hover,
-input[type="submit"]:hover,
-.flyout-nav > li > a:hover,
-#lang-toggle:hover {
-  font-family: var(--font);
-  background: linear-gradient(135deg, var(--primary-light) 60%, var(--primary) 100%);
-  color: var(--text);
-  box-shadow: none;
-  transform: scale(1.04);
-}
-.cta-btn:active,
-button:active,
-input[type="submit"]:active,
-.flyout-nav > li > a:active,
-#lang-toggle:active {
-  font-family: var(--font);
-  transform: scale(0.97);
-}
 
-header nav,
-.flyout-nav {
-  font-family: var(--font);
-  flex-wrap: wrap;
-  display: flex;
-  gap: 20px; /* z.B. 20px Abstand zwischen Buttons/Links */
-  align-items: flex-start;
+/* --- Accessibility: Reduce Motion --- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important; /* Ensure no residual transforms */
+  }
+  body, header, section, h1, h2, dialog[open] {
+    opacity: 1 !important; /* Make sure content is visible */
+  }
 }
