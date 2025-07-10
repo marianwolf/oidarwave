@@ -13,7 +13,7 @@
   --muted-light: #555;
   --shadow: 0 0 32px 0 var(--primary), 0 0 0 2px var(--primary);
   --shadow-hover: 0 0 64px 0 var(--primary), 0 0 0 3px var(--primary);
-  --font: "Varela Round", sans-serif;
+  --font: sans-serif;
   --font-size: 1.05rem;
   --font-size-large: 1.18rem;
 }
