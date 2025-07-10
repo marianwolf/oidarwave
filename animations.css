@@ -1,11 +1,14 @@
+/* --- Keyframe Animations --- */
 @keyframes section-fade-in {
   0% { opacity: 0; transform: translateY(40px) scale(0.98); }
   100% { opacity: 1; transform: translateY(0) scale(1); }
 }
+
 @keyframes fade-in {
   0% { opacity: 0; }
   100% { opacity: 1; }
 }
+
 @keyframes theme-fade {
   0% { opacity: 0.7; backdrop-filter: blur(0px); }
   40% { opacity: 1; backdrop-filter: blur(8px); }
@@ -13,40 +16,41 @@
   100% { opacity: 0; backdrop-filter: blur(0px); }
 }
 
-/* Theme-Toggle-Button Animation */
-#theme-toggle {
-  transition: background 0.3s, box-shadow 0.3s;
+@keyframes modal-fade-in {
+  0% { opacity: 0; transform: scale(0.92) translateY(40px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
 }
+
+/* --- Theme-Toggle-Button Styling & Animation --- */
+#theme-toggle {
+  transition: background 0.3s, box-shadow 0.3s, transform 0.3s; /* Add transform to transition */
+}
+
 #theme-toggle:focus-visible {
   outline: 2px solid var(--primary);
+  outline-offset: 2px; /* Improves visibility */
 }
+
 #theme-toggle:hover {
   box-shadow: 0 8px 32px 0 var(--primary-light), 0 2px 16px 0 rgba(0,0,0,0.25);
   transform: scale(1.07);
 }
+
 #theme-toggle:active {
   transform: scale(0.96);
   background: linear-gradient(135deg, var(--primary-light) 60%, var(--primary) 100%);
 }
 
-header {
-  animation: section-fade-in 0.8s cubic-bezier(.4,1.4,.6,1) both;
-  opacity: 0;
-  animation-fill-mode: forwards;
-}
-section:nth-of-type(1) { animation-delay: 0.05s; }
-section:nth-of-type(2) { animation-delay: 0.15s; }
-section:nth-of-type(3) { animation-delay: 0.25s; }
-section:nth-of-type(4) { animation-delay: 0.35s; }
-section:nth-of-type(5) { animation-delay: 0.45s; }
-section:nth-of-type(6) { animation-delay: 0.55s; }
-section:nth-of-type(7) { animation-delay: 0.65s; }
-
+/* --- Page Section Animations --- */
+header,
 section {
   animation: section-fade-in 0.8s cubic-bezier(.4,1.4,.6,1) both;
-  opacity: 0;
+  opacity: 0; /* Ensures element is hidden before animation starts */
   animation-fill-mode: forwards;
 }
+
+/* Individual delays for sections for staggered effect */
+header { animation-delay: 0s; } /* Start header animation immediately */
 section:nth-of-type(1) { animation-delay: 0.05s; }
 section:nth-of-type(2) { animation-delay: 0.15s; }
 section:nth-of-type(3) { animation-delay: 0.25s; }
@@ -55,33 +59,54 @@ section:nth-of-type(5) { animation-delay: 0.45s; }
 section:nth-of-type(6) { animation-delay: 0.55s; }
 section:nth-of-type(7) { animation-delay: 0.65s; }
 
+/* --- Heading Animations --- */
 h1, h2 {
-  animation: fade-in 1.1s cubic-bezier(.4,1.4,.6,1);
+  animation: fade-in 1.1s cubic-bezier(.4,1.4,.6,1); /* Longer duration for a smoother fade */
 }
-/* Footer-Links Animation */
+
+/* --- Footer Links Animation --- */
 footer a {
   position: relative;
-  transition: color 0.2s;
+  transition: color 0.2s; /* Transition for text color */
 }
+
 footer a::after {
   content: '';
   position: absolute;
-  left: 0; right: 0; bottom: -2px;
+  left: 0;
+  right: 0;
+  bottom: -2px;
   height: 2px;
   background: var(--primary);
   border-radius: 2px;
   transform: scaleX(0);
-  transition: transform 0.25s cubic-bezier(.4,1.4,.6,1);
+  transition: transform 0.25s cubic-bezier(.4,1.4,.6,1); /* Use the bouncy ease */
 }
-footer a:hover::after, footer a:focus::after {
+
+footer a:hover::after,
+footer a:focus::after {
   transform: scaleX(1);
 }
 
-/* Modal Dialog Animation */
+/* --- Modal Dialog Animation --- */
 dialog[open] {
   animation: modal-fade-in 0.5s cubic-bezier(.4,1.4,.6,1);
 }
-@keyframes modal-fade-in {
-  0% { opacity: 0; transform: scale(0.92) translateY(40px); }
-  100% { opacity: 1; transform: scale(1) translateY(0); }
+
+/* --- Accessibility: Reduce Motion --- */
+@media (prefers-reduced-motion: reduce) {
+  header,
+  section,
+  h1,
+  h2,
+  dialog[open] {
+    animation: none !important;
+    transform: none !important; /* Ensure no residual transforms */
+    opacity: 1 !important; /* Make sure content is visible */
+  }
+
+  #theme-toggle,
+  footer a::after {
+    transition: none !important;
+  }
 }
