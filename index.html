@@ -20,13 +20,8 @@
         <span class="hamburger-bar"></span>
         <span class="hamburger-bar"></span>
         <span class="hamburger-bar"></span>
-      </button>
-      <ul id="main-menu" class="flyout-nav">
-        <li><a href="index.html">Webradio</a></li>
-        <li><a href="about.html">Über / About</a></li>
-        <li><a href="contact.html">Kontakt / Contact</a></li>
-      </ul>
-    </nav>
+        <span class="hamburger-bar"></span> </button>
+      </nav>
   </header>
   <main>
     <section id="webradio">
@@ -345,20 +340,23 @@
 
     // Menü-Logik (unified with hamburger menu)
     const menuToggle = document.getElementById('menu-toggle');
-    const mainMenu = document.getElementById('main-menu');
-    let menuOpen = false;
+    const mainMenu = document.getElementById('main-menu'); // mainMenu will now be null
 
-    if (menuToggle && mainMenu) {
+    // Removed the 'if (menuToggle && mainMenu)' condition for the menu logic since mainMenu is removed
+    if (menuToggle) {
+      let menuOpen = false; // Keep menuOpen state for consistency even if menu is not shown
+
       menuToggle.onclick = function() {
         menuOpen = !menuOpen;
-        mainMenu.classList.toggle('active', menuOpen); // Use class for visibility
+        // mainMenu.classList.toggle('active', menuOpen); // This line will cause an error as mainMenu is null
         menuToggle.setAttribute('aria-expanded', menuOpen.toString());
-        menuToggle.classList.toggle('open', menuOpen); // For hamburger animation
+        menuToggle.classList.toggle('open', menuOpen);
       };
 
       document.addEventListener('click', function(e) {
-        if (menuOpen && !mainMenu.contains(e.target) && e.target !== menuToggle && !menuToggle.contains(e.target)) {
-          mainMenu.classList.remove('active');
+        // Updated click outside logic to only consider the menuToggle if mainMenu is null
+        if (menuOpen && e.target !== menuToggle && !menuToggle.contains(e.target)) {
+          // mainMenu.classList.remove('active'); // This line will cause an error
           menuToggle.setAttribute('aria-expanded', 'false');
           menuToggle.classList.remove('open');
           menuOpen = false;
@@ -369,30 +367,9 @@
         if ((e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') && !menuOpen) {
           e.preventDefault();
           menuToggle.click();
-          const firstMenuItem = mainMenu.querySelector('a');
-          if (firstMenuItem) {
-            firstMenuItem.focus();
-          }
-        }
-      });
-
-      mainMenu.addEventListener('keydown', function(e) {
-        const items = Array.from(mainMenu.querySelectorAll('a'));
-        let idx = items.indexOf(document.activeElement);
-
-        if (e.key === 'ArrowDown') {
-          e.preventDefault();
-          items[(idx + 1) % items.length].focus();
-        } else if (e.key === 'ArrowUp') {
-          e.preventDefault();
-          items[(idx - 1 + items.length) % items.length].focus();
-        } else if (e.key === 'Escape') {
-          menuToggle.click();
-          menuToggle.focus();
         }
       });
     }
-
     document.addEventListener('DOMContentLoaded', initRadioUI);
   </script>
   <script>
