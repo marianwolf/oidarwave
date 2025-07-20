@@ -27,8 +27,22 @@
       <h1 id="headline-en" style="display:none">Welcome to your new website!</h1>
     </div>
     <nav>
-      <button id="lang-toggle" aria-label="Sprache umschalten">DE/EN</button>
-      </nav>
+      <button id="menu-toggle" class="hamburger-btn" aria-label="Menü öffnen" aria-expanded="false">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
+      <div id="main-menu" class="nav-menu">
+        <a href="#webradio" id="nav-radio-de">Radio</a>
+        <a href="#webradio" id="nav-radio-en" style="display:none">Radio</a>
+        <a href="contact.html" id="nav-contact-de">Kontakt</a>
+        <a href="contact.html" id="nav-contact-en" style="display:none">Contact</a>
+        <a href="about.html" id="nav-about-de">Impressum</a>
+        <a href="about.html" id="nav-about-en" style="display:none">About</a>
+        <button id="lang-toggle" aria-label="Sprache umschalten">DE/EN</button>
+      </div>
+    </nav>
   </header>
   <main>
     <section id="webradio">
@@ -54,7 +68,8 @@
         <button id="radio-stop" aria-label="Stop" class="icon-btn"></button>
         <span id="radio-time">00:00</span>
         <audio id="radio-audio" preload="true"></audio>
-        <span id="radio-status" class="hidden"></span> </div>
+        <span id="radio-status" class="hidden"></span>
+      </div>
     </section>
   </main>
   <footer>
@@ -62,34 +77,46 @@
     <span id="footer-en" style="display:none">&copy; 2025 Your new website</span>
   </footer>
   <script>
-    // Sprachumschaltung (funktional)
+    // Sprachumschaltung
     const langToggle = document.getElementById('lang-toggle');
     let lang = 'de';
-    langToggle.addEventListener('click', () => {
-      lang = lang === 'de' ? 'en' : 'de';
+    
+    function updateLanguage() {
+      // Hauptüberschriften
       document.getElementById('headline-de').style.display = lang === 'de' ? '' : 'none';
       document.getElementById('headline-en').style.display = lang === 'en' ? '' : 'none';
+      
+      // Radio Titel
       document.getElementById('radio-title-de').style.display = lang === 'de' ? '' : 'none';
       document.getElementById('radio-title-en').style.display = lang === 'en' ? '' : 'none';
+      
+      // Radio Label
       document.getElementById('label-de').style.display = lang === 'de' ? '' : 'none';
       document.getElementById('label-en').style.display = lang === 'en' ? '' : 'none';
+      
+      // Navigation
+      document.getElementById('nav-radio-de').style.display = lang === 'de' ? '' : 'none';
+      document.getElementById('nav-radio-en').style.display = lang === 'en' ? '' : 'none';
+      document.getElementById('nav-contact-de').style.display = lang === 'de' ? '' : 'none';
+      document.getElementById('nav-contact-en').style.display = lang === 'en' ? '' : 'none';
+      document.getElementById('nav-about-de').style.display = lang === 'de' ? '' : 'none';
+      document.getElementById('nav-about-en').style.display = lang === 'en' ? '' : 'none';
+      
+      // Footer
       document.getElementById('footer-de').style.display = lang === 'de' ? '' : 'none';
       document.getElementById('footer-en').style.display = lang === 'en' ? '' : 'none';
-    });
-
-    if (langToggle) {
-      langToggle.onclick = function() {
-        lang = lang === 'de' ? 'en' : 'de';
-        document.getElementById('headline-de').style.display = lang === 'de' ? '' : 'none';
-        document.getElementById('headline-en').style.display = lang === 'en' ? '' : 'none';
-        document.getElementById('radio-title-de').style.display = lang === 'de' ? '' : 'none';
-        document.getElementById('radio-title-en').style.display = lang === 'en' ? '' : 'none';
-        document.getElementById('label-de').style.display = lang === 'de' ? '' : 'none';
-        document.getElementById('label-en').style.display = lang === 'en' ? '' : 'none';
-        document.getElementById('footer-de').style.display = lang === 'de' ? '' : 'none';
-        document.getElementById('footer-en').style.display = lang === 'en' ? '' : 'none';
-      };
+      
+      // Hamburger Menü Label
+      const menuToggle = document.getElementById('menu-toggle');
+      if (menuToggle) {
+        menuToggle.setAttribute('aria-label', lang === 'de' ? 'Menü öffnen' : 'Open menu');
+      }
     }
+
+    langToggle.addEventListener('click', () => {
+      lang = lang === 'de' ? 'en' : 'de';
+      updateLanguage();
+    });
 
     // Webradio-Player Logik
     const radioAudio = document.getElementById('radio-audio');
@@ -98,7 +125,7 @@
     const radioStop = document.getElementById('radio-stop');
     const radioStation = document.getElementById('radio-station');
     const radioTime = document.getElementById('radio-time');
-    const radioStatus = document.getElementById('radio-status'); // NEU: Referenz zum Status-Element
+    const radioStatus = document.getElementById('radio-status');
 
     let timeInterval = null;
     let streamStartTimestamp = null;
@@ -138,7 +165,7 @@
       }
       if (radioPause) radioPause.classList.remove('active');
       if (radioStop) radioStop.classList.remove('active');
-      if (radioStatus) radioStatus.classList.add('hidden'); // Status verstecken
+      if (radioStatus) radioStatus.classList.add('hidden');
     }
 
     function showRadioPauseStop() {
@@ -155,7 +182,7 @@
         radioStop.appendChild(createRadioIcon('stop'));
         radioStop.setAttribute('aria-label', 'Stop');
       }
-      if (radioStatus) radioStatus.classList.add('hidden'); // Status verstecken
+      if (radioStatus) radioStatus.classList.add('hidden');
     }
 
     function showRadioPlayStop() {
@@ -172,7 +199,7 @@
         radioStop.appendChild(createRadioIcon('stop'));
         radioStop.setAttribute('aria-label', 'Stop');
       }
-      if (radioStatus) radioStatus.classList.add('hidden'); // Status verstecken
+      if (radioStatus) radioStatus.classList.add('hidden');
     }
 
     function updateRadioTime() {
@@ -212,7 +239,7 @@
     function initRadioUI() {
       stopRadioTimer();
       showRadioPlay();
-      if (radioStatus) radioStatus.classList.add('hidden'); // Sicherstellen, dass Status beim Start versteckt ist
+      if (radioStatus) radioStatus.classList.add('hidden');
     }
 
     if (radioToggle) {
@@ -253,7 +280,7 @@
       });
     }
 
-    // NEU: Event Listener für Lade- und Fehlerzustände
+    // Radio Event Listeners
     radioAudio.addEventListener('waiting', () => {
       if (radioStatus) {
         radioStatus.textContent = lang === 'de' ? 'Lädt...' : 'Loading...';
@@ -262,20 +289,19 @@
     });
 
     radioAudio.addEventListener('playing', () => {
-      if (radioStatus) radioStatus.classList.add('hidden'); // Verstecken, wenn die Wiedergabe beginnt
+      if (radioStatus) radioStatus.classList.add('hidden');
     });
 
     radioAudio.addEventListener('error', () => {
       if (radioStatus) {
         radioStatus.textContent = lang === 'de' ? 'Fehler beim Laden.' : 'Error loading stream.';
         radioStatus.classList.remove('hidden');
-        // Optional: Status für eine kurze Zeit anzeigen und dann wieder verstecken
         setTimeout(() => {
           if (radioStatus) radioStatus.classList.add('hidden');
         }, 5000);
       }
       stopRadioTimer();
-      showRadioPlay(); // Zurück zum Play-Button
+      showRadioPlay();
     });
 
     radioAudio.addEventListener('play', () => {
@@ -317,29 +343,70 @@
       document.documentElement.style.setProperty('--radio-btn-size', `${height}px`);
     }
 
-    window.addEventListener('DOMContentLoaded', setRadioBtnSize);
-    window.addEventListener('resize', setRadioBtnSize);
-    setTimeout(setRadioBtnSize, 100);
+    // Hamburger Menü Logik
+    const menuToggle = document.getElementById('menu-toggle');
+    const mainMenu = document.getElementById('main-menu');
 
-    const section = document.querySelector('section');
-    if (section) {
-      let animFrame = null;
-      section.addEventListener('mousemove', e => {
-        if (animFrame) return;
-        animFrame = requestAnimationFrame(() => {
-          animFrame = null;
+    if (menuToggle && mainMenu) {
+      let menuOpen = false;
+
+      menuToggle.addEventListener('click', function() {
+        menuOpen = !menuOpen;
+        mainMenu.classList.toggle('active', menuOpen);
+        menuToggle.setAttribute('aria-expanded', menuOpen.toString());
+        menuToggle.classList.toggle('open', menuOpen);
+        
+        // Aria-Label aktualisieren
+        const closeLabel = lang === 'de' ? 'Menü schließen' : 'Close menu';
+        const openLabel = lang === 'de' ? 'Menü öffnen' : 'Open menu';
+        menuToggle.setAttribute('aria-label', menuOpen ? closeLabel : openLabel);
+      });
+
+      // Menü schließen beim Klick außerhalb
+      document.addEventListener('click', function(e) {
+        if (menuOpen && !menuToggle.contains(e.target) && !mainMenu.contains(e.target)) {
+          mainMenu.classList.remove('active');
+          menuToggle.setAttribute('aria-expanded', 'false');
+          menuToggle.classList.remove('open');
+          menuOpen = false;
+          menuToggle.setAttribute('aria-label', lang === 'de' ? 'Menü öffnen' : 'Open menu');
+        }
+      });
+
+      // Menü-Links schließen das Menü
+      const menuLinks = mainMenu.querySelectorAll('a');
+      menuLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          mainMenu.classList.remove('active');
+          menuToggle.setAttribute('aria-expanded', 'false');
+          menuToggle.classList.remove('open');
+          menuOpen = false;
+          menuToggle.setAttribute('aria-label', lang === 'de' ? 'Menü öffnen' : 'Open menu');
         });
+      });
+
+      // Tastaturnavigation
+      menuToggle.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          menuToggle.click();
+        }
+      });
+
+      // ESC zum Schließen
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && menuOpen) {
+          mainMenu.classList.remove('active');
+          menuToggle.setAttribute('aria-expanded', 'false');
+          menuToggle.classList.remove('open');
+          menuOpen = false;
+          menuToggle.setAttribute('aria-label', lang === 'de' ? 'Menü öffnen' : 'Open menu');
+          menuToggle.focus();
+        }
       });
     }
 
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('service-worker.js').catch((error) => {
-          console.error('Service Worker Registration failed:', error);
-        });
-      });
-    }
-
+    // Tastatursteuerung für Radio
     document.addEventListener('keydown', function(e) {
       if (e.code === 'Space' || e.key === ' ') {
         const active = document.activeElement;
@@ -356,39 +423,23 @@
       }
     });
 
-    // Menü-Logik (unified with hamburger menu)
-    const menuToggle = document.getElementById('menu-toggle');
-    const mainMenu = document.getElementById('main-menu'); // mainMenu will now be null
+    // Initialisierung
+    window.addEventListener('DOMContentLoaded', () => {
+      setRadioBtnSize();
+      initRadioUI();
+    });
+    
+    window.addEventListener('resize', setRadioBtnSize);
+    setTimeout(setRadioBtnSize, 100);
 
-    // Removed the 'if (menuToggle && mainMenu)' condition for the menu logic since mainMenu is removed
-    if (menuToggle) {
-      let menuOpen = false; // Keep menuOpen state for consistency even if menu is not shown
-
-      menuToggle.onclick = function() {
-        menuOpen = !menuOpen;
-        // mainMenu.classList.toggle('active', menuOpen); // This line will cause an error as mainMenu is null
-        menuToggle.setAttribute('aria-expanded', menuOpen.toString());
-        menuToggle.classList.toggle('open', menuOpen);
-      };
-
-      document.addEventListener('click', function(e) {
-        // Updated click outside logic to only consider the menuToggle if mainMenu is null
-        if (menuOpen && e.target !== menuToggle && !menuToggle.contains(e.target)) {
-          // mainMenu.classList.remove('active'); // This line will cause an error
-          menuToggle.setAttribute('aria-expanded', 'false');
-          menuToggle.classList.remove('open');
-          menuOpen = false;
-        }
-      });
-
-      menuToggle.addEventListener('keydown', function(e) {
-        if ((e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') && !menuOpen) {
-          e.preventDefault();
-          menuToggle.click();
-        }
+    // Service Worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js').catch((error) => {
+          console.error('Service Worker Registration failed:', error);
+        });
       });
     }
-    document.addEventListener('DOMContentLoaded', initRadioUI);
   </script>
   <script>
     window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
