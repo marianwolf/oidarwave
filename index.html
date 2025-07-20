@@ -3,8 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Oidarwave - Ihr Webradio Portal</title>
+    <title>Oidarwave - Ihr Webradio Portal für hochwertige Radiostreams</title>
+    <meta name="description" content="Oidarwave bietet hochwertige Webradio-Streams von beliebten deutschen Sendern wie NDR, BR, DLF und mehr. Kostenloses Online-Radio mit kristallklarem Sound.">
+    <meta name="keywords" content="Webradio, Online Radio, NDR, BR, Deutschlandfunk, Radiostreams, kostenloses Radio">
+    <meta name="author" content="Oidarwave">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://oidarwave.vercel.app/">
+    <meta property="og:title" content="Oidarwave - Ihr Webradio Portal">
+    <meta property="og:description" content="Hochwertige Webradio-Streams von beliebten deutschen Sendern. Kostenloses Online-Radio mit kristallklarem Sound.">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://oidarwave.vercel.app/">
+    <meta property="twitter:title" content="Oidarwave - Ihr Webradio Portal">
+    <meta property="twitter:description" content="Hochwertige Webradio-Streams von beliebten deutschen Sendern. Kostenloses Online-Radio mit kristallklarem Sound.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>">
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="//stream.radioparadise.com">
+    <link rel="dns-prefetch" href="//dispatcher.rndfnk.com">
+    <link rel="dns-prefetch" href="//st01.sslstream.dlf.de">
+    
     <style>
+        /* Critical CSS - Above the fold */
         * {
             margin: 0;
             padding: 0;
@@ -201,6 +229,7 @@
             transform: translateY(-3px) scale(1.02);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
             border-color: rgba(255, 255, 255, 0.4);
+            outline: none;
         }
 
         .station-btn.active {
@@ -466,8 +495,36 @@
             z-index: 1000;
         }
     </style>
+    
+    <!-- Non-critical CSS loaded asynchronously -->
+    <link rel="preload" href="data:text/css,/* Additional styles loaded here */" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Oidarwave",
+        "description": "Webradio Portal für hochwertige deutsche Radiostreams",
+        "url": "https://oidarwave.vercel.app/",
+        "applicationCategory": "EntertainmentApplication",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "EUR"
+        },
+        "creator": {
+            "@type": "Organization",
+            "name": "Oidarwave"
+        }
+    }
+    </script>
 </head>
 <body>
+    <!-- Skip link for screen readers -->
+    <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+    
     <div class="container">
         <header>
             <div class="logo">🎵 Oidarwave</div>
@@ -558,111 +615,124 @@
     </div>
 
     <script>
-        let currentAudio = null;
-        let currentStation = null;
+        // Defer non-critical JavaScript
+        function initializePlayer() {
+            let currentAudio = null;
+            let currentStation = null;
 
-        // DOM Elements
-        const stationButtons = document.querySelectorAll('.station-btn');
-        const audioPlayer = document.getElementById('audioPlayer');
-        const currentStationDisplay = document.getElementById('currentStation');
-        const volumeSlider = document.getElementById('volumeSlider');
-        const statusIndicator = document.getElementById('statusIndicator');
+            // DOM Elements
+            const stationButtons = document.querySelectorAll('.station-btn');
+            const audioPlayer = document.getElementById('audioPlayer');
+            const currentStationDisplay = document.getElementById('currentStation');
+            const volumeSlider = document.getElementById('volumeSlider');
+            const statusIndicator = document.getElementById('statusIndicator');
 
-        // Initialize volume
-        audioPlayer.volume = 0.5;
+            // Initialize volume
+            audioPlayer.volume = 0.5;
 
         // Station selection
         stationButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                selectStation(button);
+                button.addEventListener('click', () => {
+                    selectStation(button);
+                });
             });
-        });
 
-        function selectStation(button) {
+            function selectStation(button) {
             // Remove active class from all buttons
             stationButtons.forEach(btn => btn.classList.remove('active'));
-            
+                
             // Add active class to clicked button
-            button.classList.add('active');
-            
-            const url = button.dataset.url;
-            const name = button.dataset.name;
-            
-            // Update display
-            currentStationDisplay.textContent = name;
-            currentStation = name;
-            
-            // Load new stream
-            audioPlayer.src = url;
-            audioPlayer.load();
-            
-            // Update status
-            updateStatus('loading');
-        }
+                button.classList.add('active');
+                
+                const url = button.dataset.url;
+                const name = button.dataset.name;
+                
+                // Update display
+                currentStationDisplay.textContent = name;
+                currentStation = name;
+                
+                // Load new stream
+                audioPlayer.src = url;
+                audioPlayer.load();
+                
+                // Update status
+                updateStatus('loading');
+            }
 
         // Volume control
-        volumeSlider.addEventListener('input', (e) => {
+            volumeSlider.addEventListener('input', (e) => {
             audioPlayer.volume = e.target.value / 100;
-        });
+            });
 
         // Audio events
-        audioPlayer.addEventListener('loadstart', () => {
-            updateStatus('loading');
-        });
+            audioPlayer.addEventListener('loadstart', () => {
+                updateStatus('loading');
+            });
 
-        audioPlayer.addEventListener('canplay', () => {
-            updateStatus('ready');
-        });
+            audioPlayer.addEventListener('canplay', () => {
+                updateStatus('ready');
+            });
 
-        audioPlayer.addEventListener('playing', () => {
-            updateStatus('online');
-        });
+            audioPlayer.addEventListener('playing', () => {
+                updateStatus('online');
+            });
 
-        audioPlayer.addEventListener('pause', () => {
-            updateStatus('paused');
-        });
+            audioPlayer.addEventListener('pause', () => {
+                updateStatus('paused');
+            });
 
-        audioPlayer.addEventListener('error', (e) => {
-            console.error('Audio error:', e);
-            updateStatus('offline');
-        });
+            audioPlayer.addEventListener('error', (e) => {
+                console.error('Audio error:', e);
+                updateStatus('offline');
+                
+                // Show user-friendly error message
+                const errorMsg = document.createElement('div');
+                errorMsg.setAttribute('role', 'alert');
+                errorMsg.setAttribute('aria-live', 'assertive');
+                errorMsg.className = 'sr-only';
+                errorMsg.textContent = 'Fehler beim Laden des Streams. Bitte versuchen Sie es erneut.';
+                document.body.appendChild(errorMsg);
+                setTimeout(() => document.body.removeChild(errorMsg), 3000);
+            });
 
-        audioPlayer.addEventListener('stalled', () => {
-            updateStatus('buffering');
-        });
+            audioPlayer.addEventListener('stalled', () => {
+                updateStatus('buffering');
+            });
 
-        audioPlayer.addEventListener('waiting', () => {
-            updateStatus('buffering');
-        });
+            audioPlayer.addEventListener('waiting', () => {
+                updateStatus('buffering');
+            });
 
-        function updateStatus(status) {
-            const indicator = statusIndicator;
-            indicator.classList.remove('offline');
-            
-            switch(status) {
-                case 'online':
-                    indicator.style.background = '#4CAF50';
+            function updateStatus(status) {
+                const indicator = statusIndicator;
+                indicator.classList.remove('offline');
+                
+                let statusText = '';
+                
+                switch(status) {
+                    case 'online':
+                        indicator.style.background = '#4CAF50';
                     indicator.style.animation = 'pulse-status 2s infinite';
                     indicator.style.boxShadow = '0 0 10px rgba(76, 175, 80, 0.5)';
-                    break;
-                case 'offline':
-                    indicator.classList.add('offline');
+                        break;
+                    case 'offline':
+                        indicator.classList.add('offline');
                     indicator.style.animation = 'none';
                     indicator.style.boxShadow = '0 0 10px rgba(244, 67, 54, 0.5)';
-                    break;
-                case 'loading':
-                case 'buffering':
-                    indicator.style.background = '#FF9800';
+                        break;
+                    case 'loading':
+                    case 'buffering':
+                        indicator.style.background = '#FF9800';
                     indicator.style.animation = 'pulse-status 1s infinite';
                     indicator.style.boxShadow = '0 0 10px rgba(255, 152, 0, 0.5)';
-                    break;
-                case 'ready':
-                case 'paused':
-                    indicator.style.background = '#2196F3';
+                        break;
+                    case 'ready':
+                    case 'paused':
+                        indicator.style.background = '#2196F3';
                     indicator.style.animation = 'none';
                     indicator.style.boxShadow = '0 0 10px rgba(33, 150, 243, 0.5)';
-                    break;
-            }
+                        break;
+                }
         }
 
         // Check online status
@@ -683,35 +753,36 @@
         updateStatus('ready');
 
         // Keyboard shortcuts
-        document.addEventListener('keydown', (e) => {
+            document.addEventListener('keydown', (e) => {
             if (e.target.tagName !== 'INPUT') {
-                switch(e.code) {
-                    case 'Space':
-                        e.preventDefault();
-                        if (audioPlayer.paused) {
-                            audioPlayer.play().catch(console.error);
-                        } else {
-                            audioPlayer.pause();
-                        }
-                        break;
-                    case 'ArrowUp':
-                        e.preventDefault();
-                        volumeSlider.value = Math.min(100, parseInt(volumeSlider.value) + 10);
-                        audioPlayer.volume = volumeSlider.value / 100;
-                        break;
-                    case 'ArrowDown':
-                        e.preventDefault();
-                        volumeSlider.value = Math.max(0, parseInt(volumeSlider.value) - 10);
-                        audioPlayer.volume = volumeSlider.value / 100;
-                        break;
+                    switch(e.code) {
+                        case 'Space':
+                            e.preventDefault();
+                            if (audioPlayer.paused) {
+                                audioPlayer.play().catch(console.error);
+                            } else {
+                                audioPlayer.pause();
+                            }
+                            break;
+                        case 'ArrowUp':
+                            e.preventDefault();
+                            volumeSlider.value = Math.min(100, parseInt(volumeSlider.value) + 10);
+                            audioPlayer.volume = volumeSlider.value / 100;
+                            volumeSlider.dispatchEvent(new Event('input'));
+                            break;
+                        case 'ArrowDown':
+                            e.preventDefault();
+                            volumeSlider.value = Math.max(0, parseInt(volumeSlider.value) - 10);
+                            audioPlayer.volume = volumeSlider.value / 100;
+                            break;
+                    }
                 }
-            }
-        });
+            });
 
-        // Auto-select first station on load
-        if (stationButtons.length > 0) {
-            selectStation(stationButtons[0]);
-        }
+            // Auto-select first station on load
+            if (stationButtons.length > 0) {
+                selectStation(stationButtons[0]);
+            }
 
         // Add smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -723,6 +794,8 @@
                         behavior: 'smooth',
                         block: 'start'
                     });
+                    // Focus management for accessibility
+                    target.focus();
                 }
             });
         });
