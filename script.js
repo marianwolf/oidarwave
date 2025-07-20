@@ -2,39 +2,33 @@
 const langToggle = document.getElementById('lang-toggle');
 let lang = 'de';
 
+const elementsToTranslate = {
+  'headline': ['de', 'en'],
+  'radio-title': ['de', 'en'],
+  'label': ['de', 'en'],
+  'footer': ['de', 'en']
+};
+
 function updateLanguage() {
-  // Hauptüberschriften
-  document.getElementById('headline-de').style.display = lang === 'de' ? '' : 'none';
-  document.getElementById('headline-en').style.display = lang === 'en' ? '' : 'none';
-  
-  // Radio Titel
-  document.getElementById('radio-title-de').style.display = lang === 'de' ? '' : 'none';
-  document.getElementById('radio-title-en').style.display = lang === 'en' ? '' : 'none';
-  
-  // Radio Label
-  document.getElementById('label-de').style.display = lang === 'de' ? '' : 'none';
-  document.getElementById('label-en').style.display = lang === 'en' ? '' : 'none';
-  
-  // Navigation
-  document.getElementById('nav-radio-de').style.display = lang === 'de' ? '' : 'none';
-  document.getElementById('nav-radio-en').style.display = lang === 'en' ? '' : 'none';
-  document.getElementById('nav-contact-de').style.display = lang === 'de' ? '' : 'none';
-  document.getElementById('nav-contact-en').style.display = lang === 'en' ? '' : 'none';
-  document.getElementById('nav-about-de').style.display = lang === 'de' ? '' : 'none';
-  document.getElementById('nav-about-en').style.display = lang === 'en' ? '' : 'none';
-  
-  // Footer
-  document.getElementById('footer-de').style.display = lang === 'de' ? '' : 'none';
-  document.getElementById('footer-en').style.display = lang === 'en' ? '' : 'none';
+  // Aktualisiere alle übersetzbaren Elemente
+  Object.entries(elementsToTranslate).forEach(([base, langs]) => {
+    langs.forEach(l => {
+      const element = document.getElementById(`${base}-${l}`);
+      if (element) {
+        element.style.display = lang === l ? '' : 'none';
+      }
+    });
+  });
   
   // Hamburger Menü Label
   const menuToggle = document.getElementById('menu-toggle');
   if (menuToggle) {
-    menuToggle.setAttribute('aria-label', lang === 'de' ? 'Menü öffnen' : 'Open menu');
+    const label = lang === 'de' ? 'Menü öffnen' : 'Open menu';
+    menuToggle.setAttribute('aria-label', label);
   }
 }
 
-langToggle.addEventListener('click', () => {
+langToggle?.addEventListener('click', () => {
   lang = lang === 'de' ? 'en' : 'de';
   updateLanguage();
 });

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="color-scheme" content="dark">
   <meta name="description" content="Oidarwave – Schnell, responsiv und individuell">
-  <meta property="og:title" content="Willkommen – Oidarwave">
+  <meta property="og:title" content="Oidarwave">
   <meta property="og:description" content="Oidarwave – Schnell, responsiv und individuell">
   <meta property="og:type" content="website">
   <title>Oidarwave</title>
@@ -17,11 +17,11 @@
 <body>
   <header>
     <div>
-      <h1 id="headline-de">Willkommen auf deiner neuen Webseite!</h1>
-      <h1 id="headline-en" style="display:none">Welcome to your new website!</h1>
+      <h1>Oidarwave</h1>
     </div>
     <nav>
       <button id="menu-toggle" class="hamburger-btn" aria-label="Menü öffnen" aria-expanded="false">
+        <span class="hamburger-line"></span>
         <span class="hamburger-line"></span>
         <span class="hamburger-line"></span>
         <span class="hamburger-line"></span>
@@ -31,20 +31,14 @@
         <a href="contact.html" class="nav-link">Kontakt</a>
         <a href="about.html" class="nav-link">Impressum</a>
         <a href="datenschutz.html" class="nav-link">Datenschutz</a>
-        <button id="lang-toggle" aria-label="Sprache umschalten">DE/EN</button>
-        <a href="about.html" id="nav-about-de">Impressum</a>
-        <a href="about.html" id="nav-about-en" style="display:none">About</a>
-        <button id="lang-toggle" aria-label="Sprache umschalten">DE/EN</button>
       </div>
     </nav>
   </header>
   <main>
     <section id="webradio">
-      <h2 id="radio-title-de">Webradio</h2>
-      <h2 id="radio-title-en" style="display:none">Web Radio</h2>
+      <h2>Webradio</h2>
       <div id="webradio-player">
-        <label for="radio-station" class="radio-label" id="label-de">Sender wählen:</label>
-        <label for="radio-station" class="radio-label" id="label-en" style="display:none">Choose station:</label>
+        <label for="radio-station" class="radio-label">Sender wählen:</label>
         <select id="radio-station">
           <option value="https://stream.radioparadise.com/mp3-192">Radio Paradise</option>
           <option value="https://radio.bbg-bew.de">BBG</option>
@@ -67,8 +61,7 @@
     </section>
   </main>
   <footer>
-    <span id="footer-de">&copy; 2025 Deine neue Webseite</span>
-    <span id="footer-en" style="display:none">&copy; 2025 Your new website</span>
+    <span>&copy; 2025 Deine neue Webseite</span>
   </footer>
   <script src="script.js"></script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
