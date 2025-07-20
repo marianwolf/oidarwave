@@ -1,9 +1,94 @@
+/* --- Kontaktformular BEM --- */
+.contact__form {
+  max-width: 420px;
+  margin: var(--spacing-lg) auto;
+  padding: var(--spacing-lg);
+  background: var(--section-bg);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-base);
+}
+.contact__field {
+  margin-bottom: var(--spacing-sm);
+  display: flex;
+  flex-direction: column;
+}
+.contact__label {
+  margin-bottom: var(--spacing-xs);
+  font-weight: bold;
+  color: var(--text);
+}
+.contact__input {
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  border: 1.5px solid var(--primary-dark);
+  font-size: var(--font-size-base);
+  background: var(--background);
+  color: var(--text);
+}
+.contact__input:focus {
+  outline: 2px solid var(--primary);
+  border-color: var(--primary);
+}
+.contact__error {
+  color: var(--accent-yellow);
+  font-size: 0.95em;
+  min-height: 1.2em;
+  margin-top: 2px;
+}
+.contact__button {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--border-radius-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: var(--font-size-base);
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  font-weight: 600;
+}
+.contact__button:hover:not([disabled]) {
+  background: var(--primary-light);
+}
+.contact__message {
+  margin-top: var(--spacing-md);
+  color: var(--primary-light);
+  font-weight: bold;
+}
+/* --- Header Flex Grow (BEM) --- */
+.header__grow {
+  flex: 1 1 auto;
+}
+/* --- Formular Spinner & Button --- */
+.spinner {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  border: 2px solid var(--primary-light);
+  border-top: 2px solid var(--primary-dark);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  vertical-align: middle;
+  margin-left: 0.5em;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+#submit-btn[disabled] {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
 :root {
   --primary: #1db954;
   --primary-light: #1ed760;
   --primary-dark: #168f3e;
   --accent-yellow: #f1c40f;
-  --accent-red: #e74c3c;
   --background: #191414;
   --section-bg: rgba(25,20,20,0.98);
   --text: #fff;

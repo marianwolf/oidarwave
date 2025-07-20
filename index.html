@@ -1,7 +1,19 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0" name="color-scheme" content="dark" name="description" content="Author: M. L. Wolf">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Deine neue Webseite: Modernes Webradio, Kontaktformular & mehr. Schnell, responsiv und individuell – jetzt entdecken!">
+  <meta property="og:title" content="Willkommen – Deine neue Webseite">
+  <meta property="og:description" content="Deine neue Webseite: Modernes Webradio, Kontaktformular & mehr. Schnell, responsiv und individuell – jetzt entdecken!">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://deinewebseite.de/">
+  <meta property="og:image" content="https://deinewebseite.de/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Willkommen – Deine neue Webseite">
+  <meta name="twitter:description" content="Deine neue Webseite: Modernes Webradio, Kontaktformular & mehr. Schnell, responsiv und individuell – jetzt entdecken!">
+  <meta name="twitter:image" content="https://deinewebseite.de/og-image.jpg">
   <title>Willkommen – Deine neue Webseite</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="animations.css">
@@ -16,11 +28,6 @@
     </div>
     <nav>
       <button id="lang-toggle" aria-label="Sprache umschalten">DE/EN</button>
-      <button id="menu-toggle" aria-label="Menü öffnen" aria-expanded="false" class="icon-btn hamburger-btn">
-        <span class="hamburger-bar"></span>
-        <span class="hamburger-bar"></span>
-        <span class="hamburger-bar"></span>
-        <span class="hamburger-bar"></span> </button>
       </nav>
   </header>
   <main>
@@ -55,9 +62,20 @@
     <span id="footer-en" style="display:none">&copy; 2025 Your new website</span>
   </footer>
   <script>
-    // Sprachumschaltung
+    // Sprachumschaltung (funktional)
     const langToggle = document.getElementById('lang-toggle');
     let lang = 'de';
+    langToggle.addEventListener('click', () => {
+      lang = lang === 'de' ? 'en' : 'de';
+      document.getElementById('headline-de').style.display = lang === 'de' ? '' : 'none';
+      document.getElementById('headline-en').style.display = lang === 'en' ? '' : 'none';
+      document.getElementById('radio-title-de').style.display = lang === 'de' ? '' : 'none';
+      document.getElementById('radio-title-en').style.display = lang === 'en' ? '' : 'none';
+      document.getElementById('label-de').style.display = lang === 'de' ? '' : 'none';
+      document.getElementById('label-en').style.display = lang === 'en' ? '' : 'none';
+      document.getElementById('footer-de').style.display = lang === 'de' ? '' : 'none';
+      document.getElementById('footer-en').style.display = lang === 'en' ? '' : 'none';
+    });
 
     if (langToggle) {
       langToggle.onclick = function() {
