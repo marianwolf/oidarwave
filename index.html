@@ -4,17 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="color-scheme" content="dark">
-  <meta name="description" content="Deine neue Webseite: Modernes Webradio, Kontaktformular & mehr. Schnell, responsiv und individuell – jetzt entdecken!">
-  <meta property="og:title" content="Willkommen – Deine neue Webseite">
-  <meta property="og:description" content="Deine neue Webseite: Modernes Webradio, Kontaktformular & mehr. Schnell, responsiv und individuell – jetzt entdecken!">
+  <meta name="description" content="Oidarwave – Schnell, responsiv und individuell">
+  <meta property="og:title" content="Willkommen – Oidarwave">
+  <meta property="og:description" content="Oidarwave – Schnell, responsiv und individuell">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://deinewebseite.de/">
-  <meta property="og:image" content="https://deinewebseite.de/og-image.jpg">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Willkommen – Deine neue Webseite">
-  <meta name="twitter:description" content="Deine neue Webseite: Modernes Webradio, Kontaktformular & mehr. Schnell, responsiv und individuell – jetzt entdecken!">
-  <meta name="twitter:image" content="https://deinewebseite.de/og-image.jpg">
-  <title>Willkommen – Deine neue Webseite</title>
+  <title>Oidarwave</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="animations.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,16 +22,16 @@
     </div>
     <nav>
       <button id="menu-toggle" class="hamburger-btn" aria-label="Menü öffnen" aria-expanded="false">
-        <span class="hamburger-bar"></span>
-        <span class="hamburger-bar"></span>
-        <span class="hamburger-bar"></span>
-        <span class="hamburger-bar"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
       </button>
       <div id="main-menu" class="nav-menu">
-        <a href="#webradio" id="nav-radio-de">Radio</a>
-        <a href="#webradio" id="nav-radio-en" style="display:none">Radio</a>
-        <a href="contact.html" id="nav-contact-de">Kontakt</a>
-        <a href="contact.html" id="nav-contact-en" style="display:none">Contact</a>
+        <a href="#webradio" class="nav-link">Radio</a>
+        <a href="contact.html" class="nav-link">Kontakt</a>
+        <a href="about.html" class="nav-link">Impressum</a>
+        <a href="datenschutz.html" class="nav-link">Datenschutz</a>
+        <button id="lang-toggle" aria-label="Sprache umschalten">DE/EN</button>
         <a href="about.html" id="nav-about-de">Impressum</a>
         <a href="about.html" id="nav-about-en" style="display:none">About</a>
         <button id="lang-toggle" aria-label="Sprache umschalten">DE/EN</button>
@@ -348,6 +342,37 @@
     const mainMenu = document.getElementById('main-menu');
 
     if (menuToggle && mainMenu) {
+        menuToggle.addEventListener('click', () => {
+            const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+            menuToggle.setAttribute('aria-expanded', !isExpanded);
+            menuToggle.classList.toggle('open');
+            mainMenu.classList.toggle('active');
+            
+            // Verbesserte Zugänglichkeit - Fokus im Menü halten wenn geöffnet
+            if (!isExpanded) {
+                const firstLink = mainMenu.querySelector('a');
+                if (firstLink) firstLink.focus();
+            }
+        });
+
+        // Schließen des Menüs bei Klick außerhalb
+        document.addEventListener('click', (e) => {
+            if (!menuToggle.contains(e.target) && !mainMenu.contains(e.target)) {
+                menuToggle.setAttribute('aria-expanded', 'false');
+                menuToggle.classList.remove('open');
+                mainMenu.classList.remove('active');
+            }
+        });
+
+        // Schließen mit Escape-Taste
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && menuToggle.getAttribute('aria-expanded') === 'true') {
+                menuToggle.setAttribute('aria-expanded', 'false');
+                menuToggle.classList.remove('open');
+                mainMenu.classList.remove('active');
+                menuToggle.focus();
+            }
+        });
       let menuOpen = false;
 
       menuToggle.addEventListener('click', function() {
