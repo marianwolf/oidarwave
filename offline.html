@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline - Oidarwave</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .offline-content {
+            text-align: center;
+            padding: var(--space-8);
+            max-width: var(--max-width-md);
+            margin: 0 auto;
+        }
+
+        .offline-icon {
+            font-size: 4rem;
+            margin-bottom: var(--space-4);
+            color: var(--color-primary-300);
+        }
+
+        .offline-title {
+            font-size: var(--font-size-2xl);
+            margin-bottom: var(--space-4);
+            color: var(--color-primary-300);
+        }
+
+        .offline-message {
+            font-size: var(--font-size-lg);
+            margin-bottom: var(--space-6);
+            color: var(--color-text);
+        }
+
+        .retry-button {
+            background: var(--color-primary-400);
+            color: var(--color-white);
+            border: none;
+            padding: var(--space-3) var(--space-6);
+            border-radius: var(--radius-md);
+            font-weight: var(--font-weight-semibold);
+            cursor: pointer;
+            transition: all var(--duration-normal) var(--ease-in-out);
+        }
+
+        .retry-button:hover {
+            background: var(--color-primary-500);
+            transform: translateY(-2px);
+        }
+
+        .cached-content {
+            margin-top: var(--space-8);
+            padding: var(--space-4);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+        }
+    </style>
+</head>
+<body>
+    <main class="offline-content">
+        <div class="offline-icon">📡</div>
+        <h1 class="offline-title">Keine Internetverbindung</h1>
+        <p class="offline-message">
+            Es scheint, dass Sie offline sind. Einige Funktionen sind möglicherweise eingeschränkt.
+        </p>
+        <button class="retry-button" onclick="window.location.reload()">
+            Erneut versuchen
+        </button>
+
+        <div class="cached-content">
+            <h2>Verfügbare Offline-Funktionen:</h2>
+            <ul>
+                <li>Zugriff auf zuvor geladene Seiten</li>
+                <li>Gespeicherte Favoriten anzeigen</li>
+                <li>Basis-Layoutfunktionen</li>
+            </ul>
+        </div>
+    </main>
+
+    <script>
+        // Prüfe regelmäßig die Onlineverbindung
+        window.addEventListener('online', () => {
+            window.location.reload();
+        });
+
+        // Service Worker Status prüfen
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.ready.then(registration => {
+                console.log('Service Worker bereit');
+            });
+        }
+    </script>
+</body>
+</html>

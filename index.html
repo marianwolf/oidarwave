@@ -3,16 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="color-scheme" content="dark">
-  <meta name="description" content="Oidarwave – Schnell, responsiv und individuell">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="description" content="Oidarwave – Dein modernes Webradio mit Zugriff auf verschiedene Radiosender wie Radio Paradise, BBG, Deutschlandfunk und NDR">
+  <meta name="keywords" content="webradio, radio, streaming, musik, deutschlandfunk, ndr">
+  <meta name="author" content="Oidarwave">
   <meta property="og:title" content="Oidarwave">
-  <meta property="og:description" content="Oidarwave – Schnell, responsiv und individuell">
+  <meta property="og:description" content="Oidarwave – Dein modernes Webradio mit Zugriff auf verschiedene Radiosender wie Radio Paradise, BBG, Deutschlandfunk und NDR">
   <meta property="og:type" content="website">
+  <meta property="og:image" content="/images/og-image.jpg">
+  <meta property="og:url" content="https://oidarwave.de">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Oidarwave">
+  <meta name="twitter:description" content="Dein Webradio mit Zugriff auf verschiedene Radiosender">
+  <meta name="twitter:image" content="/images/twitter-card.jpg">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="/images/icon-192.png">
+  <link rel="preload" href="style.css" as="style">
+  <link rel="preload" href="animations.css" as="style">
+  <link rel="preload" href="script.js" as="script">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://stream.radioparadise.com">
+  <link rel="dns-prefetch" href="https://radio.bbg-bew.de">
   <title>Oidarwave</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="animations.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
 <body>
   <header>
@@ -29,36 +48,125 @@
       </div>
     </nav>
   </header>
-  <main>
-    <section id="webradio">
-      <h2>Webradio</h2>
-      <div id="webradio-player">
-        <label for="radio-station" class="radio-label">Sender wählen:</label>
-        <select id="radio-station">
-          <option value="https://stream.radioparadise.com/mp3-192">Radio Paradise</option>
-          <option value="https://radio.bbg-bew.de">BBG</option>
-          <option value="https://st01.sslstream.dlf.de/dlf/01/128/mp3/stream.mp3?aggregator=web">Deutschlandfunk</option>
-          <option value="https://st02.sslstream.dlf.de/dlf/02/128/mp3/stream.mp3?aggregator=web">Deutschlandfunk Kultur</option>
-          <option value="https://st03.sslstream.dlf.de/dlf/03/128/mp3/stream.mp3?aggregator=web">Deutschlandfunk Nova</option>
-          <option value="https://regiocast.streamabc.net/regc-80s80snds-mp3-192-1969206?sABC=686n6324%231%23r2ps3905q0or49psops1388p88o9n35s%23ubzrcntr&mode=preroll&aw_0_1st.skey=1751802638&cb=249580652&aw_0_req.userConsentV2=CQUIV0AQUIV0AAFADBDEByFgAAAAAAAAAAYgAAASIgNAAEAAyACWAE4AUQAsAC0AIwATgAogBugDkAOYAgwBGACuAGaANUAiYBLQDPgHAAP2AioBGwC3gGAAPeAkQAWGgAwABBIgRABgACCRAqADAAEEiBkAGAAIJEAoAMAAQSICQAYAAgkQOgAwABBIghABgACCRBKADAAEEiCkAGAAIJEFoAMAAQSI.YAAAAAAAAAAA&aw_0_1st.playerid=80s80s_web&listenerid=e2cf3905d0be49cfbcf1388c88b9a35f&amsparams=playerid:homepage;skey:1751802660">80s80s NDS</option>
-          <option value="https://f141.rndfnk.com/ard/ndr/ndr1niedersachsen/hannover/mp3/128/stream.mp3?aggregator=web&cid=01FCT9XYE3C7Y8087XEWPRC38Z&sid=2zYE5ScANtdORzQd1Vs7emzJatm&token=1YbjYVIGfTXwI1GkOA9d48RetKV6_tq9-Ve65rqkCo8&tvf=bgdJM-MSUBhmMTQxLnJuZGZuay5jb20">NDR 1</option>
-          <option value="https://d141.rndfnk.com/ard/ndr/ndrinfo/niedersachsen/mp3/128/stream.mp3?aggregator=web&cid=01FBRKHKTB73QDVNX7A9RT082R&sid=2zYEMrbbJUy6sEbhB4ZhCSzHWVI&token=zASJHmNYdtWW7zxJqs39Z6K2geOIpJ-Mn1z0G-k632A&tvf=eSPbiAMTUBhkMTQxLnJuZGZuay5jb25">NDR Info</option>
-          <option value="https://f131.rndfnk.com/ard/ndr/ndr2/niedersachsen/mp3/128/stream.mp3?aggregator=web&cid=01FBQ2CWDYWJHGF4QAJ0SVV730&sid=2zYEzLbm0tA5V6olqURVbGREiqF&token=ioobdJ4WHmziknOmFsL5R7DzjgnC8mHN-9PKOpSU4jQ&tvf=l76Y00oTUBhmMTMxLnJuZGZuay5jb20">NDR 2</option>
-          <option value="https://f111.rndfnk.com/ard/ndr/ndrkultur/live/mp3/128/stream.mp3?aggregator=web&cid=01FBQ2EJ6T7QK3WENQ5KT9S2FB&sid=2zYH870TfKpDrSRPNQwG7G7lJmE&token=QQ3JNVQAas7rUN5m9U82Mg8_4nRR8ZCza51715OJazk&tvf=EK7dzEAUUBhmMTExLnJuZGZuay5jb20">NDR Kultur</option>
-        </select>
-        <button id="radio-toggle" aria-label="Play" class="icon-btn"></button>
-        <button id="radio-pause" aria-label="Pause" class="icon-btn"></button>
-        <button id="radio-stop" aria-label="Stop" class="icon-btn"></button>
-        <span id="radio-time">00:00</span>
-        <audio id="radio-audio" preload="true"></audio>
-        <span id="radio-status" class="hidden"></span>
+  <main id="main-content" class="site-main">
+    <section id="webradio" class="radio-section" aria-labelledby="radio-heading">
+      <h2 id="radio-heading" class="section-title">Webradio</h2>
+      
+      <div id="webradio-player" class="radio-player" aria-label="Webradio Player">
+        <div class="station-select">
+          <label for="radio-station" class="radio-label">Sender wählen:</label>
+          <select id="radio-station" class="station-dropdown" aria-label="Radiosender auswählen">
+            <optgroup label="Internationale Sender">
+              <option value="https://stream.radioparadise.com/mp3-192">Radio Paradise</option>
+            </optgroup>
+            <optgroup label="Lokale Sender">
+              <option value="https://radio.bbg-bew.de">BBG</option>
+            </optgroup>
+            <optgroup label="Öffentlich-Rechtliche">
+              <option value="https://st01.sslstream.dlf.de/dlf/01/128/mp3/stream.mp3?aggregator=web">Deutschlandfunk</option>
+              <option value="https://st02.sslstream.dlf.de/dlf/02/128/mp3/stream.mp3?aggregator=web">Deutschlandfunk Kultur</option>
+              <option value="https://st03.sslstream.dlf.de/dlf/03/128/mp3/stream.mp3?aggregator=web">Deutschlandfunk Nova</option>
+              <option value="https://f141.rndfnk.com/ard/ndr/ndr1niedersachsen/hannover/mp3/128/stream.mp3">NDR 1</option>
+              <option value="https://d141.rndfnk.com/ard/ndr/ndrinfo/niedersachsen/mp3/128/stream.mp3">NDR Info</option>
+              <option value="https://f131.rndfnk.com/ard/ndr/ndr2/niedersachsen/mp3/128/stream.mp3">NDR 2</option>
+              <option value="https://f111.rndfnk.com/ard/ndr/ndrkultur/live/mp3/128/stream.mp3">NDR Kultur</option>
+            </optgroup>
+            <optgroup label="Musiksender">
+              <option value="https://regiocast.streamabc.net/regc-80s80snds-mp3-192-1969206">80s80s NDS</option>
+            </optgroup>
+          </select>
+        </div>
+        
+        <div class="radio-controls" role="group" aria-label="Radioplayer Steuerung">
+          <button id="radio-toggle" 
+                  class="icon-btn play-btn" 
+                  aria-label="Wiedergabe"
+                  data-action="play">
+          </button>
+          
+          <button id="radio-pause" 
+                  class="icon-btn pause-btn" 
+                  aria-label="Pause"
+                  data-action="pause">
+          </button>
+          
+          <button id="radio-stop" 
+                  class="icon-btn stop-btn" 
+                  aria-label="Stop"
+                  data-action="stop">
+          </button>
+          
+          <span id="radio-time" 
+                class="time-display" 
+                role="timer" 
+                aria-label="Wiedergabezeit">00:00</span>
+        </div>
+        
+        <audio id="radio-audio" 
+               preload="metadata" 
+               aria-hidden="true">
+          <p>Ihr Browser unterstützt leider keine HTML5-Audiowiedergabe.</p>
+        </audio>
+        
+        <div id="radio-status" 
+             class="status-message hidden" 
+             role="status" 
+             aria-live="polite">
+        </div>
       </div>
     </section>
   </main>
-  <footer>
-    <span>&copy; 2025 Deine neue Webseite</span>
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-content">
+      <p class="copyright">&copy; 2025 Oidarwave</p>
+      <nav class="footer-nav" aria-label="Footer Navigation">
+        <ul class="footer-links">
+          <li><a href="/datenschutz.html">Datenschutz</a></li>
+          <li><a href="/impressum.html">Impressum</a></li>
+        </ul>
+      </nav>
+    </div>
   </footer>
-  <script src="script.js"></script>
-  <script defer src="/_vercel/speed-insights/script.js"></script>
+
+  <!-- Structured Data für bessere SEO -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Oidarwave",
+      "applicationCategory": "Multimedia, Radio",
+      "offers": {
+        "@type": "Offer",
+        "price": "0"
+      }
+    }
+  </script>
+
+  <!-- Performance Optimierung: Skripte am Ende -->
+  <script src="script.js" defer></script>
+  <script src="/_vercel/speed-insights/script.js" defer async></script>
+
+  <!-- Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(registration => {
+            console.log('ServiceWorker registration successful');
+          })
+          .catch(err => {
+            console.error('ServiceWorker registration failed:', err);
+          });
+      });
+    }
+  </script>
+
+  <!-- Offline Support Benachrichtigung -->
+  <div id="offline-notification" 
+       class="notification hidden" 
+       role="alert" 
+       aria-live="polite">
+    Sie sind offline. Einige Funktionen sind möglicherweise eingeschränkt.
+  </div>
 </body>
 </html>
