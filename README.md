@@ -60,17 +60,20 @@ Die Anwendung erfordert einen modernen Browser mit HTML5-Audio-Unterstützung:
 
 ## 🔧 Lokale Entwicklung
 
+Repository klonen
 ```bash
-# Repository klonen
 git clone [repository-url]
-
-# In das Projektverzeichnis wechseln
+```
+In das Projektverzeichnis wechseln
+```bash
 cd oidarwave
-
-# Lokalen Server starten (z.B. mit Python)
+```
+Lokalen Server starten (z.B. mit Python)
+```bash
 python -m http.server 8000
-
-# Oder mit Node.js
+```
+Oder mit Node.js
+```bash
 npx http-server
 ```
 
