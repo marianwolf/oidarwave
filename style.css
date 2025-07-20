@@ -364,3 +364,31 @@ header nav,
   gap: 20px; /* z.B. 20px Abstand zwischen Buttons/Links */
   align-items: flex-start;
 }
+
+.loading-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--color-primary-300);
+  border-radius: 50%;
+  border-top-color: transparent;
+  display: inline-block;
+  margin-right: 8px;
+  vertical-align: middle;
+  animation: spin 1s linear infinite;
+}
+
+.loading-text {
+  vertical-align: middle;
+}
+
+#radio-status.hidden {
+  display: none !important;
+}
+
+#radio-status {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  background: rgba(29, 185, 84, 0.1);
+}

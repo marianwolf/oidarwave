@@ -1,5 +1,59 @@
-// Sprachumschaltung
-const langToggle = document.getElementById('lang-toggle');
+document.addEventListener('DOMContentLoaded', () => {
+  // DOM Elemente Initialisierung
+  const elements = {
+    radio: {
+      audio: document.getElementById('radio-audio'),
+      toggle: document.getElementById('radio-toggle'),
+      pause: document.getElementById('radio-pause'),
+      stop: document.getElementById('radio-stop'),
+      station: document.getElementById('radio-station'),
+      time: document.getElementById('radio-time'),
+      status: document.getElementById('radio-status')
+    },
+    menu: {
+      toggle: document.getElementById('menu-toggle'),
+      main: document.getElementById('main-menu')
+    },
+    lang: {
+      toggle: document.getElementById('lang-toggle')
+    }
+  };
+
+  // Audio Event Handler
+  const { audio, toggle, pause, status } = elements.radio;
+
+  // Ladeanimation Events
+  audio.addEventListener('loadstart', () => {
+    status.classList.remove('hidden');
+  });
+
+  audio.addEventListener('canplay', () => {
+    status.classList.add('hidden');
+  });
+
+  audio.addEventListener('playing', () => {
+    status.classList.add('hidden');
+    toggle.classList.remove('active');
+    pause.classList.add('active');
+  });
+
+  audio.addEventListener('pause', () => {
+    status.classList.add('hidden');
+    toggle.classList.add('active');
+    pause.classList.remove('active');
+  });
+
+  audio.addEventListener('waiting', () => {
+    status.classList.remove('hidden');
+  });
+
+  audio.addEventListener('error', () => {
+    status.textContent = 'Fehler beim Laden des Streams';
+    status.classList.remove('hidden');
+    setTimeout(() => status.classList.add('hidden'), 3000);
+  });
+
+// Spracheinstellungen
 let lang = 'de';
 
 const elementsToTranslate = {
@@ -9,38 +63,36 @@ const elementsToTranslate = {
   'footer': ['de', 'en']
 };
 
-function updateLanguage() {
-  // Aktualisiere alle übersetzbaren Elemente
-  Object.entries(elementsToTranslate).forEach(([base, langs]) => {
-    langs.forEach(l => {
-      const element = document.getElementById(`${base}-${l}`);
-      if (element) {
-        element.style.display = lang === l ? '' : 'none';
-      }
-    });
-  });
-  
-  // Hamburger Menü Label
-  const menuToggle = document.getElementById('menu-toggle');
-  if (menuToggle) {
-    const label = lang === 'de' ? 'Menü öffnen' : 'Open menu';
-    menuToggle.setAttribute('aria-label', label);
-  }
-}
-
-langToggle?.addEventListener('click', () => {
-  lang = lang === 'de' ? 'en' : 'de';
-  updateLanguage();
+// Audio Events für Ladeanimation
+radioAudio.addEventListener('loadstart', () => {
+  radioStatus.classList.remove('hidden');
 });
 
-// Webradio-Player Logik
-const radioAudio = document.getElementById('radio-audio');
-const radioToggle = document.getElementById('radio-toggle');
-const radioPause = document.getElementById('radio-pause');
-const radioStop = document.getElementById('radio-stop');
-const radioStation = document.getElementById('radio-station');
-const radioTime = document.getElementById('radio-time');
-const radioStatus = document.getElementById('radio-status');
+radioAudio.addEventListener('canplay', () => {
+  radioStatus.classList.add('hidden');
+});
+
+radioAudio.addEventListener('playing', () => {
+  radioStatus.classList.add('hidden');
+  radioToggle.classList.remove('active');
+  radioPause.classList.add('active');
+});
+
+radioAudio.addEventListener('pause', () => {
+  radioStatus.classList.add('hidden');
+  radioToggle.classList.add('active');
+  radioPause.classList.remove('active');
+});
+
+radioAudio.addEventListener('waiting', () => {
+  radioStatus.classList.remove('hidden');
+});
+
+radioAudio.addEventListener('error', () => {
+  radioStatus.textContent = 'Fehler beim Laden des Streams';
+  radioStatus.classList.remove('hidden');
+  setTimeout(() => radioStatus.classList.add('hidden'), 3000);
+});
 
 let timeInterval = null;
 let streamStartTimestamp = null;
@@ -362,3 +414,4 @@ if ('serviceWorker' in navigator) {
     });
   });
 }
+});
