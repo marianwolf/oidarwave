@@ -5,81 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Oidarwave</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* Zusätzliches CSS für den Cookie-Banner */
-        .cookie-banner {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background-color: #333;
-            color: white;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            z-index: 1000;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
-            font-family: Arial, sans-serif;
-        }
-        .cookie-banner.hidden {
-            display: none;
-        }
-        .cookie-banner p {
-            margin: 0;
-            flex-grow: 1;
-            margin-right: 20px;
-            line-height: 1.5;
-        }
-        .cookie-banner .buttons {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-        .cookie-banner button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            cursor: pointer;
-            border-radius: 5px;
-            font-size: 14px;
-            transition: background-color 0.3s ease;
-        }
-        .cookie-banner button:hover {
-            background-color: #45a049;
-        }
-        .cookie-banner button.deny {
-            background-color: #f44336;
-        }
-        .cookie-banner button.deny:hover {
-            background-color: #da190b;
-        }
-        .cookie-banner button.necessary {
-            background-color: #2196F3;
-        }
-        .cookie-banner button.necessary:hover {
-            background-color: #0b7dda;
-        }
-        @media (max-width: 768px) {
-            .cookie-banner {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .cookie-banner p {
-                margin-bottom: 15px;
-                margin-right: 0;
-            }
-            .cookie-banner .buttons {
-                width: 100%;
-                justify-content: stretch;
-            }
-            .cookie-banner button {
-                flex-grow: 1;
-            }
-        }
-    </style>
 </head>
 <body>
     <div class="container">
@@ -110,16 +35,16 @@
                         <button class="station-btn" data-url="https://f121.rndfnk.com/ard/ndr/ndr1niedersachsen/hannover/mp3/128/stream.mp3?aggregator=web&cid=01FCT9XYE3C7Y8087XEWPRC38Z&sid=30aynlfxURrCQmDeTH1p0OqVsoV&token=3Wf1JnFUByNruoizm4AdR_YPX5_CvsRtTKXV3VK-004&tvf=qhyw4VgcVxhmMTIxLnJuZGZuay5jb20" data-name="NDR 1 Niedersachsen">
                             NDR 1
                         </button>
-                        <button class="station-btn" data-url="https://f131.rndfnk.com/ard/ndr/ndr2/niedersachsen/mp3/128/stream.mp3?aggregator=web&cid=01FBQ2CWDYWJHGF4QAJ0SVV730&sid=30ayvsXjJydzMH4MNiWpLV4nURH&token=FMhlmkJlc2prmQ6CBBjpYxFSaNHq6IDWPQKR9jRDjMA&tvf=0axLwWccVxhmMTMxLnJuZGZuay5jb20" data-name="NDR 2">
+                        <button class="station-btn" data-url="https://f131.rndfnk.com/ard/ndr/ndr2/niedersachsen/mp3/128/stream.mp3?aggregator=web&cid=01FBQ2CWDYWJHGF4QAJ0SVV730&sid=30ayvsXjJydzMH4MNiWpLV4nURH&token=FMhlmkJlc2prmQ6CBBjpYxFSaNHq6IDWPQKR9jRDjMA&tvf=0axLwWccVxhmMTMxLnJuZGZuay5jb25" data-name="NDR 2">
                             NDR 2
                         </button>
-                        <button class="station-btn" data-url="https://f131.rndfnk.com/ard/ndr/ndrinfo/niedersachsen/mp3/128/stream.mp3?aggregator=web&cid=01FBRKHKTB73QDVNX7A9RT082R&sid=30az5c4cyuUHsy4tHS3YkD5oDcc&token=Z-H6aIgEFsx5kBPmtfq5x2UNGGmMOtyjcoYox9RHg2E&tvf=np8tvHkcVxhmMTMxLnJuZGZuay5jb20" data-name="NDR Info">
+                        <button class="station-btn" data-url="https://f131.rndfnk.com/ard/ndr/ndrinfo/niedersachsen/mp3/128/stream.mp3?aggregator=web&cid=01FBRKHKTB73QDVNX7A9RT082R&sid=30az5c4cyuUHsy4tHS3YkD5oDcc&token=Z-H6aIgEFsx5kBPmtfq5x2UNGGmMOtyjcoYox9RHg2E&tvf=np8tvHkcVxhmMTMxLnJuZGZuay5jb25" data-name="NDR Info">
                             NDR Info
                         </button>
-                        <button class="station-btn" data-url="https://d141.rndfnk.com/ard/ndr/ndrkultur/live/mp3/128/stream.mp3?aggregator=web&cid=01FBQ2EJ6T7QK3WENQ5KT9S2FB&sid=30azBxZOH15ri7EofrRpS1t3RXT&token=T_eVqj_rP6Bkb57di3056sjieytJKHDUnaT86DKLi-o&tvf=P4FiYIUcVxhkMTQxLnJuZGZuay5jb20" data-name="NDR Kultur">
+                        <button class="station-btn" data-url="https://d141.rndfnk.com/ard/ndr/ndrkultur/live/mp3/128/stream.mp3?aggregator=web&cid=01FBQ2EJ6T7QK3WENQ5KT9S2FB&sid=30azBxZOH15ri7EofrRpS1t3RXT&token=T_eVqj_rP6Bkb57di3056sjieytJKHDUnaT86DKLi-o&tvf=P4FiYIUcVxhkMTQxLnJuZGZuay5jb25" data-name="NDR Kultur">
                             NDR Kultur
                         </button>
-                        <button class="station-btn" data-url="https://f121.rndfnk.com/ard/ndr/njoy/live/mp3/128/stream.mp3?aggregator=web&cid=01FBRKKTM6TVGA3B3W6Y8NMXK8&sid=30azMobKXI3x91RNnGaf7v0Jpbl&token=VvAbuddXUjbU602noIVp6b7CQBEikUS280qPiNmxABM&tvf=i4pneZkcVxhmMTIxLnJuZGZuay5jb20" data-name="N-JOY">
+                        <button class="station-btn" data-url="https://f121.rndfnk.com/ard/ndr/njoy/live/mp3/128/stream.mp3?aggregator=web&cid=01FBRKKTM6TVGA3B3W6Y8NMXK8&sid=30azMobKXI3x91RNnGaf7v0Jpbl&token=VvAbuddXUjbU602noIVp6b7CQBEikUS280qPiNmxABM&tvf=i4pneZkcVxhmMTIxLnJuZGZuay5jb25" data-name="N-JOY">
                             N-JOY
                         </button>
                         <button class="station-btn" data-url="https://regiocast.streamabc.net/regc-80s80snds-mp3-192-1969206?sABC=688n1o02%231%23r12785338573418s822r09461or31nrs%23ubzrcntr&mode=preroll&aw_0_1st.skey=1753881320&cb=158820155&aw_0_req.userConsentV2=CQVXcUAQVXcUAAFADBDEB1FgAAAAAAAAAAYgAAASIgNAAEAAyACWAE4AUQAsAC0AIwATgAogBugDkAOYAgwBGACuAGaANUAiYBLQDPgHAAP2AioBGoC3gGAAPeAkQAWGgAwABBIgRABgACCRAqADAAEEiBkAGAAIJEAoAMAAQSICQAYAAgkQOgAwABBIghABgACCRBKADAAEEiCkAGAAIJEFoAMAAQSI.YAAAAAAAAAAA&aw_0_1st.playerid=80s80s_web&listenerid=e12785338573418f822e09461be31aef&amsparams=playerid:homepage;skey:1753881346" data-name="80s80s NDS">
@@ -148,6 +73,15 @@
         <footer>
             <p>&copy; 2025 Oidarwave. Alle Rechte vorbehalten. | Webradio für jeden Geschmack</p>
         </footer>
+    </div>
+
+    <div class="cookie-banner hidden" id="cookieBanner">
+        <p>Wir verwenden Cookies, um die Benutzerfreundlichkeit unserer Website zu verbessern. Weitere Informationen finden Sie in unserer <a href="datenschutz.html" style="color: white; text-decoration: underline;">Datenschutzerklärung</a>. Akzeptieren Sie alle Cookies, nur notwendige Cookies oder lehnen Sie alle Cookies ab?</p>
+        <div class="buttons">
+            <button class="deny" id="denyCookies">Nicht erlauben</button>
+            <button class="necessary" id="acceptNecessaryCookies">Nur notwendige</button>
+            <button id="acceptAllCookies">Erlauben</button>
+        </div>
     </div>
 
     <script>
@@ -284,13 +218,11 @@
                             break;
                         case 'ArrowUp':
                             e.preventDefault();
-                            volumeSlider.value = Math.min(100, parseInt(volumeSlider.value) + 10);
-                            audioPlayer.volume = volumeSlider.value / 100;
+                            audioPlayer.volume = Math.min(1, audioPlayer.volume + 0.1);
                             break;
                         case 'ArrowDown':
                             e.preventDefault();
-                            volumeSlider.value = Math.max(0, parseInt(volumeSlider.value) - 10);
-                            audioPlayer.volume = volumeSlider.value / 100;
+                            audioPlayer.volume = Math.max(0, audioPlayer.volume - 0.1);
                             break;
                     }
                 }
@@ -314,7 +246,47 @@
             });
         }
 
-        document.addEventListener('DOMContentLoaded', initializePlayer);
+        // Cookie Banner Logic
+        function initializeCookieBanner() {
+            const cookieBanner = document.getElementById('cookieBanner');
+            const acceptAllBtn = document.getElementById('acceptAllCookies');
+            const acceptNecessaryBtn = document.getElementById('acceptNecessaryCookies');
+            const denyBtn = document.getElementById('denyCookies');
+            const COOKIE_NAME = 'cookieConsent';
+
+            // Check if consent has already been given
+            const consent = localStorage.getItem(COOKIE_NAME);
+
+            if (!consent) {
+                cookieBanner.classList.remove('hidden');
+            } else {
+                // If consent exists, apply settings (e.g., if 'all' then allow tracking, if 'necessary' then block)
+                console.log("Cookie consent already given:", consent);
+            }
+
+            acceptAllBtn.addEventListener('click', () => {
+                localStorage.setItem(COOKIE_NAME, 'all');
+                cookieBanner.classList.add('hidden');
+                console.log("All cookies accepted.");
+            });
+
+            acceptNecessaryBtn.addEventListener('click', () => {
+                localStorage.setItem(COOKIE_NAME, 'necessary');
+                cookieBanner.classList.add('hidden');
+                console.log("Only necessary cookies accepted.");
+            });
+
+            denyBtn.addEventListener('click', () => {
+                localStorage.setItem(COOKIE_NAME, 'denied');
+                cookieBanner.classList.add('hidden');
+                console.log("All cookies denied.");
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initializePlayer();
+            initializeCookieBanner();
+        });
     </script>
 </body>
 </html>
