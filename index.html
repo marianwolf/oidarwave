@@ -86,11 +86,16 @@
     </div>
 
     <script type="module">
-        import { trackStationSelection, startListeningTimer, stopListeningTimer } from './tracking.js';
+        import { trackStationSelection, startListeningTimer, stopListeningTimer, initializeFirebase, db, userId, isFirebaseReady } from './tracking.js';
 
         const COOKIE_NAME = 'cookieConsent';
 
         function initializePlayer() {
+            if (document.getElementById('audioPlayer').dataset.initialized === 'true') {
+                return;
+            }
+            document.getElementById('audioPlayer').dataset.initialized = 'true';
+
             let currentStation = null;
             let hasError = false;
             let isStalled = false;
@@ -127,7 +132,11 @@
                 updateOverallStatus();
 
                 const consent = localStorage.getItem(COOKIE_NAME);
-                trackStationSelection(name, consent);
+                if (isFirebaseReady) {
+                    trackStationSelection(db, userId, typeof __app_id !== 'undefined' ? __app_id : 'default-app-id', name, consent);
+                } else {
+                    console.warn("Firebase not ready, skipping station selection tracking.");
+                }
             }
 
             audioPlayer.addEventListener('loadstart', () => {
@@ -152,19 +161,31 @@
                 isStalled = false;
                 updateOverallStatus();
                 const consent = localStorage.getItem(COOKIE_NAME);
-                startListeningTimer(consent);
+                if (isFirebaseReady) {
+                    startListeningTimer(consent);
+                } else {
+                    console.warn("Firebase not ready, skipping listening timer start.");
+                }
             });
 
             audioPlayer.addEventListener('pause', () => {
                 updateOverallStatus();
                 const consent = localStorage.getItem(COOKIE_NAME);
-                stopListeningTimer(currentStation, consent);
+                if (isFirebaseReady) {
+                    stopListeningTimer(db, userId, typeof __app_id !== 'undefined' ? __app_id : 'default-app-id', currentStation, consent);
+                } else {
+                    console.warn("Firebase not ready, skipping listening timer stop.");
+                }
             });
 
             audioPlayer.addEventListener('ended', () => {
                 updateOverallStatus();
                 const consent = localStorage.getItem(COOKIE_NAME);
-                stopListeningTimer(currentStation, consent);
+                if (isFirebaseReady) {
+                    stopListeningTimer(db, userId, typeof __app_id !== 'undefined' ? __app_id : 'default-app-id', currentStation, consent);
+                } else {
+                    console.warn("Firebase not ready, skipping listening timer stop.");
+                }
             });
 
             audioPlayer.addEventListener('error', (e) => {
@@ -172,7 +193,11 @@
                 hasError = true;
                 updateOverallStatus();
                 const consent = localStorage.getItem(COOKIE_NAME);
-                stopListeningTimer(currentStation, consent);
+                if (isFirebaseReady) {
+                    stopListeningTimer(db, userId, typeof __app_id !== 'undefined' ? __app_id : 'default-app-id', currentStation, consent);
+                } else {
+                    console.warn("Firebase not ready, skipping listening timer stop on error.");
+                }
             });
 
             audioPlayer.addEventListener('stalled', () => {
@@ -247,7 +272,7 @@
                 }
             });
 
-            if (stationButtons.length > 0) {
+            if (stationButtons.length > 0 && document.getElementById('audioPlayer').dataset.initialized !== 'true') {
                 selectStation(stationButtons[0]);
             }
 
@@ -276,28 +301,28 @@
                 cookieBanner.classList.remove('hidden');
             } else {
                 console.log("Cookie-Zustimmung bereits erteilt:", consent);
-                initializePlayer();
+                initializeFirebase();
             }
 
             acceptAllBtn.addEventListener('click', () => {
                 localStorage.setItem(COOKIE_NAME, 'all');
                 cookieBanner.classList.add('hidden');
                 console.log("Alle Cookies akzeptiert.");
-                initializePlayer();
+                initializeFirebase();
             });
 
             acceptNecessaryBtn.addEventListener('click', () => {
                 localStorage.setItem(COOKIE_NAME, 'necessary');
                 cookieBanner.classList.add('hidden');
                 console.log("Nur notwendige Cookies akzeptiert.");
-                initializePlayer();
+                initializeFirebase();
             });
 
             denyBtn.addEventListener('click', () => {
                 localStorage.setItem(COOKIE_NAME, 'denied');
                 cookieBanner.classList.add('hidden');
                 console.log("Alle Cookies abgelehnt.");
-                initializePlayer();
+                initializeFirebase();
             });
         }
 
