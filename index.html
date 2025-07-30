@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Oidarwave</title>
     <link rel="stylesheet" href="style.css">
+    <script type="module" src="tracking.js"></script>
 </head>
 <body>
     <div class="container">
@@ -78,15 +79,18 @@
     <div class="cookie-banner hidden" id="cookieBanner">
         <p>Wir verwenden Cookies, um die Benutzerfreundlichkeit unserer Website zu verbessern. Weitere Informationen finden Sie in unserer <a href="datenschutz.html" style="color: white; text-decoration: underline;">Datenschutzerklärung</a>. Akzeptieren Sie alle Cookies, nur notwendige Cookies oder lehnen Sie alle Cookies ab?</p>
         <div class="buttons">
-            <button class="deny" id="denyCookies">Nicht erlauben</button>
-            <button class="necessary" id="acceptNecessaryCookies">Nur notwendige</button>
+            <button id="denyCookies">Nicht erlauben</button>
+            <button id="acceptNecessaryCookies">Nur notwendige</button>
             <button id="acceptAllCookies">Erlauben</button>
         </div>
     </div>
 
-    <script>
+    <script type="module">
+        import { trackStationSelection, startListeningTimer, stopListeningTimer } from './tracking.js';
+
+        const COOKIE_NAME = 'cookieConsent';
+
         function initializePlayer() {
-            let currentAudio = null;
             let currentStation = null;
             let hasError = false;
             let isStalled = false;
@@ -121,6 +125,9 @@
                 hasError = false;
                 isStalled = false;
                 updateOverallStatus();
+
+                const consent = localStorage.getItem(COOKIE_NAME);
+                trackStationSelection(name, consent);
             }
 
             audioPlayer.addEventListener('loadstart', () => {
@@ -144,16 +151,28 @@
                 hasError = false;
                 isStalled = false;
                 updateOverallStatus();
+                const consent = localStorage.getItem(COOKIE_NAME);
+                startListeningTimer(consent);
             });
 
             audioPlayer.addEventListener('pause', () => {
                 updateOverallStatus();
+                const consent = localStorage.getItem(COOKIE_NAME);
+                stopListeningTimer(currentStation, consent);
+            });
+
+            audioPlayer.addEventListener('ended', () => {
+                updateOverallStatus();
+                const consent = localStorage.getItem(COOKIE_NAME);
+                stopListeningTimer(currentStation, consent);
             });
 
             audioPlayer.addEventListener('error', (e) => {
                 console.error('Audiofehler:', e);
                 hasError = true;
                 updateOverallStatus();
+                const consent = localStorage.getItem(COOKIE_NAME);
+                stopListeningTimer(currentStation, consent);
             });
 
             audioPlayer.addEventListener('stalled', () => {
@@ -246,47 +265,43 @@
             });
         }
 
-        // Cookie Banner Logic
         function initializeCookieBanner() {
             const cookieBanner = document.getElementById('cookieBanner');
             const acceptAllBtn = document.getElementById('acceptAllCookies');
             const acceptNecessaryBtn = document.getElementById('acceptNecessaryCookies');
             const denyBtn = document.getElementById('denyCookies');
-            const COOKIE_NAME = 'cookieConsent';
-
-            // Check if consent has already been given
             const consent = localStorage.getItem(COOKIE_NAME);
 
             if (!consent) {
                 cookieBanner.classList.remove('hidden');
             } else {
-                // If consent exists, apply settings (e.g., if 'all' then allow tracking, if 'necessary' then block)
-                console.log("Cookie consent already given:", consent);
+                console.log("Cookie-Zustimmung bereits erteilt:", consent);
+                initializePlayer();
             }
 
             acceptAllBtn.addEventListener('click', () => {
                 localStorage.setItem(COOKIE_NAME, 'all');
                 cookieBanner.classList.add('hidden');
-                console.log("All cookies accepted.");
+                console.log("Alle Cookies akzeptiert.");
+                initializePlayer();
             });
 
             acceptNecessaryBtn.addEventListener('click', () => {
                 localStorage.setItem(COOKIE_NAME, 'necessary');
                 cookieBanner.classList.add('hidden');
-                console.log("Only necessary cookies accepted.");
+                console.log("Nur notwendige Cookies akzeptiert.");
+                initializePlayer();
             });
 
             denyBtn.addEventListener('click', () => {
                 localStorage.setItem(COOKIE_NAME, 'denied');
                 cookieBanner.classList.add('hidden');
-                console.log("All cookies denied.");
+                console.log("Alle Cookies abgelehnt.");
+                initializePlayer();
             });
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            initializePlayer();
-            initializeCookieBanner();
-        });
+        document.addEventListener('DOMContentLoaded', initializeCookieBanner);
     </script>
 </body>
 </html>
