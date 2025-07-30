@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Oidarwave</title>
-    <link rel="stylesheet" href="style.css"> 
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
@@ -82,6 +82,8 @@
         function initializePlayer() {
             let currentAudio = null;
             let currentStation = null;
+            let hasError = false;
+            let isStalled = false;
 
             const stationButtons = document.querySelectorAll('.station-btn');
             const audioPlayer = document.getElementById('audioPlayer');
@@ -110,81 +112,84 @@
                 audioPlayer.src = url;
                 audioPlayer.load();
                 
-                updateStatus('loading');
+                hasError = false;
+                isStalled = false;
+                updateOverallStatus();
             }
 
-            volumeSlider.addEventListener('input', (e) => {
-                audioPlayer.volume = e.target.value / 100;
-            });
-
             audioPlayer.addEventListener('loadstart', () => {
-                updateStatus('loading');
+                isStalled = false;
+                updateOverallStatus();
             });
 
             audioPlayer.addEventListener('canplay', () => {
                 if (currentStation) {
-                    audioPlayer.play().catch(e => console.error("Autoplay-Fehler:", e));
+                    audioPlayer.play().catch(e => {
+                        console.error("Autoplay-Fehler:", e);
+                        hasError = true;
+                        updateOverallStatus();
+                    });
                 }
-                updateStatus('ready');
+                isStalled = false;
+                updateOverallStatus();
             });
 
             audioPlayer.addEventListener('playing', () => {
-                updateStatus('online');
+                hasError = false;
+                isStalled = false;
+                updateOverallStatus();
             });
 
             audioPlayer.addEventListener('pause', () => {
-                updateStatus('paused');
+                updateOverallStatus();
             });
 
             audioPlayer.addEventListener('error', (e) => {
                 console.error('Audiofehler:', e);
-                updateStatus('offline');
+                hasError = true;
+                updateOverallStatus();
             });
 
             audioPlayer.addEventListener('stalled', () => {
-                updateStatus('buffering');
+                isStalled = true;
+                updateOverallStatus();
             });
 
             audioPlayer.addEventListener('waiting', () => {
-                updateStatus('buffering');
+                isStalled = true;
+                updateOverallStatus();
             });
 
-            function updateStatus(status) {
+            function updateOverallStatus() {
                 const indicator = statusIndicator;
-                indicator.classList.remove('offline');
-                
-                switch(status) {
-                    case 'online':
-                        indicator.style.background = '#4CAF50';
-                        indicator.style.animation = 'pulse-status 2s infinite';
-                        indicator.style.boxShadow = '0 0 10px rgba(76, 175, 80, 0.5)';
-                        break;
-                    case 'offline':
-                        indicator.classList.add('offline');
-                        indicator.style.animation = 'none';
-                        indicator.style.boxShadow = '0 0 10px rgba(244, 67, 54, 0.5)';
-                        break;
-                    case 'loading':
-                    case 'buffering':
-                        indicator.style.background = '#FF9800';
-                        indicator.style.animation = 'pulse-status 1s infinite';
-                        indicator.style.boxShadow = '0 0 10px rgba(255, 152, 0, 0.5)';
-                        break;
-                    case 'ready':
-                    case 'paused':
-                        indicator.style.background = '#2196F3';
-                        indicator.style.animation = 'none';
-                        indicator.style.boxShadow = '0 0 10px rgba(33, 150, 243, 0.5)';
-                        break;
+                indicator.classList.remove('offline', 'online', 'buffering', 'paused', 'error');
+                indicator.style.animation = 'none';
+                indicator.style.boxShadow = 'none';
+
+                if (hasError) {
+                    indicator.style.background = '#F44336';
+                    indicator.classList.add('error');
+                } else if (!navigator.onLine || isStalled || audioPlayer.readyState < 3) {
+                    indicator.style.background = '#FFEB3B';
+                    indicator.classList.add('buffering');
+                    indicator.style.animation = 'pulse-status 1s infinite';
+                } else if (audioPlayer.paused) {
+                    indicator.style.background = '#2196F3';
+                    indicator.classList.add('paused');
+                } else {
+                    indicator.style.background = '#4CAF50';
+                    indicator.classList.add('online');
+                    indicator.style.animation = 'pulse-status 2s infinite';
                 }
             }
 
             function checkOnlineStatus() {
-                if (navigator.onLine) {
-                    document.body.classList.remove('offline');
+                if (!navigator.onLine) {
+                    if (!hasError) {
+                        updateOverallStatus();
+                    }
                 } else {
-                    document.body.classList.add('offline');
-                    updateStatus('offline');
+                    updateOverallStatus();
                 }
             }
 
@@ -192,10 +197,10 @@
             window.addEventListener('offline', checkOnlineStatus);
             
             checkOnlineStatus();
-            updateStatus('ready');
+            updateOverallStatus();
 
             document.addEventListener('keydown', (e) => {
-                if (e.target.tagName !== 'INPUT') {
+                if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'BUTTON') {
                     switch(e.code) {
                         case 'Space':
                             e.preventDefault();
