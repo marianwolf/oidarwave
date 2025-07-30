@@ -3,36 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Oidarwave - Ihr Webradio Portal für hochwertige Radiostreams</title>
-    <meta name="description" content="Oidarwave bietet hochwertige Webradio-Streams von beliebten deutschen Sendern wie NDR, BR, DLF und mehr. Kostenloses Online-Radio mit kristallklarem Sound.">
-    <meta name="keywords" content="Webradio, Online Radio, NDR, BR, Deutschlandfunk, Radiostreams, kostenloses Radio">
-    <meta name="author" content="Oidarwave">
-    <meta name="robots" content="index, follow">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://oidarwave.vercel.app/">
-    <meta property="og:title" content="Oidarwave - Ihr Webradio Portal">
-    <meta property="og:description" content="Hochwertige Webradio-Streams von beliebten deutschen Sendern. Kostenloses Online-Radio mit kristallklarem Sound.">
-    
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://oidarwave.vercel.app/">
-    <meta property="twitter:title" content="Oidarwave - Ihr Webradio Portal">
-    <meta property="twitter:description" content="Hochwertige Webradio-Streams von beliebten deutschen Sendern. Kostenloses Online-Radio mit kristallklarem Sound.">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>">
-    
-    <!-- Preload critical resources -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="dns-prefetch" href="//stream.radioparadise.com">
-    <link rel="dns-prefetch" href="//dispatcher.rndfnk.com">
-    <link rel="dns-prefetch" href="//st01.sslstream.dlf.de">
-    
+    <title>Oidarwave - Ihr Webradio Portal</title>
     <style>
-        /* Critical CSS - Above the fold */
         * {
             margin: 0;
             padding: 0;
@@ -229,7 +201,6 @@
             transform: translateY(-3px) scale(1.02);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
             border-color: rgba(255, 255, 255, 0.4);
-            outline: none;
         }
 
         .station-btn.active {
@@ -495,31 +466,6 @@
             z-index: 1000;
         }
     </style>
-    
-    <!-- Non-critical CSS loaded asynchronously -->
-    <link rel="preload" href="data:text/css,/* Additional styles loaded here */" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    
-    <!-- Schema.org structured data -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebApplication",
-        "name": "Oidarwave",
-        "description": "Webradio Portal für hochwertige deutsche Radiostreams",
-        "url": "https://oidarwave.vercel.app/",
-        "applicationCategory": "EntertainmentApplication",
-        "operatingSystem": "Any",
-        "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "EUR"
-        },
-        "creator": {
-            "@type": "Organization",
-            "name": "Oidarwave"
-        }
-    }
-    </script>
 </head>
 <body>
     <!-- Skip link for screen readers -->
@@ -542,34 +488,34 @@
                     <h2>📻 Sender auswählen</h2>
                     <div class="station-grid">
                         <button class="station-btn" data-url="http://stream.radioparadise.com/aac-320" data-name="Radio Paradise">
-                            🎶 Radio Paradise
+                            Radio Paradise
                         </button>
                         <button class="station-btn" data-url="https://dispatcher.rndfnk.com/br/br1/franken/mp3/high" data-name="BR1 Franken">
-                            📻 BR1 Franken
+                            BR1 Franken
                         </button>
                         <button class="station-btn" data-url="https://st01.sslstream.dlf.de/dlf/01/128/mp3/stream.mp3" data-name="Deutschlandfunk">
-                            🎙️ Deutschlandfunk
+                            Deutschlandfunk
                         </button>
                         <button class="station-btn" data-url="https://st02.sslstream.dlf.de/dlf/02/128/mp3/stream.mp3" data-name="Deutschlandfunk Kultur">
-                            🎭 DLF Kultur
+                            DLF Kultur
                         </button>
                         <button class="station-btn" data-url="https://st03.sslstream.dlf.de/dlf/03/128/mp3/stream.mp3" data-name="Deutschlandfunk Nova">
-                            🚀 DLF Nova
+                            DLF Nova
                         </button>
                         <button class="station-btn" data-url="https://ndr-ndr1niedersachsen-hannover.sslcast.addradio.de/ndr/ndr1niedersachsen/hannover/mp3/128/stream.mp3" data-name="NDR 1 Niedersachsen">
-                            🌊 NDR 1
+                            NDR 1
                         </button>
                         <button class="station-btn" data-url="https://ndr-ndrinfo-nds.sslcast.addradio.de/ndr/ndrinfo/nds/mp3/128/stream.mp3" data-name="NDR Info">
-                            📰 NDR Info
+                            NDR 2
                         </button>
                         <button class="station-btn" data-url="https://ndr-ndr2-nds.sslcast.addradio.de/ndr/ndr2/nds/mp3/128/stream.mp3" data-name="NDR 2">
-                            🎵 NDR 2
+                            NDR Info
                         </button>
                         <button class="station-btn" data-url="https://ndr-ndrkultur.sslcast.addradio.de/ndr/ndrkultur/live/mp3/128/stream.mp3" data-name="NDR Kultur">
-                            🎨 NDR Kultur
+                            NDR Kultur
                         </button>
                         <button class="station-btn" data-url="http://streams.80s80s.de/nds/mp3-192/streams.80s80s.de/" data-name="80s80s NDS">
-                            🕺 80s80s NDS
+                            80s80s NDS
                         </button>
                     </div>
                 </div>
@@ -593,22 +539,6 @@
                 </div>
             </div>
         </main>
-
-        <div class="features">
-            <div class="feature-card">
-                <h3>🎵 Hochwertige Streams</h3>
-                <p>Genießen Sie kristallklaren Sound mit unseren hochwertigen Audiostreams in bester Qualität für ein unvergleichliches Hörerlebnis.</p>
-            </div>
-            <div class="feature-card">
-                <h3>📱 Responsive Design</h3>
-                <p>Perfekt optimiert für alle Geräte - vom Smartphone bis zum Desktop-Computer. Moderne Benutzeroberfläche mit glasmorphem Design.</p>
-            </div>
-            <div class="feature-card">
-                <h3>🚀 Schnell & Zuverlässig</h3>
-                <p>Minimale Ladezeiten und stabile Verbindungen für unterbrechungsfreies Hörvergnügen mit intelligenter Pufferung und Fehlerbehandlung.</p>
-            </div>
-        </div>
-
         <footer>
             <p>&copy; 2025 Oidarwave. Alle Rechte vorbehalten. | Webradio für jeden Geschmack</p>
         </footer>
@@ -620,58 +550,57 @@
             let currentAudio = null;
             let currentStation = null;
 
-            // DOM Elements
-            const stationButtons = document.querySelectorAll('.station-btn');
-            const audioPlayer = document.getElementById('audioPlayer');
-            const currentStationDisplay = document.getElementById('currentStation');
-            const volumeSlider = document.getElementById('volumeSlider');
-            const statusIndicator = document.getElementById('statusIndicator');
+        // DOM Elements
+        const stationButtons = document.querySelectorAll('.station-btn');
+        const audioPlayer = document.getElementById('audioPlayer');
+        const currentStationDisplay = document.getElementById('currentStation');
+        const volumeSlider = document.getElementById('volumeSlider');
+        const statusIndicator = document.getElementById('statusIndicator');
 
-            // Initialize volume
-            audioPlayer.volume = 0.5;
+        // Initialize volume
+        audioPlayer.volume = 0.5;
 
-        // Station selection
         stationButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     selectStation(button);
                 });
             });
 
-            function selectStation(button) {
+        function selectStation(button) {
             // Remove active class from all buttons
             stationButtons.forEach(btn => btn.classList.remove('active'));
-                
+            
             // Add active class to clicked button
-                button.classList.add('active');
-                
-                const url = button.dataset.url;
-                const name = button.dataset.name;
-                
-                // Update display
-                currentStationDisplay.textContent = name;
-                currentStation = name;
-                
-                // Load new stream
-                audioPlayer.src = url;
-                audioPlayer.load();
-                
-                // Update status
-                updateStatus('loading');
-            }
+            button.classList.add('active');
+            
+            const url = button.dataset.url;
+            const name = button.dataset.name;
+            
+            // Update display
+            currentStationDisplay.textContent = name;
+            currentStation = name;
+            
+            // Load new stream
+            audioPlayer.src = url;
+            audioPlayer.load();
+            
+            // Update status
+            updateStatus('loading');
+        }
 
         // Volume control
-            volumeSlider.addEventListener('input', (e) => {
+        volumeSlider.addEventListener('input', (e) => {
             audioPlayer.volume = e.target.value / 100;
             });
 
         // Audio events
-            audioPlayer.addEventListener('loadstart', () => {
-                updateStatus('loading');
-            });
+        audioPlayer.addEventListener('loadstart', () => {
+            updateStatus('loading');
+        });
 
-            audioPlayer.addEventListener('canplay', () => {
-                updateStatus('ready');
-            });
+        audioPlayer.addEventListener('canplay', () => {
+            updateStatus('ready');
+        });
 
             audioPlayer.addEventListener('playing', () => {
                 updateStatus('online');
@@ -681,19 +610,10 @@
                 updateStatus('paused');
             });
 
-            audioPlayer.addEventListener('error', (e) => {
-                console.error('Audio error:', e);
-                updateStatus('offline');
-                
-                // Show user-friendly error message
-                const errorMsg = document.createElement('div');
-                errorMsg.setAttribute('role', 'alert');
-                errorMsg.setAttribute('aria-live', 'assertive');
-                errorMsg.className = 'sr-only';
-                errorMsg.textContent = 'Fehler beim Laden des Streams. Bitte versuchen Sie es erneut.';
-                document.body.appendChild(errorMsg);
-                setTimeout(() => document.body.removeChild(errorMsg), 3000);
-            });
+        audioPlayer.addEventListener('error', (e) => {
+            console.error('Audio error:', e);
+            updateStatus('offline');
+        });
 
             audioPlayer.addEventListener('stalled', () => {
                 updateStatus('buffering');
@@ -735,7 +655,6 @@
                 }
         }
 
-        // Check online status
         function checkOnlineStatus() {
             if (navigator.onLine) {
                 document.body.classList.remove('offline');
@@ -748,12 +667,11 @@
         window.addEventListener('online', checkOnlineStatus);
         window.addEventListener('offline', checkOnlineStatus);
         
-        // Initial status check
         checkOnlineStatus();
         updateStatus('ready');
 
         // Keyboard shortcuts
-            document.addEventListener('keydown', (e) => {
+        document.addEventListener('keydown', (e) => {
             if (e.target.tagName !== 'INPUT') {
                     switch(e.code) {
                         case 'Space':
@@ -779,12 +697,11 @@
                 }
             });
 
-            // Auto-select first station on load
-            if (stationButtons.length > 0) {
-                selectStation(stationButtons[0]);
-            }
+        // Auto-select first station on load
+        if (stationButtons.length > 0) {
+            selectStation(stationButtons[0]);
+        }
 
-        // Add smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
