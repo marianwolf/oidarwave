@@ -8,7 +8,7 @@
             "type": "chrome",
             "request": "launch",
             "name": "Open index.html",
-            "file": "/home/marian/netxcloud/github/oidarwave/index.html"
+            "file": "/home/marian/nextcloud/github/oidarwave/index.html"
         }
     ]
 }

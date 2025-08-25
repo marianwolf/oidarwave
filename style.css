@@ -61,8 +61,19 @@ body::before {
         radial-gradient(circle at 20% 20%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
         radial-gradient(circle at 80% 80%, rgba(255, 119, 198, 0.1) 0%, transparent 50%),
         radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.1) 0%, transparent 50%);
+    background-size: 200% 200%;
     pointer-events: none;
     z-index: -1;
+    animation: backgroundPan 30s linear infinite;
+}
+
+@keyframes backgroundPan {
+    0% {
+        background-position: 0% 0%;
+    }
+    100% {
+        background-position: 100% 100%;
+    }
 }
 
 .container {
@@ -148,6 +159,24 @@ nav a:hover {
     border-color: rgba(120, 119, 198, 0.4);
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(120, 119, 198, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+nav a:hover::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+nav a:hover::after {
+    opacity: 1;
 }
 
 .main-section {
@@ -358,7 +387,7 @@ nav a:hover {
     transform: translateY(-8px) scale(1.02);
     box-shadow:
         0 20px 40px rgba(0, 0, 0, 0.4),
-        var(--shadow-glow-blue);
+        0 0 15px var(--accent-blue);
     border-color: rgba(120, 119, 198, 0.4);
 }
 
