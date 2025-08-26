@@ -2,7 +2,6 @@
 
 Ein modernes und minimalistisches Webradio-Interface, das deutsche und internationale Radiosender streamt.
 
-!
 ## 🚀 Projekt-Übersicht
 
 Oidarwave ist eine schlanke und benutzerfreundliche Webanwendung, die es Nutzern ermöglicht, eine kuratierte Auswahl an Radiosendern direkt im Browser zu hören. Das Projekt wurde entwickelt, um ein sauberes, schnelles und werbefreies Hörerlebnis zu bieten.
