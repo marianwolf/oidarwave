@@ -41,7 +41,6 @@ function initializePlayer() {
         isStalled = false;
         updateOverallStatus();
     });
-
     audioPlayer.addEventListener('playing', () => {
         hasError = false;
         isStalled = false;
@@ -53,9 +52,8 @@ function initializePlayer() {
     audioPlayer.addEventListener('error', (e) => {
         console.error('Audiofehler:', e);
         hasError = true;
-            updateOverallStatus();
-        });
-
+        updateOverallStatus();
+    });
     audioPlayer.addEventListener('stalled', () => {
         isStalled = true;
         updateOverallStatus();
@@ -90,57 +88,52 @@ function initializePlayer() {
             if (!hasError) {
                 updateOverallStatus();
             }
-                } else {
-                    updateOverallStatus();
-                }
-            }
-            window.addEventListener('online', checkOnlineStatus);
-            window.addEventListener('offline', checkOnlineStatus);
-            
-            checkOnlineStatus();
+        } else {
             updateOverallStatus();
-
-            document.addEventListener('keydown', (e) => {
-                if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'BUTTON') {
-                    switch(e.code) {
-                        case 'Space':
-                            e.preventDefault();
-                            if (audioPlayer.paused) {
-                                audioPlayer.play().catch(console.error);
-                            } else {
-                                audioPlayer.pause();
-                            }
-                            break;
-                        case 'ArrowUp':
-                            e.preventDefault();
-                            volumeSlider.value = Math.min(100, parseInt(volumeSlider.value) + 10);
-                            audioPlayer.volume = volumeSlider.value / 100;
-                            break;
-                        case 'ArrowDown':
-                            e.preventDefault();
-                            volumeSlider.value = Math.max(0, parseInt(volumeSlider.value) - 10);
-                            audioPlayer.volume = volumeSlider.value / 100;
-                            break;
-                    }
-                }
-            });
-
-            if (stationButtons.length > 0) {
-                selectStation(stationButtons[0]);
-            }
-
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
-            });
         }
-
-        document.addEventListener('DOMContentLoaded', initializePlayer);
+    }
+    window.addEventListener('online', checkOnlineStatus);
+    window.addEventListener('offline', checkOnlineStatus);
+    checkOnlineStatus();
+    updateOverallStatus();
+    document.addEventListener('keydown', (e) => {
+        if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'BUTTON') {
+            switch(e.code) {
+                case 'Space':
+                    e.preventDefault();
+                    if (audioPlayer.paused) {
+                        audioPlayer.play().catch(console.error);
+                    } else {
+                        audioPlayer.pause();
+                    }
+                    break;
+                case 'ArrowUp':
+                    e.preventDefault();
+                    volumeSlider.value = Math.min(100, parseInt(volumeSlider.value) + 10);
+                    audioPlayer.volume = volumeSlider.value / 100;
+                    break;
+                case 'ArrowDown':
+                    e.preventDefault();
+                    volumeSlider.value = Math.max(0, parseInt(volumeSlider.value) - 10);
+                    audioPlayer.volume = volumeSlider.value / 100;
+                    break;
+            }
+        }
+    });
+    if (stationButtons.length > 0) {
+        selectStation(stationButtons[0]);
+    }
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+}
+document.addEventListener('DOMContentLoaded', initializePlayer);
