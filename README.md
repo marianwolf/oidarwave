@@ -1,34 +1,55 @@
-# Oidarwave Webradio 🎵
+# 🎵 Oidarwave: Dein Webradio-Erlebnis
 
-Ein modernes und minimalistisches Webradio-Interface, das deutsche und internationale Radiosender streamt.
+## 🚀 Über das Projekt
 
-## 🚀 Projekt-Übersicht
+Oidarwave bietet eine minimalistische und benutzerfreundliche Webradio-Oberfläche, die es Nutzern ermöglicht, eine ausgewählte Sammlung deutscher Radiosender direkt im Browser zu hören. Ziel des Projekts ist es, ein schnelles, werbefreies und reibungsloses Hörerlebnis zu schaffen.
 
-Oidarwave ist eine schlanke und benutzerfreundliche Webanwendung, die es Nutzern ermöglicht, eine kuratierte Auswahl an Radiosendern direkt im Browser zu hören. Das Projekt wurde entwickelt, um ein sauberes, schnelles und werbefreies Hörerlebnis zu bieten.
+-----
 
----
+## ✨ Hauptfunktionen
 
-## ✨ Features
+  * **Minimalistisches Design**: Eine saubere, intuitive Benutzeroberfläche, die sich auf das Wesentliche konzentriert.
+  * **HTML5-Audio**: Nutzt die native Browser-API für eine zuverlässige Audiowiedergabe ohne Plugins.
+  * **Vielfältige Senderauswahl**: Eine kuratierte Liste beliebter Radiosender, die verschiedene Genres und Formate abdeckt.
+  * **Responsives Layout**: Optimale Darstellung und Bedienung auf allen Geräten, vom Desktop bis zum Smartphone.
+  * **Echtzeit-Statusanzeige**: Visuelle Indikatoren informieren den Nutzer sofort über den Verbindungs- und Wiedergabestatus.
 
-- **Intuitive Benutzeroberfläche**: Ein klares, minimalistisches Design, das sich auf das Wesentliche konzentriert.
-- **HTML5-Audio**: Nutzt die native Browser-API für eine reibungslose Audiowiedergabe ohne zusätzliche Plugins.
-- **Umfangreiche Senderauswahl**: Eine vielfältige Liste beliebter deutscher und internationaler Radiosender.
-- **Mobile-freundlich**: Das responsive Design sorgt für eine optimale Darstellung auf allen Geräten.
-- **Echtzeit-Status**: Visuelle Indikatoren für Verbindungs- und Wiedergabestatus.
-
----
+-----
 
 ## 📻 Verfügbare Sender
 
-| Sendername | Beschreibung |
+| Sendername | Genre |
 | :--- | :--- |
 | **Deutschlandfunk** | Nachrichten und Information |
 | **Deutschlandfunk Kultur** | Kultur und Gesellschaft |
 | **Deutschlandfunk Nova** | Junges Programm |
-| **NDR 1** | Regionalprogramm Niedersachsen |
+| **NDR 1 Niedersachsen** | Regionalprogramm |
 | **NDR 2** | Pop und Rock |
-| **NDR Info** | Nachrichten und aktuelle Berichte |
+| **NDR Info** | Nachrichten |
 | **NDR Kultur** | Klassik und Kultur |
 | **N-JOY** | Modernes Pop- und Rockprogramm |
 | **80s80s NDS** | 80er-Hits |
-| **90s90s** | Die besten Hits der 90er |
+| **90s90s** | 90er-Hits |
+
+-----
+
+## 🛠️ Installation und Nutzung
+
+Dieses Projekt ist als statische Webseite konzipiert und benötigt keine serverseitige Installation.
+
+1.  Klone das Repository: `git clone https://github.com/DEIN_BENUTZERNAME/oidarwave.git`
+2.  Öffne die Datei `index.html` in deinem bevorzugten Webbrowser.
+
+Alternativ kannst du die Live-Version unter [https://oidarwave.vercel.app](https://www.google.com/search?q=https://oidarwave.vercel.app) nutzen (URL anpassen, falls das Projekt unter einem anderen Namen gehostet wird).
+
+-----
+
+## 🤝 Mitwirken
+
+Beiträge sind jederzeit willkommen\! Ob Fehlerberichte, Funktionsvorschläge oder Code-Verbesserungen – erstelle einfach ein Issue oder sende einen Pull Request.
+
+-----
+
+## 📜 Lizenz
+
+Dieses Projekt steht unter der MIT-Lizenz. Weitere Informationen findest du in der Datei `LICENSE`.
