@@ -478,9 +478,20 @@ body.offline::after {
         padding: var(--space-200);
         font-size: 0.85em;
     }
+    .cookie-banner {
+        width: 90%;
+        padding: var(--space-400);
+        bottom: var(--space-300);
+    }
+    .player-controls {
+    order: 1;
+    }
+    .station-selector {
+        order: 2;
+    }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 420px) {
     .container {
         padding: var(--space-200);
     }
@@ -489,5 +500,26 @@ body.offline::after {
     }
     .logo {
         font-size: 1.8em;
+    }
+    .cookie-banner {
+        bottom: 0;
+        left: 0;
+        transform: none;
+        border-radius: 0;
+        width: fit-content;
+    }
+
+    .cookie-banner-content {
+        flex-direction: column;
+        gap: var(--space-300);
+    }
+    .cookie-buttons {
+        flex-direction: column;
+        gap: var(--space-200);
+        width: 100%;
+    }
+    .cookie-btn {
+        width: 100%;
+        text-align: center;
     }
 }
