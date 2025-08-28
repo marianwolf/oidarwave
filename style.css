@@ -101,12 +101,10 @@ body::before {
 
 header {
     background: var(--color-bg-card);
-    backdrop-filter: blur(20px);
     border-radius: var(--radius-lg);
     padding: var(--space-400);
     margin-bottom: var(--space-500);
     box-shadow: var(--shadow-md), 0 0 0 1px rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(120, 119, 198, 0.2);
 }
 
 .logo {
@@ -164,11 +162,9 @@ nav a:hover {
 
 .main-section {
     background: var(--color-bg-card);
-    backdrop-filter: blur(20px);
     border-radius: var(--radius-xl);
     padding: var(--space-600);
     box-shadow: var(--shadow-lg), 0 0 0 1px rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(120, 119, 198, 0.2);
     margin-bottom: var(--space-500);
 }
 
@@ -264,8 +260,8 @@ nav a:hover {
 }
 
 @keyframes glow {
-    0% { filter: drop-shadow(var(--shadow-glow-purple)); transform: scale(1); }
-    100% { filter: drop-shadow(var(--shadow-glow-pink)); transform: scale(1.02); }
+    0% { filter: drop-shadow(0 0 10px var(--color-accent-purple)); }
+    100% { filter: drop-shadow(0 0 20px var(--color-accent-pink)); }
 }
 
 @keyframes pulse-status {
@@ -280,9 +276,8 @@ nav a:hover {
 }
 
 @keyframes card-glow-pulse {
-    0% { box-shadow: var(--shadow-sm), 0 0 10px rgba(120, 119, 198, 0.4); }
-    50% { box-shadow: var(--shadow-lg), 0 0 30px var(--color-accent-blue), 0 0 50px var(--color-accent-pink); }
-    100% { box-shadow: var(--shadow-sm), 0 0 10px rgba(120, 119, 198, 0.4); }
+    0%, 100% { box-shadow: var(--shadow-sm), 0 0 10px rgba(120, 119, 198, 0.4); }
+    50% { box-shadow: var(--shadow-lg), 0 0 30px rgba(120, 119, 198, 0.6), 0 0 50px var(--color-accent-blue); }
 }
 
 .loading {
@@ -311,7 +306,7 @@ nav a:hover {
 .status-indicator.buffering { background: var(--color-status-buffering); animation: pulse-status 1s infinite; }
 .status-indicator.paused { background: var(--color-status-paused); animation: none; }
 
-nav a::before, .station-btn::before, .feature-card::before {
+.hover-shine::before {
     content: '';
     position: absolute;
     top: 0;
@@ -322,7 +317,7 @@ nav a::before, .station-btn::before, .feature-card::before {
     transition: left 0.5s ease;
 }
 
-nav a:hover::before, .station-btn:hover::before, .feature-card:hover::before {
+.hover-shine:hover::before {
     left: 100%;
 }
 
@@ -473,4 +468,9 @@ header {
 .cookie-btn.link-style:hover {
     background: rgba(255, 255, 255, 0.15);
     border-color: rgba(255, 255, 255, 0.4);
+}
+
+.glassmorphic-card {
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(120, 119, 198, 0.2);
 }
