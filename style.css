@@ -198,7 +198,6 @@ nav a:hover::before {
 
 .station-btn {
     background: rgba(255, 255, 255, 0.15);
-    border: none;
     padding: var(--space-200) var(--space-200);
     border-radius: var(--radius-md);
     color: white;
@@ -220,7 +219,6 @@ nav a:hover::before {
 
 .station-btn.active {
     background: rgba(255, 255, 255, 0.3);
-    border: 2px solid rgba(255, 255, 255, 0.8);
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
 }
 
