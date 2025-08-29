@@ -63,6 +63,7 @@
 
 html {
     font-size: 16px;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -72,6 +73,7 @@ body {
     color: var(--color-text-primary);
     min-height: 100vh;
     overflow-x: hidden;
+    overflow-y: scroll;
     position: relative;
     transition: background-color var(--transition-speed-fast) ease;
 }
@@ -199,6 +201,7 @@ nav a:hover::before {
 .station-btn {
     background: rgba(255, 255, 255, 0.15);
     padding: var(--space-200) var(--space-200);
+    border: none;
     border-radius: var(--radius-md);
     color: white;
     font-size: var(--font-size-sm);
@@ -210,6 +213,8 @@ nav a:hover::before {
     text-align: center;
     position: relative;
     overflow: hidden;
+    margin-block-start: 2px;
+    margin-block-end: 2px;
 }
 
 .station-btn:hover {
@@ -220,6 +225,9 @@ nav a:hover::before {
 .station-btn.active {
     background: rgba(255, 255, 255, 0.3);
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    margin-block-start: 0;
+    margin-block-end: 0;
 }
 
 .player-controls {
