@@ -74,20 +74,17 @@ body {
     transition: background-color var(--transition-speed-fast) ease;
 }
 
-body::before {
+body::after {
     content: '';
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background:
-        radial-gradient(circle at var(--mouse-x, 20%) var(--mouse-y, 20%), rgba(120, 119, 198, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at calc(100% - var(--mouse-x, 80%)) calc(100% - var(--mouse-y, 80%)), rgba(255, 119, 198, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at var(--mouse-x, 40%) var(--mouse-y, 40%), rgba(120, 219, 255, 0.1) 0%, transparent 50%);
-    background-size: 200% 200%;
+    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 119, 198, 0.1) 0%, transparent 60%);
     pointer-events: none;
     z-index: -1;
+    transition: background-position 0.5s ease;
 }
 
 .container {
@@ -160,10 +157,6 @@ nav a:hover::before {
     left: 100%;
 }
 
-nav a:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-sm);
-}
 
 .main-section {
     background: var(--color-bg-card);
@@ -189,7 +182,7 @@ nav a:hover {
 }
 
 .station-selector h2 {
-    margin-bottom: var(--space-400);
+    margin-block-end: var(--space-400);
     text-align: center;
     font-size: var(--font-size-lg);
     font-weight: var(--font-weight-semibold);
@@ -221,7 +214,6 @@ nav a:hover {
 
 .station-btn:hover {
     background: rgba(255, 255, 255, 0.25);
-    box-shadow: var(--shadow-sm);
     border-color: rgba(255, 255, 255, 0.4);
 }
 
@@ -238,6 +230,11 @@ nav a:hover {
     color: white;
     text-align: center;
     box-shadow: 0 10px 30px rgba(119, 219, 255, 0.4);
+}
+
+:is(nav a, .station-btn):hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
 }
 
 .current-station {
@@ -276,17 +273,33 @@ nav a:hover {
     backdrop-filter: blur(20px);
     padding: var(--space-500);
     border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-sm), 0 0 0 1px rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(120, 119, 198, 0.2);
-    transition: all var(--transition-speed-normal) var(--transition-timing-cubic);
     position: relative;
     overflow: hidden;
+	animation: glow-subtle 4s ease-in-out infinite alternate;
+    transition: transform 0.5s var(--transition-timing-cubic),
+                box-shadow 0.5s var(--transition-timing-cubic);
 }
 
 .feature-card:hover {
-    transform: translateY(-8px) scale(1.02);
-    animation: card-glow-pulse 2s ease-in-out infinite; 
-    border-color: rgba(120, 119, 198, 0.4);
+    transform: translateY(-10px) rotateX(2deg) scale(1.03);
+    box-shadow: var(--shadow-lg),
+                0 0 35px var(--color-accent-purple),
+                0 0 50px var(--color-accent-blue);
+}
+
+.feature-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 0 20px 5px var(--color-accent-blue) inset;
+    opacity: 0;
+    transition: opacity 0.5s var(--transition-timing-cubic);
+}
+
+.feature-card:hover::after {
+    opacity: 0.1;
 }
 
 .feature-card h3 {
@@ -454,6 +467,15 @@ body.offline::after {
 @keyframes card-glow-pulse {
     0%, 100% { box-shadow: var(--shadow-sm), 0 0 10px rgba(120, 119, 198, 0.4); }
     50% { box-shadow: var(--shadow-lg), 0 0 30px rgba(120, 119, 198, 0.6), 0 0 50px var(--color-accent-blue); }
+}
+
+@keyframes glow-subtle {
+    0% {
+        box-shadow: var(--shadow-sm), 0 0 10px rgba(120, 119, 198, 0.4);
+    }
+    50% {
+        box-shadow: var(--shadow-sm), 0 0 15px rgba(120, 119, 198, 0.6);
+    }
 }
 
 @media (max-width: 768px) {
