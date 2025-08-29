@@ -54,8 +54,10 @@
 }
 
 * {
-    margin: 0;
-    padding: 0;
+    margin-block: 0;
+    margin-inline: 0;
+    padding-block: 0;
+    padding-inline: 0;
     box-sizing: border-box;
 }
 
@@ -77,8 +79,8 @@ body {
 body::after {
     content: '';
     position: fixed;
-    top: 0;
-    left: 0;
+    inset-block-start: 0;
+    inset-inline-start: 0;
     width: 100%;
     height: 100%;
     background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 119, 198, 0.1) 0%, transparent 60%);
@@ -104,7 +106,7 @@ header {
     background: var(--color-bg-card);
     border-radius: var(--radius-lg);
     padding: var(--space-400);
-    margin-bottom: var(--space-500);
+    margin-block-end: var(--space-500);
     box-shadow: var(--shadow-md), 0 0 0 1px rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(120, 119, 198, 0.2);
 }
@@ -117,7 +119,7 @@ header {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-align: center;
-    margin-bottom: var(--space-200);
+    margin-block-end: var(--space-200);
     animation: glow 3s ease-in-out infinite alternate;
 }
 
@@ -125,7 +127,7 @@ nav {
     display: flex;
     justify-content: center;
     gap: var(--space-300);
-    margin-top: var(--space-300);
+    margin-block-start: var(--space-300);
     flex-wrap: wrap;
 }
 
@@ -145,8 +147,8 @@ nav a {
 nav a::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: -100%;
+    inset-block-start: 0;
+    inset-inline-start: -100%;
     width: 100%;
     height: 100%;
     background: linear-gradient(90deg, transparent, rgba(120, 119, 198, 0.3), transparent);
@@ -163,7 +165,7 @@ nav a:hover::before {
     border-radius: var(--radius-xl);
     padding: var(--space-600);
     box-shadow: var(--shadow-lg), 0 0 0 1px rgba(255, 255, 255, 0.1);
-    margin-bottom: var(--space-500);
+    margin-block-end: var(--space-500);
 }
 
 .player-section {
@@ -178,7 +180,6 @@ nav a:hover::before {
     padding: var(--space-500);
     border-radius: var(--radius-lg);
     color: white;
-    box-shadow: 0 10px 30px rgba(120, 119, 198, 0.4);
 }
 
 .station-selector h2 {
@@ -224,12 +225,16 @@ nav a:hover::before {
 }
 
 .player-controls {
-    background: linear-gradient(135deg, var(--color-accent-blue) 0%, var(--color-accent-purple) 100%);
+    background: linear-gradient(135deg, var(--color-accent-purple) 0%, var(--color-accent-blue) 100%);
     padding: var(--space-500);
     border-radius: var(--radius-lg);
     color: white;
     text-align: center;
-    box-shadow: 0 10px 30px rgba(119, 219, 255, 0.4);
+    transition: backdrop-filter 0.5s ease;
+}
+
+.player-controls:hover {
+    backdrop-filter: blur(10px) brightness(1.2);
 }
 
 :is(nav a, .station-btn):hover {
@@ -239,7 +244,7 @@ nav a:hover::before {
 
 .current-station {
     font-size: var(--font-size-lg);
-    margin-bottom: var(--space-400);
+    margin-block-end: var(--space-400);
     font-weight: var(--font-weight-semibold);
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     display: flex;
@@ -249,23 +254,19 @@ nav a:hover::before {
 }
 
 .audio-controls {
-    margin: var(--space-400) 0;
+    margin-block: var(--space-400);
+    margin-inline: 0;
 }
 
 #audioPlayer {
-    width: 100%;
-    margin: var(--space-300) 0;
-    border-radius: var(--radius-md);
-    height: 50px;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
+    width: 90%;
 }
 
 .features {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: var(--space-400);
-    margin-top: var(--space-500);
+    margin-block-start: var(--space-500);
 }
 
 .feature-card {
@@ -304,7 +305,7 @@ nav a:hover::before {
 
 .feature-card h3 {
     color: var(--color-accent-blue);
-    margin-bottom: var(--space-200);
+    margin-block-end: var(--space-200);
     font-size: var(--font-size-lg);
     font-weight: var(--font-weight-semibold);
 }
@@ -320,7 +321,7 @@ nav a:hover::before {
     height: 16px;
     border-radius: 50%;
     background: var(--color-status-online);
-    margin-right: var(--space-100);
+    margin-inline-end: var(--space-100);
     animation: pulse-status 2s infinite;
     transition: background-color 0.5s ease-in-out;
 }
@@ -347,13 +348,13 @@ footer {
     text-align: center;
     padding: var(--space-400);
     border-radius: var(--radius-md);
-    margin-top: var(--space-500);
+    margin-block-start: var(--space-500);
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .cookie-banner {
     position: fixed;
-    bottom: var(--space-400);
+    inset-block-end: var(--space-400);
     left: 50%;
     transform: translateX(-50%);
     width: 70%;
@@ -418,8 +419,8 @@ footer {
 body.offline::after {
     content: 'Sie sind offline. Einige Funktionen sind möglicherweise eingeschränkt.';
     position: fixed;
-    top: var(--space-300);
-    right: var(--space-300);
+    inset-block-start: var(--space-300);
+    inset-inline-end: var(--space-300);
     background: rgba(244, 67, 54, 0.9);
     color: white;
     padding: var(--space-200) var(--space-300);
@@ -428,7 +429,7 @@ body.offline::after {
     z-index: 1000;
 }
 
-.glassmorphic-card {
+:is(header, .main-section, .feature-card, .cookie-banner) {
     backdrop-filter: blur(20px);
     border: 1px solid rgba(120, 119, 198, 0.2);
 }
@@ -436,8 +437,8 @@ body.offline::after {
 .hover-shine::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: -100%;
+    inset-block-start: 0;
+    inset-inline-start: -100%;
     width: 100%;
     height: 100%;
     background: linear-gradient(90deg, transparent, rgba(120, 119, 198, 0.3), transparent);
@@ -445,7 +446,7 @@ body.offline::after {
 }
 
 .hover-shine:hover::before {
-    left: 100%;
+    inset-inline-start: 100%;
 }
 
 @keyframes glow {
@@ -503,7 +504,7 @@ body.offline::after {
     .cookie-banner {
         width: 90%;
         padding: var(--space-400);
-        bottom: var(--space-300);
+        inset-block-end: var(--space-300);
     }
     .player-controls {
     order: 1;
@@ -524,8 +525,8 @@ body.offline::after {
         font-size: 1.8em;
     }
     .cookie-banner {
-        bottom: 0;
-        left: 0;
+        inset-block-end: 0;
+        inset-inline-start: 0;
         transform: none;
         border-radius: 0;
         width: fit-content;
