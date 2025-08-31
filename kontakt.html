@@ -3,27 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kontaktformular</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta name="description" content="Oidarwave ist dein Webradio für jeden Geschmack."/>
+    <meta name="keywords" content="Webradio, Radio, Online-Radio, Oidarwave"/>
+    <meta name="author" content="Marian Wolf"/>
+    <meta property="og:title" content="Oidarwave - Webradio für jeden Geschmack"/>
+    <meta property="og:description" content="Oidarwave ist dein Webradio mit einer großen Auswahl an Sendern."/>
+    <meta property="og:image" content="https://oidarwave.vercel.app/favicon.svg"/>
+    <meta property="og:url" content="https://oidarwave.vercel.app"/>
+    <link rel="preload" href="/favicon.svg" as="image">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <title>Oidarwave - Kontakt</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="mouse.js" defer></script>
+    <script src="cookie.js" defer></script>
+    <script src="player.js" defer></script>
 </head>
 <body>
-<div class="container">
-    <h2>Kontaktieren Sie uns</h2>
-    <form action="process_form.php" method="POST">
-        <div class="form-group">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required>
-        </div>
-        <div class="form-group">
-            <label for="email">E-Mail:</label>
-            <input type="email" id="email" name="email" required>
-        </div>
-        <div class="form-group">
-            <label for="message">Nachricht:</label>
-            <textarea id="message" name="message" rows="5" required></textarea>
-        </div>
-        <button type="submit" class="submit-btn">Senden</button>
-    </form>
-</div>
+    <div class="container">
+        <header>
+            <div class="logo">🎵 Oidarwave</div>
+            <nav>
+                <a href="index.html">Radio</a>
+                <a href="kontakt.html">Kontakt</a>
+                <a href="impressum.html">Impressum</a>
+                <a href="https://beta0.vercel.app" target="_blank">Beta</a>
+            </nav>
+        </header>
+        <main class="main-section">
+            <h1>Kontaktieren Sie uns</h1>
+            <p>Wir freuen uns auf Ihre Nachricht!</p>
+            <form action="process_form.php" method="POST" novalidate>
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" placeholder="Max Mustermann" required autocomplete="name">
+                </div>
+                <div class="form-group">
+                    <label for="email">E-Mail:</label>
+                    <input type="email" id="email" name="email" placeholder="max.mustermann@example.de" required autocomplete="email">
+                </div>
+                <div class="form-group">
+                    <label for="message">Nachricht:</label>
+                    <textarea id="message" name="message" rows="5" placeholder="Ihre Nachricht an uns..." required autocomplete="off"></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Senden</button>
+            </form>
+        </main>
+    </div>
 </body>
 </html>
