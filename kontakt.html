@@ -3,50 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kontakt - Oidarwave</title>
-    <script src="mouse.js" defer></script>
-    <link rel="stylesheet" href="style.css">
+    <title>Kontaktformular</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="logo">🎵 Oidarwave</div>
-            <nav>
-                <a href="index.html">Radio</a>
-                <a href="kontakt.html">Kontakt</a>
-                <a href="impressum.html">Impressum</a>
-                <a href="datenschutz.html">Datenschutz</a>
-            </nav>
-        </header>
-
-        <main class="main-section">
-            <h1>Kontakt</h1>
-            <p>Haben Sie Fragen, Anregungen oder möchten Sie uns einfach etwas mitteilen? Nutzen Sie das untenstehende Formular oder kontaktieren Sie uns direkt.</p>
-
-            <form class="contact-form" onsubmit="alert('Ihre Nachricht wurde gesendet!'); return false;">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
-
-                <label for="email">E-Mail:</label>
-                <input type="email" id="email" name="email" required>
-
-                <label for="subject">Betreff:</label>
-                <input type="text" id="subject" name="subject">
-
-                <label for="message">Nachricht:</label>
-                <textarea id="message" name="message" rows="6" required></textarea>
-
-                <button type="submit">Nachricht senden</button>
-            </form>
-
-            <p style="text-align: center; margin-top: 30px;">
-                Sie erreichen uns auch per E-Mail unter: <a href="mailto:[Ihre E-Mail-Adresse]">[Ihre E-Mail-Adresse]</a>
-            </p>
-        </main>
-
-        <footer>
-            <p>&copy; 2025 Oidarwave. Alle Rechte vorbehalten. | Webradio für jeden Geschmack</p>
-        </footer>
-    </div>
+<div class="container">
+    <h2>Kontaktieren Sie uns</h2>
+    <form action="process_form.php" method="POST">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="email">E-Mail:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="message">Nachricht:</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Senden</button>
+    </form>
+</div>
 </body>
 </html>
