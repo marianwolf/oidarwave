@@ -8,10 +8,9 @@
     <meta name="author" content="Marian Wolf"/>
     <meta property="og:title" content="Oidarwave - Webradio für jeden Geschmack"/>
     <meta property="og:description" content="Oidarwave ist dein Webradio mit einer großen Auswahl an Sendern."/>
-    <meta property="og:image" content="https://oidarwave.vercel.app/favicon.svg"/>
-    <meta property="og:url" content="https://oidarwave.vercel.app"/>
-    <link rel="preload" href="/favicon.svg" as="image">
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <meta property="og:image" content="/favicon.svg"/>
+    <meta property="og:url" content="/"/>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" defer>
     <title>Oidarwave</title>
     <link rel="stylesheet" href="style.css">
     <script src="mouse.js" defer></script>
@@ -96,32 +95,5 @@
             </div>
         </div>
     </div>
-    <script>
-        function loadVercelScripts() {
-            const head = document.head;
-
-            const vaScript = document.createElement('script');
-            vaScript.textContent = "window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };";
-            head.appendChild(vaScript);
-
-            const vaSrcScript = document.createElement('script');
-            vaSrcScript.defer = true;
-            vaSrcScript.src = "/_vercel/insights/script.js";
-            head.appendChild(vaSrcScript);
-
-            const siScript = document.createElement('script');
-            siScript.textContent = "window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };";
-            head.appendChild(siScript);
-
-            const siSrcScript = document.createElement('script');
-            siSrcScript.defer = true;
-            siSrcScript.src = "/_vercel/speed-insights/script.js";
-            head.appendChild(siSrcScript);
-        }
-
-        document.getElementById('acceptCookies').addEventListener('click', function() {
-            loadVercelScripts();
-        });
-    </script>
 </body>
 </html>

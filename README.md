@@ -2,19 +2,19 @@
 
 ## 🚀 Über das Projekt
 
-Oidarwave bietet eine minimalistische und benutzerfreundliche Webradio-Oberfläche, die es Nutzern ermöglicht, eine ausgewählte Sammlung deutscher Radiosender direkt im Browser zu hören. Ziel des Projekts ist es, ein schnelles, werbefreies und reibungsloses Hörerlebnis zu schaffen.
+Oidarwave ist ein minimalistisches und benutzerfreundliches Webradio, das eine ausgewählte Sammlung deutscher Radiosender anbietet. Ziel ist ein schnelles, werbefreies und reibungsloses Hörerlebnis direkt im Browser.
 
------
+---
 
 ## ✨ Hauptfunktionen
 
-  * **Minimalistisches Design**: Eine saubere, intuitive Benutzeroberfläche, die sich auf das Wesentliche konzentriert.
-  * **HTML5-Audio**: Nutzt die native Browser-API für eine zuverlässige Audiowiedergabe ohne Plugins.
-  * **Vielfältige Senderauswahl**: Eine kuratierte Liste beliebter Radiosender, die verschiedene Genres und Formate abdeckt.
-  * **Responsives Layout**: Optimale Darstellung und Bedienung auf allen Geräten, vom Desktop bis zum Smartphone.
-  * **Echtzeit-Statusanzeige**: Visuelle Indikatoren informieren den Nutzer sofort über den Verbindungs- und Wiedergabestatus.
+* **Minimalistisches Design**: Eine saubere, intuitive Benutzeroberfläche, die sich auf das Wesentliche konzentriert.
+* **HTML5-Audio**: Nutzt die native Browser-API für zuverlässige Audiowiedergabe ohne Plugins.
+* **Vielfältige Senderauswahl**: Eine kuratierte Liste beliebter Radiosender, die verschiedene Genres und Formate abdecken.
+* **Responsives Layout**: Optimale Darstellung und Bedienung auf allen Geräten, vom Desktop bis zum Smartphone.
+* **Echtzeit-Statusanzeige**: Visuelle Indikatoren informieren sofort über den Verbindungs- und Wiedergabestatus.
 
------
+---
 
 ## 📻 Verfügbare Sender
 
@@ -31,25 +31,25 @@ Oidarwave bietet eine minimalistische und benutzerfreundliche Webradio-Oberfläc
 | **80s80s NDS** | 80er-Hits |
 | **90s90s** | 90er-Hits |
 
------
+---
 
 ## 🛠️ Installation und Nutzung
 
-Dieses Projekt ist als statische Webseite konzipiert und benötigt keine serverseitige Installation.
+Dieses Projekt ist eine **statische Webseite** und benötigt keine serverseitige Installation.
 
 1.  Klone das Repository: `git clone https://github.com/DEIN_BENUTZERNAME/oidarwave.git`
 2.  Öffne die Datei `index.html` in deinem bevorzugten Webbrowser.
 
-Alternativ kannst du die Live-Version unter [https://oidarwave.vercel.app](https://www.google.com/search?q=https://oidarwave.vercel.app) nutzen (URL anpassen, falls das Projekt unter einem anderen Namen gehostet wird).
+Alternativ kannst du die Live-Version unter [https://oidarwave.vercel.app](https://oidarwave.vercel.app) nutzen (URL anpassen, falls das Projekt unter einem anderen Namen gehostet wird).
 
------
+---
 
 ## 🤝 Mitwirken
 
-Beiträge sind jederzeit willkommen\! Ob Fehlerberichte, Funktionsvorschläge oder Code-Verbesserungen – erstelle einfach ein Issue oder sende einen Pull Request.
+Beiträge sind jederzeit willkommen! Ob Fehlerberichte, Funktionsvorschläge oder Code-Verbesserungen – erstelle einfach ein Issue oder sende einen Pull Request.
 
------
+---
 
 ## 📜 Lizenz
 
-Dieses Projekt steht unter der MIT-Lizenz. Weitere Informationen findest du in der Datei `LICENSE`.
+Dieses Projekt steht unter der **MIT-Lizenz**. Weitere Informationen findest du in der Datei `LICENSE`.
