@@ -2,21 +2,23 @@
 
 ## 🚀 Über das Projekt
 
-Oidarwave ist ein minimalistisches und benutzerfreundliches Webradio, das eine ausgewählte Sammlung deutscher Radiosender anbietet. Ziel ist ein schnelles, werbefreies und reibungsloses Hörerlebnis direkt im Browser.
+**Oidarwave** ist ein **minimalistisches und benutzerfreundliches Webradio**, das eine sorgfältig kuratierte Sammlung deutscher Radiosender anbietet. Ziel dieses Projekts ist es, ein schnelles, werbefreies und reibungsloses Hörerlebnis direkt im Browser zu ermöglichen. Es wurde speziell für eine einfache Nutzung und eine optimale Performance auf allen Geräten entwickelt.
 
----
+-----
 
 ## ✨ Hauptfunktionen
 
-* **Minimalistisches Design**: Eine saubere, intuitive Benutzeroberfläche, die sich auf das Wesentliche konzentriert.
-* **HTML5-Audio**: Nutzt die native Browser-API für zuverlässige Audiowiedergabe ohne Plugins.
-* **Vielfältige Senderauswahl**: Eine kuratierte Liste beliebter Radiosender, die verschiedene Genres und Formate abdecken.
-* **Responsives Layout**: Optimale Darstellung und Bedienung auf allen Geräten, vom Desktop bis zum Smartphone.
-* **Echtzeit-Statusanzeige**: Visuelle Indikatoren informieren sofort über den Verbindungs- und Wiedergabestatus.
+  * **Minimalistisches Design**: Eine saubere, intuitive Benutzeroberfläche, die den Fokus auf das Wesentliche legt und eine ablenkungsfreie Bedienung ermöglicht.
+  * **HTML5-Audio**: Nutzt die native Browser-API für zuverlässige Audiowiedergabe ohne die Notwendigkeit von Plugins oder externen Abhängigkeiten.
+  * **Vielfältige Senderauswahl**: Eine handverlesene Liste beliebter Radiosender, die eine breite Palette von Genres und Formaten abdecken, von Nachrichten und Kultur bis hin zu Pop und Rock.
+  * **Responsives Layout**: Das Design passt sich nahtlos an verschiedene Bildschirmgrößen an, um eine optimale Darstellung und Bedienung auf Desktop-Computern, Tablets und Smartphones zu gewährleisten.
+  * **Echtzeit-Statusanzeige**: Visuelle Indikatoren informieren den Nutzer sofort über den aktuellen Verbindungs- und Wiedergabestatus, was eine reibungslose Fehlerbehebung ermöglicht.
 
----
+-----
 
 ## 📻 Verfügbare Sender
+
+Hier findest du eine Übersicht der aktuell verfügbaren Radiosender:
 
 | Sendername | Genre |
 | :--- | :--- |
@@ -31,25 +33,32 @@ Oidarwave ist ein minimalistisches und benutzerfreundliches Webradio, das eine a
 | **80s80s NDS** | 80er-Hits |
 | **90s90s** | 90er-Hits |
 
----
+-----
 
 ## 🛠️ Installation und Nutzung
 
-Dieses Projekt ist eine **statische Webseite** und benötigt keine serverseitige Installation.
+Da Oidarwave eine **statische Webseite** ist, benötigst du keine serverseitige Installation. Folge einfach diesen Schritten, um das Projekt lokal auszuführen:
 
-1.  Klone das Repository: `git clone https://github.com/DEIN_BENUTZERNAME/oidarwave.git`
-2.  Öffne die Datei `index.html` in deinem bevorzugten Webbrowser.
+1.  **Repository klonen**: `git clone https://github.com/DEIN_BENUTZERNAME/oidarwave.git`
+2.  **Dateien öffnen**: Navigiere in das geklonte Verzeichnis und öffne die Datei `index.html` in deinem bevorzugten Webbrowser.
 
-Alternativ kannst du die Live-Version unter [https://oidarwave.vercel.app](https://oidarwave.vercel.app) nutzen (URL anpassen, falls das Projekt unter einem anderen Namen gehostet wird).
+Alternativ kannst du die Live-Version unter folgender URL nutzen:
+[https://oidarwave.vercel.app](https://oidarwave.vercel.app)
 
----
+-----
 
 ## 🤝 Mitwirken
 
-Beiträge sind jederzeit willkommen! Ob Fehlerberichte, Funktionsvorschläge oder Code-Verbesserungen – erstelle einfach ein Issue oder sende einen Pull Request.
+Beiträge sind jederzeit willkommen\! Ob es sich um Fehlerberichte, Funktionsvorschläge oder Code-Verbesserungen handelt, zögere nicht, uns zu kontaktieren.
 
----
+  * **Fehler melden**: Erstelle ein [Issue](https://www.google.com/search?q=https://github.com/DEIN_BENUTZERNAME/oidarwave/issues), um einen Fehler zu melden.
+  * **Funktionen vorschlagen**: Nutze ebenfalls die [Issues](https://www.google.com/search?q=https://github.com/DEIN_BENUTZERNAME/oidarwave/issues), um neue Funktionen zu besprechen.
+  * **Code beitragen**: Sende einen [Pull Request](https://www.google.com/search?q=https://github.com/DEIN_BENUTZERNAME/oidarwave/pulls) mit deinen Änderungen.
+
+-----
 
 ## 📜 Lizenz
 
-Dieses Projekt steht unter der **MIT-Lizenz**. Weitere Informationen findest du in der Datei `LICENSE`.
+Dieses Projekt steht unter der **MIT-Lizenz**. Details zur Lizenz findest du in der Datei `LICENSE` in diesem Repository.
+
+-----

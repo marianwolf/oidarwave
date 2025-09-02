@@ -1,22 +1,22 @@
 .impressum-content {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.6;
-    gap: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  line-height: 1.6;
 }
 
 .impressum-section {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    margin-block-end: 2em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .impressum-section h2 {
-    margin-block-end: 0.5em;
+  font-size: 1.5rem;
+  margin-block-end: 0.5rem;
+  margin-block-start: 0;
 }
 
-.impressum-section h2,
 .impressum-section p {
-    margin: 0;
+  margin: 0;
 }
