@@ -32,16 +32,10 @@
     --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.2);
     --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.3);
     --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.3);
-    --shadow-glow-purple: 0 0 10px rgba(120, 119, 198, 0.5);
-    --shadow-glow-pink: 0 0 20px rgba(255, 119, 198, 0.8);
-    --shadow-glow-blue: 0 0 30px rgba(120, 119, 198, 0.3);
 
     --font-family-primary: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     --font-size-base: 1rem;
-    --font-size-md: 1.1em;
     --font-size-lg: 1.4em;
-    --font-size-xl: 1.8em;
-    --font-size-xxl: 2.2em;
     --font-size-xxxl: 3em;
     --font-weight-medium: 500;
     --font-weight-semibold: 600;
@@ -49,7 +43,6 @@
     --line-height-base: 1.6;
 
     --transition-speed-fast: 0.2s;
-    --transition-speed-normal: 0.4s;
     --transition-timing-cubic: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -324,7 +317,7 @@ nav a {
 }
 
 .status-indicator.online { background: var(--color-status-online); animation: pulse-status 1s infinite; }
-.status-indicator.error { background: var(--color-status-error); animation: pulse-status 1s infinite; }
+.status-indicator.error { background: var(--color-status-error); animation: pulse-status 0.5s infinite; }
 .status-indicator.buffering { background: var(--color-status-buffering); animation: pulse-status 1s infinite; }
 .status-indicator.paused { background: var(--color-status-paused); animation: none; }
 
