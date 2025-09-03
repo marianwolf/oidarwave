@@ -54,10 +54,8 @@
 }
 
 * {
-    margin-block: 0;
-    margin-inline: 0;
-    padding-block: 0;
-    padding-inline: 0;
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
@@ -81,10 +79,7 @@ body {
 body::after {
     content: '';
     position: fixed;
-    inset-block-start: 0;
-    inset-inline-start: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 119, 198, 0.1) 0%, transparent 60%);
     pointer-events: none;
     z-index: -1;
@@ -104,13 +99,17 @@ body::after {
     gap: var(--space-400);
 }
 
-header {
+:is(header, .main-section, .feature-card, .cookie-banner) {
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(120, 119, 198, 0.2);
     background: var(--color-bg-card);
+}
+
+header {
+    margin-bottom: var(--space-500);
     border-radius: var(--radius-lg);
     padding: var(--space-400);
-    margin-block-end: var(--space-500);
     box-shadow: var(--shadow-md), 0 0 0 1px rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(120, 119, 198, 0.2);
 }
 
 .logo {
@@ -121,7 +120,7 @@ header {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-align: center;
-    margin-block-end: var(--space-200);
+    margin-bottom: var(--space-200);
     animation: glow 3s ease-in-out infinite alternate;
 }
 
@@ -129,7 +128,7 @@ nav {
     display: flex;
     justify-content: center;
     gap: var(--space-300);
-    margin-block-start: var(--space-300);
+    margin-top: var(--space-300);
     flex-wrap: wrap;
 }
 
@@ -146,7 +145,7 @@ nav a {
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-nav a::before {
+.hover-shine::before {
     content: '';
     position: absolute;
     inset-block-start: 0;
@@ -157,17 +156,20 @@ nav a::before {
     transition: left 0.5s ease;
 }
 
-nav a:hover::before {
-    left: 100%;
+.hover-shine:hover::before {
+    inset-inline-start: 100%;
 }
 
+:is(nav a, .station-btn):hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
 
 .main-section {
-    background: var(--color-bg-card);
     border-radius: var(--radius-xl);
     padding: var(--space-600);
     box-shadow: var(--shadow-lg), 0 0 0 1px rgba(255, 255, 255, 0.1);
-    margin-block-end: var(--space-500);
+    margin-bottom: var(--space-500);
 }
 
 .player-section {
@@ -185,7 +187,7 @@ nav a:hover::before {
 }
 
 .station-selector h2 {
-    margin-block-end: var(--space-400);
+    margin-bottom: var(--space-400);
     text-align: center;
     font-size: var(--font-size-lg);
     font-weight: var(--font-weight-semibold);
@@ -200,7 +202,7 @@ nav a:hover::before {
 
 .station-btn {
     background: rgba(255, 255, 255, 0.15);
-    padding: var(--space-200) var(--space-200);
+    padding: var(--space-200);
     border: none;
     border-radius: var(--radius-md);
     color: white;
@@ -213,8 +215,7 @@ nav a:hover::before {
     text-align: center;
     position: relative;
     overflow: hidden;
-    margin-block-start: 2px;
-    margin-block-end: 2px;
+    margin: 2px 0;
 }
 
 .station-btn:hover {
@@ -226,8 +227,7 @@ nav a:hover::before {
     background: rgba(255, 255, 255, 0.3);
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
     border: 2px solid rgba(255, 255, 255, 0.8);
-    margin-block-start: 0;
-    margin-block-end: 0;
+    margin: 0;
 }
 
 .player-controls {
@@ -243,14 +243,9 @@ nav a:hover::before {
     backdrop-filter: blur(10px) brightness(1.2);
 }
 
-:is(nav a, .station-btn):hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-sm);
-}
-
 .current-station {
     font-size: var(--font-size-lg);
-    margin-block-end: var(--space-400);
+    margin-bottom: var(--space-400);
     font-weight: var(--font-weight-semibold);
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     display: flex;
@@ -260,8 +255,7 @@ nav a:hover::before {
 }
 
 .audio-controls {
-    margin-block: var(--space-400);
-    margin-inline: 0;
+    margin: var(--space-400) 0;
 }
 
 #audioPlayer {
@@ -272,18 +266,15 @@ nav a:hover::before {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: var(--space-400);
-    margin-block-start: var(--space-500);
+    margin-top: var(--space-500);
 }
 
 .feature-card {
-    background: var(--color-bg-card);
-    backdrop-filter: blur(20px);
     padding: var(--space-500);
     border-radius: var(--radius-lg);
-    border: 1px solid rgba(120, 119, 198, 0.2);
     position: relative;
     overflow: hidden;
-	animation: glow-subtle 4s ease-in-out infinite alternate;
+    animation: glow-subtle 4s ease-in-out infinite alternate;
     transition: transform 0.5s var(--transition-timing-cubic),
                 box-shadow 0.5s var(--transition-timing-cubic);
 }
@@ -311,7 +302,7 @@ nav a:hover::before {
 
 .feature-card h3 {
     color: var(--color-accent-blue);
-    margin-block-end: var(--space-200);
+    margin-bottom: var(--space-200);
     font-size: var(--font-size-lg);
     font-weight: var(--font-weight-semibold);
 }
@@ -327,7 +318,7 @@ nav a:hover::before {
     height: 16px;
     border-radius: 50%;
     background: var(--color-status-online);
-    margin-inline-end: var(--space-100);
+    margin-right: var(--space-100);
     animation: pulse-status 2s infinite;
     transition: background-color 0.5s ease-in-out;
 }
@@ -354,13 +345,13 @@ footer {
     text-align: center;
     padding: var(--space-400);
     border-radius: var(--radius-md);
-    margin-block-start: var(--space-500);
+    margin-top: var(--space-500);
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .cookie-banner {
     position: fixed;
-    inset-block-end: var(--space-400);
+    bottom: var(--space-400);
     left: 50%;
     transform: translateX(-50%);
     width: 70%;
@@ -425,8 +416,8 @@ footer {
 body.offline::after {
     content: 'Sie sind offline. Einige Funktionen sind möglicherweise eingeschränkt.';
     position: fixed;
-    inset-block-start: var(--space-300);
-    inset-inline-end: var(--space-300);
+    top: var(--space-300);
+    right: var(--space-300);
     background: rgba(244, 67, 54, 0.9);
     color: white;
     padding: var(--space-200) var(--space-300);
@@ -435,26 +426,7 @@ body.offline::after {
     z-index: 1000;
 }
 
-:is(header, .main-section, .feature-card, .cookie-banner) {
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(120, 119, 198, 0.2);
-}
-
-.hover-shine::before {
-    content: '';
-    position: absolute;
-    inset-block-start: 0;
-    inset-inline-start: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(120, 119, 198, 0.3), transparent);
-    transition: left 0.5s ease;
-}
-
-.hover-shine:hover::before {
-    inset-inline-start: 100%;
-}
-
+/* Animations */
 @keyframes glow {
     0% { filter: drop-shadow(0 0 10px var(--color-accent-purple)); }
     100% { filter: drop-shadow(0 0 20px var(--color-accent-pink)); }
@@ -510,10 +482,10 @@ body.offline::after {
     .cookie-banner {
         width: 90%;
         padding: var(--space-400);
-        inset-block-end: var(--space-300);
+        bottom: var(--space-300);
     }
     .player-controls {
-    order: 1;
+        order: 1;
     }
     .station-selector {
         order: 2;
@@ -531,11 +503,11 @@ body.offline::after {
         font-size: 1.8em;
     }
     .cookie-banner {
-        inset-block-end: 0;
-        inset-inline-start: 0;
+        bottom: 0;
+        left: 0;
         transform: none;
         border-radius: 0;
-        width: fit-content;
+        width: 100%;
     }
 
     .cookie-banner-content {
