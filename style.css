@@ -92,7 +92,7 @@ body::after {
     gap: var(--space-400);
 }
 
-:is(header, .main-section, .feature-card, .cookie-banner) {
+:is(header, .main-section, .cookie-banner) {
     backdrop-filter: blur(20px);
     border: 1px solid rgba(120, 119, 198, 0.2);
     background: var(--color-bg-card);
@@ -262,56 +262,14 @@ nav a {
     margin-top: var(--space-500);
 }
 
-.feature-card {
-    padding: var(--space-500);
-    border-radius: var(--radius-lg);
-    position: relative;
-    overflow: hidden;
-    animation: glow-subtle 4s ease-in-out infinite alternate;
-    transition: transform 0.5s var(--transition-timing-cubic),
-                box-shadow 0.5s var(--transition-timing-cubic);
-}
-
-.feature-card:hover {
-    transform: translateY(-10px) rotateX(2deg) scale(1.03);
-    box-shadow: var(--shadow-lg),
-                0 0 35px var(--color-accent-purple),
-                0 0 50px var(--color-accent-blue);
-}
-
-.feature-card::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: var(--radius-lg);
-    box-shadow: 0 0 20px 5px var(--color-accent-blue) inset;
-    opacity: 0;
-    transition: opacity 0.5s var(--transition-timing-cubic);
-}
-
-.feature-card:hover::after {
-    opacity: 0.1;
-}
-
-.feature-card h3 {
-    color: var(--color-accent-blue);
-    margin-bottom: var(--space-200);
-    font-size: var(--font-size-lg);
-    font-weight: var(--font-weight-semibold);
-}
-
-.feature-card p {
-    color: var(--color-text-secondary);
-    line-height: var(--line-height-base);
-}
-
 .status-indicator {
     display: inline-block;
     width: 16px;
     height: 16px;
     border-radius: 50%;
+    border: none;
     background: var(--color-status-online);
-    margin-right: var(--space-100);
+    opacity: 1;
     animation: pulse-status 2s infinite;
     transition: background-color 0.5s ease-in-out;
 }
@@ -353,7 +311,7 @@ footer {
     z-index: 1000;
     font-family: var(--font-family-primary);
     background: rgba(20, 20, 40, 0.5);
-    backdrop-filter: blur(25px) saturate(180%);
+    backdrop-filter: blur(20px);
     border: 1px solid rgba(120, 119, 198, 0.2);
     box-shadow: var(--shadow-md), 0 0 0 1px rgba(255, 255, 255, 0.1);
     transition: all var(--transition-speed-fast) var(--transition-timing-cubic);
@@ -419,16 +377,15 @@ body.offline::after {
     z-index: 1000;
 }
 
-/* Animations */
 @keyframes glow {
     0% { filter: drop-shadow(0 0 10px var(--color-accent-purple)); }
     100% { filter: drop-shadow(0 0 20px var(--color-accent-pink)); }
 }
 
 @keyframes pulse-status {
-    0% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.8; transform: scale(1.2); }
-    100% { opacity: 1; transform: scale(1); }
+    0% {transform: scale(1); }
+    50% {transform: scale(1.2); }
+    100% {transform: scale(1); }
 }
 
 @keyframes loading {
