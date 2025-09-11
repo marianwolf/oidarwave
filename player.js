@@ -3,7 +3,7 @@ function initializePlayer() {
     let currentStation = null;
     let hasError = false;
     let isStalled = false;
-    const stationButtons = document.querySelectorAll('.station-btn');
+    let isUserPaused = false;
     const audioPlayer = document.getElementById('audioPlayer');
     const currentStationDisplay = document.getElementById('currentStation');
     const statusIndicator = document.getElementById('statusIndicator');
