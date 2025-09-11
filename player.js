@@ -20,6 +20,7 @@ function initializePlayer() {
         const name = button.dataset.name;
         currentStationDisplay.textContent = name;
         currentStation = name;
+        isUserPaused = false;
         audioPlayer.src = url;
         audioPlayer.load();
         hasError = false;
@@ -31,7 +32,7 @@ function initializePlayer() {
         updateOverallStatus();
     });
     audioPlayer.addEventListener('canplay', () => {
-        if (currentStation) {
+        if (currentStation && !isUserPaused) {
             audioPlayer.play().catch(e => {
                 console.error("Autoplay-Fehler:", e);
                 hasError = true;
@@ -102,8 +103,10 @@ function initializePlayer() {
                 case 'Space':
                     e.preventDefault();
                     if (audioPlayer.paused) {
+                        isUserPaused = false;
                         audioPlayer.play().catch(console.error);
                     } else {
+                        isUserPaused = true;
                         audioPlayer.pause();
                     }
                     break;
