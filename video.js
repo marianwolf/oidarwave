@@ -1,5 +1,3 @@
-// video.js
-
 document.addEventListener('DOMContentLoaded', () => {
     const videoElement = document.getElementById('videoPlayer');
     const stationButtons = document.querySelectorAll('.station-btn');
