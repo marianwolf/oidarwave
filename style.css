@@ -356,6 +356,12 @@ footer {
     50% { box-shadow: var(--shadow-lg), 0 0 30px rgba(120, 119, 198, 0.6), 0 0 50px var(--color-accent-blue); }
 }
 
+@media (max-width: 900px) {
+    .cookie-banner {
+        width: 90%;
+    }
+}
+
 @media (max-width: 768px) {
     .player-section {
         grid-template-columns: 1fr;
@@ -377,11 +383,6 @@ footer {
     .station-btn {
         padding: var(--space-200);
         font-size: 0.85em;
-    }
-    .cookie-banner {
-        width: 90%;
-        padding: var(--space-400);
-        bottom: var(--space-300);
     }
     .player-controls {
         order: 1;
