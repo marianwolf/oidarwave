@@ -37,7 +37,7 @@ function initializePlayer() {
             hls.attachMedia(videoPlayer);
             hls.on(Hls.Events.MANIFEST_PARSED, () => {
                 if (hls.subtitleTracks.length > 0) {
-                    hls.subtitleTrack = -1;
+                    hls.subtitleTrack = 0;
                 }
                 videoPlayer.play().catch(e => {
                     console.error("Autoplay-Fehler:", e);

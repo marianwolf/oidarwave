@@ -4,10 +4,23 @@ const declineButton = document.getElementById('declineCookies');
 
 function setCookieConsent(consent) {
     localStorage.setItem('cookieConsent', consent);
+    localStorage.setItem('consentTimestamp', new Date().getTime());
 }
 
 function getCookieConsent() {
     return localStorage.getItem('cookieConsent');
+}
+
+function checkAndClearConsent() {
+    const timestamp = localStorage.getItem('consentTimestamp');
+    if (timestamp) {
+        const now = new Date().getTime();
+        const ninetyDaysInMs = 90 * 24 * 60 * 60 * 1000;
+        if (now - timestamp > ninetyDaysInMs) {
+            localStorage.removeItem('cookieConsent');
+            localStorage.removeItem('consentTimestamp');
+        }
+    }
 }
 
 function enableVercelScripts() {
@@ -38,10 +51,14 @@ function enableVercelScripts() {
 
 function showCookieBanner() {
     const consent = getCookieConsent();
-    if (consent === null) {
-        cookieBanner.style.display = 'block';
-    } else if (consent === 'true') {
+
+    if (consent === 'true') {
+        cookieBanner.style.display = 'none';
         enableVercelScripts();
+    } else if (consent === 'false') {
+        cookieBanner.style.display = 'block';
+    } else {
+        cookieBanner.style.display = 'block';
     }
 }
 

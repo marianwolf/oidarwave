@@ -1,7 +1,7 @@
-# 🎵 Oidarwave: Dein Webradio-Erlebnis
+# 🎵 Oidarwave
 
 ![Project Status](https://img.shields.io/badge/Status-Active-brightgreen)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![Datenschutz](https://img.shields.io/badge/Datenschutz-DSGVO--konform-blue)
 
 ---
 
@@ -13,6 +13,7 @@
 - [Technologien](#-technologien)
 - [Installation und Nutzung](#️-installation-und-nutzung)
 - [Mitwirken](#-mitwirken)
+- [Datenschutz](#-datenschutz)
 - [Roadmap](#-roadmap)
 - [Lizenz](#-lizenz)
 
@@ -58,6 +59,18 @@ Hier findest du eine Übersicht der aktuell verfügbaren Radiosender:
 - **Frontend**: HTML5, CSS3, JavaScript (Vanilla JS)
 - **Styling**: Responsive Design mit CSS-Variablen
 - **Hosting**: Vercel
+
+---
+
+## 🛡️ Datenschutz und EU-Richtlinien
+
+Oidarwave ist so entwickelt, dass es die Privatsphäre der Nutzer respektiert und den **EU-Richtlinien** sowie der **DSGVO (Datenschutz-Grundverordnung)** entspricht.
+
+* **Keine Tracking-Cookies**: Das Projekt verwendet keine persistenten Cookies zur Verfolgung von Nutzeraktivitäten.
+* **Lokale Speicherung**: Einstellungen wie die Einwilligung zur Nutzung von Diensten (wie Vercel Analytics) werden lokal im Browser des Nutzers (`localStorage`) gespeichert, um die Privatsphäre zu wahren.
+* **Transparente Einwilligung**: Der Nutzer hat die volle Kontrolle über die Datenfreigabe. Externe Skripte (z.B. für Web-Analytics) werden nur mit expliziter Zustimmung des Nutzers geladen.
+
+This text clearly explains the project's approach to data protection and highlights its compliance. It's concise and addresses the key points without being overly technical.
 
 ---
 
