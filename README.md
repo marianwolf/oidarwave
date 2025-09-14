@@ -1,18 +1,18 @@
 # 🎵 Oidarwave
 
 ![Project Status](https://img.shields.io/badge/Status-Aktive-brightgreen)
-[![Datenschutz](https://img.shields.io/badge/Datenschutz-DSGVO--konform-blue)]
+![Datenschutz](https://img.shields.io/badge/Datenschutz-DSGVO--konform-blue)
 
 ## 📖 Inhaltsverzeichnis
 
-  - [Über das Projekt](#-über-das-projekt)
-  - [Hauptfunktionen](#-hauptfunktionen)
-  - [Verfügbare Streams](#-verfügbare-streams)
-  - [Technologien](#-technologien)
-  - [Installation und Nutzung](#️-installation-und-nutzung)
-  - [Mitwirken](#-mitwirken)
-  - [Datenschutz](#️-datenschutz)
-  - [Roadmap](#-roadmap)
+- [Über das Projekt](#-über-das-projekt)
+- [Hauptfunktionen](#-hauptfunktionen)
+- [Verfügbare Streams](#-verfügbare-streams)
+- [Technologien](#-technologien)
+- [Installation und Nutzung](#️-installation-und-nutzung)
+- [Mitwirken](#-mitwirken)
+- [Datenschutz](#️-datenschutz)
+- [Roadmap](#-roadmap)
 
 -----
 
