@@ -26,7 +26,11 @@ function initializePlayer() {
     stationButtons.forEach(button => {
         button.addEventListener('click', () => {
             selectStation(button);
-            localStorage.setItem('lastStationUrl', button.dataset.url);
+            if (isAudioPlayer) {
+                localStorage.setItem('lastStationAudioUrl', button.dataset.url);
+            } else {
+                localStorage.setItem('lastStationVideoUrl', button.dataset.url);
+            }
         });
     });
 
@@ -105,8 +109,10 @@ function initializePlayer() {
         isStalled = false;
 
         if (isAudioPlayer) {
+            localStorage.setItem('lastStationAudioUrl', url);
             handleAudioPlayback(url);
         } else {
+            localStorage.setItem('lastStationVideoUrl', url);
             handleVideoPlayback(url);
         }
         updateOverallStatus();
@@ -205,7 +211,7 @@ function initializePlayer() {
         }
     }
 
-    const lastStationUrl = localStorage.getItem('lastStationUrl');
+    const lastStationUrl = isAudioPlayer ? localStorage.getItem('lastStationAudioUrl') : localStorage.getItem('lastStationVideoUrl');
     const lastStationButton = lastStationUrl ? document.querySelector(`.station-btn[data-url="${lastStationUrl}"]`) : null;
 
     if (lastStationButton) {
@@ -213,7 +219,7 @@ function initializePlayer() {
     } else if (stationButtons.length > 0) {
         selectStation(stationButtons[0]);
     }
-    
+
     checkOnlineStatus();
 }
 
