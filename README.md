@@ -27,24 +27,26 @@
 
 ## 📻 Verfügbare Streams
 
-#### Radio
+### Radio
 
 | Sender |
-| **Deutschlandfunk** |
-| **Deutschlandfunk Kultur** |
-| **Deutschlandfunk Nova** |
-| **NDR 1** |
-| **NDR 2** |
-| **NDR Info** |
-| **NDR Kultur** |
-| **N-JOY** |
-| **80s80s NDS** |
-| **90s90s** |
+| :--- |
+| Deutschlandfunk |
+| Deutschlandfunk Kultur |
+| Deutschlandfunk Nova |
+| NDR 1 |
+| NDR 2 |
+| NDR Info |
+| NDR Kultur |
+| N-JOY |
+| 80s80s NDS |
+| 90s90s |
 
-#### Fernsehstream
+### Fernsehstream
 
 | Sender |
-| **ZDF** |
+| :--- |
+| ZDF |
 
 ## 💻 Technologien
 
