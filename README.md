@@ -1,33 +1,39 @@
 # 🎵 Oidarwave
 
 ![Project Status](https://img.shields.io/badge/Status-Aktive-brightgreen)
-[![Datenschutz](https://img.shields.io/badge/Datenschutz-DSGVO--konform-blue)](#-datenschutz)
+[![Datenschutz](https://img.shields.io/badge/Datenschutz-DSGVO--konform-blue)]
+
 ## 📖 Inhaltsverzeichnis
 
-- [Über das Projekt](#-über-das-projekt)
-- [Hauptfunktionen](#-hauptfunktionen)
-- [Verfügbare Streams](#-verfügbare-streams)
-- [Technologien](#-technologien)
-- [Installation und Nutzung](#-installation-und-nutzung)
-- [Mitwirken](#-mitwirken)
-- [Datenschutz](#-datenschutz)
-- [Roadmap](#-roadmap)
+  - [Über das Projekt](#-über-das-projekt)
+  - [Hauptfunktionen](#-hauptfunktionen)
+  - [Verfügbare Streams](#-verfügbare-streams)
+  - [Technologien](#-technologien)
+  - [Installation und Nutzung](#️-installation-und-nutzung)
+  - [Mitwirken](#-mitwirken)
+  - [Datenschutz](#️-datenschutz)
+  - [Roadmap](#-roadmap)
+
+-----
 
 ## 🚀 Über das Projekt
 
-**Oidarwave** ist ein **minimalistisches und benutzerfreundliches Webradio**, das ein reibungsloses Hörerlebnis direkt im Browser bietet. Es wurde speziell entwickelt, um eine ablenkungsfreie und schnelle Möglichkeit zu schaffen, eine handverlesene Auswahl deutscher Radiosender zu hören. Das Projekt nutzt native Browser-APIs, um eine hohe Performance und Werbefreiheit zu gewährleisten.
+**Oidarwave** ist ein **minimalistisches und werbefreies Webradio**, das ein reibungsloses Hörerlebnis direkt im Browser ermöglicht. Das Projekt wurde mit dem Ziel entwickelt, eine einfache und ablenkungsfreie Möglichkeit zu bieten, eine handverlesene Auswahl deutscher Radiosender zu hören. Durch die Nutzung nativer Browser-APIs wird eine hohe Performance und ein schlankes Design gewährleistet.
+
+-----
 
 ## ✨ Hauptfunktionen
 
-- **HTML5-Audio**: Nutzt die native Browser-API für zuverlässige Audiowiedergabe ohne externe Abhängigkeiten.
-- **HTML5-Wiedergabe**: Verwendet die native HTML5-Video-API für effiziente Wiedergabe.
-- **HLS-Unterstützung**: Die Integration der JavaScript-Bibliothek **hls.js** ermöglicht das Abspielen von HTTP Live Streaming (HLS)-Streams in kompatiblen Browsern.
-- **Vielfältige Senderauswahl**: Eine sorgfältig kuratierte Liste beliebter deutscher Radiosender.
-- **Echtzeit-Statusanzeige**: Visuelle Indikatoren informieren den Nutzer sofort über den aktuellen Verbindungs- und Wiedergabestatus.
+  - **HTML5-Audio & -Video:** Nutzt native Browser-APIs für eine zuverlässige Audio- und Videowiedergabe, komplett ohne externe Abhängigkeiten.
+  - **HLS-Unterstützung:** Dank der **`hls.js`**-Bibliothek können auch HTTP Live Streaming (HLS)-Streams problemlos in kompatiblen Browsern abgespielt werden.
+  - **Sorgfältige Senderauswahl:** Eine handverlesene Liste beliebter deutscher Radio- und Fernsehsender.
+  - **Echtzeit-Statusanzeige:** Visuelle Indikatoren informieren sofort über den aktuellen Wiedergabe- und Verbindungsstatus.
+
+-----
 
 ## 📻 Verfügbare Streams
 
-Radio:
+#### Radio
 
 | Sender |
 | :--- |
@@ -42,49 +48,59 @@ Radio:
 | **80s80s NDS** |
 | **90s90s** |
 
-Fernesehstream:
+#### Fernsehstream
 
 | Sender |
 | :--- |
 | **ZDF** |
 
+-----
+
 ## 💻 Technologien
 
-- **Frontend**: HTML5, CSS3, JavaScript (Vanilla JS)
-- **Video-Streaming**: `hls.js` für HLS-Streams
-- **Hosting**: Vercel
+  - **Frontend:** HTML5, CSS3, JavaScript (Vanilla JS)
+  - **Video-Streaming:** `hls.js` für HLS-Streams
+  - **Hosting:** Vercel
+
+-----
 
 ## 🛡️ Datenschutz
 
-Oidarwave ist so entwickelt, dass es die Privatsphäre der Nutzer respektiert und den **EU-Richtlinien** sowie der **DSGVO** entspricht.
+Oidarwave wurde von Grund auf so konzipiert, dass es die Privatsphäre der Nutzer respektiert und den **EU-Richtlinien** sowie der **DSGVO** entspricht.
 
-* **Keine Tracking-Cookies**: Das Projekt verwendet keine persistenten Cookies zur Verfolgung von Nutzeraktivitäten.
-* **Lokale Speicherung**: Einstellungen wie die Einwilligung zur Nutzung von Diensten (wie Vercel Analytics) werden lokal im Browser des Nutzers (`localStorage`) gespeichert, um die Privatsphäre zu wahren.
-* **Transparente Einwilligung**: Der Nutzer hat die volle Kontrolle über die Datenfreigabe. Externe Skripte (z.B. für Web-Analytics) werden nur mit expliziter Zustimmung des Nutzers geladen.
+  - **Keine Tracking-Cookies:** Das Projekt verwendet keine persistenten Cookies zur Verfolgung von Nutzeraktivitäten.
+  - **Lokale Speicherung:** Einstellungen (z. B. die Zustimmung zur Nutzung von Vercel Analytics) werden lokal im Browser (`localStorage`) gespeichert, was die Privatsphäre der Nutzer schützt.
+  - **Transparente Einwilligung:** Externe Skripte (wie z. B. für Web-Analytics) werden nur mit Ihrer expliziten Zustimmung geladen, sodass Sie stets die volle Kontrolle über Ihre Daten haben.
+
+-----
 
 ## 🛠️ Installation und Nutzung
 
-Da Oidarwave eine **statische Webseite** ist, benötigst du keine serverseitige Installation. Folge einfach diesen Schritten, um das Projekt lokal auszuführen:
+Da Oidarwave eine **statische Webseite** ist, ist keine serverseitige Installation erforderlich.
 
-1.  **Repository klonen**: Öffne dein Terminal oder deine Eingabeaufforderung und führe den folgenden Befehl aus:
+1.  **Repository klonen:** Öffne dein Terminal und führe folgenden Befehl aus:
     `git clone https://github.com/marianwolf/oidarwave.git`
-2.  **Dateien öffnen**: Navigiere in das neu geklonte Verzeichnis und öffne die Datei `index.html` in deinem bevorzugten Webbrowser.
+2.  **Datei öffnen:** Navigiere in das neu geklonte Verzeichnis und öffne die `index.html`-Datei in deinem bevorzugten Webbrowser.
 
-Alternativ kannst du die Live-Version unter folgender URL nutzen:
+Alternativ kannst du die Live-Version jederzeit hier nutzen:
 [https://oidarwave.vercel.app](https://oidarwave.vercel.app)
+
+-----
 
 ## 🤝 Mitwirken
 
-Beiträge sind jederzeit willkommen! Ob es sich um Fehlerberichte, Funktionsvorschläge oder Code-Verbesserungen handelt, zögere nicht, uns zu kontaktieren.
+Beiträge sind jederzeit willkommen\! Ob es sich um Fehlerberichte, Funktionsvorschläge oder Code-Verbesserungen handelt, wir freuen uns über deine Beteiligung.
 
-1.  **Melde Fehler**: Erstelle ein [Issue](https://github.com/marianwolf/oidarwave/issues) im GitHub-Repository.
-2.  **Schlage Funktionen vor**: Nutze ebenfalls die [Issues](https://github.com/marianwolf/oidarwave/issues), um neue Funktionen zu besprechen.
-3.  **Trage Code bei**: Sende einen [Pull Request](https://github.com/marianwolf/oidarwave/pulls) mit deinen Änderungen. Bitte achte darauf, dass dein Code den Projektstandards entspricht.
+1.  **Fehler melden:** Erstelle ein [Issue](https://github.com/marianwolf/oidarwave/issues) im GitHub-Repository.
+2.  **Funktionen vorschlagen:** Nutze ebenfalls die [Issues](https://github.com/marianwolf/oidarwave/issues), um neue Ideen zu diskutieren.
+3.  **Code beitragen:** Sende einen [Pull Request](https://github.com/marianwolf/oidarwave/pulls) mit deinen Änderungen. Bitte beachte, dass dein Code den Projektstandards entspricht.
+
+-----
 
 ## 🚀 Roadmap
 
-- [ ] Hinzufügen einer Suche nach Sendern
-- [ ] Implementierung eines Lautstärkereglers in der UI
-- [ ] Speichern des zuletzt gehörten Senders im Local Storage
-- [ ] Integration weiterer Sender
-- [ ] Dunkel- und Hellmodus-Umschaltung
+  - [ ] Hinzufügen einer Suchfunktion für Sender
+  - [ ] Implementierung eines Lautstärkereglers in der Benutzeroberfläche
+  - [ ] Speichern des zuletzt gehörten Senders im `localStorage`
+  - [ ] Integration weiterer Sender
+  - [ ] Umschaltung zwischen Dunkel- und Hellmodus
