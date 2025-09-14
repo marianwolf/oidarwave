@@ -7,13 +7,12 @@
 
 - [Über das Projekt](#-über-das-projekt)
 - [Hauptfunktionen](#-hauptfunktionen)
-- [Verfügbare Sender](#-verfügbare-sender)
+- [Verfügbare Streams](#-verfügbare-streams)
 - [Technologien](#-technologien)
 - [Installation und Nutzung](#️-installation-und-nutzung)
 - [Mitwirken](#-mitwirken)
 - [Datenschutz](#-datenschutz)
 - [Roadmap](#-roadmap)
-- [Lizenz](#-lizenz)
 
 ## 🚀 Über das Projekt
 
@@ -21,33 +20,39 @@
 
 ## ✨ Hauptfunktionen
 
-- **Minimalistisches Design**: Eine saubere, intuitive Benutzeroberfläche, die den Fokus auf das Wesentliche lenkt.
 - **HTML5-Audio**: Nutzt die native Browser-API für zuverlässige Audiowiedergabe ohne externe Abhängigkeiten.
+- **HTML5-Wiedergabe**: Verwendet die native HTML5-Video-API für effiziente Wiedergabe.
+- **HLS-Unterstützung**: Die Integration der JavaScript-Bibliothek **hls.js** ermöglicht das Abspielen von HTTP Live Streaming (HLS)-Streams in kompatiblen Browsern.
 - **Vielfältige Senderauswahl**: Eine sorgfältig kuratierte Liste beliebter deutscher Radiosender.
-- **Responsives Layout**: Das Design passt sich nahtlos an verschiedene Bildschirmgrößen an, von Desktops über Tablets bis zu Smartphones.
 - **Echtzeit-Statusanzeige**: Visuelle Indikatoren informieren den Nutzer sofort über den aktuellen Verbindungs- und Wiedergabestatus.
 
-## 📻 Verfügbare Sender
+## 📻 Verfügbare Streams
 
-Hier findest du eine Übersicht der aktuell verfügbaren Radiosender:
+Radio:
 
-| Sendername | Genre |
-| :--- | :--- |
-| **Deutschlandfunk** | Nachrichten und Information |
-| **Deutschlandfunk Kultur** | Kultur und Gesellschaft |
-| **Deutschlandfunk Nova** | Junges Programm |
-| **NDR 1 Niedersachsen** | Regionalprogramm |
-| **NDR 2** | Pop und Rock |
-| **NDR Info** | Nachrichten |
-| **NDR Kultur** | Klassik und Kultur |
-| **N-JOY** | Modernes Pop- und Rockprogramm |
-| **80s80s NDS** | 80er-Hits |
-| **90s90s** | 90er-Hits |
+| Sender |
+| :--- |
+| **Deutschlandfunk** |
+| **Deutschlandfunk Kultur** |
+| **Deutschlandfunk Nova** |
+| **NDR 1** |
+| **NDR 2** |
+| **NDR Info** |
+| **NDR Kultur** |
+| **N-JOY** |
+| **80s80s NDS** |
+| **90s90s** |
+
+Fernesehstream:
+
+| Sender |
+| :--- |
+| **ZDF** |
 
 ## 💻 Technologien
 
 - **Frontend**: HTML5, CSS3, JavaScript (Vanilla JS)
-- **Styling**: Responsive Design mit CSS-Variablen
+- **Video-Streaming**: `hls.js` für HLS-Streams
 - **Hosting**: Vercel
 
 ## 🛡️ Datenschutz
@@ -57,8 +62,6 @@ Oidarwave ist so entwickelt, dass es die Privatsphäre der Nutzer respektiert un
 * **Keine Tracking-Cookies**: Das Projekt verwendet keine persistenten Cookies zur Verfolgung von Nutzeraktivitäten.
 * **Lokale Speicherung**: Einstellungen wie die Einwilligung zur Nutzung von Diensten (wie Vercel Analytics) werden lokal im Browser des Nutzers (`localStorage`) gespeichert, um die Privatsphäre zu wahren.
 * **Transparente Einwilligung**: Der Nutzer hat die volle Kontrolle über die Datenfreigabe. Externe Skripte (z.B. für Web-Analytics) werden nur mit expliziter Zustimmung des Nutzers geladen.
-
-This text clearly explains the project's approach to data protection and highlights its compliance. It's concise and addresses the key points without being overly technical.
 
 ## 🛠️ Installation und Nutzung
 
@@ -75,9 +78,9 @@ Alternativ kannst du die Live-Version unter folgender URL nutzen:
 
 Beiträge sind jederzeit willkommen! Ob es sich um Fehlerberichte, Funktionsvorschläge oder Code-Verbesserungen handelt, zögere nicht, uns zu kontaktieren.
 
-1.  **Melde Fehler**: Erstelle ein [Issue](https://www.google.com/search?q=https://github.com/marianwolf/oidarwave/issues) im GitHub-Repository.
-2.  **Schlage Funktionen vor**: Nutze ebenfalls die [Issues](https://www.google.com/search?q=https://github.com/marianwolf/oidarwave/issues), um neue Funktionen zu besprechen.
-3.  **Trage Code bei**: Sende einen [Pull Request](https://www.google.com/search?q=https://github.com/marianwolf/oidarwave/pulls) mit deinen Änderungen. Bitte achte darauf, dass dein Code den Projektstandards entspricht.
+1.  **Melde Fehler**: Erstelle ein [Issue](https://github.com/marianwolf/oidarwave/issues) im GitHub-Repository.
+2.  **Schlage Funktionen vor**: Nutze ebenfalls die [Issues](https://github.com/marianwolf/oidarwave/issues), um neue Funktionen zu besprechen.
+3.  **Trage Code bei**: Sende einen [Pull Request](https://github.com/marianwolf/oidarwave/pulls) mit deinen Änderungen. Bitte achte darauf, dass dein Code den Projektstandards entspricht.
 
 ## 🚀 Roadmap
 
