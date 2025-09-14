@@ -1,8 +1,7 @@
 # 🎵 Oidarwave
 
 ![Project Status](https://img.shields.io/badge/Status-Aktive-brightgreen)
-![Datenschutz](https://img.shields.io/badge/Datenschutz-DSGVO--konform-blue)(#-datenschutz)
-
+[![Datenschutz](https://img.shields.io/badge/Datenschutz-DSGVO--konform-blue)](#-datenschutz)
 ## 📖 Inhaltsverzeichnis
 
 - [Über das Projekt](#-über-das-projekt)
