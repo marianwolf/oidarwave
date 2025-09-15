@@ -1,4 +1,6 @@
 function initializePlayer() {
+    let hasError = false;
+    let isStalled = false;
     let hls = null;
     let isAudioPlayer = false;
 
@@ -6,6 +8,7 @@ function initializePlayer() {
     const audioPlayer = document.getElementById('audioPlayer');
     const videoPlayer = document.getElementById('videoPlayer');
     const currentStationDisplay = document.getElementById('currentStation');
+    const statusIndicator = document.getElementById('statusIndicator');
 
     let currentPlayer = null;
     if (audioPlayer) {
@@ -31,14 +34,44 @@ function initializePlayer() {
         });
     });
 
+    currentPlayer.addEventListener('loadstart', () => {
+        isStalled = false;
+        updateOverallStatus();
+    });
+
     currentPlayer.addEventListener('canplay', () => {
         if (isAudioPlayer) {
             playMedia();
         }
+        isStalled = false;
+        hasError = false;
+        updateOverallStatus();
+    });
+
+    currentPlayer.addEventListener('playing', () => {
+        isStalled = false;
+        hasError = false;
+        updateOverallStatus();
+    });
+
+    currentPlayer.addEventListener('pause', () => {
+        currentPlayer.paused;
+        updateOverallStatus();
+    });
+
+    currentPlayer.addEventListener('waiting', () => {
+        isStalled = true;
+        updateOverallStatus();
     });
 
     currentPlayer.addEventListener('error', (e) => {
         console.error('Media Error:', e);
+        hasError = true;
+        updateOverallStatus();
+    });
+
+    window.addEventListener('offline', () => {
+        updateOverallStatus();
     });
 
     document.addEventListener('keydown', handleKeyDown);
@@ -55,6 +88,27 @@ function initializePlayer() {
             }
         });
     });
+
+    function updateOverallStatus() {
+        if (!statusIndicator) return;
+
+        statusIndicator.classList.remove('online', 'error', 'buffering', 'paused');
+
+        if (!navigator.onLine) {
+        statusIndicator.classList.add('error');
+        return;
+        }
+
+        if (hasError) {
+            statusIndicator.classList.add('error');
+        } else if (currentPlayer.paused) {
+            statusIndicator.classList.add('paused');
+        } else if (isStalled) {
+            statusIndicator.classList.add('buffering');
+        } else {
+            statusIndicator.classList.add('online');
+        }
+    }
 
     function playMedia() {
         currentPlayer.play().catch(e => {
@@ -144,6 +198,7 @@ function initializePlayer() {
     } else if (stationButtons.length > 0) {
         selectStation(stationButtons[0]);
     }
+    updateOverallStatus();
 }
 
 document.addEventListener('DOMContentLoaded', initializePlayer);
