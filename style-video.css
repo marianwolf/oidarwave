@@ -44,10 +44,6 @@
     color: black;
 }
 
-.data-mode-controls {
-    margin-top: var(--space-200);
-}
-
 @media (max-width: 780px) {
     .video-container {
         width: 95%;
