@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const videoPlayer = document.getElementById('videoPlayer');
     const currentStationDisplay = document.getElementById('currentStation');
     const localStorageKey = 'dataSaveMode';
-    
+
     let hls;
 
     const setupHlsPlayer = (url) => {
@@ -29,19 +29,21 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     
     const updateQualityLevel = () => {
-        if (!hls) return;
+        if (!hls || hls.levels.length === 0) return;
         
         const isDataModeOn = localStorage.getItem(localStorageKey) === 'true';
         
         if (isDataModeOn) {
-            let lowestLevelIndex = hls.levels.length - 1;
-            for (let i = hls.levels.length - 1; i >= 0; i--) {
-                if (hls.levels[i].height <= 360) {
-                    lowestLevelIndex = i;
+            let selectedLevelIndex = hls.levels.length - 1;
+            
+            for (let i = 0; i < hls.levels.length; i++) {
+                if (hls.levels[i].height === 360) {
+                    selectedLevelIndex = i;
                     break;
                 }
             }
-            hls.currentLevel = lowestLevelIndex;
+            
+            hls.currentLevel = selectedLevelIndex;
         } else {
             hls.currentLevel = -1;
         }
