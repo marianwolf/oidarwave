@@ -15,6 +15,39 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+.data-mode-toggle {
+    background: rgba(255, 255, 255, 0.15);
+    padding: var(--space-200);
+    border: none;
+    border-radius: var(--radius-md);
+    color: white;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    transition: all var(--transition-speed-fast) var(--transition-timing-cubic);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    margin: 2px 0;
+}
+
+.data-mode-toggle:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.data-mode-toggle[aria-pressed="true"] {
+    background-color: var(--color-accent-blue);
+    box-shadow: 0 0 20px rgba(119, 219, 255, 0.4);
+    color: black;
+}
+
+.data-mode-controls {
+    margin-top: var(--space-200);
+}
+
 @media (max-width: 780px) {
     .video-container {
         width: 95%;
