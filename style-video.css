@@ -24,7 +24,7 @@
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-medium);
     cursor: pointer;
-    transition: all var(--transition-speed-fast) var(--transition-timing-cubic);
+    transition: background-color 0.4s ease, box-shadow 0.4s ease, color 0.4s ease, border-color 0.4s ease, border-size 0.4s ease, transform 0.2s ease;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     text-align: center;
@@ -36,12 +36,17 @@
 .data-mode-toggle:hover {
     background: rgba(255, 255, 255, 0.25);
     border-color: rgba(255, 255, 255, 0.4);
+    will-change: transform, box-shadow;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
 }
 
 .data-mode-toggle[aria-pressed="true"] {
     background-color: var(--color-accent-blue);
     box-shadow: 0 0 20px rgba(119, 219, 255, 0.4);
     color: black;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    margin: 0;
 }
 
 @media (max-width: 780px) {
