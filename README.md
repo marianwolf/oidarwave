@@ -87,6 +87,9 @@ Beiträge sind jederzeit willkommen\! Ob es sich um Fehlerberichte, Funktionsvor
 
   - [ ] Hinzufügen einer Suchfunktion für Sender
   - [ ] Implementierung eines Lautstärkereglers in der Benutzeroberfläche
-  - [ ] Speichern des zuletzt gehörten Senders im `localStorage`
+  - [x] Speichern des zuletzt gehörten Senders im `localStorage`
   - [ ] Integration weiterer Sender
   - [ ] Umschaltung zwischen Dunkel- und Hellmodus
+  - [ ] Wiedergabe von Metadaten
+  - [ ] Favoriten und Verlauf
+  - [ ] Nutzerprofile
