@@ -13,13 +13,17 @@ function initializePlayer() {
     const currentSongTitleDisplay = document.getElementById('currentSongTitle');
 
     let currentPlayer = null;
+    let lastStationKey = '';
+
     if (audioPlayer) {
         currentPlayer = audioPlayer;
         isAudioPlayer = true;
         currentPlayer.volume = 1;
+        lastStationKey = 'lastStationAudioUrl';
     } else if (videoPlayer) {
         currentPlayer = videoPlayer;
         isAudioPlayer = false;
+        lastStationKey = 'lastStationVideoUrl';
     } else {
         console.error("No player element found with id 'audioPlayer' or 'videoPlayer'.");
         return;
@@ -28,11 +32,6 @@ function initializePlayer() {
     stationButtons.forEach(button => {
         button.addEventListener('click', () => {
             selectStation(button);
-            if (isAudioPlayer) {
-                localStorage.setItem('lastStationAudioUrl', button.dataset.url);
-            } else {
-                localStorage.setItem('lastStationVideoUrl', button.dataset.url);
-            }
         });
     });
 
@@ -57,7 +56,6 @@ function initializePlayer() {
     });
 
     currentPlayer.addEventListener('pause', () => {
-        currentPlayer.paused;
         updateOverallStatus();
     });
 
@@ -97,8 +95,8 @@ function initializePlayer() {
         statusIndicator.classList.remove('online', 'error', 'buffering', 'paused');
 
         if (!navigator.onLine) {
-        statusIndicator.classList.add('error');
-        return;
+            statusIndicator.classList.add('error');
+            return;
         }
 
         if (hasError) {
@@ -124,6 +122,8 @@ function initializePlayer() {
         const { url, name, metadataUrl } = button.dataset;
         currentStationDisplay.textContent = name;
 
+        localStorage.setItem(lastStationKey, url);
+
         if (metadataInterval) {
             clearInterval(metadataInterval);
         }
@@ -138,10 +138,8 @@ function initializePlayer() {
         }
 
         if (isAudioPlayer) {
-            localStorage.setItem('lastStationAudioUrl', url);
             handleAudioPlayback(url);
         } else {
-            localStorage.setItem('lastStationVideoUrl', url);
             handleVideoPlayback(url);
         }
     }
@@ -206,36 +204,36 @@ function initializePlayer() {
     }
 
     function fetchMetadata(metadataUrl) {
-    fetch(metadataUrl)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Netzwerkfehler');
-            }
-            if (metadataUrl.endsWith('.txt')) {
-                return response.text();
-            }
-            return response.json();
-        })
-        .then(data => {
-            let trackTitle;
-            if (typeof data === 'string') {
-                trackTitle = data.split('\n')[0];
-            } else {
-                trackTitle = data.title;
-            }
-            if (trackTitle) {
-                document.getElementById('currentSongTitle').innerText = trackTitle;
-            } else {
-                document.getElementById('currentSongTitle').innerText = "Keine Titelinformationen";
-            }
-        })
-        .catch(error => {
-            console.error('Fehler beim Abrufen der Metadaten:', error);
-            document.getElementById('currentSongTitle').innerText = "Metadaten nicht verfügbar";
-        });
+        fetch(metadataUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Netzwerkfehler');
+                }
+                if (metadataUrl.endsWith('.txt')) {
+                    return response.text();
+                }
+                return response.json();
+            })
+            .then(data => {
+                let trackTitle;
+                if (typeof data === 'string') {
+                    trackTitle = data.split('\n')[0];
+                } else {
+                    trackTitle = data.title;
+                }
+                if (trackTitle) {
+                    document.getElementById('currentSongTitle').innerText = trackTitle;
+                } else {
+                    document.getElementById('currentSongTitle').innerText = "Keine Titelinformationen";
+                }
+            })
+            .catch(error => {
+                console.error('Fehler beim Abrufen der Metadaten:', error);
+                document.getElementById('currentSongTitle').innerText = "Metadaten nicht verfügbar";
+            });
     }
 
-    const lastStationUrl = isAudioPlayer ? localStorage.getItem('lastStationAudioUrl') : localStorage.getItem('lastStationVideoUrl');
+    const lastStationUrl = localStorage.getItem(lastStationKey);
     const lastStationButton = lastStationUrl ? document.querySelector(`.station-btn[data-url="${lastStationUrl}"]`) : null;
 
     if (lastStationButton) {
