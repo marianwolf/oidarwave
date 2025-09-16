@@ -235,7 +235,9 @@ nav a {
 }
 
 .audio-controls {
-    margin: var(--space-400) 0;
+    display: grid;
+    gap: var(--space-300);
+    justify-items: center;
 }
 
 #audioPlayer {
@@ -333,6 +335,15 @@ footer {
 .cookie-btn.link-style:hover {
     background: rgba(255, 255, 255, 0.15);
     border-color: rgba(255, 255, 255, 0.4);
+}
+
+#currentSongTitle {
+    padding: var(--space-200);
+    display: flex;
+    border-radius: var(--radius-md);
+    background: rgba(20, 20, 40, 0.5);
+    border: 1px solid rgba(120, 119, 198, 0.2);
+    transition: all var(--transition-speed-fast) var(--transition-timing-cubic);
 }
 
 @keyframes glow {

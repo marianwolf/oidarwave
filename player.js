@@ -3,12 +3,14 @@ function initializePlayer() {
     let isStalled = false;
     let hls = null;
     let isAudioPlayer = false;
+    let metadataInterval = null;
 
     const stationButtons = document.querySelectorAll('.station-btn');
     const audioPlayer = document.getElementById('audioPlayer');
     const videoPlayer = document.getElementById('videoPlayer');
     const currentStationDisplay = document.getElementById('currentStation');
     const statusIndicator = document.getElementById('statusIndicator');
+    const currentSongTitleDisplay = document.getElementById('currentSongTitle');
 
     let currentPlayer = null;
     if (audioPlayer) {
@@ -119,8 +121,21 @@ function initializePlayer() {
     function selectStation(button) {
         stationButtons.forEach(btn => btn.classList.remove('active'));
         button.classList.add('active');
-        const { url, name } = button.dataset;
+        const { url, name, metadataUrl } = button.dataset;
         currentStationDisplay.textContent = name;
+
+        if (metadataInterval) {
+            clearInterval(metadataInterval);
+        }
+
+        if (metadataUrl) {
+            fetchMetadata(metadataUrl);
+            metadataInterval = setInterval(() => {
+                fetchMetadata(metadataUrl);
+            }, 1000);
+        } else {
+            currentSongTitleDisplay.textContent = "Metadaten nicht verfügbar";
+        }
 
         if (isAudioPlayer) {
             localStorage.setItem('lastStationAudioUrl', url);
@@ -188,6 +203,36 @@ function initializePlayer() {
                 }
                 break;
         }
+    }
+
+    function fetchMetadata(metadataUrl) {
+    fetch(metadataUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Netzwerkfehler');
+            }
+            if (metadataUrl.endsWith('.txt')) {
+                return response.text();
+            }
+            return response.json();
+        })
+        .then(data => {
+            let trackTitle;
+            if (typeof data === 'string') {
+                trackTitle = data.split('\n')[0];
+            } else {
+                trackTitle = data.title;
+            }
+            if (trackTitle) {
+                document.getElementById('currentSongTitle').innerText = trackTitle;
+            } else {
+                document.getElementById('currentSongTitle').innerText = "Keine Titelinformationen";
+            }
+        })
+        .catch(error => {
+            console.error('Fehler beim Abrufen der Metadaten:', error);
+            document.getElementById('currentSongTitle').innerText = "Metadaten nicht verfügbar";
+        });
     }
 
     const lastStationUrl = isAudioPlayer ? localStorage.getItem('lastStationAudioUrl') : localStorage.getItem('lastStationVideoUrl');
