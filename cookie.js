@@ -13,6 +13,17 @@ if (cookieBanner && acceptButton && declineButton) {
         return localStorage.getItem('cookieConsent');
     }
 
+    function handleAcceptAction() {
+        setCookieConsent('true');
+        cookieBanner.style.display = 'none';
+        enableAllScripts();
+    }
+
+    function handleDeclineAction() {
+        setCookieConsent('false');
+        cookieBanner.style.display = 'none';
+    }
+
     function checkAndClearConsent() {
         const timestamp = localStorage.getItem('consentTimestamp');
         if (timestamp) {
@@ -25,10 +36,22 @@ if (cookieBanner && acceptButton && declineButton) {
         }
     }
 
-    function enableVercelScripts() {
-        const head = document.head;
+    function enableAllScripts() {
+        enableVercelScripts();
+        enablegtags();
+    }
 
-        if (head.querySelector('script[src="/_vercel/insights/script.js"]')) {
+    function createScripts(scriptConfigs) {
+        const head = document.head;
+        scriptConfigs.forEach(scriptProps => {
+            const script = document.createElement('script');
+            Object.assign(script, scriptProps);
+            head.appendChild(script);
+        });
+    }
+
+    function enableVercelScripts() {
+        if (document.head.querySelector('script[src="/_vercel/insights/script.js"]')) {
             return;
         }
 
@@ -38,18 +61,11 @@ if (cookieBanner && acceptButton && declineButton) {
             { textContent: "window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };" },
             { defer: true, src: "/_vercel/speed-insights/script.js" }
         ];
-
-        scripts.forEach(scriptProps => {
-            const script = document.createElement('script');
-            Object.assign(script, scriptProps);
-            head.appendChild(script);
-        });
+        createScripts(scripts);
     }
 
     function enablegtags() {
-        const head = document.head;
-
-        if (head.querySelector('script[src="https://www.googletagmanager.com/gtag/js?id=G-93C0KPGRPJ"]')) {
+        if (document.head.querySelector('script[src="https://www.googletagmanager.com/gtag/js?id=G-93C0KPGRPJ"]')) {
             return;
         }
 
@@ -57,36 +73,20 @@ if (cookieBanner && acceptButton && declineButton) {
             { textContent: "window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-93C0KPGRPJ');" },
             { defer: true, src: "https://www.googletagmanager.com/gtag/js?id=G-93C0KPGRPJ" },
         ];
-
-        scripts.forEach(scriptProps => {
-            const script = document.createElement('script');
-            Object.assign(script, scriptProps);
-            head.appendChild(script);
-        });
+        createScripts(scripts);
     }
 
     function showCookieBanner() {
         const consent = getCookieConsent();
         if (consent === 'true') {
-            cookieBanner.style.display = 'none';
-            enableVercelScripts();
-            enablegtags();
+            handleAcceptAction();
         } else {
             cookieBanner.style.display = 'block';
         }
     }
 
-    acceptButton.addEventListener('click', () => {
-        setCookieConsent('true');
-        enableVercelScripts();
-        enablegtags();
-        cookieBanner.style.display = 'none';
-    });
-
-    declineButton.addEventListener('click', () => {
-        setCookieConsent('false');
-        cookieBanner.style.display = 'none';
-    });
+    acceptButton.addEventListener('click', handleAcceptAction);
+    declineButton.addEventListener('click', handleDeclineAction);
 
     checkAndClearConsent();
     showCookieBanner();
