@@ -219,18 +219,24 @@ function initializePlayer() {
                 if (typeof data === 'string') {
                     trackTitle = data.split('\n')[0];
                 } else {
-                    trackTitle = data.title;
+                    trackTitle = getMusicInfo(data);
                 }
                 if (trackTitle) {
-                    document.getElementById('currentSongTitle').innerText = trackTitle;
+                    currentSongTitleDisplay.innerText = trackTitle;
                 } else {
-                    document.getElementById('currentSongTitle').innerText = "Keine Titelinformationen";
+                    currentSongTitleDisplay.innerText = "Keine Titelinformationen";
                 }
             })
             .catch(error => {
                 console.error('Fehler beim Abrufen der Metadaten:', error);
-                document.getElementById('currentSongTitle').innerText = "Metadaten nicht verfügbar";
+                currentSongTitleDisplay.innerText = "Metadaten nicht verfügbar";
             });
+    }
+
+    function getMusicInfo(data) {
+        const title = data.playlistItem.title;
+        const artist = data.playlistItem.artist;
+        return `${title} - ${artist}`;
     }
 
     const lastStationUrl = localStorage.getItem(lastStationKey);
