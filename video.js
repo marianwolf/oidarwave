@@ -34,19 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const isDataModeOn = localStorage.getItem(localStorageKey) === 'true';
         
         if (isDataModeOn) {
-            let lowestBitrate = Infinity;
-            let lowestBitrateIndex = -1;
-            
-            for (let i = 0; i < hls.levels.length; i++) {
-                if (hls.levels[i].bitrate < lowestBitrate) {
-                    lowestBitrate = hls.levels[i].bitrate;
-                    lowestBitrateIndex = i;
-                }
-            }
-            
-            if (lowestBitrateIndex !== -1) {
-                hls.currentLevel = lowestBitrateIndex;
-            }
+            hls.currentLevel = 0;
         } else {
             hls.currentLevel = -1;
         }
