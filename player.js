@@ -76,19 +76,6 @@ function initializePlayer() {
 
     document.addEventListener('keydown', handleKeyDown);
 
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
-
     function updateOverallStatus() {
         if (!statusIndicator) return;
 
@@ -234,9 +221,17 @@ function initializePlayer() {
     }
 
     function getMusicInfo(data) {
-        const title = data.playlistItem.title;
-        const artist = data.playlistItem.artist;
-        return `${title} - ${artist}`;
+        const title = data?.playlistItem?.title;
+        const artist = data?.playlistItem?.artist;
+
+        if (title && artist) {
+            return `${title} - ${artist}`;
+        } else if (title) {
+            return title;
+        } else if (artist) {
+            return artist;
+        }
+        return null;
     }
 
     const lastStationUrl = localStorage.getItem(lastStationKey);
