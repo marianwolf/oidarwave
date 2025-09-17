@@ -86,8 +86,8 @@ Beiträge sind jederzeit willkommen\! Ob es sich um Fehlerberichte, Funktionsvor
 ## 🚀 Roadmap
 
   - [x] Speichern des zuletzt gehörten Senders im `localStorage` (0.9.3)
+  - [x] Wiedergabe von Metadaten (0.9.4)
   - [ ] Integration weiterer Sender
   - [ ] Umschaltung zwischen Dunkel- und Hellmodus
-  - [ ] Wiedergabe von Metadaten
   - [ ] Favoriten und Verlauf
   - [ ] Nutzerprofile

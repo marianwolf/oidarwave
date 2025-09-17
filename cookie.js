@@ -2,75 +2,94 @@ const cookieBanner = document.getElementById('cookieBanner');
 const acceptButton = document.getElementById('acceptCookies');
 const declineButton = document.getElementById('declineCookies');
 
-function setCookieConsent(consent) {
-    localStorage.setItem('cookieConsent', consent);
-    localStorage.setItem('consentTimestamp', new Date().getTime());
-}
+if (cookieBanner && acceptButton && declineButton) {
 
-function getCookieConsent() {
-    return localStorage.getItem('cookieConsent');
-}
+    function setCookieConsent(consent) {
+        localStorage.setItem('cookieConsent', consent);
+        localStorage.setItem('consentTimestamp', new Date().getTime());
+    }
 
-function checkAndClearConsent() {
-    const timestamp = localStorage.getItem('consentTimestamp');
-    if (timestamp) {
-        const now = new Date().getTime();
-        const ninetyDaysInMs = 90 * 24 * 60 * 60 * 1000;
-        if (now - timestamp > ninetyDaysInMs) {
-            localStorage.removeItem('cookieConsent');
-            localStorage.removeItem('consentTimestamp');
+    function getCookieConsent() {
+        return localStorage.getItem('cookieConsent');
+    }
+
+    function checkAndClearConsent() {
+        const timestamp = localStorage.getItem('consentTimestamp');
+        if (timestamp) {
+            const now = new Date().getTime();
+            const ninetyDaysInMs = 90 * 24 * 60 * 60 * 1000;
+            if (now - timestamp > ninetyDaysInMs) {
+                localStorage.removeItem('cookieConsent');
+                localStorage.removeItem('consentTimestamp');
+            }
         }
     }
-}
 
-function enableVercelScripts() {
-    const head = document.head;
+    function enableVercelScripts() {
+        const head = document.head;
 
-    if (head.querySelector('script[src="/_vercel/insights/script.js"]')) {
-        return;
+        if (head.querySelector('script[src="/_vercel/insights/script.js"]')) {
+            return;
+        }
+
+        const scripts = [
+            { textContent: "window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };" },
+            { defer: true, src: "/_vercel/insights/script.js" },
+            { textContent: "window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };" },
+            { defer: true, src: "/_vercel/speed-insights/script.js" }
+        ];
+
+        scripts.forEach(scriptProps => {
+            const script = document.createElement('script');
+            Object.assign(script, scriptProps);
+            head.appendChild(script);
+        });
     }
 
-    const vaScript = document.createElement('script');
-    vaScript.textContent = "window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };";
-    head.appendChild(vaScript);
+    function enablegtags() {
+        const head = document.head;
 
-    const vaSrcScript = document.createElement('script');
-    vaSrcScript.defer = true;
-    vaSrcScript.src = "/_vercel/insights/script.js";
-    head.appendChild(vaSrcScript);
+        if (head.querySelector('script[src="https://www.googletagmanager.com/gtag/js?id=G-93C0KPGRPJ"]')) {
+            return;
+        }
 
-    const siScript = document.createElement('script');
-    siScript.textContent = "window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };";
-    head.appendChild(siScript);
+        const scripts = [
+            { textContent: "window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-93C0KPGRPJ');" },
+            { defer: true, src: "https://www.googletagmanager.com/gtag/js?id=G-93C0KPGRPJ" },
+        ];
 
-    const siSrcScript = document.createElement('script');
-    siSrcScript.defer = true;
-    siSrcScript.src = "/_vercel/speed-insights/script.js";
-    head.appendChild(siSrcScript);
-}
+        scripts.forEach(scriptProps => {
+            const script = document.createElement('script');
+            Object.assign(script, scriptProps);
+            head.appendChild(script);
+        });
+    }
 
-function showCookieBanner() {
-    const consent = getCookieConsent();
+    function showCookieBanner() {
+        const consent = getCookieConsent();
+        if (consent === 'true') {
+            cookieBanner.style.display = 'none';
+            enableVercelScripts();
+            enablegtags();
+        } else {
+            cookieBanner.style.display = 'block';
+        }
+    }
 
-    if (consent === 'true') {
-        cookieBanner.style.display = 'none';
+    acceptButton.addEventListener('click', () => {
+        setCookieConsent('true');
         enableVercelScripts();
-    } else if (consent === 'false') {
-        cookieBanner.style.display = 'block';
-    } else {
-        cookieBanner.style.display = 'block';
-    }
+        enablegtags();
+        cookieBanner.style.display = 'none';
+    });
+
+    declineButton.addEventListener('click', () => {
+        setCookieConsent('false');
+        cookieBanner.style.display = 'none';
+    });
+
+    checkAndClearConsent();
+    showCookieBanner();
+} else {
+    console.error("Required DOM elements for the cookie banner were not found.");
 }
-
-acceptButton.addEventListener('click', () => {
-    setCookieConsent('true');
-    enableVercelScripts();
-    cookieBanner.style.display = 'none';
-});
-
-declineButton.addEventListener('click', () => {
-    setCookieConsent('false');
-    cookieBanner.style.display = 'none';
-});
-
-showCookieBanner();
