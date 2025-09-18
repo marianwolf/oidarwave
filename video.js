@@ -27,6 +27,10 @@ document.addEventListener('DOMContentLoaded', () => {
             videoPlayer.src = url;
             videoPlayer.addEventListener('loadedmetadata', () => videoPlayer.play(), { once: true });
         }
+        
+        for (const track of videoPlayer.textTracks) {
+            track.mode = 'disabled';
+        }
     };
     
     const isDataModeOn = localStorage.getItem(localStorageKey) === 'true';
