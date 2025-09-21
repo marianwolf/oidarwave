@@ -87,6 +87,7 @@ Beiträge sind jederzeit willkommen\! Ob es sich um Fehlerberichte, Funktionsvor
 
   - [x] Speichern des zuletzt gehörten Senders im `localStorage` (0.9.3)
   - [x] Wiedergabe von Metadaten (0.9.4)
+  - [x] Verkürze die Latenz zum Datenspatmodus (0.9.5)
   - [ ] Integration weiterer Sender
   - [ ] Umschaltung zwischen Dunkel- und Hellmodus
   - [ ] Favoriten und Verlauf
