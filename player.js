@@ -136,32 +136,6 @@ function initializePlayer() {
         currentPlayer.load();
     }
 
-    function handleVideoPlayback(url) {
-        if (hls) {
-            hls.destroy();
-            hls = null;
-        }
-
-        if (Hls.isSupported()) {
-            hls = new Hls();
-            hls.loadSource(url);
-            hls.attachMedia(currentPlayer);
-            hls.on(Hls.Events.MANIFEST_PARSED, () => {
-                if (hls.subtitleTracks.length > 0) {
-                    hls.subtitleTrack = 0;
-                }
-                playMedia();
-            });
-        } else if (currentPlayer.canPlayType('application/vnd.apple.mpegurl')) {
-            currentPlayer.src = url;
-            currentPlayer.addEventListener('loadedmetadata', () => {
-                playMedia();
-            }, { once: true });
-        } else {
-            alert('Ihr Browser unterstützt die Wiedergabe von HLS-Streams nicht.');
-        }
-    }
-
     function handleKeyDown(e) {
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON') {
             return;
