@@ -139,7 +139,7 @@ nav a {
 }
 
 :is(nav a, .station-btn, .cookie-btn):where(:hover, :focus-visible) {
-    will-change: transform;
+    will-change: transform, box-shadow;
     outline: none;
 }
 
@@ -196,15 +196,18 @@ nav a {
     text-align: center;
     position: relative;
     overflow: hidden;
-    will-change: transform;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+    will-change: transform, box-shadow;
 }
 
 .station-btn:hover {
     background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.4);
 }
 
 .station-btn.active {
     background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.8);
     transform: scale(1.05);
 }
 
