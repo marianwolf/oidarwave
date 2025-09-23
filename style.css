@@ -146,7 +146,6 @@ nav a {
 
 :is(nav a, .station-btn, .cookie-btn):where(:hover, :focus-visible) {
     will-change: transform, box-shadow;
-    transform: translateY(-2px);
     box-shadow: var(--shadow-sm);
     outline: none;
 }
@@ -187,6 +186,7 @@ nav a {
 
 .station-grid {
     display: grid;
+    align-content: center;
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: var(--space-200);
 }
@@ -206,20 +206,22 @@ nav a {
     text-align: center;
     position: relative;
     overflow: hidden;
-    margin: 2px 0;
+    margin: 2px 0 2px 0;
+    will-change: transform, box-shadow;
 }
 
 .station-btn:hover {
     background: rgba(255, 255, 255, 0.25);
-    border-color: rgba(255, 255, 255, 0.4);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    margin: 0;
 }
 
 .station-btn.active {
     background: rgba(255, 255, 255, 0.3);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3), var(--shadow-sm);
     border: 2px solid rgba(255, 255, 255, 0.8);
-    transform: scale(1.03);
-    transition: transform 0.3s ease-in-out;
+    transform: scale(1);
+    margin: 0;
 }
 
 .player-controls {
@@ -356,12 +358,6 @@ footer {
 @keyframes glow {
     0% { filter: drop-shadow(0 0 10px var(--color-accent-purple)); }
     100% { filter: drop-shadow(0 0 20px var(--color-accent-pink)); }
-}
-
-@keyframes pulse-status {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.2); }
-    100% { transform: scale(1); }
 }
 
 @keyframes loading {
