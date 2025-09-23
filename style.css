@@ -1,20 +1,20 @@
 :root {
-    --color-bg-primary: #0f0f23;
-    --color-bg-secondary: #1a1a40;
+    --color-bg-primary: #080816;
+    --color-bg-secondary: #12122b;
     --color-bg-tertiary: #2d2d5f;
     --color-bg-card: rgba(20, 20, 40, 0.95);
 
-    --color-text-primary: #e0e0e0;
-    --color-text-secondary: #c0c0c0;
+    --color-text-primary: #f5f5f5;
+    --color-text-secondary: #a0a0a0;
 
-    --color-accent-purple: #7877c6;
-    --color-accent-pink: #ff77c6;
-    --color-accent-blue: #77c6ff;
+    --color-accent-purple: hsl(270, 100%, 70%);
+    --color-accent-pink: hsl(320, 100%, 70%);
+    --color-accent-blue: hsl(200, 100%, 70%);
 
-    --color-status-online: #4CAF50;
-    --color-status-error: #f44336;
-    --color-status-buffering: #FF9800;
-    --color-status-paused: #2196F3;
+    --color-status-online: hsl(120, 100%, 50%);
+    --color-status-error: hsl(0, 100%, 50%);
+    --color-status-buffering: hsl(30, 100%, 50%);
+    --color-status-paused: hsl(210, 100%, 50%);
 
     --space-100: 0.5rem;
     --space-200: 1rem;
@@ -144,10 +144,16 @@ nav a {
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-:is(nav a, .station-btn):hover {
+:is(nav a, .station-btn, .cookie-btn):where(:hover, :focus-visible) {
     will-change: transform, box-shadow;
     transform: translateY(-2px);
     box-shadow: var(--shadow-sm);
+    outline: none;
+}
+
+:is(nav a, .station-btn, .cookie-btn):focus-visible {
+    outline: 2px solid var(--color-accent-blue);
+    outline-offset: 6px;
 }
 
 .main-section {
@@ -194,7 +200,7 @@ nav a {
     font-size: var(--font-size-base);
     font-weight: var(--font-weight-medium);
     cursor: pointer;
-    transition: background-color 0.4s ease, box-shadow 0.4s ease, color 0.4s ease, border-color 0.4s ease, border-size 0.4s ease, transform 0.2s ease;
+    transition: all 0.4s ease;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     text-align: center;
@@ -212,7 +218,8 @@ nav a {
     background: rgba(255, 255, 255, 0.3);
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
     border: 2px solid rgba(255, 255, 255, 0.8);
-    margin: 0;
+    transform: scale(1.03);
+    transition: transform 0.3s ease-in-out;
 }
 
 .player-controls {
@@ -283,8 +290,7 @@ footer {
     bottom: var(--space-400);
     left: 50%;
     transform: translateX(-50%);
-    width: 70%;
-    max-width: 600px;
+    width: clamp(300px, 70%, 600px);
     padding: var(--space-400);
     border-radius: var(--radius-lg);
     z-index: 1000;
@@ -326,11 +332,6 @@ footer {
     text-decoration: none;
 }
 
-.cookie-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-sm);
-}
-
 .cookie-btn.link-style {
     background: rgba(255, 255, 255, 0.08);
     border-color: rgba(255, 255, 255, 0.2);
@@ -368,9 +369,13 @@ footer {
     100% { transform: rotate(360deg); }
 }
 
-@keyframes card-glow-pulse {
-    0%, 100% { box-shadow: var(--shadow-sm), 0 0 10px rgba(120, 119, 198, 0.4); }
-    50% { box-shadow: var(--shadow-lg), 0 0 30px rgba(120, 119, 198, 0.6), 0 0 50px var(--color-accent-blue); }
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }
 
 @media (max-width: 900px) {
@@ -426,7 +431,6 @@ footer {
         border-radius: 0;
         width: 100%;
     }
-
     .cookie-banner-content {
         flex-direction: column;
         gap: var(--space-300);
