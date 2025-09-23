@@ -202,13 +202,12 @@ nav a {
 
 .station-btn:hover {
     background: rgba(255, 255, 255, 0.25);
-    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.5);
 }
 
 .station-btn.active {
     background: rgba(255, 255, 255, 0.3);
     box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.8);
-    transform: scale(1.05);
 }
 
 .player-controls {

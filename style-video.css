@@ -18,27 +18,25 @@
 .data-mode-toggle {
     background: rgba(255, 255, 255, 0.15);
     padding: var(--space-200);
-    border: none;
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: var(--radius-md);
     color: white;
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
     font-weight: var(--font-weight-medium);
     cursor: pointer;
-    transition: background-color 0.4s ease, box-shadow 0.4s ease, color 0.4s ease, border-color 0.4s ease, border-size 0.4s ease, transform 0.2s ease;
+    transition: all 0.4s ease;
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
     text-align: center;
     position: relative;
     overflow: hidden;
-    margin: 2px 0;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+    will-change: transform, box-shadow;
+    margin: 2px 0 2px 0;
 }
 
 .data-mode-toggle:hover {
     background: rgba(255, 255, 255, 0.25);
-    border-color: rgba(255, 255, 255, 0.4);
-    will-change: transform, box-shadow;
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-sm);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.5);
 }
 
 .data-mode-toggle[aria-pressed="true"] {
