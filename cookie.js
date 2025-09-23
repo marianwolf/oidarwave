@@ -2,71 +2,75 @@ const cookieBanner = document.getElementById('cookieBanner');
 const acceptButton = document.getElementById('acceptCookies');
 const declineButton = document.getElementById('declineCookies');
 
-if (cookieBanner && acceptButton && declineButton) {
-    const setCookieConsent = (consent) => {
-        localStorage.setItem('cookieConsent', consent.toString());
-        localStorage.setItem('consentTimestamp', new Date().getTime());
-    };
+function setCookieConsent(consent) {
+    localStorage.setItem('cookieConsent', consent);
+    localStorage.setItem('consentTimestamp', new Date().getTime());
+}
 
-    const getCookieConsent = () => {
-        const consent = localStorage.getItem('cookieConsent');
-        if (consent === 'true') return true;
-        if (consent === 'false') return false;
-        return null;
-    };
+function getCookieConsent() {
+    return localStorage.getItem('cookieConsent');
+}
 
-    const enableAllScripts = () => {
-        window.va = window.va || function () {
-            (window.vaq = window.vaq || []).push(arguments);
-        };
-        window.si = window.si || function () {
-            (window.siq = window.siq || []).push(arguments);
-        };
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-        gtag('config', 'G-93C0KPGRPJ');
-    };
-
-    const handleAcceptAction = () => {
-        setCookieConsent(true);
-        cookieBanner.style.display = 'none';
-        enableAllScripts();
-    };
-
-    const handleDeclineAction = () => {
-        setCookieConsent(false);
-        cookieBanner.style.display = 'none';
-    };
-
-    const checkAndClearConsent = () => {
-        const timestamp = parseInt(localStorage.getItem('consentTimestamp'), 10);
+function checkAndClearConsent() {
+    const timestamp = localStorage.getItem('consentTimestamp');
+    if (timestamp) {
+        const now = new Date().getTime();
         const ninetyDaysInMs = 90 * 24 * 60 * 60 * 1000;
-        if (timestamp && (new Date().getTime() - timestamp > ninetyDaysInMs)) {
+        if (now - timestamp > ninetyDaysInMs) {
             localStorage.removeItem('cookieConsent');
             localStorage.removeItem('consentTimestamp');
         }
-    };
-
-    const showCookieBanner = () => {
-        const consent = getCookieConsent();
-        if (consent === true) {
-            enableAllScripts();
-        } else if (consent === false) {
-            cookieBanner.style.display = 'none';
-        } else {
-            cookieBanner.style.display = 'block';
-        }
-    };
-
-    acceptButton.addEventListener('click', handleAcceptAction);
-    declineButton.addEventListener('click', handleDeclineAction);
-
-    checkAndClearConsent();
-    showCookieBanner();
-
-} else {
-    console.error("Erforderliche DOM-Elemente für das Cookie-Banner wurden nicht gefunden. Bitte überprüfen Sie die IDs 'cookieBanner', 'acceptCookies' und 'declineCookies'.");
+    }
 }
+
+function enableVercelScripts() {
+    const head = document.head;
+
+    if (head.querySelector('script[src="/_vercel/insights/script.js"]')) {
+        return;
+    }
+
+    const vaScript = document.createElement('script');
+    vaScript.textContent = "window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };";
+    head.appendChild(vaScript);
+
+    const vaSrcScript = document.createElement('script');
+    vaSrcScript.defer = true;
+    vaSrcScript.src = "/_vercel/insights/script.js";
+    head.appendChild(vaSrcScript);
+
+    const siScript = document.createElement('script');
+    siScript.textContent = "window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };";
+    head.appendChild(siScript);
+
+    const siSrcScript = document.createElement('script');
+    siSrcScript.defer = true;
+    siSrcScript.src = "/_vercel/speed-insights/script.js";
+    head.appendChild(siSrcScript);
+}
+
+function showCookieBanner() {
+    const consent = getCookieConsent();
+
+    if (consent === 'true') {
+        cookieBanner.style.display = 'none';
+        enableVercelScripts();
+    } else if (consent === 'false') {
+        cookieBanner.style.display = 'block';
+    } else {
+        cookieBanner.style.display = 'block';
+    }
+}
+
+acceptButton.addEventListener('click', () => {
+    setCookieConsent('true');
+    enableVercelScripts();
+    cookieBanner.style.display = 'none';
+});
+
+declineButton.addEventListener('click', () => {
+    setCookieConsent('false');
+    cookieBanner.style.display = 'none';
+});
+
+showCookieBanner();
