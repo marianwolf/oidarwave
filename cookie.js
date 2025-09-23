@@ -55,8 +55,6 @@ function showCookieBanner() {
     if (consent === 'true') {
         cookieBanner.style.display = 'none';
         enableVercelScripts();
-    } else if (consent === 'false') {
-        cookieBanner.style.display = 'block';
     } else {
         cookieBanner.style.display = 'block';
     }
