@@ -196,7 +196,7 @@ function initializePlayer() {
 
     function getMusicInfo(data) {
         const title = data?.song_now_title || data?.playlistItem?.title;
-        const artist = data?.subtitle || data?.song_now_interpret || data?.playlistItem?.artist;
+        const artist = data?.name || data?.subtitle || data?.song_now_interpret || data?.playlistItem?.artist;
 
         if (title && artist) {
             return `${title} - ${artist}`;

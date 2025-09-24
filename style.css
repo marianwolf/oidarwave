@@ -5,7 +5,7 @@
     --color-bg-card: rgba(20, 20, 40, 0.95);
 
     --color-text-primary: #f5f5f5;
-    --color-text-secondary: #a0a0a0;
+    --color-text-secondary: #c0c0c0;
 
     --color-accent-purple: hsl(270, 100%, 70%);
     --color-accent-pink: hsl(320, 100%, 70%);
@@ -66,12 +66,12 @@ body {
 }
 
 body[data-theme="light"] {
-    --color-bg-primary: #f0f0f0;
-    --color-bg-secondary: #fafafa;
-    --color-bg-tertiary: #f5f5f5;
-    --color-bg-card: rgba(255, 255, 255, 0.95);
+    --color-bg-primary: #f0f0f5;
+    --color-bg-secondary: #e8e8ee;
+    --color-bg-tertiary: #f5f5fa;
+    --color-bg-card: rgba(255, 255, 255, 0.98);
     --color-text-primary: #1a1a1a;
-    --color-text-secondary: #555555;
+    --color-text-secondary: #4a4a4a;
     --shadow-inset-border: 0 0 0 1px rgba(0, 0, 0, 0.1);
 }
 
@@ -138,7 +138,7 @@ nav a {
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-:is(nav a, .station-btn, .cookie-btn):where(:hover, :focus-visible) {
+:is(nav a, .station-btn):where(:hover, :focus-visible) {
     will-change: transform, box-shadow;
     outline: none;
 }
@@ -283,7 +283,7 @@ footer {
     border-radius: var(--radius-lg);
     z-index: 1000;
     font-family: var(--font-family-primary);
-    background: rgba(20, 20, 40, 0.5);
+    background: rgba(20, 20, 40, 0.9);
     backdrop-filter: blur(20px);
     border: 1px solid rgba(120, 119, 198, 0.2);
     transition: all var(--transition-speed-fast) var(--transition-timing-cubic);
@@ -295,6 +295,7 @@ footer {
     gap: var(--space-300);
     align-items: center;
     text-align: center;
+    color: var(--color-text-primary);
 }
 
 .cookie-banner p {
@@ -307,6 +308,7 @@ footer {
     gap: var(--space-200);
     justify-content: center;
     flex-wrap: wrap;
+    margin-top: var(--space-200);
 }
 
 .cookie-btn {
@@ -317,25 +319,22 @@ footer {
     transition: all var(--transition-speed-fast) var(--transition-timing-cubic);
     border: 2px solid transparent;
     text-decoration: none;
+    text-transform: uppercase;
 }
 
-.cookie-btn.link-style {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.2);
-    color: var(--color-text-primary);
-    backdrop-filter: blur(10px);
+.cookie-btn.accept-btn {
+    background: var(--color-accent-pink);
 }
 
-.cookie-btn.link-style:hover {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: rgba(255, 255, 255, 0.4);
+.cookie-btn.decline-btn {
+    background: var(--color-accent-blue);
 }
 
 #currentSongTitle {
     padding: var(--space-200);
     display: flex;
     border-radius: var(--radius-md);
-    background: rgba(20, 20, 40, 0.5);
+    background: rgba(20, 20, 40, 0.7);
     border: 1px solid rgba(120, 119, 198, 0.2);
     transition: all var(--transition-speed-fast) var(--transition-timing-cubic);
 }

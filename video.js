@@ -22,17 +22,17 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             hlsPlayer.on(Hls.Events.ERROR, (event, data) => {
-                console.error(`HLS.js Fehler: ${data.details}`, data);
+                console.error(`HLS.js fatal error: ${data.details}`, data);
                 if (data.fatal) {
-                    alert('Es gab einen Fehler beim Laden des Videos. Bitte versuchen Sie es erneut.');
+                    alert('There was a critical error loading the video stream. Please try again or switch to a different station.');
                 }
             });
         } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
             videoPlayer.src = url;
             videoPlayer.addEventListener('loadedmetadata', () => videoPlayer.play(), { once: true });
         } else {
-            console.error('HLS wird von Ihrem Browser nicht unterstützt.');
-            alert('Ihr Browser unterstützt dieses Videoformat nicht.');
+            console.error('HLS is not supported by your browser.');
+            alert('Your browser does not support this video format.');
         }
 
         for (const track of videoPlayer.textTracks) {
@@ -41,9 +41,19 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const updateQualityLevel = () => {
-        if (!hlsPlayer || hlsPlayer.levels.length === 0) return;
+        if (!hlsPlayer || hlsPlayer.levels.length === 0) {
+            return;
+        }
         const isDataSaveModeEnabled = localStorage.getItem(localStorageKey) === 'true';
         hlsPlayer.currentLevel = isDataSaveModeEnabled ? 0 : -1;
+    };
+
+    const toggleDataSaveMode = () => {
+        const currentState = dataModeToggle.getAttribute('aria-pressed') === 'true';
+        const newState = !currentState;
+        dataModeToggle.setAttribute('aria-pressed', newState);
+        localStorage.setItem(localStorageKey, newState);
+        updateQualityLevel();
     };
 
     const initializeEventListeners = () => {
@@ -53,16 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 setupHlsPlayer(button.dataset.url);
             });
         });
-
-        dataModeToggle.addEventListener('click', () => {
-            const currentState = dataModeToggle.getAttribute('aria-pressed') === 'true';
-            const newState = !currentState;
-            dataModeToggle.setAttribute('aria-pressed', newState);
-            localStorage.setItem(localStorageKey, newState);
-            if (videoPlayer.src) {
-                updateQualityLevel();
-            }
-        });
+        dataModeToggle.addEventListener('click', toggleDataSaveMode);
     };
 
     const initializePlayer = () => {
