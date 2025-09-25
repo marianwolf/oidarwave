@@ -8,7 +8,7 @@
     --color-text-secondary: #c0c0c0;
 
     --color-accent-purple: hsl(270, 100%, 70%);
-    --color-accent-pink: hsl(320, 100%, 70%);
+    --color-accent-pink: hsl(345, 100%, 70%);
     --color-accent-blue: hsl(200, 100%, 70%);
 
     --color-status-online: hsl(120, 100%, 50%);
@@ -79,7 +79,7 @@ body::after {
     content: '';
     position: fixed;
     inset: 0;
-    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 119, 198, 0.1) 0%, transparent 60%);
+    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), hsla(270, 100%, 70%, 0.1) 0%, transparent 60%);
     pointer-events: none;
     z-index: -1;
     transition: background-position 0.5s ease;
@@ -106,15 +106,16 @@ header {
 }
 
 .logo {
+    font-family: 'Noto Color Emoji', sans-serif;
     font-size: var(--font-size-xxxl);
     font-weight: var(--font-weight-bold);
-    background: linear-gradient(135deg, var(--color-accent-purple) 0%, var(--color-accent-pink) 50%, var(--color-accent-blue) 100%);
+    background: linear-gradient(135deg, var(--color-accent-purple));
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-align: center;
     margin-bottom: var(--space-200);
-    animation: glow 3s ease-in-out infinite alternate;
+    animation: glow 5s ease-in-out infinite alternate;
 }
 
 nav {
@@ -139,7 +140,7 @@ nav a {
 }
 
 :is(nav a, .station-btn):where(:hover, :focus-visible) {
-    will-change: transform, box-shadow;
+    will-change: transform, box-shadow, outline;
     outline: none;
 }
 
@@ -202,7 +203,7 @@ nav a {
 
 .station-btn:hover {
     background: rgba(255, 255, 255, 0.25);
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.5); 
 }
 
 .station-btn.active {
@@ -216,11 +217,6 @@ nav a {
     border-radius: var(--radius-lg);
     color: white;
     text-align: center;
-    transition: backdrop-filter 0.5s ease;
-}
-
-.player-controls:hover {
-    backdrop-filter: blur(10px) brightness(1.2);
 }
 
 .current-station {
@@ -241,7 +237,8 @@ nav a {
 }
 
 #audioPlayer {
-    width: 90%;
+    width: 100%;
+    max-width: 400px;
 }
 
 .status-indicator {
@@ -257,13 +254,13 @@ nav a {
     will-change: background-color, transform, opacity;
 }
 
-.status-indicator.online { background: var(--color-status-online); animation: pulse-status 1s infinite; }
+.status-indicator.online { background: var(--color-status-online); animation: pulse-status 2s infinite; }
 .status-indicator.error { background: var(--color-status-error); animation: pulse-status 0.5s infinite; }
 .status-indicator.buffering { background: var(--color-status-buffering); animation: pulse-status 1s infinite; }
 .status-indicator.paused { background: var(--color-status-paused); animation: none; }
 
 footer {
-    background: rgba(0, 0, 0, 0.8);
+    background: color-mix(in srgb, var(--color-bg-primary) 80%, black); 
     backdrop-filter: blur(20px);
     color: var(--color-text-secondary);
     text-align: center;
@@ -283,7 +280,7 @@ footer {
     border-radius: var(--radius-lg);
     z-index: 1000;
     font-family: var(--font-family-primary);
-    background: rgba(20, 20, 40, 0.9);
+    background: var(--color-bg-card);
     backdrop-filter: blur(20px);
     border: 1px solid rgba(120, 119, 198, 0.2);
     transition: all var(--transition-speed-fast) var(--transition-timing-cubic);
@@ -334,19 +331,22 @@ footer {
     padding: var(--space-200);
     display: flex;
     border-radius: var(--radius-md);
-    background: rgba(20, 20, 40, 0.7);
+    background: color-mix(in srgb, var(--color-bg-primary) 70%, transparent); 
     border: 1px solid rgba(120, 119, 198, 0.2);
     transition: all var(--transition-speed-fast) var(--transition-timing-cubic);
 }
 
 @keyframes glow {
-    0% { filter: drop-shadow(0 0 10px var(--color-accent-purple)); }
-    100% { filter: drop-shadow(0 0 20px var(--color-accent-pink)); }
+    0% { filter: drop-shadow(0 0 10px var(--color-accent-blue)); }
+    50% { filter: drop-shadow(0 0 10px var(--color-accent-purple))
+                drop-shadow(0 0 10px var(--color-accent-blue)); }
+    100% { filter: drop-shadow(0 0 20px var(--color-accent-purple)); }
 }
 
-@keyframes loading {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+@keyframes pulse-status {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
 }
 
 @media (prefers-reduced-motion: reduce) {
