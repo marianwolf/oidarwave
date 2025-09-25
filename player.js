@@ -1,7 +1,6 @@
 function initializePlayer() {
     let hasError = false;
     let isStalled = false;
-    let hls = null;
     let isAudioPlayer = false;
     let metadataInterval = null;
 

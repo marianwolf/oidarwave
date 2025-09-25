@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         for (const track of videoPlayer.textTracks) {
-            track.mode = 'disabled';
+            track.mode = 'hidden';
         }
     };
 
