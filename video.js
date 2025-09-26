@@ -3,8 +3,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const stationButtons = document.querySelectorAll('.station-btn');
     const videoPlayer = document.getElementById('videoPlayer');
     const currentStationDisplay = document.getElementById('currentStation');
+    const rewindButton = document.getElementById('rewindButton'); 
+    const forwardButton = document.getElementById('forwardButton'); 
+    
     const localStorageKey = 'dataSaveMode';
     let hlsPlayer = null;
+    const seekTime = 10;
+
+    videoPlayer.setAttribute('playsinline', '');
+    videoPlayer.setAttribute('webkit-playsinline', '');
 
     const setupHlsPlayer = (url) => {
         if (hlsPlayer) {
@@ -17,7 +24,10 @@ document.addEventListener('DOMContentLoaded', () => {
             hlsPlayer.attachMedia(videoPlayer);
 
             hlsPlayer.on(Hls.Events.MANIFEST_PARSED, () => {
-                videoPlayer.play();
+                videoPlayer.play()
+                    .catch(e => {
+                        console.log('Autoplay failed, user interaction may be required:', e);
+                    });
                 updateQualityLevel();
             });
 
@@ -27,6 +37,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     alert('There was a critical error loading the video stream. Please try again or switch to a different station.');
                 }
             });
+            document.addEventListener('visibilitychange', () => {
+                if (document.visibilityState === 'visible' && !videoPlayer.paused) {
+                    videoPlayer.play().catch(e => console.log('Attempt to resume playback failed:', e));
+                }
+            });
+
         } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
             videoPlayer.src = url;
             videoPlayer.addEventListener('loadedmetadata', () => videoPlayer.play(), { once: true });
@@ -56,14 +72,30 @@ document.addEventListener('DOMContentLoaded', () => {
         updateQualityLevel();
     };
 
+    const rewind = () => {
+        videoPlayer.currentTime = Math.max(0, videoPlayer.currentTime - seekTime);
+    };
+
+    const forward = () => {
+        videoPlayer.currentTime = Math.min(videoPlayer.duration || Infinity, videoPlayer.currentTime + seekTime);
+    };
+
     const initializeEventListeners = () => {
         stationButtons.forEach(button => {
             button.addEventListener('click', () => {
                 currentStationDisplay.textContent = button.dataset.name;
                 setupHlsPlayer(button.dataset.url);
+                videoPlayer.play().catch(e => console.log('Playback attempt after station change failed:', e));
             });
         });
         dataModeToggle.addEventListener('click', toggleDataSaveMode);
+        
+        if (rewindButton) {
+            rewindButton.addEventListener('click', rewind);
+        }
+        if (forwardButton) {
+            forwardButton.addEventListener('click', forward);
+        }
     };
 
     const initializePlayer = () => {
