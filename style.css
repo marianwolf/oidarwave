@@ -46,6 +46,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Noto Color Emoji', sans-serif;
 }
 
 html {
@@ -106,7 +107,6 @@ header {
 }
 
 .logo {
-    font-family: 'Noto Color Emoji', sans-serif;
     font-size: var(--font-size-xxxl);
     font-weight: var(--font-weight-bold);
     background: linear-gradient(135deg, var(--color-accent-purple));
