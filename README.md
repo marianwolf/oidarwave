@@ -30,7 +30,7 @@
 ### Radio
 
 | Sender | Livestream | Metadaten |
-| :--- |
+| :--- | :--- | :--- |
 | Deutschlandfunk | [Livestream](https://st01.sslstream.dlf.de/dlf/01/128/mp3/stream.mp3) | [Metadaten](https://streamtext.dradio.de/dlf.txt) |
 | Deutschlandfunk Nova [Livestream](https://st03.sslstream.dlf.de/dlf/03/128/mp3/stream.mp3) | [Metadaten](https://static.deutschlandfunknova.de/actions/dradio/playlist/onair) |
 | NDR 1 | [Livestream](https://d111.rndfnk.com/ard/ndr/ndr1niedersachsen/hannover/mp3/128/stream.mp3?aggregator=web&cid=01FCT9XYE3C7Y8087XEWPRC38Z&sid=33NXhseb5oHwfjK6NHAldb5dMgN&token=oaVqfQAjBSBToKJNS0DrFtMh4OeDJGHYfczkunm_CWg&tvf=eA1xTBjdaRhkMTExLnJuZGZuay5jb20) | [Metadaten](https://www.ndr.de/public/radioplaylists/ndr1niedersachsen.json) |
