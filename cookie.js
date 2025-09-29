@@ -2,6 +2,8 @@ const cookieBanner = document.getElementById('cookieBanner');
 const acceptButton = document.getElementById('acceptCookies');
 const declineButton = document.getElementById('declineCookies');
 
+checkAndClearConsent();
+
 function setCookieConsent(consent) {
     localStorage.setItem('cookieConsent', consent);
     localStorage.setItem('consentTimestamp', new Date().getTime());
@@ -47,6 +49,15 @@ function enableVercelScripts() {
     siSrcScript.defer = true;
     siSrcScript.src = "/_vercel/speed-insights/script.js";
     head.appendChild(siSrcScript);
+
+    const gtagScript = document.createElement('script');
+    gtagScript.textContent = "window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-93C0KPGRPJ');";
+    head.appendChild(gtagScript);
+
+    const gtagSrcScript = document.createElement('script');
+    gtagSrcScript.defer = true;
+    gtagSrcScript.src = "https://www.googletagmanager.com/gtag/js?id=G-93C0KPGRPJ";
+    head.appendChild(gtagSrcScript);
 }
 
 function showCookieBanner() {
@@ -56,7 +67,7 @@ function showCookieBanner() {
         cookieBanner.style.display = 'none';
         enableVercelScripts();
     } else {
-        cookieBanner.style.display = 'block';
+        cookieBanner.style.display = 'none';
     }
 }
 
