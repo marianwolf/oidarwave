@@ -13,13 +13,13 @@
   <g
      id="g182">
     <path
-       style="opacity:1;mix-blend-mode:normal;fill:url(#linearGradient312);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2.76465"
-       d="M 99.248407,0.1089453 C 101.05494,4.2629265 99.938056,17.80531 92.2056,18.975684 75.17518,21.553385 80.441307,32.134537 82.345681,46.646903 84.432237,62.547564 87.009947,84.488316 73.984141,94.113057 60.727042,103.90869 47.150175,94.288163 48.096856,83.065537 49.604742,65.189997 71.958971,86.528252 65.442961,46.646903 62.40852,28.074552 49.830883,-2.0391632 99.248407,0.1089453 Z"
+       style="opacity:1;mix-blend-mode:normal;fill:url(#linearGradient312);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2.79358"
+       d="M 99.231162,0.10874303 C 101.07914,4.2550119 99.936627,17.772252 92.026782,18.940454 74.605665,21.513369 79.992603,32.074876 81.940665,46.560298 84.075089,62.431438 86.711934,84.331454 73.387303,93.938326 59.826071,103.71577 44.330635,95.203108 46.906135,82.911317 51.386975,61.526129 71.315673,86.367604 64.650179,46.560298 61.546124,28.022429 48.679942,-2.0353773 99.231162,0.10874303 Z"
        id="path468-7-7-7"
        sodipodi:nodetypes="csssssc" />
     <path
-       style="mix-blend-mode:normal;fill:url(#linearGradient1014);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2.76465"
-       d="M 51.198359,1.9378641 C 53.00489,6.0918449 51.888007,19.634228 44.155551,20.804602 27.125131,23.382303 32.391259,33.963455 34.295633,48.475821 36.382188,64.376482 38.959899,86.317234 25.934093,95.941975 12.676994,105.73761 -0.89987351,96.117081 0.04680738,84.894455 1.5546939,67.018915 23.908923,88.35717 17.392913,48.475821 14.358471,29.90347 1.7808349,-0.21024526 51.198359,1.9378641 Z"
+       style="mix-blend-mode:normal;fill:url(#linearGradient1020);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2.79358"
+       d="M 52.60803,1.9166011 C 54.456013,6.0628698 53.313495,19.58011 45.40365,20.748312 27.982533,23.321226 33.369471,33.882733 35.317533,48.368155 37.451958,64.239296 40.088802,86.139315 26.764171,95.746186 13.20294,105.52364 -2.292497,97.010966 0.28300332,84.719175 4.7638433,63.333986 24.692541,88.175457 18.027047,48.368155 14.922992,29.830286 2.0568104,-0.22751931 52.60803,1.9166011 Z"
        id="path468-7-7-7-7"
        sodipodi:nodetypes="csssssc" />
   </g>
@@ -27,15 +27,15 @@
      id="defs48">
     <linearGradient
        inkscape:collect="always"
-       id="linearGradient1022">
+       id="linearGradient1027">
       <stop
          style="stop-color:#b266ff;stop-opacity:1;"
          offset="0"
-         id="stop1018" />
+         id="stop1023" />
       <stop
-         style="stop-color:#ff66cc;stop-opacity:1;"
+         style="stop-color:#ff668c;stop-opacity:1;"
          offset="1"
-         id="stop1020" />
+         id="stop1025" />
     </linearGradient>
     <linearGradient
        inkscape:collect="always"
@@ -54,17 +54,17 @@
        xlink:href="#linearGradient1019"
        id="linearGradient312"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(1.4085603,0,0,1.2577826,31.601841,-15.093314)"
+       gradientTransform="matrix(1.4408743,0,0,1.2554474,30.032708,-15.065292)"
        x1="15.363991"
        y1="21.180452"
        x2="39.608524"
        y2="83.598198" />
     <linearGradient
        inkscape:collect="always"
-       xlink:href="#linearGradient1022"
-       id="linearGradient1014"
+       xlink:href="#linearGradient1027"
+       id="linearGradient1020"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(1.4085603,0,0,1.2577826,-16.448209,-13.264396)"
+       gradientTransform="matrix(1.4408743,0,0,1.2554474,-16.590425,-13.257434)"
        x1="15.363991"
        y1="21.180452"
        x2="39.608524"
