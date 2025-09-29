@@ -46,7 +46,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Noto Color Emoji', sans-serif;
 }
 
 html {
@@ -107,6 +106,7 @@ header {
 }
 
 .logo {
+    font-family: 'Noto Color Emoji', sans-serif;
     font-size: var(--font-size-xxxl);
     font-weight: var(--font-weight-bold);
     background: linear-gradient(135deg, var(--color-accent-purple));
@@ -170,6 +170,7 @@ nav a {
 }
 
 .station-selector h2 {
+    font-family: 'Noto Color Emoji', sans-serif;
     margin-bottom: var(--space-400);
     text-align: center;
     font-size: var(--font-size-lg);
@@ -337,10 +338,8 @@ footer {
 }
 
 @keyframes glow {
-    0% { filter: drop-shadow(0 0 10px var(--color-accent-blue)); }
-    50% { filter: drop-shadow(0 0 10px var(--color-accent-purple))
-                drop-shadow(0 0 10px var(--color-accent-blue)); }
-    100% { filter: drop-shadow(0 0 20px var(--color-accent-purple)); }
+    0% { filter: drop-shadow(0 0 10px var(--color-accent-purple)); }
+    100% { filter: drop-shadow(0 0 20px var(--color-accent-pink)); }
 }
 
 @keyframes pulse-status {
