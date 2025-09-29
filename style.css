@@ -93,13 +93,13 @@ body::after {
     z-index: 1;
 }
 
-:is(header, .main-section, .cookie-banner) {
+:is(header, .main-section, .cookie-banner, footer) {
     backdrop-filter: blur(20px);
     border: 1px solid rgba(120, 119, 198, 0.2);
     background: var(--color-bg-card);
 }
 
-header {
+:is(header, footer) {
     margin-bottom: var(--space-500);
     border-radius: var(--radius-lg);
     padding: var(--space-400);
@@ -261,14 +261,10 @@ nav a {
 .status-indicator.paused { background: var(--color-status-paused); animation: none; }
 
 footer {
-    background: color-mix(in srgb, var(--color-bg-primary) 80%, black); 
-    backdrop-filter: blur(20px);
     color: var(--color-text-secondary);
     text-align: center;
     padding: var(--space-400);
-    border-radius: var(--radius-md);
     margin-top: var(--space-500);
-    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .cookie-banner {
