@@ -67,7 +67,7 @@ function showCookieBanner() {
         cookieBanner.style.display = 'none';
         enableVercelScripts();
     } else {
-        cookieBanner.style.display = 'none';
+        cookieBanner.style.display = 'block';
     }
 }
 
