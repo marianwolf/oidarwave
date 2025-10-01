@@ -170,29 +170,35 @@ nav a {
 .station-btn {
     background: rgba(255, 255, 255, 0.15);
     padding: var(--space-200);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2); 
     border-radius: var(--radius-md);
     color: white;
     font-size: var(--font-size-base);
     font-weight: var(--font-weight-medium);
     cursor: pointer;
-    transition: all 0.4s ease;
+    transition: all 0.4s ease-in-out;
     backdrop-filter: blur(10px);
     text-align: center;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
-    will-change: transform, box-shadow;
+    will-change: border, margin;
+    margin: 1px;
 }
 
 .station-btn:hover {
     background: rgba(255, 255, 255, 0.25);
-    box-shadow: 0 0 5px rgba(255, 255, 255, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.5); 
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    margin: 0;
 }
 
 .station-btn.active {
     background: rgba(255, 255, 255, 0.3);
-    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.8);
+    border: 2px solid rgba(255, 255, 255, 0.9);    
+    margin: 0;
+}
+
+.station-btn.active:hover {
+    background: rgba(255, 255, 255, 0.45);
 }
 
 .player-controls {
