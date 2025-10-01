@@ -1,28 +1,20 @@
-:root {
-  --space-l: 2rem;
-  --space-m: 1rem;
-  --space-s: 0.5rem;
-  --font-size-h2: 1.5rem;
-  --line-height-base: 1.6;
-}
-
 .impressum-content {
   display: flex;
   flex-direction: column;
-  gap: var(--space-l);
+  gap: var(--space-400);
   line-height: var(--line-height-base);
 }
 
 .impressum-section {
   display: flex;
   flex-direction: column;
-  gap: var(--space-s);
+  gap: var(--space-100);
 }
 
 .impressum-section h2 {
-  font-size: var(--font-size-h2);
+  font-size: var(--space-300);
 
-  margin-block-end: var(--space-s);
+  margin-block-end: var(--space-100);
   margin-block-start: 0;
 }
 
