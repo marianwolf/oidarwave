@@ -1,11 +1,11 @@
 :root {
-    --color-bg-primary: hsl(240, 100%, 6%);
-    --color-bg-secondary: hsl(240, 100%, 12%);
-    --color-bg-tertiary: hsl(240, 100%, 24%);
-    --color-bg-card: hsla(240, 100%, 12%, 0.95);
+    --color-surface-primary: hsl(240, 100%, 6%);
+    --color-surface-secondary: hsl(240, 100%, 12%);
+    --color-surface-tertiary: hsl(240, 100%, 24%);
+    --color-surface-card: hsla(240, 100%, 12%, 0.95);
 
-    --color-text-primary: hsl(0, 0%, 96%);
-    --color-text-secondary: hsl(0, 0%, 75%);
+    --color-on-surface-primary: hsl(0, 0%, 96%);
+    --color-on-surface-secondary: hsl(0, 0%, 75%);
 
     --color-accent-purple: hsl(270, 100%, 70%);
     --color-accent-pink: hsl(345, 100%, 70%);
@@ -57,9 +57,9 @@ body {
     font-family: var(--font-family-primary);
     background: 
         radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), hsla(270, 100%, 70%, 0.1) 0%, transparent 60%),
-        linear-gradient(135deg, var(--color-bg-primary) 0%, var(--color-bg-secondary) 25%, var(--color-bg-tertiary) 50%, var(--color-bg-secondary) 75%, var(--color-bg-primary) 100%);
+        linear-gradient(135deg, var(--color-surface-primary) 0%, var(--color-surface-secondary) 25%, var(--color-surface-tertiary) 50%, var(--color-surface-secondary) 75%, var(--color-surface-primary) 100%);
     background-attachment: fixed;
-    color: var(--color-text-primary);
+    color: var(--color-on-surface-primary);
     min-height: 100vh;
     overflow-x: hidden;
     overflow-y: scroll;
@@ -70,23 +70,23 @@ body {
 :is(header, .main-section, .cookie-banner, footer) {
     backdrop-filter: blur(20px);
     border: 1px solid rgba(120, 119, 198, 0.2);
-    background: var(--color-bg-card);
+    background: var(--color-surface-card);
 }
 
 :is(header, footer) {
-    margin-bottom: var(--space-500);
+    margin-block-end: var(--space-500);
     border-radius: var(--radius-lg);
     padding: var(--space-400);
 }
 
 :is(nav a, .station-btn):where(:hover, :focus-visible) {
-    will-change: transform, box-shadow, outline;
+    will-change: transform, box-shadow;
     outline: none;
 }
 
 :is(nav a, .station-btn, .cookie-btn):focus-visible {
-    outline: 2px solid var(--color-accent-blue);
-    outline-offset: 6px;
+    outline: 3px solid var(--color-accent-blue);
+    outline-offset: 4px;
 }
 
 .container {
@@ -120,7 +120,7 @@ nav {
 
 nav a {
     text-decoration: none;
-    color: var(--color-text-secondary);
+    color: var(--color-on-surface-secondary);
     font-weight: var(--font-weight-medium);
     padding: var(--space-200) var(--space-300);
     border-radius: var(--radius-pill);
@@ -129,12 +129,13 @@ nav a {
     overflow: hidden;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
 }
 
 .main-section {
     border-radius: var(--radius-xl);
     padding: var(--space-600);
-    margin-bottom: var(--space-500);
+    margin-block-end: var(--space-500);
 }
 
 .player-section {
@@ -153,7 +154,7 @@ nav a {
 
 .station-selector h2 {
     font-family: 'Noto Color Emoji', sans-serif;
-    margin-bottom: var(--space-400);
+    margin-block-end: var(--space-400);
     text-align: center;
     font-size: var(--font-size-lg);
     font-weight: var(--font-weight-semibold);
@@ -204,7 +205,7 @@ nav a {
 
 .current-station {
     font-size: var(--font-size-lg);
-    margin-bottom: var(--space-400);
+    margin-block-end: var(--space-400);
     font-weight: var(--font-weight-semibold);
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     display: flex;
@@ -243,10 +244,10 @@ nav a {
 .status-indicator.paused { background: var(--color-status-paused); animation: none; }
 
 footer {
-    color: var(--color-text-secondary);
+    color: var(--color-on-surface-secondary);
     text-align: center;
     padding: var(--space-400);
-    margin-top: var(--space-500);
+    margin-block-start: var(--space-500);
 }
 
 .cookie-banner {
@@ -259,7 +260,7 @@ footer {
     border-radius: var(--radius-lg);
     z-index: 1000;
     font-family: var(--font-family-primary);
-    background: var(--color-bg-card);
+    background: var(--color-surface-card);
     backdrop-filter: blur(20px);
     border: 1px solid rgba(120, 119, 198, 0.2);
     transition: all var(--transition-speed-fast) var(--transition-timing-cubic);
@@ -271,7 +272,7 @@ footer {
     gap: var(--space-300);
     align-items: center;
     text-align: center;
-    color: var(--color-text-primary);
+    color: var(--color-on-surface-primary);
 }
 
 .cookie-banner p {
@@ -284,7 +285,7 @@ footer {
     gap: var(--space-200);
     justify-content: center;
     flex-wrap: wrap;
-    margin-top: var(--space-200);
+    margin-block-start: var(--space-200);
 }
 
 .cookie-btn {
@@ -296,6 +297,7 @@ footer {
     border: 2px solid transparent;
     text-decoration: none;
     text-transform: uppercase;
+    cursor: pointer; 
 }
 
 .cookie-btn.accept-btn {
@@ -310,7 +312,7 @@ footer {
     padding: var(--space-200);
     display: flex;
     border-radius: var(--radius-md);
-    background: color-mix(in srgb, var(--color-bg-primary) 70%, transparent); 
+    background: color-mix(in srgb, var(--color-surface-primary) 70%, var(--color-surface-secondary)); 
     border: 1px solid rgba(120, 119, 198, 0.2);
     transition: all var(--transition-speed-fast) var(--transition-timing-cubic);
 }
@@ -326,13 +328,13 @@ footer {
     100% { transform: scale(1); }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 56.25em) {
     .cookie-banner {
         width: 90%;
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 48em) {
     .player-section {
         grid-template-columns: 1fr;
         gap: var(--space-400);
@@ -362,7 +364,7 @@ footer {
     }
 }
 
-@media (max-width: 420px) {
+@media (max-width: 26.25em) {
     .container {
         padding: var(--space-200);
     }
