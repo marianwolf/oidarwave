@@ -3,9 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const stationButtons = document.querySelectorAll('.station-btn');
     const videoPlayer = document.getElementById('videoPlayer');
     const currentStationDisplay = document.getElementById('currentStation');
-    const rewindButton = document.getElementById('rewindButton'); 
-    const forwardButton = document.getElementById('forwardButton'); 
-    
+    const rewindButton = document.getElementById('rewindButton');
+    const forwardButton = document.getElementById('forwardButton');
     const localStorageKey = 'dataSaveMode';
     let hlsPlayer = null;
     const seekTime = 10;
@@ -72,13 +71,8 @@ document.addEventListener('DOMContentLoaded', () => {
         updateQualityLevel();
     };
 
-    const rewind = () => {
-        videoPlayer.currentTime = Math.max(0, videoPlayer.currentTime - seekTime);
-    };
-
-    const forward = () => {
-        videoPlayer.currentTime = Math.min(videoPlayer.duration || Infinity, videoPlayer.currentTime + seekTime);
-    };
+    const rewind = () => videoPlayer.currentTime - seekTime;
+    const forward = () => videoPlayer.currentTime + seekTime;
 
     const initializeEventListeners = () => {
         stationButtons.forEach(button => {
@@ -89,13 +83,30 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
         dataModeToggle.addEventListener('click', toggleDataSaveMode);
-        
+
         if (rewindButton) {
             rewindButton.addEventListener('click', rewind);
         }
         if (forwardButton) {
             forwardButton.addEventListener('click', forward);
         }
+        
+        document.addEventListener('keydown', (event) => {
+            if (document.activeElement && (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA')) {
+                return;
+            }
+
+            switch (event.key) {
+                case 'ArrowLeft':
+                    event.preventDefault();
+                    rewind();
+                    break;
+                case 'ArrowRight':
+                    event.preventDefault();
+                    forward();
+                    break;
+            }
+        });
     };
 
     const initializePlayer = () => {
