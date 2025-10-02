@@ -20,10 +20,10 @@
 
 ## ✨ Hauptfunktionen
 
-  - **HTML5-Audio & -Video:** Nutzt native Browser-APIs für eine zuverlässige Audio- und Videowiedergabe, komplett ohne externe Abhängigkeiten.
-  - **HLS-Unterstützung:** Dank der **`hls.js`**-Bibliothek können auch HTTP Live Streaming (HLS)-Streams problemlos in kompatiblen Browsern abgespielt werden.
-  - **Sorgfältige Senderauswahl:** Eine handverlesene Liste beliebter deutscher Radio- und Fernsehsender.
+  - **HTML5-Audio & -Video:** Die Anwendung nutzt `https`-Adressen, um Audio- und Videoinhalte abzurufen und wiederzugeben.
+  - **HLS-Unterstützung:** `hls.js` können Streams einfach in kompatiblen Webbrowsern abgespielt werden.
   - **Echtzeit-Statusanzeige:** Visuelle Indikatoren informieren sofort über den aktuellen Wiedergabe- und Verbindungsstatus.
+  - **Hosting:** Dieses Projekt wird auf Vercel gehostet.
 
 ## 📻 Verfügbare Streams
 
@@ -45,20 +45,21 @@
 
 | Sender |
 | :--- |
-| ZDF |
-
-## 💻 Technologien
-
-  - **Frontend:** HTML5, CSS3, JavaScript (Vanilla JS)
-  - **Video-Streaming:** `hls.js` für HLS-Streams
-  - **Hosting:** Vercel
+| peaceholder |
 
 ## 🛡️ Datenschutz
 
 Oidarwave wurde von Grund auf so konzipiert, dass es die Privatsphäre der Nutzer respektiert und den **EU-Richtlinien** sowie der **DSGVO** entspricht.
 
   - **Keine Tracking-Cookies:** Das Projekt verwendet keine persistenten Cookies zur Verfolgung von Nutzeraktivitäten.
-  - **Lokale Speicherung:** Einstellungen (z. B. die Zustimmung zur Nutzung von Vercel Analytics) werden lokal im Browser (`localStorage`) gespeichert, was die Privatsphäre der Nutzer schützt.
+  - **Lokale Speicherung:** Einstellungen werden lokal im Browser (`localStorage`) gespeichert, was die Privatsphäre der Nutzer schützt. Diese Daten werden gespeichert:
+    | Attribut | Wert |
+    | :--- | :--- |
+    | Cookie | `ja` od. `nein` |
+    | Cookie-Datum | `Datum` |
+    | Letzer Radiosender | `URL` |
+    | Letzer Fernsehsender | `URL` |
+    | Datensparmodus | `ja` od. `nein` |
   - **Transparente Einwilligung:** Externe Skripte (wie z. B. für Web-Analytics) werden nur mit Ihrer expliziten Zustimmung geladen, sodass Sie stets die volle Kontrolle über Ihre Daten haben.
 
 ## 🛠️ Installation und Nutzung
