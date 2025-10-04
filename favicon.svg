@@ -1,25 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   viewBox="0 0 100 100"
+   viewBox="0 0 48 48"
    version="1.1"
    id="svg44"
    sodipodi:docname="favicon.svg"
    inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   width="48"
+   height="48"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <title
+     id="title1442">favicon_oidarwave</title>
   <g
      id="g182">
     <path
-       style="opacity:1;mix-blend-mode:normal;fill:url(#linearGradient312);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2.79358"
-       d="M 99.231162,0.10874303 C 101.07914,4.2550119 99.936627,17.772252 92.026782,18.940454 74.605665,21.513369 79.992603,32.074876 81.940665,46.560298 84.075089,62.431438 86.711934,84.331454 73.387303,93.938326 59.826071,103.71577 44.330635,95.203108 46.906135,82.911317 51.386975,61.526129 71.315673,86.367604 64.650179,46.560298 61.546124,28.022429 48.679942,-2.0353773 99.231162,0.10874303 Z"
+       style="opacity:1;mix-blend-mode:normal;fill:url(#linearGradient312);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.34258"
+       d="M 47.630238,0.05222444 C 48.519,2.0434932 47.969522,8.5352231 44.165379,9.0962586 35.786904,10.331916 38.377686,15.404138 39.314583,22.360843 40.341108,29.983047 41.227926,40.013879 35.200948,45.114406 29.60548,49.849751 21.452248,45.7646 22.465152,39.818623 24.226566,29.47871 34.204622,41.478524 30.998934,22.360843 29.506076,13.457928 23.318243,-0.97750132 47.630238,0.05222444 Z"
        id="path468-7-7-7"
        sodipodi:nodetypes="csssssc" />
     <path
-       style="mix-blend-mode:normal;fill:url(#linearGradient1020);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2.79358"
-       d="M 52.60803,1.9166011 C 54.456013,6.0628698 53.313495,19.58011 45.40365,20.748312 27.982533,23.321226 33.369471,33.882733 35.317533,48.368155 37.451958,64.239296 40.088802,86.139315 26.764171,95.746186 13.20294,105.52364 -2.292497,97.010966 0.28300332,84.719175 4.7638433,63.333986 24.692541,88.175457 18.027047,48.368155 14.922992,29.830286 2.0568104,-0.22751931 52.60803,1.9166011 Z"
+       style="mix-blend-mode:normal;fill:url(#linearGradient1013);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.34258"
+       d="M 25.251124,0.86909307 C 26.139887,2.8603619 25.590409,9.3520919 21.786265,9.9131269 13.407791,11.148784 15.998573,16.221007 16.93547,23.177712 17.961995,30.799915 18.848813,40.830748 12.821834,45.931274 7.2263669,50.66662 -0.92686459,46.581468 0.08603856,40.635491 1.8474533,30.295578 11.825509,42.295393 8.6198209,23.177712 7.1269633,14.274796 0.93912952,-0.16063269 25.251124,0.86909307 Z"
        id="path468-7-7-7-7"
        sodipodi:nodetypes="csssssc" />
   </g>
@@ -27,15 +34,15 @@
      id="defs48">
     <linearGradient
        inkscape:collect="always"
-       id="linearGradient1027">
+       id="linearGradient1020">
       <stop
          style="stop-color:#b266ff;stop-opacity:1;"
          offset="0"
-         id="stop1023" />
+         id="stop1016" />
       <stop
          style="stop-color:#ff668c;stop-opacity:1;"
          offset="1"
-         id="stop1025" />
+         id="stop1018" />
     </linearGradient>
     <linearGradient
        inkscape:collect="always"
@@ -54,17 +61,17 @@
        xlink:href="#linearGradient1019"
        id="linearGradient312"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(1.4408743,0,0,1.2554474,30.032708,-15.065292)"
+       gradientTransform="matrix(0.69297096,0,0,0.60293562,14.350081,-7.2351906)"
        x1="15.363991"
        y1="21.180452"
        x2="39.608524"
        y2="83.598198" />
     <linearGradient
        inkscape:collect="always"
-       xlink:href="#linearGradient1027"
-       id="linearGradient1020"
+       xlink:href="#linearGradient1020"
+       id="linearGradient1013"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(1.4408743,0,0,1.2554474,-16.590425,-13.257434)"
+       gradientTransform="matrix(0.69297096,0,0,0.60293562,-8.029031,-6.4183223)"
        x1="15.363991"
        y1="21.180452"
        x2="39.608524"
@@ -79,14 +86,57 @@
      inkscape:pageopacity="0"
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#505050"
-     showgrid="false"
-     inkscape:zoom="7.65"
-     inkscape:cx="31.699346"
-     inkscape:cy="52.679739"
+     showgrid="true"
+     inkscape:zoom="14.28"
+     inkscape:cx="22.093838"
+     inkscape:cy="27.310924"
      inkscape:window-width="1920"
      inkscape:window-height="1008"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="g182" />
+     inkscape:current-layer="g182"
+     showguides="true"
+     inkscape:lockguides="false" />
+  <metadata
+     id="metadata1438">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>favicon_oidarwave</dc:title>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Marian Wolf</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:publisher>
+          <cc:Agent>
+            <dc:title>Marian Wolf</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:rights>
+          <cc:Agent>
+            <dc:title>© Marian Wolf, 2025</dc:title>
+          </cc:Agent>
+        </dc:rights>
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/by-nc/4.0/" />
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/by-nc/4.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Attribution" />
+        <cc:prohibits
+           rdf:resource="http://creativecommons.org/ns#CommercialUse" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
 </svg>
