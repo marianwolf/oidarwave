@@ -20,29 +20,29 @@
   <g
      id="g182">
     <path
-       style="opacity:1;mix-blend-mode:normal;fill:url(#linearGradient312);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.34258"
-       d="M 47.630238,0.05222444 C 48.519,2.0434932 47.969522,8.5352231 44.165379,9.0962586 35.786904,10.331916 38.377686,15.404138 39.314583,22.360843 40.341108,29.983047 41.227926,40.013879 35.200948,45.114406 29.60548,49.849751 21.452248,45.7646 22.465152,39.818623 24.226566,29.47871 34.204622,41.478524 30.998934,22.360843 29.506076,13.457928 23.318243,-0.97750132 47.630238,0.05222444 Z"
+       style="opacity:1;mix-blend-mode:normal;fill:url(#linearGradient312);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.999625;stroke-dasharray:none;stroke-opacity:1"
+       d="m 47.630097,0.0521666 c 0.889101,1.989063 0.339413,8.6731218 -3.466185,9.2335358 -8.381678,1.2342886 -5.789906,6.1013716 -4.852651,13.0503706 1.026918,7.61376 1.914076,17.633481 -4.115207,22.728358 -5.597608,4.730099 -14.516243,0.09553 -12.618496,-7.008015 1.897748,-7.103547 11.621789,3.37616 8.414874,-15.720343 C 29.499004,13.443021 23.308805,-0.97641849 47.630097,0.0521666 Z"
        id="path468-7-7-7"
-       sodipodi:nodetypes="csssssc" />
+       sodipodi:nodetypes="cssszsc" />
     <path
-       style="mix-blend-mode:normal;fill:url(#linearGradient1013);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.34258"
-       d="M 25.251124,0.86909307 C 26.139887,2.8603619 25.590409,9.3520919 21.786265,9.9131269 13.407791,11.148784 15.998573,16.221007 16.93547,23.177712 17.961995,30.799915 18.848813,40.830748 12.821834,45.931274 7.2263669,50.66662 -0.92686459,46.581468 0.08603856,40.635491 1.8474533,30.295578 11.825509,42.295393 8.6198209,23.177712 7.1269633,14.274796 0.93912952,-0.16063269 25.251124,0.86909307 Z"
-       id="path468-7-7-7-7"
-       sodipodi:nodetypes="csssssc" />
+       style="mix-blend-mode:normal;fill:url(#linearGradient2497);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.999625;stroke-dasharray:none;stroke-opacity:1"
+       d="m 25.312734,1.0655774 c 0.889102,1.9890629 0.339414,8.6731214 -3.466184,9.2335356 -8.381679,1.234289 -5.789906,6.101372 -4.852651,13.050371 1.026918,7.61376 1.914075,17.633481 -4.115207,22.728357 -5.5976083,4.7301 -14.5162436,0.09553 -12.61849642,-7.008015 C 2.1579438,31.966279 11.881984,42.445987 8.6750702,23.349484 7.1816416,14.456431 0.99144259,0.03699231 25.312734,1.0655774 Z"
+       id="path468-7-7-7-5"
+       sodipodi:nodetypes="cssszsc" />
   </g>
   <defs
      id="defs48">
     <linearGradient
        inkscape:collect="always"
-       id="linearGradient1020">
+       id="linearGradient3007">
       <stop
          style="stop-color:#b266ff;stop-opacity:1;"
          offset="0"
-         id="stop1016" />
+         id="stop3003" />
       <stop
          style="stop-color:#ff668c;stop-opacity:1;"
          offset="1"
-         id="stop1018" />
+         id="stop3005" />
     </linearGradient>
     <linearGradient
        inkscape:collect="always"
@@ -61,17 +61,17 @@
        xlink:href="#linearGradient1019"
        id="linearGradient312"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0.69297096,0,0,0.60293562,14.350081,-7.2351906)"
+       gradientTransform="matrix(0.69323591,0,0,0.60226772,14.337212,-7.2271758)"
        x1="15.363991"
        y1="21.180452"
        x2="39.608524"
        y2="83.598198" />
     <linearGradient
        inkscape:collect="always"
-       xlink:href="#linearGradient1020"
-       id="linearGradient1013"
+       xlink:href="#linearGradient3007"
+       id="linearGradient2497"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0.69297096,0,0,0.60293562,-8.029031,-6.4183223)"
+       gradientTransform="matrix(0.69323591,0,0,0.60226772,-7.980149,-6.2137651)"
        x1="15.363991"
        y1="21.180452"
        x2="39.608524"
@@ -82,14 +82,14 @@
      pagecolor="#505050"
      bordercolor="#eeeeee"
      borderopacity="1"
-     inkscape:showpageshadow="0"
+     inkscape:showpageshadow="false"
      inkscape:pageopacity="0"
-     inkscape:pagecheckerboard="0"
+     inkscape:pagecheckerboard="false"
      inkscape:deskcolor="#505050"
      showgrid="true"
-     inkscape:zoom="14.28"
-     inkscape:cx="22.093838"
-     inkscape:cy="27.310924"
+     inkscape:zoom="16.4"
+     inkscape:cx="35.609756"
+     inkscape:cy="23.902439"
      inkscape:window-width="1920"
      inkscape:window-height="1008"
      inkscape:window-x="0"
@@ -97,7 +97,9 @@
      inkscape:window-maximized="1"
      inkscape:current-layer="g182"
      showguides="true"
-     inkscape:lockguides="false" />
+     inkscape:lockguides="false"
+     showborder="true"
+     shape-rendering="auto" />
   <metadata
      id="metadata1438">
     <rdf:RDF>
