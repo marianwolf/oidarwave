@@ -15,32 +15,29 @@
    xmlns:dc="http://purl.org/dc/elements/1.1/">
   <title
      id="title1442">favicon_oidarwave</title>
-  <g
-     id="g182">
-    <path
-       style="opacity:1;mix-blend-mode:normal;fill:url(#linearGradient312);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2.08595;stroke-dasharray:none;stroke-opacity:1"
-       d="M 99.208495,0.10886926 C 101.06359,4.2599514 100.03601,18.354642 92.026668,18.874129 76.258766,19.89684 79.895795,32.112112 81.851366,46.61435 83.994014,62.503916 85.845054,83.414608 73.265043,94.047381 61.585716,103.91888 45.484748,96.015114 46.681827,83.007571 48.685656,61.233812 71.185429,86.467868 64.49425,46.61435 61.378231,28.05496 48.462471,-2.0377401 99.208495,0.10886926 Z"
-       id="path468-7-7-7"
-       sodipodi:nodetypes="csssssc" />
-    <path
-       style="mix-blend-mode:normal;fill:url(#linearGradient971);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2.08595;stroke-dasharray:none;stroke-opacity:1"
-       d="M 52.589729,1.6278521 C 54.444827,5.7789352 53.417243,19.873625 45.407902,20.393114 29.640002,21.415823 33.277029,33.631094 35.2326,48.133333 37.375248,64.022898 39.226289,84.933591 26.646277,95.566364 14.96695,105.43786 -1.1340183,97.534098 0.06306176,84.526552 2.0668915,62.752796 24.566662,87.986852 17.875484,48.133333 14.759466,29.573944 1.8437045,-0.51875716 52.589729,1.6278521 Z"
-       id="path468-7-7-7-7"
-       sodipodi:nodetypes="csssssc" />
-  </g>
+  <path
+     style="mix-blend-mode:normal;fill:url(#linearGradient312);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00048;stroke-dasharray:none;stroke-opacity:1"
+     d="m 99.20047,0.1088585 c 1.87391,4.1506717 0.83591,18.2439695 -7.254686,18.7634035 -15.927867,1.02261 -12.253941,13.236675 -10.27853,27.737479 2.164385,15.887996 4.034203,36.79662 -8.673431,47.428341 C 61.19601,103.9086 44.931698,96.005622 46.140921,82.999364 48.165079,61.227758 70.893113,86.459319 64.134051,46.609741 60.986421,28.052186 47.93963,-2.0375387 99.20047,0.1088585 Z"
+     id="note1"
+     sodipodi:nodetypes="csssssc" />
+  <path
+     style="mix-blend-mode:normal;fill:url(#linearGradient990);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00048;stroke-dasharray:none;stroke-opacity:1"
+     d="M 53.12325,1.6375804 C 54.997159,5.7882522 53.959161,19.88155 45.868564,20.400984 29.940697,21.423594 33.614623,33.637659 35.590035,48.138463 37.754419,64.026459 39.624237,84.935083 26.916603,95.566804 15.11879,105.43732 -1.1455221,97.534344 0.06370143,84.528086 2.0878596,62.75648 24.815893,87.988041 18.056832,48.138463 14.909202,29.580907 1.8624102,-0.50881669 53.12325,1.6375804 Z"
+     id="note2"
+     sodipodi:nodetypes="csssssc" />
   <defs
      id="defs48">
     <linearGradient
        inkscape:collect="always"
-       id="linearGradient978">
+       id="linearGradient997">
       <stop
          style="stop-color:#b266ff;stop-opacity:1;"
          offset="0"
-         id="stop974" />
+         id="stop993" />
       <stop
          style="stop-color:#ff668c;stop-opacity:1;"
          offset="1"
-         id="stop976" />
+         id="stop995" />
     </linearGradient>
     <linearGradient
        inkscape:collect="always"
@@ -59,17 +56,17 @@
        xlink:href="#linearGradient1019"
        id="linearGradient312"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(1.4464269,0,0,1.2569048,29.743375,-15.082781)"
+       gradientTransform="matrix(1.4611008,0,0,1.2567805,29.03063,-15.081289)"
        x1="22.13151"
        y1="19.941217"
        x2="37.022892"
        y2="78.402687" />
     <linearGradient
        inkscape:collect="always"
-       xlink:href="#linearGradient978"
-       id="linearGradient971"
+       xlink:href="#linearGradient997"
+       id="linearGradient990"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(1.4464269,0,0,1.2569048,-16.875392,-13.563798)"
+       gradientTransform="matrix(1.4611008,0,0,1.2567805,-17.046589,-13.552568)"
        x1="22.13151"
        y1="19.941217"
        x2="37.022892"
@@ -93,7 +90,7 @@
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="g182"
+     inkscape:current-layer="svg44"
      showguides="true"
      inkscape:lockguides="false" />
   <metadata
