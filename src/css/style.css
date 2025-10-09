@@ -65,6 +65,8 @@ body {
     overflow-y: scroll;
     position: relative;
     transition: background-color var(--transition-speed-fast) ease;
+    overscroll-behavior-y: contain;
+    background-attachment: fixed;
 }
 
 :is(header, .main-section, .cookie-banner, footer) {
@@ -101,6 +103,7 @@ body {
     font-family: 'Noto Color Emoji', sans-serif;
     font-size: var(--font-size-xxxl);
     font-weight: var(--font-weight-bold);
+    color: var(--color-accent-purple);
     background: linear-gradient(135deg, var(--color-accent-purple));
     background-clip: text;
     -webkit-background-clip: text;
