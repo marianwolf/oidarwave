@@ -67,12 +67,15 @@ body {
     transition: background-color var(--transition-speed-fast) ease;
     overscroll-behavior-y: contain;
     background-attachment: fixed;
+    -webkit-overflow-scrolling: touch;
+    will-change: transform, background-position;
 }
 
 :is(header, .main-section, .cookie-banner, footer) {
     backdrop-filter: blur(20px);
     border: 1px solid rgba(120, 119, 198, 0.2);
     background: var(--color-surface-card);
+    will-change: transform, backdrop-filter; 
 }
 
 :is(header, footer) {
