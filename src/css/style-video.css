@@ -47,7 +47,7 @@
     margin: 0;
 }
 
-@media (max-width: 780px) {
+@media (max-width: 48rem) {
     .video-container {
         width: 95%;
     }
