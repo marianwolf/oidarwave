@@ -16,28 +16,28 @@
   <title
      id="title1442">favicon_oidarwave</title>
   <path
-     style="mix-blend-mode:normal;fill:url(#linearGradient312);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00048;stroke-dasharray:none;stroke-opacity:1"
-     d="m 99.20047,0.1088585 c 1.87391,4.1506717 0.83591,18.2439695 -7.254686,18.7634035 -15.927867,1.02261 -12.253941,13.236675 -10.27853,27.737479 2.164385,15.887996 4.034203,36.79662 -8.673431,47.428341 C 61.19601,103.9086 44.931698,96.005622 46.140921,82.999364 48.165079,61.227758 70.893113,86.459319 64.134051,46.609741 60.986421,28.052186 47.93963,-2.0375387 99.20047,0.1088585 Z"
+     style="mix-blend-mode:normal;fill:url(#linearGradient312);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00056;stroke-dasharray:none;stroke-opacity:1"
+     d="M 99.197784,0.11350882 C 101.07231,4.2635379 100.04911,18.717393 91.940707,18.874008 76.673351,19.168898 79.682727,32.108633 81.65879,46.607193 83.823888,62.492729 87.578476,82.421582 72.9825,94.028191 60.941044,103.60347 45.082591,96.173237 46.120748,82.991182 47.83562,61.216496 70.38321,86.139124 64.119808,46.607193 61.17684,28.032436 51.8685,-2.0803091 99.197784,0.11350882 Z"
      id="note1"
      sodipodi:nodetypes="csssssc" />
-  <path
-     style="mix-blend-mode:normal;fill:url(#linearGradient990);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00048;stroke-dasharray:none;stroke-opacity:1"
-     d="M 53.12325,1.6375804 C 54.997159,5.7882522 53.959161,19.88155 45.868564,20.400984 29.940697,21.423594 33.614623,33.637659 35.590035,48.138463 37.754419,64.026459 39.624237,84.935083 26.916603,95.566804 15.11879,105.43732 -1.1455221,97.534344 0.06370143,84.528086 2.0878596,62.75648 24.815893,87.988041 18.056832,48.138463 14.909202,29.580907 1.8624102,-0.50881669 53.12325,1.6375804 Z"
+     <path
+     style="mix-blend-mode:normal;fill:url(#linearGradient365);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00056;stroke-dasharray:none;stroke-opacity:1"
+     d="M 53.125496,1.7470252 C 55.000023,5.8970543 53.976826,20.350909 45.868414,20.507524 30.601064,20.802414 33.610436,33.74215 35.586497,48.24071 37.7516,64.126246 41.506187,84.055099 26.910208,95.661708 14.868751,105.23699 -0.98969922,97.806754 0.04845783,84.624699 1.7633299,62.850014 24.310922,87.772641 18.047518,48.24071 15.104549,29.665953 5.7962106,-0.44679319 53.125496,1.7470252 Z"
      id="note2"
      sodipodi:nodetypes="csssssc" />
   <defs
      id="defs48">
     <linearGradient
        inkscape:collect="always"
-       id="linearGradient997">
+       id="linearGradient1072">
       <stop
          style="stop-color:#b266ff;stop-opacity:1;"
          offset="0"
-         id="stop993" />
+         id="stop1068" />
       <stop
          style="stop-color:#ff668c;stop-opacity:1;"
          offset="1"
-         id="stop995" />
+         id="stop1070" />
     </linearGradient>
     <linearGradient
        inkscape:collect="always"
@@ -56,17 +56,17 @@
        xlink:href="#linearGradient1019"
        id="linearGradient312"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(1.4611008,0,0,1.2567805,29.03063,-15.081289)"
+       gradientTransform="matrix(1.4615824,0,0,1.2565859,29.004818,-15.074287)"
        x1="22.13151"
        y1="19.941217"
        x2="37.022892"
        y2="78.402687" />
     <linearGradient
        inkscape:collect="always"
-       xlink:href="#linearGradient997"
-       id="linearGradient990"
+       xlink:href="#linearGradient1072"
+       id="linearGradient365"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(1.4611008,0,0,1.2567805,-17.046589,-13.552568)"
+       gradientTransform="matrix(1.4615824,0,0,1.2565859,-17.067473,-13.44077)"
        x1="22.13151"
        y1="19.941217"
        x2="37.022892"
@@ -83,8 +83,8 @@
      inkscape:deskcolor="#505050"
      showgrid="true"
      inkscape:zoom="8"
-     inkscape:cx="50.125"
-     inkscape:cy="49.625"
+     inkscape:cx="50"
+     inkscape:cy="50"
      inkscape:window-width="1920"
      inkscape:window-height="1008"
      inkscape:window-x="0"
