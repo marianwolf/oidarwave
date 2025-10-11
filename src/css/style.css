@@ -66,15 +66,13 @@ body {
     position: relative;
     transition: background-color var(--transition-speed-fast) ease;
     overscroll-behavior-y: contain;
-    -webkit-overflow-scrolling: touch;
-    will-change: transform, background-position;
+    background-attachment: fixed;
 }
 
 :is(header, .main-section, .cookie-banner, footer) {
     backdrop-filter: blur(20px);
     border: 1px solid rgba(120, 119, 198, 0.2);
     background: var(--color-surface-card);
-    will-change: transform, backdrop-filter; 
 }
 
 :is(header, footer) {
@@ -198,7 +196,7 @@ nav a {
 
 .station-btn.active {
     background: rgba(255, 255, 255, 0.3);
-    border: 2px solid rgba(255, 255, 255, 0.9);
+    border: 2px solid rgba(255, 255, 255, 0.9);    
     margin: 0;
 }
 
@@ -373,18 +371,6 @@ footer {
     .station-selector {
         order: 2;
     }
-    .container {
-        max-width: 90%;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    nav {
-        justify-content: space-around;
-        flex-wrap: wrap;
-    }
-    header h1 {
-        font-size: 2.5em;
-    }
 }
 
 @media (max-width: 26.25em) {
@@ -416,13 +402,5 @@ footer {
     .cookie-btn {
         width: 100%;
         text-align: center;
-    }
-    .station-btn {
-        font-size: var(--font-size-small);
-        min-height: 44px;
-        line-height: 1.2;
-    }
-    .main-section, .station-selector, .player-controls {
-        box-sizing: border-box;
     }
 }
