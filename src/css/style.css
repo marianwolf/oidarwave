@@ -373,6 +373,18 @@ footer {
     .station-selector {
         order: 2;
     }
+    .container {
+        max-width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    nav {
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+    header h1 {
+        font-size: 2.5em;
+    }
 }
 
 @media (max-width: 26.25em) {
@@ -404,5 +416,13 @@ footer {
     .cookie-btn {
         width: 100%;
         text-align: center;
+    }
+    .station-btn {
+        font-size: var(--font-size-small);
+        min-height: 44px;
+        line-height: 1.2;
+    }
+    .main-section, .station-selector, .player-controls {
+        box-sizing: border-box;
     }
 }
