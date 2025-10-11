@@ -32,7 +32,6 @@
     --font-family-primary: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     --font-size-base: 1rem;
     --font-size-lg: 1.5em;
-    --font-size-sm: 0.85em; 
     --font-size-xxxl: 3.5em;
     --font-weight-medium: 500;
     --font-weight-semibold: 600;
@@ -68,7 +67,7 @@ body {
     transition: background-color var(--transition-speed-fast) ease;
     overscroll-behavior-y: contain;
     -webkit-overflow-scrolling: touch;
-    will-change: transform;
+    will-change: transform, background-position;
 }
 
 :is(header, .main-section, .cookie-banner, footer) {
@@ -84,13 +83,9 @@ body {
     padding: var(--space-400);
 }
 
-:is(nav a, .station-btn, .cookie-btn) {
-    cursor: pointer;
-    outline: none;
-}
-
-:is(nav a, .station-btn, .cookie-btn):where(:hover, :focus-visible) {
+:is(nav a, .station-btn):where(:hover, :focus-visible) {
     will-change: transform, box-shadow;
+    outline: none;
 }
 
 :is(nav a, .station-btn, .cookie-btn):focus-visible {
@@ -111,7 +106,7 @@ body {
     font-size: var(--font-size-xxxl);
     font-weight: var(--font-weight-bold);
     color: var(--color-accent-purple);
-    background: linear-gradient(135deg, var(--color-accent-purple), var(--color-accent-pink)); 
+    background: linear-gradient(135deg, var(--color-accent-purple));
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -139,6 +134,7 @@ nav a {
     overflow: hidden;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
 }
 
 .main-section {
@@ -184,11 +180,13 @@ nav a {
     color: white;
     font-size: var(--font-size-base);
     font-weight: var(--font-weight-medium);
-    transition: all var(--transition-speed-fast) var(--transition-timing-cubic); 
+    cursor: pointer;
+    transition: all 0.4s ease-in-out;
     backdrop-filter: blur(10px);
     text-align: center;
     position: relative;
     overflow: hidden;
+    will-change: border, margin;
     margin: 1px;
 }
 
@@ -198,14 +196,10 @@ nav a {
     margin: 0;
 }
 
-.station-btn.active,
-.station-btn.active:hover {
-    margin: 0;
-}
-
 .station-btn.active {
     background: rgba(255, 255, 255, 0.3);
     border: 2px solid rgba(255, 255, 255, 0.9);
+    margin: 0;
 }
 
 .station-btn.active:hover {
@@ -251,9 +245,11 @@ nav a {
     background: var(--color-status-online);
     opacity: 1;
     animation: pulse-status 2s infinite;
-    transition: background-color 0.5s var(--transition-timing-cubic); 
+    transition: background-color 0.5s ease-in-out;
     will-change: background-color, transform, opacity;
 }
+
+.status-indicator.online { background: var(--color-status-online); animation: pulse-status 2s infinite; }
 .status-indicator.error { background: var(--color-status-error); animation: pulse-status 0.5s infinite; }
 .status-indicator.buffering { background: var(--color-status-buffering); animation: pulse-status 1s infinite; }
 .status-indicator.paused { background: var(--color-status-paused); animation: none; }
@@ -275,6 +271,9 @@ footer {
     border-radius: var(--radius-lg);
     z-index: 1000;
     font-family: var(--font-family-primary);
+    background: var(--color-surface-card);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(120, 119, 198, 0.2);
     transition: all var(--transition-speed-fast) var(--transition-timing-cubic);
 }
 
@@ -303,21 +302,21 @@ footer {
 .cookie-btn {
     padding: var(--space-200) var(--space-300);
     border-radius: var(--radius-pill);
+    cursor: pointer;
     font-weight: var(--font-weight-semibold);
     transition: all var(--transition-speed-fast) var(--transition-timing-cubic);
     border: 2px solid transparent;
     text-decoration: none;
     text-transform: uppercase;
+    cursor: pointer; 
 }
 
 .cookie-btn.accept-btn {
     background: var(--color-accent-pink);
-    color: var(--color-on-surface-primary);
 }
 
 .cookie-btn.decline-btn {
     background: var(--color-accent-blue);
-    color: var(--color-on-surface-primary);
 }
 
 #currentSongTitle {
@@ -359,14 +358,14 @@ footer {
         font-size: var(--font-size-base);
     }
     .logo {
-        font-size: 2.2rem;
+        font-size: 2.2em;
     }
     .station-grid {
         grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     }
     .station-btn {
         padding: var(--space-200);
-        font-size: var(--font-size-sm); 
+        font-size: 0.85em;
     }
     .player-controls {
         order: 1;
@@ -384,7 +383,7 @@ footer {
         flex-wrap: wrap;
     }
     header h1 {
-        font-size: 2.5rem;
+        font-size: 2.5em;
     }
 }
 
@@ -392,11 +391,11 @@ footer {
     .container {
         padding: var(--space-200);
     }
-    :is(.main-section, .station-selector, .player-controls) {
+    .main-section, .station-selector, .player-controls {
         padding: var(--space-400);
     }
     .logo {
-        font-size: 1.8rem;
+        font-size: 1.8em;
     }
     .cookie-banner {
         bottom: 0;
@@ -419,8 +418,11 @@ footer {
         text-align: center;
     }
     .station-btn {
-        font-size: var(--font-size-sm); 
+        font-size: var(--font-size-small);
         min-height: 44px;
         line-height: 1.2;
+    }
+    .main-section, .station-selector, .player-controls {
+        box-sizing: border-box;
     }
 }
