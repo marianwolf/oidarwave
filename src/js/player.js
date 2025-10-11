@@ -1,6 +1,7 @@
 function initializePlayer() {
     let hasError = false;
     let isStalled = false;
+    let isAudioPlayer = false;
     let metadataInterval = null;
 
     const stationButtons = document.querySelectorAll('.station-btn');
@@ -11,7 +12,6 @@ function initializePlayer() {
     const currentSongTitleDisplay = document.getElementById('currentSongTitle');
 
     let currentPlayer = null;
-    let isAudioPlayer = false;
     let lastStationKey = '';
 
     if (audioPlayer) {
@@ -21,6 +21,7 @@ function initializePlayer() {
         lastStationKey = 'lastStationAudioUrl';
     } else if (videoPlayer) {
         currentPlayer = videoPlayer;
+        isAudioPlayer = false;
         lastStationKey = 'lastStationVideoUrl';
     } else {
         console.error("No player element found with id 'audioPlayer' or 'videoPlayer'.");
@@ -28,43 +29,63 @@ function initializePlayer() {
     }
 
     stationButtons.forEach(button => {
-        button.addEventListener('click', () => selectStation(button));
+        button.addEventListener('click', () => {
+            selectStation(button);
+        });
     });
 
-    ['loadstart', 'canplay', 'playing', 'pause', 'waiting', 'error'].forEach(event => {
-        currentPlayer.addEventListener(event, handlePlayerEvent);
-    });
-
-    window.addEventListener('offline', updateOverallStatus);
-    document.addEventListener('keydown', handleKeyDown);
-
-    function handlePlayerEvent(e) {
-        const { type } = e;
-        if (type === 'error') {
-            console.error('Media Error:', e);
-            hasError = true;
-        } else {
-            hasError = false;
-        }
-
-        if (type === 'waiting') {
-            isStalled = true;
-        } else if (type === 'canplay' && isAudioPlayer) {
-            playMedia();
-            isStalled = false;
-        } else if (type === 'playing' || type === 'loadstart') {
-            isStalled = false;
-        }
-
+    currentPlayer.addEventListener('loadstart', () => {
+        isStalled = false;
         updateOverallStatus();
-    }
+    });
+
+    currentPlayer.addEventListener('canplay', () => {
+        if (isAudioPlayer) {
+            playMedia();
+        }
+        isStalled = false;
+        hasError = false;
+        updateOverallStatus();
+    });
+
+    currentPlayer.addEventListener('playing', () => {
+        isStalled = false;
+        hasError = false;
+        updateOverallStatus();
+    });
+
+    currentPlayer.addEventListener('pause', () => {
+        updateOverallStatus();
+    });
+
+    currentPlayer.addEventListener('waiting', () => {
+        isStalled = true;
+        updateOverallStatus();
+    });
+
+    currentPlayer.addEventListener('error', (e) => {
+        console.error('Media Error:', e);
+        hasError = true;
+        updateOverallStatus();
+    });
+
+    window.addEventListener('offline', () => {
+        updateOverallStatus();
+    });
+
+    document.addEventListener('keydown', handleKeyDown);
 
     function updateOverallStatus() {
         if (!statusIndicator) return;
 
-        statusIndicator.className = '';
+        statusIndicator.classList.remove('online', 'error', 'buffering', 'paused');
 
-        if (!navigator.onLine || hasError) {
+        if (!navigator.onLine) {
+            statusIndicator.classList.add('error');
+            return;
+        }
+
+        if (hasError) {
             statusIndicator.classList.add('error');
         } else if (currentPlayer.paused) {
             statusIndicator.classList.add('paused');
@@ -77,85 +98,112 @@ function initializePlayer() {
 
     function playMedia() {
         currentPlayer.play().catch(e => {
-            console.error("Autoplay Error:", e.message || e);
+            console.error("Autoplay Error:", e);
         });
     }
 
     function selectStation(button) {
         stationButtons.forEach(btn => btn.classList.remove('active'));
         button.classList.add('active');
-
         const { url, name, metadataUrl } = button.dataset;
         currentStationDisplay.textContent = name;
+
         localStorage.setItem(lastStationKey, url);
 
-        clearInterval(metadataInterval);
-        metadataInterval = null;
+        if (metadataInterval) {
+            clearInterval(metadataInterval);
+        }
 
         if (metadataUrl) {
-            const fetchAndSetMetadata = () => fetchMetadata(metadataUrl);
-            fetchAndSetMetadata();
-            metadataInterval = setInterval(fetchAndSetMetadata, 1000);
+            fetchMetadata(metadataUrl);
+            metadataInterval = setInterval(() => {
+                fetchMetadata(metadataUrl);
+            }, 1000);
         } else {
             currentSongTitleDisplay.textContent = "Metadaten nicht verfügbar";
         }
 
+        if (isAudioPlayer) {
+            handleAudioPlayback(url);
+        } else {
+            handleVideoPlayback(url);
+        }
+    }
+
+    function handleAudioPlayback(url) {
         currentPlayer.src = url;
         currentPlayer.load();
     }
 
     function handleKeyDown(e) {
-        if (e.target.closest('input, button')) {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON') {
             return;
         }
-
         switch (e.code) {
             case 'Space':
                 e.preventDefault();
-                currentPlayer.paused ? playMedia() : currentPlayer.pause();
+                if (currentPlayer.paused) {
+                    playMedia();
+                } else {
+                    currentPlayer.pause();
+                }
                 break;
             case 'ArrowUp':
+                if (isAudioPlayer) {
+                    e.preventDefault();
+                    currentPlayer.volume = Math.min(1, currentPlayer.volume + 0.1);
+                }
+                break;
             case 'ArrowDown':
                 if (isAudioPlayer) {
                     e.preventDefault();
-                    const delta = e.code === 'ArrowUp' ? 0.1 : -0.1;
-                    currentPlayer.volume = Math.min(1, Math.max(0, currentPlayer.volume + delta));
+                    currentPlayer.volume = Math.max(0, currentPlayer.volume - 0.1);
                 }
                 break;
         }
     }
 
-    async function fetchMetadata(metadataUrl) {
-        try {
-            const response = await fetch(metadataUrl);
-            if (!response.ok) {
-                throw new Error('Netzwerkfehler');
-            }
-
-            const data = metadataUrl.endsWith('.txt') ? await response.text() : await response.json();
-
-            let trackTitle;
-            if (typeof data === 'string') {
-                trackTitle = data.split('\n')[0];
-            } else {
-                trackTitle = getMusicInfo(data);
-            }
-
-            currentSongTitleDisplay.innerText = trackTitle || "Keine Titelinformationen";
-
-        } catch (error) {
-            console.error('Fehler beim Abrufen der Metadaten:', error);
-            currentSongTitleDisplay.innerText = "Metadaten nicht verfügbar";
-        }
+    function fetchMetadata(metadataUrl) {
+        fetch(metadataUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Netzwerkfehler');
+                }
+                if (metadataUrl.endsWith('.txt')) {
+                    return response.text();
+                }
+                return response.json();
+            })
+            .then(data => {
+                let trackTitle;
+                if (typeof data === 'string') {
+                    trackTitle = data.split('\n')[0];
+                } else {
+                    trackTitle = getMusicInfo(data);
+                }
+                if (trackTitle) {
+                    currentSongTitleDisplay.innerText = trackTitle;
+                } else {
+                    currentSongTitleDisplay.innerText = "Keine Titelinformationen";
+                }
+            })
+            .catch(error => {
+                console.error('Fehler beim Abrufen der Metadaten:', error);
+                currentSongTitleDisplay.innerText = "Metadaten nicht verfügbar";
+            });
     }
 
     function getMusicInfo(data) {
         const title = data?.song_now_title || data?.playlistItem?.title;
         const artist = data?.name || data?.subtitle || data?.song_now_interpret || data?.playlistItem?.artist;
 
-        if (title && artist) return `${title} - ${artist}`;
-        if (title) return title;
-        if (artist) return artist;
+        if (title && artist) {
+            return `${title} - ${artist}`;
+        } else if (title) {
+            return title;
+        } else if (artist) {
+            return artist;
+        }
         return null;
     }
 
@@ -167,7 +215,6 @@ function initializePlayer() {
     } else if (stationButtons.length > 0) {
         selectStation(stationButtons[0]);
     }
-
     updateOverallStatus();
 }
 
