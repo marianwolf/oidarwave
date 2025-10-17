@@ -1,76 +1,85 @@
-const $ = (id) => document.getElementById(id);
-const cookieBanner = $('cookieBanner');
-const ninetyDaysInMs = 90 * 24 * 60 * 60 * 1000;
-const CONSENT_KEY = 'cookieConsent';
-const TIMESTAMP_KEY = 'consentTimestamp';
+const cookieBanner = document.getElementById('cookieBanner');
+const acceptButton = document.getElementById('acceptCookies');
+const declineButton = document.getElementById('declineCookies');
 
 checkAndClearConsent();
-initializeCookieConsent();
 
-function setConsent(consent) {
-    localStorage.setItem(CONSENT_KEY, consent);
-    localStorage.setItem(TIMESTAMP_KEY, new Date().getTime());
+function setCookieConsent(consent) {
+    localStorage.setItem('cookieConsent', consent);
+    localStorage.setItem('consentTimestamp', new Date().getTime());
 }
 
-function getConsent() {
-    return localStorage.getItem(CONSENT_KEY);
+function getCookieConsent() {
+    return localStorage.getItem('cookieConsent');
 }
 
 function checkAndClearConsent() {
-    const timestamp = localStorage.getItem(TIMESTAMP_KEY);
-    if (timestamp && (new Date().getTime() - timestamp > ninetyDaysInMs)) {
-        localStorage.removeItem(CONSENT_KEY);
-        localStorage.removeItem(TIMESTAMP_KEY);
+    const timestamp = localStorage.getItem('consentTimestamp');
+    if (timestamp) {
+        const now = new Date().getTime();
+        const ninetyDaysInMs = 90 * 24 * 60 * 60 * 1000;
+        if (now - timestamp > ninetyDaysInMs) {
+            localStorage.removeItem('cookieConsent');
+            localStorage.removeItem('consentTimestamp');
+        }
     }
 }
 
-function loadScript(src, isAsync = true, content = null) {
-    const script = document.createElement('script');
-    if (content) {
-        script.textContent = content;
-    } else {
-        script.defer = isAsync; 
-        script.src = src;
+function enableVercelScripts() {
+    const head = document.head;
+
+    if (head.querySelector('script[src="/_vercel/insights/script.js"]')) {
+        return;
     }
-    document.head.appendChild(script);
+
+    const vaScript = document.createElement('script');
+    vaScript.textContent = "window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };";
+    head.appendChild(vaScript);
+
+    const vaSrcScript = document.createElement('script');
+    vaSrcScript.defer = true;
+    vaSrcScript.src = "/_vercel/insights/script.js";
+    head.appendChild(vaSrcScript);
+
+    const siScript = document.createElement('script');
+    siScript.textContent = "window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };";
+    head.appendChild(siScript);
+
+    const siSrcScript = document.createElement('script');
+    siSrcScript.defer = true;
+    siSrcScript.src = "/_vercel/speed-insights/script.js";
+    head.appendChild(siSrcScript);
+
+    const gtagScript = document.createElement('script');
+    gtagScript.textContent = "window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-93C0KPGRPJ');";
+    head.appendChild(gtagScript);
+
+    const gtagSrcScript = document.createElement('script');
+    gtagSrcScript.defer = true;
+    gtagSrcScript.src = "https://www.googletagmanager.com/gtag/js?id=G-93C0KPGRPJ";
+    head.appendChild(gtagSrcScript);
 }
 
-function enableTrackingScripts() {
-    if (document.head.querySelector('script[src="/_vercel/insights/script.js"]')) return;
-    loadScript(null, false, "window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };");
-    loadScript("/_vercel/insights/script.js");
-    loadScript(null, false, "window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };");
-    loadScript("/_vercel/speed-insights/script.js");
+function showCookieBanner() {
+    const consent = getCookieConsent();
 
-    const gaId = 'G-93C0KPGRPJ';
-    loadScript(null, false, `window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${gaId}');`);
-    loadScript(`https://www.googletagmanager.com/gtag/js?id=${gaId}`);
-}
-
-function initializeCookieConsent() {
-    const consent = getConsent();
-    
     if (consent === 'true') {
-        enableTrackingScripts();
-        if (cookieBanner) cookieBanner.style.display = 'none';
-    } else if (consent === 'false') {
-        if (cookieBanner) cookieBanner.style.display = 'none';
+        cookieBanner.style.display = 'none';
+        enableVercelScripts();
     } else {
-        if (cookieBanner) cookieBanner.style.display = 'block';
+        cookieBanner.style.display = 'block';
     }
 }
 
-if ($('acceptCookies')) {
-    $('acceptCookies').addEventListener('click', () => {
-        setConsent('true');
-        enableTrackingScripts();
-        if (cookieBanner) cookieBanner.style.display = 'none';
-    });
-}
+acceptButton.addEventListener('click', () => {
+    setCookieConsent('true');
+    enableVercelScripts();
+    cookieBanner.style.display = 'none';
+});
 
-if ($('declineCookies')) {
-    $('declineCookies').addEventListener('click', () => {
-        setConsent('false');
-        if (cookieBanner) cookieBanner.style.display = 'none';
-    });
-}
+declineButton.addEventListener('click', () => {
+    setCookieConsent('false');
+    cookieBanner.style.display = 'none';
+});
+
+showCookieBanner();
