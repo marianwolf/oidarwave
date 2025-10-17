@@ -340,7 +340,6 @@ footer {
     background: color-mix(in srgb, var(--color-surface-secondary) 80%, black); 
     border: 1px solid rgba(120, 119, 198, 0.2);
     transition: all var(--transition-speed-fast) var(--transition-timing-cubic);
-    font-style: italic;
     color: var(--color-on-surface-secondary);
 }
 
