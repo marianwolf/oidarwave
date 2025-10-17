@@ -10,7 +10,6 @@ function initializePlayer() {
     const currentStationDisplay = document.getElementById('currentStation');
     const statusIndicator = document.getElementById('statusIndicator');
     const currentSongTitleDisplay = document.getElementById('currentSongTitle');
-
     let currentPlayer = null;
     let lastStationKey = '';
 
@@ -103,6 +102,7 @@ function initializePlayer() {
     }
 
     function selectStation(button) {
+        clearSleepTimer();
         stationButtons.forEach(btn => btn.classList.remove('active'));
         button.classList.add('active');
         const { url, name, metadataUrl } = button.dataset;
@@ -131,6 +131,12 @@ function initializePlayer() {
     }
 
     function handleAudioPlayback(url) {
+        currentPlayer.src = url;
+        currentPlayer.load();
+    }
+
+    function handleVideoPlayback(url) {
+        console.warn("Video-Wiedergabe wird in 'video.js' (HLS-Logik) oder hier einfach als Standard-Src behandelt.");
         currentPlayer.src = url;
         currentPlayer.load();
     }
@@ -216,6 +222,8 @@ function initializePlayer() {
         selectStation(stationButtons[0]);
     }
     updateOverallStatus();
+    updateSleepTimerDisplay(0);
+    updateAlarmDisplay();
 }
 
 document.addEventListener('DOMContentLoaded', initializePlayer);
