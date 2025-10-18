@@ -17,30 +17,10 @@
     <meta property="og:description" content="Oidarwave ist dein Webradio mit einer großen Auswahl an Sendern."/>
     <meta property="og:image" content="/favicon.svg"/>
     <meta property="og:url" content="/"/>
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" defer>
-    <link rel="manifest" href="/manifest.webmanifest">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="Oidarwave">
-    <link rel="apple-touch-icon" href="/favicon.svg"> <link rel="icon" href="/favicon.svg" type="image/svg+xml" defer>
+    <link rel="icon" src="/favicon.svg" type="image/svg+xml" defer>
     <title>Oidarwave</title>
 </head>
 <body>
-    <div class="cookie-banner" id="cookieBanner" role="dialog" aria-live="polite" aria-labelledby="cookieBannerHeading">
-        </div>
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/src/js/service-worker.js')
-                .then(registration => {
-                    console.log('Service Worker registriert: ', registration.scope);
-                })
-                .catch(err => {
-                    console.log('Service Worker Registrierung fehlgeschlagen: ', err);
-                });
-            });
-        }
-    </script>
     <div class="container">
         <header>
             <div class="logo">🎵 Oidarwave</div>

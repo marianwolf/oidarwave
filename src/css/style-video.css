@@ -8,8 +8,8 @@
 .video-container {
     position: relative;
     width: 100%;
-    max-width: 800px;
     margin: auto;
+    max-width: 800px;
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -31,7 +31,7 @@
     overflow: hidden;
     box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
     will-change: transform, box-shadow;
-    margin: 2px 0;
+    margin: 2px 0 2px 0;
 }
 
 .data-mode-toggle:hover {
@@ -47,7 +47,7 @@
     margin: 0;
 }
 
-@media (max-width: 48rem) {
+@media (max-width: 780px) {
     .video-container {
         width: 95%;
     }

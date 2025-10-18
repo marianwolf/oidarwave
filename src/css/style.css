@@ -2,10 +2,10 @@
     --color-surface-primary: hsl(240, 100%, 6%);
     --color-surface-secondary: hsl(240, 100%, 12%);
     --color-surface-tertiary: hsl(240, 100%, 24%);
-    --color-surface-card: hsla(240, 100%, 12%, 0.9);
+    --color-surface-card: hsla(240, 100%, 12%, 0.95);
 
     --color-on-surface-primary: hsl(0, 0%, 96%);
-    --color-on-surface-secondary: hsl(0, 0%, 70%);
+    --color-on-surface-secondary: hsl(0, 0%, 75%);
 
     --color-accent-purple: hsl(270, 100%, 70%);
     --color-accent-pink: hsl(345, 100%, 70%);
@@ -56,7 +56,7 @@ html {
 body {
     font-family: var(--font-family-primary);
     background: 
-        radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), hsla(270, 100%, 70%, 0.07) 0%, transparent 60%),
+        radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), hsla(270, 100%, 70%, 0.1) 0%, transparent 60%),
         linear-gradient(135deg, var(--color-surface-primary) 0%, var(--color-surface-secondary) 25%, var(--color-surface-tertiary) 50%, var(--color-surface-secondary) 75%, var(--color-surface-primary) 100%);
     background-attachment: fixed;
     color: var(--color-on-surface-primary);
@@ -64,18 +64,22 @@ body {
     overflow-x: hidden;
     overflow-y: scroll;
     position: relative;
+    transition: background-color var(--transition-speed-fast) ease;
     overscroll-behavior-y: contain;
+    background-attachment: fixed;
+    -webkit-overflow-scrolling: touch;
+    will-change: transform, background-position;
 }
 
 :is(header, .main-section, .cookie-banner, footer) {
     backdrop-filter: blur(20px);
     border: 1px solid rgba(120, 119, 198, 0.2);
     background: var(--color-surface-card);
-    will-change: transform;
+    will-change: transform, backdrop-filter; 
 }
 
 :is(header, footer) {
-    margin: 0 0 var(--space-500) 0;
+    margin-block-end: var(--space-500);
     border-radius: var(--radius-lg);
     padding: var(--space-400);
 }
@@ -103,7 +107,7 @@ body {
     font-size: var(--font-size-xxxl);
     font-weight: var(--font-weight-bold);
     color: var(--color-accent-purple);
-    background: linear-gradient(45deg, var(--color-accent-purple), var(--color-accent-pink));
+    background: linear-gradient(135deg, var(--color-accent-purple));
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -132,19 +136,12 @@ nav a {
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
     cursor: pointer;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-}
-
-nav a:hover {
-    color: var(--color-on-surface-primary);
-    transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 0 15px var(--color-accent-blue), 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
 .main-section {
     border-radius: var(--radius-xl);
     padding: var(--space-600);
-    margin: 0 0 var(--space-500) 0;
+    margin-block-end: var(--space-500);
 }
 
 .player-section {
@@ -162,8 +159,8 @@ nav a:hover {
 }
 
 .station-selector h2 {
-    font-family: var(--font-family-primary);
-    margin-bottom: var(--space-400);
+    font-family: 'Noto Color Emoji', sans-serif;
+    margin-block-end: var(--space-400);
     text-align: center;
     font-size: var(--font-size-lg);
     font-weight: var(--font-weight-semibold);
@@ -185,32 +182,29 @@ nav a:hover {
     font-size: var(--font-size-base);
     font-weight: var(--font-weight-medium);
     cursor: pointer;
-    transition: all 0.4s var(--transition-timing-cubic);
+    transition: all 0.4s ease-in-out;
     backdrop-filter: blur(10px);
     text-align: center;
     position: relative;
     overflow: hidden;
-    will-change: transform, box-shadow;
+    will-change: border, margin;
     margin: 1px;
 }
 
 .station-btn:hover {
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.25);
     border: 2px solid rgba(255, 255, 255, 0.5);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     margin: 0;
 }
 
 .station-btn.active {
-    background: rgba(255, 255, 255, 0.4);
-    border: 2px solid var(--color-accent-purple);
-    box-shadow: 0 0 20px var(--color-accent-purple);
+    background: rgba(255, 255, 255, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.9);    
     margin: 0;
 }
 
 .station-btn.active:hover {
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.45);
 }
 
 .player-controls {
@@ -223,7 +217,7 @@ nav a:hover {
 
 .current-station {
     font-size: var(--font-size-lg);
-    margin-bottom: var(--space-400);
+    margin-block-end: var(--space-400);
     font-weight: var(--font-weight-semibold);
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     display: flex;
@@ -252,7 +246,7 @@ nav a:hover {
     background: var(--color-status-online);
     opacity: 1;
     animation: pulse-status 2s infinite;
-    transition: background-color 0.5s var(--transition-timing-cubic);
+    transition: background-color 0.5s ease-in-out;
     will-change: background-color, transform, opacity;
 }
 
@@ -265,7 +259,7 @@ footer {
     color: var(--color-on-surface-secondary);
     text-align: center;
     padding: var(--space-400);
-    margin: var(--space-500) 0 0 0;
+    margin-block-start: var(--space-500);
 }
 
 .cookie-banner {
@@ -303,7 +297,7 @@ footer {
     gap: var(--space-200);
     justify-content: center;
     flex-wrap: wrap;
-    margin-top: var(--space-200);
+    margin-block-start: var(--space-200);
 }
 
 .cookie-btn {
@@ -315,13 +309,7 @@ footer {
     border: 2px solid transparent;
     text-decoration: none;
     text-transform: uppercase;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-}
-
-.cookie-btn:hover {
-    filter: brightness(1.1);
-    transform: translateY(-1px);
+    cursor: pointer; 
 }
 
 .cookie-btn.accept-btn {
@@ -335,12 +323,10 @@ footer {
 #currentSongTitle {
     padding: var(--space-200);
     display: flex;
-    justify-content: center;
     border-radius: var(--radius-md);
-    background: color-mix(in srgb, var(--color-surface-secondary) 80%, black); 
+    background: color-mix(in srgb, var(--color-surface-primary) 70%, var(--color-surface-secondary)); 
     border: 1px solid rgba(120, 119, 198, 0.2);
     transition: all var(--transition-speed-fast) var(--transition-timing-cubic);
-    color: var(--color-on-surface-secondary);
 }
 
 @keyframes glow {
@@ -406,8 +392,6 @@ footer {
         transform: none;
         border-radius: 0;
         width: 100%;
-        border-left: none;
-        border-right: none;
     }
     .cookie-banner-content {
         flex-direction: column;
