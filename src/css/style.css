@@ -326,6 +326,7 @@ footer {
     border-radius: var(--radius-md);
     background: color-mix(in srgb, var(--color-surface-primary) 70%, var(--color-surface-secondary)); 
     border: 1px solid rgba(120, 119, 198, 0.2);
+    color: var(--color-on-surface-secondary);
     transition: all var(--transition-speed-fast) var(--transition-timing-cubic);
 }
 
