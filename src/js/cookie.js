@@ -25,12 +25,10 @@ function checkAndClearConsent() {
     }
 }
 
-const vercelInsightsScriptSelector = 'script[src="/_vercel/insights/script.js"]';
-
 function enableVercelScripts() {
     const head = document.head;
 
-    if (head.querySelector(vercelInsightsScriptSelector)) {
+    if (head.querySelector('script[src="/_vercel/insights/script.js"]')) {
         return;
     }
 
