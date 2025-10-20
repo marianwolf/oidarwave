@@ -16,28 +16,28 @@
   <title
      id="title1442">favicon_oidarwave</title>
   <path
-     style="mix-blend-mode:normal;fill:url(#linearGradient312);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00048;stroke-dasharray:none;stroke-opacity:1"
-     d="M 99.197783,0.11349147 C 101.07231,4.2628858 100.04911,18.71453 91.940709,18.871121 76.673353,19.165966 79.682729,32.103722 81.658792,46.600065 83.82389,62.483171 87.578478,82.408976 72.982502,94.01381 60.941046,103.58762 45.298223,96.173736 46.120749,82.978489 47.539646,60.216044 70.383212,86.12595 64.11981,46.600065 61.176842,28.028149 51.868501,-2.0799909 99.197783,0.11349147 Z"
+     style="mix-blend-mode:normal;fill:url(#linearGradient312);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00045;stroke-dasharray:none;stroke-opacity:1"
+     d="m 99.203746,0.1134663 c 1.860594,4.1484744 0.845004,18.5969147 -7.203149,18.7534707 -15.15391,0.29478 -12.166895,13.229667 -10.205516,27.722796 2.14901,15.879585 5.8757,35.800972 -8.611819,47.403233 C 61.231282,103.56465 45.704695,96.152413 46.521109,82.960092 47.929463,60.202693 70.603286,86.106855 64.386426,46.589733 61.465325,28.021935 52.226152,-2.0795297 99.203746,0.1134663 Z"
      id="note1"
      sodipodi:nodetypes="csssssc" />
-     <path
-     style="mix-blend-mode:normal;fill:url(#linearGradient319);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00048;stroke-dasharray:none;stroke-opacity:1"
-     d="M 53.108174,1.7589659 C 54.9827,5.9083602 53.9595,20.360005 45.851097,20.516596 30.583741,20.811441 33.593117,33.749197 35.56918,48.245539 37.734278,64.128646 41.488866,84.054456 26.89289,95.659281 14.851433,105.23309 -0.791389,97.81921 0.03113701,84.623959 1.450034,61.861518 24.2936,87.771427 18.030197,48.245539 15.087229,29.673623 5.7788891,-0.43451653 53.108174,1.7589659 Z"
+  <path
+     style="mix-blend-mode:normal;fill:url(#linearGradient264);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00045;stroke-dasharray:none;stroke-opacity:1"
+     d="m 52.713542,1.7807426 c 1.860601,4.1484742 0.845001,18.5969144 -7.203148,18.7534704 -15.153911,0.29478 -12.166896,13.229667 -10.205517,27.722796 2.14901,15.879585 5.8757,35.800972 -8.611819,47.403237 C 14.741078,105.23193 -0.78550875,97.819687 0.03090566,84.627368 1.4392597,61.86997 24.113082,87.774131 17.896222,48.257009 14.975122,29.689211 5.7359486,-0.41225352 52.713542,1.7807426 Z"
      id="note1-7"
      sodipodi:nodetypes="csssssc" />
   <defs
      id="defs48">
     <linearGradient
        inkscape:collect="always"
-       id="linearGradient877">
+       id="linearGradient971">
       <stop
          style="stop-color:#b266ff;stop-opacity:1;"
          offset="0"
-         id="stop873" />
+         id="stop967" />
       <stop
          style="stop-color:#ff668c;stop-opacity:1;"
          offset="1"
-         id="stop875" />
+         id="stop969" />
     </linearGradient>
     <linearGradient
        inkscape:collect="always"
@@ -56,17 +56,17 @@
        xlink:href="#linearGradient1019"
        id="linearGradient312"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(1.4615824,0,0,1.2563937,29.004818,-15.071982)"
+       gradientTransform="matrix(1.4507219,0,0,1.2561151,29.53236,-15.06864)"
        x1="22.13151"
        y1="19.941217"
        x2="37.022892"
        y2="78.402687" />
     <linearGradient
        inkscape:collect="always"
-       xlink:href="#linearGradient877"
-       id="linearGradient319"
+       xlink:href="#linearGradient971"
+       id="linearGradient264"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(1.4615824,0,0,1.2563937,-17.084793,-13.426507)"
+       gradientTransform="matrix(1.4507219,0,0,1.2561151,-16.957842,-13.401364)"
        x1="22.13151"
        y1="19.941217"
        x2="37.022892"
