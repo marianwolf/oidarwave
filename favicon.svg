@@ -14,7 +14,7 @@
    xmlns:cc="http://creativecommons.org/ns#"
    xmlns:dc="http://purl.org/dc/elements/1.1/">
   <title
-     id="title1442">favicon_oidarwave</title>
+     id="title1442">Favicon</title>
   <path
      style="display:inline;mix-blend-mode:normal;fill:url(#linearGradient312);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00011;stroke-dasharray:none;stroke-opacity:1"
      d="M 99.19852,0.11351471 C 101.07306,4.2637591 100.04522,18.559362 91.9414,18.874987 77.019666,19.456152 79.683341,32.110299 81.659417,46.609611 83.824529,62.495971 87.579141,82.425858 72.983071,94.03307 60.941538,103.60884 45.298616,96.193438 46.121147,82.995488 47.540053,60.22838 70.383765,86.143594 64.120323,46.609611 61.177336,28.033891 51.868936,-2.080417 99.19852,0.11351471 Z"
@@ -85,7 +85,7 @@
      inkscape:deskcolor="#505050"
      showgrid="true"
      inkscape:zoom="8"
-     inkscape:cx="36.875"
+     inkscape:cx="50"
      inkscape:cy="50"
      inkscape:window-width="1920"
      inkscape:window-height="1008"

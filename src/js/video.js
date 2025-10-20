@@ -12,12 +12,25 @@ document.addEventListener('DOMContentLoaded', () => {
     videoPlayer.setAttribute('playsinline', '');
     videoPlayer.setAttribute('webkit-playsinline', '');
 
+    const updateQualityLevel = () => {
+        if (!hlsPlayer || hlsPlayer.levels.length === 0) {
+            return;
+        }
+        const isDataSaveModeEnabled = localStorage.getItem(localStorageKey) === 'true';
+        hlsPlayer.currentLevel = isDataSaveModeEnabled ? 0 : -1;
+    };
+
     const setupHlsPlayer = (url) => {
         if (hlsPlayer) {
             hlsPlayer.destroy();
+            hlsPlayer = null;
         }
 
-        if (Hls.isSupported()) {
+        for (const track of videoPlayer.textTracks) {
+            track.mode = 'hidden';
+        }
+
+        if (window.Hls && Hls.isSupported()) {
             hlsPlayer = new Hls();
             hlsPlayer.loadSource(url);
             hlsPlayer.attachMedia(videoPlayer);
@@ -33,34 +46,23 @@ document.addEventListener('DOMContentLoaded', () => {
             hlsPlayer.on(Hls.Events.ERROR, (event, data) => {
                 console.error(`HLS.js fatal error: ${data.details}`, data);
                 if (data.fatal) {
-                    alert('There was a critical error loading the video stream. Please try again or switch to a different station.');
+                    alert(`Kritischer Fehler beim Laden des Streams (${data.details}). Bitte versuchen Sie es erneut oder wechseln Sie den Sender.`);
                 }
             });
-            document.addEventListener('visibilitychange', () => {
-                if (document.visibilityState === 'visible' && !videoPlayer.paused) {
-                    videoPlayer.play().catch(e => console.log('Attempt to resume playback failed:', e));
-                }
-            });
-
         } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
             videoPlayer.src = url;
-            videoPlayer.addEventListener('loadedmetadata', () => videoPlayer.play(), { once: true });
+            videoPlayer.addEventListener('loadedmetadata', () => videoPlayer.play().catch(e => console.log('Autoplay failed on native player:', e)), { once: true });
         } else {
             console.error('HLS is not supported by your browser.');
-            alert('Your browser does not support this video format.');
-        }
-
-        for (const track of videoPlayer.textTracks) {
-            track.mode = 'hidden';
+            alert('Ihr Browser unterstützt dieses Videoformat nicht.');
         }
     };
-
-    const updateQualityLevel = () => {
-        if (!hlsPlayer || hlsPlayer.levels.length === 0) {
-            return;
-        }
-        const isDataSaveModeEnabled = localStorage.getItem(localStorageKey) === 'true';
-        hlsPlayer.currentLevel = isDataSaveModeEnabled ? 0 : -1;
+    
+    const rewind = () => {
+        videoPlayer.currentTime = Math.max(0, videoPlayer.currentTime - seekTime);
+    };
+    const forward = () => {
+        videoPlayer.currentTime = Math.min(videoPlayer.duration || Infinity, videoPlayer.currentTime + seekTime);
     };
 
     const toggleDataSaveMode = () => {
@@ -71,17 +73,14 @@ document.addEventListener('DOMContentLoaded', () => {
         updateQualityLevel();
     };
 
-    const rewind = () => videoPlayer.currentTime - seekTime;
-    const forward = () => videoPlayer.currentTime + seekTime;
-
     const initializeEventListeners = () => {
         stationButtons.forEach(button => {
             button.addEventListener('click', () => {
                 currentStationDisplay.textContent = button.dataset.name;
                 setupHlsPlayer(button.dataset.url);
-                videoPlayer.play().catch(e => console.log('Playback attempt after station change failed:', e));
             });
         });
+
         dataModeToggle.addEventListener('click', toggleDataSaveMode);
 
         if (rewindButton) {
@@ -91,6 +90,12 @@ document.addEventListener('DOMContentLoaded', () => {
             forwardButton.addEventListener('click', forward);
         }
         
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'visible' && !videoPlayer.paused) {
+                videoPlayer.play().catch(e => console.log('Attempt to resume playback failed:', e));
+            }
+        });
+
         document.addEventListener('keydown', (event) => {
             if (document.activeElement && (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA')) {
                 return;
