@@ -16,15 +16,17 @@
   <title
      id="title1442">favicon_oidarwave</title>
   <path
-     style="mix-blend-mode:normal;fill:url(#linearGradient312);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00011;stroke-dasharray:none;stroke-opacity:1"
+     style="display:inline;mix-blend-mode:normal;fill:url(#linearGradient312);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00011;stroke-dasharray:none;stroke-opacity:1"
      d="M 99.19852,0.11351471 C 101.07306,4.2637591 100.04522,18.559362 91.9414,18.874987 77.019666,19.456152 79.683341,32.110299 81.659417,46.609611 83.824529,62.495971 87.579141,82.425858 72.983071,94.03307 60.941538,103.60884 45.298616,96.193438 46.121147,82.995488 47.540053,60.22838 70.383765,86.143594 64.120323,46.609611 61.177336,28.033891 51.868936,-2.080417 99.19852,0.11351471 Z"
      id="note1"
-     sodipodi:nodetypes="csssssc" />
+     sodipodi:nodetypes="csssssc"
+     inkscape:label="note1" />
   <path
-     style="mix-blend-mode:normal;fill:url(#linearGradient270);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00059;stroke-dasharray:none;stroke-opacity:1"
+     style="display:inline;mix-blend-mode:normal;fill:url(#linearGradient270);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00059;stroke-dasharray:none;stroke-opacity:1"
      d="M 53.10851,1.7388376 C 54.983049,5.8890819 53.955213,20.184685 45.85139,20.50031 30.929657,21.081475 33.593332,33.735622 35.569407,48.234934 37.734519,64.121294 41.489131,84.051181 26.893062,95.658396 14.851529,105.23416 -0.79139405,97.818759 0.03113721,84.620811 1.4500433,61.853703 24.293755,87.768917 18.030313,48.234934 15.087326,29.659214 5.7789259,-0.4550941 53.10851,1.7388376 Z"
      id="note1-7"
-     sodipodi:nodetypes="csssssc" />
+     sodipodi:nodetypes="csssssc"
+     inkscape:label="note2" />
   <defs
      id="defs48">
     <linearGradient
@@ -83,7 +85,7 @@
      inkscape:deskcolor="#505050"
      showgrid="true"
      inkscape:zoom="8"
-     inkscape:cx="52.25"
+     inkscape:cx="36.875"
      inkscape:cy="50"
      inkscape:window-width="1920"
      inkscape:window-height="1008"
@@ -98,7 +100,7 @@
     <rdf:RDF>
       <cc:Work
          rdf:about="">
-        <dc:title>favicon_oidarwave</dc:title>
+        <dc:title>Favicon</dc:title>
         <dc:creator>
           <cc:Agent>
             <dc:title>Marian Wolf</dc:title>
@@ -115,10 +117,10 @@
           </cc:Agent>
         </dc:rights>
         <cc:license
-           rdf:resource="http://creativecommons.org/licenses/by-nc/4.0/" />
+           rdf:resource="http://creativecommons.org/licenses/by-nc-nd/4.0/" />
       </cc:Work>
       <cc:License
-         rdf:about="http://creativecommons.org/licenses/by-nc/4.0/">
+         rdf:about="http://creativecommons.org/licenses/by-nc-nd/4.0/">
         <cc:permits
            rdf:resource="http://creativecommons.org/ns#Reproduction" />
         <cc:permits
@@ -129,8 +131,6 @@
            rdf:resource="http://creativecommons.org/ns#Attribution" />
         <cc:prohibits
            rdf:resource="http://creativecommons.org/ns#CommercialUse" />
-        <cc:permits
-           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
       </cc:License>
     </rdf:RDF>
   </metadata>
