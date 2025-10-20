@@ -115,8 +115,6 @@ function initializePlayer() {
             metadataInterval = null;
         }
 
-        currentSongTitleDisplay.textContent = "Metadaten werden geladen...";
-
         if (metadataUrl) {
             fetchMetadata(metadataUrl);
             metadataInterval = setInterval(() => {
