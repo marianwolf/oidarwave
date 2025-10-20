@@ -112,7 +112,10 @@ function initializePlayer() {
 
         if (metadataInterval) {
             clearInterval(metadataInterval);
+            metadataInterval = null;
         }
+
+        currentSongTitleDisplay.textContent = "Metadaten werden geladen...";
 
         if (metadataUrl) {
             fetchMetadata(metadataUrl);
@@ -134,9 +137,14 @@ function initializePlayer() {
         currentPlayer.src = url;
         currentPlayer.load();
     }
+    
+    function handleVideoPlayback(url) {
+        currentPlayer.src = url;
+        currentPlayer.load();
+    }
 
     function handleKeyDown(e) {
-        if (e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON') {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON' || e.target.tagName === 'TEXTAREA') {
             return;
         }
         switch (e.code) {
@@ -151,13 +159,13 @@ function initializePlayer() {
             case 'ArrowUp':
                 if (isAudioPlayer) {
                     e.preventDefault();
-                    currentPlayer.volume = Math.min(1, currentPlayer.volume + 0.1);
+                    currentPlayer.volume = parseFloat(Math.min(1, currentPlayer.volume + 0.1).toFixed(1));
                 }
                 break;
             case 'ArrowDown':
                 if (isAudioPlayer) {
                     e.preventDefault();
-                    currentPlayer.volume = Math.max(0, currentPlayer.volume - 0.1);
+                    currentPlayer.volume = parseFloat(Math.max(0, currentPlayer.volume - 0.1).toFixed(1));
                 }
                 break;
         }
@@ -167,21 +175,22 @@ function initializePlayer() {
         fetch(metadataUrl)
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Netzwerkfehler');
+                    throw new Error(`Netzwerkfehler: ${response.status}`);
                 }
                 if (metadataUrl.endsWith('.txt')) {
-                    return response.text();
+                    return response.text().then(text => ({ type: 'text', data: text }));
                 }
-                return response.json();
+                return response.json().then(json => ({ type: 'json', data: json }));
             })
-            .then(data => {
+            .then(({ data, type }) => {
                 let trackTitle;
-                if (typeof data === 'string') {
-                    trackTitle = data.split('\n')[0];
-                } else {
+                if (type === 'text' && typeof data === 'string') {
+                    trackTitle = data.split('\n')[0].trim();
+                } else if (type === 'json') {
                     trackTitle = getMusicInfo(data);
                 }
-                if (trackTitle) {
+                
+                if (trackTitle && trackTitle.length > 0) {
                     currentSongTitleDisplay.innerText = trackTitle;
                 } else {
                     currentSongTitleDisplay.innerText = "Keine Titelinformationen";
