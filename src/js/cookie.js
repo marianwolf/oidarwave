@@ -25,39 +25,37 @@ function checkAndClearConsent() {
     }
 }
 
+const vercelInsightsScriptSelector = 'script[src="/_vercel/insights/script.js"]';
+
 function enableVercelScripts() {
     const head = document.head;
 
-    if (head.querySelector('script[src="/_vercel/insights/script.js"]')) {
+    if (head.querySelector(vercelInsightsScriptSelector)) {
         return;
     }
 
-    const vaScript = document.createElement('script');
-    vaScript.textContent = "window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };";
-    head.appendChild(vaScript);
+    const addScript = (content, src = null, defer = false) => {
+        const script = document.createElement('script');
+        if (content) {
+            script.textContent = content;
+        }
+        if (src) {
+            script.src = src;
+            if (defer) {
+                script.defer = true;
+            }
+        }
+        head.appendChild(script);
+    };
 
-    const vaSrcScript = document.createElement('script');
-    vaSrcScript.defer = true;
-    vaSrcScript.src = "/_vercel/insights/script.js";
-    head.appendChild(vaSrcScript);
+    addScript("window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };");
+    addScript(null, "/_vercel/insights/script.js", true);
 
-    const siScript = document.createElement('script');
-    siScript.textContent = "window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };";
-    head.appendChild(siScript);
+    addScript("window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };");
+    addScript(null, "/_vercel/speed-insights/script.js", true);
 
-    const siSrcScript = document.createElement('script');
-    siSrcScript.defer = true;
-    siSrcScript.src = "/_vercel/speed-insights/script.js";
-    head.appendChild(siSrcScript);
-
-    const gtagScript = document.createElement('script');
-    gtagScript.textContent = "window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-93C0KPGRPJ');";
-    head.appendChild(gtagScript);
-
-    const gtagSrcScript = document.createElement('script');
-    gtagSrcScript.defer = true;
-    gtagSrcScript.src = "https://www.googletagmanager.com/gtag/js?id=G-93C0KPGRPJ";
-    head.appendChild(gtagSrcScript);
+    addScript("window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-93C0KPGRPJ');");
+    addScript(null, "https://www.googletagmanager.com/gtag/js?id=G-93C0KPGRPJ", true);
 }
 
 function showCookieBanner() {
