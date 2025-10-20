@@ -119,7 +119,7 @@ body {
 nav {
     display: flex;
     justify-content: center;
-    gap: var(--space-300);
+    gap: var(--space-200);
     margin-top: var(--space-300);
     flex-wrap: wrap;
 }
