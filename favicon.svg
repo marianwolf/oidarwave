@@ -16,14 +16,14 @@
   <title
      id="title1442">Favicon</title>
   <path
-     style="display:inline;mix-blend-mode:normal;fill:url(#linearGradient312);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00011;stroke-dasharray:none;stroke-opacity:1"
-     d="M 99.19852,0.11351471 C 101.07306,4.2637591 100.04522,18.559362 91.9414,18.874987 77.019666,19.456152 79.683341,32.110299 81.659417,46.609611 83.824529,62.495971 87.579141,82.425858 72.983071,94.03307 60.941538,103.60884 45.298616,96.193438 46.121147,82.995488 47.540053,60.22838 70.383765,86.143594 64.120323,46.609611 61.177336,28.033891 51.868936,-2.080417 99.19852,0.11351471 Z"
+     style="display:inline;mix-blend-mode:normal;fill:url(#linearGradient312);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00071;stroke-dasharray:none;stroke-opacity:1"
+     d="M 99.197987,0.31201484 C 101.07377,4.5248915 100.04526,18.79484 91.936051,18.849271 77.004413,18.949494 79.669855,31.696185 81.647243,46.266828 83.813792,62.231345 87.570897,82.292772 72.965137,93.435328 60.915613,102.62777 44.488556,94.632803 46.085386,81.525626 48.832275,58.978485 70.364107,85.457884 64.096509,45.701169 61.151569,27.020796 51.836988,-3.4095041 99.197987,0.31201484 Z"
      id="note1"
      sodipodi:nodetypes="csssssc"
      inkscape:label="note1" />
-  <path
-     style="display:inline;mix-blend-mode:normal;fill:url(#linearGradient270);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00059;stroke-dasharray:none;stroke-opacity:1"
-     d="M 53.10851,1.7388376 C 54.983049,5.8890819 53.955213,20.184685 45.85139,20.50031 30.929657,21.081475 33.593332,33.735622 35.569407,48.234934 37.734519,64.121294 41.489131,84.051181 26.893062,95.658396 14.851529,105.23416 -0.79139405,97.818759 0.03113721,84.620811 1.4500433,61.853703 24.293755,87.768917 18.030313,48.234934 15.087326,29.659214 5.7789259,-0.4550941 53.10851,1.7388376 Z"
+     <path
+     style="display:inline;mix-blend-mode:normal;fill:url(#linearGradient334);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00071;stroke-dasharray:none;stroke-opacity:1"
+     d="M 53.220736,2.9179975 C 55.09652,7.1308742 54.068009,21.400823 45.9588,21.455255 31.027164,21.555478 33.692605,34.302168 35.669993,48.872811 37.836543,64.837328 41.593646,84.898755 26.987887,96.041313 14.938364,105.23375 -1.488694,97.238787 0.10813597,84.131609 2.855025,61.584468 24.386857,88.063872 18.119259,48.307152 15.174319,29.626779 5.859739,-0.80352144 53.220736,2.9179975 Z"
      id="note1-7"
      sodipodi:nodetypes="csssssc"
      inkscape:label="note2" />
@@ -31,15 +31,15 @@
      id="defs48">
     <linearGradient
        inkscape:collect="always"
-       id="linearGradient977">
+       id="linearGradient1041">
       <stop
          style="stop-color:#b266ff;stop-opacity:1;"
          offset="0"
-         id="stop973" />
+         id="stop1037" />
       <stop
          style="stop-color:#ff668c;stop-opacity:1;"
          offset="1"
-         id="stop975" />
+         id="stop1039" />
     </linearGradient>
     <linearGradient
        inkscape:collect="always"
@@ -58,21 +58,21 @@
        xlink:href="#linearGradient1019"
        id="linearGradient312"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(1.4615918,0,0,1.2566591,29.005107,-15.075166)"
-       x1="22.13151"
-       y1="19.941217"
-       x2="37.022892"
-       y2="78.402687" />
+       gradientTransform="matrix(1.4625619,0.04713825,0,1.2573179,28.957985,-17.148459)"
+       x1="19.13269"
+       y1="22.627127"
+       x2="44.431564"
+       y2="80.629128" />
     <linearGradient
        inkscape:collect="always"
-       xlink:href="#linearGradient977"
-       id="linearGradient270"
+       xlink:href="#linearGradient1041"
+       id="linearGradient334"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(1.4615918,0,0,1.2566591,-17.084903,-13.449833)"
-       x1="22.13151"
-       y1="19.941217"
-       x2="37.022892"
-       y2="78.402687" />
+       gradientTransform="matrix(1.4625619,0.04713825,0,1.2573179,-17.019265,-14.542476)"
+       x1="19.13269"
+       y1="22.627127"
+       x2="44.431564"
+       y2="80.629128" />
   </defs>
   <sodipodi:namedview
      id="namedview46"
