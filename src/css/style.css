@@ -23,11 +23,11 @@
     --space-500: 3rem;
     --space-600: 4rem;
 
-    --radius-sm: 0.3125rem;
-    --radius-md: 0.9375rem;
+    --radius-sm: 0.3rem;
+    --radius-md: 1rem;
     --radius-lg: 1.25rem;
-    --radius-xl: 1.5625rem;
-    --radius-pill: 3.125rem;
+    --radius-xl: 1.5rem;
+    --radius-pill: 3rem;
 
     --font-family-primary: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     --font-size-base: 1rem;
@@ -119,8 +119,8 @@ body {
 nav {
     display: flex;
     justify-content: center;
-    gap: var(--space-200);
-    margin-top: var(--space-300);
+    gap: var(--space-100);
+    margin-top: var(--space-200);
     flex-wrap: wrap;
 }
 
@@ -351,9 +351,6 @@ footer {
     .player-section {
         grid-template-columns: 1fr;
         gap: var(--space-400);
-    }
-    nav {
-        gap: var(--space-200);
     }
     nav a {
         padding: var(--space-200) var(--space-300);
