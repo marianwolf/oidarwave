@@ -17,21 +17,25 @@
 
 .data-mode-toggle {
     background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-md);
     padding: var(--space-200);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: var(--radius-md);
     color: white;
     font-size: var(--font-size-base);
     font-weight: var(--font-weight-medium);
-    cursor: pointer;
-    transition: all 0.4s ease;
-    backdrop-filter: blur(10px);
     text-align: center;
     position: relative;
     overflow: hidden;
+    cursor: pointer;
     box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+    margin: 2px 0; 
+    transition: all 0.4s ease;
+}
+
+.data-mode-toggle:hover, 
+.data-mode-toggle[aria-pressed="true"] {
     will-change: transform, box-shadow;
-    margin: 2px 0 2px 0;
 }
 
 .data-mode-toggle:hover {
