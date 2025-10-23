@@ -72,7 +72,6 @@ body {
 
 :is(header, .main-section, .cookie-banner, footer) {
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(120, 119, 198, 0.2);
     background: var(--color-surface-card);
     will-change: transform, backdrop-filter; 
 }
@@ -120,7 +119,6 @@ nav {
     display: flex;
     justify-content: center;
     gap: var(--space-100);
-    margin-top: var(--space-200);
     flex-wrap: wrap;
 }
 
@@ -128,14 +126,17 @@ nav a {
     text-decoration: none;
     color: var(--color-on-surface-secondary);
     font-weight: var(--font-weight-medium);
-    padding: var(--space-200) var(--space-300);
-    border-radius: var(--radius-pill);
+    padding: var(--space-200) var(--space-200);
+    border-radius: var(--radius-xl);
     transition: all var(--transition-speed-fast) var(--transition-timing-cubic);
     position: relative;
     overflow: hidden;
     background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
     cursor: pointer;
+}
+
+nav a:hover {
+    background: rgba(255, 255, 255, 0.15);
 }
 
 .main-section {
