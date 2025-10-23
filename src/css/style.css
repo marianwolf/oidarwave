@@ -141,7 +141,7 @@ nav a {
 .main-section {
     border-radius: var(--radius-xl);
     padding: var(--space-600);
-    margin-block-end: var(--space-500);
+    margin-block-end: var(--space-300);
 }
 
 .player-section {
@@ -149,6 +149,7 @@ nav a {
     grid-template-columns: 1fr 1fr;
     gap: var(--space-500);
     align-items: start;
+    margin-block-end: var(--space-300);
 }
 
 .station-selector {
@@ -160,7 +161,7 @@ nav a {
 
 .station-selector h2 {
     font-family: 'Noto Color Emoji', sans-serif;
-    margin-block-end: var(--space-400);
+    margin-block-end: var(--space-300);
     text-align: center;
     font-size: var(--font-size-lg);
     font-weight: var(--font-weight-semibold);
@@ -387,7 +388,6 @@ footer {
         bottom: 0;
         left: 0;
         transform: none;
-        border-radius: 0;
         width: 100%;
     }
     .cookie-banner-content {
