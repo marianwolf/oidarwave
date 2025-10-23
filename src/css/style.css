@@ -259,7 +259,7 @@ nav a {
 footer {
     color: var(--color-on-surface-secondary);
     text-align: center;
-    padding: var(--space-400);
+    margin: auto 0;
 }
 
 .cookie-banner {
