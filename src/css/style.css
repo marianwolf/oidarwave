@@ -99,6 +99,7 @@ body {
     padding: var(--space-300);
     position: relative;
     z-index: 1;
+    gap: var(--space-100);
 }
 
 .logo {
@@ -258,7 +259,6 @@ footer {
     color: var(--color-on-surface-secondary);
     text-align: center;
     padding: var(--space-400);
-    margin-block-start: var(--space-500);
 }
 
 .cookie-banner {
