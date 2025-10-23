@@ -82,12 +82,7 @@ body {
     padding: var(--space-400);
 }
 
-:is(nav a, .station-btn):where(:hover, :focus-visible) {
-    will-change: transform, box-shadow;
-    outline: none;
-}
-
-:is(nav a, .station-btn, .cookie-btn):focus-visible {
+:is(.station-btn, .cookie-btn):focus-visible {
     outline: 3px solid var(--color-accent-blue);
     outline-offset: 4px;
 }
