@@ -45,8 +45,7 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    cursor: pointer;
+    cursor: default;
 }
 
 html {
@@ -71,21 +70,38 @@ body {
     will-change: transform, background-position;
 }
 
-:is(header, .main-section, .cookie-banner, footer) {
+:is(header, .main-section, .cookie-banner, footer, .station-selector, .player-controls) {
+    padding: var(--space-500);
+    border-radius: var(--radius-lg);
+    color: white;
+    text-align: center;
+}
+
+:is(header, .main-section, .cookie-banner, footer,) {
     backdrop-filter: blur(20px);
     background: var(--color-surface-card);
     will-change: transform, backdrop-filter; 
 }
 
-:is(header, footer) {
+:is(header, .main-section, .player-section) {
     margin-block-end: var(--space-300);
-    border-radius: var(--radius-lg);
-    padding: var(--space-400);
 }
 
 :is(.station-btn, .cookie-btn):focus-visible {
     outline: 3px solid var(--color-accent-blue);
     outline-offset: 4px;
+}
+
+:is(.current-station, .station-selector h2) {
+    font-size: var(--font-size-lg);
+    margin-block-end: var(--space-300);
+    font-weight: var(--font-weight-semibold);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-200);
+    font-family: 'Noto Color Emoji', sans-serif;
 }
 
 .container {
@@ -94,7 +110,6 @@ body {
     padding: var(--space-300);
     position: relative;
     z-index: 1;
-    gap: var(--space-100);
 }
 
 .logo {
@@ -135,8 +150,6 @@ nav a:hover {
 }
 
 .main-section {
-    border-radius: var(--radius-xl);
-    padding: var(--space-600);
     margin-block-end: var(--space-300);
 }
 
@@ -145,23 +158,10 @@ nav a:hover {
     grid-template-columns: 1fr 1fr;
     gap: var(--space-500);
     align-items: start;
-    margin-block-end: var(--space-300);
 }
 
 .station-selector {
     background: linear-gradient(135deg, var(--color-accent-purple) 0%, var(--color-accent-pink) 100%);
-    padding: var(--space-500);
-    border-radius: var(--radius-lg);
-    color: white;
-}
-
-.station-selector h2 {
-    font-family: 'Noto Color Emoji', sans-serif;
-    margin-block-end: var(--space-300);
-    text-align: center;
-    font-size: var(--font-size-lg);
-    font-weight: var(--font-weight-semibold);
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .station-grid {
@@ -178,7 +178,7 @@ nav a:hover {
     color: white;
     font-size: var(--font-size-base);
     font-weight: var(--font-weight-medium);
-    transition: all 0.4s ease-in-out;
+    transition: all 0.1s ease-in-out;
     backdrop-filter: blur(10px);
     text-align: center;
     position: relative;
@@ -205,21 +205,6 @@ nav a:hover {
 
 .player-controls {
     background: linear-gradient(135deg, var(--color-accent-purple) 0%, var(--color-accent-blue) 100%);
-    padding: var(--space-500);
-    border-radius: var(--radius-lg);
-    color: white;
-    text-align: center;
-}
-
-.current-station {
-    font-size: var(--font-size-lg);
-    margin-block-end: var(--space-400);
-    font-weight: var(--font-weight-semibold);
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-200);
 }
 
 .audio-controls {
@@ -242,7 +227,6 @@ nav a:hover {
     background: var(--color-status-online);
     opacity: 1;
     animation: pulse-status 2s infinite;
-    transition: background-color 0.5s ease-in-out;
     will-change: background-color, transform, opacity;
 }
 
@@ -250,12 +234,6 @@ nav a:hover {
 .status-indicator.error { background: var(--color-status-error); animation: pulse-status 0.5s infinite; }
 .status-indicator.buffering { background: var(--color-status-buffering); animation: pulse-status 1s infinite; }
 .status-indicator.paused { background: var(--color-status-paused); animation: none; }
-
-footer {
-    color: var(--color-on-surface-secondary);
-    text-align: center;
-    margin: 0;
-}
 
 .cookie-banner {
     position: fixed;
@@ -325,7 +303,7 @@ footer {
 
 @keyframes glow {
     0% { filter: drop-shadow(0 0 10px var(--color-accent-purple)); }
-    100% { filter: drop-shadow(0 0 20px var(--color-accent-pink)); }
+    100% { filter: drop-shadow(0 0 10px var(--color-accent-pink)); }
 }
 
 @keyframes pulse-status {
