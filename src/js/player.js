@@ -2,7 +2,7 @@ function initializePlayer() {
     let hasError = false;
     let isStalled = false;
     let isAudioPlayer = false;
-    let metadataInterval = null;
+    let socket = null; 
 
     const stationButtons = document.querySelectorAll('.station-btn');
     const audioPlayer = document.getElementById('audioPlayer');
@@ -27,7 +27,26 @@ function initializePlayer() {
         console.error("No player element found with id 'audioPlayer' or 'videoPlayer'.");
         return;
     }
-
+    
+    try {
+        socket = io(); 
+        
+        socket.on('song-update', (data) => {
+            if (currentSongTitleDisplay && data.title) {
+                currentSongTitleDisplay.innerText = data.title;
+            } else if (currentSongTitleDisplay) {
+                currentSongTitleDisplay.innerText = "Keine Titelinformationen";
+            }
+        });
+        
+        socket.on('disconnect', () => {
+            console.warn("Socket.IO disconnected. Real-time updates paused.");
+        });
+        
+    } catch (e) {
+        console.error("Failed to connect Socket.IO:", e);
+    }
+    
     stationButtons.forEach(button => {
         button.addEventListener('click', () => {
             selectStation(button);
@@ -110,17 +129,12 @@ function initializePlayer() {
 
         localStorage.setItem(lastStationKey, url);
 
-        if (metadataInterval) {
-            clearInterval(metadataInterval);
-            metadataInterval = null;
-        }
-
-        if (metadataUrl) {
-            fetchMetadata(metadataUrl);
-            metadataInterval = setInterval(() => {
-                fetchMetadata(metadataUrl);
-            }, 1000);
+        if (metadataUrl && socket) {
+            socket.emit('subscribe-metadata', { metadataUrl: metadataUrl });
         } else {
+            if (socket) {
+                 socket.emit('unsubscribe-metadata');
+            }
             currentSongTitleDisplay.textContent = "Metadaten nicht verfügbar";
         }
 
@@ -167,51 +181,6 @@ function initializePlayer() {
                 }
                 break;
         }
-    }
-
-    function fetchMetadata(metadataUrl) {
-        fetch(metadataUrl)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`Netzwerkfehler: ${response.status}`);
-                }
-                if (metadataUrl.endsWith('.txt')) {
-                    return response.text().then(text => ({ type: 'text', data: text }));
-                }
-                return response.json().then(json => ({ type: 'json', data: json }));
-            })
-            .then(({ data, type }) => {
-                let trackTitle;
-                if (type === 'text' && typeof data === 'string') {
-                    trackTitle = data.split('\n')[0].trim();
-                } else if (type === 'json') {
-                    trackTitle = getMusicInfo(data);
-                }
-                
-                if (trackTitle && trackTitle.length > 0) {
-                    currentSongTitleDisplay.innerText = trackTitle;
-                } else {
-                    currentSongTitleDisplay.innerText = "Keine Titelinformationen";
-                }
-            })
-            .catch(error => {
-                console.error('Fehler beim Abrufen der Metadaten:', error);
-                currentSongTitleDisplay.innerText = "Metadaten nicht verfügbar";
-            });
-    }
-
-    function getMusicInfo(data) {
-        const title = data?.song_now_title || data?.playlistItem?.title;
-        const artist = data?.name || data?.subtitle || data?.song_now_interpret || data?.playlistItem?.artist;
-
-        if (title && artist) {
-            return `${title} - ${artist}`;
-        } else if (title) {
-            return title;
-        } else if (artist) {
-            return artist;
-        }
-        return null;
     }
 
     const lastStationUrl = localStorage.getItem(lastStationKey);
