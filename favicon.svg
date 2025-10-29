@@ -16,41 +16,41 @@
   <title
      id="title1442">Favicon</title>
   <path
-     style="display:inline;mix-blend-mode:normal;fill:url(#linearGradient312);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.998472;stroke-dasharray:none;stroke-opacity:1"
-     d="M 99.198326,0.31168711 C 101.07332,4.5074796 100.04524,18.719561 91.939448,18.773769 c -14.92535,0.09982 -12.26103,12.794819 -10.284475,27.306374 2.165636,15.899776 5.921158,35.87985 -8.67845,46.97722 C 60.932073,102.21253 44.511934,94.249982 46.10809,81.195958 48.853824,58.740252 69.832676,81.740952 64.11163,45.516778 61.157058,26.809196 51.857271,-3.3947402 99.198326,0.31168711 Z"
+     style="display:inline;mix-blend-mode:normal;fill:url(#linearGradient312);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.999153;stroke-dasharray:none;stroke-opacity:1"
+     d="M 99.23101,0.31198018 C 101.1068,4.511718 99.866538,18.328507 91.969054,18.791422 77.062603,19.665171 79.702827,31.598272 81.68022,46.123473 83.846774,62.038199 87.603888,82.037061 72.998091,93.144866 60.948535,102.30864 44.521435,94.338606 46.118268,81.272307 48.865166,58.795486 69.852911,81.817814 64.12944,45.559578 61.173615,26.834405 51.869886,-3.3979323 99.23101,0.31198018 Z"
      id="note1"
      sodipodi:nodetypes="csssssc"
      inkscape:label="note1" />
   <path
-     style="display:inline;mix-blend-mode:normal;fill:url(#linearGradient212);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.998472;stroke-dasharray:none;stroke-opacity:1"
-     d="m 53.198326,3.3116871 c 1.874994,4.195793 0.846914,18.4078739 -7.258878,18.4620819 -14.92535,0.09982 -12.26103,12.794819 -10.284475,27.306374 2.165636,15.899776 5.921158,35.87985 -8.67845,46.97722 C 14.932073,105.21253 -1.4880658,97.249982 0.10809024,84.195958 2.8538242,61.740252 23.832676,84.740952 18.11163,48.516778 15.157058,29.809196 5.8572712,-0.39473993 53.198326,3.3116871 Z"
-     id="note2"
+     style="display:inline;mix-blend-mode:normal;fill:url(#linearGradient1557);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.999153;stroke-dasharray:none;stroke-opacity:1"
+     d="m 53.220878,3.2207719 c 1.875791,4.1997373 0.635528,18.0165271 -7.261956,18.4794421 -14.906451,0.873749 -12.266227,12.80685 -10.288834,27.33205 2.166554,15.914727 5.923668,35.913588 -8.682129,47.02139 C 14.938403,105.21743 -1.4886966,97.247396 0.10813606,84.181099 2.855034,61.704278 23.842779,84.726605 18.119308,48.468369 15.163483,29.743196 5.8597542,-0.48914056 53.220878,3.2207719 Z"
+     id="note1-7"
      sodipodi:nodetypes="csssssc"
-     inkscape:label="note2" />
+     inkscape:label="note1" />
   <defs
      id="defs48">
     <linearGradient
        inkscape:collect="always"
-       id="linearGradient931">
+       id="linearGradient2067">
       <stop
          style="stop-color:#b266ff;stop-opacity:1;"
-         offset="0"
-         id="stop927" />
+         offset="0.1"
+         id="stop2063" />
       <stop
          style="stop-color:#ff668c;stop-opacity:1;"
-         offset="1"
-         id="stop929" />
+         offset="0.89999998"
+         id="stop2065" />
     </linearGradient>
     <linearGradient
        inkscape:collect="always"
        id="linearGradient1019">
       <stop
          style="stop-color:#b266ff;stop-opacity:1;"
-         offset="0"
+         offset="0.1"
          id="stop1015" />
       <stop
          style="stop-color:#66ccff;stop-opacity:1;"
-         offset="1"
+         offset="0.89999998"
          id="stop1017" />
     </linearGradient>
     <linearGradient
@@ -58,21 +58,21 @@
        xlink:href="#linearGradient1019"
        id="linearGradient312"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(1.4619459,0.04694756,0,1.2522314,28.987902,-17.078145)"
-       x1="19.13269"
-       y1="22.627127"
-       x2="44.431564"
-       y2="80.629128" />
+       gradientTransform="matrix(1.4625656,0.0469917,0,1.2534089,28.990822,-17.094204)"
+       x1="14.020227"
+       y1="16.426371"
+       x2="45.204376"
+       y2="84.704018" />
     <linearGradient
        inkscape:collect="always"
-       xlink:href="#linearGradient931"
-       id="linearGradient212"
+       xlink:href="#linearGradient2067"
+       id="linearGradient1557"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(1.4619459,0.04694756,0,1.2522314,-17.012098,-14.078145)"
-       x1="19.13269"
-       y1="22.627127"
-       x2="44.431564"
-       y2="80.629128" />
+       gradientTransform="matrix(1.4625656,0.0469917,0,1.2534089,-17.019309,-14.185412)"
+       x1="14.020227"
+       y1="16.426371"
+       x2="45.204376"
+       y2="84.704018" />
   </defs>
   <sodipodi:namedview
      id="namedview46"
