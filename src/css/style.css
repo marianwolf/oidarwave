@@ -71,7 +71,6 @@ body {
 }
 
 :is(header, .main-section, .cookie-banner, footer, .station-selector, .player-controls) {
-    font-family: var(--font-family-primary);
     padding: var(--space-500);
     border-radius: var(--radius-lg);
     color: white;
@@ -102,7 +101,6 @@ body {
     align-items: center;
     justify-content: center;
     gap: var(--space-200);
-    font-family: 'Noto Color Emoji', sans-serif;
 }
 
 .container {
