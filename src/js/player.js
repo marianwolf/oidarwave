@@ -2,9 +2,7 @@ function initializePlayer() {
     let hasError = false;
     let isStalled = false;
     let isAudioPlayer = false;
-    let socket = null;
-    let currentPlayer = null;
-    let lastStationKey = '';
+    let metadataInterval = null;
 
     const stationButtons = document.querySelectorAll('.station-btn');
     const audioPlayer = document.getElementById('audioPlayer');
@@ -13,14 +11,8 @@ function initializePlayer() {
     const statusIndicator = document.getElementById('statusIndicator');
     const currentSongTitleDisplay = document.getElementById('currentSongTitle');
 
-    
-    socket = io();
-
-    socket.on('currentSong', (songTitle) => {
-        if (currentSongTitleDisplay) {
-            currentSongTitleDisplay.innerText = songTitle;
-        }
-    });
+    let currentPlayer = null;
+    let lastStationKey = '';
 
     if (audioPlayer) {
         currentPlayer = audioPlayer;
@@ -118,12 +110,16 @@ function initializePlayer() {
 
         localStorage.setItem(lastStationKey, url);
 
-        if (socket) {
-            socket.emit('stopMetadata');
+        if (metadataInterval) {
+            clearInterval(metadataInterval);
+            metadataInterval = null;
         }
 
-        if (metadataUrl && socket) {
-            socket.emit('startMetadata', metadataUrl); 
+        if (metadataUrl) {
+            fetchMetadata(metadataUrl);
+            metadataInterval = setInterval(() => {
+                fetchMetadata(metadataUrl);
+            }, 1000);
         } else {
             currentSongTitleDisplay.textContent = "Metadaten nicht verfügbar";
         }
