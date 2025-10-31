@@ -16,14 +16,14 @@
   <title
      id="title1442">Favicon</title>
   <path
-     style="display:inline;mix-blend-mode:normal;fill:url(#linearGradient312);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.999153;stroke-dasharray:none;stroke-opacity:1"
-     d="M 99.23101,0.31198018 C 101.1068,4.511718 99.866538,18.328507 91.969054,18.791422 77.062603,19.665171 79.702827,31.598272 81.68022,46.123473 83.846774,62.038199 87.603888,82.037061 72.998091,93.144866 60.948535,102.30864 44.521435,94.338606 46.118268,81.272307 48.865166,58.795486 69.852911,81.817814 64.12944,45.559578 61.173615,26.834405 51.869886,-3.3979323 99.23101,0.31198018 Z"
+     style="display:inline;mix-blend-mode:normal;fill:url(#linearGradient312);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.999044;stroke-dasharray:none;stroke-opacity:1"
+     d="M 99.230522,0.05245058 C 101.1075,4.2486153 99.866453,18.053649 91.963972,18.51617 77.048088,19.389176 79.994758,31.273841 81.668627,45.824968 83.464208,61.434159 87.596043,81.708002 72.981004,92.806356 60.923824,101.96234 45.092117,94.463391 46.084173,80.943898 47.739952,58.379338 69.833835,81.488941 64.106741,45.261553 61.149046,26.552311 52.494391,-1.372479 99.230522,0.05245058 Z"
      id="note1"
      sodipodi:nodetypes="csssssc"
      inkscape:label="note1" />
   <path
-     style="display:inline;mix-blend-mode:normal;fill:url(#linearGradient1557);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.999153;stroke-dasharray:none;stroke-opacity:1"
-     d="m 53.220878,3.2207719 c 1.875791,4.1997373 0.635528,18.0165271 -7.261956,18.4794421 -14.906451,0.873749 -12.266227,12.80685 -10.288834,27.33205 2.166554,15.914727 5.923668,35.913588 -8.682129,47.02139 C 14.938403,105.21743 -1.4886966,97.247396 0.10813606,84.181099 2.855034,61.704278 23.842779,84.726605 18.119308,48.468369 15.163483,29.743196 5.8597542,-0.48914056 53.220878,3.2207719 Z"
+     style="display:inline;mix-blend-mode:normal;fill:url(#linearGradient313);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.999044;stroke-dasharray:none;stroke-opacity:1"
+     d="m 53.190767,3.214608 c 1.876978,4.1961647 0.635931,18.001199 -7.26655,18.46372 C 31.008333,22.551334 33.955003,34.435999 35.628872,48.987125 37.424453,64.596316 41.556288,84.870159 26.941249,95.968514 14.884068,105.1245 -0.94763845,97.625549 0.04441705,84.106056 1.7001961,61.541495 23.794079,84.651099 18.066986,48.42371 15.109291,29.714468 6.4546349,1.7896781 53.190767,3.214608 Z"
      id="note1-7"
      sodipodi:nodetypes="csssssc"
      inkscape:label="note1" />
@@ -31,15 +31,15 @@
      id="defs48">
     <linearGradient
        inkscape:collect="always"
-       id="linearGradient2067">
+       id="linearGradient1032">
       <stop
          style="stop-color:#b266ff;stop-opacity:1;"
          offset="0.1"
-         id="stop2063" />
+         id="stop1028" />
       <stop
          style="stop-color:#ff668c;stop-opacity:1;"
          offset="0.89999998"
-         id="stop2065" />
+         id="stop1030" />
     </linearGradient>
     <linearGradient
        inkscape:collect="always"
@@ -58,17 +58,17 @@
        xlink:href="#linearGradient1019"
        id="linearGradient312"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(1.4625656,0.0469917,0,1.2534089,28.990822,-17.094204)"
+       gradientTransform="matrix(1.4634911,0.04695172,0,1.2523425,28.94589,-17.338925)"
        x1="14.020227"
        y1="16.426371"
        x2="45.204376"
        y2="84.704018" />
     <linearGradient
        inkscape:collect="always"
-       xlink:href="#linearGradient2067"
-       id="linearGradient1557"
+       xlink:href="#linearGradient1032"
+       id="linearGradient313"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(1.4625656,0.0469917,0,1.2534089,-17.019309,-14.185412)"
+       gradientTransform="matrix(1.4634911,0.04695172,0,1.2523425,-17.093866,-14.176767)"
        x1="14.020227"
        y1="16.426371"
        x2="45.204376"
@@ -81,7 +81,7 @@
      borderopacity="1"
      inkscape:showpageshadow="0"
      inkscape:pageopacity="0"
-     inkscape:pagecheckerboard="0"
+     inkscape:pagecheckerboard="false"
      inkscape:deskcolor="#505050"
      showgrid="true"
      inkscape:zoom="8"
