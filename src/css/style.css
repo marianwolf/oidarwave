@@ -4,11 +4,11 @@
     --color-surface-tertiary: hsl(240, 100%, 24%);
     --color-surface-card: hsla(240, 100%, 12%, 0.95);
 
-    --color-on-surface-primary: hsl(0, 0%, 96%);
+    --color-on-surface-primary: hsl(0, 0%, 90%);
     --color-on-surface-secondary: hsl(0, 0%, 75%);
 
     --color-accent-purple: hsl(270, 100%, 70%);
-    --color-accent-pink: hsl(345, 100%, 70%);
+    --color-accent-pink: hsl(340, 100%, 70%);
     --color-accent-blue: hsl(200, 100%, 70%);
 
     --color-status-online: hsl(120, 100%, 50%);
