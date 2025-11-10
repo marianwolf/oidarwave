@@ -110,7 +110,7 @@ function initializePlayer() {
 
         localStorage.setItem(lastStationKey, url);
 
-        if (typeof StationHistory !== 'undefined' && url && name) {
+        if (typeof url && name) {
             StationHistory.addStationToHistory(url, name);
         }
 
