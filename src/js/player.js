@@ -57,25 +57,25 @@ function initializePlayer() {
 
     currentPlayer.addEventListener('pause', () => {
         updateOverallStatus();
-        StationHistory.stopStation(selectStation(url));
+        StationHistory.stopStation(currentPlayer.src);
     });
 
     currentPlayer.addEventListener('waiting', () => {
         isStalled = true;
         updateOverallStatus();
-        StationHistory.stopStation(selectStation(url));
+        StationHistory.stopStation(currentPlayer.src);
     });
 
     currentPlayer.addEventListener('error', (e) => {
         console.error('Media Error:', e);
         hasError = true;
         updateOverallStatus();
-        StationHistory.stopStation(selectStation(url));
+        StationHistory.stopStation(currentPlayer.src);
     });
 
     window.addEventListener('offline', () => {
         updateOverallStatus();
-        StationHistory.stopStation(selectStation(url));
+        StationHistory.stopStation(currentPlayer.src);
     });
 
     document.addEventListener('keydown', handleKeyDown);

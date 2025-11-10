@@ -13,9 +13,17 @@ const StationHistory = (() => {
         return history;
     }
 
-    function startStation() {
-        const starttime = Date.now();
-        return starttime;
+    function startStation(url, name) {
+        let history = getHistory();
+        const now = Date.now();
+        const expiry = now + EXPIRY_TIME_MS;
+        const newItem = { 
+            url, 
+            name, 
+            startTimestamp: now,
+            durationMs: 0, 
+            expiry 
+        };
     }
 
     function stopStation(url) {
@@ -28,9 +36,7 @@ const StationHistory = (() => {
 
         if (itemIndex > -1) {
             const item = history[itemIndex];
-
-            item.expiry = now + EXPIRY_TIME_MS;
-            item.startTimestamp = startStation();
+            
             item.durationMs = now - item.startTimestamp;
             item.endTimestamp = now;
             history[itemIndex] = item;
