@@ -24,6 +24,9 @@ const StationHistory = (() => {
             durationMs: 0, 
             expiry 
         };
+        
+        history.unshift(newItem); 
+        localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
     }
 
     function stopStation(url) {
