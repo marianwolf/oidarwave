@@ -52,10 +52,12 @@ function initializePlayer() {
         isStalled = false;
         hasError = false;
         updateOverallStatus();
+        StationHistory.startStation(currentPlayer.src);
     });
 
     currentPlayer.addEventListener('pause', () => {
         updateOverallStatus();
+        StationHistory.stopStation(currentPlayer.src);
     });
 
     currentPlayer.addEventListener('waiting', () => {
@@ -67,10 +69,12 @@ function initializePlayer() {
         console.error('Media Error:', e);
         hasError = true;
         updateOverallStatus();
+        StationHistory.stopStation(currentPlayer.src);
     });
 
     window.addEventListener('offline', () => {
         updateOverallStatus();
+        StationHistory.stopStation(currentPlayer.src);
     });
 
     document.addEventListener('keydown', handleKeyDown);
