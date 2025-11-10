@@ -13,14 +13,38 @@ const StationHistory = (() => {
         return history;
     }
 
-    function addStationToHistory(url, name) {
+    function startStation(url, name) {
         let history = getHistory();
         const now = Date.now();
         const expiry = now + EXPIRY_TIME_MS;
-        history = history.filter(item => item.url !== url);
-        const newItem = { url, name, timestamp: now, expiry };
-        history.unshift(newItem);
+        const newItem = { 
+            url, 
+            name, 
+            startTimestamp: now,
+            durationMs: 0, 
+            expiry 
+        };
+        
+        history.unshift(newItem); 
         localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+    }
+
+    function stopStation(url) {
+        let history = getHistory();
+        const now = Date.now();
+
+        const itemIndex = history.findIndex(item => 
+            item.url === url && item.durationMs === 0
+        );
+
+        if (itemIndex > -1) {
+            const item = history[itemIndex];
+            
+            item.durationMs = now - item.startTimestamp;
+            item.endTimestamp = now;
+            history[itemIndex] = item;
+            localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+        }
     }
 
     function getLastStations() {
@@ -28,7 +52,8 @@ const StationHistory = (() => {
     }
 
     return {
-        addStationToHistory,
+        startStation,
+        stopStation,
         getLastStations
     };
 })();
