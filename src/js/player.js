@@ -111,7 +111,7 @@ function initializePlayer() {
         localStorage.setItem(lastStationKey, url);
 
         if (typeof url && name) {
-            StationHistory.addStationToHistory(url, name);
+            StationHistory.startStation(url, name);
         }
 
         if (metadataInterval) {
