@@ -110,6 +110,10 @@ function initializePlayer() {
 
         localStorage.setItem(lastStationKey, url);
 
+        if (typeof StationHistory !== 'undefined' && url && name) {
+            StationHistory.addStationToHistory(url, name);
+        }
+
         if (metadataInterval) {
             clearInterval(metadataInterval);
             metadataInterval = null;
