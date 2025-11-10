@@ -52,7 +52,7 @@ function initializePlayer() {
         isStalled = false;
         hasError = false;
         updateOverallStatus();
-        StationHistory.startStation(currentPlayer.src);
+        StationHistory.startStation();
     });
 
     currentPlayer.addEventListener('pause', () => {
@@ -63,6 +63,7 @@ function initializePlayer() {
     currentPlayer.addEventListener('waiting', () => {
         isStalled = true;
         updateOverallStatus();
+        StationHistory.stopStation(currentPlayer.src);
     });
 
     currentPlayer.addEventListener('error', (e) => {
