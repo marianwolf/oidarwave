@@ -31,6 +31,8 @@ function initializePlayer() {
     stationButtons.forEach(button => {
         button.addEventListener('click', () => {
             selectStation(button);
+            StationHistory.stopStation(currentPlayer.src);
+            StationHistory.startStation(currentPlayer.src);
         });
     });
 
