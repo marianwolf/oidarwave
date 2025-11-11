@@ -40,8 +40,8 @@ function initializePlayer() {
     });
 
     currentPlayer.addEventListener('canplay', () => {
-        if (isAudioPlayer) {
-            playMedia();
+        if (isAudioPlayer && currentPlayer.paused) {
+             playMedia();
         }
         isStalled = false;
         hasError = false;
