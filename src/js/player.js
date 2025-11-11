@@ -31,8 +31,6 @@ function initializePlayer() {
     stationButtons.forEach(button => {
         button.addEventListener('click', () => {
             selectStation(button);
-            StationHistory.stopStation(currentPlayer.src);
-            StationHistory.startStation(currentPlayer.src);
         });
     });
 
@@ -115,10 +113,6 @@ function initializePlayer() {
         currentStationDisplay.textContent = name;
 
         localStorage.setItem(lastStationKey, url);
-
-        if (typeof url && name) {
-            StationHistory.startStation(url, name);
-        }
 
         if (metadataInterval) {
             clearInterval(metadataInterval);
