@@ -1,59 +1,132 @@
 const StationHistory = (() => {
-    const EXPIRY_TIME_MS = 90 * 24 * 60 * 60 * 1000;
-    const HISTORY_KEY = 'history';
+    const HISTORY_KEY = 'station_history';
+    const EXPIRY_DAYS = 90;
+    const EXPIRY_TIME_MS = EXPIRY_DAYS * 24 * 60 * 60 * 1000;
 
     function getHistory() {
         const historyStr = localStorage.getItem(HISTORY_KEY);
-        let history = historyStr ? JSON.parse(historyStr) : [];
-        const now = Date.now();
-
-        history = history.filter(item => now < item.expiry);
-        localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
-
-        return history;
+        if (!historyStr) {
+            return { version: 2, stations: {} };
+        }
+        
+        try {
+            return JSON.parse(historyStr);
+        } catch (e) {
+            console.error("Fehler beim Parsen des Verlaufs, setze zurück:", e);
+            return { version: 2, stations: {} };
+        }
     }
 
-    function startStation(url, name) {
-        let history = getHistory();
-        const now = Date.now();
-        const expiry = now + EXPIRY_TIME_MS;
-        const newItem = { 
-            url, 
-            name, 
-            startTimestamp: now,
-            durationMs: 0, 
-            expiry 
-        };
-        
-        history.unshift(newItem); 
+    function saveHistory(history) {
         localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+    }
+
+    function startStation(url, name, options = {}) {
+        const history = getHistory();
+        const now = Date.now();
+        
+        if (!history.stations[url]) {
+            history.stations[url] = {
+                url: url,
+                name: name,
+                favicon: options.favicon || null,
+                sessions: [],
+                totalDurationMs: 0,
+                playCount: 0,
+                lastPlayed: 0
+            };
+        }
+        
+        const station = history.stations[url];
+
+        station.name = name;
+        if (options.favicon) {
+            station.favicon = options.favicon;
+        }
+        station.lastPlayed = now;
+
+        const openSession = station.sessions.find(s => s.end === null);
+        if (openSession) {
+             openSession.end = now;
+        }
+
+        station.sessions.unshift({
+            start: now,
+            end: null
+        });
+
+        saveHistory(history);
     }
 
     function stopStation(url) {
-        let history = getHistory();
+        const history = getHistory();
         const now = Date.now();
 
-        const itemIndex = history.findIndex(item => 
-            item.url === url && item.durationMs === 0
-        );
+        const station = history.stations[url];
+        if (!station) return;
 
-        if (itemIndex > -1) {
-            const item = history[itemIndex];
+        const openSessionIndex = station.sessions.findIndex(s => s.end === null);
+        if (openSessionIndex === -1) return;
+
+        const session = station.sessions[openSessionIndex];
+        session.end = now;
+        const duration = session.end - session.start;
+        
+        if (duration > 1000) {
+            station.totalDurationMs += duration;
+            station.playCount++;
+        } else {
+            station.sessions.splice(openSessionIndex, 1);
+        }
+        
+        station.lastPlayed = now;
+
+        saveHistory(history);
+    }
+
+    function pruneHistory() {
+        const history = getHistory();
+        const now = Date.now();
+        const expiryLimit = now - EXPIRY_TIME_MS;
+        
+        let hasChanged = false;
+
+        for (const url in history.stations) {
+            const station = history.stations[url];
             
-            item.durationMs = now - item.startTimestamp;
-            item.endTimestamp = now;
-            history[itemIndex] = item;
-            localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+            const validSessions = station.sessions.filter(s => 
+                s.end === null || s.end > expiryLimit
+            );
+            
+            if (validSessions.length < station.sessions.length) {
+                station.sessions = validSessions;
+                hasChanged = true;
+            }
+
+            if (station.lastPlayed < expiryLimit && station.sessions.length === 0) {
+                delete history.stations[url];
+                hasChanged = true;
+            }
+        }
+
+        if (hasChanged) {
+            saveHistory(history);
         }
     }
 
     function getLastStations() {
-        return getHistory();
+        const history = getHistory();
+        return Object.values(history.stations).sort((a, b) => {
+            return b.lastPlayed - a.lastPlayed;
+        });
     }
+
+    pruneHistory(); 
 
     return {
         startStation,
         stopStation,
-        getLastStations
+        getLastStations,
+        pruneHistory
     };
 })();
