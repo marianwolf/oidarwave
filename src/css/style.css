@@ -45,11 +45,10 @@
 * {
     margin: 0;
     padding: 0;
-    cursor: default;
 }
 
 html {
-    font-size: 16px;
+    font-size: var(--font-size-base);
     scroll-behavior: smooth;
 }
 
@@ -61,8 +60,7 @@ body {
     background-attachment: fixed;
     color: var(--color-on-surface-primary);
     min-height: 100vh;
-    overflow-x: hidden;
-    overflow-y: scroll;
+    overflow: hidden auto; 
     position: relative;
     transition: background-color var(--transition-speed-fast) ease;
     overscroll-behavior-y: contain;
@@ -70,31 +68,31 @@ body {
     will-change: transform, background-position;
 }
 
-:is(header, .main-section, .cookie-banner, footer, .station-selector, .player-controls) {
+header, .main-section, .cookie-banner, footer, .station-selector, .player-controls {
     padding: var(--space-500);
     border-radius: var(--radius-lg);
     color: white;
     text-align: center;
 }
 
-:is(header, .main-section, .cookie-banner, footer,) {
+header, .main-section, .cookie-banner, footer {
     backdrop-filter: blur(20px);
     background: var(--color-surface-card);
-    will-change: transform, backdrop-filter; 
+    will-change: transform, backdrop-filter, opacity; 
 }
 
-:is(header, .main-section, .player-section) {
-    margin-block-end: var(--space-300);
+header, .main-section, .player-section {
+    margin-bottom: var(--space-300);
 }
 
-:is(.station-btn, .cookie-btn):focus-visible {
+.station-btn:focus-visible, .cookie-btn:focus-visible {
     outline: 3px solid var(--color-accent-blue);
     outline-offset: 4px;
 }
 
-:is(.current-station, .station-selector h2) {
+.current-station, .station-selector h2 {
     font-size: var(--font-size-lg);
-    margin-block-end: var(--space-300);
+    margin-bottom: var(--space-300);
     font-weight: var(--font-weight-semibold);
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     display: flex;
@@ -112,11 +110,10 @@ body {
 }
 
 .logo {
-    font-family: 'Noto Color Emoji', sans-serif;
+    font-family: 'Noto Color Emoji', var(--font-family-primary);
     font-size: var(--font-size-xxxl);
     font-weight: var(--font-weight-bold);
-    color: var(--color-accent-purple);
-    background: linear-gradient(135deg, var(--color-accent-purple));
+    background: linear-gradient(135deg, var(--color-accent-purple), var(--color-accent-purple)); 
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -141,15 +138,15 @@ nav a {
     transition: all var(--transition-speed-fast) var(--transition-timing-cubic);
     position: relative;
     overflow: hidden;
-    background: rgba(255, 255, 255, 0.05);
+    background: hsla(0, 0%, 100%, 0.05);
 }
 
 nav a:hover {
-    background: rgba(255, 255, 255, 0.15);
+    background: hsla(0, 0%, 100%, 0.15);
 }
 
 .main-section {
-    margin-block-end: var(--space-300);
+    margin-bottom: var(--space-300);
 }
 
 .player-section {
@@ -170,9 +167,9 @@ nav a:hover {
 }
 
 .station-btn {
-    background: rgba(255, 255, 255, 0.15);
+    background: hsla(0, 0%, 100%, 0.15);
     padding: var(--space-200);
-    border: 1px solid rgba(255, 255, 255, 0.2); 
+    border: 1px solid hsla(0, 0%, 100%, 0.2); 
     border-radius: var(--radius-md);
     color: white;
     font-size: var(--font-size-base);
@@ -182,24 +179,25 @@ nav a:hover {
     text-align: center;
     position: relative;
     overflow: hidden;
-    will-change: border, margin;
+    will-change: border, background, transform;
     margin: 1px;
+    cursor: pointer;
 }
 
 .station-btn:hover {
-    background: rgba(255, 255, 255, 0.25);
-    border: 2px solid rgba(255, 255, 255, 0.5);
+    background: hsla(0, 0%, 100%, 0.25);
+    border: 2px solid hsla(0, 0%, 100%, 0.5);
     margin: 0;
 }
 
 .station-btn.active {
-    background: rgba(255, 255, 255, 0.3);
-    border: 2px solid rgba(255, 255, 255, 0.9);    
+    background: hsla(0, 0%, 100%, 0.3);
+    border: 2px solid hsla(0, 0%, 100%, 0.9);    
     margin: 0;
 }
 
 .station-btn.active:hover {
-    background: rgba(255, 255, 255, 0.45);
+    background: hsla(0, 0%, 100%, 0.45);
 }
 
 .player-controls {
@@ -226,7 +224,8 @@ nav a:hover {
     background: var(--color-status-online);
     opacity: 1;
     animation: pulse-status 2s infinite;
-    will-change: background-color, transform, opacity;
+    will-change: background-color, transform;
+    transition: background-color var(--transition-speed-fast) var(--transition-timing-cubic), transform var(--transition-speed-fast) var(--transition-timing-cubic);
 }
 
 .status-indicator.online { background: var(--color-status-online); animation: pulse-status 2s infinite; }
@@ -246,7 +245,7 @@ nav a:hover {
     font-family: var(--font-family-primary);
     background: var(--color-surface-card);
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(120, 119, 198, 0.2);
+    border: 1px solid hsla(240, 100%, 47%, 0.2); 
     transition: all var(--transition-speed-fast) var(--transition-timing-cubic);
 }
 
@@ -269,7 +268,7 @@ nav a:hover {
     gap: var(--space-200);
     justify-content: center;
     flex-wrap: wrap;
-    margin-block-start: var(--space-200);
+    margin-top: var(--space-200);
 }
 
 .cookie-btn {
@@ -280,6 +279,7 @@ nav a:hover {
     border: 2px solid transparent;
     text-decoration: none;
     text-transform: uppercase;
+    cursor: pointer;
 }
 
 .cookie-btn.accept-btn {
@@ -294,6 +294,7 @@ nav a:hover {
     padding: var(--space-200);
     display: flex;
     border-radius: var(--radius-md);
+    background: #191436; 
     background: color-mix(in srgb, var(--color-surface-primary) 70%, var(--color-surface-secondary)); 
     border: 1px solid rgba(120, 119, 198, 0.2);
     color: var(--color-on-surface-secondary);
@@ -323,7 +324,7 @@ nav a:hover {
         gap: var(--space-400);
     }
     nav a {
-        padding: var(--space-200) var(--space-200);
+        padding: var(--space-200);
         font-size: var(--font-size-base);
     }
     .logo {
