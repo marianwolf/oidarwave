@@ -41,10 +41,10 @@ const StationHistory = (() => {
         if (duration > 1000) {
             station.totalDurationMs += duration;
             station.playCount++;
+            station.lastPlayed = timestamp;
         } else {
             station.sessions.splice(openSessionIndex, 1);
         }
-        station.lastPlayed = timestamp;
     }
 
     function startStation(url, name, options = {}) {
@@ -60,11 +60,9 @@ const StationHistory = (() => {
             history.stations[url] = {
                 url: url,
                 name: name,
-                favicon: options.favicon || null,
                 sessions: [],
                 totalDurationMs: 0,
                 playCount: 0,
-                lastPlayed: 0
             };
         }
         
@@ -74,7 +72,6 @@ const StationHistory = (() => {
         if (options.favicon) {
             station.favicon = options.favicon;
         }
-        station.lastPlayed = now;
 
         const openSession = station.sessions.find(s => s.end === null);
         if (openSession) {
