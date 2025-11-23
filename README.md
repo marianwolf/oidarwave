@@ -90,7 +90,8 @@ Beiträge sind jederzeit willkommen\! Ob es sich um Fehlerberichte, Funktionsvor
   - [x] Verkürze die Latenz zum Datensparmodus (0.9.5)
   - [x] neues Design (0.9.6)
   - [x] verbessertes Design und Video Vor- und Rückspulen (0.9.7)
+  - [x] Verlauf im `localStorage` als `.json` (0.9.8)
   - [ ] Integration weiterer Sender
   - [ ] Umschaltung zwischen Dunkel- und Hellmodus
-  - [ ] Favoriten und Verlauf
+  - [ ] Favoriten
   - [ ] Nutzerprofile
