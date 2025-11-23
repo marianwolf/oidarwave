@@ -2,8 +2,9 @@ const StationHistory = (() => {
     const HISTORY_KEY = 'station_history';
     const EXPIRY_DAYS = 90;
     const EXPIRY_TIME_MS = EXPIRY_DAYS * 24 * 60 * 60 * 1000;
+    let historyCache = null;
 
-    function getHistory() {
+    function loadHistory() {
         const historyStr = localStorage.getItem(HISTORY_KEY);
         if (!historyStr) {
             return { version: 2, stations: {} };
@@ -17,13 +18,43 @@ const StationHistory = (() => {
         }
     }
 
-    function saveHistory(history) {
-        localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+    function saveHistory() {
+        if (historyCache) {
+            localStorage.setItem(HISTORY_KEY, JSON.stringify(historyCache));
+        }
+    }
+
+    function getHistory() {
+        return historyCache;
+    }
+
+    function stopAndFinalizeSession(station, timestamp) {
+        if (!station) return;
+        
+        const openSessionIndex = station.sessions.findIndex(s => s.end === null);
+        if (openSessionIndex === -1) return;
+
+        const session = station.sessions[openSessionIndex];
+        session.end = timestamp;
+        const duration = session.end - session.start;
+        
+        if (duration > 1000) {
+            station.totalDurationMs += duration;
+            station.playCount++;
+        } else {
+            station.sessions.splice(openSessionIndex, 1);
+        }
+        station.lastPlayed = timestamp;
     }
 
     function startStation(url, name, options = {}) {
         const history = getHistory();
         const now = Date.now();
+        for (const stationUrl in history.stations) {
+            if (stationUrl !== url) {
+                stopAndFinalizeSession(history.stations[stationUrl], now);
+            }
+        }
         
         if (!history.stations[url]) {
             history.stations[url] = {
@@ -47,6 +78,7 @@ const StationHistory = (() => {
 
         const openSession = station.sessions.find(s => s.end === null);
         if (openSession) {
+             console.warn("startStation: Station hatte bereits eine offene Session. Schließe sie.", url);
              openSession.end = now;
         }
 
@@ -55,7 +87,7 @@ const StationHistory = (() => {
             end: null
         });
 
-        saveHistory(history);
+        saveHistory();
     }
 
     function stopStation(url) {
@@ -65,23 +97,8 @@ const StationHistory = (() => {
         const station = history.stations[url];
         if (!station) return;
 
-        const openSessionIndex = station.sessions.findIndex(s => s.end === null);
-        if (openSessionIndex === -1) return;
-
-        const session = station.sessions[openSessionIndex];
-        session.end = now;
-        const duration = session.end - session.start;
-        
-        if (duration > 1000) {
-            station.totalDurationMs += duration;
-            station.playCount++;
-        } else {
-            station.sessions.splice(openSessionIndex, 1);
-        }
-        
-        station.lastPlayed = now;
-
-        saveHistory(history);
+        stopAndFinalizeSession(station, now);
+        saveHistory();
     }
 
     function pruneHistory() {
@@ -110,19 +127,34 @@ const StationHistory = (() => {
         }
 
         if (hasChanged) {
-            saveHistory(history);
+            saveHistory();
         }
     }
 
     function getLastStations() {
         const history = getHistory();
-        return Object.values(history.stations).sort((a, b) => {
+        
+        const sortedStations = Object.values(history.stations).sort((a, b) => {
             return b.lastPlayed - a.lastPlayed;
+        });
+
+        return sortedStations.map(station => {
+            return {
+                displayName: station.name, 
+                details: {
+                    url: station.url,
+                    favicon: station.favicon,
+                    playCount: station.playCount,
+                    totalDurationMs: station.totalDurationMs,
+                    lastPlayed: station.lastPlayed
+                }
+            };
         });
     }
 
+    historyCache = loadHistory();
+    
     pruneHistory(); 
-
     return {
         startStation,
         stopStation,
