@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feuerwerk-Generator</title>
+    <title>Realistischer Feuerwerk-Generator V24.1 (Intensive Show)</title>
+    <!-- Tone.js für die Audio-Effekte -->
     <script src="https://cdn.jsdelivr.net/npm/tone@14.9.15/build/Tone.min.js"></script>
     <style>
         body {
             margin: 0;
             overflow: hidden; 
-            /* Setzt den tiefen, konstanten Hintergrund */
             background: radial-gradient(ellipse at bottom, #0a111a 0%, #000 100%);
             font-family: 'Inter', sans-serif;
             color: #fff;
@@ -30,13 +30,12 @@
             background: transparent;
             z-index: -1; 
             box-shadow: 
-                100px 100px #fff, 200px 300px #fff, 400px 50px #fff, 600px 250px #fff, 800px 450px #fff, 1000px 50px #fff,
-                10px 550px #fff, 250px 700px #fff, 450px 900px #fff, 650px 100px #fff, 850px 300px #fff, 1100px 700px #fff,
-                50px 150px #fff, 350px 500px #fff, 750px 800px #fff, 950px 950px #fff, 150px 850px #fff, 550px 50px #fff,
-                10px 10px 1px 1px #aed9e0, 50px 700px 1px 1px #aed9e0, 200px 20px 1px 1px #aed9e0, 500px 850px 1px 1px #aed9e0, 
-                750px 150px 1px 1px #aed9e0, 950px 600px 1px 1px #aed9e0, 1150px 200px 1px 1px #aed9e0, 
-                300px 900px 1px 1px #aed9e0, 1000px 800px 1px 1px #aed9e0, 50px 50px 1px 1px #aed9e0,
-                1200px 100px #fff, 1250px 500px #fff, 1300px 800px #fff, 1350px 300px #fff, 1400px 650px #fff; 
+                10vw 10vh #fff, 20vw 30vh #fff, 40vw 5vh #fff, 60vw 25vh #fff, 80vw 45vh #fff, 100vw 5vh #fff,
+                1vw 55vh #fff, 25vw 70vh #fff, 45vw 90vh #fff, 65vw 10vh #fff, 85vw 30vh #fff, 95vw 70vh #fff,
+                5vw 15vh #fff, 35vw 50vh #fff, 75vw 80vh #fff, 95vw 95vh #fff, 15vw 85vh #fff, 55vw 5vh #fff,
+                1vw 1vh 1px 1px #aed9e0, 5vw 70vh 1px 1px #aed9e0, 20vw 2vh 1px 1px #aed9e0, 50vw 85vh 1px 1px #aed9e0, 
+                75vw 15vh 1px 1px #aed9e0, 95vw 60vh 1px 1px #aed9e0, 80vw 10vh 1px 1px #aed9e0, 
+                30vw 90vh 1px 1px #aed9e0, 10vw 80vh 1px 1px #aed9e0, 5vw 5vh 1px 1px #aed9e0;
         }
         
         canvas {
@@ -58,10 +57,17 @@
             color: #aed9e0;
         }
 
-        #show-button {
+        #controls {
             position: fixed;
             bottom: 20px;
-            right: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 20;
+        }
+
+        .action-button {
             padding: 12px 25px;
             background: linear-gradient(135deg, #4CAF50, #2E8B57);
             color: white;
@@ -72,35 +78,37 @@
             font-weight: bold;
             box-shadow: 0 4px 15px rgba(46, 139, 87, 0.6);
             transition: all 0.2s ease-in-out;
-            z-index: 20;
+        }
+        
+        .action-button:nth-child(2) { /* Manual Launch Button */
+            background: linear-gradient(135deg, #1E90FF, #4682B4);
+            box-shadow: 0 4px 15px rgba(30, 144, 255, 0.6);
         }
 
-        #show-button:hover:not(:disabled) {
+        .action-button:hover:not(:disabled) {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(46, 139, 87, 0.8);
         }
 
-        #show-button:active:not(:disabled) {
+        .action-button:active:not(:disabled) {
             transform: translateY(0);
             box-shadow: 0 2px 10px rgba(46, 139, 87, 0.6);
         }
 
-        #show-button:disabled {
+        .action-button:disabled {
             background: #444;
             cursor: not-allowed;
             opacity: 0.7;
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
+            #controls {
+                flex-direction: column;
+                gap: 10px;
+            }
             #info-overlay {
                 top: 10px;
                 font-size: 0.9rem;
-            }
-            #show-button {
-                bottom: 10px;
-                right: 10px;
-                padding: 10px 20px;
-                font-size: 1rem;
             }
         }
     </style>
@@ -110,23 +118,28 @@
     <canvas id="fireworksCanvas"></canvas>
 
     <div id="info-overlay">
-        Klicken oder tippen Sie auf den Himmel, um realistische, leuchtende Feuerwerke zu starten. (Audio wird beim ersten Klick aktiviert.)
+        Klicken Sie auf den Himmel, um **manuelle** Feuerwerke zu starten. (Audio wird beim ersten Klick aktiviert.)
+        <br>Die Explosion erfolgt in der Nähe des Klicks (Startwinkel von 10° wird beibehalten).
     </div>
 
-    <button id="show-button">Show starten (Alle 14 Typen)</button>
+    <div id="controls">
+        <button id="show-button" class="action-button">Show starten (45 Sekunden)</button>
+        <button id="manual-type-button" class="action-button">Typ: PEONY (Klick zum Wechsel)</button>
+    </div>
 
     <script>
         
         const canvas = document.getElementById('fireworksCanvas');
         const ctx = canvas.getContext('2d');
         const showButton = document.getElementById('show-button');
+        const manualTypeButton = document.getElementById('manual-type-button');
 
         let isShowRunning = false;
         let showStartTime = 0;
         let showSequence = [];
         let nextRandomLaunchTime = 0;
         let audioContextStarted = false;
-        let boomSynth, kickSynth, whistleSynth; 
+        let boomSynth, kickSynth, whistleSynth, crackleSynth; 
         let lastBoomTime = 0; 
         let lastWhistleTime = 0; 
         let fireworks = [];
@@ -135,94 +148,43 @@
         const AIR_RESISTANCE = 0.985; 
         const WIND = 0.005;        
         const MAX_SHELL_DEPTH = 3; 
-        const SHOW_DURATION_MS = 60000;
-        const EXPLOSION_TYPES = ['peony', 'chrysanthemum', 'ring', 'multi_shell', 'strobe', 'strobe_fast', 'crackle', 'willow', 'fish', 'wide_fan', 'looping_path', 'fountain', 'heart_shape', 'spiral'];
+        // Dauer der Show auf 45 Sekunden angepasst, um die Intensität des Videos widerzuspiegeln
+        const SHOW_DURATION_MS = 45000;
+        
+        const EXPLOSION_TYPES = ['peony', 'chrysanthemum', 'ring', 'multi_shell', 'strobe', 'strobe_fast', 'crackle', 'willow', 'fish', 'wide_fan', 'looping_path', 'fountain', 'heart_shape', 'spiral', 'color_shift'];
+
+        let currentManualTypeIndex = 0;
+        let currentManualType = EXPLOSION_TYPES[currentManualTypeIndex];
+
 
         function randomRange(min, max) { return Math.random() * (max - min) + min; }
         function randomChoice(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
-        function getRandomColor(hue) {
-            const h = hue !== undefined ? hue : randomRange(0, 360);
+        
+        /**
+         * Erzeugt eine zufällige HSL-Farbe.
+         * @param {number} hue - Optional: Fester Farbton (0-360).
+         * @param {number} mixHue - Optional: Farbton, mit dem gemischt werden soll, für weichere Farbübergänge.
+         * @returns {{hue: number, saturation: number, lightness: number, hsl: string}} 
+         */
+        function getColorData(hue, mixHue) {
+            let h = hue !== undefined ? hue : randomRange(0, 360);
+            
+            if (mixHue !== undefined) {
+                h = (h * 0.7 + mixHue * 0.3) % 360; 
+            }
+
             const s = randomRange(90, 100);
             const l = randomRange(60, 80);
-            return `hsl(${h}, ${s}%, ${l}%)`;
+            return { hue: h, saturation: s, lightness: l, hsl: `hsl(${h}, ${s}%, ${l}%)` };
         }
-
-        // --- Show-Definition ---
-        const MASTER_SEQUENCE = [
-            // PHASE 1: Eröffnung und Klassiker (0s - 10s)
-            { time: 0, x_perc: 0.5, y_perc: 0.95, type: 'fountain', color_hue: 180 }, 
-            { time: 1000, x_perc: 0.5, y_perc: 0.20, type: 'chrysanthemum', color_hue: 240 }, 
-            
-            { time: 2500, x_perc: 0.2, y_perc: 0.35, type: 'wide_fan', color_hue: 120 },
-            { time: 3000, x_perc: 0.8, y_perc: 0.35, type: 'peony', color_hue: 30 },
-            
-            { time: 4500, x_perc: 0.1, y_perc: 0.15, type: 'ring', color_hue: 270 },
-            { time: 4500, x_perc: 0.9, y_perc: 0.15, type: 'ring', color_hue: 270 },
-
-            // NEU: Einfache Spezialeffekte (Langsamer Strobe, Looping Path, Spiral)
-            { time: 6000, x_perc: 0.5, y_perc: 0.40, type: 'strobe', color_hue: 300 }, // LANGSAMER STROBE
-            { time: 8000, x_perc: 0.3, y_perc: 0.25, type: 'looping_path', color_hue: 150 },
-            { time: 8500, x_perc: 0.7, y_perc: 0.25, type: 'spiral', color_hue: 330 },
-
-
-            // PHASE 2: Intensivere Effekte (Willow, Crackle, Multi-Shell, Fish) (10s - 25s)
-            
-            { time: 10000, x_perc: 0.5, y_perc: 0.30, type: 'willow', color_hue: 90 },
-            
-            { time: 12000, x_perc: 0.25, y_perc: 0.45, type: 'crackle', color_hue: 60 },
-            { time: 12500, x_perc: 0.75, y_perc: 0.45, type: 'crackle', color_hue: 60 },
-            
-            { time: 15000, x_perc: 0.1, y_perc: 0.15, type: 'multi_shell', color_hue: 300 },
-            { time: 15500, x_perc: 0.9, y_perc: 0.15, type: 'multi_shell', color_hue: 300 },
-            
-            { time: 18000, x_perc: 0.5, y_perc: 0.50, type: 'fish', color_hue: 210 }, 
-            
-            { time: 20000, x_perc: 0.2, y_perc: 0.35, type: 'strobe_fast', color_hue: 0 }, // SCHNELLER STROBE
-            { time: 20500, x_perc: 0.8, y_perc: 0.35, type: 'strobe_fast', color_hue: 0 },
-            
-            { time: 23000, x_perc: 0.5, y_perc: 0.35, type: 'heart_shape', color_hue: 0 }, // HERZFORM
-
-
-            // PHASE 3: Kontinuierliche Steigerung (25s - 45s)
-
-            { time: 26000, x_perc: 0.3, y_perc: 0.60, type: 'chrysanthemum', color_hue: 150 },
-            { time: 26500, x_perc: 0.7, y_perc: 0.60, type: 'chrysanthemum', color_hue: 150 },
-            
-            { time: 30000, x_perc: 0.5, y_perc: 0.95, type: 'fountain', color_hue: 20 },
-
-            { time: 32000, x_perc: 0.1, y_perc: 0.3, type: 'peony', color_hue: 30 },
-            { time: 32500, x_perc: 0.3, y_perc: 0.2, type: 'wide_fan', color_hue: 60 },
-            { time: 33000, x_perc: 0.7, y_perc: 0.2, type: 'wide_fan', color_hue: 60 },
-            { time: 33500, x_perc: 0.9, y_perc: 0.3, type: 'peony', color_hue: 30 },
-            
-            { time: 35000, x_perc: 0.4, y_perc: 0.25, type: 'ring', color_hue: 180 },
-            { time: 35500, x_perc: 0.6, y_perc: 0.25, type: 'ring', color_hue: 180 },
-
-            { time: 40000, x_perc: 0.15, y_perc: 0.25, type: 'multi_shell', color_hue: 300 },
-            { time: 40000, x_perc: 0.35, y_perc: 0.35, type: 'multi_shell', color_hue: 180 },
-            { time: 40000, x_perc: 0.65, y_perc: 0.35, type: 'multi_shell', color_hue: 180 },
-            { time: 40000, x_perc: 0.85, y_perc: 0.25, type: 'multi_shell', color_hue: 300 },
-            
-
-            // PHASE 4: GRAND FINALE VORBEREITUNG (45s - 60s)
-
-            { time: 45000, x_perc: 0.1, y_perc: 0.45, type: 'willow', color_hue: 90 },
-            { time: 45500, x_perc: 0.3, y_perc: 0.35, type: 'willow', color_hue: 90 },
-            { time: 46000, x_perc: 0.5, y_perc: 0.25, type: 'willow', color_hue: 90 },
-            { time: 46500, x_perc: 0.7, y_perc: 0.35, type: 'willow', color_hue: 90 },
-            { time: 47000, x_perc: 0.9, y_perc: 0.45, type: 'willow', color_hue: 90 },
-
-            { time: 50000, x_perc: 0.2, y_perc: 0.3, type: 'crackle', color_hue: 0 },
-            { time: 50500, x_perc: 0.8, y_perc: 0.3, type: 'chrysanthemum', color_hue: 30 },
-            { time: 51000, x_perc: 0.4, y_perc: 0.2, type: 'peony', color_hue: 60 },
-            { time: 51500, x_perc: 0.6, y_perc: 0.2, type: 'crackle', color_hue: 90 },
-            { time: 52000, x_perc: 0.5, y_perc: 0.1, type: 'chrysanthemum', color_hue: 120 },
-            
-            // Finale
-            { time: 56000, x_perc: 0.25, y_perc: 0.2, type: 'multi_shell', color_hue: 300 },
-            { time: 56000, x_perc: 0.75, y_perc: 0.2, type: 'multi_shell', color_hue: 330 },
-            { time: 58000, x_perc: 0.5, y_perc: 0.95, type: 'fountain', color_hue: 20 } 
-        ];
+        
+        // Wechselt den manuellen Explosionstyp
+        function changeManualType() {
+            currentManualTypeIndex = (currentManualTypeIndex + 1) % EXPLOSION_TYPES.length;
+            currentManualType = EXPLOSION_TYPES[currentManualTypeIndex];
+            const typeName = currentManualType.replace(/_/g, ' ').toUpperCase();
+            manualTypeButton.textContent = `Typ: ${typeName} (Klick zum Wechsel})`;
+        }
 
 
         // --- Audio Funktionen ---
@@ -237,6 +199,10 @@
                     envelope: { attack: 0.005, decay: 0.8, sustain: 0.0, release: 0.1 },
                     filterEnvelope: { attack: 0.005, decay: 0.5, sustain: 0, release: 0.1, baseFrequency: 500, octaves: 5, exponent: 2}
                 }).toDestination();
+                crackleSynth = new Tone.NoiseSynth({
+                    noise: { type: 'pink' },
+                    envelope: { attack: 0.001, decay: 0.05, sustain: 0.0, release: 0.01 }
+                }).toDestination();
                 audioContextStarted = true;
             }).catch(e => console.error("Tone.js Startfehler:", e));
         }
@@ -244,7 +210,7 @@
         function playBoom() {
             if (audioContextStarted && boomSynth && kickSynth) {
                 let now = Tone.now();
-                const baseTime = Math.max(now + 0.002, lastBoomTime + 0.0001);
+                const baseTime = Math.max(now + 0.002, lastBoomTime + 0.0001); 
                 lastBoomTime = baseTime;
                 boomSynth.triggerAttackRelease(0.2, baseTime, 0.7); 
                 kickSynth.triggerAttackRelease("C1", 0.5, baseTime + 0.000001, 1); 
@@ -257,7 +223,15 @@
                 const startTime = Math.max(now + 0.002, lastWhistleTime + 0.01); 
                 lastWhistleTime = startTime; 
                 whistleSynth.triggerAttackRelease("C6", duration, startTime); 
-                whistleSynth.frequency.linearRampToValueAtTime("C2", startTime + duration);
+                whistleSynth.frequency.linearRampToValueAtTime("C2", startTime + duration); 
+            }
+        }
+        
+        // Fix: Fügt minimalen Zeitversatz hinzu, um den Audiofehler zu vermeiden
+        function playCrackle(duration = 0.05) {
+             if (audioContextStarted && crackleSynth) {
+                const time = Tone.now() + 0.001; 
+                crackleSynth.triggerAttackRelease(duration, time, 0.1); 
             }
         }
 
@@ -265,22 +239,36 @@
         // --- Partikel Klassen ---
 
         class Particle {
-            constructor(x, y, color, speed, angle, isStrobe = false, isCrackle = false, isFish = false, strobeSpeed = 4) { 
+            /**
+             * @param {number} x
+             * @param {number} y
+             * @param {number} initialHue - Start-Farbton
+             * @param {number} speed
+             * @param {number} angle
+             * @param {string} type - Explosionstyp (z.B. 'crackle', 'strobe', 'color_shift')
+             * @param {number} [shiftHue] - Optional: Der Farbton, zu dem gewechselt werden soll.
+             */
+            constructor(x, y, initialHue, speed, angle, type = 'peony', shiftHue) { 
                 this.x = x;
                 this.y = y;
-                this.color = color;
-                this.size = isCrackle ? randomRange(0.5, 1.5) : randomRange(1.5, 3.5); 
+                this.initialHue = initialHue;
+                this.shiftHue = shiftHue;
+                this.color = getColorData(initialHue).hsl; // Aktuelle Farbe als HSL-String
+                this.size = type === 'crackle' ? randomRange(0.5, 1.5) : randomRange(1.5, 3.5); 
                 this.velX = Math.cos(angle) * speed;
                 this.velY = Math.sin(angle) * speed;
                 this.alpha = 1; 
                 this.friction = AIR_RESISTANCE;
-                // V20 ANPASSUNG: Längere Effekte für Standard-Partikel
-                this.decay = isCrackle ? randomRange(0.025, 0.05) : randomRange(0.01, 0.025); 
-                this.isStrobe = isStrobe;
-                this.isCrackle = isCrackle;
-                this.isFish = isFish; 
+                this.decay = type === 'crackle' ? randomRange(0.025, 0.05) : randomRange(0.01, 0.02); 
+                this.isStrobe = type.includes('strobe');
+                this.isCrackle = type === 'crackle';
+                this.isFish = type === 'fish'; 
+                this.isColorShift = type === 'color_shift' && shiftHue !== undefined;
+
                 this.strobeTick = 0; 
-                this.strobeSpeed = strobeSpeed;
+                this.strobeSpeed = type === 'strobe' ? 8 : (type === 'strobe_fast' ? 2 : 4);
+
+                this.shiftThreshold = randomRange(0.4, 0.6); // Bei welcher alpha der Farbwechsel stattfindet
             }
 
             update() {
@@ -303,21 +291,53 @@
 
                 this.x += this.velX;
                 this.y += this.velY;
+                
+                // --- Dynamisches Fading und Farbwechsel-Logik ---
 
                 if (this.isStrobe) {
                     this.strobeTick++;
                     this.alpha = (this.strobeTick % this.strobeSpeed < (this.strobeSpeed / 2)) ? 1 : 0.2;
-                    // V20 ANPASSUNG: Längere Effekte für Strobe (sehr geringer Zerfall)
-                    this.decay = 0.002; 
+                    this.decay = 0.0015; 
                 } else {
                     this.alpha -= this.decay;
                 }
+                
+                // Realistisches Fading: Farbwechsel während des Verglühens
+                const fadeProgress = 1 - this.alpha;
+                
+                let currentHue = this.initialHue;
+                let currentSaturation = randomRange(90, 100);
+                let currentLightness = randomRange(60, 80);
+
+                // Farbwechsel-Granate: Wechselt die Farbe abrupt bei einem bestimmten Alpha-Wert
+                if (this.isColorShift && this.alpha <= this.shiftThreshold) {
+                    currentHue = this.shiftHue;
+                }
+                
+                // Generelles Burn-Out: Verändere die Farbe zu Rot/Orange, wenn alpha niedrig ist
+                if (fadeProgress > 0.6) { 
+                    const redShift = (fadeProgress - 0.6) / 0.4; 
+                    currentHue = (currentHue * (1 - redShift) + randomRange(0, 30) * redShift) % 360;
+                    currentLightness = Math.max(currentLightness * (1 - redShift * 0.5), 30); 
+                    currentSaturation = Math.max(currentSaturation * (1 - redShift * 0.2), 60);
+                }
+
+
+                // Crackle-Sound und Optik
+                if (this.isCrackle && this.alpha > 0 && Math.random() < 0.1) {
+                    if (this.alpha < 0.7) { 
+                        playCrackle();
+                        this.alpha = 0; 
+                    }
+                }
+
+                this.color = `hsl(${currentHue}, ${currentSaturation}%, ${currentLightness}%)`;
             }
 
             draw() {
                 ctx.save();
                 ctx.globalAlpha = this.alpha;
-                ctx.shadowBlur = this.size * 2.5;
+                ctx.shadowBlur = this.size * 2.5; 
                 ctx.shadowColor = this.color;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
@@ -328,8 +348,8 @@
         }
         
         class SparkParticle extends Particle {
-            constructor(x, y, color, velX, velY) {
-                super(x, y, color, 0, 0, false, false, false); 
+            constructor(x, y, colorHue, velX, velY) {
+                super(x, y, colorHue, 0, 0, 'spark'); 
                 this.size = randomRange(0.5, 1.5); 
                 this.decay = randomRange(0.05, 0.1); 
                 this.friction = 0.95; 
@@ -345,15 +365,27 @@
                 this.x += this.velX;
                 this.y += this.velY;
                 this.alpha -= this.decay;
+                
+                // Spark-Fading: Wird schneller rot
+                const fadeProgress = 1 - this.alpha;
+                let currentHue = this.initialHue;
+                let currentLightness = randomRange(60, 80);
+
+                if (fadeProgress > 0.3) { 
+                    const redShift = (fadeProgress - 0.3) / 0.7; 
+                    currentHue = (currentHue * (1 - redShift) + randomRange(0, 45) * redShift) % 360;
+                    currentLightness = Math.max(currentLightness * (1 - redShift * 0.7), 20); 
+                }
+
+                this.color = `hsl(${currentHue}, 90%, ${currentLightness}%)`;
             }
         }
 
         class WillowParticle extends Particle {
-            constructor(x, y, color, speed, angle) {
-                super(x, y, color, speed, angle, false, false, false);
+            constructor(x, y, colorHue, speed, angle) {
+                super(x, y, colorHue, speed, angle, 'willow');
                 this.size = randomRange(2, 4); 
-                // V20 ANPASSUNG: Längere Effekte für Willow (langsamer zerfallende Kaskade)
-                this.decay = 0.005; 
+                this.decay = 0.003; 
                 this.friction = 0.96; 
                 this.trailTimer = 0;
             }
@@ -361,14 +393,14 @@
             update() {
                 super.update(); 
                 if (this.alpha > 0.1 && this.trailTimer % 2 === 0) {
-                    particles.push(new SparkParticle(this.x, this.y, this.color, this.velX, this.velY));
+                    particles.push(new SparkParticle(this.x, this.y, this.initialHue, this.velX, this.velY));
                 }
                 this.trailTimer++;
             }
         }
 
 
-        // --- Firework Klasse ---
+        // --- Firework Klasse (Rakete) ---
 
         class Firework {
             constructor(startX, startY, targetX, targetY, depth = 0, specificColorHue, specificType) {
@@ -379,8 +411,10 @@
                 this.targetX = targetX;
                 this.targetY = targetY;
                 this.depth = depth; 
-                this.rocketColor = specificColorHue !== undefined ? getRandomColor(specificColorHue) : getRandomColor();
-                this.hue = parseFloat(this.rocketColor.match(/hsl\((\d+)/)[1]);
+                
+                this.rocketColorHue = specificColorHue !== undefined ? specificColorHue : randomRange(0, 360);
+                this.rocketColor = getColorData(this.rocketColorHue).hsl;
+                
                 const dx = targetX - startX;
                 const dy = targetY - startY;
                 this.distToTarget = Math.sqrt(dx * dx + dy * dy);
@@ -391,12 +425,16 @@
                 this.angle = Math.atan2(dy, dx);
                 this.velX = Math.cos(this.angle) * this.initialSpeed;
                 this.velY = Math.sin(this.angle) * this.initialSpeed;
-                if(depth === 0) playWhistle(this.distToTarget / 800);
+                
+                if(depth === 0) playWhistle(this.distToTarget / 800); 
                 
                 const explosionOptions = depth === 0 
                     ? EXPLOSION_TYPES 
                     : ['peony', 'chrysanthemum', 'ring']; 
                 this.explosionType = specificType || randomChoice(explosionOptions);
+                
+                // Für den 'color_shift' Typ: Definiere die zweite Farbe
+                this.shiftHue = (this.rocketColorHue + randomRange(90, 270)) % 360;
             }
 
             update() {
@@ -433,12 +471,13 @@
 
                 const sparkCount = 2; 
                 for (let i = 0; i < sparkCount; i++) {
-                    particles.push(new SparkParticle(this.x, this.y, this.rocketColor, this.velX, this.velY));
+                    // Funken nutzen den aktuellen Farbton der Rakete
+                    particles.push(new SparkParticle(this.x, this.y, this.rocketColorHue, this.velX, this.velY));
                 }
 
                 if (this.y <= this.targetY || (this.velY > 0.5 && this.distTraveled / this.distToTarget > 0.6)) {
                     this.createExplosion(this.x, this.y);
-                    return true;
+                    return true; 
                 } else {
                     return false;
                 }
@@ -456,11 +495,14 @@
                 ctx.restore();
 
                 const stickLength = 30; 
-                const angle = Math.atan2(this.y - this.prevY, this.x - this.prevX) - Math.PI / 2; 
-                const startX = this.x + Math.cos(angle) * 4; 
-                const startY = this.y + Math.sin(angle) * 4; 
-                const endX = startX - Math.cos(angle) * stickLength;
-                const endY = startY - Math.sin(angle) * stickLength;
+                const trajectoryAngle = Math.atan2(this.y - this.prevY, this.x - this.prevX);
+                const startOffset = 4;
+                const stickEndDistance = startOffset + stickLength; 
+                
+                const startX = this.x - Math.cos(trajectoryAngle) * startOffset; 
+                const startY = this.y - Math.sin(trajectoryAngle) * startOffset; 
+                const endX = this.x - Math.cos(trajectoryAngle) * stickEndDistance;
+                const endY = this.y - Math.sin(trajectoryAngle) * stickEndDistance;
 
                 ctx.lineWidth = 1;
                 ctx.strokeStyle = '#333'; 
@@ -477,26 +519,22 @@
                 let particleCount = randomRange(150, 250); 
                 const maxSpeed = 5; 
                 const minSpeed = 1.5;
-                const mixedHue = (this.hue + randomRange(-30, 30)) % 360; 
-                const particleColor = getRandomColor(mixedHue);
+                
+                const mixedHue = (this.rocketColorHue + randomRange(-20, 20)) % 360; 
 
                 switch(this.explosionType) {
                     case 'peony': 
                     case 'chrysanthemum': 
                     case 'ring': 
-                    case 'looping_path': {
-                        const isChrysanthemum = this.explosionType === 'chrysanthemum';
+                    case 'looping_path': 
+                    case 'wide_fan': 
+                    case 'fountain':
+                    case 'heart_shape':
+                    case 'spiral': {
                         for (let i = 0; i < particleCount; i++) {
                             const angle = Math.random() * Math.PI * 2;
-                            let speed;
-                            if (isChrysanthemum) {
-                                speed = randomRange(maxSpeed * 0.6, maxSpeed * 1.0); 
-                            } else if (this.explosionType === 'ring') {
-                                speed = 3;
-                            } else {
-                                speed = randomRange(minSpeed, maxSpeed);
-                            }
-                            particles.push(new Particle(x, y, particleColor, speed, angle));
+                            let speed = (this.explosionType === 'ring') ? 3 : randomRange(minSpeed, maxSpeed);
+                            particles.push(new Particle(x, y, mixedHue, speed, angle, this.explosionType));
                         }
                         break;
                     }
@@ -510,30 +548,23 @@
                                 const targetOffset = 50;
                                 const newTargetX = x + Math.cos(angle) * targetOffset;
                                 const newTargetY = y + Math.sin(angle) * targetOffset;
-                                fireworks.push(new Firework(x, y, newTargetX, newTargetY, this.depth + 1)); 
+                                fireworks.push(new Firework(x, y, newTargetX, newTargetY, this.depth + 1, this.rocketColorHue)); 
                             }
                             break; 
                         }
                         for (let i = 0; i < particleCount; i++) {
                             const angle = Math.random() * Math.PI * 2;
                             const speed = randomRange(minSpeed, maxSpeed);
-                            particles.push(new Particle(x, y, particleColor, speed, angle));
+                            particles.push(new Particle(x, y, mixedHue, speed, angle));
                         }
                         break;
                     }
-                    case 'strobe': { 
-                        for (let i = 0; i < particleCount; i++) {
-                            const angle = Math.random() * Math.PI * 2;
-                            const speed = randomRange(1, 3);
-                            particles.push(new Particle(x, y, particleColor, speed, angle, true, false, false, 8)); // Langsamerer Blitz
-                        }
-                        break;
-                    }
+                    case 'strobe': 
                     case 'strobe_fast': { 
                         for (let i = 0; i < particleCount; i++) {
                             const angle = Math.random() * Math.PI * 2;
-                            const speed = randomRange(2, 4);
-                            particles.push(new Particle(x, y, particleColor, speed, angle, true, false, false, 2)); // Schneller Blitz
+                            const speed = randomRange(1, 4);
+                            particles.push(new Particle(x, y, mixedHue, speed, angle, this.explosionType));
                         }
                         break;
                     }
@@ -542,88 +573,35 @@
                         for (let i = 0; i < particleCount; i++) {
                             const angle = Math.random() * Math.PI * 2;
                             const speed = randomRange(2, 6);
-                            particles.push(new Particle(x, y, particleColor, speed, angle, false, true)); 
+                            particles.push(new Particle(x, y, mixedHue, speed, angle, 'crackle')); 
                         }
                         break;
                     }
                     case 'willow': { 
-                        particleCount = randomRange(100, 150);
+                        particleCount = randomRange(200, 250);
                         for (let i = 0; i < particleCount; i++) {
                             const angle = Math.random() * Math.PI * 2;
                             const speed = randomRange(0.5, 1.5); 
-                            particles.push(new WillowParticle(x, y, particleColor, speed, angle)); 
+                            particles.push(new WillowParticle(x, y, mixedHue, speed, angle)); 
                         }
                         break;
                     }
                     case 'fish': { 
-                        particleCount = randomRange(100, 150);
+                        particleCount = randomRange(150, 200);
                         for (let i = 0; i < particleCount; i++) {
                             const angle = Math.random() * Math.PI * 2;
                             const speed = randomRange(1.5, 3);
-                            particles.push(new Particle(x, y, particleColor, speed, angle, false, false, true));
+                            particles.push(new Particle(x, y, mixedHue, speed, angle, 'fish'));
                         }
                         break;
                     }
-                    case 'wide_fan': { 
-                        const fanAngle = Math.PI * 0.8; 
-                        const startAngle = -Math.PI * 0.5 - fanAngle / 2;
-                        const endAngle = -Math.PI * 0.5 + fanAngle / 2;
-                        particleCount = randomRange(200, 300); 
-                        const baseSpeed = 5;
+                    case 'color_shift': {
+                        particleCount = randomRange(180, 280);
                         for (let i = 0; i < particleCount; i++) {
-                            const angle = startAngle + (i / particleCount) * fanAngle;
-                            let speed = baseSpeed;
-                            const edgeFactor = 1 + Math.abs(i / particleCount - 0.5) * 1.5; 
-                            speed *= edgeFactor * randomRange(0.8, 1.2); 
-                            particles.push(new Particle(x, y, particleColor, speed, angle));
-                        }
-                        break;
-                    }
-                    case 'fountain': { 
-                        particleCount = randomRange(100, 150);
-                        const verticalSpeed = 10; 
-                        const spreadAngle = Math.PI * 0.08; 
-                        for (let i = 0; i < particleCount; i++) {
-                            const angle = randomRange(-Math.PI * 0.5 - spreadAngle / 2, -Math.PI * 0.5 + spreadAngle / 2);
-                            const speed = randomRange(verticalSpeed * 0.8, verticalSpeed * 1.2); 
-                            particles.push(new Particle(x, y, particleColor, speed, angle));
-                        }
-                        break;
-                    }
-                    case 'heart_shape': { 
-                        particleCount = 150;
-                        for (let i = 0; i < particleCount; i++) {
-                            const t = i / particleCount * 2 * Math.PI; 
-                            const px = 16 * Math.pow(Math.sin(t), 3);
-                            const py = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
-                            const velX = px * 0.15 + randomRange(-0.3, 0.3); 
-                            const velY = py * 0.15 + randomRange(-0.3, 0.3);
-                            particles.push(new Particle(x, y, particleColor, 1, 0)); 
-                            particles[particles.length - 1].velX = velX;
-                            particles[particles.length - 1].velY = velY;
-                        }
-                        break;
-                    }
-                    case 'spiral': {
-                        particleCount = 200;
-                        const initialRadius = 1; 
-                        const expansionRate = 0.5;
-                        const totalTurns = 4; 
-                        const rotationalSpeed = 0.2; 
-                        for (let i = 0; i < particleCount; i++) {
-                            const progress = i / particleCount;
-                            const angle = progress * totalTurns * Math.PI * 2; 
-                            const radius = initialRadius + progress * expansionRate * 10; 
-                            const radialVelX = Math.cos(angle) * radius * 0.1;
-                            const radialVelY = Math.sin(angle) * radius * 0.1;
-                            const tangentialVelX = Math.cos(angle + Math.PI / 2) * rotationalSpeed * radius * 0.05;
-                            const tangentialVelY = Math.sin(angle + Math.PI / 2) * rotationalSpeed * radius * 0.05;
-                            const velX = radialVelX + tangentialVelX;
-                            const velY = radialVelY + tangentialVelY;
-                            particles.push(new Particle(x, y, particleColor, 1, 0));
-                            particles[particles.length - 1].velX = velX * randomRange(0.8, 1.2);
-                            particles[particles.length - 1].velY = velY * randomRange(0.8, 1.2);
-                            particles[particles.length - 1].friction = 0.99;
+                             const angle = Math.random() * Math.PI * 2;
+                             const speed = randomRange(1.5, 4);
+                             // Partikel starten mit mixedHue, wechseln dann zu this.shiftHue
+                             particles.push(new Particle(x, y, mixedHue, speed, angle, 'color_shift', this.shiftHue));
                         }
                         break;
                     }
@@ -633,16 +611,100 @@
 
         // --- Show Logik ---
 
+        // Neue MASTER_SEQUENCE, basierend auf den ersten 40 Sekunden des YouTube-Videos (sehr dicht und intensiv).
+        const MASTER_SEQUENCE = [
+            // 0-10s: Eröffnung & Goldene Kaskaden (0:00 - 0:10)
+            { time: 0, x_perc: 0.5, y_perc: 0.95, type: 'fountain', color_hue: 50 }, // Goldener Boden-Vulkan
+            
+            // Goldene Brokat-Peonies (0:01-0:02)
+            { time: 1000, x_perc: 0.35, y_perc: 0.25, type: 'peony', color_hue: 50 }, 
+            { time: 1500, x_perc: 0.65, y_perc: 0.25, type: 'peony', color_hue: 50 }, 
+
+            // Willows (Trauerweiden) (0:03-0:04)
+            { time: 3500, x_perc: 0.2, y_perc: 0.40, type: 'willow', color_hue: 60 },
+            { time: 4000, x_perc: 0.8, y_perc: 0.40, type: 'willow', color_hue: 60 },
+            
+            // Ring und Crackle Cluster (0:05-0:07)
+            { time: 5500, x_perc: 0.5, y_perc: 0.30, type: 'ring', color_hue: 0 }, // Rot
+            { time: 6000, x_perc: 0.4, y_perc: 0.28, type: 'crackle', color_hue: 60 },
+            { time: 6500, x_perc: 0.6, y_perc: 0.28, type: 'crackle', color_hue: 60 },
+            
+            // Wide Fan (0:08-0:10)
+            { time: 8000, x_perc: 0.5, y_perc: 0.35, type: 'wide_fan', color_hue: 120 }, // Grün
+            { time: 8500, x_perc: 0.5, y_perc: 0.35, type: 'wide_fan', color_hue: 300 }, // Lila
+            
+            // 10-20s: Ansteigende Intensität (Multi-Shells, Strobe)
+            
+            // Multi-Shells (0:11-0:13)
+            { time: 11000, x_perc: 0.15, y_perc: 0.15, type: 'multi_shell', color_hue: 240 },
+            { time: 11500, x_perc: 0.5, y_perc: 0.10, type: 'multi_shell', color_hue: 180 },
+            { time: 12000, x_perc: 0.85, y_perc: 0.15, type: 'multi_shell', color_hue: 0 },
+            
+            // Strobe & Crackle (0:14-0:17)
+            { time: 14000, x_perc: 0.25, y_perc: 0.25, type: 'strobe_fast', color_hue: 240 }, // Blau/Weiß
+            { time: 14500, x_perc: 0.75, y_perc: 0.25, type: 'strobe_fast', color_hue: 240 },
+            { time: 15000, x_perc: 0.5, y_perc: 0.30, type: 'crackle', color_hue: 60 },
+            
+            // Gold-Regen (0:18-0:20)
+            { time: 18000, x_perc: 0.3, y_perc: 0.35, type: 'willow', color_hue: 55 },
+            { time: 18500, x_perc: 0.7, y_perc: 0.35, type: 'willow', color_hue: 55 },
+            
+            // 20-30s: Erster Haupt-Höhepunkt (Wand-Effekt Rot/Grün)
+            
+            // Großer Fächer/Wand (0:21-0:24)
+            { time: 21000, x_perc: 0.1, y_perc: 0.20, type: 'peony', color_hue: 0 }, 
+            { time: 21250, x_perc: 0.25, y_perc: 0.25, type: 'peony', color_hue: 120 }, 
+            { time: 21500, x_perc: 0.5, y_perc: 0.15, type: 'peony', color_hue: 0 },
+            { time: 21750, x_perc: 0.75, y_perc: 0.25, type: 'peony', color_hue: 120 },
+            { time: 22000, x_perc: 0.9, y_perc: 0.20, type: 'peony', color_hue: 0 }, 
+            
+            // Color Shift (0:25-0:29) - Gold zu Rot
+            { time: 25000, x_perc: 0.4, y_perc: 0.15, type: 'color_shift', color_hue: 50 }, 
+            { time: 25500, x_perc: 0.6, y_perc: 0.15, type: 'color_shift', color_hue: 50 },
+            
+            // 30-45s: GRAND FINALE (Maximale Dichte, basiert auf 0:30-0:40)
+            
+            // Dichte Welle 1 (Crackling)
+            { time: 30000, x_perc: 0.2, y_perc: 0.30, type: 'crackle', color_hue: 60 },
+            { time: 30200, x_perc: 0.4, y_perc: 0.25, type: 'crackle', color_hue: 60 },
+            { time: 30400, x_perc: 0.6, y_perc: 0.25, type: 'crackle', color_hue: 60 },
+            { time: 30600, x_perc: 0.8, y_perc: 0.30, type: 'crackle', color_hue: 60 },
+            
+            // Dichte Welle 2 (Multi-Shells + Strobe)
+            { time: 31500, x_perc: 0.1, y_perc: 0.15, type: 'multi_shell', color_hue: 300 },
+            { time: 31800, x_perc: 0.3, y_perc: 0.18, type: 'strobe_fast', color_hue: 0 },
+            { time: 32100, x_perc: 0.5, y_perc: 0.10, type: 'multi_shell', color_hue: 180 },
+            { time: 32400, x_perc: 0.7, y_perc: 0.18, type: 'strobe_fast', color_hue: 0 },
+            { time: 32700, x_perc: 0.9, y_perc: 0.15, type: 'multi_shell', color_hue: 300 },
+            
+            // Füller
+            { time: 34000, x_perc: 0.5, y_perc: 0.40, type: 'peony', color_hue: 30 },
+            
+            // Endsalve (Gold-Regen und Peony)
+            { time: 38000, x_perc: 0.2, y_perc: 0.25, type: 'willow', color_hue: 55 },
+            { time: 38500, x_perc: 0.5, y_perc: 0.15, type: 'peony', color_hue: 0 },
+            { time: 39000, x_perc: 0.8, y_perc: 0.25, type: 'willow', color_hue: 55 },
+
+            // Letzte große Explosion zur 40s-Marke
+            { time: 40000, x_perc: 0.5, y_perc: 0.1, type: 'chrysanthemum', color_hue: 360 }, 
+            
+            // Abschluss-Vulkan
+            { time: 43000, x_perc: 0.5, y_perc: 0.95, type: 'fountain', color_hue: 50 } 
+        ];
+
+
         function startShow() {
             if (isShowRunning) return;
             if (!audioContextStarted) startAudio();
 
             isShowRunning = true;
             showStartTime = performance.now();
-            showSequence = [...MASTER_SEQUENCE];
-            nextRandomLaunchTime = showStartTime + randomRange(3000, 5000); 
+            showSequence = [...MASTER_SEQUENCE]; 
+            // Die nächste zufällige Rakete startet nach dem Ende der festen Sequenz, falls diese kürzer als die Gesamtdauer ist
+            nextRandomLaunchTime = showStartTime + MASTER_SEQUENCE[MASTER_SEQUENCE.length - 1].time + randomRange(1000, 2000); 
             
             showButton.disabled = true;
+            manualTypeButton.disabled = true;
             showButton.textContent = "Show läuft...";
             document.getElementById('info-overlay').style.display = 'none';
         }
@@ -692,14 +754,16 @@
                 launchEvent(showSequence.shift());
             }
             
-            if (timeElapsed >= nextRandomLaunchTime) {
+            if (showSequence.length === 0 && timeElapsed >= nextRandomLaunchTime) {
+                // Nur zufällige Bursts, wenn die feste Sequenz abgeschlossen ist
                 launchRandomBurst(timeElapsed);
             }
 
             if (timeElapsed >= SHOW_DURATION_MS) {
                 isShowRunning = false;
                 showButton.disabled = false;
-                showButton.textContent = "Show starten (Alle 14 Typen)";
+                manualTypeButton.disabled = false;
+                showButton.textContent = "Show starten (45 Sekunden)"; // Angepasster Text
                 document.getElementById('info-overlay').style.display = 'block';
             } else {
                 const remainingSeconds = Math.ceil((SHOW_DURATION_MS - timeElapsed) / 1000);
@@ -716,7 +780,6 @@
         }
 
         function animate(timestamp) {
-            // FIX: Beibehaltung des stabilen Hintergrunds mit einem hohen Alpha-Wert (0.95)
             ctx.fillStyle = 'rgba(10, 17, 26, 0.95)'; 
             ctx.fillRect(0, 0, canvas.width, canvas.height); 
 
@@ -754,13 +817,22 @@
             
             if (!audioContextStarted) startAudio();
 
-            const x = event.clientX || event.touches[0].clientX;
-            const y = event.clientY || event.touches[0].clientY;
+            const clickX = event.clientX || event.touches[0].clientX;
+            const clickY = event.clientY || event.touches[0].clientY;
+            
+            const startX = clickX; 
+            const startY = canvas.height;
 
-            const targetY = Math.min(y, canvas.height * 0.9); 
+            const maxY = canvas.height * 0.1;
+            const explosionY = Math.max(clickY, maxY); 
+            
+            const targetX = clickX + randomRange(-10, 10);
+            const targetY = explosionY - randomRange(50, 100); 
 
-            if (targetY < canvas.height * 0.9) { 
-                 fireworks.push(new Firework(canvas.width / 2, canvas.height, x, targetY, 0));
+            const randomHue = randomRange(0, 360);
+            
+            if (targetY < startY) { 
+                 fireworks.push(new Firework(startX, startY, targetX, targetY, 0, randomHue, currentManualType));
             }
         }
 
@@ -768,6 +840,7 @@
         canvas.addEventListener('mousedown', launchFireworkManual);
         canvas.addEventListener('touchstart', launchFireworkManual);
         showButton.addEventListener('click', startShow);
+        manualTypeButton.addEventListener('click', changeManualType);
 
 
         window.onload = function() {
