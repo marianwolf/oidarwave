@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Realistischer Feuerwerk-Generator V24.1 (Intensive Show)</title>
+    <title>Realistischer Feuerwerk-Generator V24.2 (Verbessertes Audio)</title>
     <!-- Tone.js für die Audio-Effekte -->
     <script src="https://cdn.jsdelivr.net/npm/tone@14.9.15/build/Tone.min.js"></script>
     <style>
@@ -46,6 +46,8 @@
         #info-overlay {
             position: absolute;
             top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
             text-align: center;
             padding: 10px 20px;
             background: rgba(0, 0, 0, 0.6);
@@ -55,6 +57,24 @@
             user-select: none;
             font-size: 1.1rem;
             color: #aed9e0;
+        }
+
+        /* NEUE ANZEIGE: Nächster Feuerwerkstyp */
+        #next-firework-info {
+            position: absolute;
+            top: 20px;
+            right: 20px; 
+            padding: 10px 15px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+            z-index: 15;
+            user-select: none;
+            font-size: 1rem;
+            color: #fff;
+            min-width: 150px;
+            text-align: right;
+            transition: opacity 0.3s;
         }
 
         #controls {
@@ -80,11 +100,6 @@
             transition: all 0.2s ease-in-out;
         }
         
-        .action-button:nth-child(2) { /* Manual Launch Button */
-            background: linear-gradient(135deg, #1E90FF, #4682B4);
-            box-shadow: 0 4px 15px rgba(30, 144, 255, 0.6);
-        }
-
         .action-button:hover:not(:disabled) {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(46, 139, 87, 0.8);
@@ -110,6 +125,12 @@
                 top: 10px;
                 font-size: 0.9rem;
             }
+            #next-firework-info {
+                top: 10px;
+                right: 10px;
+                font-size: 0.8rem;
+                padding: 8px 12px;
+            }
         }
     </style>
 </head>
@@ -118,13 +139,13 @@
     <canvas id="fireworksCanvas"></canvas>
 
     <div id="info-overlay">
-        Klicken Sie auf den Himmel, um **manuelle** Feuerwerke zu starten. (Audio wird beim ersten Klick aktiviert.)
-        <br>Die Explosion erfolgt in der Nähe des Klicks (Startwinkel von 10° wird beibehalten).
+        Klicken Sie auf den Himmel, um **manuelle** Feuerwerke (Typ PEONY) zu starten. (Audio wird beim ersten Klick aktiviert.)
     </div>
+
+    <div id="next-firework-info">Nächster Typ: Warten...</div> 
 
     <div id="controls">
         <button id="show-button" class="action-button">Show starten (45 Sekunden)</button>
-        <button id="manual-type-button" class="action-button">Typ: PEONY (Klick zum Wechsel)</button>
     </div>
 
     <script>
@@ -132,14 +153,14 @@
         const canvas = document.getElementById('fireworksCanvas');
         const ctx = canvas.getContext('2d');
         const showButton = document.getElementById('show-button');
-        const manualTypeButton = document.getElementById('manual-type-button');
+        const nextFireworkInfo = document.getElementById('next-firework-info');
 
         let isShowRunning = false;
         let showStartTime = 0;
         let showSequence = [];
         let nextRandomLaunchTime = 0;
         let audioContextStarted = false;
-        let boomSynth, kickSynth, whistleSynth, crackleSynth; 
+        let boomSynth, kickSynth, whistleSynth, crackleSynth, noiseEffect; 
         let lastBoomTime = 0; 
         let lastWhistleTime = 0; 
         let fireworks = [];
@@ -148,13 +169,9 @@
         const AIR_RESISTANCE = 0.985; 
         const WIND = 0.005;        
         const MAX_SHELL_DEPTH = 3; 
-        // Dauer der Show auf 45 Sekunden angepasst, um die Intensität des Videos widerzuspiegeln
         const SHOW_DURATION_MS = 45000;
         
         const EXPLOSION_TYPES = ['peony', 'chrysanthemum', 'ring', 'multi_shell', 'strobe', 'strobe_fast', 'crackle', 'willow', 'fish', 'wide_fan', 'looping_path', 'fountain', 'heart_shape', 'spiral', 'color_shift'];
-
-        let currentManualTypeIndex = 0;
-        let currentManualType = EXPLOSION_TYPES[currentManualTypeIndex];
 
 
         function randomRange(min, max) { return Math.random() * (max - min) + min; }
@@ -178,31 +195,70 @@
             return { hue: h, saturation: s, lightness: l, hsl: `hsl(${h}, ${s}%, ${l}%)` };
         }
         
-        // Wechselt den manuellen Explosionstyp
-        function changeManualType() {
-            currentManualTypeIndex = (currentManualTypeIndex + 1) % EXPLOSION_TYPES.length;
-            currentManualType = EXPLOSION_TYPES[currentManualTypeIndex];
-            const typeName = currentManualType.replace(/_/g, ' ').toUpperCase();
-            manualTypeButton.textContent = `Typ: ${typeName} (Klick zum Wechsel})`;
-        }
-
-
-        // --- Audio Funktionen ---
+        // --- Audio Funktionen (Optimiert für realistischere Simulation) ---
 
         function startAudio() {
             if (audioContextStarted) return;
             Tone.start().then(() => {
-                boomSynth = new Tone.NoiseSynth({ noise: { type: 'white' }, envelope: { attack: 0.001, decay: 0.2, sustain: 0.0, release: 0.05 }}).toDestination();
-                kickSynth = new Tone.MembraneSynth({ envelope: { attack: 0.001, decay: 0.4, sustain: 0.001 }}).toDestination();
+                
+                // 1. Haupteffekt (zusätzliches Rauschen für Bass und Volumen)
+                noiseEffect = new Tone.Noise({ type: "brown" }).toDestination();
+                noiseEffect.volume.value = -30; // Sehr leise, dient als Sub-Bass
+
+                // 2. BOOM Synth (Tiefes, kurzes Rauschen mit Distortion)
+                // Die Explosion bekommt mehr Oomph durch Verzerrung und einen tieferen Pitch-Shift
+                const distortion = new Tone.Distortion(0.5).toDestination();
+                boomSynth = new Tone.NoiseSynth({ 
+                    noise: { type: 'white' }, 
+                    envelope: { 
+                        attack: 0.001, 
+                        decay: 0.3, // Etwas längerer Decay für den Nachhall
+                        sustain: 0.0, 
+                        release: 0.1 
+                    }
+                }).connect(distortion);
+                
+                // 3. Kick Synth (Definiert den initialen, harten Impuls)
+                kickSynth = new Tone.MembraneSynth({ 
+                    pitchDecay: 0.01,
+                    octaves: 4,
+                    envelope: { 
+                        attack: 0.001, 
+                        decay: 0.6, 
+                        sustain: 0.001 
+                    }
+                }).toDestination();
+                
+                // 4. Whistle Synth (Pfeifender Aufstieg)
                 whistleSynth = new Tone.MonoSynth({
                     oscillator: { type: "square" },
-                    envelope: { attack: 0.005, decay: 0.8, sustain: 0.0, release: 0.1 },
-                    filterEnvelope: { attack: 0.005, decay: 0.5, sustain: 0, release: 0.1, baseFrequency: 500, octaves: 5, exponent: 2}
+                    envelope: { attack: 0.005, decay: 0.9, sustain: 0.0, release: 0.1 },
+                    filterEnvelope: { 
+                        attack: 0.005, 
+                        decay: 0.7, // Längere Filter-Fahne für den Aufstieg
+                        sustain: 0, 
+                        release: 0.1, 
+                        baseFrequency: 300, 
+                        octaves: 6, 
+                        exponent: 2
+                    }
                 }).toDestination();
+                
+                // 5. CRACKLE Synth (Schnelles, helles Rauschen)
                 crackleSynth = new Tone.NoiseSynth({
                     noise: { type: 'pink' },
-                    envelope: { attack: 0.001, decay: 0.05, sustain: 0.0, release: 0.01 }
+                    envelope: { 
+                        attack: 0.001, 
+                        decay: 0.02, // Sehr kurzer Decay
+                        sustain: 0.0, 
+                        release: 0.005 
+                    }
                 }).toDestination();
+                
+                // Globale Lautstärke und starten des Geräusche-Grundeffekts
+                Tone.getDestination().volume.value = -10; // Etwas leiser für die Ohren
+                noiseEffect.start();
+
                 audioContextStarted = true;
             }).catch(e => console.error("Tone.js Startfehler:", e));
         }
@@ -212,8 +268,12 @@
                 let now = Tone.now();
                 const baseTime = Math.max(now + 0.002, lastBoomTime + 0.0001); 
                 lastBoomTime = baseTime;
-                boomSynth.triggerAttackRelease(0.2, baseTime, 0.7); 
-                kickSynth.triggerAttackRelease("C1", 0.5, baseTime + 0.000001, 1); 
+                
+                // Die Haupt-Explosion
+                boomSynth.triggerAttackRelease(0.3, baseTime, 0.8); 
+                
+                // Der tiefe Impuls
+                kickSynth.triggerAttackRelease("C1", 0.5, baseTime + 0.000001, 1.2); 
             }
         }
 
@@ -222,16 +282,22 @@
                 let now = Tone.now();
                 const startTime = Math.max(now + 0.002, lastWhistleTime + 0.01); 
                 lastWhistleTime = startTime; 
-                whistleSynth.triggerAttackRelease("C6", duration, startTime); 
-                whistleSynth.frequency.linearRampToValueAtTime("C2", startTime + duration); 
+                
+                const endNote = "C6";
+                const startNote = "C2";
+                
+                // Startet tief und pfeift nach oben
+                whistleSynth.triggerAttackRelease(endNote, duration, startTime, 0.8); 
+                whistleSynth.frequency.setValueAtTime(startNote, startTime);
+                whistleSynth.frequency.exponentialRampToValueAtTime(endNote, startTime + duration * 0.9);
             }
         }
         
-        // Fix: Fügt minimalen Zeitversatz hinzu, um den Audiofehler zu vermeiden
         function playCrackle(duration = 0.05) {
              if (audioContextStarted && crackleSynth) {
                 const time = Tone.now() + 0.001; 
-                crackleSynth.triggerAttackRelease(duration, time, 0.1); 
+                // Kurzer, heller Impuls mit höherer Lautstärke, um das Zischen zu simulieren
+                crackleSynth.triggerAttackRelease(0.01 + Math.random() * 0.03, time, 0.5 + Math.random() * 0.5); 
             }
         }
 
@@ -611,7 +677,6 @@
 
         // --- Show Logik ---
 
-        // Neue MASTER_SEQUENCE, basierend auf den ersten 40 Sekunden des YouTube-Videos (sehr dicht und intensiv).
         const MASTER_SEQUENCE = [
             // 0-10s: Eröffnung & Goldene Kaskaden (0:00 - 0:10)
             { time: 0, x_perc: 0.5, y_perc: 0.95, type: 'fountain', color_hue: 50 }, // Goldener Boden-Vulkan
@@ -704,7 +769,6 @@
             nextRandomLaunchTime = showStartTime + MASTER_SEQUENCE[MASTER_SEQUENCE.length - 1].time + randomRange(1000, 2000); 
             
             showButton.disabled = true;
-            manualTypeButton.disabled = true;
             showButton.textContent = "Show läuft...";
             document.getElementById('info-overlay').style.display = 'none';
         }
@@ -754,17 +818,34 @@
                 launchEvent(showSequence.shift());
             }
             
+            // LOGIK FÜR DIE ANZEIGE DES NÄCHSTEN TYPS
+            if (showSequence.length > 0) {
+                const nextEvent = showSequence[0];
+                const timeUntilNext = (nextEvent.time - timeElapsed) / 1000;
+                const typeName = nextEvent.type.replace(/_/g, ' ').toUpperCase();
+                
+                nextFireworkInfo.style.opacity = 1;
+                nextFireworkInfo.innerHTML = `Nächster Typ: <span style="font-weight: bold; color: #aed9e0;">${typeName}</span><br>Start in: ${timeUntilNext.toFixed(1)} s`;
+            } else if (timeElapsed < SHOW_DURATION_MS) {
+                // Show läuft noch, aber Sequenz ist abgearbeitet (Warten auf zufälligen Burst/Ende)
+                nextFireworkInfo.style.opacity = 0.5;
+                nextFireworkInfo.innerHTML = 'Nächster Typ: Zufällig (Warten...)';
+            } else {
+                // Show beendet
+                nextFireworkInfo.style.opacity = 0;
+            }
+            // ENDE LOGIK FÜR DIE ANZEIGE DES NÄCHSTEN TYPS
+
             if (showSequence.length === 0 && timeElapsed >= nextRandomLaunchTime) {
-                // Nur zufällige Bursts, wenn die feste Sequenz abgeschlossen ist
                 launchRandomBurst(timeElapsed);
             }
 
             if (timeElapsed >= SHOW_DURATION_MS) {
                 isShowRunning = false;
                 showButton.disabled = false;
-                manualTypeButton.disabled = false;
                 showButton.textContent = "Show starten (45 Sekunden)"; // Angepasster Text
                 document.getElementById('info-overlay').style.display = 'block';
+                nextFireworkInfo.style.opacity = 0;
             } else {
                 const remainingSeconds = Math.ceil((SHOW_DURATION_MS - timeElapsed) / 1000);
                 showButton.textContent = `Show läuft (${remainingSeconds}s)`;
@@ -830,9 +911,10 @@
             const targetY = explosionY - randomRange(50, 100); 
 
             const randomHue = randomRange(0, 360);
-            
+            const manualType = 'peony'; // Standardtyp für manuellen Start
+
             if (targetY < startY) { 
-                 fireworks.push(new Firework(startX, startY, targetX, targetY, 0, randomHue, currentManualType));
+                 fireworks.push(new Firework(startX, startY, targetX, targetY, 0, randomHue, manualType));
             }
         }
 
@@ -840,12 +922,12 @@
         canvas.addEventListener('mousedown', launchFireworkManual);
         canvas.addEventListener('touchstart', launchFireworkManual);
         showButton.addEventListener('click', startShow);
-        manualTypeButton.addEventListener('click', changeManualType);
 
 
         window.onload = function() {
             resizeCanvas();
             animate();
+            nextFireworkInfo.innerHTML = 'Nächster Typ: Bereit';
         };
 
     </script>
