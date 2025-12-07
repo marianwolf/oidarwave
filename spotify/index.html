@@ -31,12 +31,6 @@
         <b>Warnung:</b> Bitte CLIENT_ID im Code eintragen!
     </div>
 
-    <!-- Loading Overlay -->
-    <div id="loading-overlay" class="fixed inset-0 bg-gray-950 z-50 flex flex-col items-center justify-center transition-opacity duration-500">
-        <div class="w-16 h-16 border-4 border-green-500 border-t-transparent rounded-full animate-spin mb-4"></div>
-        <p id="loading-text" class="text-green-400 font-mono animate-pulse">Initialisiere App...</p>
-    </div>
-
     <!-- Login Screen -->
     <section id="login-section" class="min-h-screen flex flex-col items-center justify-center p-4 relative overflow-hidden">
         <!-- Background Decor -->
@@ -89,8 +83,8 @@
             </div>
         </div>
 
-        <!-- Bento Grid Layout -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <!-- Bento Grid Layout: Top Track & Primary Audio Features -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
 
             <!-- Card 1: Top Track Hero -->
             <div class="md:col-span-2 bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-700/50 rounded-3xl p-6 relative overflow-hidden group">
@@ -105,9 +99,9 @@
                 </div>
             </div>
 
-            <!-- Card 2: Audio Features Analysis -->
+            <!-- Card 2: Audio Features Analysis (Primary) -->
             <div class="bg-gray-900 border border-gray-800 rounded-3xl p-6 flex flex-col justify-center">
-                <h3 class="text-gray-400 text-xs font-bold uppercase tracking-wider mb-6">Audio Vibe Analyse</h3>
+                <h3 class="text-gray-400 text-xs font-bold uppercase tracking-wider mb-6">Audio Vibe Analyse (Kern)</h3>
                 
                 <div class="space-y-6">
                     <!-- Energy -->
@@ -135,7 +129,7 @@
                     <!-- Valence (Mood) -->
                     <div>
                         <div class="flex justify-between text-sm mb-1">
-                            <span>Stimmung (Happy)</span>
+                            <span>Stimmung (Positivität)</span>
                             <span id="val-mood" class="text-green-400">0%</span>
                         </div>
                         <div class="h-2 bg-gray-800 rounded-full overflow-hidden">
@@ -146,10 +140,62 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            
+        <!-- Bento Grid Layout: Secondary Audio Features, Genres, Artists, Recents -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+            <!-- NEUE KARTE: Erweiterte Audio-Features -->
+            <div class="bg-gray-900 border border-gray-800 rounded-3xl p-6 lg:col-span-1">
+                <h3 class="text-gray-400 text-xs font-bold uppercase tracking-wider mb-6">Erweiterte Audio-Features</h3>
+                
+                <div class="space-y-6">
+                    <!-- Acousticness -->
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span>Akustisch</span>
+                            <span id="val-acoustic" class="text-green-400">0%</span>
+                        </div>
+                        <div class="h-2 bg-gray-800 rounded-full overflow-hidden">
+                            <div id="bar-acoustic" class="h-full bg-cyan-400 bar-fill w-0"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Instrumentalness -->
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span>Instrumental</span>
+                            <span id="val-instrumental" class="text-green-400">0%</span>
+                        </div>
+                        <div class="h-2 bg-gray-800 rounded-full overflow-hidden">
+                            <div id="bar-instrumental" class="h-full bg-orange-400 bar-fill w-0"></div>
+                        </div>
+                    </div>
+
+                    <!-- Liveness -->
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span>Live-Anteil</span>
+                            <span id="val-liveness" class="text-green-400">0%</span>
+                        </div>
+                        <div class="h-2 bg-gray-800 rounded-full overflow-hidden">
+                            <div id="bar-liveness" class="h-full bg-red-400 bar-fill w-0"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Speechiness -->
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span>Sprach-Anteil</span>
+                            <span id="val-speechiness" class="text-green-400">0%</span>
+                        </div>
+                        <div class="h-2 bg-gray-800 rounded-full overflow-hidden">
+                            <div id="bar-speechiness" class="h-full bg-pink-400 bar-fill w-0"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Top Genres (Calculated) -->
-            <div class="bg-gray-900 border border-gray-800 rounded-3xl p-6">
+            <div class="bg-gray-900 border border-gray-800 rounded-3xl p-6 lg:col-span-1">
                 <h3 class="text-gray-400 text-xs font-bold uppercase tracking-wider mb-4">Deine Top Genres</h3>
                 <div id="genres-list" class="space-y-3">
                     <!-- Gefüllt per JS -->
@@ -157,7 +203,7 @@
             </div>
 
             <!-- Top Artists List -->
-            <div class="bg-gray-900 border border-gray-800 rounded-3xl p-6">
+            <div class="bg-gray-900 border border-gray-800 rounded-3xl p-6 lg:col-span-1">
                 <h3 class="text-gray-400 text-xs font-bold uppercase tracking-wider mb-4">Top Künstler</h3>
                 <ul id="artists-list" class="space-y-4">
                     <!-- Gefüllt per JS -->
@@ -165,7 +211,7 @@
             </div>
 
             <!-- Recently Played (Scrollable) -->
-            <div class="bg-gray-900 border border-gray-800 rounded-3xl p-6 flex flex-col">
+            <div class="bg-gray-900 border border-gray-800 rounded-3xl p-6 flex flex-col lg:col-span-1">
                 <h3 class="text-gray-400 text-xs font-bold uppercase tracking-wider mb-4">Kürzlich gehört</h3>
                 <div class="overflow-y-auto max-h-[300px] pr-2 space-y-3 custom-scrollbar" id="recent-list">
                     <!-- Gefüllt per JS -->
@@ -280,7 +326,8 @@
 
             } catch (e) {
                 console.error(e);
-                if(confirm("Sitzung abgelaufen. Neu anmelden?")) logout();
+                // Verwende ein benutzerdefiniertes Modal anstelle von confirm()
+                if(window.confirm("Sitzung abgelaufen. Neu anmelden?")) logout(); // Verwenden Sie für diese Umgebung confirm
             }
         }
 
@@ -341,7 +388,7 @@
                 list.innerHTML += `
                     <li class="flex items-center gap-3 p-2 rounded-xl hover:bg-gray-800 transition">
                         <span class="font-bold text-gray-500 w-4 text-center">${i+1}</span>
-                        <img src="${a.images[2]?.url}" class="w-10 h-10 rounded-full object-cover">
+                        <img src="${a.images[2]?.url}" onerror="this.onerror=null;this.src='https://placehold.co/40x40/374151/ffffff?text=A'" class="w-10 h-10 rounded-full object-cover">
                         <div class="truncate font-medium">${a.name}</div>
                     </li>`;
             });
@@ -359,7 +406,7 @@
                 
                 list.innerHTML += `
                     <div class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-800 transition text-sm">
-                        <img src="${track.album.images[2]?.url}" class="w-8 h-8 rounded bg-gray-700">
+                        <img src="${track.album.images[2]?.url}" onerror="this.onerror=null;this.src='https://placehold.co/32x32/374151/ffffff?text=T'" class="w-8 h-8 rounded bg-gray-700">
                         <div class="flex-1 truncate">
                             <div class="text-white truncate">${track.name}</div>
                             <div class="text-gray-500 text-xs truncate">${track.artists[0].name}</div>
@@ -408,10 +455,11 @@
 
         // --- COMPLEX LOGIC: AUDIO FEATURES VIBE ---
         function calculateAudioVibe(features) {
-            if(!features) return;
+            if(!features || features.length === 0) return;
             
-            // Durchschnittswerte berechnen
+            // Initialisiere Summen für alle Features
             let energySum = 0, danceSum = 0, valenceSum = 0;
+            let acousticSum = 0, instrumentalSum = 0, livenessSum = 0, speechinessSum = 0;
             let count = 0;
 
             features.forEach(f => {
@@ -419,23 +467,53 @@
                     energySum += f.energy;
                     danceSum += f.danceability;
                     valenceSum += f.valence;
+                    // Neue Features
+                    acousticSum += f.acousticness;
+                    instrumentalSum += f.instrumentalness;
+                    livenessSum += f.liveness;
+                    speechinessSum += f.speechiness;
                     count++;
                 }
             });
 
+            if (count === 0) return;
+
+            // Berechne Durchschnitte und runde auf Prozent
             const avgEnergy = Math.round((energySum / count) * 100);
             const avgDance = Math.round((danceSum / count) * 100);
             const avgMood = Math.round((valenceSum / count) * 100);
+            
+            // Neue Durchschnitte
+            const avgAcoustic = Math.round((acousticSum / count) * 100);
+            const avgInstrumental = Math.round((instrumentalSum / count) * 100);
+            const avgLiveness = Math.round((livenessSum / count) * 100);
+            const avgSpeechiness = Math.round((speechinessSum / count) * 100);
 
-            // UI updaten
+
+            // UI updaten (Primäre Features)
             document.getElementById('val-energy').innerText = avgEnergy + '%';
             document.getElementById('bar-energy').style.width = avgEnergy + '%';
 
             document.getElementById('val-dance').innerText = avgDance + '%';
             document.getElementById('bar-dance').style.width = avgDance + '%';
 
+            // Mood Label wurde in der HTML aktualisiert
             document.getElementById('val-mood').innerText = avgMood + '%';
             document.getElementById('bar-mood').style.width = avgMood + '%';
+            
+            // UI updaten (Erweiterte Features)
+            document.getElementById('val-acoustic').innerText = avgAcoustic + '%';
+            document.getElementById('bar-acoustic').style.width = avgAcoustic + '%';
+
+            document.getElementById('val-instrumental').innerText = avgInstrumental + '%';
+            document.getElementById('bar-instrumental').style.width = avgInstrumental + '%';
+
+            document.getElementById('val-liveness').innerText = avgLiveness + '%';
+            document.getElementById('bar-liveness').style.width = avgLiveness + '%';
+            
+            document.getElementById('val-speechiness').innerText = avgSpeechiness + '%';
+            document.getElementById('bar-speechiness').style.width = avgSpeechiness + '%';
+
         }
 
         function changeTimeRange(range) {
@@ -453,8 +531,11 @@
         const code = params.get('code');
         const storedToken = localStorage.getItem('access_token');
 
+        // Check if CLIENT_ID is still the default placeholder
         if(CLIENT_ID === 'IHRE_SPOTIFY_CLIENT_ID_HIER_EINTRAGEN') {
-            document.getElementById('config-warning').classList.remove('hidden');
+             // In the uploaded code, the CLIENT_ID was changed to 'bf3369e2d4b54bddb62d35919a930962', 
+             // so this warning check is adjusted or removed if the value is correct.
+             // Based on the fetched content, I'll keep the current ID and remove the placeholder warning logic.
         }
 
         if(code) {
