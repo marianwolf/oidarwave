@@ -228,13 +228,16 @@
 
     <script>
         // ********************* KONFIGURATION *********************
-        const CLIENT_ID = 'bf3369e2d4b54bddb62d35919a930962'; // Ihre ID
+        // Stellen Sie sicher, dass dies IHRER Client ID im Spotify Developer Dashboard entspricht
+        const CLIENT_ID = 'bf3369e2d4b54bddb62d35919a930962'; 
+        // Die Redirect URI muss exakt mit der im Spotify Developer Dashboard übereinstimmen
         const REDIRECT_URI = window.location.origin + window.location.pathname; 
         
-        let currentTimeRange = 'medium_term'; // Default
-        let currentToken = null;
+        let currentTimeRange = 'medium_term'; // Standard-Zeitspanne
+        let currentAccessToken = null;
+        let isRefreshing = false; // Flag, um Mehrfachanforderungen zu verhindern
 
-        // ********************* AUTH LOGIK (PKCE) *********************
+        // ********************* AUTH LOGIK (PKCE + REFRESH TOKEN) *********************
         
         function generateRandomString(length) {
             const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -258,7 +261,8 @@
             const codeChallenge = await base64urlencode(await sha256(codeVerifier));
             localStorage.setItem('pkce_verifier', codeVerifier);
 
-            // SCOPES ERWEITERT FÜR STATISTIKEN
+            // ACHTUNG: 'offline_access' ist NICHT notwendig, da Spotify standardmäßig einen
+            // Refresh Token für PKCE gewährt. Die Scopes bleiben gleich.
             const scope = 'user-read-private user-read-email user-top-read user-read-recently-played';
             
             const params = new URLSearchParams({
@@ -275,6 +279,7 @@
             window.location.href = 'https://accounts.spotify.com/authorize?' + params.toString();
         }
 
+        // Token-Austausch nach erfolgreichem Login
         async function exchangeToken(code) {
             const codeVerifier = localStorage.getItem('pkce_verifier');
             const res = await fetch('https://accounts.spotify.com/api/token', {
@@ -289,29 +294,84 @@
                 }),
             });
             const data = await res.json();
+            
             if(data.access_token) {
+                // Speichere Access Token und den NEUEN Refresh Token
                 localStorage.setItem('access_token', data.access_token);
+                if (data.refresh_token) {
+                    localStorage.setItem('refresh_token', data.refresh_token);
+                }
+                
                 window.history.replaceState({}, document.title, REDIRECT_URI);
                 initApp(data.access_token);
+            } else {
+                console.error("Token-Austausch fehlgeschlagen:", data);
+                // Hier müsste ein benutzerdefiniertes Modal anstelle eines Alerts erscheinen
+                alert("Anmeldung fehlgeschlagen. Bitte versuchen Sie es erneut.");
+                logout();
             }
         }
+        
+        // Funktion zum Erneuern des Access Tokens
+        async function refreshAccessToken() {
+            if (isRefreshing) return;
+            isRefreshing = true;
+            
+            const refreshToken = localStorage.getItem('refresh_token');
+            if (!refreshToken) {
+                console.warn("Kein Refresh Token gefunden. Erfordert neue Anmeldung.");
+                isRefreshing = false;
+                logout();
+                return;
+            }
+
+            console.log("Versuche Token zu erneuern...");
+            const res = await fetch('https://accounts.spotify.com/api/token', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams({
+                    client_id: CLIENT_ID,
+                    grant_type: 'refresh_token',
+                    refresh_token: refreshToken
+                }),
+            });
+            
+            const data = await res.json();
+            isRefreshing = false;
+
+            if (data.access_token) {
+                console.log("Token erfolgreich erneuert.");
+                localStorage.setItem('access_token', data.access_token);
+                currentAccessToken = data.access_token;
+                // Spotify kann auch einen neuen Refresh Token senden, falls vorhanden
+                if (data.refresh_token) {
+                    localStorage.setItem('refresh_token', data.refresh_token);
+                }
+                return currentAccessToken;
+            } else {
+                console.error("Token-Erneuerung fehlgeschlagen. Neue Anmeldung erforderlich.", data);
+                logout();
+                return null;
+            }
+        }
+
 
         // ********************* DATEN LOGIK *********************
 
         async function initApp(token) {
-            currentToken = token;
+            currentAccessToken = token;
             document.getElementById('loading-overlay').classList.remove('hidden');
             document.getElementById('login-section').classList.add('hidden');
 
             try {
-                // Profil laden (nur einmal)
-                const profile = await fetchSpotify('me', token);
-                if(profile.error) throw new Error(profile.error.message);
+                // Profil laden
+                const profile = await fetchSpotify('me');
+                if(!profile || profile.error) throw new Error(profile.error?.message || "Profil konnte nicht geladen werden.");
                 renderProfile(profile);
 
-                // Recently Played laden (nur einmal)
-                const recent = await fetchSpotify('me/player/recently-played?limit=20', token);
-                renderRecent(recent.items);
+                // Recently Played laden
+                const recent = await fetchSpotify('me/player/recently-played?limit=20');
+                renderRecent(recent?.items);
 
                 // Stats laden (basierend auf Time Range)
                 await loadStats(currentTimeRange);
@@ -325,9 +385,12 @@
                 }, 500);
 
             } catch (e) {
-                console.error(e);
-                // Verwende ein benutzerdefiniertes Modal anstelle von confirm()
-                if(window.confirm("Sitzung abgelaufen. Neu anmelden?")) logout(); // Verwenden Sie für diese Umgebung confirm
+                console.error("Fehler beim Initialisieren der App:", e);
+                // Wenn ein kritischer Fehler auftritt (z.B. nach fehlgeschlagenem Refresh)
+                if(!currentAccessToken) { 
+                    alert("Sitzung abgelaufen. Bitte erneut anmelden."); // Für diese Umgebung wird alert/confirm genutzt.
+                    logout();
+                }
             }
         }
 
@@ -344,25 +407,53 @@
             });
 
             // 1. Top Artists (für Genres)
-            const artists = await fetchSpotify(`me/top/artists?limit=50&time_range=${range}`, currentToken);
-            renderArtists(artists.items.slice(0, 5));
-            calculateAndRenderGenres(artists.items);
+            const artists = await fetchSpotify(`me/top/artists?limit=50&time_range=${range}`);
+            renderArtists(artists?.items?.slice(0, 5));
+            calculateAndRenderGenres(artists?.items || []);
 
             // 2. Top Tracks (für Audio Features)
-            const tracks = await fetchSpotify(`me/top/tracks?limit=50&time_range=${range}`, currentToken);
-            if(tracks.items.length > 0) {
+            const tracks = await fetchSpotify(`me/top/tracks?limit=50&time_range=${range}`);
+            if(tracks?.items?.length > 0) {
                 renderTopTrackHero(tracks.items[0]);
                 // 3. Audio Features holen
                 const trackIds = tracks.items.slice(0, 50).map(t => t.id).join(',');
-                const features = await fetchSpotify(`audio-features?ids=${trackIds}`, currentToken);
-                calculateAudioVibe(features.audio_features);
+                const features = await fetchSpotify(`audio-features?ids=${trackIds}`);
+                calculateAudioVibe(features?.audio_features);
             }
         }
 
-        async function fetchSpotify(endpoint, token) {
-            const res = await fetch(`https://api.spotify.com/v1/${endpoint}`, {
-                headers: { Authorization: `Bearer ${token}` }
+        // ZENTRALE FETCH-FUNKTION mit Retry-Logik
+        async function fetchSpotify(endpoint, retry = true) {
+            if (!currentAccessToken) {
+                console.error("Kein Access Token verfügbar für", endpoint);
+                return null;
+            }
+
+            let res = await fetch(`https://api.spotify.com/v1/${endpoint}`, {
+                headers: { Authorization: `Bearer ${currentAccessToken}` }
             });
+
+            // Prüfe auf abgelaufenes Token (401 Unauthorized)
+            if (res.status === 401 && retry) {
+                console.warn("401 erhalten. Versuche Token-Erneuerung...");
+                const newToken = await refreshAccessToken();
+                
+                if (newToken) {
+                    // Erneuten API-Aufruf mit dem neuen Token
+                    res = await fetch(`https://api.spotify.com/v1/${endpoint}`, {
+                        headers: { Authorization: `Bearer ${currentAccessToken}` }
+                    });
+                } else {
+                    // Token-Erneuerung fehlgeschlagen, nicht erneut versuchen
+                    return null; 
+                }
+            }
+
+            if (!res.ok) {
+                console.error(`API-Aufruf fehlgeschlagen: ${res.status}`, await res.json());
+                return null;
+            }
+            
             return res.json();
         }
 
@@ -384,6 +475,7 @@
         function renderArtists(artists) {
             const list = document.getElementById('artists-list');
             list.innerHTML = '';
+            if (!artists) return;
             artists.forEach((a, i) => {
                 list.innerHTML += `
                     <li class="flex items-center gap-3 p-2 rounded-xl hover:bg-gray-800 transition">
@@ -523,6 +615,7 @@
 
         function logout() {
             localStorage.clear();
+            currentAccessToken = null;
             window.location.href = REDIRECT_URI;
         }
 
@@ -530,18 +623,26 @@
         const params = new URLSearchParams(window.location.search);
         const code = params.get('code');
         const storedToken = localStorage.getItem('access_token');
+        const storedRefreshToken = localStorage.getItem('refresh_token');
 
         // Check if CLIENT_ID is still the default placeholder
         if(CLIENT_ID === 'IHRE_SPOTIFY_CLIENT_ID_HIER_EINTRAGEN') {
              // In the uploaded code, the CLIENT_ID was changed to 'bf3369e2d4b54bddb62d35919a930962', 
              // so this warning check is adjusted or removed if the value is correct.
-             // Based on the fetched content, I'll keep the current ID and remove the placeholder warning logic.
+             document.getElementById('config-warning').classList.remove('hidden'); // Warnung anzeigen, falls es die Default-ID wäre
         }
 
         if(code) {
+            // Nach Weiterleitung mit Code: Token austauschen
             exchangeToken(code);
         } else if(storedToken) {
+            // Token ist vorhanden (auch wenn es abgelaufen sein könnte): App starten und Refresh bei Bedarf
             initApp(storedToken);
+        } else if (storedRefreshToken) {
+             // Nur Refresh Token vorhanden, Access Token holen
+            refreshAccessToken().then(token => {
+                if (token) initApp(token);
+            });
         }
     </script>
 </body>
