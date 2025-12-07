@@ -18,8 +18,26 @@
         .scrollable-list::-webkit-scrollbar { width: 8px; }
         .scrollable-list::-webkit-scrollbar-thumb { background-color: #1DB954; border-radius: 10px; }
         .scrollable-list::-webkit-scrollbar-track { background-color: #374151; }
-        /* Style für die Genre-Balken und Audio-Feature-Balken */
-        .feature-bar { height: 10px; border-radius: 5px; transition: width 1s ease-out; }
+        
+        /* OPTIMIERUNG DER AUDIO FEATURES: Größerer Balken mit Gradient */
+        .feature-bar { 
+            height: 12px; /* Leicht erhöht */
+            border-radius: 6px; 
+            transition: width 1s ease-out; 
+            background: linear-gradient(to right, #1DB954, #1ed760); /* Grüner Gradient */
+            box-shadow: 0 0 5px rgba(29, 185, 84, 0.5); /* Leichter Schein */
+        }
+        
+        /* Hervorhebung für Popularität */
+        .popularity-card {
+            background-color: #161616;
+            border: 2px solid #1DB954;
+            transition: transform 0.3s ease-in-out;
+        }
+        .popularity-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 15px rgba(29, 185, 84, 0.7);
+        }
     </style>
 </head>
 <body class="bg-gray-900 text-white min-h-screen font-sans flex flex-col items-center p-6">
@@ -151,22 +169,22 @@
                     </div>
                 </div>
 
-                <!-- NEU: Audio Feature Analyse -->
-                <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 shadow-lg">
+                <!-- OPTIMIERT: Audio Feature Analyse -->
+                <div class="bg-gray-800 p-6 rounded-2xl border border-green-700/50 shadow-xl">
                     <h3 class="text-2xl font-bold text-white mb-4 flex items-center gap-2">
-                        <span class="text-green-400">📊</span> Musikalische Eigenschaften (Top 50 Tracks)
+                        <span class="text-green-400">🎶</span> Musikalische Eigenschaften (Top 50 Tracks)
                     </h3>
-                    <p class="text-sm text-gray-400 mb-4">Durchschnittliche Audio Features Ihrer meistgehörten Titel der letzten 6 Monate.</p>
+                    <p class="text-sm text-gray-400 mb-4">Durchschnittliche Audio Features Ihrer meistgehörten Titel der letzten 6 Monate. (Werte 0.0 - 1.0)</p>
                     
-                    <div id="audio-features-analysis" class="space-y-4">
+                    <div id="audio-features-analysis" class="space-y-6">
                         <div class="text-gray-500">Lade Audio-Feature-Daten...</div>
                     </div>
 
                     <!-- NEUE METRIK: Durchschnittliche Popularität -->
-                    <div class="mt-6 pt-4 border-t border-gray-700">
-                         <div class="bg-gray-900 p-3 rounded-lg flex justify-between items-center">
-                            <span class="text-sm font-medium text-gray-300">Ø Beliebtheit (Popularity):</span>
-                            <span id="avg-popularity" class="text-xl font-extrabold spotify-green">N/A</span>
+                    <div class="mt-6 pt-6 border-t border-gray-700">
+                         <div class="popularity-card p-4 rounded-xl flex justify-between items-center shadow-lg">
+                            <span class="text-base font-medium text-gray-100">Ø Beliebtheit (Popularity):</span>
+                            <span id="avg-popularity" class="text-3xl font-extrabold text-white">N/A</span>
                          </div>
                     </div>
                 </div>
@@ -575,7 +593,7 @@
             // 2. Genre Verteilung (Basierend auf Medium Term Artists)
             renderTopGenresDistribution(artistsMedium);
 
-            // 3. Audio Features (NEU)
+            // 3. Audio Features (OPTIMIERT)
             renderAudioFeatures(audioFeatures, tracksMedium);
 
             // 4. Kurzfristige Listen (4 Wochen)
@@ -631,37 +649,64 @@
 
             const count = validFeatures.length;
             for (const key in avgFeatures) {
-                avgFeatures[key] = (avgFeatures[key] / count).toFixed(2);
+                avgFeatures[key] = (avgFeatures[key] / count); // Nicht runden, um 2 Dezimalstellen in der Anzeige zu haben
             }
             
-            // 2. Berechnung der durchschnittlichen Popularität (NEUE METRIK)
+            // 2. Berechnung der durchschnittlichen Popularität 
             const totalPopularity = tracks.reduce((sum, track) => sum + track.popularity, 0);
             const avgPopularity = (totalPopularity / tracks.length).toFixed(0);
             
             document.getElementById('avg-popularity').textContent = `${avgPopularity}%`;
 
 
-            // 3. Rendern der Balken
-            const featuresToRender = [
-                { key: 'danceability', label: 'Tanzbarkeit (Danceability)' },
-                { key: 'energy', label: 'Energie (Energy)' },
-                { key: 'valence', label: 'Stimmung (Valence)' },
-                { key: 'instrumentalness', label: 'Instrumentalität' },
-            ];
+            // 3. Rendern der Balken mit Beschreibungen und Icons (Optimierung)
+            const featureDescriptions = {
+                danceability: { 
+                    label: 'Tanzbarkeit', 
+                    icon: '💃', 
+                    description: 'Wie geeignet der Track zum Tanzen ist (Tempo, Rhythmusstabilität).' 
+                },
+                energy: { 
+                    label: 'Energie', 
+                    icon: '⚡', 
+                    description: 'Wahrgenommene Intensität und Aktivität (schnell, laut, viel Lärm).' 
+                },
+                valence: { 
+                    label: 'Stimmung (Valence)', 
+                    icon: '😊', 
+                    description: 'Musikalische Positivität (fröhlich, euphorisch) vs. Negativität (traurig, wütend).' 
+                },
+                instrumentalness: { 
+                    label: 'Instrumentalität', 
+                    icon: '🎻', 
+                    description: 'Gibt an, ob der Track Vokal-Content enthält. Werte nahe 1.0 deuten auf Instrumentalmusik hin.' 
+                },
+            };
 
-            featuresToRender.forEach(({ key, label }) => {
-                const value = parseFloat(avgFeatures[key]);
+            const featuresToRender = ['danceability', 'energy', 'valence', 'instrumentalness'];
+
+            featuresToRender.forEach((key) => {
+                const feature = featureDescriptions[key];
+                const value = parseFloat(avgFeatures[key].toFixed(2));
                 const percentage = (value * 100).toFixed(0);
                 
                 const barHtml = `
                     <div class="flex flex-col">
-                        <div class="flex justify-between text-sm mb-1">
-                            <span class="font-medium text-gray-300">${label}</span>
-                            <span class="font-bold text-white">${value}</span>
+                        <!-- Titel und Wert -->
+                        <div class="flex justify-between items-center text-sm mb-1">
+                            <span class="font-medium text-gray-300 flex items-center gap-2">
+                                ${feature.icon} ${feature.label}
+                            </span>
+                            <span class="font-extrabold text-lg text-white">${value.toFixed(2)}</span>
                         </div>
-                        <div class="w-full bg-gray-700 rounded-full h-2">
-                            <div class="feature-bar bg-green-500" style="width: ${percentage}%;"></div>
+                        
+                        <!-- Fortschrittsbalken -->
+                        <div class="w-full bg-gray-700 rounded-full h-3">
+                            <div class="feature-bar" style="width: ${percentage}%;"></div>
                         </div>
+
+                        <!-- Beschreibung -->
+                        <p class="text-xs text-gray-400 mt-2">${feature.description}</p>
                     </div>
                 `;
                 container.insertAdjacentHTML('beforeend', barHtml);
