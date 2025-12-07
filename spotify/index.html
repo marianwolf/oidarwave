@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spotify Multi-Account Dashboard</title>
+    <title>Spotify Dashboard & Erweiterte Statistiken</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Spotify-spezifische Farben für einheitliches Styling */
@@ -18,13 +18,15 @@
         .scrollable-list::-webkit-scrollbar { width: 8px; }
         .scrollable-list::-webkit-scrollbar-thumb { background-color: #1DB954; border-radius: 10px; }
         .scrollable-list::-webkit-scrollbar-track { background-color: #374151; }
+        /* Style für die Genre-Balken und Audio-Feature-Balken */
+        .feature-bar { height: 10px; border-radius: 5px; transition: width 1s ease-out; }
     </style>
 </head>
 <body class="bg-gray-900 text-white min-h-screen font-sans flex flex-col items-center p-6">
 
     <header class="w-full max-w-6xl mb-10 text-center">
-        <h1 class="text-4xl md:text-5xl font-extrabold spotify-green mb-3">Spotify Dashboard & Statistik-Recap</h1>
-        <p class="text-gray-400">Live-Wiedergabe, kurz- und langfristige Hörgewohnheiten.</p>
+        <h1 class="text-4xl md:text-5xl font-extrabold spotify-green mb-3">Spotify Dashboard & Erweiterte Statistiken</h1>
+        <p class="text-gray-400">Live-Wiedergabe, kurz-, mittel- und langfristige Hörgewohnheiten, inklusive Audio-Analyse.</p>
     </header>
 
     <!-- Warnung für Konfiguration -->
@@ -69,7 +71,7 @@
             <!-- User Card & Live Wiedergabe -->
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <!-- User Card (2/3 Breite auf Desktop) -->
-                <div class="lg:col-span-2 bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-2xl shadow-xl border border-gray-700 relative overflow-hidden">
+                <div class="lg:col-span-2 bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-2xl shadow-2xl border border-gray-700 relative overflow-hidden">
                     <div class="relative z-10 flex flex-col md:flex-row items-center md:items-start gap-6">
                         <img id="user-image" src="" alt="Profile" class="w-24 h-24 rounded-full border-4 border-gray-700 shadow-lg object-cover bg-gray-600">
                         <div class="text-center md:text-left flex-1">
@@ -111,38 +113,74 @@
                         </div>
                     </div>
                 </div>
-
             </div>
             
-            <!-- Allgemeine Metriken -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Gesamte Anzahl Follower -->
-                <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 text-center shadow-lg">
-                    <p class="text-sm text-gray-400 mb-2">Spotify Gesamt-Follower</p>
-                    <p id="total-followers-count" class="text-4xl font-extrabold spotify-green">0</p>
+            <!-- Allgemeine Metriken (Zusätzliche Stats) -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <!-- Gesamt-Follower (Bisher vorhanden) -->
+                <div class="bg-gray-800 p-4 rounded-xl border border-gray-700 text-center shadow-lg">
+                    <p class="text-xs text-gray-400 mb-1">Künstler-Follower gesamt</p>
+                    <p id="total-followers-count" class="text-2xl font-extrabold spotify-green">0</p>
                 </div>
-                <!-- Top Genre -->
-                <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 text-center shadow-lg md:col-span-2">
-                    <p class="text-sm text-gray-400 mb-2">Meistgehörte Genres (Basierend auf Top-Künstlern)</p>
-                    <div id="top-genres-list" class="flex flex-wrap justify-center gap-2">
-                        <span class="text-gray-500">Wird geladen...</span>
+                <!-- Anzahl Playlists -->
+                <div class="bg-gray-800 p-4 rounded-xl border border-gray-700 text-center shadow-lg">
+                    <p class="text-xs text-gray-400 mb-1">Erstellte Playlists</p>
+                    <p id="total-playlists-count" class="text-2xl font-extrabold spotify-green">0</p>
+                </div>
+                <!-- Gespeicherte Alben -->
+                <div class="bg-gray-800 p-4 rounded-xl border border-gray-700 text-center shadow-lg">
+                    <p class="text-xs text-gray-400 mb-1">Gespeicherte Alben</p>
+                    <p id="total-albums-count" class="text-2xl font-extrabold spotify-green">0</p>
+                </div>
+                <!-- Gespeicherte Titel -->
+                <div class="bg-gray-800 p-4 rounded-xl border border-gray-700 text-center shadow-lg">
+                    <p class="text-xs text-gray-400 mb-1">Gespeicherte Titel</p>
+                    <p id="total-saved-tracks-count" class="text-2xl font-extrabold spotify-green">0</p>
+                </div>
+            </div>
+
+            <!-- Genre Verteilung & Audio Features (Neue Reihe) -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+                <!-- Genre Verteilung -->
+                <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 shadow-lg">
+                    <h3 class="text-2xl font-bold text-white mb-4">Top-Genre-Verteilung (Letzte 6 Monate)</h3>
+                    <p class="text-sm text-gray-400 mb-4">Basierend auf Top 20 Künstlern.</p>
+                    <div id="top-genres-distribution" class="space-y-4">
+                        <div class="text-gray-500">Lade Genre-Daten...</div>
+                    </div>
+                </div>
+
+                <!-- NEU: Audio Feature Analyse -->
+                <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 shadow-lg">
+                    <h3 class="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+                        <span class="text-green-400">📊</span> Musikalische Eigenschaften (Top 50 Tracks)
+                    </h3>
+                    <p class="text-sm text-gray-400 mb-4">Durchschnittliche Audio Features Ihrer meistgehörten Titel der letzten 6 Monate.</p>
+                    
+                    <div id="audio-features-analysis" class="space-y-4">
+                        <div class="text-gray-500">Lade Audio-Feature-Daten...</div>
+                    </div>
+
+                    <!-- NEUE METRIK: Durchschnittliche Popularität -->
+                    <div class="mt-6 pt-4 border-t border-gray-700">
+                         <div class="bg-gray-900 p-3 rounded-lg flex justify-between items-center">
+                            <span class="text-sm font-medium text-gray-300">Ø Beliebtheit (Popularity):</span>
+                            <span id="avg-popularity" class="text-xl font-extrabold spotify-green">N/A</span>
+                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Statistik-Recaps und Kurzzeit-Statistiken -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Statistik-Recaps für 4 Wochen, 6 Monate und 3 Jahre -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 
                 <!-- SHORT TERM (4 Wochen) -->
                 <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 shadow-lg">
-                    <h3 class="text-2xl font-bold text-white mb-4">Aktuelle Trends (Letzte 4 Wochen)</h3>
-                    
+                    <h3 class="text-xl font-bold text-white mb-4">Aktuelle Trends (Letzte 4 Wochen)</h3>
                     <div class="space-y-6">
-                        <!-- Top Artists 4W -->
                         <h4 class="text-lg font-semibold text-gray-300 flex items-center gap-2"><span class="text-green-400">🎤</span> Top Künstler</h4>
                         <ul id="top-artists-short-list" class="space-y-3 scrollable-list"></ul>
-                        
-                        <!-- Top Tracks 4W -->
                         <h4 class="text-lg font-semibold text-gray-300 flex items-center gap-2"><span class="text-green-400">🎧</span> Top Titel</h4>
                         <ul id="top-tracks-short-list" class="space-y-3 scrollable-list"></ul>
                     </div>
@@ -150,18 +188,26 @@
 
                 <!-- MEDIUM TERM (6 Monate Recap) -->
                 <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 shadow-lg">
-                    <h3 class="text-2xl font-bold text-white mb-4">Jahres-Recap (Letzte 6 Monate)</h3>
-
+                    <h3 class="text-xl font-bold text-white mb-4">Mittelfristiger Recap (Letzte 6 Monate)</h3>
                     <div class="space-y-6">
-                        <!-- Top Artists 6M -->
                         <h4 class="text-lg font-semibold text-gray-300 flex items-center gap-2"><span class="text-green-400">🧑‍🎤</span> Top Künstler</h4>
                         <ul id="top-artists-medium-list" class="space-y-3 scrollable-list"></ul>
-
-                        <!-- Top Tracks 6M -->
-                        <h4 class="text-lg font-semibold text-gray-300 flex items-center gap-2"><span class="text-green-400">🎶</span> Top Titel</h4>
+                        <h4 class="text-lg font-semibold text-gray-300 flex items-center gap-2"><span class="text-green-400">🎶</span> Top Titel (Top 5)</h4>
                         <ul id="top-tracks-medium-list" class="space-y-3 scrollable-list"></ul>
                     </div>
                 </div>
+                
+                <!-- LONG TERM (3 Jahre) -->
+                <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 shadow-lg">
+                    <h3 class="text-xl font-bold text-white mb-4">Langzeit-Recap (Seit Beginn / bis zu 3 Jahre)</h3>
+                    <div class="space-y-6">
+                        <h4 class="text-lg font-semibold text-gray-300 flex items-center gap-2"><span class="text-green-400">💎</span> Top Künstler All-Time</h4>
+                        <ul id="top-artists-long-list" class="space-y-3 scrollable-list"></ul>
+                        <h4 class="text-lg font-semibold text-gray-300 flex items-center gap-2"><span class="text-green-400">🏆</span> Top Titel All-Time</h4>
+                        <ul id="top-tracks-long-list" class="space-y-3 scrollable-list"></ul>
+                    </div>
+                </div>
+
             </div>
 
             <!-- Kürzlich gespielt (Volle Breite) -->
@@ -236,8 +282,8 @@
             
             localStorage.setItem('pkce_verifier', codeVerifier);
 
-            // SCOPE ERWEITERT um user-read-currently-playing
-            const scope = 'user-read-private user-read-email user-top-read user-follow-read user-read-recently-played user-read-currently-playing';
+            // SCOPE ERWEITERT um user-library-read für Alben/Saved Tracks/Playlists
+            const scope = 'user-read-private user-read-email user-top-read user-follow-read user-read-recently-played user-read-currently-playing user-library-read playlist-read-private';
             const authUrl = new URL("https://accounts.spotify.com/authorize");
 
             const params = {
@@ -321,11 +367,12 @@
                 }
                 
                 if (!response.ok) {
-                     // 401 Unauthorized (Token abgelaufen)
+                    // 401 Unauthorized (Token abgelaufen)
                     if (response.status === 401) {
-                        showError("Live-Wiedergabe-Update fehlgeschlagen (Token abgelaufen). Bitte erneut anmelden.");
+                        // Polling stoppen, da Token abgelaufen ist
                         clearInterval(pollingInterval);
                         pollingInterval = null;
+                        // Fehler anzeigen, aber UI nicht zurücksetzen, falls der Nutzer sich neu anmeldet
                         return;
                     }
                     throw new Error(`API Fehler: ${response.status}`);
@@ -336,7 +383,6 @@
 
             } catch (err) {
                 console.error("Fehler beim Abrufen der aktuellen Wiedergabe:", err);
-                // Bei Fehler einfach die letzte Nachricht beibehalten
             }
         }
         
@@ -375,49 +421,110 @@
         // **********************************************
         // DATEN LADEN & UI
         // **********************************************
+        
+        // Fügt eine Wartefunktion mit exponentiellem Backoff hinzu
+        const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+        
+        async function fetchWithRetry(url, options, retries = 3) {
+            for (let i = 0; i < retries; i++) {
+                const response = await fetch(url, options);
+                if (response.ok) return response;
+                if (response.status === 429 && i < retries - 1) { // Too Many Requests
+                    const retryAfter = response.headers.get('Retry-After');
+                    const delay = retryAfter ? parseInt(retryAfter) * 1000 : (2 ** i) * 1000;
+                    console.warn(`Rate Limit erreicht. Warte ${delay / 1000}s...`);
+                    await sleep(delay);
+                } else {
+                    return response; // Bei anderen Fehlern oder letztem Versuch
+                }
+            }
+            throw new Error(`Fehler beim Abrufen von ${url} nach ${retries} Versuchen.`);
+        }
+
 
         async function loadUserData(token) {
             currentAccessToken = token;
-            setLoading(true, 'Lade Profildaten und Statistiken...');
+            setLoading(true, 'Lade Profildaten und erweiterte Statistiken...');
             
             try {
-                // NEU: API-Aufrufe für Kurz- und Mittelterm (Recap) parallel starten
+                // Initialer Abruf (ohne Audio Features, da diese von Top Tracks abhängen)
                 const [
-                    profileRes, recentRes, followingRes,
+                    profileRes, recentRes, followingRes, playlistsRes, savedAlbumsRes, savedTracksRes,
                     artistsShortRes, tracksShortRes,
-                    artistsMediumRes, tracksMediumRes
+                    artistsMediumRes, tracksMediumRes, // Limit=50 für Tracks
+                    artistsLongRes, tracksLongRes 
                 ] = await Promise.all([
-                    fetch('https://api.spotify.com/v1/me', { headers: { Authorization: `Bearer ${token}` } }),
-                    fetch('https://api.spotify.com/v1/me/player/recently-played?limit=5', { headers: { Authorization: `Bearer ${token}` } }),
-                    fetch('https://api.spotify.com/v1/me/following?type=artist&limit=1', { headers: { Authorization: `Bearer ${token}` } }),
+                    fetchWithRetry('https://api.spotify.com/v1/me', { headers: { Authorization: `Bearer ${token}` } }),
+                    fetchWithRetry('https://api.spotify.com/v1/me/player/recently-played?limit=5', { headers: { Authorization: `Bearer ${token}` } }),
+                    fetchWithRetry('https://api.spotify.com/v1/me/following?type=artist&limit=1', { headers: { Authorization: `Bearer ${token}` } }),
+                    fetchWithRetry('https://api.spotify.com/v1/me/playlists?limit=1', { headers: { Authorization: `Bearer ${token}` } }),
+                    fetchWithRetry('https://api.spotify.com/v1/me/albums?limit=1', { headers: { Authorization: `Bearer ${token}` } }),
+                    fetchWithRetry('https://api.spotify.com/v1/me/tracks?limit=1', { headers: { Authorization: `Bearer ${token}` } }),
+                    
                     // Kurzfristig (4 Wochen)
-                    fetch('https://api.spotify.com/v1/me/top/artists?limit=5&time_range=short_term', { headers: { Authorization: `Bearer ${token}` } }),
-                    fetch('https://api.spotify.com/v1/me/top/tracks?limit=5&time_range=short_term', { headers: { Authorization: `Bearer ${token}` } }),
+                    fetchWithRetry('https://api.spotify.com/v1/me/top/artists?limit=5&time_range=short_term', { headers: { Authorization: `Bearer ${token}` } }),
+                    fetchWithRetry('https://api.spotify.com/v1/me/top/tracks?limit=5&time_range=short_term', { headers: { Authorization: `Bearer ${token}` } }),
+                    
                     // Mittelfristig (6 Monate Recap)
-                    fetch('https://api.spotify.com/v1/me/top/artists?limit=5&time_range=medium_term', { headers: { Authorization: `Bearer ${token}` } }),
-                    fetch('https://api.spotify.com/v1/me/top/tracks?limit=5&time_range=medium_term', { headers: { Authorization: `Bearer ${token}` } }),
+                    fetchWithRetry('https://api.spotify.com/v1/me/top/artists?limit=20&time_range=medium_term', { headers: { Authorization: `Bearer ${token}` } }),
+                    fetchWithRetry('https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=medium_term', { headers: { Authorization: `Bearer ${token}` } }), // LIMIT AUF 50 für Audio Features
+                    
+                    // Langfristig (3 Jahre)
+                    fetchWithRetry('https://api.spotify.com/v1/me/top/artists?limit=5&time_range=long_term', { headers: { Authorization: `Bearer ${token}` } }),
+                    fetchWithRetry('https://api.spotify.com/v1/me/top/tracks?limit=5&time_range=long_term', { headers: { Authorization: `Bearer ${token}` } }),
                 ]);
                 
                 // Prüfen auf abgelaufenes Token (401 Unauthorized)
                 if (profileRes.status === 401) {
-                    showError("Ihr Spotify-Token ist abgelaufen oder ungültig. Bitte melden Sie sich erneut an.");
+                    showError("Ihr Spotify-Token ist abgelaufen. Bitte melden Sie sich erneut an.");
                     logout();
                     return;
                 }
-                if (!profileRes.ok) throw new Error('Fehler beim Abrufen des Profils.');
-
-
+                
                 // Daten aus den Responses extrahieren
                 const profile = await profileRes.json();
                 const recent = (await recentRes.json()).items;
                 const following = await followingRes.json();
+                const playlistsCount = (await playlistsRes.json()).total;
+                const savedAlbumsCount = (await savedAlbumsRes.json()).total;
+                const savedTracksCount = (await savedTracksRes.json()).total;
                 const artistsShort = (await artistsShortRes.json()).items;
                 const tracksShort = (await tracksShortRes.json()).items;
                 const artistsMedium = (await artistsMediumRes.json()).items;
-                const tracksMedium = (await tracksMediumRes.json()).items;
+                const tracksMedium = (await tracksMediumRes.json()).items; 
+                const artistsLong = (await artistsLongRes.json()).items;
+                const tracksLong = (await tracksLongRes.json()).items;
+                
+                // *** NEU: Audio Features Abrufen ***
+                let audioFeatures = null;
+                if (tracksMedium.length > 0) {
+                    setLoading(true, 'Analysiere musikalische Eigenschaften...');
+                    const trackIds = tracksMedium.map(t => t.id).join(',');
+                    // Spotify erlaubt maximal 100 IDs pro Anfrage, wir verwenden 50
+                    const audioFeaturesRes = await fetchWithRetry(`https://api.spotify.com/v1/audio-features?ids=${trackIds}`, { 
+                        headers: { Authorization: `Bearer ${token}` } 
+                    });
+                    
+                    if (audioFeaturesRes.ok) {
+                        audioFeatures = (await audioFeaturesRes.json()).audio_features;
+                    } else {
+                        console.error("Fehler beim Abrufen der Audio Features:", await audioFeaturesRes.text());
+                    }
+                }
 
                 // Rendern der Daten
-                renderDashboard(profile, artistsShort, tracksShort, artistsMedium, tracksMedium, recent, following.artists.total);
+                renderDashboard(
+                    profile, 
+                    artistsShort, tracksShort, 
+                    artistsMedium, tracksMedium, 
+                    artistsLong, tracksLong,
+                    recent, 
+                    following.artists.total, 
+                    playlistsCount, 
+                    savedAlbumsCount, 
+                    savedTracksCount,
+                    audioFeatures // NEU: Audio Features übergeben
+                );
                 
                 // Live-Wiedergabe Polling starten
                 startPolling();
@@ -432,7 +539,18 @@
         /**
          * Rendert das gesamte Dashboard mit den abgerufenen Daten.
          */
-        function renderDashboard(profile, artistsShort, tracksShort, artistsMedium, tracksMedium, recent, followingCount) {
+        function renderDashboard(
+            profile, 
+            artistsShort, tracksShort, 
+            artistsMedium, tracksMedium, 
+            artistsLong, tracksLong,
+            recent, 
+            followingCount, 
+            playlistsCount, 
+            savedAlbumsCount, 
+            savedTracksCount,
+            audioFeatures // NEU
+        ) {
             document.getElementById('login-section').classList.add('hidden');
             document.getElementById('dashboard-section').classList.remove('hidden');
 
@@ -440,8 +558,13 @@
             document.getElementById('user-name').textContent = profile.display_name;
             document.getElementById('user-email').textContent = profile.email;
             document.getElementById('user-follower-count').textContent = `• ${profile.followers.total.toLocaleString('de-DE')} eigene Follower`;
-            document.getElementById('total-followers-count').textContent = followingCount.toLocaleString('de-DE');
             
+            // Metriken rendern
+            document.getElementById('total-followers-count').textContent = followingCount.toLocaleString('de-DE');
+            document.getElementById('total-playlists-count').textContent = playlistsCount.toLocaleString('de-DE');
+            document.getElementById('total-albums-count').textContent = savedAlbumsCount.toLocaleString('de-DE');
+            document.getElementById('total-saved-tracks-count').textContent = savedTracksCount.toLocaleString('de-DE');
+
             const img = document.getElementById('user-image');
             if (profile.images && profile.images.length > 0) {
                 img.src = profile.images[0].url;
@@ -449,18 +572,26 @@
                 img.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(profile.display_name)}&background=1DB954&color=fff`;
             }
 
-            // 2. Top-Genres (Basierend auf Medium Term Artists für bessere Repräsentation)
-            renderTopGenres(artistsMedium);
+            // 2. Genre Verteilung (Basierend auf Medium Term Artists)
+            renderTopGenresDistribution(artistsMedium);
 
-            // 3. Kurzfristige Listen (4 Wochen)
-            renderList(artistsShort, 'top-artists-short-list', (artist, index) => renderArtistListItem(artist, index, 'short'));
-            renderList(tracksShort, 'top-tracks-short-list', (track, index) => renderTrackListItem(track, index, 'short'));
+            // 3. Audio Features (NEU)
+            renderAudioFeatures(audioFeatures, tracksMedium);
+
+            // 4. Kurzfristige Listen (4 Wochen)
+            renderList(artistsShort, 'top-artists-short-list', (artist, index) => renderArtistListItem(artist, index));
+            renderList(tracksShort, 'top-tracks-short-list', (track, index) => renderTrackListItem(track, index));
             
-            // 4. Mittelfristige Listen (6 Monate Recap)
-            renderList(artistsMedium, 'top-artists-medium-list', (artist, index) => renderArtistListItem(artist, index, 'medium'));
-            renderList(tracksMedium, 'top-tracks-medium-list', (track, index) => renderTrackListItem(track, index, 'medium'));
+            // 5. Mittelfristige Listen (6 Monate Recap) - Top 5 Titel anzeigen, auch wenn 50 abgerufen wurden
+            renderList(artistsMedium, 'top-artists-medium-list', (artist, index) => renderArtistListItem(artist, index));
+            renderList(tracksMedium.slice(0, 5), 'top-tracks-medium-list', (track, index) => renderTrackListItem(track, index)); 
+            
+            // 6. Langfristige Listen (3 Jahre)
+            renderList(artistsLong, 'top-artists-long-list', (artist, index) => renderArtistListItem(artist, index));
+            renderList(tracksLong, 'top-tracks-long-list', (track, index) => renderTrackListItem(track, index));
 
-            // 5. Kürzlich gespielt
+
+            // 7. Kürzlich gespielt
             renderList(recent, 'recently-played-list', renderRecentPlayedItem);
         }
         
@@ -468,6 +599,75 @@
         // RENDER-HELFER
         // **********************************************
 
+        /**
+         * Berechnet und rendert die durchschnittlichen Audio Features.
+         * @param {Array<Object>} features - Die Audio Features für die Top-Titel.
+         * @param {Array<Object>} tracks - Die Top-Titel (für Popularität).
+         */
+        function renderAudioFeatures(features, tracks) {
+            const container = document.getElementById('audio-features-analysis');
+            container.innerHTML = '';
+            
+            if (!features || features.length === 0) {
+                container.innerHTML = '<div class="text-gray-500">Keine Audio-Feature-Daten verfügbar.</div>';
+                document.getElementById('avg-popularity').textContent = 'N/A';
+                return;
+            }
+            
+            // 1. Berechnung der Durchschnittswerte
+            const validFeatures = features.filter(f => f !== null);
+            if (validFeatures.length === 0) {
+                container.innerHTML = '<div class="text-gray-500">Keine gültigen Audio-Feature-Daten gefunden.</div>';
+                document.getElementById('avg-popularity').textContent = 'N/A';
+                return;
+            }
+
+            const avgFeatures = validFeatures.reduce((acc, f) => ({
+                danceability: acc.danceability + f.danceability,
+                energy: acc.energy + f.energy,
+                valence: acc.valence + f.valence,
+                instrumentalness: acc.instrumentalness + f.instrumentalness,
+            }), { danceability: 0, energy: 0, valence: 0, instrumentalness: 0 });
+
+            const count = validFeatures.length;
+            for (const key in avgFeatures) {
+                avgFeatures[key] = (avgFeatures[key] / count).toFixed(2);
+            }
+            
+            // 2. Berechnung der durchschnittlichen Popularität (NEUE METRIK)
+            const totalPopularity = tracks.reduce((sum, track) => sum + track.popularity, 0);
+            const avgPopularity = (totalPopularity / tracks.length).toFixed(0);
+            
+            document.getElementById('avg-popularity').textContent = `${avgPopularity}%`;
+
+
+            // 3. Rendern der Balken
+            const featuresToRender = [
+                { key: 'danceability', label: 'Tanzbarkeit (Danceability)' },
+                { key: 'energy', label: 'Energie (Energy)' },
+                { key: 'valence', label: 'Stimmung (Valence)' },
+                { key: 'instrumentalness', label: 'Instrumentalität' },
+            ];
+
+            featuresToRender.forEach(({ key, label }) => {
+                const value = parseFloat(avgFeatures[key]);
+                const percentage = (value * 100).toFixed(0);
+                
+                const barHtml = `
+                    <div class="flex flex-col">
+                        <div class="flex justify-between text-sm mb-1">
+                            <span class="font-medium text-gray-300">${label}</span>
+                            <span class="font-bold text-white">${value}</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="feature-bar bg-green-500" style="width: ${percentage}%;"></div>
+                        </div>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', barHtml);
+            });
+        }
+        
         function renderArtistListItem(artist, index) {
             return `
                 <li class="flex items-center gap-3 bg-gray-700/50 p-2 rounded hover:bg-gray-700 transition">
@@ -510,31 +710,53 @@
             `;
         }
         
-        function renderTopGenres(artists) {
-            const genresList = document.getElementById('top-genres-list');
-            genresList.innerHTML = '';
+        /**
+         * Berechnet und rendert die prozentuale Verteilung der Top-Genres.
+         * @param {Array<Object>} artists - Liste der Top-Künstler (hier Medium Term, Top 20)
+         */
+        function renderTopGenresDistribution(artists) {
+            const distributionDiv = document.getElementById('top-genres-distribution');
+            distributionDiv.innerHTML = '';
             
             const genreCounts = {};
+            let totalGenreMentions = 0;
+            
+            // Zähle alle Genre-Erwähnungen
             artists.forEach(artist => {
                 artist.genres.forEach(genre => {
-                    genreCounts[genre] = (genreCounts[genre] || 0) + 1;
+                    // Normalisiere den Genre-Namen (erste Buchstabe groß)
+                    const normalizedGenre = genre.charAt(0).toUpperCase() + genre.slice(1);
+                    genreCounts[normalizedGenre] = (genreCounts[normalizedGenre] || 0) + 1;
+                    totalGenreMentions++;
                 });
             });
 
-            const topGenres = Object.entries(genreCounts)
-                .sort(([, countA], [, countB]) => countB - countA)
-                .slice(0, 5); // Zeige die Top 5
-
-            if (topGenres.length === 0) {
-                genresList.innerHTML = '<span class="text-gray-500">Keine Genre-Daten verfügbar.</span>';
+            if (totalGenreMentions === 0) {
+                distributionDiv.innerHTML = '<div class="text-gray-500">Keine Genre-Daten verfügbar (Bitte stellen Sie sicher, dass Sie Künstler in Ihren Top 20 haben).</div>';
                 return;
             }
 
+            // Top 10 Genres extrahieren und nach Häufigkeit sortieren
+            const topGenres = Object.entries(genreCounts)
+                .sort(([, countA], [, countB]) => countB - countA)
+                .slice(0, 10); 
+
+            // Berechne Prozente und rendere die Balken
             topGenres.forEach(([genre, count]) => {
-                const badge = document.createElement('span');
-                badge.className = 'px-3 py-1 bg-green-900/50 text-green-300 text-sm font-medium rounded-full border border-green-600/50 shadow-md';
-                badge.textContent = `${genre.charAt(0).toUpperCase() + genre.slice(1)}`;
-                genresList.appendChild(badge);
+                const percentage = ((count / totalGenreMentions) * 100).toFixed(1);
+                
+                const barHtml = `
+                    <div class="flex flex-col">
+                        <div class="flex justify-between text-sm mb-1">
+                            <span class="font-medium">${genre}</span>
+                            <span class="font-bold text-green-400">${percentage}%</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="feature-bar bg-spotify-green" style="width: ${percentage}%;"></div>
+                        </div>
+                    </div>
+                `;
+                distributionDiv.insertAdjacentHTML('beforeend', barHtml);
             });
         }
 
