@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verlauf exportieren</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Spezifische Stile für diese einfache Seite */
+        .download-container {
+            max-width: 600px;
+            margin: var(--space-600) auto;
+            padding: var(--space-500);
+            border-radius: var(--radius-lg);
+            text-align: center;
+            background: var(--color-surface-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid hsla(240, 100%, 47%, 0.2); 
+        }
+
+        .download-container h1 {
+            color: var(--color-accent-pink);
+            margin-bottom: var(--space-300);
+        }
+
+        .download-btn {
+            background: linear-gradient(90deg, var(--color-accent-purple), var(--color-accent-blue));
+            color: var(--color-on-surface-primary);
+            padding: var(--space-200) var(--space-400);
+            border: none;
+            border-radius: var(--radius-pill);
+            cursor: pointer;
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+            transition: transform 0.1s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            text-decoration: none; /* Als Fallback für a-Tag */
+            display: inline-block;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
+        }
+
+        .download-btn:active {
+            transform: translateY(0);
+        }
+
+        #statusMessage {
+            margin-top: var(--space-300);
+            min-height: var(--space-300); /* Platzhalter */
+            color: var(--color-on-surface-secondary);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="download-container">
+        <h1>📻 Verlauf exportieren</h1>
+        <p>Klicke auf den Button, um die lokal gespeicherten Senderverlaufsdaten (`station_history`) herunterzuladen.</p>
+        <p id="statusMessage"></p>
+        <button id="downloadButton" class="download-btn">History als JSON herunterladen</button>
+    </div>
+</div>
+
+<script src="history.js"></script> 
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const downloadButton = document.getElementById('downloadButton');
+        const statusMessage = document.getElementById('statusMessage');
+
+        // Funktion, die den History-Cache direkt aus dem Modul extrahiert
+        // Da das history.js-Modul im globalen Scope liegt, können wir es hier nicht direkt nutzen, 
+        // ABER wir können die Daten direkt aus localStorage lesen, wie im Modul definiert.
+        
+        const HISTORY_KEY = 'station_history';
+        
+        function getRawHistoryData() {
+            const historyStr = localStorage.getItem(HISTORY_KEY);
+            
+            if (!historyStr) {
+                statusMessage.textContent = "⚠️ Keine Verlaufsdaten im LocalStorage gefunden.";
+                statusMessage.style.color = 'var(--color-status-error)';
+                return null;
+            }
+            
+            return historyStr;
+        }
+
+        function downloadHistory() {
+            const rawData = getRawHistoryData();
+            if (!rawData) return;
+            
+            const filename = 'station_history_' + new Date().toISOString().slice(0, 10) + '.json';
+
+            // Erstellen eines Blob-Objekts (Binary Large Object) aus dem JSON-String
+            const blob = new Blob([rawData], { type: 'application/json' });
+            
+            // Erstellen eines temporären Links
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            
+            // Klick auf den Link simulieren
+            document.body.appendChild(a);
+            a.click();
+            
+            // Aufräumen
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            statusMessage.textContent = `✅ Datei "${filename}" erfolgreich heruntergeladen.`;
+            statusMessage.style.color = 'var(--color-status-online)';
+        }
+
+        downloadButton.addEventListener('click', downloadHistory);
+        
+        // Initialer Check, ob Daten existieren
+        getRawHistoryData(); 
+    });
+</script>
+
+</body>
+</html>
