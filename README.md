@@ -91,6 +91,7 @@ Beiträge sind jederzeit willkommen\! Ob es sich um Fehlerberichte, Funktionsvor
   - [x] neues Design (0.9.6)
   - [x] verbessertes Design und Video Vor- und Rückspulen (0.9.7)
   - [x] Verlauf im `localStorage` als `.json` (0.9.8)
+  - [x] Donwload des Verlaufs mit `Ctrl + H` (0.9.9)
   - [ ] Integration weiterer Sender
   - [ ] Umschaltung zwischen Dunkel- und Hellmodus
   - [ ] Favoriten
