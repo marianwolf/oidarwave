@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function triggerDownload(data, key) {
         const now = new Date();
-        const filename = `${key}_${now.toISOString().replace(/:/g, '-').slice(0, 19)}.json`;
+        const filename = `${key}_${now.toISOString().replace('T', '-').slice(0, 19)}.json`;
         const blob = new Blob([data], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
