@@ -8,15 +8,15 @@ const StationHistory = (() => {
     function loadHistory() {
         const historyStr = localStorage.getItem(HISTORY_KEY);
         if (!historyStr) {
-            return { version: 2, stations: {} };
+            return { version: 1, stations: {} };
         }
         
         try {
             const history = JSON.parse(historyStr);
-            return { version: history.version || 2, stations: history.stations || {} }; 
+            return { version: history.version || 1, stations: history.stations || {} }; 
         } catch (e) {
             console.error("Fehler beim Parsen des Verlaufs, setze zurück:", e);
-            return { version: 2, stations: {} };
+            return { version: 1, stations: {} };
         }
     }
 
