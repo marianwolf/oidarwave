@@ -59,7 +59,6 @@ const StationHistory = (() => {
         
         if (!history.stations[url]) {
             history.stations[url] = {
-                url,
                 name,
                 sessions: [],
                 totalDurationMs: 0,
