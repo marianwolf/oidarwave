@@ -2,7 +2,8 @@ const StationHistory = (() => {
     const HISTORY_KEY = 'station_history';
     const EXPIRY_DAYS = 90;
     const EXPIRY_TIME_MS = EXPIRY_DAYS * 24 * 60 * 60 * 1000;
-    let historyCache = null;
+    const JSON_INDENTATION = 2;
+    let historyCache;
 
     function loadHistory() {
         const historyStr = localStorage.getItem(HISTORY_KEY);
@@ -20,7 +21,7 @@ const StationHistory = (() => {
 
     function saveHistory() {
         if (historyCache) {
-            localStorage.setItem(HISTORY_KEY, JSON.stringify(historyCache));
+            localStorage.setItem(HISTORY_KEY, JSON.stringify(historyCache, null, JSON_INDENTATION));
         }
     }
 
@@ -34,9 +35,9 @@ const StationHistory = (() => {
         const openSessionIndex = station.sessions.findIndex(s => s.end === null);
         if (openSessionIndex === -1) return;
 
-        const session = station.sessions[openSessionIndex];
-        session.end = timestamp;
-        const duration = session.end - session.start;
+        const currentSession = station.sessions[openSessionIndex];
+        currentSession.end = timestamp;
+        const duration = currentSession.end - currentSession.start;
         
         if (duration > 1000) {
             station.totalDurationMs += duration;
@@ -50,19 +51,20 @@ const StationHistory = (() => {
     function startStation(url, name, options = {}) {
         const history = getHistory();
         const now = Date.now();
-        for (const stationUrl in history.stations) {
-            if (stationUrl !== url) {
-                stopAndFinalizeSession(history.stations[stationUrl], now);
+        for (const station of Object.values(history.stations)) {
+            if (station.url !== url) {
+                stopAndFinalizeSession(station, now);
             }
         }
         
         if (!history.stations[url]) {
             history.stations[url] = {
-                url: url,
-                name: name,
+                url,
+                name,
                 sessions: [],
                 totalDurationMs: 0,
                 playCount: 0,
+                lastPlayed: now
             };
         }
         
@@ -105,8 +107,7 @@ const StationHistory = (() => {
         
         let hasChanged = false;
 
-        for (const url in history.stations) {
-            const station = history.stations[url];
+        for (const [url, station] of Object.entries(history.stations)) {
             
             const validSessions = station.sessions.filter(s => 
                 s.end === null || s.end > expiryLimit
@@ -131,19 +132,20 @@ const StationHistory = (() => {
     function getLastStations() {
         const history = getHistory();
         
-        const sortedStations = Object.values(history.stations).sort((a, b) => {
-            return b.lastPlayed - a.lastPlayed;
-        });
+        const sortedStations = Object.values(history.stations).sort((a, b) => 
+            b.lastPlayed - a.lastPlayed
+        );
 
         return sortedStations.map(station => {
+            const { url, favicon, playCount, totalDurationMs, lastPlayed } = station;
             return {
                 displayName: station.name, 
                 details: {
-                    url: station.url,
-                    favicon: station.favicon,
-                    playCount: station.playCount,
-                    totalDurationMs: station.totalDurationMs,
-                    lastPlayed: station.lastPlayed
+                    url,
+                    favicon,
+                    playCount,
+                    totalDurationMs,
+                    lastPlayed
                 }
             };
         });
