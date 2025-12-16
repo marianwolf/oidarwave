@@ -122,10 +122,9 @@ header, .main-section, .player-section {
     animation: glow 5s ease-in-out infinite alternate;
 }
 
-.img {
-    margin-left: 5px;
-    margin-right: 5px;
+footer.img {
     vertical-align: middle;
+    margin: 0 5px 0 5px;
 }
 
 nav {
