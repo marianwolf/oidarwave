@@ -123,7 +123,9 @@ header, .main-section, .player-section {
 }
 
 footer.img {
-    margin: 5px 0 5px 0;
+    margin-left: 5px;
+    margin-right: 5px;
+    vertical-align: middle;
 }
 
 nav {
