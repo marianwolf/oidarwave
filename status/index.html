@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
+    <!-- Externe Skripte und Styles bleiben unverändert -->
     <link rel="stylesheet" href="/src/css/style.css">
     <script src="/src/js/mouse.js" defer></script>
     <script src="/src/js/cookie.js" defer></script>
@@ -20,7 +21,9 @@
     <meta property="og:url" content="/"/>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" defer>
     <title>Oidarwave - Senderstatus</title>
+    
     <style>
+        /* Bestehendes Styling */
         .station-entry {
             border: 1px solid #444;
             border-radius: 8px;
@@ -42,6 +45,80 @@
         .station-info span {
             font-family: monospace;
             font-size: 0.95em;
+        }
+        
+        /* NEUES STYLING FÜR OPTIMIERTE STATUSANZEIGE */
+
+        /* Aktiver Sender im Grid hervorheben */
+        .station-btn.active {
+            background-color: #2ecc71;
+            color: #000;
+            border-color: #2ecc71;
+            font-weight: bold;
+        }
+        
+        /* Layout für die Player Controls */
+        .player-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background: #1e1e1e;
+            border-top: 2px solid #333;
+        }
+        
+        .current-station-info {
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+        }
+        
+        .meta-data {
+            display: flex;
+            flex-direction: column;
+            margin-left: 5px;
+        }
+
+        /* Status Punkt */
+        .status-dot {
+            width: 15px;
+            height: 15px;
+            min-width: 15px; /* Sicherstellen, dass der Dot nicht schrumpft */
+            border-radius: 50%;
+            background-color: #555; /* Grau = Aus */
+            transition: background-color 0.3s;
+        }
+
+        .status-dot.playing {
+            background-color: #2ecc71; /* Grün = Läuft */
+            box-shadow: 0 0 8px #2ecc71;
+        }
+
+        .status-dot.buffering {
+            background-color: #f1c40f; /* Gelb = Lädt */
+            animation: pulse 1s infinite;
+        }
+        
+        /* Timer Styling */
+        .timer-display {
+            font-family: monospace;
+            font-size: 1.2rem;
+            color: #fff;
+            background: #222;
+            padding: 5px 10px;
+            border-radius: 4px;
+            margin: 0 15px;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        
+        /* Audio Player Styling für bessere Integration */
+        #mainAudioPlayer {
+            width: 250px; /* Begrenzte Breite für den Audio-Player */
         }
     </style>
 </head>
@@ -66,11 +143,9 @@
                             <button class="station-btn" data-url="https://st01.sslstream.dlf.de/dlf/01/128/mp3/stream.mp3" data-name="Deutschlandfunk" data-metadata-url="https://streamtext.dradio.de/dlf.txt">
                                 Deutschlandfunk
                             </button>
+                            <!-- PLAYER ENTFERNT -->
                             <div class="station-info">
-                                <audio id="audioPlayer" controls preload="none">
-                            Ihr Browser unterstützt leider keine HTML5-Audiowiedergabe.
-                        </audio>
-                        <span id="currentSongTitle"></span>
+                                <span class="station-song-title"></span>
                             </div>
                         </div>
 
@@ -78,11 +153,9 @@
                             <button class="station-btn" data-url="https://st03.sslstream.dlf.de/dlf/03/128/mp3/stream.mp3" data-name="Deutschlandfunk Nova" data-metadata-url="https://static.deutschlandfunknova.de/actions/dradio/playlist/onair">
                                 DLF Nova
                             </button>
+                            <!-- PLAYER ENTFERNT -->
                             <div class="station-info">
-                                <audio id="audioPlayer" controls preload="none">
-                            Ihr Browser unterstützt leider keine HTML5-Audiowiedergabe.
-                        </audio>
-                        <span id="currentSongTitle"></span>
+                                <span class="station-song-title"></span>
                             </div>
                         </div>
 
@@ -90,11 +163,9 @@
                             <button class="station-btn" data-url="https://f121.rndfnk.com/ard/ndr/ndr1niedersachsen/hannover/mp3/128/stream.mp3?aggregator=web&cid=01FCT9XYE3C7Y8087XEWPRC38Z&sid=30aynlfxURrCQmDeTH1p0OqVsoV&token=3Wf1JnFUByNruoizm4AdR_YPX5_CvsRtTKXV3VK-004&tvf=qhyw4VgcVxhmMTIxLnJuZGZuay5jb20" data-name="NDR 1 NDS" data-metadata-url="https://www.ndr.de/public/radioplaylists/ndr1niedersachsen.json">
                                 NDR 1
                             </button>
+                            <!-- PLAYER ENTFERNT -->
                             <div class="station-info">
-                                <audio id="audioPlayer" controls preload="none">
-                            Ihr Browser unterstützt leider keine HTML5-Audiowiedergabe.
-                        </audio>
-                        <span id="currentSongTitle"></span>
+                                <span class="station-song-title"></span>
                             </div>
                         </div>
 
@@ -102,11 +173,9 @@
                             <button class="station-btn" data-url="https://f131.rndfnk.com/ard/ndr/ndr2/niedersachsen/mp3/128/stream.mp3?aggregator=web&cid=01FBQ2CWDYWJHGF4QAJ0SVV730&sid=30ayvsXjJydzMH4MNiWpLV4nURH&token=FMhlmkJlc2prmQ6CBBjpYxFSaNHq6IDWPQKR9jRDjMA&tvf=0axLwWccVxhmMTMxLnJuZGZuay5jb20" data-name="NDR 2" data-metadata-url="https://www.ndr.de/public/radioplaylists/ndr2.json">
                                 NDR 2
                             </button>
+                            <!-- PLAYER ENTFERNT -->
                             <div class="station-info">
-                                <audio id="audioPlayer" controls preload="none">
-                            Ihr Browser unterstützt leider keine HTML5-Audiowiedergabe.
-                        </audio>
-                        <span id="currentSongTitle"></span>
+                                <span class="station-song-title"></span>
                             </div>
                         </div>
 
@@ -114,11 +183,9 @@
                             <button class="station-btn" data-url="https://f131.rndfnk.com/ard/ndr/ndrinfo/niedersachsen/mp3/128/stream.mp3?aggregator=web&cid=01FBRKHKTB73QDVNX7A9RT082R&sid=30az5c4cyuUHsy4tHS3YkD5oDcc&token=Z-H6aIgEFsx5kBPmtfq5x2UNGGmMOtyjcoYox9RHg2E&tvf=np8tvHkcVxhmMTMxLnJuZGZuay5jb20" data-name="NDR Info" data-metadata-url="https://www.ndr.de/epg/current/station-ndrinfo">
                                 NDR Info
                             </button>
+                            <!-- PLAYER ENTFERNT -->
                             <div class="station-info">
-                                <audio id="audioPlayer" controls preload="none">
-                            Ihr Browser unterstützt leider keine HTML5-Audiowiedergabe.
-                        </audio>
-                        <span id="currentSongTitle"></span>
+                                <span class="station-song-title"></span>
                             </div>
                         </div>
 
@@ -126,11 +193,9 @@
                             <button class="station-btn" data-url="https://d141.rndfnk.com/ard/ndr/ndrkultur/live/mp3/128/stream.mp3?aggregator=web&cid=01FBQ2EJ6T7QK3WENQ5KT9S2FB&sid=30azBxZOH15ri7EofrRpS1t3RXT&token=T_eVqj_rP6Bkb57di3056sjieytJKHDUnaT86DKLi-o&tvf=P4FiYIUcVxhkMTQxLnJuZGZuay5jb20" data-name="NDR Kultur" data-metadata-url="https://www.ndr.de/public/radioplaylists/ndrkultur.json">
                                 NDR Kultur
                             </button>
+                            <!-- PLAYER ENTFERNT -->
                             <div class="station-info">
-                                <audio id="audioPlayer" controls preload="none">
-                            Ihr Browser unterstützt leider keine HTML5-Audiowiedergabe.
-                        </audio>
-                        <span id="currentSongTitle"></span>
+                                <span class="station-song-title"></span>
                             </div>
                         </div>
 
@@ -138,11 +203,9 @@
                             <button class="station-btn" data-url="https://f121.rndfnk.com/ard/ndr/njoy/live/mp3/128/stream.mp3?aggregator=web&cid=01FBRKKTM6TVGA3B3W6Y8NMXK8&sid=30azMobKXI3x91RNnGaf7v0Jpbl&token=VvAbuddXUjbU602noIVp6b7CQBEikUS280qPiNmxABM&tvf=i4pneZkcVxhmMTIxLnJuZGZuay5jb20" data-name="N-JOY" data-metadata-url="https://www.ndr.de/public/radioplaylists/njoy.json">
                                 N-JOY
                             </button>
+                            <!-- PLAYER ENTFERNT -->
                             <div class="station-info">
-                                <audio id="audioPlayer" controls preload="none">
-                            Ihr Browser unterstützt leider keine HTML5-Audiowiedergabe.
-                        </audio>
-                        <span id="currentSongTitle"></span>
+                                <span class="station-song-title"></span>
                             </div>
                         </div>
 
@@ -150,11 +213,9 @@
                             <button class="station-btn" data-url="https://regiocast.streamabc.net/regc-80s80smweb2517500-mp3-192-1672667" data-name="80s80s Digital" data-metadata-url="https://iris-80s80s.loverad.io/flow.json?station=62">
                                 80s80s
                             </button>
+                            <!-- PLAYER ENTFERNT -->
                             <div class="station-info">
-                                <audio id="audioPlayer" controls preload="none">
-                            Ihr Browser unterstützt leider keine HTML5-Audiowiedergabe.
-                        </audio>
-                        <span id="currentSongTitle"></span>
+                                <span class="station-song-title"></span>
                             </div>
                         </div>
 
@@ -162,11 +223,9 @@
                             <button class="station-btn" data-url="https://regiocast.streamabc.net/regc-90s90spop4760822-mp3-192-9403761" data-name="90s90s">
                                 90s90s
                             </button>
+                            <!-- PLAYER ENTFERNT -->
                             <div class="station-info">
-                                <audio id="audioPlayer" controls preload="none">
-                            Ihr Browser unterstützt leider keine HTML5-Audiowiedergabe.
-                        </audio>
-                        <span id="currentSongTitle"></span>
+                                <span class="station-song-title"></span>
                             </div>
                         </div>
 
@@ -174,27 +233,37 @@
                             <button class="station-btn" data-url="https://radio.bbg-bew.de" data-name="BBG Radio">
                                 BBG Radio
                             </button>
+                            <!-- PLAYER ENTFERNT -->
                             <div class="station-info">
-                                <audio id="audioPlayer" controls preload="none">
-                            Ihr Browser unterstützt leider keine HTML5-Audiowiedergabe.
-                        </audio>
-                        <span id="currentSongTitle"></span>
+                                <span class="station-song-title"></span>
                             </div>
                         </div>
 
                     </div>
                 </div>
                 
+                <!-- OPTIMIERTE PLAYER-STEUERUNG (unten) -->
                 <div class="player-controls">
-                    <div class="current-station">
-                        <span class="status-indicator" id="statusIndicator"></span>
-                        <span id="currentStation">Sender auswählen</span>
+                    <div class="current-station-info">
+                        <!-- NEUER Status Dot (Grau, Gelb, Grün) -->
+                        <div id="statusDot" class="status-dot"></div>
+                        
+                        <div class="meta-data">
+                            <!-- NEUE aktuelle Sender-Anzeige -->
+                            <strong id="currentStation">Kein Sender ausgewählt</strong>
+                            <!-- NEUE aktuelle Song-Titel-Anzeige -->
+                            <span id="currentSongTitle">Wähle einen Sender</span>
+                        </div>
                     </div>
+
+                    <!-- NEUE Session-Timer-Anzeige -->
+                    <div class="timer-display" id="sessionTimer">00:00:00</div>
+
                     <div class="audio-controls">
-                        <audio id="audioPlayer" controls preload="none">
+                        <!-- EINZIGER, ZENTRALER Audio-Player -->
+                        <audio id="mainAudioPlayer" controls preload="none">
                             Ihr Browser unterstützt leider keine HTML5-Audiowiedergabe.
                         </audio>
-                        <span id="currentSongTitle"></span>
                     </div>
                 </div>
             </section>
@@ -214,5 +283,94 @@
             </div>
         </div>
     </div>
+    
+    <!-- ZUSÄTZLICHES SCRIPT FÜR STATUS & TIMER LOGIK (ersetzt player.js nicht, sondern ergänzt es) -->
+    <script>
+        let starttime = null;
+        let timerInterval = null;
+
+        const audioPlayer = document.getElementById('mainAudioPlayer');
+        const statusDot = document.getElementById('statusDot');
+        const sessionTimer = document.getElementById('sessionTimer');
+        const currentStationElement = document.getElementById('currentStation');
+        const currentSongTitleElement = document.getElementById('currentSongTitle');
+        const stationBtns = document.querySelectorAll('.station-btn');
+
+        function startStation(url, name) {
+            // 1. Reset UI (Entfernt "active" von allen Buttons)
+            stationBtns.forEach(btn => btn.classList.remove('active'));
+            
+            // 2. Audio setzen und abspielen
+            audioPlayer.src = url;
+            audioPlayer.play();
+            
+            // 3. Status auf "Laden" setzen
+            statusDot.className = 'status-dot buffering';
+            currentStationElement.textContent = name;
+            currentSongTitleElement.textContent = 'Wird geladen...';
+            
+            // 4. Den klickten Button als aktiv markieren
+            document.querySelector(`.station-btn[data-url="${url}"]`).classList.add('active');
+
+            // 5. Zeitmessung starten (aus der vorherigen Anfrage)
+            starttime = Date.now();
+            
+            // Alten Timer löschen, falls einer läuft
+            if (timerInterval) clearInterval(timerInterval);
+            
+            // Neuen Timer starten (jede Sekunde updaten)
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+
+        // Timer Funktion: Rechnet Millisekunden in HH:MM:SS um
+        function updateTimer() {
+            if (!starttime) return;
+            
+            const diff = Date.now() - starttime;
+            const date = new Date(diff);
+
+            // Formatierung HH:MM:SS
+            const hours = String(date.getUTCHours()).padStart(2, '0');
+            const minutes = String(date.getUTCMinutes()).padStart(2, '0');
+            const seconds = String(date.getUTCSeconds()).padStart(2, '0');
+            
+            sessionTimer.textContent = `${hours}:${minutes}:${seconds}`;
+        }
+
+        // Event Listener für Audio-Status (Status-Dot-Logik)
+        audioPlayer.addEventListener('playing', () => {
+            statusDot.className = 'status-dot playing'; // Grün
+            currentSongTitleElement.textContent = 'Live Stream läuft...'; // Standard-Titel, bis Metadaten geladen sind
+        });
+
+        audioPlayer.addEventListener('waiting', () => {
+            statusDot.className = 'status-dot buffering'; // Gelb
+            currentSongTitleElement.textContent = 'Verbinde/Lade Daten...';
+        });
+
+        audioPlayer.addEventListener('error', () => {
+            statusDot.className = 'status-dot'; // Grau/Aus
+            currentSongTitleElement.textContent = 'FEHLER beim Streamen!';
+            if (timerInterval) clearInterval(timerInterval);
+            sessionTimer.textContent = '00:00:00';
+            starttime = null;
+        });
+
+        // Event Listener für Buttons (Startet den Stream und Timer)
+        stationBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                startStation(
+                    e.target.getAttribute('data-url'), 
+                    e.target.getAttribute('data-name')
+                );
+            });
+        });
+
+        // Initialisierung bei Start (Status Dot auf Grau)
+        document.addEventListener('DOMContentLoaded', () => {
+             statusDot.className = 'status-dot';
+        });
+
+    </script>
 </body>
 </html>
