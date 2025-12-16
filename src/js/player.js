@@ -81,14 +81,11 @@ function initializePlayer() {
 
     function updateOverallStatus() {
         if (!statusIndicator) return;
-
         statusIndicator.classList.remove('online', 'error', 'buffering', 'paused');
-
         if (!navigator.onLine) {
             statusIndicator.classList.add('error');
             return;
         }
-
         if (hasError) {
             statusIndicator.classList.add('error');
         } else if (currentPlayer.paused) {
@@ -111,14 +108,11 @@ function initializePlayer() {
         button.classList.add('active');
         const { url, name, metadataUrl } = button.dataset;
         currentStationDisplay.textContent = name;
-
         localStorage.setItem(lastStationKey, url);
-
         if (metadataInterval) {
             clearInterval(metadataInterval);
             metadataInterval = null;
         }
-
         if (metadataUrl) {
             fetchMetadata(metadataUrl);
             metadataInterval = setInterval(() => {
@@ -127,7 +121,6 @@ function initializePlayer() {
         } else {
             currentSongTitleDisplay.textContent = "Metadaten nicht verfügbar";
         }
-
         if (isAudioPlayer) {
             handleAudioPlayback(url);
         } else {
@@ -220,7 +213,6 @@ function initializePlayer() {
 
     const lastStationUrl = localStorage.getItem(lastStationKey);
     const lastStationButton = lastStationUrl ? document.querySelector(`.station-btn[data-url="${lastStationUrl}"]`) : null;
-
     if (lastStationButton) {
         selectStation(lastStationButton);
     } else if (stationButtons.length > 0) {
@@ -228,5 +220,4 @@ function initializePlayer() {
     }
     updateOverallStatus();
 }
-
 document.addEventListener('DOMContentLoaded', initializePlayer);

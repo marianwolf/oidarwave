@@ -27,11 +27,9 @@ function checkAndClearConsent() {
 
 function enableVercelScripts() {
     const head = document.head;
-
     if (head.querySelector('script[src="/_vercel/insights/script.js"]')) {
         return;
     }
-
     const addScript = (content, src = null, defer = false) => {
         const script = document.createElement('script');
         if (content) {
@@ -48,17 +46,14 @@ function enableVercelScripts() {
 
     addScript("window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };");
     addScript(null, "/_vercel/insights/script.js", true);
-
     addScript("window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };");
     addScript(null, "/_vercel/speed-insights/script.js", true);
-
     addScript("window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-93C0KPGRPJ');");
     addScript(null, "https://www.googletagmanager.com/gtag/js?id=G-93C0KPGRPJ", true);
 }
 
 function showCookieBanner() {
     const consent = getCookieConsent();
-
     if (consent === 'true') {
         cookieBanner.style.display = 'none';
         enableVercelScripts();

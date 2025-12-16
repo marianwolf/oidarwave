@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
     'use strict';
-
     const HISTORY_KEY = 'station_history';
 
     function triggerDownload(data, key) {
@@ -11,10 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const a = document.createElement('a');
         a.href = url;
         a.download = filename;
-        
         document.body.appendChild(a);
         a.click();
-        
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
     }
@@ -28,7 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('keydown', (event) => {
         const isCtrlOrCmd = event.ctrlKey || event.metaKey;
         const isHKey = event.key.toLowerCase() === 'h';
-
         if (isCtrlOrCmd && isHKey) {
             event.preventDefault();
             downloadHistory();

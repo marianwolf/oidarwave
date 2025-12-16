@@ -25,16 +25,13 @@ document.addEventListener('DOMContentLoaded', () => {
             hlsPlayer.destroy();
             hlsPlayer = null;
         }
-
         for (const track of videoPlayer.textTracks) {
             track.mode = 'hidden';
         }
-
         if (window.Hls && Hls.isSupported()) {
             hlsPlayer = new Hls();
             hlsPlayer.loadSource(url);
             hlsPlayer.attachMedia(videoPlayer);
-
             hlsPlayer.on(Hls.Events.MANIFEST_PARSED, () => {
                 videoPlayer.play()
                     .catch(e => {
@@ -42,7 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                 updateQualityLevel();
             });
-
             hlsPlayer.on(Hls.Events.ERROR, (event, data) => {
                 console.error(`HLS.js fatal error: ${data.details}`, data);
                 if (data.fatal) {
@@ -80,27 +76,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 setupHlsPlayer(button.dataset.url);
             });
         });
-
         dataModeToggle.addEventListener('click', toggleDataSaveMode);
-
         if (rewindButton) {
             rewindButton.addEventListener('click', rewind);
         }
         if (forwardButton) {
             forwardButton.addEventListener('click', forward);
         }
-        
         document.addEventListener('visibilitychange', () => {
             if (document.visibilityState === 'visible' && !videoPlayer.paused) {
                 videoPlayer.play().catch(e => console.log('Attempt to resume playback failed:', e));
             }
         });
-
         document.addEventListener('keydown', (event) => {
             if (document.activeElement && (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA')) {
                 return;
             }
-
             switch (event.key) {
                 case 'ArrowLeft':
                     event.preventDefault();
