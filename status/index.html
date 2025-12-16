@@ -1,114 +1,161 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <!-- Externe Skripte und Styles bleiben unverändert -->
-    <link rel="stylesheet" href="/src/css/style.css">
-    <script src="/src/js/mouse.js" defer></script>
-    <script src="/src/js/cookie.js" defer></script>
-    <script src="/src/js/player.js" defer></script>
-    <script src="/src/js/history.js" defer></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Oidarwave ist dein Webradio für jeden Geschmack."/>
-    <meta name="keywords" content="Webradio, Radio, Online-Radio, Oidarwave"/>
-    <meta name="author" content="Marian Wolf"/>
-    <meta property="og:title" content="Oidarwave"/>
-    <meta property="og:description" content="Oidarwave ist dein Webradio mit einer großen Auswahl an Sendern."/>
-    <meta property="og:image" content="/favicon.svg"/>
-    <meta property="og:url" content="/"/>
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" defer>
-    <title>Oidarwave - Senderstatus</title>
-    
+    <title>Oidarwave - Live Status</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        /* Bestehendes Styling */
-        .station-entry {
-            border: 1px solid #444;
-            border-radius: 8px;
-            padding: 10px;
-            margin-bottom: 10px;
-            background: #2a2a2a;
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-main: #ffffff;
+            --text-muted: #b3b3b3;
+            --accent: #1db954;
+            --accent-hover: #1ed760;
+            --error: #e91429;
         }
-        .station-info {
-            font-size: 0.9em;
-            color: #ccc;
-            margin-top: 10px;
-            padding-top: 10px;
-            border-top: 1px solid #444;
-            word-break: break-all;
-        }
-        .station-info strong {
-            color: #fff;
-        }
-        .station-info span {
-            font-family: monospace;
-            font-size: 0.95em;
-        }
-        
-        /* NEUES STYLING FÜR OPTIMIERTE STATUSANZEIGE */
 
-        /* Aktiver Sender im Grid hervorheben */
-        .station-btn.active {
-            background-color: #2ecc71;
-            color: #000;
-            border-color: #2ecc71;
-            font-weight: bold;
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
         }
-        
-        /* Layout für die Player Controls */
-        .player-controls {
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            background: linear-gradient(90deg, #1db954, #1ed760);
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header p {
+            color: var(--text-muted);
+            margin-top: 10px;
+        }
+
+        .controls {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .refresh-btn {
+            background-color: var(--accent);
+            color: black;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .refresh-btn:hover {
+            background-color: var(--accent-hover);
+            transform: scale(1.05);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            transition: transform 0.2s;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #333;
+        }
+
+        .card:hover {
+            border-color: var(--accent);
+        }
+
+        .station-name {
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin-bottom: 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 20px;
-            background: #1e1e1e;
-            border-top: 2px solid #333;
         }
-        
-        .current-station-info {
-            display: flex;
-            align-items: center;
-            flex-grow: 1;
+
+        .live-badge {
+            font-size: 0.7rem;
+            background-color: var(--error);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            font-weight: bold;
+            opacity: 0; /* Hidden by default */
+            animation: pulse 2s infinite;
         }
-        
-        .meta-data {
+
+        .card.playing .live-badge {
+            opacity: 1;
+        }
+
+        .track-info {
             display: flex;
             flex-direction: column;
-            margin-left: 5px;
+            gap: 5px;
+            min-height: 50px; /* Sicherstellen, dass die Karte nicht zusammenfällt */
         }
 
-        /* Status Punkt */
+        .song-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .artist-name {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .meta-status {
+            font-size: 0.8rem;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #333;
+            color: #555;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
         .status-dot {
-            width: 15px;
-            height: 15px;
-            min-width: 15px; /* Sicherstellen, dass der Dot nicht schrumpft */
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
-            background-color: #555; /* Grau = Aus */
-            transition: background-color 0.3s;
+            background-color: #555;
         }
 
-        .status-dot.playing {
-            background-color: #2ecc71; /* Grün = Läuft */
-            box-shadow: 0 0 8px #2ecc71;
-        }
-
-        .status-dot.buffering {
-            background-color: #f1c40f; /* Gelb = Lädt */
-            animation: pulse 1s infinite;
-        }
-        
-        /* Timer Styling */
-        .timer-display {
-            font-family: monospace;
-            font-size: 1.2rem;
-            color: #fff;
-            background: #222;
-            padding: 5px 10px;
-            border-radius: 4px;
-            margin: 0 15px;
-        }
+        .status-dot.success { background-color: var(--accent); }
+        .status-dot.error { background-color: var(--error); }
+        .status-dot.loading { background-color: #ffd700; }
 
         @keyframes pulse {
             0% { opacity: 1; }
@@ -116,260 +163,301 @@
             100% { opacity: 1; }
         }
         
-        /* Audio Player Styling für bessere Integration */
-        #mainAudioPlayer {
-            width: 250px; /* Begrenzte Breite für den Audio-Player */
+        /* Spinner */
+        .spinner {
+            border: 2px solid rgba(255,255,255,0.1);
+            border-left-color: var(--accent);
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            animation: spin 1s linear infinite;
+            display: none;
         }
+        .loading .spinner { display: block; }
+        
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="logo">🎵 Oidarwave</div>
-            <nav aria-label="Hauptnavigation">
-                <a href="/">Radio</a>
-                <a href="/video">Video</a>
-                <a href="mailto:marian.wolf2008@gmail.com">Kontakt</a>
-                <a href="https://beta0.vercel.app" target="_blank">Beta</a>
-            </nav>
-        </header>
-        <main id="radio">
-            <section class="player-section">
-                <div class="station-selector">
-                    <h2>📻 Sender auswählen & Status</h2>
-                    <div class="station-grid">
 
-                        <div class="station-entry">
-                            <button class="station-btn" data-url="https://st01.sslstream.dlf.de/dlf/01/128/mp3/stream.mp3" data-name="Deutschlandfunk" data-metadata-url="https://streamtext.dradio.de/dlf.txt">
-                                Deutschlandfunk
-                            </button>
-                            <!-- PLAYER ENTFERNT -->
-                            <div class="station-info">
-                                <span class="station-song-title"></span>
-                            </div>
-                        </div>
-
-                        <div class="station-entry">
-                            <button class="station-btn" data-url="https://st03.sslstream.dlf.de/dlf/03/128/mp3/stream.mp3" data-name="Deutschlandfunk Nova" data-metadata-url="https://static.deutschlandfunknova.de/actions/dradio/playlist/onair">
-                                DLF Nova
-                            </button>
-                            <!-- PLAYER ENTFERNT -->
-                            <div class="station-info">
-                                <span class="station-song-title"></span>
-                            </div>
-                        </div>
-
-                        <div class="station-entry">
-                            <button class="station-btn" data-url="https://f121.rndfnk.com/ard/ndr/ndr1niedersachsen/hannover/mp3/128/stream.mp3?aggregator=web&cid=01FCT9XYE3C7Y8087XEWPRC38Z&sid=30aynlfxURrCQmDeTH1p0OqVsoV&token=3Wf1JnFUByNruoizm4AdR_YPX5_CvsRtTKXV3VK-004&tvf=qhyw4VgcVxhmMTIxLnJuZGZuay5jb20" data-name="NDR 1 NDS" data-metadata-url="https://www.ndr.de/public/radioplaylists/ndr1niedersachsen.json">
-                                NDR 1
-                            </button>
-                            <!-- PLAYER ENTFERNT -->
-                            <div class="station-info">
-                                <span class="station-song-title"></span>
-                            </div>
-                        </div>
-
-                        <div class="station-entry">
-                            <button class="station-btn" data-url="https://f131.rndfnk.com/ard/ndr/ndr2/niedersachsen/mp3/128/stream.mp3?aggregator=web&cid=01FBQ2CWDYWJHGF4QAJ0SVV730&sid=30ayvsXjJydzMH4MNiWpLV4nURH&token=FMhlmkJlc2prmQ6CBBjpYxFSaNHq6IDWPQKR9jRDjMA&tvf=0axLwWccVxhmMTMxLnJuZGZuay5jb20" data-name="NDR 2" data-metadata-url="https://www.ndr.de/public/radioplaylists/ndr2.json">
-                                NDR 2
-                            </button>
-                            <!-- PLAYER ENTFERNT -->
-                            <div class="station-info">
-                                <span class="station-song-title"></span>
-                            </div>
-                        </div>
-
-                        <div class="station-entry">
-                            <button class="station-btn" data-url="https://f131.rndfnk.com/ard/ndr/ndrinfo/niedersachsen/mp3/128/stream.mp3?aggregator=web&cid=01FBRKHKTB73QDVNX7A9RT082R&sid=30az5c4cyuUHsy4tHS3YkD5oDcc&token=Z-H6aIgEFsx5kBPmtfq5x2UNGGmMOtyjcoYox9RHg2E&tvf=np8tvHkcVxhmMTMxLnJuZGZuay5jb20" data-name="NDR Info" data-metadata-url="https://www.ndr.de/epg/current/station-ndrinfo">
-                                NDR Info
-                            </button>
-                            <!-- PLAYER ENTFERNT -->
-                            <div class="station-info">
-                                <span class="station-song-title"></span>
-                            </div>
-                        </div>
-
-                        <div class="station-entry">
-                            <button class="station-btn" data-url="https://d141.rndfnk.com/ard/ndr/ndrkultur/live/mp3/128/stream.mp3?aggregator=web&cid=01FBQ2EJ6T7QK3WENQ5KT9S2FB&sid=30azBxZOH15ri7EofrRpS1t3RXT&token=T_eVqj_rP6Bkb57di3056sjieytJKHDUnaT86DKLi-o&tvf=P4FiYIUcVxhkMTQxLnJuZGZuay5jb20" data-name="NDR Kultur" data-metadata-url="https://www.ndr.de/public/radioplaylists/ndrkultur.json">
-                                NDR Kultur
-                            </button>
-                            <!-- PLAYER ENTFERNT -->
-                            <div class="station-info">
-                                <span class="station-song-title"></span>
-                            </div>
-                        </div>
-
-                        <div class="station-entry">
-                            <button class="station-btn" data-url="https://f121.rndfnk.com/ard/ndr/njoy/live/mp3/128/stream.mp3?aggregator=web&cid=01FBRKKTM6TVGA3B3W6Y8NMXK8&sid=30azMobKXI3x91RNnGaf7v0Jpbl&token=VvAbuddXUjbU602noIVp6b7CQBEikUS280qPiNmxABM&tvf=i4pneZkcVxhmMTIxLnJuZGZuay5jb20" data-name="N-JOY" data-metadata-url="https://www.ndr.de/public/radioplaylists/njoy.json">
-                                N-JOY
-                            </button>
-                            <!-- PLAYER ENTFERNT -->
-                            <div class="station-info">
-                                <span class="station-song-title"></span>
-                            </div>
-                        </div>
-
-                        <div class="station-entry">
-                            <button class="station-btn" data-url="https://regiocast.streamabc.net/regc-80s80smweb2517500-mp3-192-1672667" data-name="80s80s Digital" data-metadata-url="https://iris-80s80s.loverad.io/flow.json?station=62">
-                                80s80s
-                            </button>
-                            <!-- PLAYER ENTFERNT -->
-                            <div class="station-info">
-                                <span class="station-song-title"></span>
-                            </div>
-                        </div>
-
-                        <div class="station-entry">
-                            <button class="station-btn" data-url="https://regiocast.streamabc.net/regc-90s90spop4760822-mp3-192-9403761" data-name="90s90s">
-                                90s90s
-                            </button>
-                            <!-- PLAYER ENTFERNT -->
-                            <div class="station-info">
-                                <span class="station-song-title"></span>
-                            </div>
-                        </div>
-
-                        <div class="station-entry">
-                            <button class="station-btn" data-url="https://radio.bbg-bew.de" data-name="BBG Radio">
-                                BBG Radio
-                            </button>
-                            <!-- PLAYER ENTFERNT -->
-                            <div class="station-info">
-                                <span class="station-song-title"></span>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                
-                <!-- OPTIMIERTE PLAYER-STEUERUNG (unten) -->
-                <div class="player-controls">
-                    <div class="current-station-info">
-                        <!-- NEUER Status Dot (Grau, Gelb, Grün) -->
-                        <div id="statusDot" class="status-dot"></div>
-                        
-                        <div class="meta-data">
-                            <!-- NEUE aktuelle Sender-Anzeige -->
-                            <strong id="currentStation">Kein Sender ausgewählt</strong>
-                            <!-- NEUE aktuelle Song-Titel-Anzeige -->
-                            <span id="currentSongTitle">Wähle einen Sender</span>
-                        </div>
-                    </div>
-
-                    <!-- NEUE Session-Timer-Anzeige -->
-                    <div class="timer-display" id="sessionTimer">00:00:00</div>
-
-                    <div class="audio-controls">
-                        <!-- EINZIGER, ZENTRALER Audio-Player -->
-                        <audio id="mainAudioPlayer" controls preload="none">
-                            Ihr Browser unterstützt leider keine HTML5-Audiowiedergabe.
-                        </audio>
-                    </div>
-                </div>
-            </section>
-        </main>
-        <footer>
-            <p>2025 Oidarwave. Alle Rechte vorbehalten. | <a href="/impressum" target="_blank">Impressum & Datenschutz</a></p>
-        </footer>
+    <div class="header">
+        <h1>📻 Oidarwave Status</h1>
+        <p>Aktuelle Titelinformationen aller Sender</p>
     </div>
-    <div class="cookie-banner" id="cookieBanner" role="dialog" aria-live="polite" aria-labelledby="cookieBannerHeading">
-        <div class="cookie-banner-content">
-            <p>
-                Um die Website für Sie zu optimieren, nutzen wir anonyme Nutzungsstatistiken.
-            </p>
-            <div class="cookie-buttons">
-                <button class="cookie-btn accept-btn" id="acceptCookies">Akzeptieren</button>
-                <button class="cookie-btn decline-btn" id="declineCookies">Ablehnen</button>
-            </div>
-        </div>
+
+    <div class="controls">
+        <button class="refresh-btn" onclick="updateAllStations()">
+            <span class="spinner" id="mainSpinner"></span>
+            <span>Aktualisieren</span>
+        </button>
     </div>
-    
-    <!-- ZUSÄTZLICHES SCRIPT FÜR STATUS & TIMER LOGIK (ersetzt player.js nicht, sondern ergänzt es) -->
+
+    <div class="grid" id="stationGrid">
+        <!-- Karten werden hier per JS eingefügt -->
+    </div>
+
     <script>
-        let starttime = null;
-        let timerInterval = null;
+        // Konfiguration der Sender (basierend auf index.html)
+        const stations = [
+            {
+                name: "Deutschlandfunk",
+                metaUrl: "https://streamtext.dradio.de/dlf.txt",
+                type: "text" // Deutschlandfunk (.txt)
+            },
+            {
+                name: "Deutschlandfunk Nova",
+                metaUrl: "https://static.deutschlandfunknova.de/actions/dradio/playlist/onair",
+                type: "json_dlf_nova" // DLF Nova (JSON)
+            },
+            {
+                name: "NDR 1 NDS",
+                metaUrl: "https://www.ndr.de/public/radioplaylists/ndr1niedersachsen.json",
+                type: "json_ndr" // NDR (JSON)
+            },
+            {
+                name: "NDR 2",
+                metaUrl: "https://www.ndr.de/public/radioplaylists/ndr2.json",
+                type: "json_ndr" // NDR (JSON)
+            },
+            {
+                name: "NDR Info",
+                metaUrl: "https://www.ndr.de/epg/current/station-ndrinfo", 
+                type: "html_ndr_info" // NDR (HTML/EPG)
+            },
+            {
+                name: "NDR Kultur",
+                metaUrl: "https://www.ndr.de/public/radioplaylists/ndrkultur.json",
+                type: "json_ndr" // NDR (JSON)
+            },
+            {
+                name: "N-JOY",
+                metaUrl: "https://www.ndr.de/public/radioplaylists/njoy.json",
+                type: "json_ndr" // NDR (JSON)
+            },
+            {
+                name: "80s80s Digital",
+                metaUrl: "https://iris-80s80s.loverad.io/flow.json?station=62",
+                type: "json_80s" // 80s80s (JSON, verschachtelt)
+            },
+            {
+                name: "90s90s",
+                metaUrl: null, // Keine URL in index.html
+                type: "none"
+            },
+            {
+                name: "BBG Radio",
+                metaUrl: null,
+                type: "none"
+            }
+        ];
 
-        const audioPlayer = document.getElementById('mainAudioPlayer');
-        const statusDot = document.getElementById('statusDot');
-        const sessionTimer = document.getElementById('sessionTimer');
-        const currentStationElement = document.getElementById('currentStation');
-        const currentSongTitleElement = document.getElementById('currentSongTitle');
-        const stationBtns = document.querySelectorAll('.station-btn');
+        // CORS Proxy um Browser-Blockaden zu umgehen (Wichtig, da viele URLs Cross-Origin sind)
+        const CORS_PROXY = "https://corsproxy.io/?";
 
-        function startStation(url, name) {
-            // 1. Reset UI (Entfernt "active" von allen Buttons)
-            stationBtns.forEach(btn => btn.classList.remove('active'));
-            
-            // 2. Audio setzen und abspielen
-            audioPlayer.src = url;
-            audioPlayer.play();
-            
-            // 3. Status auf "Laden" setzen
-            statusDot.className = 'status-dot buffering';
-            currentStationElement.textContent = name;
-            currentSongTitleElement.textContent = 'Wird geladen...';
-            
-            // 4. Den klickten Button als aktiv markieren
-            document.querySelector(`.station-btn[data-url="${url}"]`).classList.add('active');
+        const grid = document.getElementById('stationGrid');
 
-            // 5. Zeitmessung starten (aus der vorherigen Anfrage)
-            starttime = Date.now();
-            
-            // Alten Timer löschen, falls einer läuft
-            if (timerInterval) clearInterval(timerInterval);
-            
-            // Neuen Timer starten (jede Sekunde updaten)
-            timerInterval = setInterval(updateTimer, 1000);
-        }
-
-        // Timer Funktion: Rechnet Millisekunden in HH:MM:SS um
-        function updateTimer() {
-            if (!starttime) return;
-            
-            const diff = Date.now() - starttime;
-            const date = new Date(diff);
-
-            // Formatierung HH:MM:SS
-            const hours = String(date.getUTCHours()).padStart(2, '0');
-            const minutes = String(date.getUTCMinutes()).padStart(2, '0');
-            const seconds = String(date.getUTCSeconds()).padStart(2, '0');
-            
-            sessionTimer.textContent = `${hours}:${minutes}:${seconds}`;
-        }
-
-        // Event Listener für Audio-Status (Status-Dot-Logik)
-        audioPlayer.addEventListener('playing', () => {
-            statusDot.className = 'status-dot playing'; // Grün
-            currentSongTitleElement.textContent = 'Live Stream läuft...'; // Standard-Titel, bis Metadaten geladen sind
-        });
-
-        audioPlayer.addEventListener('waiting', () => {
-            statusDot.className = 'status-dot buffering'; // Gelb
-            currentSongTitleElement.textContent = 'Verbinde/Lade Daten...';
-        });
-
-        audioPlayer.addEventListener('error', () => {
-            statusDot.className = 'status-dot'; // Grau/Aus
-            currentSongTitleElement.textContent = 'FEHLER beim Streamen!';
-            if (timerInterval) clearInterval(timerInterval);
-            sessionTimer.textContent = '00:00:00';
-            starttime = null;
-        });
-
-        // Event Listener für Buttons (Startet den Stream und Timer)
-        stationBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                startStation(
-                    e.target.getAttribute('data-url'), 
-                    e.target.getAttribute('data-name')
-                );
+        // Initialisiert die Kartenstruktur
+        function initGrid() {
+            grid.innerHTML = '';
+            stations.forEach((station, index) => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.id = `station-${index}`;
+                card.innerHTML = `
+                    <div class="station-name">
+                        ${station.name}
+                        <span class="live-badge">LIVE</span>
+                    </div>
+                    <div class="track-info">
+                        <div class="song-title" id="title-${index}">Lade...</div>
+                        <div class="artist-name" id="artist-${index}"></div>
+                    </div>
+                    <div class="meta-status">
+                        <span class="status-dot loading" id="dot-${index}"></span>
+                        <span id="status-text-${index}">Warte auf Daten...</span>
+                    </div>
+                `;
+                grid.appendChild(card);
             });
-        });
+        }
 
-        // Initialisierung bei Start (Status Dot auf Grau)
-        document.addEventListener('DOMContentLoaded', () => {
-             statusDot.className = 'status-dot';
-        });
+        // Aktualisiert alle Senderdaten
+        async function updateAllStations() {
+            const btn = document.querySelector('.refresh-btn');
+            const btnSpinner = document.getElementById('mainSpinner');
+            btnSpinner.style.display = 'inline-block';
+            btn.disabled = true;
+
+            const promises = stations.map((station, index) => fetchStationData(station, index));
+            await Promise.all(promises);
+
+            btnSpinner.style.display = 'none';
+            btn.disabled = false;
+        }
+
+        // Ruft die Metadaten für einen einzelnen Sender ab
+        async function fetchStationData(station, index) {
+            const cardEl = document.getElementById(`station-${index}`);
+            const titleEl = document.getElementById(`title-${index}`);
+            const artistEl = document.getElementById(`artist-${index}`);
+            const dotEl = document.getElementById(`dot-${index}`);
+            const statusTextEl = document.getElementById(`status-text-${index}`);
+
+            titleEl.textContent = "Lade...";
+            artistEl.textContent = "";
+            dotEl.className = "status-dot loading";
+            statusTextEl.textContent = "Lade Metadaten...";
+            cardEl.classList.remove('playing');
+
+            if (!station.metaUrl) {
+                updateUI(index, "Keine Metadaten", "Sender liefert keine Infos.", "error");
+                return;
+            }
+
+            try {
+                // Verwende den Proxy, um CORS-Probleme zu umgehen
+                const proxyUrl = CORS_PROXY + encodeURIComponent(station.metaUrl);
+                const response = await fetch(proxyUrl);
+                
+                if (!response.ok) throw new Error(`HTTP-Fehler: ${response.status}`);
+
+                let song = parseMetadata(station.type, station.name, response);
+
+                // UI Update
+                titleEl.textContent = decodeHTMLEntities(song.title);
+                artistEl.textContent = decodeHTMLEntities(song.artist);
+                
+                dotEl.className = "status-dot success";
+                statusTextEl.textContent = "Aktualisiert: " + new Date().toLocaleTimeString();
+                
+                // Aktiviere "Live" Badge visuell, wenn Daten gefunden wurden
+                if (song.title !== "Unbekannt" && song.title !== "Format nicht erkannt") {
+                    cardEl.classList.add('playing');
+                }
+
+            } catch (error) {
+                console.error(`Fehler bei ${station.name}:`, error);
+                updateUI(index, "Fehler beim Laden", "Verbindungs- oder Parsfehler.", "error");
+            }
+        }
+
+        /**
+         * Analysiert die Response basierend auf dem Sender-Typ.
+         * Die Logik folgt der Logik, die in player.js erwartet wird.
+         * @param {string} type - Der Typ des Metadaten-Formats (text, json_ndr, etc.)
+         * @param {string} name - Der Name des Senders (für Debugging)
+         * @param {Response} response - Die Fetch-Response
+         * @returns {{title: string, artist: string}}
+         */
+        async function parseMetadata(type, name, response) {
+            let song = { title: "Unbekannt", artist: "" };
+
+            if (type === 'text') {
+                const text = await response.text();
+                // DLF (.txt) Format: "Artist - Title" oder nur "Title" in erster Zeile
+                const firstLine = text.split('\n')[0].trim();
+                const parts = firstLine.split(' - ');
+                
+                if (parts.length >= 2) {
+                    song.artist = parts[0];
+                    song.title = parts.slice(1).join(' - ');
+                } else if (firstLine.length > 0) {
+                    song.title = firstLine;
+                } else {
+                    song.title = "Keine aktuellen Daten";
+                }
+
+            } else if (type === 'json_ndr') {
+                const data = await response.json();
+                // NDR JSON (NDR 1, 2, Kultur, N-JOY)
+                let currentTrack = null;
+
+                if (Array.isArray(data) && data.length > 0) {
+                    // NDR 1/Kultur: Oft das aktuellste Element im Hauptarray
+                    currentTrack = data[0]; 
+                } else if (data.songs && Array.isArray(data.songs) && data.songs.length > 0) {
+                    // N-JOY: Liste der Songs
+                    currentTrack = data.songs[0];
+                }
+
+                if (currentTrack) {
+                    // Versuche Interpret/Artist und Titel/Title zu finden
+                    song.title = currentTrack.title || currentTrack.Titel || "Unbekannt";
+                    song.artist = currentTrack.artist || currentTrack.Interpret || "";
+                } else {
+                    song.title = "Format nicht erkannt (NDR)";
+                }
+
+            } else if (type === 'json_dlf_nova') {
+                const data = await response.json();
+                // Deutschlandfunk Nova (Array oder Object)
+                if (Array.isArray(data) && data.length > 0) {
+                    song.artist = data[0].artist || "";
+                    song.title = data[0].title || "Unbekannt";
+                } else {
+                    song.title = "Keine aktuellen Daten";
+                }
+
+            } else if (type === 'json_80s') {
+                const data = await response.json();
+                // 80s80s (loverad.io - stark verschachtelt)
+                try {
+                    const track = data.result.entry[0].song.entry[0];
+                    song.title = track.title || "Unbekannt";
+                    song.artist = track.artist.entry[0].name || "";
+                } catch (e) {
+                    song.title = "Format nicht erkannt (80s80s)";
+                }
+
+            } else if (type === 'html_ndr_info') {
+                const text = await response.text();
+                // NDR Info (HTML/EPG - Regex ist hier die einzige Option)
+                const titleMatch = text.match(/<span class="title">([^<]*)<\/span>/);
+                const artistMatch = text.match(/<span class="artist">([^<]*)<\/span>/);
+                
+                if (titleMatch) song.title = titleMatch[1].trim();
+                if (artistMatch) song.artist = artistMatch[1].trim();
+                
+                if (!titleMatch && !artistMatch) {
+                    song.title = "Keine aktuellen EPG-Daten";
+                }
+            }
+
+            return song;
+        }
+
+        // Aktualisiert das UI eines Senders mit den ermittelten Infos
+        function updateUI(index, title, artist, status) {
+            document.getElementById(`title-${index}`).textContent = title;
+            document.getElementById(`artist-${index}`).textContent = artist;
+            const dot = document.getElementById(`dot-${index}`);
+            dot.className = `status-dot ${status}`;
+            
+            let statusText = "Aktualisiert";
+            if (status === 'error') statusText = "Fehler";
+            if (status === 'loading') statusText = "Lade...";
+            
+            document.getElementById(`status-text-${index}`).textContent = statusText;
+            
+            if (status !== 'playing') {
+                 document.getElementById(`station-${index}`).classList.remove('playing');
+            }
+        }
+
+        // Hilfsfunktion gegen HTML Entities in JSON (z.B. &amp;)
+        function decodeHTMLEntities(text) {
+            if (!text) return "";
+            const textArea = document.createElement('textarea');
+            textArea.innerHTML = text;
+            return textArea.value;
+        }
+
+        // Start
+        initGrid();
+        updateAllStations();
+
+        // Auto-Refresh alle 30 Sekunden
+        setInterval(updateAllStations, 30000);
 
     </script>
 </body>
