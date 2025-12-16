@@ -122,6 +122,11 @@ header, .main-section, .player-section {
     animation: glow 5s ease-in-out infinite alternate;
 }
 
+footer.img {
+    vertical-align: middle;
+    margin: 0 5px 0 5px;
+}
+
 nav {
     display: flex;
     justify-content: center;
