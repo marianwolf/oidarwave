@@ -3,6 +3,7 @@
    viewBox="0 0 100 100"
    version="1.1"
    id="svg44"
+   xml:space="preserve"
    sodipodi:docname="favicon.svg"
    inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -12,49 +13,50 @@
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:dc="http://purl.org/dc/elements/1.1/">
-  <title
-     id="title1442">Favicon</title>
-  <path
-     style="display:inline;mix-blend-mode:normal;fill:url(#linearGradient312);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
-     d="M 98.889053,0.07267263 C 99.884794,4.2545802 102.30754,18.104769 94.017321,19.437701 78.595247,21.917319 79.202368,31.53826 81.195811,46.146702 83.37995,62.152634 87.16756,82.266105 72.443214,93.437568 60.295857,102.65386 44.52285,95.098056 45.345221,81.496969 46.719663,58.765256 70.619795,82.826772 63.502579,45.579576 59.943361,26.952784 56.148086,-1.6294887 98.889053,0.07267263 Z"
-     id="note1"
-     sodipodi:nodetypes="csssssc"
-     inkscape:label="note1" />
-  <path
+   xmlns:dc="http://purl.org/dc/elements/1.1/"><sodipodi:namedview
+     id="namedview81"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     showgrid="false"
+     inkscape:zoom="7.8025108"
+     inkscape:cx="51.265549"
+     inkscape:cy="51.009221"
+     inkscape:window-width="1920"
+     inkscape:window-height="1008"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg44" /><title
+     id="title1442">Favicon</title><path
+     style="fill:url(#linearGradient1175);fill-opacity:1;stroke-width:0.31005"
+     d="M 82.682633,99.963861 C 81.330268,99.7784 82.099764,88.621794 84.002796,88.046629 c 1.348199,-0.407465 2.469435,1.991599 3.309137,1.915836 1.236539,-0.111567 1.476147,-1.668376 3.125323,-1.392855 1.20976,0.202105 2.251431,2.669022 2.965448,6.234068 0.548776,2.740017 1.705579,-1.825872 3.463013,0.07975 1.920685,2.082568 1.373365,-6.54584 2.597061,-6.268737 0.953932,0.216027 0.509648,6.44105 -0.33874,10.228527 -0.284759,1.271232 -1.376512,2.054322 -2.648356,-0.72291 -1.540961,-3.364893 -4.53707,5.251682 -4.914698,-0.661897 -0.384442,-6.020198 -1.164335,-7.340313 -2.97681,-5.404944 -2.023498,2.1607 -2.715802,-2.039343 -3.850768,-1.556213 -1.554721,0.661818 -0.413671,9.691116 -2.050773,9.466616 z"
+     id="path1048" /><path
      style="display:inline;mix-blend-mode:normal;fill:url(#linearGradient1793);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
      d="M 53.574712,2.5785049 C 54.570449,6.7604119 56.993197,20.6106 48.702974,21.943532 33.280905,24.423151 33.888028,34.044092 35.881469,48.652534 38.065604,64.658466 41.853215,84.771937 27.128875,95.943399 14.981517,105.1597 -0.79149715,97.603888 0.0308791,84.0028 1.4053255,61.271087 25.30545,85.332604 18.188236,48.085407 14.62902,29.458616 10.83374,0.87634389 53.574712,2.5785049 Z"
-     id="note1-7"
-     sodipodi:nodetypes="csssssc"
-     inkscape:label="note1" />
-  <defs
-     id="defs48">
-    <linearGradient
-       inkscape:collect="always"
-       id="linearGradient2532">
-      <stop
+     id="note1-7" /><path
+     style="display:inline;mix-blend-mode:normal;fill:url(#linearGradient312);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+     d="M 98.889053,0.07267263 C 99.884794,4.2545802 102.30754,18.104769 94.017321,19.437701 78.595247,21.917319 79.202368,31.53826 81.195811,46.146702 83.37995,62.152634 87.16756,82.266105 72.443214,93.437568 60.295857,102.65386 44.52285,95.098056 45.345221,81.496969 46.719663,58.765256 70.619795,82.826772 63.502579,45.579576 59.943361,26.952784 56.148086,-1.6294887 98.889053,0.07267263 Z"
+     id="note1" /><defs
+     id="defs48"><linearGradient
+       id="linearGradient2532"><stop
          style="stop-color:#b266ff;stop-opacity:1;"
          offset="0.1"
-         id="stop2528" />
-      <stop
+         id="stop2528" /><stop
          style="stop-color:#ff668c;stop-opacity:1;"
          offset="0.89999998"
-         id="stop2530" />
-    </linearGradient>
-    <linearGradient
-       inkscape:collect="always"
-       id="linearGradient1019">
-      <stop
+         id="stop2530" /></linearGradient><linearGradient
+       id="linearGradient1019"><stop
          style="stop-color:#b266ff;stop-opacity:1;"
          offset="0.1"
-         id="stop1015" />
-      <stop
+         id="stop1015" /><stop
          style="stop-color:#66ccff;stop-opacity:1;"
          offset="0.89999998"
-         id="stop1017" />
-    </linearGradient>
-    <linearGradient
-       inkscape:collect="always"
+         id="stop1017" /></linearGradient><linearGradient
        xlink:href="#linearGradient1019"
        id="linearGradient312"
        gradientUnits="userSpaceOnUse"
@@ -62,9 +64,7 @@
        x1="19.13269"
        y1="22.627127"
        x2="44.431564"
-       y2="80.629128" />
-    <linearGradient
-       inkscape:collect="always"
+       y2="80.629128" /><linearGradient
        xlink:href="#linearGradient2532"
        id="linearGradient1793"
        gradientUnits="userSpaceOnUse"
@@ -72,66 +72,28 @@
        x1="19.13269"
        y1="22.627127"
        x2="44.431564"
-       y2="80.629128" />
-  </defs>
-  <sodipodi:namedview
-     id="namedview46"
-     pagecolor="#505050"
-     bordercolor="#eeeeee"
-     borderopacity="1"
-     inkscape:showpageshadow="0"
-     inkscape:pageopacity="0"
-     inkscape:deskcolor="#505050"
-     showgrid="true"
-     inkscape:zoom="8"
-     inkscape:cx="50"
-     inkscape:cy="50"
-     inkscape:window-width="1920"
-     inkscape:window-height="1008"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="svg44"
-     showguides="true"
-     inkscape:lockguides="false"
-     inkscape:pagecheckerboard="0" />
-  <metadata
-     id="metadata1438">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:title>Favicon</dc:title>
-        <dc:creator>
-          <cc:Agent>
-            <dc:title>Marian Wolf</dc:title>
-          </cc:Agent>
-        </dc:creator>
-        <dc:publisher>
-          <cc:Agent>
-            <dc:title>Marian Wolf</dc:title>
-          </cc:Agent>
-        </dc:publisher>
-        <dc:rights>
-          <cc:Agent>
-            <dc:title>© Marian Wolf, 2025</dc:title>
-          </cc:Agent>
-        </dc:rights>
-        <cc:license
-           rdf:resource="http://creativecommons.org/licenses/by-nc-nd/4.0/" />
-      </cc:Work>
-      <cc:License
-         rdf:about="http://creativecommons.org/licenses/by-nc-nd/4.0/">
-        <cc:permits
-           rdf:resource="http://creativecommons.org/ns#Reproduction" />
-        <cc:permits
-           rdf:resource="http://creativecommons.org/ns#Distribution" />
-        <cc:requires
-           rdf:resource="http://creativecommons.org/ns#Notice" />
-        <cc:requires
-           rdf:resource="http://creativecommons.org/ns#Attribution" />
-        <cc:prohibits
-           rdf:resource="http://creativecommons.org/ns#CommercialUse" />
-      </cc:License>
-    </rdf:RDF>
-  </metadata>
-</svg>
+       y2="80.629128" /><linearGradient
+       id="linearGradient1173"><stop
+         style="stop-color:#5cf5f5;stop-opacity:1;"
+         offset="0"
+         id="stop1169" /><stop
+         style="stop-color:#5c5cf5;stop-opacity:1;"
+         offset="1"
+         id="stop1171" /></linearGradient><linearGradient
+       xlink:href="#linearGradient1173"
+       id="linearGradient1175"
+       x1="83.132042"
+       y1="70.9701"
+       x2="13.200363"
+       y2="20.612438"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.25281863,0,0,0.24913897,78.86935,82.55777)" /></defs><metadata
+     id="metadata1438"><rdf:RDF><cc:Work
+         rdf:about=""><dc:title>Favicon</dc:title><dc:creator><cc:Agent><dc:title>Marian Wolf</dc:title></cc:Agent></dc:creator><dc:publisher><cc:Agent><dc:title>Marian Wolf</dc:title></cc:Agent></dc:publisher><dc:rights><cc:Agent><dc:title>© Marian Wolf, 2025</dc:title></cc:Agent></dc:rights><cc:license
+           rdf:resource="http://creativecommons.org/licenses/by-nc-nd/4.0/" /></cc:Work><cc:License
+         rdf:about="http://creativecommons.org/licenses/by-nc-nd/4.0/"><cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" /><cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" /><cc:requires
+           rdf:resource="http://creativecommons.org/ns#Notice" /><cc:requires
+           rdf:resource="http://creativecommons.org/ns#Attribution" /><cc:prohibits
+           rdf:resource="http://creativecommons.org/ns#CommercialUse" /></cc:License></rdf:RDF></metadata></svg>
