@@ -6,6 +6,12 @@
     <script src="/src/js/mouse.js" defer></script>
     <script src="/src/js/cookie.js" defer></script>
     <script src="/src/js/player.js" defer></script>
+    <link rel="manifest" href="/manifest.json">
+    <script>
+        if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js');
+        }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap" rel="stylesheet">
@@ -19,7 +25,7 @@
     <meta property="og:image" content="/favicon.svg"/>
     <meta property="og:url" content="/"/>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" defer>
-    <title>Oidarwave - Impressum</title>
+    <title>Oidarwave - Impressum</title> 
 </head>
 <body>
     <div class="container">
