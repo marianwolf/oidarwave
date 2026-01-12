@@ -6,6 +6,8 @@
    xml:space="preserve"
    sodipodi:docname="favicon.svg"
    inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   width="100"
+   height="100"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -25,9 +27,9 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#505050"
      showgrid="false"
-     inkscape:zoom="8"
-     inkscape:cx="50"
-     inkscape:cy="50"
+     inkscape:zoom="5.6568543"
+     inkscape:cx="49.320698"
+     inkscape:cy="41.365747"
      inkscape:window-width="1920"
      inkscape:window-height="1008"
      inkscape:window-x="0"
@@ -79,9 +81,6 @@
        y2="20.612438"
        gradientUnits="userSpaceOnUse"
        gradientTransform="matrix(0.25281863,0,0,0.24913897,78.86935,82.55777)" /></sodipodi:namedview><path
-     style="display:inline;fill:url(#linearGradient1175);fill-opacity:1;stroke-width:0.31005"
-     d="M 82.682633,99.963861 C 81.330268,99.7784 82.099764,88.621794 84.002796,88.046629 c 1.348199,-0.407465 2.469435,1.991599 3.309137,1.915836 1.236539,-0.111567 1.476147,-1.668376 3.125323,-1.392855 1.20976,0.202105 2.251431,2.669022 2.965448,6.234068 0.548776,2.740017 1.705579,-1.825872 3.463013,0.07975 1.920685,2.082568 1.373365,-6.54584 2.597061,-6.268737 0.953932,0.216027 0.509648,6.44105 -0.33874,10.228527 -0.284759,1.271232 -1.376512,2.054322 -2.648356,-0.72291 -1.540961,-3.364893 -4.53707,5.251682 -4.914698,-0.661897 -0.384442,-6.020198 -1.164335,-7.340313 -2.97681,-5.404944 -2.023498,2.1607 -2.715802,-2.039343 -3.850768,-1.556213 -1.554721,0.661818 -0.413671,9.691116 -2.050773,9.466616 z"
-     id="mw" /><path
      style="display:inline;mix-blend-mode:normal;fill:url(#linearGradient1793);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
      d="M 53.574712,2.5785049 C 54.570449,6.7604119 56.993197,20.6106 48.702974,21.943532 33.280905,24.423151 33.888028,34.044092 35.881469,48.652534 38.065604,64.658466 41.853215,84.771937 27.128875,95.943399 14.981517,105.1597 -0.79149715,97.603888 0.0308791,84.0028 1.4053255,61.271087 25.30545,85.332604 18.188236,48.085407 14.62902,29.458616 10.83374,0.87634389 53.574712,2.5785049 Z"
      id="note2" /><path
