@@ -116,23 +116,19 @@ function initializePlayer() {
         const { url, name, metadataUrl } = button.dataset;
         currentStationDisplay.textContent = name;
         localStorage.setItem(lastStationKey, url);
+        
         if (metadataInterval) {
             clearInterval(metadataInterval);
-            metadataInterval = null;
         }
+        
         if (metadataUrl) {
             fetchMetadata(metadataUrl);
-            metadataInterval = setInterval(() => {
-                fetchMetadata(metadataUrl);
-            }, 1000);
+            metadataInterval = setInterval(() => fetchMetadata(metadataUrl), 1000);
         } else {
             currentSongTitleDisplay.textContent = "Metadaten nicht verfügbar";
         }
-        if (isAudioPlayer) {
-            handlePlayback(url);
-        } else {
-            handlePlayback(url);
-        }
+        
+        handlePlayback(url);
     }
 
     function handlePlayback(url) {
@@ -147,11 +143,7 @@ function initializePlayer() {
         switch (e.code) {
             case 'Space':
                 e.preventDefault();
-                if (currentPlayer.paused) {
-                    playMedia();
-                } else {
-                    currentPlayer.pause();
-                }
+                currentPlayer.paused ? playMedia() : currentPlayer.pause();
                 break;
             case 'ArrowUp':
                 if (isAudioPlayer) {

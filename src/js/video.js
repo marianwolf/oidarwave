@@ -83,6 +83,22 @@ document.addEventListener('DOMContentLoaded', () => {
         updateQualityLevel();
     };
 
+    const handleKeyDown = (event) => {
+        if (document.activeElement?.tagName === 'INPUT' || document.activeElement?.tagName === 'TEXTAREA') {
+            return;
+        }
+        switch (event.key) {
+            case 'ArrowLeft':
+                event.preventDefault();
+                rewind();
+                break;
+            case 'ArrowRight':
+                event.preventDefault();
+                forward();
+                break;
+        }
+    };
+
     const initializeEventListeners = () => {
         stationButtons.forEach(button => {
             button.addEventListener('click', () => {
@@ -90,40 +106,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 setupHlsPlayer(button.dataset.url);
             });
         });
+        
         dataModeToggle.addEventListener('click', toggleDataSaveMode);
-        if (rewindButton) {
-            rewindButton.addEventListener('click', rewind);
-        }
-        if (forwardButton) {
-            forwardButton.addEventListener('click', forward);
-        }
+        rewindButton?.addEventListener('click', rewind);
+        forwardButton?.addEventListener('click', forward);
+        
         document.addEventListener('visibilitychange', () => {
             if (document.visibilityState === 'visible' && !videoPlayer.paused) {
                 videoPlayer.play().catch(e => console.log('Attempt to resume playback failed:', e));
             }
         });
-        document.addEventListener('keydown', (event) => {
-            if (document.activeElement && (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA')) {
-                return;
-            }
-            switch (event.key) {
-                case 'ArrowLeft':
-                    event.preventDefault();
-                    rewind();
-                    break;
-                case 'ArrowRight':
-                    event.preventDefault();
-                    forward();
-                    break;
-            }
-        });
+        
+        document.addEventListener('keydown', handleKeyDown);
         
         // Bereinigung beim Verlassen der Seite
         window.addEventListener('beforeunload', () => {
-            if (hlsPlayer) {
-                hlsPlayer.destroy();
-                hlsPlayer = null;
-            }
+            hlsPlayer?.destroy();
         });
     };
 

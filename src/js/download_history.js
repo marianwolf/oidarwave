@@ -1,10 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
-    'use strict';
     const HISTORY_KEY = 'station_history';
 
     function triggerDownload(data, key) {
         const now = new Date();
-        const filename = `${key}_${now.toISOString().replace('T', '-').replace(/:/g, '-').slice(0, 19)}.json`;
+        const filename = `${key}_${now.toISOString().replace(/[T:]/g, '-').slice(0, 19)}.json`;
         const blob = new Blob([data], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
