@@ -10,6 +10,7 @@
     --color-accent-purple: hsl(270, 100%, 70%);
     --color-accent-pink: hsl(340, 100%, 70%);
     --color-accent-blue: hsl(200, 100%, 70%);
+    --color-accent-cyan: hsl(180, 100%, 70%);
 
     --color-status-online: hsl(120, 100%, 50%);
     --color-status-error: hsl(0, 100%, 50%);
@@ -29,17 +30,20 @@
     --radius-xl: 1.5rem;
     --radius-pill: 3rem;
 
-    --font-family-primary: 'Segoe UI', sans-serif;
+    --font-family-primary: 'Segoe UI', system-ui, -apple-system, sans-serif;
     --font-size-base: 1rem;
     --font-size-lg: 1.5rem;
+    --font-size-xl: 2rem;
     --font-size-xxxl: 3.5rem;
     --font-weight-medium: 500;
     --font-weight-semibold: 600;
     --font-weight-bold: 700;
     --line-height-base: 1.6;
 
-    --transition-speed-fast: 0.2s;
+    --transition-speed-fast: 0.15s;
+    --transition-speed-normal: 0.3s;
     --transition-timing-cubic: cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-timing-elastic: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 * {
@@ -143,6 +147,18 @@ nav a {
 
 nav a:hover {
     background: hsla(0, 0%, 100%, 0.15);
+    transform: translateY(-2px);
+}
+
+nav a:focus-visible {
+    outline: 3px solid var(--color-accent-blue);
+    outline-offset: 4px;
+    transform: translateY(-2px);
+}
+
+nav a[aria-current="page"] {
+    background: hsla(270, 100%, 70%, 0.2);
+    border: 1px solid var(--color-accent-purple);
 }
 
 .main-section {
@@ -167,37 +183,55 @@ nav a:hover {
 }
 
 .station-btn {
-    background: hsla(0, 0%, 100%, 0.15);
+    background: hsla(0, 0%, 100%, 0.1);
     padding: var(--space-200);
-    border: 1px solid hsla(0, 0%, 100%, 0.2); 
+    border: 1px solid hsla(0, 0%, 100%, 0.15);
     border-radius: var(--radius-md);
     color: white;
     font-size: var(--font-size-base);
     font-weight: var(--font-weight-medium);
-    transition: all 0.1s ease-in-out;
+    transition: all var(--transition-speed-fast) var(--transition-timing-cubic);
     backdrop-filter: blur(10px);
     text-align: center;
     position: relative;
     overflow: hidden;
     will-change: border, background, transform;
-    margin: 1px;
     cursor: pointer;
 }
 
+.station-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--color-accent-purple) 0%, var(--color-accent-pink) 100%);
+    opacity: 0;
+    transition: opacity var(--transition-speed-normal);
+    z-index: -1;
+}
+
 .station-btn:hover {
-    background: hsla(0, 0%, 100%, 0.25);
-    border: 2px solid hsla(0, 0%, 100%, 0.5);
-    margin: 0;
+    background: hsla(0, 0%, 100%, 0.2);
+    border-color: hsla(0, 0%, 100%, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.station-btn:focus-visible {
+    outline: 3px solid var(--color-accent-blue);
+    outline-offset: 4px;
 }
 
 .station-btn.active {
-    background: hsla(0, 0%, 100%, 0.3);
-    border: 2px solid hsla(0, 0%, 100%, 0.9);    
-    margin: 0;
+    background: linear-gradient(135deg, var(--color-accent-purple) 0%, var(--color-accent-pink) 100%);
+    border-color: transparent;
+    font-weight: var(--font-weight-semibold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(187, 134, 252, 0.4);
 }
 
 .station-btn.active:hover {
-    background: hsla(0, 0%, 100%, 0.45);
+    opacity: 0.9;
+    transform: translateY(-2px);
 }
 
 .player-controls {
@@ -315,6 +349,10 @@ nav a:hover {
 @media (max-width: 56.25em) {
     .cookie-banner {
         width: 90%;
+        padding: var(--space-300);
+    }
+    .logo {
+        font-size: calc(var(--font-size-xxxl) * 0.8);
     }
 }
 
@@ -323,19 +361,25 @@ nav a:hover {
         grid-template-columns: 1fr;
         gap: var(--space-400);
     }
+    nav {
+        gap: var(--space-100);
+    }
     nav a {
-        padding: var(--space-200);
+        padding: var(--space-150) var(--space-200);
         font-size: var(--font-size-base);
+        flex: 1 1 auto;
+        min-width: 80px;
     }
     .logo {
-        font-size: var(--font-size-lg);
+        font-size: var(--font-size-xl);
     }
     .station-grid {
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: var(--space-150);
     }
     .station-btn {
-        padding: var(--space-200);
-        font-size: 0.85em;
+        padding: var(--space-150);
+        font-size: 0.9em;
     }
     .player-controls {
         order: 1;
@@ -343,20 +387,24 @@ nav a:hover {
     .station-selector {
         order: 2;
     }
+    header, .main-section, .station-selector, .player-controls {
+        padding: var(--space-400);
+    }
 }
 
 @media (max-width: 26.25em) {
     .container {
-        padding: var(--space-200);
+        padding: var(--space-150);
     }
     .main-section, .station-selector, .player-controls {
-        padding: var(--space-400);
+        padding: var(--space-300);
     }
     .cookie-banner {
         bottom: 0;
         left: 0;
         transform: none;
         width: 100%;
+        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
     }
     .cookie-banner-content {
         flex-direction: column;
@@ -369,6 +417,19 @@ nav a:hover {
     }
     .cookie-btn {
         width: 100%;
+        text-align: center;
+    }
+    .logo {
+        font-size: var(--font-size-lg);
+    }
+    .station-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    nav {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    nav a {
         text-align: center;
     }
 }
