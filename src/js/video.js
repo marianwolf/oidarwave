@@ -28,7 +28,9 @@ document.addEventListener('DOMContentLoaded', () => {
         for (const track of videoPlayer.textTracks) {
             track.mode = 'hidden';
         }
-        if (window.Hls && Hls.isSupported()) {
+        
+        // Prüfen ob Hls.js verfügbar ist
+        if (window.Hls && typeof Hls.isSupported === 'function') {
             hlsPlayer = new Hls();
             hlsPlayer.loadSource(url);
             hlsPlayer.attachMedia(videoPlayer);
@@ -40,17 +42,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateQualityLevel();
             });
             hlsPlayer.on(Hls.Events.ERROR, (event, data) => {
-                console.error(`HLS.js fatal error: ${data.details}`, data);
+                console.error(`HLS.js error: ${data.details}`, data);
                 if (data.fatal) {
-                    alert(`Kritischer Fehler beim Laden des Streams (${data.details}). Bitte versuchen Sie es erneut oder wechseln Sie den Sender.`);
+                    switch (data.type) {
+                        case Hls.ErrorTypes.NETWORK_ERROR:
+                            console.error('Network error, trying to recover...');
+                            hlsPlayer.startLoad();
+                            break;
+                        case Hls.ErrorTypes.MEDIA_ERROR:
+                            console.error('Media error, trying to recover...');
+                            hlsPlayer.recoverMediaError();
+                            break;
+                        default:
+                            alert(`Kritischer Fehler beim Laden des Streams (${data.details}). Bitte versuchen Sie es erneut oder wechseln Sie den Sender.`);
+                            break;
+                    }
                 }
             });
         } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
             videoPlayer.src = url;
             videoPlayer.addEventListener('loadedmetadata', () => videoPlayer.play().catch(e => console.log('Autoplay failed on native player:', e)), { once: true });
         } else {
-            console.error('HLS is not supported by your browser.');
-            alert('Ihr Browser unterstützt dieses Videoformat nicht.');
+            console.error('HLS is not supported by your browser and Hls.js is not available.');
+            alert('Ihr Browser unterstützt dieses Videoformat nicht und HLS.js ist nicht geladen.');
         }
     };
     
@@ -101,6 +115,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     event.preventDefault();
                     forward();
                     break;
+            }
+        });
+        
+        // Bereinigung beim Verlassen der Seite
+        window.addEventListener('beforeunload', () => {
+            if (hlsPlayer) {
+                hlsPlayer.destroy();
+                hlsPlayer = null;
             }
         });
     };

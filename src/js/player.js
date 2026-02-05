@@ -77,6 +77,13 @@ function initializePlayer() {
         StationHistory.stopStation(currentPlayer.src);
     });
 
+    window.addEventListener('beforeunload', () => {
+        if (metadataInterval) {
+            clearInterval(metadataInterval);
+        }
+        StationHistory.stopStation(currentPlayer?.src);
+    });
+
     document.addEventListener('keydown', handleKeyDown);
 
     function updateOverallStatus() {
@@ -122,18 +129,13 @@ function initializePlayer() {
             currentSongTitleDisplay.textContent = "Metadaten nicht verfügbar";
         }
         if (isAudioPlayer) {
-            handleAudioPlayback(url);
+            handlePlayback(url);
         } else {
-            handleVideoPlayback(url);
+            handlePlayback(url);
         }
     }
 
-    function handleAudioPlayback(url) {
-        currentPlayer.src = url;
-        currentPlayer.load();
-    }
-    
-    function handleVideoPlayback(url) {
+    function handlePlayback(url) {
         currentPlayer.src = url;
         currentPlayer.load();
     }
