@@ -1,12 +1,10 @@
-'use client';
-
+import React from 'react';
 import type { Metadata } from 'next';
 import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import CookieBanner from '@/components/CookieBanner';
-
-import useMouseTracking from '@/hooks/useMouse';
+import MouseTracker from '@/components/MouseTracker';
 
 export const metadata: Metadata = {
   title: 'Oidarwave',
@@ -30,11 +28,6 @@ export const metadata: Metadata = {
     type: 'website',
   },
 };
-
-function MouseTracker() {
-  useMouseTracking();
-  return null;
-}
 
 export default function RootLayout({
   children,
