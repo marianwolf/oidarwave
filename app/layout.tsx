@@ -1,9 +1,12 @@
+'use client';
+
 import type { Metadata } from 'next';
+import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import CookieBanner from '@/components/CookieBanner';
+
 import useMouseTracking from '@/hooks/useMouse';
-import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Oidarwave',

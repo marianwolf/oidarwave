@@ -3,21 +3,10 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { videoStations, VideoStation } from '@/lib/stations';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+/* eslint-disable @typescript-eslint/no-explicit-any */
 declare global {
   interface Window {
-    Hls?: {
-      isSupported: () => boolean;
-      new: () => unknown;
-      Events: {
-        MANIFEST_PARSED: string;
-        ERROR: string;
-      };
-      ErrorTypes: {
-        NETWORK_ERROR: string;
-        MEDIA_ERROR: string;
-      };
-    };
+    Hls?: any;
   }
 }
 
@@ -56,7 +45,7 @@ export default function VideoPlayer() {
     }
 
     if (window.Hls && typeof window.Hls.isSupported === 'function') {
-      const hls = new window.Hls.new();
+      const hls = new window.Hls();
       hlsRef.current = hls;
       hls.loadSource(url);
       hls.attachMedia(video);
@@ -191,7 +180,6 @@ export default function VideoPlayer() {
             controls
             preload="none"
             playsInline
-            webkitPlaysInline
           >
             Ihr Browser unterstützt leider keine HTML5-Videowiedergabe.
           </video>
