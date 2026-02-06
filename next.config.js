@@ -1,9 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  output: 'standalone',
   images: {
-    domains: ['profilbild.vercel.app'],
+    domains: [
+      'oidarvawe.vercel.app',
+      'beta0.vercel.app',
+      'gamma2.vercel.app',
+    ],
   },
 };
 
