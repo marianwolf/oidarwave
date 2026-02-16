@@ -2,7 +2,6 @@ const StationHistory = (() => {
     const HISTORY_KEY = 'station_history';
     const EXPIRY_DAYS = 90;
     const EXPIRY_TIME_MS = EXPIRY_DAYS * 24 * 60 * 60 * 1000;
-    const JSON_INDENTATION = 2;
     let historyCache;
 
     function loadHistory() {
@@ -21,7 +20,7 @@ const StationHistory = (() => {
 
     function saveHistory() {
         if (historyCache) {
-            localStorage.setItem(HISTORY_KEY, JSON.stringify(historyCache, null, JSON_INDENTATION));
+            localStorage.setItem(HISTORY_KEY, JSON.stringify(historyCache));
         }
     }
 

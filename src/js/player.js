@@ -117,7 +117,7 @@ function initializePlayer() {
             fetchMetadata(metadataUrl);
             metadataInterval = setInterval(() => {
                 fetchMetadata(metadataUrl);
-            }, 1000);
+            }, 3000);
         } else {
             currentSongTitleDisplay.textContent = "Metadaten nicht verfügbar";
         }
