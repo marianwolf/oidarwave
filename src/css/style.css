@@ -227,9 +227,10 @@ nav a:hover {
     transition: background-color var(--transition-speed-fast) var(--transition-timing-cubic), transform var(--transition-speed-fast) var(--transition-timing-cubic);
 }
 
-.status-indicator.error { animation-duration: 0.5s; }
-.status-indicator.buffering { animation-duration: 1s; }
-.status-indicator.paused { animation: none; }
+.status-indicator.online { background: var(--color-status-online); animation: pulse-status 2s infinite; }
+.status-indicator.error { background: var(--color-status-error); animation: pulse-status 0.5s infinite; }
+.status-indicator.buffering { background: var(--color-status-buffering); animation: pulse-status 1s infinite; }
+.status-indicator.paused { background: var(--color-status-paused); animation: none; }
 
 .cookie-banner {
     position: fixed;

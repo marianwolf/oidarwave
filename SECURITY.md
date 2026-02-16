@@ -6,8 +6,7 @@ Die folgende Tabelle zeigt die aktuell unterstützten Versionen dieses Projekts:
 
 | Version | Unterstützt |
 | :--- | :--- |
-| 0.9.x | ✅ Aktuell |
-
+| 0.9.x | ✅ |
 ## Sicherheitslücken melden
 
 Wenn du eine Sicherheitslücke in Oidarwave entdeckst, bitten wir dich, uns umgehend zu informieren. Wir nehmen Sicherheitsfragen sehr ernst und werden alle gemeldeten Probleme umgehend bearbeiten.
@@ -27,12 +26,6 @@ Wenn du eine Sicherheitslücke in Oidarwave entdeckst, bitten wir dich, uns umge
 - ❌ Veröffentliche Sicherheitslücken öffentlich, bevor sie behoben wurden
 - ❌ Sende Patches ohne vorherige Absprache
 - ❌ Greife nicht auf Daten zu, die dir nicht gehören
-
-### Was du erwarten kannst
-
-- 📬 Bestätigung deines Reports innerhalb von 48 Stunden
-- 🔄 Regelmäßige Updates zum Fortschritt der Behebung
-- 📝 Veröffentlichung einer Sicherheitsankündigung, sobald die Lücke behoben ist
 
 ## Sicherheitsfeatures
 
