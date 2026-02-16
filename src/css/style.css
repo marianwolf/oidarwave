@@ -169,7 +169,7 @@ nav a:hover {
 .station-btn {
     background: hsla(0, 0%, 100%, 0.15);
     padding: var(--space-200);
-    border: 1px solid hsla(0, 0%, 100%, 0.2); 
+    border: 1px solid hsla(0, 0%, 100%, 0.2);
     border-radius: var(--radius-md);
     color: white;
     font-size: var(--font-size-base);
@@ -220,7 +220,6 @@ nav a:hover {
     width: var(--space-200);
     height: var(--space-200);
     border-radius: 50%;
-    border: none;
     background: var(--color-status-online);
     opacity: 1;
     animation: pulse-status 2s infinite;
@@ -228,10 +227,9 @@ nav a:hover {
     transition: background-color var(--transition-speed-fast) var(--transition-timing-cubic), transform var(--transition-speed-fast) var(--transition-timing-cubic);
 }
 
-.status-indicator.online { background: var(--color-status-online); animation: pulse-status 2s infinite; }
-.status-indicator.error { background: var(--color-status-error); animation: pulse-status 0.5s infinite; }
-.status-indicator.buffering { background: var(--color-status-buffering); animation: pulse-status 1s infinite; }
-.status-indicator.paused { background: var(--color-status-paused); animation: none; }
+.status-indicator.error { animation-duration: 0.5s; }
+.status-indicator.buffering { animation-duration: 1s; }
+.status-indicator.paused { animation: none; }
 
 .cookie-banner {
     position: fixed;
@@ -245,7 +243,7 @@ nav a:hover {
     font-family: var(--font-family-primary);
     background: var(--color-surface-card);
     backdrop-filter: blur(20px);
-    border: 1px solid hsla(240, 100%, 47%, 0.2); 
+    border: 1px solid hsla(240, 100%, 47%, 0.2);
     transition: all var(--transition-speed-fast) var(--transition-timing-cubic);
 }
 
@@ -294,8 +292,7 @@ nav a:hover {
     padding: var(--space-200);
     display: flex;
     border-radius: var(--radius-md);
-    background: #191436; 
-    background: color-mix(in srgb, var(--color-surface-primary) 70%, var(--color-surface-secondary)); 
+    background: color-mix(in srgb, var(--color-surface-primary) 70%, var(--color-surface-secondary));
     border: 1px solid rgba(120, 119, 198, 0.2);
     color: var(--color-on-surface-secondary);
     transition: all var(--transition-speed-fast) var(--transition-timing-cubic);
