@@ -1,8 +1,4 @@
-/**
- * Mouse Tracking - Verfolgt die Mausposition für dynamische Hintergrundeffekte
- */
-
-document.addEventListener('mousemove', (e: MouseEvent) => {
+document.addEventListener('mousemove', (e) => {
     const normalizedX = e.clientX / window.innerWidth;
     const normalizedY = e.clientY / window.innerHeight;
     document.body.style.backgroundPosition = `${normalizedX * 100}% ${normalizedY * 100}%`;

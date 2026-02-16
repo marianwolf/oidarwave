@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <link rel="stylesheet" href="/src/css/style.css">
+    <link rel="stylesheet" href="/src/css/style-video.css">
+    <script src="/src/js/mouse.js" defer></script>
+    <script src="/src/js/cookie.js" defer></script>
+    <script src="/src/js/player.js" defer></script>
+    <script src="/src/js/video.js" defer></script>
+    <script src="/src/js/history.js" defer></script>
+    <script src="/src/js/download_history.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Oidarwave ist dein Webradio für jeden Geschmack."/>
+    <meta name="keywords" content="Webradio, Radio, Online-Radio, Oidarwave"/>
+    <meta name="author" content="Marian Wolf"/>
+    <meta property="og:title" content="Oidarwave"/>
+    <meta property="og:description" content="Oidarwave ist dein Webradio mit einer großen Auswahl an Sendern."/>
+    <meta property="og:image" content="/favicon.svg"/>
+    <meta property="og:url" content="/"/>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" defer>
+    <title>Oidarwave - Video</title>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">🎵 Oidarwave</div>
+            <nav aria-label="Hauptnavigation">
+                <a href="/">Radio</a>
+                <a href="/video">Video</a>
+                <a href="mailto:marian.wolf2008@gmail.com">Kontakt</a>
+                <a href="https://beta0.vercel.app" target="_blank">Beta</a>
+            </nav>
+        </header>
+        <main id="radio">
+            <section class="player-section">
+                <div class="station-selector">
+                    <h2>🎥 Sender auswählen</h2>
+                    <div class="station-grid">
+                        <button class="station-btn" data-url="https://daserste-live.ard-mcdn.de/daserste/live/hls/de/master.m3u8" data-name="Das Erste">
+                            Das Erste
+                        </button>
+                        <button class="station-btn" data-url="https://zdf-hls-15.akamaized.net/hls/live/2016498/de/veryhigh/master.m3u8" data-name="ZDF">
+                            ZDF
+                        </button>
+                        <button class="station-btn" data-url="https://artesimulcast.akamaized.net/hls/live/2030993/artelive_de/index.m3u8" data-name="ARTE">
+                            ARTE
+                        </button>
+                        <button class="station-btn" data-url="https://tagesschau.akamaized.net/hls/live/2020115/tagesschau/tagesschau_1/master.m3u8" data-name="Tagesschau24">
+                            Tagesschau24
+                        </button>
+                        <button id="dataModeToggle" class="data-mode-toggle">
+                            Datensparmodus
+                        </button>
+                    </div>
+                </div>
+                <div class="player-controls">
+                    <div class="current-station">
+                        <span class="status-indicator" id="statusIndicator"></span>
+                        <span id="currentStation">Sender auswählen</span>
+                    </div>
+                    <div class="video-container">
+                        <video id="videoPlayer" controls preload="none" poster="/video-placeholder.png" playsinline webkit-playsinline>
+                            Ihr Browser unterstützt leider keine HTML5-Videowiedergabe.
+                        </video>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer>
+            <p>2026 by<img src="https://profilbild.vercel.app/mw.svg" width="22" style="vertical-align: middle; margin-left: 5px; margin-right: 5px;">| Alle Rechte vorbehalten. | <a href="/impressum" target="_blank">Impressum & Datenschutz</a></p>
+        </footer>
+    </div>
+</body>
+</html>
