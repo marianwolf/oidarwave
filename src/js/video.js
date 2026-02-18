@@ -41,11 +41,39 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             hlsPlayer.on(Hls.Events.ERROR, (event, data) => {
                 console.error(`HLS.js fatal error: ${data.details}`, data);
-                if (data.fatal) {
-                    alert(`Kritischer Fehler beim Laden des Streams (${data.details}). Bitte versuchen Sie es erneut oder wechseln Sie den Sender.`);
-                }
-            });
-        } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
+                console.error('Diagnostic info:', {
+                    type: data.type,
+                    details: data.details,
+                    fatal: data.fatal,
+                    url: hlsPlayer.url,
+                    error: data.error,
+                    response: data.response ? {
+                        code: data.response.code,
+                        text: data.response.text,
+                        abort: data.response.aborted
+                    } : null
+                });
+                
+                    // Prüfe auf Netzwerkprobleme
+                    if (data.response) {
+                        console.error('HTTP-Status:', data.response.code);
+                        if (data.response.code === 403) {
+                            console.error('DIAGNOSE: HTTP 403 - Zugriff verweigert (wahrscheinlich CORS oder Auth)');
+                        } else if (data.response.code === 404) {
+                            console.error('DIAGNOSE: HTTP 404 - Stream-URL nicht gefunden (URL geändert?)');
+                        } else if (data.response.code === 0) {
+                            console.error('DIAGNOSE: Netzwerkfehler oder CORS-Blockade');
+                        }
+                    }
+
+                    if (data.fatal) {
+                        alert(`Kritischer Fehler beim Laden des Streams (${data.details}).\n\nDiagnose:\n- CORS: Stream erlaubt keinen Zugriff\n- URL: Stream-URL ist möglicherweise veraltet\n\nBitte versuchen Sie es erneut oder wechseln Sie den Sender.`);
+                    }
+                });
+                hlsPlayer.on(Hls.Events.FRAG_BUFFER_FAILED, (event, data) => {
+                    console.error('Fragment buffer failed:', data);
+                });
+            } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
             videoPlayer.src = url;
             videoPlayer.addEventListener('loadedmetadata', () => videoPlayer.play().catch(e => console.log('Autoplay failed on native player:', e)), { once: true });
         } else {
