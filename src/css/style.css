@@ -60,28 +60,31 @@ body {
     background-attachment: fixed;
     color: var(--color-on-surface-primary);
     min-height: 100vh;
-    overflow: hidden auto; 
+    overflow-x: hidden;
+    overflow-y: auto;
     position: relative;
     transition: background-color var(--transition-speed-fast) ease;
     overscroll-behavior-y: contain;
     -webkit-overflow-scrolling: touch;
-    will-change: transform, background-position;
 }
 
-header, .main-section, .cookie-banner, footer, .station-selector, .player-controls {
+header,
+.main-section,
+.cookie-banner,
+footer,
+.station-selector,
+.player-controls {
     padding: var(--space-500);
     border-radius: var(--radius-lg);
     color: white;
     text-align: center;
-}
-
-header, .main-section, .cookie-banner, footer {
     backdrop-filter: blur(20px);
     background: var(--color-surface-card);
-    will-change: transform, backdrop-filter, opacity; 
 }
 
-header, .main-section, .player-section {
+header,
+.main-section,
+.player-section {
     margin-bottom: var(--space-300);
 }
 
@@ -113,7 +116,7 @@ header, .main-section, .player-section {
     font-family: 'Noto Color Emoji', var(--font-family-primary);
     font-size: var(--font-size-xxxl);
     font-weight: var(--font-weight-bold);
-    background: linear-gradient(135deg, var(--color-accent-purple), var(--color-accent-purple)); 
+    background: linear-gradient(135deg, var(--color-accent-purple), var(--color-accent-pink));
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -179,20 +182,21 @@ nav a:hover {
     text-align: center;
     position: relative;
     overflow: hidden;
-    will-change: border, background, transform;
     margin: 1px;
     cursor: pointer;
 }
 
 .station-btn:hover {
     background: hsla(0, 0%, 100%, 0.25);
-    border: 2px solid hsla(0, 0%, 100%, 0.5);
+    border-width: 2px;
+    border-color: hsla(0, 0%, 100%, 0.5);
     margin: 0;
 }
 
 .station-btn.active {
     background: hsla(0, 0%, 100%, 0.3);
-    border: 2px solid hsla(0, 0%, 100%, 0.9);    
+    border-width: 2px;
+    border-color: hsla(0, 0%, 100%, 0.9);
     margin: 0;
 }
 
@@ -223,11 +227,10 @@ nav a:hover {
     background: var(--color-status-online);
     opacity: 1;
     animation: pulse-status 2s infinite;
-    will-change: background-color, transform;
     transition: background-color var(--transition-speed-fast) var(--transition-timing-cubic), transform var(--transition-speed-fast) var(--transition-timing-cubic);
 }
 
-.status-indicator.online { background: var(--color-status-online); animation: pulse-status 2s infinite; }
+.status-indicator.online { animation: pulse-status 2s infinite; }
 .status-indicator.error { background: var(--color-status-error); animation: pulse-status 0.5s infinite; }
 .status-indicator.buffering { background: var(--color-status-buffering); animation: pulse-status 1s infinite; }
 .status-indicator.paused { background: var(--color-status-paused); animation: none; }
