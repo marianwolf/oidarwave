@@ -101,6 +101,8 @@ Beiträge sind jederzeit willkommen\! Ob es sich um Fehlerberichte, Funktionsvor
   - [x] verbessertes Design und Video Vor- und Rückspulen (0.9.7)
   - [x] Verlauf im `localStorage` als `.json` (0.9.8)
   - [x] Download des Verlaufs mit `Ctrl + H` (0.9.9)
+  - [x] Erweiterte Video-Fehlerdiagnose (0.9.10)
+  - [x] PWA-Vorbereitung (0.9.10)
   - [ ] Integration weiterer Sender
   - [ ] Umschaltung zwischen Dunkel- und Hellmodus
   - [ ] Favoriten
