@@ -1,8 +1,8 @@
 # 🎵 Oidarwave
 
-![Project Status](https://img.shields.io/badge/Status-Aktive-brightgreen)
-![Version](https://img.shields.io/badge/Version-0.9.9-blue)
+![Project Status](https://img.shields.io/badge/Status-Aktiv-brightgreen)
 ![Datenschutz](https://img.shields.io/badge/Datenschutz-DSGVO--konform-blue)
+![License](https://img.shields.io/badge/License-MIT-yellow)
 
 ## 📖 Inhaltsverzeichnis
 
@@ -47,7 +47,7 @@
 | 90s90s | [Livestream](https://regiocast.streamabc.net/regc-90s90spop4760822-mp3-192-9403761) | - |
 | BBG Radio | [Livestream](https://radio.bbg-bew.de) | - |
 
-### Fernsehstream
+### Fernsehen
 
 | Sender | Livestream |
 | :--- | :--- |
