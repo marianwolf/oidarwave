@@ -38,6 +38,42 @@
     border-color: rgba(255, 255, 255, 0.8);
 }
 
+.caption-toggle {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-md);
+    padding: var(--space-200);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    margin: 2px 0;
+    transition: all 0.4s ease;
+}
+
+.caption-toggle:hover,
+.caption-toggle[aria-pressed="true"] {
+    background: rgba(255, 255, 255, 0.45);
+    border-width: 2px;
+    border-color: rgba(255, 255, 255, 0.5);
+    margin: 0;
+}
+
+.caption-toggle[aria-pressed="true"] {
+    background-color: var(--color-accent-blue);
+    color: black;
+    border-color: rgba(255, 255, 255, 0.8);
+}
+
+.caption-toggle.cc-active {
+    background-color: var(--color-accent-blue);
+    color: black;
+}
+
 @media (max-width: 780px) {
     .video-container {
         width: 95%;

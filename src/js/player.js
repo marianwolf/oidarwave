@@ -119,7 +119,7 @@ function initializePlayer() {
                 fetchMetadata(metadataUrl);
             }, 3000);
         } else {
-            currentSongTitleDisplay.textContent = "Metadaten nicht verfügbar";
+            if (currentSongTitleDisplay) currentSongTitleDisplay.textContent = "Metadaten nicht verfügbar";
         }
         if (isAudioPlayer) {
             handleAudioPlayback(url);
@@ -186,14 +186,14 @@ function initializePlayer() {
                 }
                 
                 if (trackTitle && trackTitle.length > 0) {
-                    currentSongTitleDisplay.innerText = trackTitle;
+                    if (currentSongTitleDisplay) currentSongTitleDisplay.innerText = trackTitle;
                 } else {
-                    currentSongTitleDisplay.innerText = "Keine Titelinformationen";
+                    if (currentSongTitleDisplay) currentSongTitleDisplay.innerText = "Keine Titelinformationen";
                 }
             })
             .catch(error => {
                 console.error('Fehler beim Abrufen der Metadaten:', error);
-                currentSongTitleDisplay.innerText = "Metadaten nicht verfügbar";
+                if (currentSongTitleDisplay) currentSongTitleDisplay.innerText = "Metadaten nicht verfügbar";
             });
     }
 

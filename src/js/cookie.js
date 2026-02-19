@@ -55,22 +55,26 @@ function enableVercelScripts() {
 function showCookieBanner() {
     const consent = getCookieConsent();
     if (consent === 'true') {
-        cookieBanner.style.display = 'none';
+        if (cookieBanner) cookieBanner.style.display = 'none';
         enableVercelScripts();
     } else {
-        cookieBanner.style.display = 'block';
+        if (cookieBanner) cookieBanner.style.display = 'block';
     }
 }
 
-acceptButton.addEventListener('click', () => {
-    setCookieConsent('true');
-    enableVercelScripts();
-    cookieBanner.style.display = 'none';
-});
+if (acceptButton) {
+    acceptButton.addEventListener('click', () => {
+        setCookieConsent('true');
+        enableVercelScripts();
+        if (cookieBanner) cookieBanner.style.display = 'none';
+    });
+}
 
-declineButton.addEventListener('click', () => {
-    setCookieConsent('false');
-    cookieBanner.style.display = 'none';
-});
+if (declineButton) {
+    declineButton.addEventListener('click', () => {
+        setCookieConsent('false');
+        if (cookieBanner) cookieBanner.style.display = 'none';
+    });
+}
 
 showCookieBanner();

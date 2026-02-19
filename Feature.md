@@ -3,7 +3,7 @@
 ### 1. **Dunkel-/Hellmodus-Umschaltung** (bereits in Roadmap)
 - [ ] Systempräferenz erkennen (`prefers-color-scheme`)
 - [ ] Manueller Toggle-Button im Header
-- [ ] Präferenz in `localStorage` speichern
+- [x] Präferenz in `localStorage` speichern
 
 ---
 
@@ -11,7 +11,7 @@
 - [ ] Herz-Symbol neben jedem Sender
 - [ ] "Favoriten"-Filter in der Senderliste
 - [ ] Separate Favoriten-Seite (`/favorites`)
-- [ ] Export/Import der Favoriten als JSON
+- [x] Favoriten im `localStorage` speichern
 
 ---
 

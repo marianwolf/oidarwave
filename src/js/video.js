@@ -1,16 +1,26 @@
 document.addEventListener('DOMContentLoaded', () => {
     const dataModeToggle = document.getElementById('dataModeToggle');
+    const captionToggle = document.getElementById('captionToggle');
     const stationButtons = document.querySelectorAll('.station-btn');
     const videoPlayer = document.getElementById('videoPlayer');
     const currentStationDisplay = document.getElementById('currentStation');
     const rewindButton = document.getElementById('rewindButton');
     const forwardButton = document.getElementById('forwardButton');
     const localStorageKey = 'dataSaveMode';
+    const captionLocalStorageKey = 'captionsEnabled';
     let hlsPlayer = null;
     const seekTime = 10;
 
     videoPlayer.setAttribute('playsinline', '');
     videoPlayer.setAttribute('webkit-playsinline', '');
+
+    // Automatisch alle neuen Tracks deaktivieren
+    videoPlayer.textTracks.addEventListener('addtrack', (event) => {
+        const isCaptionsEnabled = localStorage.getItem(captionLocalStorageKey) === 'true';
+        if (!isCaptionsEnabled && event.track) {
+            event.track.mode = 'disabled';
+        }
+    });
 
     const updateQualityLevel = () => {
         if (!hlsPlayer || hlsPlayer.levels.length === 0) {
@@ -20,13 +30,92 @@ document.addEventListener('DOMContentLoaded', () => {
         hlsPlayer.currentLevel = isDataSaveModeEnabled ? 0 : -1;
     };
 
+    // Untertitel standardmäßig deaktivieren
+    const disableCaptions = () => {
+        // HLS.js subtitle Display deaktivieren
+        if (hlsPlayer) {
+            hlsPlayer.subtitleDisplay = false;
+        }
+        // Deaktiviere alle Text-Tracks
+        for (let i = videoPlayer.textTracks.length - 1; i >= 0; i--) {
+            videoPlayer.textTracks[i].mode = 'disabled';
+        }
+    };
+
+    // Untertitel aktivieren/deaktivieren
+    const toggleCaptions = () => {
+        const isCaptionsEnabled = captionToggle.getAttribute('aria-pressed') === 'true';
+        const newState = !isCaptionsEnabled;
+        
+        captionToggle.setAttribute('aria-pressed', newState);
+        localStorage.setItem(captionLocalStorageKey, newState);
+        
+        if (newState) {
+            // HLS.js subtitle Display aktivieren
+            if (hlsPlayer) {
+                hlsPlayer.subtitleDisplay = true;
+            }
+            // Untertitel einschalten - erster verfügbare Track
+            let foundTrack = false;
+            for (const track of videoPlayer.textTracks) {
+                if (track.kind === 'subtitles' || track.kind === 'captions' || track.kind === 'metadata') {
+                    track.mode = 'showing';
+                    foundTrack = true;
+                    break;
+                }
+            }
+            // Wenn kein Track gefunden, versuche es mit dem ersten verfügbaren
+            if (!foundTrack && videoPlayer.textTracks.length > 0) {
+                videoPlayer.textTracks[0].mode = 'showing';
+            }
+        } else {
+            // HLS.js subtitle Display deaktivieren
+            if (hlsPlayer) {
+                hlsPlayer.subtitleDisplay = false;
+            }
+            disableCaptions();
+        }
+    };
+
+    // Initialisiere Caption-Button-Status
+    const initializeCaptions = () => {
+        const isCaptionsEnabled = localStorage.getItem(captionLocalStorageKey) === 'true';
+        captionToggle.setAttribute('aria-pressed', isCaptionsEnabled);
+        
+        // Untertitel initialisieren basierend auf gespeichertem Status
+        if (isCaptionsEnabled) {
+            for (const track of videoPlayer.textTracks) {
+                if (track.kind === 'subtitles' || track.kind === 'captions' || track.kind === 'metadata') {
+                    track.mode = 'showing';
+                    break;
+                }
+            }
+            // Wenn kein Track gefunden, versuche es mit dem ersten verfügbaren
+            if (videoPlayer.textTracks.length > 0) {
+                let foundTrack = false;
+                for (const track of videoPlayer.textTracks) {
+                    if (track.kind === 'subtitles' || track.kind === 'captions') {
+                        foundTrack = true;
+                        break;
+                    }
+                }
+                if (!foundTrack) {
+                    videoPlayer.textTracks[0].mode = 'showing';
+                }
+            }
+        } else {
+            disableCaptions();
+        }
+    };
+
     const setupHlsPlayer = (url) => {
         if (hlsPlayer) {
             hlsPlayer.destroy();
             hlsPlayer = null;
         }
-        for (const track of videoPlayer.textTracks) {
-            track.mode = 'hidden';
+        // Deaktiviere alle Text-Tracks komplett
+        for (let i = videoPlayer.textTracks.length - 1; i >= 0; i--) {
+            videoPlayer.textTracks[i].mode = 'disabled';
         }
         if (window.Hls && Hls.isSupported()) {
             hlsPlayer = new Hls();
@@ -38,6 +127,24 @@ document.addEventListener('DOMContentLoaded', () => {
                         console.log('Autoplay failed, user interaction may be required:', e);
                     });
                 updateQualityLevel();
+                
+                // Alle neuen Tracks deaktivieren
+                for (const track of videoPlayer.textTracks) {
+                    track.mode = 'disabled';
+                }
+                
+                // Gespeicherten Caption-Status wiederherstellen
+                const isCaptionsEnabled = localStorage.getItem(captionLocalStorageKey) === 'true';
+                if (!isCaptionsEnabled) {
+                    // Deaktiviere alle Text-Tracks
+                    for (let i = videoPlayer.textTracks.length - 1; i >= 0; i--) {
+                        videoPlayer.textTracks[i].mode = 'disabled';
+                    }
+                    // HLS.js subtitle Display deaktivieren
+                    if (hlsPlayer) {
+                        hlsPlayer.subtitleDisplay = false;
+                    }
+                }
             });
             hlsPlayer.on(Hls.Events.ERROR, (event, data) => {
                 console.error(`HLS.js fatal error: ${data.details}`, data);
@@ -75,7 +182,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
             videoPlayer.src = url;
-            videoPlayer.addEventListener('loadedmetadata', () => videoPlayer.play().catch(e => console.log('Autoplay failed on native player:', e)), { once: true });
+            videoPlayer.addEventListener('loadedmetadata', () => {
+                videoPlayer.play().catch(e => console.log('Autoplay failed on native player:', e));
+                
+                // Gespeicherten Caption-Status wiederherstellen
+                const isCaptionsEnabled = localStorage.getItem(captionLocalStorageKey) === 'true';
+                if (!isCaptionsEnabled) {
+                    for (let i = videoPlayer.textTracks.length - 1; i >= 0; i--) {
+                        videoPlayer.textTracks[i].mode = 'disabled';
+                    }
+                }
+            }, { once: true });
         } else {
             console.error('HLS is not supported by your browser.');
             alert('Ihr Browser unterstützt dieses Videoformat nicht.');
@@ -105,6 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
         dataModeToggle.addEventListener('click', toggleDataSaveMode);
+        captionToggle.addEventListener('click', toggleCaptions);
         if (rewindButton) {
             rewindButton.addEventListener('click', rewind);
         }
@@ -136,6 +254,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const initializePlayer = () => {
         const isDataSaveModeEnabled = localStorage.getItem(localStorageKey) === 'true';
         dataModeToggle.setAttribute('aria-pressed', isDataSaveModeEnabled);
+        
+        // Initialisiere Untertitel-Status
+        initializeCaptions();
         
         const firstStationButton = stationButtons[0];
         if (firstStationButton) {
