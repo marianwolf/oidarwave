@@ -133,10 +133,8 @@ function initializePlayer() {
         currentPlayer.load();
     }
     
-    function handleVideoPlayback(url) {
-        currentPlayer.src = url;
-        currentPlayer.load();
-    }
+    // Video und Audio nutzen dieselbe Logik
+    const handleVideoPlayback = handleAudioPlayback;
 
     function handleKeyDown(e) {
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON' || e.target.tagName === 'TEXTAREA') {
