@@ -132,8 +132,8 @@ function initializePlayer() {
         currentPlayer.src = url;
         currentPlayer.load();
     }
-    
-    // Video und Audio nutzen dieselbe Logik
+
+    // Video nutzt dieselbe Logik wie Audio
     const handleVideoPlayback = handleAudioPlayback;
 
     function handleKeyDown(e) {

@@ -90,6 +90,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    // Helper: Stellt gespeicherten Caption-Status wieder her
+    const restoreCaptionState = () => {
+        const isCaptionsEnabled = localStorage.getItem(captionLocalStorageKey) === 'true';
+        if (!isCaptionsEnabled) {
+            disableCaptions();
+        }
+    };
+
     const setupHlsPlayer = (url) => {
         if (hlsPlayer) {
             hlsPlayer.destroy();
@@ -106,12 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         console.log('Autoplay failed, user interaction may be required:', e);
                     });
                 updateQualityLevel();
-                
-                // Gespeicherten Caption-Status wiederherstellen
-                const isCaptionsEnabled = localStorage.getItem(captionLocalStorageKey) === 'true';
-                if (!isCaptionsEnabled) {
-                    disableCaptions();
-                }
+                restoreCaptionState();
             });
             hlsPlayer.on(Hls.Events.ERROR, (event, data) => {
                 console.error(`HLS.js fatal error: ${data.details}`, data);
@@ -151,12 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
             videoPlayer.src = url;
             videoPlayer.addEventListener('loadedmetadata', () => {
                 videoPlayer.play().catch(e => console.log('Autoplay failed on native player:', e));
-                
-                // Gespeicherten Caption-Status wiederherstellen
-                const isCaptionsEnabled = localStorage.getItem(captionLocalStorageKey) === 'true';
-                if (!isCaptionsEnabled) {
-                    disableCaptions();
-                }
+                restoreCaptionState();
             }, { once: true });
         } else {
             console.error('HLS is not supported by your browser.');

@@ -85,15 +85,6 @@ const FavoriteManager = (() => {
         };
     }
 
-    function loadPreferences() {
-        return loadPreferencesFromHistory();
-    }
-
-    function savePreferences() {
-        // Präferenzen werden automatisch aus dem Verlauf abgeleitet,
-        // keine explizite Speicherung nötig
-    }
-
     function addFavorite(id, name, data = {}) {
         const favorites = favoritesCache.favorites;
         if (favorites.some(f => f.id === id)) {
