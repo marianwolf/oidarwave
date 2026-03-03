@@ -1,4 +1,9 @@
 function initializePlayer() {
+    // === KONSTANTEN ===
+    const METADATA_REFRESH_INTERVAL = 3000; // ms
+    const VOLUME_STEP = 0.1;
+    const VOLUME_PRECISION = 1;
+
     let hasError = false;
     let isStalled = false;
     let isAudioPlayer = false;
@@ -28,48 +33,51 @@ function initializePlayer() {
         return;
     }
 
+    // === EVENT LISTENER KONSOLIDIERUNG ===
+    const mediaEvents = {
+        loadstart: () => {
+            isStalled = false;
+            updateOverallStatus();
+        },
+        canplay: () => {
+            if (isAudioPlayer && currentPlayer.paused) {
+                playMedia();
+            }
+            isStalled = false;
+            hasError = false;
+            updateOverallStatus();
+        },
+        playing: () => {
+            isStalled = false;
+            hasError = false;
+            updateOverallStatus();
+            StationHistory.startStation(currentPlayer.src);
+        },
+        pause: () => {
+            updateOverallStatus();
+            StationHistory.stopStation(currentPlayer.src);
+        },
+        waiting: () => {
+            isStalled = true;
+            updateOverallStatus();
+        },
+        error: (e) => {
+            console.error('Media Error:', e);
+            hasError = true;
+            updateOverallStatus();
+            StationHistory.stopStation(currentPlayer.src);
+        }
+    };
+
+    // Alle Media-Events auf einmal registrieren
+    Object.entries(mediaEvents).forEach(([event, handler]) => {
+        currentPlayer.addEventListener(event, handler);
+    });
+
     stationButtons.forEach(button => {
         button.addEventListener('click', () => {
             selectStation(button);
         });
-    });
-
-    currentPlayer.addEventListener('loadstart', () => {
-        isStalled = false;
-        updateOverallStatus();
-    });
-
-    currentPlayer.addEventListener('canplay', () => {
-        if (isAudioPlayer && currentPlayer.paused) {
-             playMedia();
-        }
-        isStalled = false;
-        hasError = false;
-        updateOverallStatus();
-    });
-
-    currentPlayer.addEventListener('playing', () => {
-        isStalled = false;
-        hasError = false;
-        updateOverallStatus();
-        StationHistory.startStation(currentPlayer.src);
-    });
-
-    currentPlayer.addEventListener('pause', () => {
-        updateOverallStatus();
-        StationHistory.stopStation(currentPlayer.src);
-    });
-
-    currentPlayer.addEventListener('waiting', () => {
-        isStalled = true;
-        updateOverallStatus();
-    });
-
-    currentPlayer.addEventListener('error', (e) => {
-        console.error('Media Error:', e);
-        hasError = true;
-        updateOverallStatus();
-        StationHistory.stopStation(currentPlayer.src);
     });
 
     window.addEventListener('offline', () => {
@@ -117,7 +125,7 @@ function initializePlayer() {
             fetchMetadata(metadataUrl);
             metadataInterval = setInterval(() => {
                 fetchMetadata(metadataUrl);
-            }, 3000);
+            }, METADATA_REFRESH_INTERVAL);
         } else {
             if (currentSongTitleDisplay) currentSongTitleDisplay.textContent = "Metadaten nicht verfügbar";
         }
@@ -133,7 +141,7 @@ function initializePlayer() {
         currentPlayer.load();
     }
 
-    // Video nutzt dieselbe Logik wie Audio
+    // Video nutzt dieselbe Logik wie Audio - direkt als Alias
     const handleVideoPlayback = handleAudioPlayback;
 
     function handleKeyDown(e) {
@@ -152,13 +160,13 @@ function initializePlayer() {
             case 'ArrowUp':
                 if (isAudioPlayer) {
                     e.preventDefault();
-                    currentPlayer.volume = parseFloat(Math.min(1, currentPlayer.volume + 0.1).toFixed(1));
+                    currentPlayer.volume = parseFloat(Math.min(1, currentPlayer.volume + VOLUME_STEP).toFixed(VOLUME_PRECISION));
                 }
                 break;
             case 'ArrowDown':
                 if (isAudioPlayer) {
                     e.preventDefault();
-                    currentPlayer.volume = parseFloat(Math.max(0, currentPlayer.volume - 0.1).toFixed(1));
+                    currentPlayer.volume = parseFloat(Math.max(0, currentPlayer.volume - VOLUME_STEP).toFixed(VOLUME_PRECISION));
                 }
                 break;
         }
