@@ -162,7 +162,7 @@ def test_cookie_banner():
         context2 = browser.new_context()
         page2 = context2.new_page()
         page2.goto(f"file://{BASE_DIR}/index.html")
-        page.wait_for_load_state('networkidle')
+        page2.wait_for_load_state('networkidle')
         
         # Lehnen Sie Cookies ab
         decline_btn = page2.locator('#declineCookies')

@@ -84,6 +84,12 @@ git clone https://github.com/marianwolf/oidarwave.git
 Alternativ kannst du die Live-Version jederzeit hier nutzen:
 [https://oidarwave.vercel.app](https://oidarwave.vercel.app)
 
+3. **Testen:**
+```bash
+cd /home/marian/nextcloud/github/oidarwave && /home/marian/nextcloud/github/oidarwave/.venv/bin/python tests/test_oidarwave.py
+
+```
+
 ## 🤝 Mitwirken
 
 Beiträge sind jederzeit willkommen\! Ob es sich um Fehlerberichte, Funktionsvorschläge oder Code-Verbesserungen handelt, wir freuen uns über deine Beteiligung.
