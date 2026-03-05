@@ -1,0 +1,14 @@
+{
+    "name": "Oidarwave",
+    "short_name": "Oidarwave",
+    "description": "Oidarwave ist dein Webradio für jeden Geschmack.",
+    "start_url": "/",
+    "display": "standalone",
+    "icons": [
+        {
+            "src": "/favicon.svg",
+            "sizes": "any",
+            "type": "image/svg+xml"
+        }
+    ]
+}

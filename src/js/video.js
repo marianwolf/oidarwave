@@ -1,23 +1,106 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // === KONSTANTEN ===
+    const SEEK_TIME = 10;
+    const DATA_SAVE_MODE_KEY = 'dataSaveMode';
+    const CAPTION_ENABLED_KEY = 'captionsEnabled';
+    const CAPTION_TRACK_KINDS = ['subtitles', 'captions', 'metadata'];
+
     const dataModeToggle = document.getElementById('dataModeToggle');
+    const captionToggle = document.getElementById('captionToggle');
     const stationButtons = document.querySelectorAll('.station-btn');
     const videoPlayer = document.getElementById('videoPlayer');
     const currentStationDisplay = document.getElementById('currentStation');
     const rewindButton = document.getElementById('rewindButton');
     const forwardButton = document.getElementById('forwardButton');
-    const localStorageKey = 'dataSaveMode';
     let hlsPlayer = null;
-    const seekTime = 10;
 
     videoPlayer.setAttribute('playsinline', '');
     videoPlayer.setAttribute('webkit-playsinline', '');
+
+    // Automatisch alle neuen Tracks deaktivieren
+    videoPlayer.textTracks.addEventListener('addtrack', (event) => {
+        const isCaptionsEnabled = localStorage.getItem(CAPTION_ENABLED_KEY) === 'true';
+        if (!isCaptionsEnabled && event.track) {
+            event.track.mode = 'disabled';
+        }
+    });
+
+    // Helper: Deaktiviert alle Text-Tracks
+    const disableAllTextTracks = () => {
+        if (hlsPlayer) {
+            hlsPlayer.subtitleDisplay = false;
+        }
+        for (let i = videoPlayer.textTracks.length - 1; i >= 0; i--) {
+            videoPlayer.textTracks[i].mode = 'disabled';
+        }
+    };
+
+    // Helper: Findet den ersten verfügbaren Untertitel-Track
+    const findCaptionTrack = () => {
+        return Array.from(videoPlayer.textTracks).find(track => CAPTION_TRACK_KINDS.includes(track.kind)) || videoPlayer.textTracks[0];
+    };
 
     const updateQualityLevel = () => {
         if (!hlsPlayer || hlsPlayer.levels.length === 0) {
             return;
         }
-        const isDataSaveModeEnabled = localStorage.getItem(localStorageKey) === 'true';
+        const isDataSaveModeEnabled = localStorage.getItem(DATA_SAVE_MODE_KEY) === 'true';
         hlsPlayer.currentLevel = isDataSaveModeEnabled ? 0 : -1;
+    };
+
+    // Untertitel standardmäßig deaktivieren
+    const disableCaptions = () => {
+        if (hlsPlayer) {
+            hlsPlayer.subtitleDisplay = false;
+        }
+        disableAllTextTracks();
+    };
+
+    // Untertitel aktivieren/deaktivieren
+    const toggleCaptions = () => {
+        const isCaptionsEnabled = captionToggle.getAttribute('aria-pressed') === 'true';
+        const newState = !isCaptionsEnabled;
+        
+        captionToggle.setAttribute('aria-pressed', newState);
+        localStorage.setItem(CAPTION_ENABLED_KEY, newState);
+        
+        if (newState) {
+            if (hlsPlayer) {
+                hlsPlayer.subtitleDisplay = true;
+            }
+            const track = findCaptionTrack();
+            if (track) {
+                track.mode = 'showing';
+            }
+        } else {
+            if (hlsPlayer) {
+                hlsPlayer.subtitleDisplay = false;
+            }
+            disableAllTextTracks();
+        }
+    };
+
+    // Initialisiere Caption-Button-Status
+    const initializeCaptions = () => {
+        const isCaptionsEnabled = localStorage.getItem(CAPTION_ENABLED_KEY) === 'true';
+        captionToggle.setAttribute('aria-pressed', isCaptionsEnabled);
+        
+        if (isCaptionsEnabled) {
+            const track = findCaptionTrack();
+            if (track) {
+                track.mode = 'showing';
+            }
+        } else {
+            disableCaptions();
+        }
+    };
+
+    // Helper: Stellt gespeicherten Caption-Status wieder her
+    const restoreCaptionState = () => {
+        const isCaptionsEnabled = localStorage.getItem(CAPTION_ENABLED_KEY) === 'true';
+        if (!isCaptionsEnabled) {
+            disableCaptions();
+        }
     };
 
     const setupHlsPlayer = (url) => {
@@ -25,9 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
             hlsPlayer.destroy();
             hlsPlayer = null;
         }
-        for (const track of videoPlayer.textTracks) {
-            track.mode = 'hidden';
-        }
+        disableAllTextTracks();
         if (window.Hls && Hls.isSupported()) {
             hlsPlayer = new Hls();
             hlsPlayer.loadSource(url);
@@ -38,6 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         console.log('Autoplay failed, user interaction may be required:', e);
                     });
                 updateQualityLevel();
+                restoreCaptionState();
             });
             hlsPlayer.on(Hls.Events.ERROR, (event, data) => {
                 console.error(`HLS.js fatal error: ${data.details}`, data);
@@ -75,7 +157,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
             videoPlayer.src = url;
-            videoPlayer.addEventListener('loadedmetadata', () => videoPlayer.play().catch(e => console.log('Autoplay failed on native player:', e)), { once: true });
+            videoPlayer.addEventListener('loadedmetadata', () => {
+                videoPlayer.play().catch(e => console.log('Autoplay failed on native player:', e));
+                restoreCaptionState();
+            }, { once: true });
         } else {
             console.error('HLS is not supported by your browser.');
             alert('Ihr Browser unterstützt dieses Videoformat nicht.');
@@ -83,17 +168,17 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     
     const rewind = () => {
-        videoPlayer.currentTime = Math.max(0, videoPlayer.currentTime - seekTime);
+        videoPlayer.currentTime = Math.max(0, videoPlayer.currentTime - SEEK_TIME);
     };
     const forward = () => {
-        videoPlayer.currentTime = Math.min(videoPlayer.duration || Infinity, videoPlayer.currentTime + seekTime);
+        videoPlayer.currentTime = Math.min(videoPlayer.duration || Infinity, videoPlayer.currentTime + SEEK_TIME);
     };
 
     const toggleDataSaveMode = () => {
         const currentState = dataModeToggle.getAttribute('aria-pressed') === 'true';
         const newState = !currentState;
         dataModeToggle.setAttribute('aria-pressed', newState);
-        localStorage.setItem(localStorageKey, newState);
+        localStorage.setItem(DATA_SAVE_MODE_KEY, newState);
         updateQualityLevel();
     };
 
@@ -105,6 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
         dataModeToggle.addEventListener('click', toggleDataSaveMode);
+        captionToggle.addEventListener('click', toggleCaptions);
         if (rewindButton) {
             rewindButton.addEventListener('click', rewind);
         }
@@ -117,9 +203,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
         document.addEventListener('keydown', (event) => {
-            if (document.activeElement && (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA')) {
+            const activeElement = document.activeElement;
+            const isInputFocused = activeElement?.tagName === 'INPUT' || activeElement?.tagName === 'TEXTAREA';
+            
+            if (isInputFocused) {
                 return;
             }
+            
             switch (event.key) {
                 case 'ArrowLeft':
                     event.preventDefault();
@@ -134,8 +224,11 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const initializePlayer = () => {
-        const isDataSaveModeEnabled = localStorage.getItem(localStorageKey) === 'true';
+        const isDataSaveModeEnabled = localStorage.getItem(DATA_SAVE_MODE_KEY) === 'true';
         dataModeToggle.setAttribute('aria-pressed', isDataSaveModeEnabled);
+        
+        // Initialisiere Untertitel-Status
+        initializeCaptions();
         
         const firstStationButton = stationButtons[0];
         if (firstStationButton) {
