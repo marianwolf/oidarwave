@@ -84,6 +84,18 @@ git clone https://github.com/marianwolf/oidarwave.git
 Alternativ kannst du die Live-Version jederzeit hier nutzen:
 [https://oidarwave.vercel.app](https://oidarwave.vercel.app)
 
+3. **Venv initialisieren**
+
+```bash
+python3 -m venv .venv && .venv/bin/pip install playwright && .venv/bin/pip install pytest && .venv/bin/playwright install chromium
+```
+
+4. **Testen:**
+```bash
+cd /home/marian/nextcloud/github/oidarwave && /home/marian/nextcloud/github/oidarwave/.venv/bin/python tests/test_oidarwave.py
+cd /home/marian/nextcloud/github/oidarwave && /home/marian/nextcloud/github/oidarwave/.venv/bin/python tests/test_syntax.py
+```
+
 ## 🤝 Mitwirken
 
 Beiträge sind jederzeit willkommen\! Ob es sich um Fehlerberichte, Funktionsvorschläge oder Code-Verbesserungen handelt, wir freuen uns über deine Beteiligung.
