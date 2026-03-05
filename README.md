@@ -87,7 +87,7 @@ Alternativ kannst du die Live-Version jederzeit hier nutzen:
 3. **Venv initialisieren**
 
 ```bash
-python3 -m venv .venv && .venv/bin/pip install playwright && .venv/bin/playwright install chromium
+python3 -m venv .venv && .venv/bin/pip install playwright && .venv/bin/pip install pytest && .venv/bin/playwright install chromium
 ```
 
 4. **Testen:**

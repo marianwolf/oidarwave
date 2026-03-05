@@ -101,7 +101,7 @@ def test_html_syntax():
             print(f"  ✓ Keine Syntaxfehler gefunden")
     
     print(f"\nHTML-Syntax Test: {'✓ BESTANDEN' if not errors else '✗ FEHLGESCHLAGEN'}")
-    return len(errors) == 0
+    assert len(errors) == 0, f"HTML-Syntax Fehler gefunden: {errors}"
 
 
 def test_javascript_syntax():
@@ -176,7 +176,7 @@ def test_javascript_syntax():
             print(f"  ✓ Keine Syntaxfehler gefunden")
     
     print(f"\nJavaScript-Syntax Test: {'✓ BESTANDEN' if not errors else '✗ FEHLGESCHLAGEN'}")
-    return len(errors) == 0
+    assert len(errors) == 0, f"JavaScript-Syntax Fehler gefunden: {errors}"
 
 
 def test_css_syntax():
@@ -238,7 +238,7 @@ def test_css_syntax():
             print(f"  ✓ Keine Syntaxfehler gefunden")
     
     print(f"\nCSS-Syntax Test: {'✓ BESTANDEN' if not errors else '✗ FEHLGESCHLAGEN'}")
-    return len(errors) == 0
+    assert len(errors) == 0, f"CSS-Syntax Fehler gefunden: {errors}"
 
 
 def test_markdown_syntax():
@@ -312,7 +312,7 @@ def test_markdown_syntax():
             print(f"  ✓ Keine Syntaxfehler gefunden")
     
     print(f"\nMarkdown-Syntax Test: {'✓ BESTANDEN' if not errors else '✗ FEHLGESCHLAGEN'}")
-    return len(errors) == 0
+    assert len(errors) == 0, f"Markdown-Syntax Fehler gefunden: {errors}"
 
 
 def main():
