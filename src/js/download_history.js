@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const filename = `${key}_${now.toISOString().replace('T', '-').replace(/:/g, '-').slice(0, 19)}.json`;
         const blob = new Blob([data], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
+        
         const a = document.createElement('a');
         a.href = url;
         a.download = filename;
@@ -23,9 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     document.addEventListener('keydown', (event) => {
-        const isCtrlOrCmd = event.ctrlKey || event.metaKey;
-        const isHKey = event.key.toLowerCase() === 'h';
-        if (isCtrlOrCmd && isHKey) {
+        if (event.ctrlKey && event.key.toLowerCase() === 'h') {
             event.preventDefault();
             downloadHistory();
         }

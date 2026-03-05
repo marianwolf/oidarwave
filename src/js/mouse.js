@@ -1,5 +1,4 @@
 let pendingUpdate = false;
-
 document.addEventListener('mousemove', (e) => {
     const normalizedX = e.clientX / window.innerWidth;
     const normalizedY = e.clientY / window.innerHeight;

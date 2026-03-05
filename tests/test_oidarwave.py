@@ -24,7 +24,7 @@ def test_radio_page():
         
         # Öffne die Radio-Seite
         page.goto(f"file://{BASE_DIR}/index.html")
-        page.wait_for_load_state('networkidle')
+        page.wait_for_load_state('domcontentloaded')
         
         print("\n1. Seite geladen - Titel:", page.title())
         
@@ -85,7 +85,7 @@ def test_video_page():
         
         # Öffne die Video-Seite
         page.goto(f"file://{BASE_DIR}/video/index.html")
-        page.wait_for_load_state('networkidle')
+        page.wait_for_load_state('domcontentloaded')
         
         print("\n1. Seite geladen - Titel:", page.title())
         
@@ -132,7 +132,7 @@ def test_cookie_banner():
         
         # Öffne die Radio-Seite
         page.goto(f"file://{BASE_DIR}/index.html")
-        page.wait_for_load_state('networkidle')
+        page.wait_for_load_state('domcontentloaded')
         
         print("\n1. Seite geladen")
         
@@ -188,7 +188,7 @@ def test_keyboard_shortcuts():
         
         # Öffne die Radio-Seite
         page.goto(f"file://{BASE_DIR}/index.html")
-        page.wait_for_load_state('networkidle')
+        page.wait_for_load_state('domcontentloaded')
         
         print("\n1. Seite geladen")
         
@@ -267,14 +267,14 @@ def test_navigation():
         
         # Öffne die Radio-Seite
         page.goto(f"file://{BASE_DIR}/index.html")
-        page.wait_for_load_state('networkidle')
+        page.wait_for_load_state('domcontentloaded')
         
         print("\n1. Radio-Seite geladen:", page.title())
         
         # Klicke auf Video-Link
         video_link = page.locator('nav a:has-text("Video")')
         video_link.click()
-        page.wait_for_load_state('networkidle')
+        page.wait_for_load_state('domcontentloaded')
         
         print("2. Nach Navigation - Titel:", page.title())
         print("3. URL enthält '/video':", '/video' in page.url)
@@ -298,7 +298,7 @@ def test_edge_cases():
         
         # Öffne die Radio-Seite
         page.goto(f"file://{BASE_DIR}/index.html")
-        page.wait_for_load_state('networkidle')
+        page.wait_for_load_state('domcontentloaded')
         
         print("\n1. Seite geladen")
         

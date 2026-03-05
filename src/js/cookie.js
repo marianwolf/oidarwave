@@ -32,14 +32,10 @@ function enableVercelScripts() {
     }
     const addScript = (content, src = null, defer = false) => {
         const script = document.createElement('script');
-        if (content) {
-            script.textContent = content;
-        }
+        if (content) script.textContent = content;
         if (src) {
             script.src = src;
-            if (defer) {
-                script.defer = true;
-            }
+            script.defer = defer;
         }
         head.appendChild(script);
     };
@@ -55,22 +51,26 @@ function enableVercelScripts() {
 function showCookieBanner() {
     const consent = getCookieConsent();
     if (consent === 'true') {
-        cookieBanner.style.display = 'none';
+        cookieBanner?.style.display = 'none';
         enableVercelScripts();
     } else {
-        cookieBanner.style.display = 'block';
+        cookieBanner?.style.display = 'block';
     }
 }
 
-acceptButton.addEventListener('click', () => {
-    setCookieConsent('true');
-    enableVercelScripts();
-    cookieBanner.style.display = 'none';
-});
+if (acceptButton) {
+    acceptButton.addEventListener('click', () => {
+        setCookieConsent('true');
+        enableVercelScripts();
+        cookieBanner.style.display = 'none';
+    });
+}
 
-declineButton.addEventListener('click', () => {
-    setCookieConsent('false');
-    cookieBanner.style.display = 'none';
-});
+if (declineButton) {
+    declineButton.addEventListener('click', () => {
+        setCookieConsent('false');
+        cookieBanner.style.display = 'none';
+    });
+}
 
 showCookieBanner();
