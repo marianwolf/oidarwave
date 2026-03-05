@@ -7,17 +7,29 @@ import re
 
 BASE_DIR = "/home/marian/nextcloud/github/oidarwave"
 
+def find_files_by_extension(extension, base_dir=BASE_DIR):
+    """Findet rekursiv alle Dateien mit der angegebenen Endung"""
+    # Verzeichnisse, die ignoriert werden sollen
+    exclude_dirs = {'.venv', 'node_modules', '__pycache__', '.git', 'dist', 'build', '.pytest_cache'}
+    
+    files = []
+    for root, dirs, filenames in os.walk(base_dir):
+        # Filtere auszuschließende Verzeichnisse
+        dirs[:] = [d for d in dirs if d not in exclude_dirs]
+        
+        for filename in filenames:
+            if filename.endswith(extension):
+                rel_path = os.path.relpath(os.path.join(root, filename), base_dir)
+                files.append(rel_path)
+    return sorted(files)
+
 def test_html_syntax():
     """Test der HTML-Syntax"""
     print("\n" + "="*60)
     print("TEST: HTML-Syntax")
     print("="*60)
     
-    html_files = [
-        "index.html",
-        "video/index.html",
-        "impressum/index.html"
-    ]
+    html_files = find_files_by_extension('.html')
     
     errors = []
     
@@ -98,14 +110,7 @@ def test_javascript_syntax():
     print("TEST: JavaScript-Syntax")
     print("="*60)
     
-    js_files = [
-        "src/js/cookie.js",
-        "src/js/download_history.js",
-        "src/js/history.js",
-        "src/js/mouse.js",
-        "src/js/player.js",
-        "src/js/video.js"
-    ]
+    js_files = find_files_by_extension('.js')
     
     errors = []
     
@@ -180,11 +185,7 @@ def test_css_syntax():
     print("TEST: CSS-Syntax")
     print("="*60)
     
-    css_files = [
-        "src/css/style.css",
-        "src/css/style-video.css",
-        "src/css/style-impressum.css"
-    ]
+    css_files = find_files_by_extension('.css')
     
     errors = []
     
@@ -246,11 +247,7 @@ def test_markdown_syntax():
     print("TEST: Markdown-Syntax")
     print("="*60)
     
-    md_files = [
-        "README.md",
-        "Feature.md",
-        "SECURITY.md"
-    ]
+    md_files = find_files_by_extension('.md')
     
     errors = []
     
