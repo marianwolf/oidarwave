@@ -26,12 +26,12 @@ const StationHistory = (() => {
 
     function stopAndFinalizeSession(station, timestamp) {
         const openSessionIndex = station.sessions.findIndex(s => s.end === null);
-        if (openSessionIndex === -1) {
-            return;
-        }
+        if (openSessionIndex === -1) return;
+        
         const currentSession = station.sessions[openSessionIndex];
         currentSession.end = timestamp;
         const duration = currentSession.end - currentSession.start;
+        
         if (duration < 1000) {
             station.sessions.splice(openSessionIndex, 1);
         } else {
@@ -42,8 +42,7 @@ const StationHistory = (() => {
     }
 
     function closeOtherSessions(excludeUrl, timestamp) {
-        const history = historyCache;
-        for (const station of Object.values(history.stations)) {
+        for (const station of Object.values(historyCache.stations)) {
             if (station.url !== excludeUrl) {
                 stopAndFinalizeSession(station, timestamp);
             }
@@ -54,6 +53,7 @@ const StationHistory = (() => {
         const history = historyCache;
         const now = Date.now();
         closeOtherSessions(url, now);
+        
         if (!history.stations[url]) {
             history.stations[url] = {
                 name,
@@ -63,21 +63,19 @@ const StationHistory = (() => {
                 lastPlayed: now
             };
         }
+        
         const station = history.stations[url];
         station.name = name;
-        if (options.favicon) {
-            station.favicon = options.favicon;
-        }
+        if (options.favicon) station.favicon = options.favicon;
+        
         const openSession = station.sessions.find(s => s.end === null);
         if (openSession) {
-             console.warn("startStation: Station hatte bereits eine offene Session. Schließe sie.", url);
-             openSession.end = now;
-             stopAndFinalizeSession(station, now);
+            console.warn("startStation: Station hatte bereits eine offene Session. Schließe sie.", url);
+            openSession.end = now;
+            stopAndFinalizeSession(station, now);
         }
-        station.sessions.unshift({
-            start: now,
-            end: null
-        });
+        
+        station.sessions.unshift({ start: now, end: null });
         saveHistory();
     }
 
@@ -93,10 +91,10 @@ const StationHistory = (() => {
         const now = Date.now();
         const expiryLimit = now - EXPIRY_TIME_MS;
         let hasChanged = false;
+        
         for (const [url, station] of Object.entries(history.stations)) {
-            const validSessions = station.sessions.filter(s =>
-                s.end === null || s.end > expiryLimit
-            );
+            const validSessions = station.sessions.filter(s => s.end === null || s.end > expiryLimit);
+            
             if (validSessions.length < station.sessions.length) {
                 station.sessions = validSessions;
                 hasChanged = true;
@@ -106,36 +104,21 @@ const StationHistory = (() => {
                 hasChanged = true;
             }
         }
-        if (hasChanged) {
-            saveHistory();
-        }
+        
+        if (hasChanged) saveHistory();
     }
 
     function getLastStations() {
-        const history = historyCache;
-        const sortedStations = Object.values(history.stations).sort((a, b) =>
-            b.lastPlayed - a.lastPlayed
-        );
-        return sortedStations.map(station => {
-            const { name, favicon, playCount, totalDurationMs, lastPlayed } = station;
-            return {
+        return Object.values(historyCache.stations)
+            .sort((a, b) => b.lastPlayed - a.lastPlayed)
+            .map(({ name, favicon, playCount, totalDurationMs, lastPlayed }) => ({
                 displayName: name,
-                details: {
-                    favicon,
-                    playCount,
-                    totalDurationMs,
-                    lastPlayed
-                }
-            };
-        });
+                details: { favicon, playCount, totalDurationMs, lastPlayed }
+            }));
     }
 
     historyCache = loadHistory();
     pruneHistory();
-    return {
-        startStation,
-        stopStation,
-        getLastStations,
-        pruneHistory
-    };
+    
+    return { startStation, stopStation, getLastStations, pruneHistory };
 })();
