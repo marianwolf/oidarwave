@@ -27,9 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Helper: Deaktiviert alle Text-Tracks
     const disableAllTextTracks = () => {
-        if (hlsPlayer) {
-            hlsPlayer.subtitleDisplay = false;
-        }
+        if (hlsPlayer) hlsPlayer.subtitleDisplay = false;
         for (let i = videoPlayer.textTracks.length - 1; i >= 0; i--) {
             videoPlayer.textTracks[i].mode = 'disabled';
         }
@@ -41,18 +39,14 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const updateQualityLevel = () => {
-        if (!hlsPlayer || hlsPlayer.levels.length === 0) {
-            return;
-        }
+        if (!hlsPlayer || hlsPlayer.levels.length === 0) return;
         const isDataSaveModeEnabled = localStorage.getItem(DATA_SAVE_MODE_KEY) === 'true';
         hlsPlayer.currentLevel = isDataSaveModeEnabled ? 0 : -1;
     };
 
     // Untertitel standardmäßig deaktivieren
     const disableCaptions = () => {
-        if (hlsPlayer) {
-            hlsPlayer.subtitleDisplay = false;
-        }
+        if (hlsPlayer) hlsPlayer.subtitleDisplay = false;
         disableAllTextTracks();
     };
 
@@ -65,18 +59,11 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem(CAPTION_ENABLED_KEY, newState);
         
         if (newState) {
-            if (hlsPlayer) {
-                hlsPlayer.subtitleDisplay = true;
-            }
+            if (hlsPlayer) hlsPlayer.subtitleDisplay = true;
             const track = findCaptionTrack();
-            if (track) {
-                track.mode = 'showing';
-            }
+            if (track) track.mode = 'showing';
         } else {
-            if (hlsPlayer) {
-                hlsPlayer.subtitleDisplay = false;
-            }
-            disableAllTextTracks();
+            disableCaptions();
         }
     };
 
@@ -87,9 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         if (isCaptionsEnabled) {
             const track = findCaptionTrack();
-            if (track) {
-                track.mode = 'showing';
-            }
+            if (track) track.mode = 'showing';
         } else {
             disableCaptions();
         }
@@ -97,8 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Helper: Stellt gespeicherten Caption-Status wieder her
     const restoreCaptionState = () => {
-        const isCaptionsEnabled = localStorage.getItem(CAPTION_ENABLED_KEY) === 'true';
-        if (!isCaptionsEnabled) {
+        if (localStorage.getItem(CAPTION_ENABLED_KEY) !== 'true') {
             disableCaptions();
         }
     };
@@ -109,18 +93,18 @@ document.addEventListener('DOMContentLoaded', () => {
             hlsPlayer = null;
         }
         disableAllTextTracks();
+        
         if (window.Hls && Hls.isSupported()) {
             hlsPlayer = new Hls();
             hlsPlayer.loadSource(url);
             hlsPlayer.attachMedia(videoPlayer);
+            
             hlsPlayer.on(Hls.Events.MANIFEST_PARSED, () => {
-                videoPlayer.play()
-                    .catch(e => {
-                        console.log('Autoplay failed, user interaction may be required:', e);
-                    });
+                videoPlayer.play().catch(e => console.log('Autoplay failed:', e));
                 updateQualityLevel();
                 restoreCaptionState();
             });
+            
             hlsPlayer.on(Hls.Events.ERROR, (event, data) => {
                 console.error(`HLS.js fatal error: ${data.details}`, data);
                 console.error('Diagnostic info:', {
@@ -136,26 +120,22 @@ document.addEventListener('DOMContentLoaded', () => {
                     } : null
                 });
                 
-                    // Prüfe auf Netzwerkprobleme
-                    if (data.response) {
-                        console.error('HTTP-Status:', data.response.code);
-                        if (data.response.code === 403) {
-                            console.error('DIAGNOSE: HTTP 403 - Zugriff verweigert (wahrscheinlich CORS oder Auth)');
-                        } else if (data.response.code === 404) {
-                            console.error('DIAGNOSE: HTTP 404 - Stream-URL nicht gefunden (URL geändert?)');
-                        } else if (data.response.code === 0) {
-                            console.error('DIAGNOSE: Netzwerkfehler oder CORS-Blockade');
-                        }
-                    }
+                if (data.response) {
+                    console.error('HTTP-Status:', data.response.code);
+                    if (data.response.code === 403) console.error('DIAGNOSE: HTTP 403 - Zugriff verweigert');
+                    else if (data.response.code === 404) console.error('DIAGNOSE: HTTP 404 - Stream-URL nicht gefunden');
+                    else if (data.response.code === 0) console.error('DIAGNOSE: Netzwerkfehler oder CORS-Blockade');
+                }
 
-                    if (data.fatal) {
-                        alert(`Kritischer Fehler beim Laden des Streams (${data.details}).\n\nDiagnose:\n- CORS: Stream erlaubt keinen Zugriff\n- URL: Stream-URL ist möglicherweise veraltet\n\nBitte versuchen Sie es erneut oder wechseln Sie den Sender.`);
-                    }
-                });
-                hlsPlayer.on(Hls.Events.FRAG_BUFFER_FAILED, (event, data) => {
-                    console.error('Fragment buffer failed:', data);
-                });
-            } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
+                if (data.fatal) {
+                    alert(`Kritischer Fehler beim Laden des Streams (${data.details}).\n\nDiagnose:\n- CORS: Stream erlaubt keinen Zugriff\n- URL: Stream-URL ist möglicherweise veraltet\n\nBitte versuchen Sie es erneut oder wechseln Sie den Sender.`);
+                }
+            });
+            
+            hlsPlayer.on(Hls.Events.FRAG_BUFFER_FAILED, (event, data) => {
+                console.error('Fragment buffer failed:', data);
+            });
+        } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
             videoPlayer.src = url;
             videoPlayer.addEventListener('loadedmetadata', () => {
                 videoPlayer.play().catch(e => console.log('Autoplay failed on native player:', e));
@@ -167,11 +147,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
     
-    const rewind = () => {
-        videoPlayer.currentTime = Math.max(0, videoPlayer.currentTime - SEEK_TIME);
-    };
-    const forward = () => {
-        videoPlayer.currentTime = Math.min(videoPlayer.duration || Infinity, videoPlayer.currentTime + SEEK_TIME);
+    // Seek-Funktion: negativ für zurück, positiv für vorwärts
+    const seek = (seconds) => {
+        const newTime = videoPlayer.currentTime + seconds;
+        videoPlayer.currentTime = Math.max(0, Math.min(videoPlayer.duration || Infinity, newTime));
     };
 
     const toggleDataSaveMode = () => {
@@ -189,35 +168,32 @@ document.addEventListener('DOMContentLoaded', () => {
                 setupHlsPlayer(button.dataset.url);
             });
         });
+        
         dataModeToggle.addEventListener('click', toggleDataSaveMode);
         captionToggle.addEventListener('click', toggleCaptions);
-        if (rewindButton) {
-            rewindButton.addEventListener('click', rewind);
-        }
-        if (forwardButton) {
-            forwardButton.addEventListener('click', forward);
-        }
+        if (rewindButton) rewindButton.addEventListener('click', () => seek(-SEEK_TIME));
+        if (forwardButton) forwardButton.addEventListener('click', () => seek(SEEK_TIME));
+        
         document.addEventListener('visibilitychange', () => {
             if (document.visibilityState === 'visible' && !videoPlayer.paused) {
                 videoPlayer.play().catch(e => console.log('Attempt to resume playback failed:', e));
             }
         });
+        
         document.addEventListener('keydown', (event) => {
             const activeElement = document.activeElement;
             const isInputFocused = activeElement?.tagName === 'INPUT' || activeElement?.tagName === 'TEXTAREA';
             
-            if (isInputFocused) {
-                return;
-            }
+            if (isInputFocused) return;
             
             switch (event.key) {
                 case 'ArrowLeft':
                     event.preventDefault();
-                    rewind();
+                    seek(-SEEK_TIME);
                     break;
                 case 'ArrowRight':
                     event.preventDefault();
-                    forward();
+                    seek(SEEK_TIME);
                     break;
             }
         });
@@ -227,7 +203,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const isDataSaveModeEnabled = localStorage.getItem(DATA_SAVE_MODE_KEY) === 'true';
         dataModeToggle.setAttribute('aria-pressed', isDataSaveModeEnabled);
         
-        // Initialisiere Untertitel-Status
         initializeCaptions();
         
         const firstStationButton = stationButtons[0];
