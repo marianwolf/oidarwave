@@ -1,6 +1,6 @@
 function initializePlayer() {
     // === KONSTANTEN ===
-    const METADATA_REFRESH_INTERVAL = 3000; // ms
+    const METADATA_REFRESH_INTERVAL = 3000;
     const VOLUME_STEP = 0.1;
     const VOLUME_PRECISION = 1;
 
@@ -8,6 +8,8 @@ function initializePlayer() {
     let isStalled = false;
     let isAudioPlayer = false;
     let metadataInterval = null;
+    let currentPlayer = null;
+    let lastStationKey = '';
 
     const stationButtons = document.querySelectorAll('.station-btn');
     const audioPlayer = document.getElementById('audioPlayer');
@@ -15,9 +17,6 @@ function initializePlayer() {
     const currentStationDisplay = document.getElementById('currentStation');
     const statusIndicator = document.getElementById('statusIndicator');
     const currentSongTitleDisplay = document.getElementById('currentSongTitle');
-
-    let currentPlayer = null;
-    let lastStationKey = '';
 
     if (audioPlayer) {
         currentPlayer = audioPlayer;
@@ -33,16 +32,11 @@ function initializePlayer() {
         return;
     }
 
-    // === EVENT LISTENER KONSOLIDIERUNG ===
+    // === EVENT LISTENER ===
     const mediaEvents = {
-        loadstart: () => {
-            isStalled = false;
-            updateOverallStatus();
-        },
+        loadstart: () => { isStalled = false; updateOverallStatus(); },
         canplay: () => {
-            if (isAudioPlayer && currentPlayer.paused) {
-                playMedia();
-            }
+            if (isAudioPlayer && currentPlayer.paused) playMedia();
             isStalled = false;
             hasError = false;
             updateOverallStatus();
@@ -57,10 +51,7 @@ function initializePlayer() {
             updateOverallStatus();
             StationHistory.stopStation(currentPlayer.src);
         },
-        waiting: () => {
-            isStalled = true;
-            updateOverallStatus();
-        },
+        waiting: () => { isStalled = true; updateOverallStatus(); },
         error: (e) => {
             console.error('Media Error:', e);
             hasError = true;
@@ -69,15 +60,12 @@ function initializePlayer() {
         }
     };
 
-    // Alle Media-Events auf einmal registrieren
     Object.entries(mediaEvents).forEach(([event, handler]) => {
         currentPlayer.addEventListener(event, handler);
     });
 
     stationButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            selectStation(button);
-        });
+        button.addEventListener('click', () => selectStation(button));
     });
 
     window.addEventListener('offline', () => {
@@ -90,11 +78,8 @@ function initializePlayer() {
     function updateOverallStatus() {
         if (!statusIndicator) return;
         statusIndicator.classList.remove('online', 'error', 'buffering', 'paused');
-        if (!navigator.onLine) {
-            statusIndicator.classList.add('error');
-            return;
-        }
-        if (hasError) {
+        
+        if (!navigator.onLine || hasError) {
             statusIndicator.classList.add('error');
         } else if (currentPlayer.paused) {
             statusIndicator.classList.add('paused');
@@ -106,56 +91,41 @@ function initializePlayer() {
     }
 
     function playMedia() {
-        currentPlayer.play().catch(e => {
-            console.error("Autoplay Error:", e);
-        });
+        currentPlayer.play().catch(e => console.error("Autoplay Error:", e));
     }
 
     function selectStation(button) {
         stationButtons.forEach(btn => btn.classList.remove('active'));
         button.classList.add('active');
+        
         const { url, name, metadataUrl } = button.dataset;
         currentStationDisplay.textContent = name;
         localStorage.setItem(lastStationKey, url);
+        
         if (metadataInterval) {
             clearInterval(metadataInterval);
             metadataInterval = null;
         }
+        
         if (metadataUrl) {
             fetchMetadata(metadataUrl);
-            metadataInterval = setInterval(() => {
-                fetchMetadata(metadataUrl);
-            }, METADATA_REFRESH_INTERVAL);
-        } else {
-            if (currentSongTitleDisplay) currentSongTitleDisplay.textContent = "Metadaten nicht verfügbar";
+            metadataInterval = setInterval(() => fetchMetadata(metadataUrl), METADATA_REFRESH_INTERVAL);
+        } else if (currentSongTitleDisplay) {
+            currentSongTitleDisplay.textContent = "Metadaten nicht verfügbar";
         }
-        if (isAudioPlayer) {
-            handleAudioPlayback(url);
-        } else {
-            handleVideoPlayback(url);
-        }
-    }
-
-    function handleAudioPlayback(url) {
+        
         currentPlayer.src = url;
         currentPlayer.load();
     }
 
-    // Video nutzt dieselbe Logik wie Audio - direkt als Alias
-    const handleVideoPlayback = handleAudioPlayback;
-
     function handleKeyDown(e) {
-        if (e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON' || e.target.tagName === 'TEXTAREA') {
-            return;
-        }
+        const tag = e.target.tagName;
+        if (tag === 'INPUT' || tag === 'BUTTON' || tag === 'TEXTAREA') return;
+        
         switch (e.code) {
             case 'Space':
                 e.preventDefault();
-                if (currentPlayer.paused) {
-                    playMedia();
-                } else {
-                    currentPlayer.pause();
-                }
+                currentPlayer.paused ? playMedia() : currentPlayer.pause();
                 break;
             case 'ArrowUp':
                 if (isAudioPlayer) {
@@ -175,26 +145,20 @@ function initializePlayer() {
     function fetchMetadata(metadataUrl) {
         fetch(metadataUrl)
             .then(response => {
-                if (!response.ok) {
-                    throw new Error(`Netzwerkfehler: ${response.status}`);
-                }
-                if (metadataUrl.endsWith('.txt')) {
-                    return response.text().then(text => ({ type: 'text', data: text }));
-                }
-                return response.json().then(json => ({ type: 'json', data: json }));
+                if (!response.ok) throw new Error(`Netzwerkfehler: ${response.status}`);
+                return metadataUrl.endsWith('.txt') 
+                    ? response.text().then(text => ({ type: 'text', data: text }))
+                    : response.json().then(json => ({ type: 'json', data: json }));
             })
             .then(({ data, type }) => {
-                let trackTitle;
-                if (type === 'text' && typeof data === 'string') {
-                    trackTitle = data.split('\n')[0].trim();
-                } else if (type === 'json') {
-                    trackTitle = getMusicInfo(data);
-                }
+                const trackTitle = type === 'text' 
+                    ? data.split('\n')[0].trim() 
+                    : getMusicInfo(data);
                 
-                if (trackTitle && trackTitle.length > 0) {
-                    if (currentSongTitleDisplay) currentSongTitleDisplay.innerText = trackTitle;
-                } else {
-                    if (currentSongTitleDisplay) currentSongTitleDisplay.innerText = "Keine Titelinformationen";
+                if (currentSongTitleDisplay) {
+                    currentSongTitleDisplay.innerText = (trackTitle && trackTitle.length > 0) 
+                        ? trackTitle 
+                        : "Keine Titelinformationen";
                 }
             })
             .catch(error => {
@@ -206,24 +170,26 @@ function initializePlayer() {
     function getMusicInfo(data) {
         const title = data?.song_now_title || data?.playlistItem?.title;
         const artist = data?.name || data?.subtitle || data?.song_now_interpret || data?.playlistItem?.artist;
-
-        if (title && artist) {
-            return `${title} - ${artist}`;
-        } else if (title) {
-            return title;
-        } else if (artist) {
-            return artist;
-        }
+        
+        if (title && artist) return `${title} - ${artist}`;
+        if (title) return title;
+        if (artist) return artist;
         return null;
     }
 
+    // Letzte Station wiederherstellen oder erste Station starten
     const lastStationUrl = localStorage.getItem(lastStationKey);
-    const lastStationButton = lastStationUrl ? document.querySelector(`.station-btn[data-url="${lastStationUrl}"]`) : null;
+    const lastStationButton = lastStationUrl 
+        ? document.querySelector(`.station-btn[data-url="${lastStationUrl}"]`) 
+        : null;
+    
     if (lastStationButton) {
         selectStation(lastStationButton);
     } else if (stationButtons.length > 0) {
         selectStation(stationButtons[0]);
     }
+    
     updateOverallStatus();
 }
+
 document.addEventListener('DOMContentLoaded', initializePlayer);

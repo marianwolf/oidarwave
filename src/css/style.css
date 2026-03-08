@@ -296,6 +296,7 @@ nav a:hover {
     padding: var(--space-200);
     display: flex;
     border-radius: var(--radius-md);
+    background: var(--color-surface-secondary);
     background: color-mix(in srgb, var(--color-surface-primary) 70%, var(--color-surface-secondary));
     border: 1px solid rgba(120, 119, 198, 0.2);
     color: var(--color-on-surface-secondary);
@@ -371,5 +372,17 @@ nav a:hover {
     .cookie-btn {
         width: 100%;
         text-align: center;
+    }
+}
+
+/* Barrierefreiheit: Reduzierte Animationen */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
     }
 }
