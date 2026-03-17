@@ -79,9 +79,7 @@ Da Oidarwave eine **statische Webseite** ist, ist keine serverseitige Installati
  ```bash
 git clone https://github.com/marianwolf/oidarwave.git
 ```
-2.  **Datei öffnen:** Navigiere in das neu geklonte Verzeichnis und öffne die `index.html`-Datei in deinem bevorzugten Webbrowser.
-
-Alternativ kannst du die Live-Version jederzeit hier nutzen:
+2.  **Datei öffnen:** Navigiere in das neu geklonte Verzeichnis und öffne die `index.html`-Datei in deinem bevorzugten Webbrowser. Alternativ kannst du die Live-Version jederzeit hier nutzen:
 [https://oidarwave.vercel.app](https://oidarwave.vercel.app)
 
 3. **Venv initialisieren**
@@ -92,7 +90,6 @@ python3 -m venv .venv && .venv/bin/pip install playwright && .venv/bin/pip insta
 
 4. **Testen:**
 ```bash
-cd /home/marian/nextcloud/github/oidarwave && /home/marian/nextcloud/github/oidarwave/.venv/bin/python tests/test_oidarwave.py
 cd /home/marian/nextcloud/github/oidarwave && /home/marian/nextcloud/github/oidarwave/.venv/bin/python tests/test_syntax.py
 ```
 
@@ -112,7 +109,7 @@ Beiträge sind jederzeit willkommen\! Ob es sich um Fehlerberichte, Funktionsvor
   - [x] neues Design (0.9.6)
   - [x] verbessertes Design und Video Vor- und Rückspulen (0.9.7)
   - [x] Verlauf im `localStorage` als `.json` (0.9.8)
-  - [x] Download des Verlaufs mit `Ctrl + H` (0.9.9)
+  - [x] Download des Verlaufs mit `Ctrl + S` (0.9.9)
   - [x] Erweiterte Video-Fehlerdiagnose (0.9.10)
   - [x] PWA-Vorbereitung (0.9.10)
   - [ ] Integration weiterer Sender

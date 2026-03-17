@@ -7,14 +7,14 @@ const StationHistory = (() => {
     function loadHistory() {
         const historyStr = localStorage.getItem(HISTORY_KEY);
         if (!historyStr) {
-            return { version: 1, stations: {} };
+            return { stations: {} };
         }
         try {
             const history = JSON.parse(historyStr);
-            return { version: history.version || 1, stations: history.stations || {} };
+            return { stations: history.stations || {} };
         } catch (e) {
             console.error("Fehler beim Parsen des Verlaufs, setze zurück:", e);
-            return { version: 1, stations: {} };
+            return { stations: {} };
         }
     }
 
@@ -34,10 +34,6 @@ const StationHistory = (() => {
         
         if (duration < 1000) {
             station.sessions.splice(openSessionIndex, 1);
-        } else {
-            station.totalDurationMs += duration;
-            station.playCount++;
-            station.lastPlayed = timestamp;
         }
     }
 
@@ -58,9 +54,7 @@ const StationHistory = (() => {
             history.stations[url] = {
                 name,
                 sessions: [],
-                totalDurationMs: 0,
-                playCount: 0,
-                lastPlayed: now
+                favicon: options.favicon
             };
         }
         
@@ -99,7 +93,16 @@ const StationHistory = (() => {
                 station.sessions = validSessions;
                 hasChanged = true;
             }
-            if (station.lastPlayed < expiryLimit && validSessions.length === 0) {
+            
+            let lastPlayed = 0;
+            for (const session of station.sessions) {
+                const time = session.end !== null ? session.end : session.start;
+                if (time > lastPlayed) {
+                    lastPlayed = time;
+                }
+            }
+            
+            if (validSessions.length === 0 && lastPlayed < expiryLimit) {
                 delete history.stations[url];
                 hasChanged = true;
             }
@@ -110,11 +113,32 @@ const StationHistory = (() => {
 
     function getLastStations() {
         return Object.values(historyCache.stations)
-            .sort((a, b) => b.lastPlayed - a.lastPlayed)
-            .map(({ name, favicon, playCount, totalDurationMs, lastPlayed }) => ({
-                displayName: name,
-                details: { favicon, playCount, totalDurationMs, lastPlayed }
-            }));
+            .map(station => {
+                let totalDurationMs = 0;
+                let playCount = 0;
+                let lastPlayed = 0;
+                for (const session of station.sessions) {
+                    if (session.end !== null) {
+                        const duration = session.end - session.start;
+                        totalDurationMs += duration;
+                        playCount++;
+                    }
+                    const time = session.end !== null ? session.end : session.start;
+                    if (time > lastPlayed) {
+                        lastPlayed = time;
+                    }
+                }
+                return {
+                    displayName: station.name,
+                    details: {
+                        favicon: station.favicon,
+                        playCount,
+                        totalDurationMs,
+                        lastPlayed
+                    }
+                };
+            })
+            .sort((a, b) => b.details.lastPlayed - a.details.lastPlayed);
     }
 
     historyCache = loadHistory();
