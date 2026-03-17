@@ -1,0 +1,68 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Release erstellen
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v4
+
+      - name: Python Version setzen
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Asset-Dateien abrufen
+        id: assets
+        shell: bash
+        run: |
+          # Sammle alle relevanten Dateien für das Release
+          assets=""
+          
+          # HTML-Dateien
+          for file in $(find . -name "*.html" -type f | grep -v node_modules | grep -v .venv); do
+            assets="$assets $file"
+          done
+          
+          # JS-Dateien
+          for file in $(find . -name "*.js" -type f | grep -v node_modules | grep -v .venv); do
+            assets="$assets $file"
+          done
+          
+          # CSS-Dateien
+          for file in $(find . -name "*.css" -type f | grep -v node_modules | grep -v .venv); do
+            assets="$assets $file"
+          done
+          
+          # Manifest
+          if [ -f "manifest.json" ]; then
+            assets="$assets manifest.json"
+          fi
+          
+          # README
+          if [ -f "README.md" ]; then
+            assets="$assets README.md"
+          fi
+          
+          echo "assets=$assets" >> $GITHUB_OUTPUT
+
+      - name: Release erstellen
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ${{ steps.assets.outputs.assets }}
+          generate_release_notes: true
+          draft: false
+          prerelease: ${{ contains(github.ref, 'alpha') || contains(github.ref, 'beta') }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

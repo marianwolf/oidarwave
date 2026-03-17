@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  push:
+    branches: [main, beta, gamma]
+  pull_request:
+    branches: [main, beta, gamma]
+
+jobs:
+  test:
+    name: Tests ausführen
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v4
+
+      - name: Python Version setzen
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Abhängigkeiten installieren
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest pyright
+
+      - name: Tests ausführen
+        run: |
+          pytest tests/ -v --tb=short
+
+      - name: Pyright ausführen
+        run: |
+          pyright --version
+          pyright tests/
+
+  lint:
+    name: Code-Qualität
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v4
+
+      - name: Python Version setzen
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Abhängigkeiten installieren
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8
+
+      - name: Flake8 ausführen
+        run: |
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics

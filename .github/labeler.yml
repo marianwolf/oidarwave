@@ -1,0 +1,29 @@
+# Labeler-Konfiguration für automatische PR-Labels
+# Weitere Informationen: https://github.com/actions/labeler
+
+# Features
+feature:
+  - changed-files:
+      - any-glob-to-any-file: 'src/js/**/*.js'
+      - any-glob-to-any-file: 'src/css/**/*.css'
+
+# Bug Fixes
+bugfix:
+  - changed-files:
+      - any-glob-to-any-file: 'src/js/**/*.js'
+      - any-glob-to-any-file: 'src/css/**/*.css'
+
+# Documentation
+documentation:
+  - changed-files:
+      - any-glob-to-any-file: '*.md'
+
+# Tests
+tests:
+  - changed-files:
+      - any-glob-to-any-file: 'tests/**/*'
+
+# CI/CD
+ci:
+  - changed-files:
+      - any-glob-to-any-file: '.github/workflows/**/*'

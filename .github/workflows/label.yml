@@ -1,0 +1,22 @@
+name: PR Labels
+
+on:
+  pull_request:
+    types: [opened, labeled, unlabeled, synchronize]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  label-pr:
+    name: PR automatisch labeln
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Label basierend auf Dateiänderungen
+        uses: actions/labeler@v5
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          configuration-path: .github/labeler.yml
+          globs: '**/*'
