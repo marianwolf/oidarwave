@@ -55,10 +55,16 @@ def check_balanced_brackets(content):
     Returns:
         tuple: (is_balanced, error_message or None)
     """
-    open_brackets = content.count('[')
-    close_brackets = content.count(']')
-    if open_brackets != close_brackets:
-        return False, f"Ungleiche eckige Klammern: {open_brackets} offen, {close_brackets} geschlossen"
+    stack = []
+    for i, char in enumerate(content):
+        if char == '[':
+            stack.append('[')
+        elif char == ']':
+            if not stack:
+                return False, f"Unmatched closing ']' at position {i}"
+            stack.pop()
+    if stack:
+        return False, f"Unmatched opening '[' at position {content.rfind('[')}"
     return True, None
 
 
@@ -69,10 +75,16 @@ def check_balanced_braces(content):
     Returns:
         tuple: (is_balanced, error_message or None)
     """
-    open_braces = content.count('{')
-    close_braces = content.count('}')
-    if open_braces != close_braces:
-        return False, f"Ungleiche geschweifte Klammern: {open_braces} offen, {close_braces} geschlossen"
+    stack = []
+    for i, char in enumerate(content):
+        if char == '{':
+            stack.append('{')
+        elif char == '}':
+            if not stack:
+                return False, f"Unmatched closing '}}' at position {i}"
+            stack.pop()
+    if stack:
+        return False, f"Unmatched opening '{{' at position {content.rfind('{')}"
     return True, None
 
 
@@ -83,10 +95,16 @@ def check_balanced_parens(content):
     Returns:
         tuple: (is_balanced, error_message or None)
     """
-    open_parens = content.count('(')
-    close_parens = content.count(')')
-    if open_parens != close_parens:
-        return False, f"Ungleiche runde Klammern: {open_parens} offen, {close_parens} geschlossen"
+    stack = []
+    for i, char in enumerate(content):
+        if char == '(':
+            stack.append('(')
+        elif char == ')':
+            if not stack:
+                return False, f"Unmatched closing ')' at position {i}"
+            stack.pop()
+    if stack:
+        return False, f"Unmatched opening '(' at position {content.rfind('(')}"
     return True, None
 
 
@@ -186,13 +204,6 @@ def check_js_syntax(content, filepath):
     if double_semicolons > 0:
         issues.append(f"Doppelte Semikolons gefunden: {double_semicolons}")
     
-    # 5. Prüfe Single-Line Kommentare (nicht geschlossen)
-    # Suche nach '//' am Ende ohne Zeilenumbruch - vereinfacht
-    lines_with_comment_start = len(re.findall(r'//.*$', content, re.MULTILINE))
-    if lines_with_comment_start > 0:
-        # Das ist normal, nur ein vereinfachter Check
-        pass
-    
     return issues
 
 
@@ -213,7 +224,7 @@ def check_css_syntax(content, filepath):
     # 2. Prüfe Klammern in URLs (vereinfacht)
     balanced, error = check_balanced_parens(content)
     if not balanced:
-        issues.append(issues)
+        issues.append(error)
     
     return issues
 
@@ -378,7 +389,6 @@ class TestMarkdownSyntax:
         
         # Markdown ist tolerant, nur kritische Fehler sollten failen
         # Hier: Nur warnen, nicht failen bei Code-Fences
-        # assert len(errors) == 0, f"Markdown Fehler: {errors}"
         # Stattdessen: Prüfen ob wichtigste Dateien (README, etc.) okay sind
         critical_md = [f for f in md_files if 'readme' in f.lower() or 'changelog' in f.lower()]
         for md in critical_md:
