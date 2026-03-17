@@ -63,6 +63,6 @@ jobs:
           files: ${{ steps.assets.outputs.assets }}
           generate_release_notes: true
           draft: false
-          prerelease: ${{ contains(github.ref, 'alpha') || contains(github.ref, 'beta') }}
+          prerelease: ${{ contains(github.ref, 'beta') || contains(github.ref, 'gamma') }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
