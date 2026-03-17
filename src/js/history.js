@@ -7,7 +7,7 @@ const StationHistory = (() => {
     function loadHistory() {
         const historyStr = localStorage.getItem(HISTORY_KEY);
         if (!historyStr) {
-            return { stations: {} };
+            return {version: 1, stations: {} };
         }
         try {
             const history = JSON.parse(historyStr);
