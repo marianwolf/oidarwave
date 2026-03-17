@@ -21,8 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     document.addEventListener('keydown', (event) => {
-        if (event.ctrlKey && event.key.toLowerCase() === 'h') {
+        if (event.ctrlKey && event.key.toLowerCase() === 's' && !event.target.matches('input, textarea')) {
             event.preventDefault();
+            event.stopPropagation();
             downloadHistory();
         }
     });
