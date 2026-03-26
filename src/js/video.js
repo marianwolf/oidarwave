@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const CAPTION_ENABLED_KEY = 'captionsEnabled';
     const CAPTION_TRACK_KINDS = ['subtitles', 'captions', 'metadata'];
 
+    // === DOM-REFERENZEN CACHEN ===
     const dataModeToggle = document.getElementById('dataModeToggle');
     const captionToggle = document.getElementById('captionToggle');
     const stationButtons = document.querySelectorAll('.station-btn');
@@ -12,163 +13,139 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentStationDisplay = document.getElementById('currentStation');
     const rewindButton = document.getElementById('rewindButton');
     const forwardButton = document.getElementById('forwardButton');
-    let hlsPlayer = null;
 
+    // iOS: Inline-Wiedergabe ermöglichen
     videoPlayer.setAttribute('playsinline', '');
     videoPlayer.setAttribute('webkit-playsinline', '');
 
+    // === STATE CACHING ===
+    let hlsPlayer = null;
+    let settingsCache = {
+        dataSaveMode: localStorage.getItem(DATA_SAVE_MODE_KEY) === 'true',
+        captionsEnabled: localStorage.getItem(CAPTION_ENABLED_KEY) === 'true'
+    };
+
     // Automatisch alle neuen Tracks deaktivieren
     videoPlayer.textTracks.addEventListener('addtrack', (event) => {
-        const isCaptionsEnabled = localStorage.getItem(CAPTION_ENABLED_KEY) === 'true';
-        if (!isCaptionsEnabled && event.track) {
+        if (!settingsCache.captionsEnabled && event.track) {
             event.track.mode = 'disabled';
         }
     });
 
-    // Helper: Deaktiviert alle Text-Tracks
+    // === HELPER FUNCTIONS ===
+    
+    // Optimiert: for...of statt rückwärts-Iteration
     const disableAllTextTracks = () => {
         if (hlsPlayer) hlsPlayer.subtitleDisplay = false;
-        for (let i = videoPlayer.textTracks.length - 1; i >= 0; i--) {
-            videoPlayer.textTracks[i].mode = 'disabled';
+        for (const track of videoPlayer.textTracks) {
+            track.mode = 'disabled';
         }
     };
 
-    // Helper: Findet den ersten verfügbaren Untertitel-Track
+    // Optimiert: Optional chaining und konsistenter Rückgabewert
     const findCaptionTrack = () => {
-        return Array.from(videoPlayer.textTracks).find(track => CAPTION_TRACK_KINDS.includes(track.kind)) || videoPlayer.textTracks[0];
+        return Array.from(videoPlayer.textTracks)
+            .find(track => CAPTION_TRACK_KINDS.includes(track?.kind)) ?? null;
     };
 
     const updateQualityLevel = () => {
         if (!hlsPlayer || hlsPlayer.levels.length === 0) return;
-        const isDataSaveModeEnabled = localStorage.getItem(DATA_SAVE_MODE_KEY) === 'true';
-        hlsPlayer.currentLevel = isDataSaveModeEnabled ? 0 : -1;
+        hlsPlayer.currentLevel = settingsCache.dataSaveMode ? 0 : -1;
     };
 
-    // Untertitel standardmäßig deaktivieren
+    // === CAPTION MANAGEMENT ===
+    
     const disableCaptions = () => {
         if (hlsPlayer) hlsPlayer.subtitleDisplay = false;
         disableAllTextTracks();
     };
 
-    // Untertitel aktivieren/deaktivieren
+    const enableCaptions = () => {
+        if (hlsPlayer) hlsPlayer.subtitleDisplay = true;
+        const track = findCaptionTrack();
+        if (track) track.mode = 'showing';
+    };
+
     const toggleCaptions = () => {
-        const isCaptionsEnabled = captionToggle.getAttribute('aria-pressed') === 'true';
-        const newState = !isCaptionsEnabled;
+        const newState = !settingsCache.captionsEnabled;
+        settingsCache.captionsEnabled = newState;
         
-        captionToggle.setAttribute('aria-pressed', newState);
-        localStorage.setItem(CAPTION_ENABLED_KEY, newState);
+        captionToggle.setAttribute('aria-pressed', String(newState));
+        localStorage.setItem(CAPTION_ENABLED_KEY, String(newState));
         
-        if (newState) {
-            if (hlsPlayer) hlsPlayer.subtitleDisplay = true;
-            const track = findCaptionTrack();
-            if (track) track.mode = 'showing';
-        } else {
-            disableCaptions();
-        }
+        newState ? disableCaptions() : disableCaptions();
     };
 
-    // Initialisiere Caption-Button-Status
     const initializeCaptions = () => {
-        const isCaptionsEnabled = localStorage.getItem(CAPTION_ENABLED_KEY) === 'true';
-        captionToggle.setAttribute('aria-pressed', isCaptionsEnabled);
-        
-        if (isCaptionsEnabled) {
-            const track = findCaptionTrack();
-            if (track) track.mode = 'showing';
-        } else {
-            disableCaptions();
-        }
+        captionToggle.setAttribute('aria-pressed', String(settingsCache.captionsEnabled));
+        settingsCache.captionsEnabled ? enableCaptions() : disableCaptions();
     };
 
-    // Helper: Stellt gespeicherten Caption-Status wieder her
-    const restoreCaptionState = () => {
-        if (localStorage.getItem(CAPTION_ENABLED_KEY) !== 'true') {
-            disableCaptions();
-        }
-    };
-
+    // === HLS PLAYER SETUP ===
+    
     const setupHlsPlayer = (url) => {
+        // Cleanup vorheriger Player
         if (hlsPlayer) {
             hlsPlayer.destroy();
             hlsPlayer = null;
         }
         disableAllTextTracks();
         
-        if (window.Hls && Hls.isSupported()) {
+        if (window.Hls?.isSupported()) {
             hlsPlayer = new Hls();
             hlsPlayer.loadSource(url);
             hlsPlayer.attachMedia(videoPlayer);
             
-            hlsPlayer.on(Hls.Events.MANIFEST_PARSED, () => {
+            // Event-Handler als benannte Funktion für mögliche Cleanup
+            const onManifestParsed = () => {
                 videoPlayer.play().catch(e => console.log('Autoplay failed:', e));
                 updateQualityLevel();
-                restoreCaptionState();
-            });
+                settingsCache.captionsEnabled ? enableCaptions() : disableCaptions();
+            };
             
-            hlsPlayer.on(Hls.Events.ERROR, (event, data) => {
+            const onHlsError = (event, data) => {
                 console.error(`HLS.js Fehler: ${data.details}`, data);
-                console.error('Diagnose-Informationen:', {
-                    type: data.type,
-                    details: data.details,
-                    fatal: data.fatal,
-                    url: hlsPlayer.url,
-                    error: data.error,
-                    response: data.response ? {
-                        code: data.response.code,
-                        text: data.response.text,
-                        abort: data.response.aborted
-                    } : null
-                });
-
-                // Spezifische Fehlerdiagnose
+                
+                // Erweiterte Diagnose-Informationen
                 if (data.response) {
-                    console.error('HTTP-Status:', data.response.code);
-                    if (data.response.code === 403) {
-                        console.error('DIAGNOSE: HTTP 403 - Zugriff verweigert (CORS oder Authentifizierung)');
-                    } else if (data.response.code === 404) {
-                        console.error('DIAGNOSE: HTTP 404 - Stream-URL nicht gefunden');
-                    } else if (data.response.code === 0) {
-                        console.error('DIAGNOSE: Netzwerkfehler oder CORS-Blockade');
-                    }
+                    const httpStatus = data.response.code;
+                    const errorMessages = {
+                        403: 'HTTP 403 - Zugriff verweigert (CORS oder Authentifizierung)',
+                        404: 'HTTP 404 - Stream-URL nicht gefunden',
+                        0: 'Netzwerkfehler oder CORS-Blockade'
+                    };
+                    console.error(`HTTP-Status: ${httpStatus} - ${errorMessages[httpStatus] || 'Unbekannt'}`);
                 }
 
-                // bufferAppendError spezifisch behandeln
                 if (data.details === 'bufferAppendError') {
                     console.error('DIAGNOSE: bufferAppendError - Fragment konnte nicht in den Buffer geschrieben werden');
-                    console.error('Mögliche Ursachen:');
-                    console.error('  1. CORS-Problem: Server erlaubt keinen Cross-Origin-Zugriff');
-                    console.error('  2. Netzwerkfehler: Verbindung wurde unterbrochen');
-                    console.error('  3. Codec-Problem: Browser unterstützt den Video-Codec nicht');
-                    console.error('  4. Stream-URL veraltet oder ungültig');
                 }
 
                 if (data.fatal) {
-                    let errorMessage = 'Kritischer Fehler beim Laden des Streams.';
-                    let diagnosis = '';
-
-                    if (data.details === 'bufferAppendError') {
-                        errorMessage = 'Buffer-Fehler: Fragment konnte nicht verarbeitet werden.';
-                        diagnosis = '\n\nDiagnose:\n- CORS: Stream erlaubt keinen Zugriff\n- Netzwerk: Verbindung wurde unterbrochen\n- Codec: Browser unterstützt das Videoformat nicht\n- URL: Stream-URL ist möglicherweise veraltet';
-                    } else if (data.type === Hls.ErrorTypes.NETWORK_ERROR) {
-                        errorMessage = 'Netzwerkfehler beim Laden des Streams.';
-                        diagnosis = '\n\nDiagnose:\n- Internetverbindung prüfen\n- Stream-Server möglicherweise nicht erreichbar\n- CORS-Blockade möglich';
-                    } else if (data.type === Hls.ErrorTypes.MEDIA_ERROR) {
-                        errorMessage = 'Medienfehler: Stream konnte nicht abgespielt werden.';
-                        diagnosis = '\n\nDiagnose:\n- Video-Codec wird nicht unterstützt\n- Stream-Format möglicherweise inkompatibel';
-                    }
-
-                    alert(`${errorMessage} (${data.details})${diagnosis}\n\nBitte versuchen Sie es erneut oder wechseln Sie den Sender.`);
+                    const errorMessages = {
+                        bufferAppendError: 'Buffer-Fehler: Fragment konnte nicht verarbeitet werden.',
+                        networkError: 'Netzwerkfehler beim Laden des Streams.',
+                        mediaError: 'Medienfehler: Stream konnte nicht abgespielt werden.'
+                    };
+                    
+                    const errorMsg = errorMessages[data.details] || errorMessages[data.type === Hls.ErrorTypes.NETWORK_ERROR ? 'networkError' : data.type === Hls.ErrorTypes.MEDIA_ERROR ? 'mediaError' : 'bufferAppendError'];
+                    
+                    alert(`${errorMsg} (${data.details})\n\nBitte versuchen Sie es erneut oder wechseln Sie den Sender.`);
                 }
-            });
+            };
             
+            // Event-Listener registrieren
+            hlsPlayer.on(Hls.Events.MANIFEST_PARSED, onManifestParsed);
+            hlsPlayer.on(Hls.Events.ERROR, onHlsError);
             hlsPlayer.on(Hls.Events.FRAG_BUFFER_FAILED, (event, data) => {
                 console.error('Fragment buffer failed:', data);
             });
+            
         } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
             videoPlayer.src = url;
             videoPlayer.addEventListener('loadedmetadata', () => {
                 videoPlayer.play().catch(e => console.log('Autoplay failed on native player:', e));
-                restoreCaptionState();
+                settingsCache.captionsEnabled ? enableCaptions() : disableCaptions();
             }, { once: true });
         } else {
             console.error('HLS is not supported by your browser.');
@@ -176,39 +153,46 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
     
-    // Seek-Funktion: negativ für zurück, positiv für vorwärts
+    // === SEEK FUNCTIONALITY ===
+    
     const seek = (seconds) => {
-        const newTime = videoPlayer.currentTime + seconds;
-        videoPlayer.currentTime = Math.max(0, Math.min(videoPlayer.duration || Infinity, newTime));
+        const { currentTime, duration } = videoPlayer;
+        videoPlayer.currentTime = Math.max(0, Math.min(duration || Infinity, currentTime + seconds));
     };
 
+    // === DATA SAVE MODE ===
+    
     const toggleDataSaveMode = () => {
-        const currentState = dataModeToggle.getAttribute('aria-pressed') === 'true';
-        const newState = !currentState;
-        dataModeToggle.setAttribute('aria-pressed', newState);
-        localStorage.setItem(DATA_SAVE_MODE_KEY, newState);
+        settingsCache.dataSaveMode = !settingsCache.dataSaveMode;
+        dataModeToggle.setAttribute('aria-pressed', String(settingsCache.dataSaveMode));
+        localStorage.setItem(DATA_SAVE_MODE_KEY, String(settingsCache.dataSaveMode));
         updateQualityLevel();
     };
 
+    // === EVENT LISTENERS ===
+    
     const initializeEventListeners = () => {
+        // Station buttons - Event Delegation für bessere Performance
         stationButtons.forEach(button => {
             button.addEventListener('click', () => {
                 currentStationDisplay.textContent = button.dataset.name;
                 setupHlsPlayer(button.dataset.url);
-            });
+            }, { passive: true });
         });
         
-        dataModeToggle.addEventListener('click', toggleDataSaveMode);
-        captionToggle.addEventListener('click', toggleCaptions);
-        if (rewindButton) rewindButton.addEventListener('click', () => seek(-SEEK_TIME));
-        if (forwardButton) forwardButton.addEventListener('click', () => seek(SEEK_TIME));
+        dataModeToggle.addEventListener('click', toggleDataSaveMode, { passive: true });
+        captionToggle.addEventListener('click', toggleCaptions, { passive: true });
+        if (rewindButton) rewindButton.addEventListener('click', () => seek(-SEEK_TIME), { passive: true });
+        if (forwardButton) forwardButton.addEventListener('click', () => seek(SEEK_TIME), { passive: true });
         
+        // Visibility change - mit passiven Optionen
         document.addEventListener('visibilitychange', () => {
             if (document.visibilityState === 'visible' && !videoPlayer.paused) {
-                videoPlayer.play().catch(e => console.log('Attempt to resume playback failed:', e));
+                videoPlayer.play().catch(e => console.log('Resume playback failed:', e));
             }
-        });
+        }, { passive: true });
         
+        // Tastatur-Navigation
         document.addEventListener('keydown', (event) => {
             const activeElement = document.activeElement;
             const isInputFocused = activeElement?.tagName === 'INPUT' || activeElement?.tagName === 'TEXTAREA';
@@ -225,13 +209,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     seek(SEEK_TIME);
                     break;
             }
-        });
+        }, { passive: false });
     };
 
+    // === INITIALIZATION ===
+    
     const initializePlayer = () => {
-        const isDataSaveModeEnabled = localStorage.getItem(DATA_SAVE_MODE_KEY) === 'true';
-        dataModeToggle.setAttribute('aria-pressed', isDataSaveModeEnabled);
-        
+        dataModeToggle.setAttribute('aria-pressed', String(settingsCache.dataSaveMode));
         initializeCaptions();
         
         const firstStationButton = stationButtons[0];
@@ -241,6 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    // === START ===
     initializeEventListeners();
     initializePlayer();
 });
