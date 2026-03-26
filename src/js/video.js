@@ -106,8 +106,8 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             
             hlsPlayer.on(Hls.Events.ERROR, (event, data) => {
-                console.error(`HLS.js fatal error: ${data.details}`, data);
-                console.error('Diagnostic info:', {
+                console.error(`HLS.js Fehler: ${data.details}`, data);
+                console.error('Diagnose-Informationen:', {
                     type: data.type,
                     details: data.details,
                     fatal: data.fatal,
@@ -119,16 +119,45 @@ document.addEventListener('DOMContentLoaded', () => {
                         abort: data.response.aborted
                     } : null
                 });
-                
+
+                // Spezifische Fehlerdiagnose
                 if (data.response) {
                     console.error('HTTP-Status:', data.response.code);
-                    if (data.response.code === 403) console.error('DIAGNOSE: HTTP 403 - Zugriff verweigert');
-                    else if (data.response.code === 404) console.error('DIAGNOSE: HTTP 404 - Stream-URL nicht gefunden');
-                    else if (data.response.code === 0) console.error('DIAGNOSE: Netzwerkfehler oder CORS-Blockade');
+                    if (data.response.code === 403) {
+                        console.error('DIAGNOSE: HTTP 403 - Zugriff verweigert (CORS oder Authentifizierung)');
+                    } else if (data.response.code === 404) {
+                        console.error('DIAGNOSE: HTTP 404 - Stream-URL nicht gefunden');
+                    } else if (data.response.code === 0) {
+                        console.error('DIAGNOSE: Netzwerkfehler oder CORS-Blockade');
+                    }
+                }
+
+                // bufferAppendError spezifisch behandeln
+                if (data.details === 'bufferAppendError') {
+                    console.error('DIAGNOSE: bufferAppendError - Fragment konnte nicht in den Buffer geschrieben werden');
+                    console.error('Mögliche Ursachen:');
+                    console.error('  1. CORS-Problem: Server erlaubt keinen Cross-Origin-Zugriff');
+                    console.error('  2. Netzwerkfehler: Verbindung wurde unterbrochen');
+                    console.error('  3. Codec-Problem: Browser unterstützt den Video-Codec nicht');
+                    console.error('  4. Stream-URL veraltet oder ungültig');
                 }
 
                 if (data.fatal) {
-                    alert(`Kritischer Fehler beim Laden des Streams (${data.details}).\n\nDiagnose:\n- CORS: Stream erlaubt keinen Zugriff\n- URL: Stream-URL ist möglicherweise veraltet\n\nBitte versuchen Sie es erneut oder wechseln Sie den Sender.`);
+                    let errorMessage = 'Kritischer Fehler beim Laden des Streams.';
+                    let diagnosis = '';
+
+                    if (data.details === 'bufferAppendError') {
+                        errorMessage = 'Buffer-Fehler: Fragment konnte nicht verarbeitet werden.';
+                        diagnosis = '\n\nDiagnose:\n- CORS: Stream erlaubt keinen Zugriff\n- Netzwerk: Verbindung wurde unterbrochen\n- Codec: Browser unterstützt das Videoformat nicht\n- URL: Stream-URL ist möglicherweise veraltet';
+                    } else if (data.type === Hls.ErrorTypes.NETWORK_ERROR) {
+                        errorMessage = 'Netzwerkfehler beim Laden des Streams.';
+                        diagnosis = '\n\nDiagnose:\n- Internetverbindung prüfen\n- Stream-Server möglicherweise nicht erreichbar\n- CORS-Blockade möglich';
+                    } else if (data.type === Hls.ErrorTypes.MEDIA_ERROR) {
+                        errorMessage = 'Medienfehler: Stream konnte nicht abgespielt werden.';
+                        diagnosis = '\n\nDiagnose:\n- Video-Codec wird nicht unterstützt\n- Stream-Format möglicherweise inkompatibel';
+                    }
+
+                    alert(`${errorMessage} (${data.details})${diagnosis}\n\nBitte versuchen Sie es erneut oder wechseln Sie den Sender.`);
                 }
             });
             
