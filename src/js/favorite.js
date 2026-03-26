@@ -19,6 +19,7 @@ const FavoriteManager = (() => {
     
     let favoritesCache;
     let preferencesCache;
+    let favoriteIdsSet; // O(1) Lookup für isFavorite()
 
     function loadFavorites() {
         try {
@@ -61,11 +62,27 @@ const FavoriteManager = (() => {
                 return { ...defaultPreferences };
             }
             
-            // Sortiere einmal absteigend nach playCount und lastPlayed
-            stations.sort((a, b) => (b.playCount || 0) - (a.playCount || 0) || (b.lastPlayed || 0) - (a.lastPlayed || 0));
+            // Einmal sortieren: Erst nach playCount, dann nach lastPlayed
+            // Wir berechnen beide Metriken in einem Durchlauf
+            let mostPlayed = stations[0];
+            let lastPlayed = stations[0];
             
-            const mostPlayed = stations[0];
-            const lastPlayed = [...stations].sort((a, b) => (b.lastPlayed || 0) - (a.lastPlayed || 0))[0];
+            for (let i = 1; i < stations.length; i++) {
+                const station = stations[i];
+                const pC = station.playCount || 0;
+                const mPC = mostPlayed.playCount || 0;
+                
+                if (pC > mPC || (pC === mPC && (station.lastPlayed || 0) > (mostPlayed.lastPlayed || 0))) {
+                    mostPlayed = station;
+                }
+                
+                const lP = station.lastPlayed || 0;
+                const mLP = lastPlayed.lastPlayed || 0;
+                
+                if (lP > mLP) {
+                    lastPlayed = station;
+                }
+            }
             
             return {
                 version: history.version || 1,
@@ -83,12 +100,17 @@ const FavoriteManager = (() => {
         }
     }
 
+    function updateFavoriteIdsSet() {
+        favoriteIdsSet = new Set(favoritesCache.favorites.map(f => f.id));
+    }
+
     function addFavorite(id, name, data = {}) {
-        if (favoritesCache.favorites.some(f => f.id === id)) {
+        if (favoriteIdsSet.has(id)) {
             console.warn("Favorit existiert bereits:", id);
             return false;
         }
         favoritesCache.favorites.push({ id, name, data, addedAt: Date.now() });
+        updateFavoriteIdsSet();
         saveFavorites();
         return true;
     }
@@ -100,21 +122,17 @@ const FavoriteManager = (() => {
             return false;
         }
         favoritesCache.favorites.splice(index, 1);
+        updateFavoriteIdsSet();
         saveFavorites();
         return true;
     }
 
     function isFavorite(id) {
-        return favoritesCache.favorites.some(f => f.id === id);
+        return favoriteIdsSet.has(id);
     }
 
     function getAllFavorites() {
-        return favoritesCache.favorites.map(f => ({
-            id: f.id,
-            name: f.name,
-            data: f.data,
-            addedAt: f.addedAt
-        }));
+        return favoritesCache.favorites;
     }
 
     function refreshPreferences() {
@@ -138,7 +156,7 @@ const FavoriteManager = (() => {
     }
 
     function setPreferences(prefs) {
-        (favoritesCache.preferences || (favoritesCache.preferences = {}));
+        favoritesCache.preferences = favoritesCache.preferences || {};
         Object.assign(favoritesCache.preferences, prefs);
         saveFavorites();
     }
@@ -155,6 +173,7 @@ const FavoriteManager = (() => {
 
     // Initialisierung
     favoritesCache = loadFavorites();
+    updateFavoriteIdsSet(); // Set für O(1) Lookup initialisieren
     preferencesCache = loadPreferencesFromHistory();
 
     return {
