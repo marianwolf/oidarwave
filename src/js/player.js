@@ -100,7 +100,11 @@ function initializePlayer() {
         
         const { url, name, metadataUrl } = button.dataset;
         currentStationDisplay.textContent = name;
-        localStorage.setItem(lastStationKey, url);
+        try {
+            localStorage.setItem(lastStationKey, url);
+        } catch (e) {
+            console.warn('localStorage speichern fehlgeschlagen:', e);
+        }
         
         if (metadataInterval) {
             clearInterval(metadataInterval);
@@ -178,7 +182,12 @@ function initializePlayer() {
     }
 
     // Letzte Station wiederherstellen oder erste Station starten
-    const lastStationUrl = localStorage.getItem(lastStationKey);
+    let lastStationUrl = null;
+    try {
+        lastStationUrl = localStorage.getItem(lastStationKey);
+    } catch (e) {
+        console.warn('localStorage Zugriff fehlgeschlagen:', e);
+    }
     const lastStationButton = lastStationUrl 
         ? document.querySelector(`.station-btn[data-url="${lastStationUrl}"]`) 
         : null;

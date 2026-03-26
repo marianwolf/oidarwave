@@ -21,11 +21,11 @@ const FavoriteManager = (() => {
     let preferencesCache;
 
     function loadFavorites() {
-        const favoritesStr = localStorage.getItem(FAVORITES_KEY);
-        if (!favoritesStr) {
-            return { version: 1, favorites: [], preferences: {} };
-        }
         try {
+            const favoritesStr = localStorage.getItem(FAVORITES_KEY);
+            if (!favoritesStr) {
+                return { version: 1, favorites: [], preferences: {} };
+            }
             const favorites = JSON.parse(favoritesStr);
             return {
                 version: favorites.version || 1,
@@ -33,23 +33,27 @@ const FavoriteManager = (() => {
                 preferences: favorites.preferences || {}
             };
         } catch (e) {
-            console.error("Fehler beim Parsen der Favoriten, setze zurück:", e);
+            console.error('Fehler beim Laden der Favoriten:', e);
             return { version: 1, favorites: [], preferences: {} };
         }
     }
 
     function saveFavorites() {
         if (favoritesCache) {
-            localStorage.setItem(FAVORITES_KEY, JSON.stringify(favoritesCache));
+            try {
+                localStorage.setItem(FAVORITES_KEY, JSON.stringify(favoritesCache));
+            } catch (e) {
+                console.error('Fehler beim Speichern der Favoriten:', e);
+            }
         }
     }
 
     function loadPreferencesFromHistory() {
-        const historyStr = localStorage.getItem(HISTORY_KEY);
-        if (!historyStr) {
-            return { ...defaultPreferences };
-        }
         try {
+            const historyStr = localStorage.getItem(HISTORY_KEY);
+            if (!historyStr) {
+                return { ...defaultPreferences };
+            }
             const history = JSON.parse(historyStr);
             const stations = Object.values(history.stations || {});
             

@@ -21,8 +21,22 @@ document.addEventListener('DOMContentLoaded', () => {
     // === STATE CACHING ===
     let hlsPlayer = null;
     let settingsCache = {
-        dataSaveMode: localStorage.getItem(DATA_SAVE_MODE_KEY) === 'true',
-        captionsEnabled: localStorage.getItem(CAPTION_ENABLED_KEY) === 'true'
+        dataSaveMode: (() => {
+            try {
+                return localStorage.getItem(DATA_SAVE_MODE_KEY) === 'true';
+            } catch (e) {
+                console.warn('localStorage Zugriff fehlgeschlagen:', e);
+                return false;
+            }
+        })(),
+        captionsEnabled: (() => {
+            try {
+                return localStorage.getItem(CAPTION_ENABLED_KEY) === 'true';
+            } catch (e) {
+                console.warn('localStorage Zugriff fehlgeschlagen:', e);
+                return false;
+            }
+        })()
     };
 
     // Automatisch alle neuen Tracks deaktivieren
@@ -71,9 +85,13 @@ document.addEventListener('DOMContentLoaded', () => {
         settingsCache.captionsEnabled = newState;
         
         captionToggle.setAttribute('aria-pressed', String(newState));
-        localStorage.setItem(CAPTION_ENABLED_KEY, String(newState));
+        try {
+            localStorage.setItem(CAPTION_ENABLED_KEY, String(newState));
+        } catch (e) {
+            console.warn('localStorage speichern fehlgeschlagen:', e);
+        }
         
-        newState ? disableCaptions() : disableCaptions();
+        newState ? enableCaptions() : disableCaptions();
     };
 
     const initializeCaptions = () => {
@@ -165,7 +183,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const toggleDataSaveMode = () => {
         settingsCache.dataSaveMode = !settingsCache.dataSaveMode;
         dataModeToggle.setAttribute('aria-pressed', String(settingsCache.dataSaveMode));
-        localStorage.setItem(DATA_SAVE_MODE_KEY, String(settingsCache.dataSaveMode));
+        try {
+            localStorage.setItem(DATA_SAVE_MODE_KEY, String(settingsCache.dataSaveMode));
+        } catch (e) {
+            console.warn('localStorage speichern fehlgeschlagen:', e);
+        }
         updateQualityLevel();
     };
 

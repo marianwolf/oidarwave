@@ -5,22 +5,26 @@ const StationHistory = (() => {
     let historyCache;
 
     function loadHistory() {
-        const historyStr = localStorage.getItem(HISTORY_KEY);
-        if (!historyStr) {
-            return {version: 1, stations: {} };
-        }
         try {
+            const historyStr = localStorage.getItem(HISTORY_KEY);
+            if (!historyStr) {
+                return {version: 1, stations: {} };
+            }
             const history = JSON.parse(historyStr);
             return { stations: history.stations || {} };
         } catch (e) {
-            console.error("Fehler beim Parsen des Verlaufs, setze zurück:", e);
+            console.error('Fehler beim Laden des Verlaufs:', e);
             return { stations: {} };
         }
     }
 
     function saveHistory() {
         if (historyCache) {
-            localStorage.setItem(HISTORY_KEY, JSON.stringify(historyCache));
+            try {
+                localStorage.setItem(HISTORY_KEY, JSON.stringify(historyCache));
+            } catch (e) {
+                console.error('Fehler beim Speichern des Verlaufs:', e);
+            }
         }
     }
 
