@@ -1,21 +1,26 @@
 :root {
+    /* Surface Colors */
     --color-surface-primary: hsl(240, 100%, 6%);
     --color-surface-secondary: hsl(240, 100%, 12%);
     --color-surface-tertiary: hsl(240, 100%, 24%);
     --color-surface-card: hsla(240, 100%, 12%, 0.95);
 
+    /* Text Colors */
     --color-on-surface-primary: hsl(0, 0%, 90%);
     --color-on-surface-secondary: hsl(0, 0%, 75%);
 
+    /* Accent Colors */
     --color-accent-purple: hsl(270, 100%, 70%);
     --color-accent-pink: hsl(340, 100%, 70%);
     --color-accent-blue: hsl(200, 100%, 70%);
 
+    /* Status Colors */
     --color-status-online: hsl(120, 100%, 50%);
     --color-status-error: hsl(0, 100%, 50%);
     --color-status-buffering: hsl(30, 100%, 50%);
     --color-status-paused: hsl(210, 100%, 50%);
 
+    /* Spacing */
     --space-100: 0.5rem;
     --space-200: 1rem;
     --space-300: 1.5rem;
@@ -23,13 +28,16 @@
     --space-500: 3rem;
     --space-600: 4rem;
 
+    /* Border Radius */
     --radius-sm: 0.3rem;
     --radius-md: 1rem;
     --radius-lg: 1.25rem;
     --radius-xl: 1.5rem;
     --radius-pill: 3rem;
 
-    --font-family-primary: 'Segoe UI', sans-serif;
+    /* Typography */
+    --font-family-primary: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    --font-family-emoji: 'Noto Color Emoji', var(--font-family-primary);
     --font-size-base: 1rem;
     --font-size-lg: 1.5em;
     --font-size-xxxl: 3.5em;
@@ -38,8 +46,17 @@
     --font-weight-bold: 700;
     --line-height-base: 1.6;
 
+    /* Transitions */
     --transition-speed-fast: 0.2s;
     --transition-timing-cubic: cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Reusable Effects */
+    --glass-bg: var(--color-surface-card);
+    --glass-blur: blur(20px);
+    --button-bg: hsla(0, 0%, 100%, 0.15);
+    --button-border: hsla(0, 0%, 100%, 0.2);
+    --button-hover-bg: hsla(0, 0%, 100%, 0.25);
+    --button-hover-border: hsla(0, 0%, 100%, 0.5);
 }
 
 * {
@@ -50,6 +67,7 @@
 html {
     font-size: var(--font-size-base);
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -61,25 +79,22 @@ body {
     color: var(--color-on-surface-primary);
     min-height: 100vh;
     overflow-x: hidden;
-    overflow-y: auto;
-    position: relative;
-    transition: background-color var(--transition-speed-fast) ease;
     overscroll-behavior-y: contain;
     -webkit-overflow-scrolling: touch;
+    /* Performance: Hardwarebeschleunigung für Animationen */
+    transform: translateZ(0);
+    backface-visibility: hidden;
 }
 
-header,
-.main-section,
-.cookie-banner,
-footer,
-.station-selector,
-.player-controls {
+/* Glass-Effect Card - Wiederverwendbar */
+.glass-card {
     padding: var(--space-500);
     border-radius: var(--radius-lg);
     color: white;
     text-align: center;
-    backdrop-filter: blur(20px);
-    background: var(--color-surface-card);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    background: var(--glass-bg);
 }
 
 header,
@@ -88,7 +103,23 @@ header,
     margin-bottom: var(--space-300);
 }
 
-.station-btn:focus-visible, .cookie-btn:focus-visible {
+/* Focus Styles - Accessibility */
+:focus {
+    outline: 2px solid var(--color-accent-blue);
+    outline-offset: 2px;
+}
+
+:focus:not(:focus-visible) {
+    outline: none;
+}
+
+:focus-visible {
+    outline: 3px solid var(--color-accent-blue);
+    outline-offset: 4px;
+}
+
+.station-btn:focus-visible,
+.cookie-btn:focus-visible {
     outline: 3px solid var(--color-accent-blue);
     outline-offset: 4px;
 }
