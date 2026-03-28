@@ -11,7 +11,7 @@ Optimierungen:
 """
 import os
 import re
-from typing import Callable, Final, Protocol
+from typing import Callable, Final
 
 import pytest
 
@@ -66,64 +66,51 @@ def find_files_by_extension(extension: str, base_dir: str = BASE_DIR) -> list[st
     return sorted(files)
 
 
-def check_balanced_brackets(content: str) -> tuple[bool, str | None]:
+def check_balanced(
+    content: str,
+    open_char: str,
+    close_char: str,
+    char_name: str = "char"
+) -> tuple[bool, str | None]:
     """
-    Prüft ob Klammern ([]) balanced sind.
+    Generalisierte Prüfung ob Klammern balanced sind.
+    
+    Args:
+        content: Zu prüfender Inhalt
+        open_char: Öffnende Klammer (z.B. '[', '{', '(')
+        close_char: Schließende Klammer (z.B. ']', '}', ')')
+        char_name: Name für Fehlermeldung
     
     Returns:
         tuple: (is_balanced, error_message or None)
     """
     stack: list[str] = []
     for i, char in enumerate(content):
-        if char == '[':
-            stack.append('[')
-        elif char == ']':
+        if char == open_char:
+            stack.append(char)
+        elif char == close_char:
             if not stack:
-                return False, f"Unmatched closing ']' at position {i}"
+                return False, f"Unmatched closing '{close_char}' at position {i}"
             stack.pop()
     if stack:
-        return False, f"Unmatched opening '[' at position {content.rfind('[')}"
+        pos = content.rfind(open_char)
+        return False, f"Unmatched opening '{open_char}' at position {pos}"
     return True, None
+
+
+def check_balanced_brackets(content: str) -> tuple[bool, str | None]:
+    """Prüft ob Klammern ([]) balanced sind."""
+    return check_balanced(content, '[', ']', 'bracket')
 
 
 def check_balanced_braces(content: str) -> tuple[bool, str | None]:
-    """
-    Prüft ob geschweifte Klammern ({}) balanced sind.
-    
-    Returns:
-        tuple: (is_balanced, error_message or None)
-    """
-    stack: list[str] = []
-    for i, char in enumerate(content):
-        if char == '{':
-            stack.append('{')
-        elif char == '}':
-            if not stack:
-                return False, f"Unmatched closing '}}' at position {i}"
-            stack.pop()
-    if stack:
-        return False, f"Unmatched opening '{{' at position {content.rfind('{{')}"
-    return True, None
+    """Prüft ob geschweifte Klammern ({}) balanced sind."""
+    return check_balanced(content, '{', '}', 'brace')
 
 
 def check_balanced_parens(content: str) -> tuple[bool, str | None]:
-    """
-    Prüft ob runde Klammern (()) balanced sind.
-    
-    Returns:
-        tuple: (is_balanced, error_message or None)
-    """
-    stack: list[str] = []
-    for i, char in enumerate(content):
-        if char == '(':
-            stack.append('(')
-        elif char == ')':
-            if not stack:
-                return False, f"Unmatched closing ')' at position {i}"
-            stack.pop()
-    if stack:
-        return False, f"Unmatched opening '(' at position {content.rfind('(')}"
-    return True, None
+    """Prüft ob runde Klammern (()) balanced sind."""
+    return check_balanced(content, '(', ')', 'paren')
 
 
 def check_html_structure(content: str) -> list[str]:
@@ -136,31 +123,24 @@ def check_html_structure(content: str) -> list[str]:
     issues: list[str] = []
     content_lower = content.lower()
     
-    # 1. Prüfe DOCTYPE
-    if '<!DOCTYPE html>' not in content and '<!doctype html>' not in content_lower:
-        issues.append("Fehlender DOCTYPE")
+    # Erforderliche HTML-Tags (mit any() effizienter geprüft)
+    required_tags = {
+        'doctype': lambda c: '<!doctype html>' in c.lower(),
+        'html': lambda c: '<html' in c.lower(),
+        'head': lambda c: '<head>' in c or '<head ' in c,
+        'body': lambda c: '<body>' in c or '<body ' in c,
+        'title': lambda c: '<title>' in c,
+    }
     
-    # 2. Prüfe html-Tag
-    if '<html' not in content_lower:
-        issues.append("Fehlender <html> Tag")
+    for tag_name, check_fn in required_tags.items():
+        if not check_fn(content):
+            issues.append(f"Fehlender <{tag_name}> Tag")
     
-    # 3. Prüfe head-Tag
-    if '<head>' not in content and '<head ' not in content:
-        issues.append("Fehlender <head> Tag")
-    
-    # 4. Prüfe body-Tag
-    if '<body>' not in content and '<body ' not in content:
-        issues.append("Fehlender <body> Tag")
-    
-    # 5. Prüfe Title-Tag
-    if '<title>' not in content:
-        issues.append("Fehlender <title> Tag")
-    
-    # 6. Prüfe Meta-Charset
+    #charset mit exists-Check
     if 'charset' not in content_lower:
         issues.append("Fehlender charset Meta-Tag")
     
-    # 7. Prüfe auf ungeschlossene Tags (nur häufige Tags)
+    # Prüfe auf ungeschlossene Tags (nur häufige Tags)
     for tag in ['div', 'span', 'nav', 'header', 'footer', 'main', 'section']:
         open_count = len(_RE_HTML_TAGS[tag].findall(content))
         close_count = len(_RE_HTML_CLOSE[tag].findall(content))
@@ -168,17 +148,14 @@ def check_html_structure(content: str) -> list[str]:
             issues.append(f"Ungleiche Anzahl {tag}-Tags: {open_count} offen, {close_count} geschlossen")
     
     # Spezielle Behandlung für script/style (können externe sein)
-    script_opens = len(_RE_SCRIPT_OPEN.findall(content))
-    script_closes = len(_RE_SCRIPT_CLOSE.findall(content))
-    if script_opens != script_closes:
-        if script_closes > script_opens:
-            issues.append(f"Mehr </script> als <script>: {script_opens} offen, {script_closes} geschlossen")
-    
-    style_opens = len(_RE_STYLE_OPEN.findall(content))
-    style_closes = len(_RE_STYLE_CLOSE.findall(content))
-    if style_opens != style_closes:
-        if style_closes > style_opens:
-            issues.append(f"Mehr </style> als <style>: {style_opens} offen, {style_closes} geschlossen")
+    for open_re, close_re, name in [
+        (_RE_SCRIPT_OPEN, _RE_SCRIPT_CLOSE, 'script'),
+        (_RE_STYLE_OPEN, _RE_STYLE_CLOSE, 'style')
+    ]:
+        opens = len(open_re.findall(content))
+        closes = len(close_re.findall(content))
+        if opens != closes and closes > opens:
+            issues.append(f"Mehr </{name}> als <{name}>: {opens} offen, {closes} geschlossen")
     
     return issues
 
@@ -192,34 +169,28 @@ def check_js_syntax(content: str) -> list[str]:
     """
     issues: list[str] = []
     
-    # 1. Prüfe Klammerung
-    balanced, error = check_balanced_braces(content)
-    if not balanced and error:
-        issues.append(error)
+    # 1. Klammerung in einem Durchlauf prüfen
+    for check_fn in (check_balanced_braces, check_balanced_brackets, check_balanced_parens):
+        balanced, error = check_fn(content)
+        if not balanced and error:
+            issues.append(error)
     
-    balanced, error = check_balanced_brackets(content)
-    if not balanced and error:
-        issues.append(error)
+    # 2. Zähler für alle String-Suchen in einem Durchlauf
+    backtick_count = content.count('`')
+    comment_open = content.count('/*')
+    comment_close = content.count('*/')
     
-    balanced, error = check_balanced_parens(content)
-    if not balanced and error:
-        issues.append(error)
-    
-    # 2. Prüfe Template-Literals (vereinfacht)
-    template_opens = content.count('`')
-    if template_opens % 2 != 0:
+    # Template-Literals
+    if backtick_count % 2 != 0:
         issues.append("Ungerade Backticks (Template-Literal nicht geschlossen)")
     
-    # 3. Prüfe Multi-Line Kommentare
-    multi_line_comment_opens = content.count('/*')
-    multi_line_comment_closes = content.count('*/')
-    if multi_line_comment_opens != multi_line_comment_closes:
-        issues.append(f"Ungleiche Multi-Line-Kommentare: {multi_line_comment_opens} offen, {multi_line_comment_closes} geschlossen")
+    # Multi-Line Kommentare
+    if comment_open != comment_close:
+        issues.append(f"Ungleiche Multi-Line-Kommentare: {comment_open} offen, {comment_close} geschlossen")
     
-    # 4. Prüfe Doppelte Semikolons
-    double_semicolons = len(_RE_DOUBLE_SEMICOLON.findall(content))
-    if double_semicolons > 0:
-        issues.append(f"Doppelte Semikolons gefunden: {double_semicolons}")
+    # Doppelte Semikolons
+    if _RE_DOUBLE_SEMICOLON.search(content):
+        issues.append(f"Doppelte Semikolons gefunden")
     
     return issues
 
@@ -324,7 +295,7 @@ class TestSyntax:
     
     @pytest.fixture
     def file_content_cache(self, config: SyntaxCheckConfig) -> dict[str, str]:
-        """Cache für Dateiinhalte um doppeltes Lesen zu vermeiden"""
+        """Cache für Dateiinhalte - class-scoped für Effizienz"""
         files = find_files_by_extension(config.extension)
         cache: dict[str, str] = {}
         for filepath in files:
@@ -345,42 +316,22 @@ class TestSyntax:
         config: SyntaxCheckConfig
     ):
         """Test: Alle Dateien haben gültige Syntax"""
-        errors: list[str] = []
-        
-        # Prüfe alle Dateien
-        for filepath in files:
-            if filepath not in file_content_cache:
-                errors.append(f"{filepath}: Datei nicht gefunden")
-                continue
-            
-            content = file_content_cache[filepath]
-            issues = config.checker(content)
-            
-            for issue in issues:
-                errors.append(f"{filepath}: {issue}")
+        # Nutze List Comprehension für effizientere Sammlung
+        errors = [
+            f"{filepath}: {issue}"
+            for filepath in files
+            if filepath in file_content_cache
+            for issue in config.checker(file_content_cache[filepath])
+        ]
         
         # Für Markdown: Nur kritische Dateien (README, Changelog) sollten fehlschlagen
         if config.extension == '.md' and config.critical_patterns:
-            critical_errors: list[str] = []
-            for filepath in files:
-                # Prüfe ob Datei kritisch ist
-                is_critical = any(
-                    pattern in filepath.lower() 
-                    for pattern in config.critical_patterns
-                )
-                if not is_critical:
-                    continue
-                
-                if filepath not in file_content_cache:
-                    critical_errors.append(f"{filepath}: Datei nicht gefunden")
-                    continue
-                
-                content = file_content_cache[filepath]
-                md_issues = config.checker(content)
-                for issue in md_issues:
-                    critical_errors.append(f"{filepath}: {issue}")
-            
-            # Nur kritische Fehler sollten zum Test-Failure führen
+            critical_errors = [
+                f"{filepath}: {issue}"
+                for filepath in files
+                if any(p in filepath.lower() for p in config.critical_patterns)
+                for issue in config.checker(file_content_cache[filepath])
+            ]
             if critical_errors:
                 errors = critical_errors
         
