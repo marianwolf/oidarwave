@@ -8,19 +8,32 @@ const EXPIRY_DAYS = 90;
 const EXPIRY_MS = EXPIRY_DAYS * 24 * 60 * 60 * 1000;
 
 function setCookieConsent(consent) {
-    localStorage.setItem(CONSENT_KEY, consent);
-    localStorage.setItem(TIMESTAMP_KEY, Date.now());
+    try {
+        localStorage.setItem(CONSENT_KEY, consent);
+        localStorage.setItem(TIMESTAMP_KEY, Date.now());
+    } catch (e) {
+        console.warn('localStorage speichern fehlgeschlagen:', e);
+    }
 }
 
 function getCookieConsent() {
-    return localStorage.getItem(CONSENT_KEY);
+    try {
+        return localStorage.getItem(CONSENT_KEY);
+    } catch (e) {
+        console.warn('localStorage Zugriff fehlgeschlagen:', e);
+        return null;
+    }
 }
 
 function checkConsentExpiry() {
-    const timestamp = localStorage.getItem(TIMESTAMP_KEY);
-    if (timestamp && Date.now() - timestamp > EXPIRY_MS) {
-        localStorage.removeItem(CONSENT_KEY);
-        localStorage.removeItem(TIMESTAMP_KEY);
+    try {
+        const timestamp = localStorage.getItem(TIMESTAMP_KEY);
+        if (timestamp && Date.now() - timestamp > EXPIRY_MS) {
+            localStorage.removeItem(CONSENT_KEY);
+            localStorage.removeItem(TIMESTAMP_KEY);
+        }
+    } catch (e) {
+        console.warn('localStorage Zugriff fehlgeschlagen:', e);
     }
 }
 

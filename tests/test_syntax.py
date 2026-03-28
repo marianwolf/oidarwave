@@ -3,26 +3,47 @@ Oidar Suite (pytest-optimiert)
 Tests für die Syntax aller HTMLwave - Syntax Test, JS, MD und CSS Dateien
 
 Optimierungen:
-- pytest-Struktur mit echten Assertions
-- Entfernt fehlerhafte main()-Funktion
-- Bessere Fehlerberichterstattung
-- Keine externen Abhängigkeiten
-- Saubere Test-Isolation
+- Parametrisierte Tests (DRY-Prinzip)
+- Vorkompilierte Regex-Patterns
+- Keine doppelten Datei-Lesevorgänge
+- Typ-Annotationen
+- Entfernt ungenutzte Parameter
 """
 import os
 import re
+from typing import Callable, Final
+
 import pytest
 
 
 # Dynamische Ermittlung des Basis-Verzeichnisses
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# Verzeichnisse, die ignoriert werden sollen
+EXCLUDE_DIRS: Final[frozenset[str]] = frozenset({
+    '.venv', 'node_modules', '__pycache__', '.git', 'dist', 'build', '.pytest_cache'
+})
+
+# Vorkompilierte Regex-Patterns für bessere Performance
+_RE_HTML_TAGS: Final[dict[str, re.Pattern]] = {
+    tag: re.compile(rf'<{tag}[^>]*>', re.IGNORECASE) for tag in ['div', 'span', 'nav', 'header', 'footer', 'main', 'section']
+}
+_RE_HTML_CLOSE: Final[dict[str, re.Pattern]] = {
+    tag: re.compile(rf'</{tag}>', re.IGNORECASE) for tag in ['div', 'span', 'nav', 'header', 'footer', 'main', 'section']
+}
+_RE_SCRIPT_OPEN: Final[re.Pattern] = re.compile(r'<script', re.IGNORECASE)
+_RE_SCRIPT_CLOSE: Final[re.Pattern] = re.compile(r'</script>', re.IGNORECASE)
+_RE_STYLE_OPEN: Final[re.Pattern] = re.compile(r'<style', re.IGNORECASE)
+_RE_STYLE_CLOSE: Final[re.Pattern] = re.compile(r'</style>', re.IGNORECASE)
+_RE_DOUBLE_SEMICOLON: Final[re.Pattern] = re.compile(r';;')
+_RE_CODE_FENCE: Final[re.Pattern] = re.compile(r'```')
+
 
 # ============================================================================
 # HELPER-FUNKTIONEN
 # ============================================================================
 
-def find_files_by_extension(extension, base_dir=BASE_DIR):
+def find_files_by_extension(extension: str, base_dir: str = BASE_DIR) -> list[str]:
     """
     Findet rekursiv alle Dateien mit der angegebenen Endung.
     
@@ -33,13 +54,10 @@ def find_files_by_extension(extension, base_dir=BASE_DIR):
     Returns:
         Sorted list of relative file paths
     """
-    # Verzeichnisse, die ignoriert werden sollen
-    exclude_dirs = {'.venv', 'node_modules', '__pycache__', '.git', 'dist', 'build', '.pytest_cache'}
-    
-    files = []
+    files: list[str] = []
     for root, dirs, filenames in os.walk(base_dir):
         # Filtere auszuschließende Verzeichnisse in-place
-        dirs[:] = [d for d in dirs if d not in exclude_dirs]
+        dirs[:] = [d for d in dirs if d not in EXCLUDE_DIRS]
         
         for filename in filenames:
             if filename.endswith(extension):
@@ -48,198 +66,168 @@ def find_files_by_extension(extension, base_dir=BASE_DIR):
     return sorted(files)
 
 
-def check_balanced_brackets(content):
+def check_balanced(
+    content: str,
+    open_char: str,
+    close_char: str,
+    char_name: str = "char"
+) -> tuple[bool, str | None]:
     """
-    Prüft ob Klammern ([]) balanced sind.
+    Generalisierte Prüfung ob Klammern balanced sind.
+    
+    Args:
+        content: Zu prüfender Inhalt
+        open_char: Öffnende Klammer (z.B. '[', '{', '(')
+        close_char: Schließende Klammer (z.B. ']', '}', ')')
+        char_name: Name für Fehlermeldung
     
     Returns:
         tuple: (is_balanced, error_message or None)
     """
-    stack = []
+    stack: list[str] = []
     for i, char in enumerate(content):
-        if char == '[':
-            stack.append('[')
-        elif char == ']':
+        if char == open_char:
+            stack.append(char)
+        elif char == close_char:
             if not stack:
-                return False, f"Unmatched closing ']' at position {i}"
+                return False, f"Unmatched closing '{close_char}' at position {i}"
             stack.pop()
     if stack:
-        return False, f"Unmatched opening '[' at position {content.rfind('[')}"
+        pos = content.rfind(open_char)
+        return False, f"Unmatched opening '{open_char}' at position {pos}"
     return True, None
 
 
-def check_balanced_braces(content):
-    """
-    Prüft ob geschweifte Klammern ({}) balanced sind.
-    
-    Returns:
-        tuple: (is_balanced, error_message or None)
-    """
-    stack = []
-    for i, char in enumerate(content):
-        if char == '{':
-            stack.append('{')
-        elif char == '}':
-            if not stack:
-                return False, f"Unmatched closing '}}' at position {i}"
-            stack.pop()
-    if stack:
-        return False, f"Unmatched opening '{{' at position {content.rfind('{')}"
-    return True, None
+def check_balanced_brackets(content: str) -> tuple[bool, str | None]:
+    """Prüft ob Klammern ([]) balanced sind."""
+    return check_balanced(content, '[', ']', 'bracket')
 
 
-def check_balanced_parens(content):
-    """
-    Prüft ob runde Klammern (()) balanced sind.
-    
-    Returns:
-        tuple: (is_balanced, error_message or None)
-    """
-    stack = []
-    for i, char in enumerate(content):
-        if char == '(':
-            stack.append('(')
-        elif char == ')':
-            if not stack:
-                return False, f"Unmatched closing ')' at position {i}"
-            stack.pop()
-    if stack:
-        return False, f"Unmatched opening '(' at position {content.rfind('(')}"
-    return True, None
+def check_balanced_braces(content: str) -> tuple[bool, str | None]:
+    """Prüft ob geschweifte Klammern ({}) balanced sind."""
+    return check_balanced(content, '{', '}', 'brace')
 
 
-def check_html_structure(content, filepath):
+def check_balanced_parens(content: str) -> tuple[bool, str | None]:
+    """Prüft ob runde Klammern (()) balanced sind."""
+    return check_balanced(content, '(', ')', 'paren')
+
+
+def check_html_structure(content: str) -> list[str]:
     """
     Prüft grundlegende HTML-Struktur.
     
     Returns:
-        list: Liste von gefundenen Problemen
+        Liste von gefundenen Problemen
     """
-    issues = []
+    issues: list[str] = []
+    content_lower = content.lower()
     
-    # 1. Prüfe DOCTYPE
-    if '<!DOCTYPE html>' not in content and '<!doctype html>' not in content.lower():
-        issues.append("Fehlender DOCTYPE")
+    # Erforderliche HTML-Tags (mit any() effizienter geprüft)
+    required_tags = {
+        'doctype': lambda c: '<!doctype html>' in c.lower(),
+        'html': lambda c: '<html' in c.lower(),
+        'head': lambda c: '<head>' in c or '<head ' in c,
+        'body': lambda c: '<body>' in c or '<body ' in c,
+        'title': lambda c: '<title>' in c,
+    }
     
-    # 2. Prüfe html-Tag
-    if '<html' not in content:
-        issues.append("Fehlender <html> Tag")
+    for tag_name, check_fn in required_tags.items():
+        if not check_fn(content):
+            issues.append(f"Fehlender <{tag_name}> Tag")
     
-    # 3. Prüfe head-Tag
-    if '<head>' not in content and '<head ' not in content:
-        issues.append("Fehlender <head> Tag")
-    
-    # 4. Prüfe body-Tag
-    if '<body>' not in content and '<body ' not in content:
-        issues.append("Fehlender <body> Tag")
-    
-    # 5. Prüfe Title-Tag
-    if '<title>' not in content:
-        issues.append("Fehlender <title> Tag")
-    
-    # 6. Prüfe Meta-Charset
-    if 'charset' not in content.lower():
+    #charset mit exists-Check
+    if 'charset' not in content_lower:
         issues.append("Fehlender charset Meta-Tag")
     
-    # 7. Prüfe auf ungeschlossene Tags (nur häufige Tags)
-    # Verwende einfachere Regex, die auch self-closing oder mit Attributen erfasst
+    # Prüfe auf ungeschlossene Tags (nur häufige Tags)
     for tag in ['div', 'span', 'nav', 'header', 'footer', 'main', 'section']:
-        open_count = len(re.findall(rf'<{tag}[^>]*>', content, re.IGNORECASE))
-        close_count = len(re.findall(rf'</{tag}>', content, re.IGNORECASE))
+        open_count = len(_RE_HTML_TAGS[tag].findall(content))
+        close_count = len(_RE_HTML_CLOSE[tag].findall(content))
         if open_count != close_count:
             issues.append(f"Ungleiche Anzahl {tag}-Tags: {open_count} offen, {close_count} geschlossen")
     
     # Spezielle Behandlung für script/style (können externe sein)
-    script_opens = len(re.findall(r'<script', content, re.IGNORECASE))
-    script_closes = len(re.findall(r'</script>', content, re.IGNORECASE))
-    if script_opens != script_closes:
-        # Warnung nur wenn wirklich kritisch
-        if script_closes > script_opens:
-            issues.append(f"Mehr </script> als <script>: {script_opens} offen, {script_closes} geschlossen")
-    
-    style_opens = len(re.findall(r'<style', content, re.IGNORECASE))
-    style_closes = len(re.findall(r'</style>', content, re.IGNORECASE))
-    if style_opens != style_closes:
-        if style_closes > style_opens:
-            issues.append(f"Mehr </style> als <style>: {style_opens} offen, {style_closes} geschlossen")
+    for open_re, close_re, name in [
+        (_RE_SCRIPT_OPEN, _RE_SCRIPT_CLOSE, 'script'),
+        (_RE_STYLE_OPEN, _RE_STYLE_CLOSE, 'style')
+    ]:
+        opens = len(open_re.findall(content))
+        closes = len(close_re.findall(content))
+        if opens != closes and closes > opens:
+            issues.append(f"Mehr </{name}> als <{name}>: {opens} offen, {closes} geschlossen")
     
     return issues
 
 
-def check_js_syntax(content, filepath):
+def check_js_syntax(content: str) -> list[str]:
     """
     Prüft grundlegende JavaScript-Syntax.
     
     Returns:
-        list: Liste von gefundenen Problemen
+        Liste von gefundenen Problemen
     """
-    issues = []
+    issues: list[str] = []
     
-    # 1. Prüfe Klammerung
-    balanced, error = check_balanced_braces(content)
-    if not balanced:
-        issues.append(error)
+    # 1. Klammerung in einem Durchlauf prüfen
+    for check_fn in (check_balanced_braces, check_balanced_brackets, check_balanced_parens):
+        balanced, error = check_fn(content)
+        if not balanced and error:
+            issues.append(error)
     
-    balanced, error = check_balanced_brackets(content)
-    if not balanced:
-        issues.append(error)
+    # 2. Zähler für alle String-Suchen in einem Durchlauf
+    backtick_count = content.count('`')
+    comment_open = content.count('/*')
+    comment_close = content.count('*/')
     
-    balanced, error = check_balanced_parens(content)
-    if not balanced:
-        issues.append(error)
-    
-    # 2. Prüfe Template-Literals (vereinfacht)
-    template_opens = content.count('`')
-    if template_opens % 2 != 0:
+    # Template-Literals
+    if backtick_count % 2 != 0:
         issues.append("Ungerade Backticks (Template-Literal nicht geschlossen)")
     
-    # 3. Prüfe Multi-Line Kommentare
-    multi_line_comment_opens = content.count('/*')
-    multi_line_comment_closes = content.count('*/')
-    if multi_line_comment_opens != multi_line_comment_closes:
-        issues.append(f"Ungleiche Multi-Line-Kommentare: {multi_line_comment_opens} offen, {multi_line_comment_closes} geschlossen")
+    # Multi-Line Kommentare
+    if comment_open != comment_close:
+        issues.append(f"Ungleiche Multi-Line-Kommentare: {comment_open} offen, {comment_close} geschlossen")
     
-    # 4. Prüfe Doppelte Semikolons
-    double_semicolons = len(re.findall(r';;', content))
-    if double_semicolons > 0:
-        issues.append(f"Doppelte Semikolons gefunden: {double_semicolons}")
+    # Doppelte Semikolons
+    if _RE_DOUBLE_SEMICOLON.search(content):
+        issues.append(f"Doppelte Semikolons gefunden")
     
     return issues
 
 
-def check_css_syntax(content, filepath):
+def check_css_syntax(content: str) -> list[str]:
     """
     Prüft grundlegende CSS-Syntax.
     
     Returns:
-        list: Liste von gefundenen Problemen
+        Liste von gefundenen Problemen
     """
-    issues = []
+    issues: list[str] = []
     
     # 1. Prüfe geschweifte Klammern
     balanced, error = check_balanced_braces(content)
-    if not balanced:
+    if not balanced and error:
         issues.append(error)
     
     # 2. Prüfe Klammern in URLs (vereinfacht)
     balanced, error = check_balanced_parens(content)
-    if not balanced:
+    if not balanced and error:
         issues.append(error)
     
     return issues
 
 
-def check_markdown_structure(content, filepath):
+def check_markdown_structure(content: str) -> list[str]:
     """
     Prüft grundlegende Markdown-Struktur.
     
     Returns:
-        list: Liste von gefundenen Problemen (meistens nur Warnungen)
+        Liste von gefundenen Problemen
     """
-    issues = []
+    issues: list[str] = []
     
     # Prüfe Code-Fences (```)
-    code_fences = len(re.findall(r'```', content))
+    code_fences = len(_RE_CODE_FENCE.findall(content))
     if code_fences % 2 != 0:
         issues.append(f"Ungleiche Code-Fences: {code_fences}")
     
@@ -247,156 +235,117 @@ def check_markdown_structure(content, filepath):
 
 
 # ============================================================================
-# PYTEST-TESTS
+# TEST-KONFIGURATION
 # ============================================================================
 
-class TestHTMLSyntax:
-    """Test-Klasse für HTML-Syntax"""
+class SyntaxCheckConfig:
+    """Konfiguration für einen Syntax-Test-Typ"""
+    
+    def __init__(
+        self,
+        extension: str,
+        checker: Callable[[str], list[str]],
+        file_type_name: str,
+        critical_patterns: list[str] | None = None
+    ) -> None:
+        self.extension = extension
+        self.checker = checker
+        self.file_type_name = file_type_name
+        self.critical_patterns = critical_patterns or []
+
+
+# Konfiguration für alle unterstützten Dateitypen
+SYNTAX_CONFIGS: list[SyntaxCheckConfig] = [
+    SyntaxCheckConfig(
+        extension='.html',
+        checker=check_html_structure,
+        file_type_name='HTML'
+    ),
+    SyntaxCheckConfig(
+        extension='.js',
+        checker=check_js_syntax,
+        file_type_name='JavaScript'
+    ),
+    SyntaxCheckConfig(
+        extension='.css',
+        checker=check_css_syntax,
+        file_type_name='CSS'
+    ),
+    SyntaxCheckConfig(
+        extension='.md',
+        checker=check_markdown_structure,
+        file_type_name='Markdown',
+        critical_patterns=['readme', 'changelog']
+    ),
+]
+
+
+# ============================================================================
+# PYTEST-TESTS (PARAMETRISIERT)
+# ============================================================================
+
+# Session-weiter Cache für alle Dateiinhalte (einmaliges Lesen)
+_file_content_cache: dict[str, dict[str, str]] = {}
+
+
+def _get_cached_contents(extension: str) -> dict[str, str]:
+    """Gecachte Dateiinhalte abrufen oder erstellen."""
+    if extension not in _file_content_cache:
+        files = find_files_by_extension(extension)
+        cache: dict[str, str] = {}
+        for filepath in files:
+            full_path = os.path.join(BASE_DIR, filepath)
+            if os.path.exists(full_path):
+                with open(full_path, 'r', encoding='utf-8') as f:
+                    cache[filepath] = f.read()
+        _file_content_cache[extension] = cache
+    return _file_content_cache[extension]
+
+
+@pytest.mark.parametrize('config', SYNTAX_CONFIGS, ids=lambda c: c.extension)
+class TestSyntax:
+    """Parametrisierte Test-Klasse für alle Syntax-Prüfungen"""
     
     @pytest.fixture
-    def html_files(self):
-        """Fixture: Liste aller HTML-Dateien"""
-        return find_files_by_extension('.html')
-    
-    def test_html_files_exist(self, html_files):
-        """Test: Es gibt HTML-Dateien im Projekt"""
-        assert len(html_files) > 0, "Keine HTML-Dateien gefunden"
-    
-    def test_html_syntax_all_files(self, html_files):
-        """Test: Alle HTML-Dateien haben gültige Struktur"""
-        errors = []
-        
-        for html_file in html_files:
-            filepath = os.path.join(BASE_DIR, html_file)
-            
-            if not os.path.exists(filepath):
-                errors.append(f"{html_file}: Datei nicht gefunden")
-                continue
-            
-            with open(filepath, 'r', encoding='utf-8') as f:
-                content = f.read()
-            
-            issues = check_html_structure(content, html_file)
-            
-            if issues:
-                for issue in issues:
-                    errors.append(f"{html_file}: {issue}")
-        
-        assert len(errors) == 0, f"HTML-Syntax Fehler: {errors}"
-
-
-class TestJavaScriptSyntax:
-    """Test-Klasse für JavaScript-Syntax"""
+    def files(self, config: SyntaxCheckConfig) -> list[str]:
+        """Fixture: Liste aller Dateien für den aktuellen Typ"""
+        return find_files_by_extension(config.extension)
     
     @pytest.fixture
-    def js_files(self):
-        """Fixture: Liste aller JS-Dateien"""
-        return find_files_by_extension('.js')
+    def file_contents(self, config: SyntaxCheckConfig) -> dict[str, str]:
+        """Fixture: Gecachte Dateiinhalte (einfache Referenz, kein erneutes Lesen)"""
+        return _get_cached_contents(config.extension)
     
-    def test_js_files_exist(self, js_files):
-        """Test: Es gibt JS-Dateien im Projekt"""
-        assert len(js_files) > 0, "Keine JavaScript-Dateien gefunden"
+    def test_files_exist(self, files: list[str], config: SyntaxCheckConfig):
+        """Test: Es gibt Dateien dieses Typs im Projekt"""
+        assert len(files) > 0, f"Keine {config.file_type_name}-Dateien gefunden"
     
-    def test_javascript_syntax_all_files(self, js_files):
-        """Test: Alle JavaScript-Dateien haben gültige Syntax"""
-        errors = []
+    def test_syntax_all_files(
+        self,
+        files: list[str],
+        file_contents: dict[str, str],
+        config: SyntaxCheckConfig
+    ):
+        """Test: Alle Dateien haben gültige Syntax"""
+        checker = config.checker
         
-        for js_file in js_files:
-            filepath = os.path.join(BASE_DIR, js_file)
-            
-            if not os.path.exists(filepath):
-                errors.append(f"{js_file}: Datei nicht gefunden")
-                continue
-            
-            with open(filepath, 'r', encoding='utf-8') as f:
-                content = f.read()
-            
-            issues = check_js_syntax(content, js_file)
-            
-            if issues:
-                for issue in issues:
-                    errors.append(f"{js_file}: {issue}")
+        # Nutze List Comprehension für effizientere Sammlung
+        errors = [
+            f"{filepath}: {issue}"
+            for filepath in files
+            if filepath in file_contents
+            for issue in checker(file_contents[filepath])
+        ]
         
-        assert len(errors) == 0, f"JavaScript-Syntax Fehler: {errors}"
-
-
-class TestCSSSyntax:
-    """Test-Klasse für CSS-Syntax"""
-    
-    @pytest.fixture
-    def css_files(self):
-        """Fixture: Liste aller CSS-Dateien"""
-        return find_files_by_extension('.css')
-    
-    def test_css_files_exist(self, css_files):
-        """Test: Es gibt CSS-Dateien im Projekt"""
-        assert len(css_files) > 0, "Keine CSS-Dateien gefunden"
-    
-    def test_css_syntax_all_files(self, css_files):
-        """Test: Alle CSS-Dateien haben gültige Syntax"""
-        errors = []
+        # Für Markdown: Nur kritische Dateien (README, Changelog) sollten fehlschlagen
+        if config.extension == '.md' and config.critical_patterns:
+            critical_errors = [
+                f"{filepath}: {issue}"
+                for filepath in files
+                if any(p in filepath.lower() for p in config.critical_patterns)
+                for issue in checker(file_contents[filepath])
+            ]
+            if critical_errors:
+                errors = critical_errors
         
-        for css_file in css_files:
-            filepath = os.path.join(BASE_DIR, css_file)
-            
-            if not os.path.exists(filepath):
-                errors.append(f"{css_file}: Datei nicht gefunden")
-                continue
-            
-            with open(filepath, 'r', encoding='utf-8') as f:
-                content = f.read()
-            
-            issues = check_css_syntax(content, css_file)
-            
-            if issues:
-                for issue in issues:
-                    errors.append(f"{css_file}: {issue}")
-        
-        assert len(errors) == 0, f"CSS-Syntax Fehler: {errors}"
-
-
-class TestMarkdownSyntax:
-    """Test-Klasse für Markdown-Syntax"""
-    
-    @pytest.fixture
-    def md_files(self):
-        """Fixture: Liste aller MD-Dateien"""
-        return find_files_by_extension('.md')
-    
-    def test_md_files_exist(self, md_files):
-        """Test: Es gibt MD-Dateien im Projekt"""
-        assert len(md_files) > 0, "Keine Markdown-Dateien gefunden"
-    
-    def test_markdown_syntax_all_files(self, md_files):
-        """Test: Alle Markdown-Dateien haben gültige Struktur"""
-        errors = []
-        
-        for md_file in md_files:
-            filepath = os.path.join(BASE_DIR, md_file)
-            
-            if not os.path.exists(filepath):
-                errors.append(f"{md_file}: Datei nicht gefunden")
-                continue
-            
-            with open(filepath, 'r', encoding='utf-8') as f:
-                content = f.read()
-            
-            issues = check_markdown_structure(content, md_file)
-            
-            if issues:
-                for issue in issues:
-                    errors.append(f"{md_file}: {issue}")
-        
-        # Markdown ist tolerant, nur kritische Fehler sollten failen
-        # Hier: Nur warnen, nicht failen bei Code-Fences
-        # Stattdessen: Prüfen ob wichtigste Dateien (README, etc.) okay sind
-        critical_md = [f for f in md_files if 'readme' in f.lower() or 'changelog' in f.lower()]
-        for md in critical_md:
-            filepath = os.path.join(BASE_DIR, md)
-            with open(filepath, 'r', encoding='utf-8') as f:
-                content = f.read()
-            md_issues = check_markdown_structure(content, md)
-            for issue in md_issues:
-                errors.append(f"{md}: {issue}")
-        
-        assert len(errors) == 0, f"Kritische Markdown Fehler: {errors}"
+        assert len(errors) == 0, f"{config.file_type_name}-Syntax Fehler: {errors}"
