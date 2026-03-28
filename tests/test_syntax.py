@@ -284,6 +284,24 @@ SYNTAX_CONFIGS: list[SyntaxCheckConfig] = [
 # PYTEST-TESTS (PARAMETRISIERT)
 # ============================================================================
 
+# Session-weiter Cache für alle Dateiinhalte (einmaliges Lesen)
+_file_content_cache: dict[str, dict[str, str]] = {}
+
+
+def _get_cached_contents(extension: str) -> dict[str, str]:
+    """Gecachte Dateiinhalte abrufen oder erstellen."""
+    if extension not in _file_content_cache:
+        files = find_files_by_extension(extension)
+        cache: dict[str, str] = {}
+        for filepath in files:
+            full_path = os.path.join(BASE_DIR, filepath)
+            if os.path.exists(full_path):
+                with open(full_path, 'r', encoding='utf-8') as f:
+                    cache[filepath] = f.read()
+        _file_content_cache[extension] = cache
+    return _file_content_cache[extension]
+
+
 @pytest.mark.parametrize('config', SYNTAX_CONFIGS, ids=lambda c: c.extension)
 class TestSyntax:
     """Parametrisierte Test-Klasse für alle Syntax-Prüfungen"""
@@ -294,16 +312,9 @@ class TestSyntax:
         return find_files_by_extension(config.extension)
     
     @pytest.fixture
-    def file_content_cache(self, config: SyntaxCheckConfig) -> dict[str, str]:
-        """Cache für Dateiinhalte - class-scoped für Effizienz"""
-        files = find_files_by_extension(config.extension)
-        cache: dict[str, str] = {}
-        for filepath in files:
-            full_path = os.path.join(BASE_DIR, filepath)
-            if os.path.exists(full_path):
-                with open(full_path, 'r', encoding='utf-8') as f:
-                    cache[filepath] = f.read()
-        return cache
+    def file_contents(self, config: SyntaxCheckConfig) -> dict[str, str]:
+        """Fixture: Gecachte Dateiinhalte (einfache Referenz, kein erneutes Lesen)"""
+        return _get_cached_contents(config.extension)
     
     def test_files_exist(self, files: list[str], config: SyntaxCheckConfig):
         """Test: Es gibt Dateien dieses Typs im Projekt"""
@@ -312,16 +323,18 @@ class TestSyntax:
     def test_syntax_all_files(
         self,
         files: list[str],
-        file_content_cache: dict[str, str],
+        file_contents: dict[str, str],
         config: SyntaxCheckConfig
     ):
         """Test: Alle Dateien haben gültige Syntax"""
+        checker = config.checker
+        
         # Nutze List Comprehension für effizientere Sammlung
         errors = [
             f"{filepath}: {issue}"
             for filepath in files
-            if filepath in file_content_cache
-            for issue in config.checker(file_content_cache[filepath])
+            if filepath in file_contents
+            for issue in checker(file_contents[filepath])
         ]
         
         # Für Markdown: Nur kritische Dateien (README, Changelog) sollten fehlschlagen
@@ -330,7 +343,7 @@ class TestSyntax:
                 f"{filepath}: {issue}"
                 for filepath in files
                 if any(p in filepath.lower() for p in config.critical_patterns)
-                for issue in config.checker(file_content_cache[filepath])
+                for issue in checker(file_contents[filepath])
             ]
             if critical_errors:
                 errors = critical_errors
