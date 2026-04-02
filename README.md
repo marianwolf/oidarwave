@@ -112,6 +112,7 @@ Beiträge sind jederzeit willkommen\! Ob es sich um Fehlerberichte, Funktionsvor
   - [x] Download des Verlaufs mit `Ctrl + S` (0.9.9)
   - [x] Erweiterte Video-Fehlerdiagnose (0.9.10)
   - [x] PWA-Vorbereitung (0.9.10)
+  - [x] PWA (0.9.11)
   - [ ] Integration weiterer Sender
   - [ ] Umschaltung zwischen Dunkel- und Hellmodus
   - [ ] Favoriten

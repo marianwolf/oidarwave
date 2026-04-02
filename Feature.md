@@ -56,8 +56,8 @@
 
 ### 8. **PWA-Optimierung (Progressive Web App)**
 - [ ] Offline-Fallback-Seite
-- [ ] Installierbare App
-- [ ] Background-Audio-Wiedergabe
+- [x] Installierbare App
+- [x] Background-Audio-Wiedergabe
 - [ ] Push-Benachrichtigungen
 
 ---
