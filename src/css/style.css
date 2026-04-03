@@ -237,32 +237,37 @@ nav a:hover {
 
 .cookie-banner {
     position: fixed;
-    bottom: var(--space-400);
-    left: 50%;
-    transform: translateX(-50%);
-    width: clamp(300px, 70%, 600px);
-    padding: var(--space-400);
-    border-radius: var(--radius-lg);
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 100%;
+    padding: var(--space-300);
+    padding-bottom: calc(var(--space-300) + env(safe-area-inset-bottom, 0px));
     z-index: 1000;
     font-family: var(--font-family-primary);
     background: var(--color-surface-card);
     backdrop-filter: blur(20px);
-    border: 1px solid hsla(240, 100%, 47%, 0.2);
+    border-top: 1px solid hsla(240, 100%, 47%, 0.2);
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
     transition: all var(--transition-speed-fast) var(--transition-timing-cubic);
 }
 
 .cookie-banner-content {
     display: flex;
     flex-direction: column;
-    gap: var(--space-300);
+    gap: var(--space-200);
     align-items: center;
     text-align: center;
     color: var(--color-on-surface-primary);
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 .cookie-banner p {
     margin: 0;
     line-height: var(--line-height-base);
+    font-size: 0.9rem;
 }
 
 .cookie-buttons {
@@ -270,10 +275,12 @@ nav a:hover {
     gap: var(--space-200);
     justify-content: center;
     flex-wrap: wrap;
-    margin-top: var(--space-200);
+    width: 100%;
 }
 
 .cookie-btn {
+    flex: 1;
+    min-width: 140px;
     padding: var(--space-200) var(--space-300);
     border-radius: var(--radius-pill);
     font-weight: var(--font-weight-semibold);
@@ -355,23 +362,15 @@ nav a:hover {
         padding: var(--space-400);
     }
     .cookie-banner {
-        bottom: 0;
-        left: 0;
-        transform: none;
-        width: 100%;
+        padding: var(--space-200);
     }
-    .cookie-banner-content {
-        flex-direction: column;
-        gap: var(--space-300);
-    }
-    .cookie-buttons {
-        flex-direction: column;
-        gap: var(--space-200);
-        width: 100%;
+    .cookie-banner p {
+        font-size: 0.85rem;
     }
     .cookie-btn {
-        width: 100%;
-        text-align: center;
+        min-width: 120px;
+        padding: var(--space-200);
+        font-size: 0.85rem;
     }
 }
 
