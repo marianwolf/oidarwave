@@ -10,6 +10,8 @@ function initializePlayer() {
     let metadataInterval = null;
     let currentPlayer = null;
     let lastStationKey = '';
+    let currentTrackTitle = '';
+    let notificationDebounceTimer = null;
 
     const stationButtons = document.querySelectorAll('.station-btn');
     const audioPlayer = document.getElementById('audioPlayer');
@@ -17,6 +19,10 @@ function initializePlayer() {
     const currentStationDisplay = document.getElementById('currentStation');
     const statusIndicator = document.getElementById('statusIndicator');
     const currentSongTitleDisplay = document.getElementById('currentSongTitle');
+    const notificationToggle = document.getElementById('notificationToggle');
+
+    const notificationsSupported = 'Notification' in window;
+    let notificationsEnabled = false;
 
     if (audioPlayer) {
         currentPlayer = audioPlayer;
@@ -74,6 +80,45 @@ function initializePlayer() {
     });
 
     document.addEventListener('keydown', handleKeyDown);
+
+    if (notificationToggle) {
+        if (!notificationsSupported || !isAudioPlayer) {
+            notificationToggle.style.display = 'none';
+        } else {
+            try {
+                notificationsEnabled = localStorage.getItem('notificationsEnabled') === 'true';
+            } catch (e) {
+                console.warn('localStorage notificationsEnabled read failed:', e);
+            }
+            updateNotificationToggleUI();
+            
+            notificationToggle.addEventListener('click', async () => {
+                if (!notificationsSupported) return;
+                
+                if (!notificationsEnabled) {
+                    const permission = Notification.permission;
+                    if (permission === 'granted') {
+                        notificationsEnabled = true;
+                        saveNotificationPreference();
+                        updateNotificationToggleUI();
+                    } else if (permission === 'denied') {
+                        alert('Benachrichtigungen sind in Ihrem Browser blockiert. Bitte erlauben Sie sie in den Browser-Einstellungen.');
+                    } else {
+                        const newPermission = await Notification.requestPermission();
+                        if (newPermission === 'granted') {
+                            notificationsEnabled = true;
+                            saveNotificationPreference();
+                            updateNotificationToggleUI();
+                        }
+                    }
+                } else {
+                    notificationsEnabled = false;
+                    saveNotificationPreference();
+                    updateNotificationToggleUI();
+                }
+            });
+        }
+    }
 
     function updateOverallStatus() {
         if (!statusIndicator) return;
@@ -164,6 +209,9 @@ function initializePlayer() {
                         ? trackTitle 
                         : "Keine Titelinformationen";
                 }
+                
+                const stationName = currentStationDisplay ? currentStationDisplay.textContent : '';
+                handleTrackChange(currentSongTitleDisplay ? currentSongTitleDisplay.innerText : '', stationName);
             })
             .catch(error => {
                 console.error('Fehler beim Abrufen der Metadaten:', error);
@@ -179,6 +227,60 @@ function initializePlayer() {
         if (title) return title;
         if (artist) return artist;
         return null;
+    }
+
+    function saveNotificationPreference() {
+        try {
+            localStorage.setItem('notificationsEnabled', notificationsEnabled);
+        } catch (e) {
+            console.warn('localStorage notificationsEnabled save failed:', e);
+        }
+    }
+
+    function updateNotificationToggleUI() {
+        if (!notificationToggle) return;
+        if (notificationsEnabled) {
+            notificationToggle.classList.add('active');
+            notificationToggle.title = 'Benachrichtigungen deaktivieren';
+        } else {
+            notificationToggle.classList.remove('active');
+            notificationToggle.title = 'Benachrichtigungen bei Titeländerung';
+        }
+    }
+
+    function sendNotification(title, stationName) {
+        if (!notificationsSupported || !notificationsEnabled) return;
+        if (Notification.permission !== 'granted') return;
+
+        const notification = new Notification('Oidarwave - Neuer Titel', {
+            body: `${title}\nSender: ${stationName}`,
+            icon: '/favicon.svg',
+            tag: 'oidarwave-notification',
+            requireInteraction: false
+        });
+
+        notification.onclick = () => {
+            window.focus();
+            self.focus();
+            notification.close();
+        };
+
+        setTimeout(() => notification.close(), 10000);
+    }
+
+    function handleTrackChange(newTitle, stationName) {
+        if (!newTitle || newTitle === currentTrackTitle) return;
+        if (newTitle === "Keine Titelinformationen" || newTitle === "Metadaten nicht verfügbar") return;
+
+        if (notificationDebounceTimer) {
+            clearTimeout(notificationDebounceTimer);
+        }
+
+        notificationDebounceTimer = setTimeout(() => {
+            sendNotification(newTitle, stationName);
+        }, 2000);
+
+        currentTrackTitle = newTitle;
     }
 
     // Letzte Station wiederherstellen oder erste Station starten
