@@ -104,6 +104,33 @@ header,
     gap: var(--space-200);
 }
 
+.notification-toggle {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: var(--space-100);
+    color: var(--color-text-muted);
+    transition: color 0.2s, transform 0.2s;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.notification-toggle:hover {
+    color: var(--color-text);
+    transform: scale(1.1);
+}
+
+.notification-toggle.active {
+    color: var(--color-accent-yellow);
+}
+
+.notification-toggle:focus-visible {
+    outline: 3px solid var(--color-accent-blue);
+    outline-offset: 2px;
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
