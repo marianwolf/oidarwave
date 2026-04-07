@@ -254,16 +254,21 @@ function initializePlayer() {
                     ? { title: data.split('\n')[0].trim(), artist: '' }
                     : getMusicInfoWithArtist(data);
                 
-                const trackTitle = trackInfo.title || trackInfo.artist || '';
+                const displayText = trackInfo.title && trackInfo.artist 
+                    ? `${trackInfo.title} - ${trackInfo.artist}` 
+                    : trackInfo.title || trackInfo.artist || '';
                 
                 if (currentSongTitleDisplay) {
-                    currentSongTitleDisplay.innerText = (trackTitle && trackTitle.length > 0) 
-                        ? trackTitle 
+                    currentSongTitleDisplay.innerText = (displayText && displayText.length > 0) 
+                        ? displayText 
                         : "Keine Titelinformationen";
                 }
                 
                 const stationName = currentStationDisplay ? currentStationDisplay.textContent : '';
-                handleTrackChange(trackTitle, stationName);
+                const notificationText = trackInfo.title && trackInfo.artist 
+                    ? `${trackInfo.title} - ${trackInfo.artist}` 
+                    : trackInfo.title || trackInfo.artist || '';
+                handleTrackChange(notificationText, stationName);
                 
                 // Update Media Session with title and artist
                 setupMediaSession(trackInfo.title, trackInfo.artist, stationName);
