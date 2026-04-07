@@ -126,7 +126,7 @@ Verstöße gegen diesen Verhaltenskodex können an verschiedene Stellen gemeldet
 Meldungen sollten konkrete Informationen enthalten, wie zum Beispiel:
 
 - Beschreibung des Verstoßes
-- Zeitpunkt und Ort des Vorfallfalls
+- Zeitpunkt und Ort des Vorfalls
 - Beteiligte Personen
 - Beweise oder Zeugen (falls vorhanden)
 
