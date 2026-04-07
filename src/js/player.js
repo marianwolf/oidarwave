@@ -1,6 +1,51 @@
 function initializePlayer() {
     // === KONSTANTEN ===
     const METADATA_REFRESH_INTERVAL = 3000;
+
+    // === MEDIA SESSION API (Android/iOS Lock Screen & System Controls) ===
+    const setupMediaSession = (title, artist, stationName) => {
+        if ('mediaSession' in navigator) {
+            console.log('MediaSession: Setting metadata', { title, artist, stationName });
+            
+            navigator.mediaSession.metadata = new MediaMetadata({
+                title: title || stationName || 'Livestream',
+                artist: artist || stationName || 'Oidarwave Radio',
+                album: stationName || 'Oidarwave',
+                artwork: [
+                    { src: '/favicon.svg', sizes: '128x128', type: 'image/svg+xml' },
+                    { src: '/favicon.svg', sizes: '256x256', type: 'image/svg+xml' },
+                    { src: '/favicon.svg', sizes: '512x512', type: 'image/svg+xml' }
+                ]
+            });
+
+            try {
+                navigator.mediaSession.setActionHandler('play', () => {
+                    console.log('MediaSession: Play action');
+                    playMedia();
+                });
+                navigator.mediaSession.setActionHandler('pause', () => {
+                    console.log('MediaSession: Pause action');
+                    currentPlayer.pause();
+                });
+                navigator.mediaSession.setActionHandler('stop', () => {
+                    console.log('MediaSession: Stop action');
+                    currentPlayer.pause();
+                    clearMediaSession();
+                });
+            } catch (e) {
+                console.warn('MediaSession action handlers error:', e);
+            }
+        } else {
+            console.log('MediaSession not supported');
+        }
+    };
+
+    const clearMediaSession = () => {
+        if ('mediaSession' in navigator && navigator.mediaSession.metadata) {
+            console.log('MediaSession: Clearing metadata');
+            navigator.mediaSession.metadata = null;
+        }
+    };
     const VOLUME_STEP = 0.1;
     const VOLUME_PRECISION = 1;
 
@@ -52,6 +97,8 @@ function initializePlayer() {
             hasError = false;
             updateOverallStatus();
             StationHistory.startStation(currentPlayer.src);
+            const stationName = currentStationDisplay ? currentStationDisplay.textContent : '';
+            setupMediaSession('', '', stationName);
         },
         pause: () => {
             updateOverallStatus();
@@ -156,6 +203,9 @@ function initializePlayer() {
             metadataInterval = null;
         }
         
+        // Clear Media Session on station change
+        clearMediaSession();
+        
         if (metadataUrl) {
             fetchMetadata(metadataUrl);
             metadataInterval = setInterval(() => fetchMetadata(metadataUrl), METADATA_REFRESH_INTERVAL);
@@ -200,23 +250,40 @@ function initializePlayer() {
                     : response.json().then(json => ({ type: 'json', data: json }));
             })
             .then(({ data, type }) => {
-                const trackTitle = type === 'text' 
-                    ? data.split('\n')[0].trim() 
-                    : getMusicInfo(data);
+                const trackInfo = type === 'text' 
+                    ? { title: data.split('\n')[0].trim(), artist: '' }
+                    : getMusicInfoWithArtist(data);
+                
+                const displayText = trackInfo.title && trackInfo.artist 
+                    ? `${trackInfo.title} - ${trackInfo.artist}` 
+                    : trackInfo.title || trackInfo.artist || '';
                 
                 if (currentSongTitleDisplay) {
-                    currentSongTitleDisplay.innerText = (trackTitle && trackTitle.length > 0) 
-                        ? trackTitle 
+                    currentSongTitleDisplay.innerText = (displayText && displayText.length > 0) 
+                        ? displayText 
                         : "Keine Titelinformationen";
                 }
                 
                 const stationName = currentStationDisplay ? currentStationDisplay.textContent : '';
-                handleTrackChange(currentSongTitleDisplay ? currentSongTitleDisplay.innerText : '', stationName);
+                const notificationText = trackInfo.title && trackInfo.artist 
+                    ? `${trackInfo.title} - ${trackInfo.artist}` 
+                    : trackInfo.title || trackInfo.artist || '';
+                handleTrackChange(notificationText, stationName);
+                
+                // Update Media Session with title and artist
+                setupMediaSession(trackInfo.title, trackInfo.artist, stationName);
             })
             .catch(error => {
                 console.error('Fehler beim Abrufen der Metadaten:', error);
                 if (currentSongTitleDisplay) currentSongTitleDisplay.innerText = "Metadaten nicht verfügbar";
+                clearMediaSession();
             });
+    }
+
+    function getMusicInfoWithArtist(data) {
+        const title = data?.song_now_title || data?.playlistItem?.title || '';
+        const artist = data?.name || data?.subtitle || data?.song_now_interpret || data?.playlistItem?.artist || '';
+        return { title, artist };
     }
 
     function getMusicInfo(data) {

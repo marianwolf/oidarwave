@@ -5,6 +5,44 @@ document.addEventListener('DOMContentLoaded', () => {
     const CAPTION_ENABLED_KEY = 'captionsEnabled';
     const CAPTION_TRACK_KINDS = ['subtitles', 'captions', 'metadata'];
 
+    // === MEDIA SESSION API (Android/iOS Lock Screen & System Controls) ===
+    const setupMediaSession = (stationName) => {
+        if ('mediaSession' in navigator) {
+            console.log('MediaSession Video: Setting metadata', stationName);
+            
+            navigator.mediaSession.metadata = new MediaMetadata({
+                title: stationName || 'Livestream',
+                artist: 'Livestream',
+                album: 'Oidarwave Video',
+                artwork: [
+                    { src: '/favicon.svg', sizes: '128x128', type: 'image/svg+xml' },
+                    { src: '/favicon.svg', sizes: '256x256', type: 'image/svg+xml' },
+                    { src: '/favicon.svg', sizes: '512x512', type: 'image/svg+xml' }
+                ]
+            });
+
+            try {
+                navigator.mediaSession.setActionHandler('play', () => {
+                    console.log('MediaSession: Play action');
+                    videoPlayer.play();
+                });
+                navigator.mediaSession.setActionHandler('pause', () => {
+                    console.log('MediaSession: Pause action');
+                    videoPlayer.pause();
+                });
+            } catch (e) {
+                console.warn('MediaSession action handlers error:', e);
+            }
+        }
+    };
+
+    const clearMediaSession = () => {
+        if ('mediaSession' in navigator && navigator.mediaSession.metadata) {
+            console.log('MediaSession Video: Clearing metadata');
+            navigator.mediaSession.metadata = null;
+        }
+    };
+
     // === DOM-REFERENZEN CACHEN ===
     const dataModeToggle = document.getElementById('dataModeToggle');
     const captionToggle = document.getElementById('captionToggle');
@@ -199,6 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
             button.addEventListener('click', () => {
                 currentStationDisplay.textContent = button.dataset.name;
                 setupHlsPlayer(button.dataset.url);
+                setupMediaSession(button.dataset.name);
             }, { passive: true });
         });
         
@@ -213,6 +252,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 videoPlayer.play().catch(e => console.log('Resume playback failed:', e));
             }
         }, { passive: true });
+        
+        // Update Media Session when playback state changes
+        videoPlayer.addEventListener('pause', () => {
+            console.log('Video: Paused - updating MediaSession');
+        });
+        
+        videoPlayer.addEventListener('playing', () => {
+            console.log('Video: Playing - MediaSession active');
+        });
         
         // Tastatur-Navigation
         document.addEventListener('keydown', (event) => {
@@ -244,6 +292,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (firstStationButton) {
             currentStationDisplay.textContent = firstStationButton.dataset.name;
             setupHlsPlayer(firstStationButton.dataset.url);
+            setupMediaSession(firstStationButton.dataset.name);
         }
     };
 
