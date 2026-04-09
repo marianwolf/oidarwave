@@ -5,6 +5,7 @@
     "start_url": "/",
     "scope": "/",
     "display": "standalone",
+    "version": "0.9.12",
     "icons": [
         {
             "src": "/favicon.svg",
