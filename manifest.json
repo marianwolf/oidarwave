@@ -8,7 +8,7 @@
     "icons": [
         {
             "src": "/favicon.svg",
-            "sizes": "any",
+            "purpose": "maskable",
             "type": "image/svg+xml"
         }
     ]
