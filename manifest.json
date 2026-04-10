@@ -5,11 +5,55 @@
     "start_url": "/",
     "scope": "/",
     "display": "standalone",
+    "orientation": "any",
+    "version": "0.9.12",
+    "categories": ["entertainment", "music"],
+    "lang": "de",
+    "dir": "ltr",
+    "prefer_related_applications": false,
     "icons": [
         {
             "src": "/favicon.svg",
-            "purpose": "maskable",
-            "type": "image/svg+xml"
+            "sizes": "96x96",
+            "purpose": "maskable any"
+        },
+        {
+            "src": "/favicon.svg",
+            "sizes": "128x128",
+            "purpose": "maskable any"
+        },
+        {
+            "src": "/favicon.svg",
+            "sizes": "192x192",
+            "purpose": "maskable any"
+        },
+        {
+            "src": "/favicon.svg",
+            "sizes": "512x512",
+            "purpose": "maskable any"
         }
-    ]
+    ],
+    "screenshots": [],
+    "shortcuts": [
+        {
+            "name": "Radio starten",
+            "short_name": "Start",
+            "description": "Starte das Radio",
+            "url": "/",
+            "icons": [{ "src": "/favicon.svg", "sizes": "96x96" }]
+        },
+        {
+            "name": "Livestream starten",
+            "short_name": "Livestream",
+            "description": "Starte den Livestream",
+            "url": "/video",
+            "icons": [{ "src": "/favicon.svg", "sizes": "96x96" }]
+        }
+    ],
+    "share_target": {
+        "action": "/",
+        "method": "GET",
+        "params": {
+        }
+    }
 }
