@@ -2,8 +2,11 @@
 Oidar Suite - Syntax-Tests für HTML, JS, MD und CSS Dateien
 Optimiert mit parametrisierten Tests und Caching.
 """
+import json
 import os
 import re
+from collections.abc import Callable
+from functools import lru_cache
 from typing import Final
 
 import pytest
@@ -15,6 +18,7 @@ EXCLUDE_DIRS: Final[frozenset[str]] = frozenset({
     '.venv', 'node_modules', '__pycache__', '.git', 'dist', 'build', '.pytest_cache'
 })
 
+# Kompilierte Regex-Patterns
 _RE_TAGS: Final[list[tuple[str, re.Pattern, re.Pattern]]] = [
     (tag, re.compile(rf'<{tag}[^>]*>', re.IGNORECASE), re.compile(rf'</{tag}>', re.IGNORECASE))
     for tag in ('div', 'span', 'nav', 'header', 'footer', 'main', 'section')
@@ -24,17 +28,19 @@ _RE_SCRIPT: Final[tuple[re.Pattern, re.Pattern]] = (
 _RE_STYLE: Final[tuple[re.Pattern, re.Pattern]] = (
     re.compile(r'<style', re.IGNORECASE), re.compile(r'</style>', re.IGNORECASE))
 _RE_CODE_FENCE: Final[re.Pattern] = re.compile(r'```')
+_RE_DOCTYPE: Final[re.Pattern] = re.compile(r'<!doctype', re.IGNORECASE)
 
 
-def find_files(extension: str) -> list[str]:
-    """Findet rekursiv alle Dateien mit der angegebenen Endung."""
+@lru_cache(maxsize=None)
+def find_files(extension: str) -> tuple[str, ...]:
+    """Findet rekursiv alle Dateien mit der angegebenen Endung (gecached)."""
     files = []
     for root, dirs, filenames in os.walk(BASE_DIR):
         dirs[:] = [d for d in dirs if d not in EXCLUDE_DIRS]
         for filename in filenames:
             if filename.endswith(extension):
                 files.append(os.path.relpath(os.path.join(root, filename), BASE_DIR))
-    return sorted(files)
+    return tuple(sorted(files))
 
 
 def check_balanced(content: str, open_c: str, close_c: str) -> tuple[bool, str | None]:
@@ -54,10 +60,11 @@ def check_balanced(content: str, open_c: str, close_c: str) -> tuple[bool, str |
 
 def check_html(content: str) -> list[str]:
     """Prüft grundlegende HTML-Struktur."""
-    issues, cl = [], content.lower()
+    issues = []
+    cl = content.lower()
     
-    # Check for doctype - might be <!DOCTYPE or <!doctype
-    if '<!doctype' not in cl:
+    # Check for doctype
+    if not _RE_DOCTYPE.search(cl):
         issues.append("Fehlender <doctype>")
     
     required = ('html', 'head', 'body', 'title')
@@ -127,7 +134,6 @@ def check_md(content: str) -> list[str]:
 
 def check_json(content: str) -> list[str]:
     """Prüft grundlegende JSON-Syntax."""
-    import json
     issues = []
     balanced, error = check_balanced(content, '{', '}')
     if not balanced:
@@ -164,7 +170,7 @@ SYNTAX_CONFIGS = (
     ('.gitignore', 'Gitignore'),
 )
 
-CHECKER_BY_EXT = {
+CHECKER_BY_EXT: Final[dict[str, Callable[[str], list[str]]]] = {
     '.html': check_html,
     '.js': check_js,
     '.css': check_css,
@@ -174,20 +180,16 @@ CHECKER_BY_EXT = {
 }
 
 
-_file_cache: dict[str, dict[str, str]] = {}
-
-
-def _get_contents(extension: str) -> dict[str, str]:
+@lru_cache(maxsize=None)
+def get_contents(extension: str) -> dict[str, str]:
     """Gecachte Dateiinhalte abrufen."""
-    if extension not in _file_cache:
-        cache = {}
-        for path in find_files(extension):
-            full = os.path.join(BASE_DIR, path)
-            if os.path.exists(full):
-                with open(full, 'r', encoding='utf-8') as f:
-                    cache[path] = f.read()
-        _file_cache[extension] = cache
-    return _file_cache[extension]
+    contents = {}
+    for path in find_files(extension):
+        full = os.path.join(BASE_DIR, path)
+        if os.path.exists(full):
+            with open(full, 'r', encoding='utf-8') as f:
+                contents[path] = f.read()
+    return contents
 
 
 @pytest.mark.parametrize('ext,name', SYNTAX_CONFIGS, ids=lambda x: x[1])
@@ -201,7 +203,7 @@ class TestSyntax:
     
     def test_syntax(self, ext: str, name: str):
         """Test: Alle Dateien haben gültige Syntax."""
-        contents = _get_contents(ext)
+        contents = get_contents(ext)
         files = find_files(ext)
         checker = CHECKER_BY_EXT[ext]
         
