@@ -125,12 +125,43 @@ def check_md(content: str) -> list[str]:
     return []
 
 
+def check_json(content: str) -> list[str]:
+    """Prüft grundlegende JSON-Syntax."""
+    import json
+    issues = []
+    balanced, error = check_balanced(content, '{', '}')
+    if not balanced:
+        issues.append(error)
+    balanced, error = check_balanced(content, '[', ']')
+    if not balanced:
+        issues.append(error)
+    try:
+        json.loads(content)
+    except json.JSONDecodeError as e:
+        issues.append(f"JSON-Fehler: {e}")
+    return issues
+
+
+def check_gitignore(content: str) -> list[str]:
+    """Prüft grundlegende .gitignore-Struktur."""
+    issues = []
+    balanced, error = check_balanced(content, '[', ']')
+    if not balanced:
+        issues.append(error)
+    balanced, error = check_balanced(content, '(', ')')
+    if not balanced:
+        issues.append(error)
+    return issues
+
+
 # Konfiguration für alle unterstützten Dateitypen
 SYNTAX_CONFIGS = (
     ('.html', 'HTML'),
     ('.js', 'JavaScript'),
     ('.css', 'CSS'),
     ('.md', 'Markdown'),
+    ('.json', 'JSON'),
+    ('.gitignore', 'Gitignore'),
 )
 
 CHECKER_BY_EXT = {
@@ -138,6 +169,8 @@ CHECKER_BY_EXT = {
     '.js': check_js,
     '.css': check_css,
     '.md': check_md,
+    '.json': check_json,
+    '.gitignore': check_gitignore,
 }
 
 
