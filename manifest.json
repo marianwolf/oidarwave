@@ -41,15 +41,19 @@
             "description": "Starte das Radio",
             "url": "/",
             "icons": [{ "src": "/favicon.svg", "sizes": "96x96" }]
+        },
+        {
+            "name": "Livestream starten",
+            "short_name": "Livestream",
+            "description": "Starte den Livestream",
+            "url": "/video",
+            "icons": [{ "src": "/favicon.svg", "sizes": "96x96" }]
         }
     ],
     "share_target": {
-        "action": "/share",
+        "action": "/",
         "method": "GET",
         "params": {
-            "title": "title",
-            "text": "text",
-            "url": "url"
         }
     }
 }
