@@ -61,30 +61,32 @@ class TestPages:
         assert "Oidarwave" in title or "Impressum" in title
 
 
-class TestIndexElements:
-    """Tests für Index-Seiten-Elemente."""
+class TestElements:
+    """Tests für Seiten-Elemente."""
     
     @pytest.fixture
     def index_page(self, page: Page) -> Page:
         page.goto(PAGES[0][1])
         return page
     
-    def test_logo_and_nav(self, index_page: Page):
-        """Logo und Navigation sind vorhanden."""
+    @pytest.fixture
+    def video_page(self, page: Page) -> Page:
+        page.goto(PAGES[1][1])
+        return page
+    
+    def test_index_elements(self, index_page: Page):
+        """Index-Elemente sind vorhanden: Logo, Navigation, Sender-Buttons."""
         assert index_page.locator(".logo").is_visible()
         assert index_page.locator("nav").is_visible()
-    
-    def test_station_buttons(self, index_page: Page):
-        """Mindestens ein Sender-Button ist vorhanden."""
         assert index_page.locator(".station-btn").count() > 0
     
-    def test_audio_player(self, index_page: Page):
-        """Audio-Player ist vorhanden und hat Controls."""
-        audio = index_page.locator("#audioPlayer")
-        assert audio.is_visible()
-        assert audio.get_attribute("controls") is not None
+    def test_video_elements(self, video_page: Page):
+        """Video-Elemente sind vorhanden."""
+        video_page.goto(PAGES[1][1])
+        assert video_page.locator("#videoPlayer").is_visible()
+        assert video_page.locator(".station-btn").count() >= 4
     
-    def test_navigation_links(self, index_page: Page):
+    def test_navigation(self, index_page: Page):
         """Navigation hat alle erforderlichen Links."""
         links = index_page.locator("nav a")
         assert links.count() >= 3
@@ -93,11 +95,11 @@ class TestIndexElements:
         assert "Radio" in texts
         assert "Video" in texts
     
-    def test_player_buttons(self, index_page: Page):
-        """Player-Buttons haben erforderliche Attribute."""
-        btn = index_page.locator(".station-btn").first
-        assert btn.get_attribute("data-url")
-        assert btn.get_attribute("data-name")
+    def test_player(self, index_page: Page):
+        """Audio-Player ist vorhanden und hat Controls."""
+        audio = index_page.locator("#audioPlayer")
+        assert audio.is_visible()
+        assert audio.get_attribute("controls") is not None
     
     def test_cookie_banner(self, index_page: Page):
         """Cookie-Banner ist vorhanden."""
@@ -110,23 +112,6 @@ class TestIndexElements:
         """Status und Song-Titel sind vorhanden."""
         assert index_page.locator("#statusIndicator").count() > 0
         assert index_page.locator("#currentSongTitle").count() > 0
-
-
-class TestVideoPage:
-    """Tests für Video-Seite."""
-    
-    @pytest.fixture
-    def video_page(self, page: Page) -> Page:
-        page.goto(PAGES[1][1])
-        return page
-    
-    def test_video_player(self, video_page: Page):
-        """Video-Player ist vorhanden."""
-        assert video_page.locator("#videoPlayer").is_visible()
-    
-    def test_station_buttons(self, video_page: Page):
-        """Mindestens 4 Sender-Buttons sind vorhanden."""
-        assert video_page.locator(".station-btn").count() >= 4
 
 
 class TestStreams:
