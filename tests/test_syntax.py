@@ -1,6 +1,6 @@
 """
-Oidar Suite - Syntax-Tests für HTML, JS, MD und CSS Dateien
-Optimiert mit parametrisierten Tests und Caching.
+Oidar Suite - Syntax-Tests für HTML, JS, MD und CSS Dateien.
+Strukturierte und einheitliche Testorganisation mit Fixtures und parametrisierten Tests.
 """
 import json
 import os
@@ -18,7 +18,6 @@ EXCLUDE_DIRS: Final[frozenset[str]] = frozenset({
     '.venv', 'node_modules', '__pycache__', '.git', 'dist', 'build', '.pytest_cache'
 })
 
-# Kompilierte Regex-Patterns
 _RE_TAGS: Final[list[tuple[str, re.Pattern, re.Pattern]]] = [
     (tag, re.compile(rf'<{tag}[^>]*>', re.IGNORECASE), re.compile(rf'</{tag}>', re.IGNORECASE))
     for tag in ('div', 'span', 'nav', 'header', 'footer', 'main', 'section')
@@ -29,18 +28,6 @@ _RE_STYLE: Final[tuple[re.Pattern, re.Pattern]] = (
     re.compile(r'<style', re.IGNORECASE), re.compile(r'</style>', re.IGNORECASE))
 _RE_CODE_FENCE: Final[re.Pattern] = re.compile(r'```')
 _RE_DOCTYPE: Final[re.Pattern] = re.compile(r'<!doctype', re.IGNORECASE)
-
-
-@lru_cache(maxsize=None)
-def find_files(extension: str) -> tuple[str, ...]:
-    """Findet rekursiv alle Dateien mit der angegebenen Endung (gecached)."""
-    files = []
-    for root, dirs, filenames in os.walk(BASE_DIR):
-        dirs[:] = [d for d in dirs if d not in EXCLUDE_DIRS]
-        for filename in filenames:
-            if filename.endswith(extension):
-                files.append(os.path.relpath(os.path.join(root, filename), BASE_DIR))
-    return tuple(sorted(files))
 
 
 def check_balanced(content: str, open_c: str, close_c: str) -> tuple[bool, str | None]:
@@ -63,7 +50,6 @@ def check_html(content: str) -> list[str]:
     issues = []
     cl = content.lower()
     
-    # Check for doctype
     if not _RE_DOCTYPE.search(cl):
         issues.append("Fehlender <doctype>")
     
@@ -160,58 +146,78 @@ def check_gitignore(content: str) -> list[str]:
     return issues
 
 
-# Konfiguration für alle unterstützten Dateitypen
-SYNTAX_CONFIGS = (
-    ('.html', 'HTML'),
-    ('.js', 'JavaScript'),
-    ('.css', 'CSS'),
-    ('.md', 'Markdown'),
-    ('.json', 'JSON'),
-    ('.gitignore', 'Gitignore'),
-)
-
-CHECKER_BY_EXT: Final[dict[str, Callable[[str], list[str]]]] = {
-    '.html': check_html,
-    '.js': check_js,
-    '.css': check_css,
-    '.md': check_md,
-    '.json': check_json,
-    '.gitignore': check_gitignore,
-}
-
-
 @lru_cache(maxsize=None)
-def get_contents(extension: str) -> dict[str, str]:
-    """Gecachte Dateiinhalte abrufen."""
+def find_files(extension: str) -> tuple[str, ...]:
+    """Findet rekursiv alle Dateien mit der angegebenen Endung (gecached)."""
+    files = []
+    for root, dirs, filenames in os.walk(BASE_DIR):
+        dirs[:] = [d for d in dirs if d not in EXCLUDE_DIRS]
+        for filename in filenames:
+            if filename.endswith(extension):
+                files.append(os.path.relpath(os.path.join(root, filename), BASE_DIR))
+    return tuple(sorted(files))
+
+
+FileTypeConfig = tuple[str, str, Callable[[str], list[str]]]
+
+SYNTAX_CONFIGS: Final[list[FileTypeConfig]] = [
+    ('.html', 'HTML', check_html),
+    ('.js', 'JavaScript', check_js),
+    ('.css', 'CSS', check_css),
+    ('.md', 'Markdown', check_md),
+    ('.json', 'JSON', check_json),
+    ('.gitignore', 'Gitignore', check_gitignore),
+]
+
+
+@pytest.fixture(scope='session')
+def all_files_by_extension() -> dict[str, tuple[str, ...]]:
+    """Cached Dateien für alle unterstützten Extensions."""
+    return {ext: find_files(ext) for ext, _, _ in SYNTAX_CONFIGS}
+
+
+@pytest.fixture(scope='session')
+def all_contents() -> dict[str, dict[str, str]]:
+    """Cached Inhalte für alle Dateien."""
     contents = {}
-    for path in find_files(extension):
-        full = os.path.join(BASE_DIR, path)
-        if os.path.exists(full):
-            with open(full, 'r', encoding='utf-8') as f:
-                contents[path] = f.read()
+    for ext, _, _ in SYNTAX_CONFIGS:
+        ext_contents = {}
+        for path in find_files(ext):
+            full = os.path.join(BASE_DIR, path)
+            if os.path.exists(full):
+                with open(full, 'r', encoding='utf-8') as f:
+                    ext_contents[path] = f.read()
+        contents[ext] = ext_contents
     return contents
 
 
-@pytest.mark.parametrize('ext,name', SYNTAX_CONFIGS, ids=lambda x: x[1])
-class TestSyntax:
-    """Parametrisierte Tests für alle Syntax-Prüfungen"""
+@pytest.mark.parametrize('ext,name,checker', SYNTAX_CONFIGS, ids=['HTML', 'JavaScript', 'CSS', 'Markdown', 'JSON', 'Gitignore'])
+class TestFilesExist:
+    """Test-Klasse: Prüft ob Dateien existieren."""
     
-    def test_files_exist(self, ext: str, name: str):
-        """Test: Es gibt Dateien dieses Typs."""
-        files = find_files(ext)
-        assert files, f"Keine {name}-Dateien gefunden"
+    def test_files_exist(self, ext, name, checker, all_files_by_extension):
+        """Test: Es gibt Dateien für den angegebenen Dateityp."""
+        files = all_files_by_extension.get(ext, ())
+        
+        assert files, f"Keine {name}-Dateien gefunden in {BASE_DIR}"
+        assert len(files) > 0, f"Erwartet mindestens 1 {name}-Datei"
+
+
+@pytest.mark.parametrize('ext,name,checker', SYNTAX_CONFIGS, ids=['HTML', 'JavaScript', 'CSS', 'Markdown', 'JSON', 'Gitignore'])
+class TestSyntaxValidation:
+    """Test-Klasse: Prüft Syntax validity aller Dateien."""
     
-    def test_syntax(self, ext: str, name: str):
+    def test_syntax_valid(self, ext, name, checker, all_files_by_extension, all_contents):
         """Test: Alle Dateien haben gültige Syntax."""
-        contents = get_contents(ext)
-        files = find_files(ext)
-        checker = CHECKER_BY_EXT[ext]
+        files = all_files_by_extension.get(ext, {})
+        contents = all_contents.get(ext, {})
         
-        errors = [
-            f"{p}: {e}"
-            for p in files
-            if p in contents
-            for e in checker(contents[p])
-        ]
+        errors = []
+        for path, content in contents.items():
+            file_errors = checker(content)
+            if file_errors:
+                errors.extend(f"{path}: {e}" for e in file_errors)
         
-        assert not errors, f"{name} Fehler: {errors}"
+        assert not errors, f"{name} Syntax-Fehler: {errors}"
+
+
