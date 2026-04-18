@@ -8,37 +8,32 @@ document.addEventListener('DOMContentLoaded', () => {
     // === MEDIA SESSION API (Android/iOS Lock Screen & System Controls) ===
     const setupMediaSession = (stationName) => {
         if ('mediaSession' in navigator) {
-            console.log('MediaSession Video: Setting metadata', stationName);
-            
-            navigator.mediaSession.metadata = new MediaMetadata({
-                title: stationName || 'Livestream',
-                artist: 'Livestream',
-                album: 'Oidarwave Video',
-                artwork: [
-                    { src: '/favicon.svg', sizes: '128x128', type: 'image/svg+xml' },
-                    { src: '/favicon.svg', sizes: '256x256', type: 'image/svg+xml' },
-                    { src: '/favicon.svg', sizes: '512x512', type: 'image/svg+xml' }
-                ]
-            });
-
             try {
+                navigator.mediaSession.metadata = new MediaMetadata({
+                    title: stationName || 'Livestream',
+                    artist: 'Livestream',
+                    album: 'Oidarwave Video',
+                    artwork: [
+                        { src: '/favicon.svg', sizes: '128x128', type: 'image/svg+xml' },
+                        { src: '/favicon.svg', sizes: '256x256', type: 'image/svg+xml' },
+                        { src: '/favicon.svg', sizes: '512x512', type: 'image/svg+xml' }
+                    ]
+                });
+
                 navigator.mediaSession.setActionHandler('play', () => {
-                    console.log('MediaSession: Play action');
-                    videoPlayer.play();
+                    videoPlayer?.play();
                 });
                 navigator.mediaSession.setActionHandler('pause', () => {
-                    console.log('MediaSession: Pause action');
-                    videoPlayer.pause();
+                    videoPlayer?.pause();
                 });
             } catch (e) {
-                console.warn('MediaSession action handlers error:', e);
+                console.warn('MediaSession Einrichtung fehlgeschlagen:', e);
             }
         }
     };
 
     const clearMediaSession = () => {
-        if ('mediaSession' in navigator && navigator.mediaSession.metadata) {
-            console.log('MediaSession Video: Clearing metadata');
+        if ('mediaSession' in navigator && navigator.mediaSession?.metadata) {
             navigator.mediaSession.metadata = null;
         }
     };
@@ -51,6 +46,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentStationDisplay = document.getElementById('currentStation');
     const rewindButton = document.getElementById('rewindButton');
     const forwardButton = document.getElementById('forwardButton');
+
+    if (!videoPlayer) {
+        console.warn('Video-Element nicht gefunden.');
+        return;
+    }
 
     // iOS: Inline-Wiedergabe ermöglichen
     videoPlayer.setAttribute('playsinline', '');
@@ -184,8 +184,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         mediaError: 'Medienfehler: Stream konnte nicht abgespielt werden.'
                     };
                     
-                    const errorMsg = errorMessages[data.details] || errorMessages[data.type === Hls.ErrorTypes.NETWORK_ERROR ? 'networkError' : data.type === Hls.ErrorTypes.MEDIA_ERROR ? 'mediaError' : 'bufferAppendError'];
+                    const errorType = Hls.ErrorTypes?.NETWORK_ERROR || 'networkError';
+                    const mediaErrorType = Hls.ErrorTypes?.MEDIA_ERROR || 'mediaError';
+                    const errorMsg = errorMessages[data.details] || errorMessages[data.type === errorType ? 'networkError' : data.type === mediaErrorType ? 'mediaError' : 'bufferAppendError'];
                     
+                    console.warn('HLS fataler Fehler:', errorMsg);
                     alert(`${errorMsg} (${data.details})\n\nBitte versuchen Sie es erneut oder wechseln Sie den Sender.`);
                 }
             };
