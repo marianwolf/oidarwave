@@ -4,11 +4,12 @@ Benötigt: pip install pytest playwright && playwright install chromium
 Strukturierte und einheitliche Testorganisation mit Fixtures und parametrisierten Tests.
 """
 import pytest
+from pathlib import Path
 from typing import Generator
 from playwright.sync_api import sync_playwright, Page, Browser
 
 
-BASE_DIR = "/home/marian/nextcloud/github/oidarwave"
+BASE_DIR = str(Path(__file__).resolve().parent.parent)
 
 STREAMS: tuple[tuple[str, str], ...] = (
     ("DLF", "https://st01.sslstream.dlf.de/dlf/01/128/mp3/stream.mp3"),

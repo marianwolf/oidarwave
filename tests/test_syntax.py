@@ -209,7 +209,7 @@ class TestSyntaxValidation:
     
     def test_syntax_valid(self, ext, name, checker, all_files_by_extension, all_contents):
         """Test: Alle Dateien haben gültige Syntax."""
-        files = all_files_by_extension.get(ext, {})
+        files = all_files_by_extension.get(ext, ())
         contents = all_contents.get(ext, {})
         
         errors = []
