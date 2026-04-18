@@ -5,44 +5,36 @@ function initializePlayer() {
     // === MEDIA SESSION API (Android/iOS Lock Screen & System Controls) ===
     const setupMediaSession = (title, artist, stationName) => {
         if ('mediaSession' in navigator) {
-            console.log('MediaSession: Setting metadata', { title, artist, stationName });
-            
-            navigator.mediaSession.metadata = new MediaMetadata({
-                title: title || stationName || 'Livestream',
-                artist: artist || stationName || 'Oidarwave Radio',
-                album: stationName || 'Oidarwave',
-                artwork: [
-                    { src: '/favicon.svg', sizes: '128x128', type: 'image/svg+xml' },
-                    { src: '/favicon.svg', sizes: '256x256', type: 'image/svg+xml' },
-                    { src: '/favicon.svg', sizes: '512x512', type: 'image/svg+xml' }
-                ]
-            });
-
             try {
+                navigator.mediaSession.metadata = new MediaMetadata({
+                    title: title || stationName || 'Livestream',
+                    artist: artist || stationName || 'Oidarwave Radio',
+                    album: stationName || 'Oidarwave',
+                    artwork: [
+                        { src: '/favicon.svg', sizes: '128x128', type: 'image/svg+xml' },
+                        { src: '/favicon.svg', sizes: '256x256', type: 'image/svg+xml' },
+                        { src: '/favicon.svg', sizes: '512x512', type: 'image/svg+xml' }
+                    ]
+                });
+
                 navigator.mediaSession.setActionHandler('play', () => {
-                    console.log('MediaSession: Play action');
                     playMedia();
                 });
                 navigator.mediaSession.setActionHandler('pause', () => {
-                    console.log('MediaSession: Pause action');
-                    currentPlayer.pause();
+                    currentPlayer?.pause();
                 });
                 navigator.mediaSession.setActionHandler('stop', () => {
-                    console.log('MediaSession: Stop action');
-                    currentPlayer.pause();
+                    currentPlayer?.pause();
                     clearMediaSession();
                 });
             } catch (e) {
-                console.warn('MediaSession action handlers error:', e);
+                console.warn('MediaSession Einrichtung fehlgeschlagen:', e);
             }
-        } else {
-            console.log('MediaSession not supported');
         }
     };
 
     const clearMediaSession = () => {
-        if ('mediaSession' in navigator && navigator.mediaSession.metadata) {
-            console.log('MediaSession: Clearing metadata');
+        if ('mediaSession' in navigator && navigator.mediaSession?.metadata) {
             navigator.mediaSession.metadata = null;
         }
     };
@@ -66,6 +58,11 @@ function initializePlayer() {
     const currentSongTitleDisplay = document.getElementById('currentSongTitle');
     const notificationToggle = document.getElementById('notificationToggle');
 
+    if (!audioPlayer && !videoPlayer) {
+        console.error("Kein Player-Element gefunden (audioPlayer oder videoPlayer).");
+        return;
+    }
+
     const notificationsSupported = 'Notification' in window;
     let notificationsEnabled = false;
 
@@ -78,9 +75,6 @@ function initializePlayer() {
         currentPlayer = videoPlayer;
         isAudioPlayer = false;
         lastStationKey = 'lastStationVideoUrl';
-    } else {
-        console.error("No player element found with id 'audioPlayer' or 'videoPlayer'.");
-        return;
     }
 
     // === EVENT LISTENER ===
@@ -187,11 +181,14 @@ function initializePlayer() {
     }
 
     function selectStation(button) {
+        if (!button || !currentPlayer) return;
+        
         stationButtons.forEach(btn => btn.classList.remove('active'));
         button.classList.add('active');
         
         const { url, name, metadataUrl } = button.dataset;
-        currentStationDisplay.textContent = name;
+        if (currentStationDisplay) currentStationDisplay.textContent = name;
+        
         try {
             localStorage.setItem(lastStationKey, url);
         } catch (e) {
@@ -203,7 +200,6 @@ function initializePlayer() {
             metadataInterval = null;
         }
         
-        // Clear Media Session on station change
         clearMediaSession();
         
         if (metadataUrl) {

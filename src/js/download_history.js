@@ -2,32 +2,39 @@ document.addEventListener('DOMContentLoaded', () => {
     'use strict';
     const HISTORY_KEY = 'station_history';
 
-    // DIAGNOSE: Log all localStorage keys and values
     console.log('=== LocalStorage Diagnose ===');
-    for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        const value = localStorage.getItem(key);
-        console.log(`Key: ${key}`);
-        console.log(`Value: ${value.substring(0, 200)}${value.length > 200 ? '...' : ''}`);
+    try {
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            const value = localStorage.getItem(key);
+            console.log(`Key: ${key}`);
+            console.log(`Value: ${value ? value.substring(0, 200) + (value.length > 200 ? '...' : '') : 'null'}`);
+        }
+    } catch (e) {
+        console.warn('LocalStorage Zugriff fehlgeschlagen:', e);
     }
     console.log('===========================');
 
     function downloadHistory() {
-        const rawData = localStorage.getItem(HISTORY_KEY);
-        if (!rawData) return;
-        
-        const now = new Date();
-        const filename = `${HISTORY_KEY}_${now.toISOString().replace(/[T:]/g, '-').slice(0, 19)}.json`;
-        const blob = new Blob([rawData], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = filename;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
+        try {
+            const rawData = localStorage.getItem(HISTORY_KEY);
+            if (!rawData) return;
+            
+            const now = new Date();
+            const filename = `${HISTORY_KEY}_${now.toISOString().replace(/[T:]/g, '-').slice(0, 19)}.json`;
+            const blob = new Blob([rawData], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        } catch (e) {
+            console.error('Download fehlgeschlagen:', e);
+        }
     }
 
     document.addEventListener('keydown', (event) => {
