@@ -63,9 +63,11 @@ class NotificationManager {
         if (this.notificationsEnabled) {
             this.notificationToggle.classList.add('active');
             this.notificationToggle.title = 'Benachrichtigungen deaktivieren';
+            this.notificationToggle.setAttribute('aria-label', 'Benachrichtigungen deaktivieren');
         } else {
             this.notificationToggle.classList.remove('active');
             this.notificationToggle.title = 'Benachrichtigungen bei Titeländerung';
+            this.notificationToggle.setAttribute('aria-label', 'Benachrichtigungen aktivieren');
         }
     }
 
@@ -82,7 +84,6 @@ class NotificationManager {
 
         notification.onclick = () => {
             window.focus();
-            if (self.focus) self.focus();
             notification.close();
         };
 
