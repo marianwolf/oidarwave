@@ -100,6 +100,7 @@ header {
     font-weight: 700;
     background: linear-gradient(135deg, var(--color-brand-primary), var(--color-brand-secondary));
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: gradient-shift 5s ease infinite alternate;
     letter-spacing: -1px;
