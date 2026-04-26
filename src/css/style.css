@@ -51,16 +51,11 @@ body {
     color: var(--color-text-main);
     min-height: 100vh;
     line-height: 1.6;
-    overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
-    font-family: var(--font-body);
     background:
         radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(139, 92, 246, 0.15) 0%, transparent 60%),
         radial-gradient(circle at 85% 30%, rgba(236, 72, 153, 0.1) 0%, transparent 40%),
         linear-gradient(135deg, var(--color-bg-base) 0%, #1e293b 50%, var(--color-bg-base) 100%);
-    background-attachment: fixed;
-    color: var(--color-text-main);
-    min-height: 100vh;
     overflow-x: hidden;
     overflow-y: auto;
     position: relative;

@@ -36,8 +36,12 @@ jobs:
       - name: Build static site
         run: |
           mkdir -p public
-          cp -r index.html video impressum imgs/ src/ public/ 2>/dev/null || true
-          cp -r index.html video impressum public/ 2>/dev/null || true
+          # Required files - fail if missing
+          cp index.html /
+          # Optional directories - copy if they exist
+          cp -r video impressum imgs src public/ 2>/dev/null || true
+          # Validate essential content exists
+          test -f public/index.html || { echo "ERROR: index.html not found in /"; exit 1; }
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
