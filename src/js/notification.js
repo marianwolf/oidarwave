@@ -1,0 +1,108 @@
+class NotificationManager {
+    constructor() {
+        this.notificationsSupported = 'Notification' in window;
+        this.notificationsEnabled = false;
+        this.notificationDebounceTimer = null;
+        this.currentTrackTitle = '';
+        
+        // Initialisieren, sobald das DOM geladen ist
+        document.addEventListener('DOMContentLoaded', () => this.init());
+    }
+
+    init() {
+        this.notificationToggle = document.getElementById('notificationToggle');
+        this.isAudioPlayer = !!document.getElementById('audioPlayer');
+
+        if (!this.notificationToggle) return;
+
+        if (!this.notificationsSupported || !this.isAudioPlayer) {
+            this.notificationToggle.style.display = 'none';
+        } else {
+            try {
+                this.notificationsEnabled = localStorage.getItem('notificationsEnabled') === 'true';
+            } catch (e) {
+                console.warn('localStorage notificationsEnabled read failed:', e);
+            }
+            this.updateNotificationToggleUI();
+            
+            this.notificationToggle.addEventListener('click', async () => {
+                if (!this.notificationsSupported) return;
+
+                if (!this.notificationsEnabled) {
+                    if (Notification.permission === 'denied') {
+                        alert('Benachrichtigungen sind in Ihrem Browser blockiert. Bitte erlauben Sie sie in den Browser-Einstellungen.');
+                        return;
+                    }
+
+                    if (Notification.permission !== 'granted') {
+                        const newPermission = await Notification.requestPermission();
+                        if (newPermission !== 'granted') return;
+                    }
+
+                    this.notificationsEnabled = true;
+                } else {
+                    this.notificationsEnabled = false;
+                }
+
+                this.saveNotificationPreference();
+                this.updateNotificationToggleUI();
+            });
+        }
+    }
+
+    saveNotificationPreference() {
+        try {
+            localStorage.setItem('notificationsEnabled', this.notificationsEnabled.toString());
+        } catch (e) {
+            console.warn('localStorage notificationsEnabled save failed:', e);
+        }
+    }
+
+    updateNotificationToggleUI() {
+        if (!this.notificationToggle) return;
+        if (this.notificationsEnabled) {
+            this.notificationToggle.classList.add('active');
+            this.notificationToggle.title = 'Benachrichtigungen deaktivieren';
+        } else {
+            this.notificationToggle.classList.remove('active');
+            this.notificationToggle.title = 'Benachrichtigungen bei Titeländerung';
+        }
+    }
+
+    sendNotification(title, stationName) {
+        if (!this.notificationsSupported || !this.notificationsEnabled) return;
+        if (Notification.permission !== 'granted') return;
+
+        const notification = new Notification('Oidarwave - Neuer Titel', {
+            body: `${title}\nSender: ${stationName}`,
+            icon: '/favicon.svg',
+            tag: 'oidarwave-notification',
+            requireInteraction: false
+        });
+
+        notification.onclick = () => {
+            window.focus();
+            if (self.focus) self.focus();
+            notification.close();
+        };
+
+        setTimeout(() => notification.close(), 10000);
+    }
+
+    handleTrackChange(newTitle, stationName) {
+        if (!newTitle || newTitle === this.currentTrackTitle) return;
+        if (newTitle === "Keine Titelinformationen" || newTitle === "Metadaten nicht verfügbar") return;
+
+        if (this.notificationDebounceTimer) {
+            clearTimeout(this.notificationDebounceTimer);
+        }
+
+        this.notificationDebounceTimer = setTimeout(() => {
+            this.sendNotification(newTitle, stationName);
+        }, 2000);
+
+        this.currentTrackTitle = newTitle;
+    }
+}
+
+window.notificationManager = new NotificationManager();
