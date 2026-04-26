@@ -409,6 +409,10 @@ footer a:hover {
 }
 
 @media (max-width: 768px) {
+    .container {
+        padding: var(--space-lg) var(--space-md);
+    }
+
     .player-section {
         grid-template-columns: 1fr;
     }
@@ -432,6 +436,60 @@ footer a:hover {
 
     .cookie-buttons {
         flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: var(--space-md) var(--space-sm);
+        gap: var(--space-lg);
+    }
+
+    header {
+        padding: var(--space-md) 0;
+    }
+
+    .logo {
+        font-size: 2rem;
+    }
+
+    nav {
+        flex-direction: column;
+        width: 100%;
+        border-radius: var(--radius-md);
+        gap: 0;
+    }
+
+    nav a {
+        text-align: center;
+        width: 100%;
+        border-radius: var(--radius-sm);
+        padding: var(--space-md);
+    }
+
+    .station-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: var(--space-sm);
+    }
+
+    .station-btn {
+        padding: var(--space-sm);
+        font-size: 0.9rem;
+    }
+    
+    .current-station {
+        font-size: 1.1rem;
+        flex-wrap: wrap;
+        text-align: center;
+    }
+
+    .station-selector,
+    .player-controls {
+        padding: var(--space-md);
+    }
+
+    .audio-controls {
+        gap: var(--space-lg);
     }
 }
 
