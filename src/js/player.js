@@ -84,12 +84,14 @@ function initializePlayer() {
             isStalled = false;
             hasError = false;
             updateOverallStatus();
+            document.body.classList.add('playing');
             StationHistory.startStation(currentPlayer.src);
             const stationName = currentStationDisplay ? currentStationDisplay.textContent : '';
             setupMediaSession('', '', stationName);
         },
         pause: () => {
             updateOverallStatus();
+            document.body.classList.remove('playing');
             StationHistory.stopStation(currentPlayer.src);
         },
         waiting: () => { isStalled = true; updateOverallStatus(); },

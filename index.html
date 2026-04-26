@@ -6,27 +6,27 @@
     <meta name="description" content="Oidarwave ist dein Webradio für jeden Geschmack."/>
     <meta name="keywords" content="Webradio, Radio, Online-Radio, Oidarwave"/>
     <meta name="author" content="Marian Wolf"/>
-    
+
     <meta property="og:title" content="Oidarwave"/>
     <meta property="og:description" content="Oidarwave ist dein Webradio mit einer großen Auswahl an Sendern."/>
     <meta property="og:image" content="/favicon.svg"/>
     <meta property="og:url" content="/"/>
     <meta property="og:type" content="website">
     <meta property="og:locale" content="de_DE">
-    
+
     <title>Oidarwave</title>
-    
+
     <link rel="canonical" href="/">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="manifest" href="/manifest.json">
-    
+
     <link rel="dns-prefetch" href="https://profilbild.vercel.app">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
+
     <link rel="stylesheet" href="/src/css/style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap" media="print" onload="this.media='all'">
-    
+
     <script src="/src/js/mouse.js" defer></script>
     <script src="/src/js/cookie.js" defer></script>
     <script src="/src/js/notification.js" defer></script>
@@ -35,87 +35,175 @@
     <script src="/src/js/download_history.js" defer></script>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="logo">🎵 Oidarwave</div>
+    <div class="app-shell">
+
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" aria-label="Seitenleiste">
+            <div class="sidebar-logo" aria-label="Oidarwave Logo">
+                <svg class="logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="2.5"/>
+                    <circle cx="20" cy="20" r="6" fill="currentColor"/>
+                    <path d="M20 2 C20 2, 36 10, 36 20 C36 30, 20 38, 20 38" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+                    <path d="M20 2 C20 2, 4 10, 4 20 C4 30, 20 38, 20 38" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+                </svg>
+                <span class="logo-text">Oidarwave</span>
+            </div>
             <nav aria-label="Hauptnavigation">
-                <a href="/">Radio</a>
-                <a href="/video">Video</a>
-                <a href="mailto:marian.wolf2008@gmail.com">Kontakt</a>
-                <a href="https://beta0.vercel.app" target="_blank">Beta</a>
+                <a href="/" class="nav-link active" aria-current="page">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                    <span>Radio</span>
+                </a>
+                <a href="/video" class="nav-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                    <span>Video</span>
+                </a>
+                <a href="mailto:marian.wolf2008@gmail.com" class="nav-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    <span>Kontakt</span>
+                </a>
+                <a href="https://beta0.vercel.app" target="_blank" rel="noopener noreferrer" class="nav-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    <span>Beta</span>
+                </a>
             </nav>
-        </header>
-        <main id="radio">
-            <section class="player-section">
-                <div class="station-selector">
-                    <h2>📻 Sender auswählen</h2>
-                    <div class="station-grid">
-                        <button class="station-btn" data-url="https://st01.sslstream.dlf.de/dlf/01/128/mp3/stream.mp3" data-name="Deutschlandfunk" data-metadata-url="https://streamtext.dradio.de/dlf.txt">
-                            Deutschlandfunk
-                        </button>
-                        <button class="station-btn" data-url="https://st03.sslstream.dlf.de/dlf/03/128/mp3/stream.mp3" data-name="Deutschlandfunk Nova" data-metadata-url="https://static.deutschlandfunknova.de/actions/dradio/playlist/onair">
-                            DLF Nova
-                        </button>
-                        <button class="station-btn" data-url="https://f121.rndfnk.com/ard/ndr/ndr1niedersachsen/hannover/mp3/128/stream.mp3?aggregator=web&cid=01FCT9XYE3C7Y8087XEWPRC38Z&sid=30aynlfxURrCQmDeTH1p0OqVsoV&token=3Wf1JnFUByNruoizm4AdR_YPX5_CvsRtTKXV3VK-004&tvf=qhyw4VgcVxhmMTIxLnJuZGZuay5jb20" data-name="NDR 1 NDS" data-metadata-url="https://www.ndr.de/public/radioplaylists/ndr1niedersachsen.json">
-                            NDR 1
-                        </button>
-                        <button class="station-btn" data-url="https://f131.rndfnk.com/ard/ndr/ndr2/niedersachsen/mp3/128/stream.mp3?aggregator=web&cid=01FBQ2CWDYWJHGF4QAJ0SVV730&sid=30ayvsXjJydzMH4MNiWpLV4nURH&token=FMhlmkJlc2prmQ6CBBjpYxFSaNHq6IDWPQKR9jRDjMA&tvf=0axLwWccVxhmMTMxLnJuZGZuay5jb20" data-name="NDR 2" data-metadata-url="https://www.ndr.de/public/radioplaylists/ndr2.json">
-                            NDR 2
-                        </button>
-                        <button class="station-btn" data-url="https://f131.rndfnk.com/ard/ndr/ndrinfo/niedersachsen/mp3/128/stream.mp3?aggregator=web&cid=01FBRKHKTB73QDVNX7A9RT082R&sid=30az5c4cyuUHsy4tHS3YkD5oDcc&token=Z-H6aIgEFsx5kBPmtfq5x2UNGGmMOtyjcoYox9RHg2E&tvf=np8tvHkcVxhmMTMxLnJuZGZuay5jb20" data-name="NDR Info" data-metadata-url="https://www.ndr.de/epg/current/station-ndrinfo">
-                            NDR Info
-                        </button>
-                        <button class="station-btn" data-url="https://d141.rndfnk.com/ard/ndr/ndrkultur/live/mp3/128/stream.mp3?aggregator=web&cid=01FBQ2EJ6T7QK3WENQ5KT9S2FB&sid=30azBxZOH15ri7EofrRpS1t3RXT&token=T_eVqj_rP6Bkb57di3056sjieytJKHDUnaT86DKLi-o&tvf=P4FiYIUcVxhkMTQxLnJuZGZuay5jb20" data-name="NDR Kultur" data-metadata-url="https://www.ndr.de/public/radioplaylists/ndrkultur.json">
-                            NDR Kultur
-                        </button>
-                        <button class="station-btn" data-url="https://f121.rndfnk.com/ard/ndr/njoy/live/mp3/128/stream.mp3?aggregator=web&cid=01FBRKKTM6TVGA3B3W6Y8NMXK8&sid=30azMobKXI3x91RNnGaf7v0Jpbl&token=VvAbuddXUjbU602noIVp6b7CQBEikUS280qPiNmxABM&tvf=i4pneZkcVxhmMTIxLnJuZGZuay5jb20" data-name="N-JOY" data-metadata-url="https://www.ndr.de/public/radioplaylists/njoy.json">
-                            N-JOY
-                        </button>
-                        <button class="station-btn" data-url="https://regiocast.streamabc.net/regc-80s80smweb2517500-mp3-192-1672667" data-name="80s80s Digital" data-metadata-url="https://iris-80s80s.loverad.io/flow.json?station=62">
-                            80s80s
-                        </button>
-                        <button class="station-btn" data-url="https://regiocast.streamabc.net/regc-90s90spop4760822-mp3-192-9403761" data-name="90s90s">
-                            90s90s
-                        </button>
-                        <button class="station-btn" data-url="https://radio.bbg-bew.de" data-name="BBG Radio">
-                            BBG Radio
-                        </button>
+            <div class="sidebar-footer">
+                <p>2026 by <img src="https://profilbild.vercel.app/mw.svg" width="18" loading="lazy" alt="Marian Wolf" style="vertical-align:middle;margin:0 3px;"></p>
+                <a href="/impressum" target="_blank" rel="noopener noreferrer">Impressum &amp; Datenschutz</a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content" id="radio">
+
+            <!-- Top bar / Now Playing -->
+            <div class="topbar">
+                <div class="now-playing-bar">
+                    <div class="status-dot-wrap">
+                        <span class="status-indicator" id="statusIndicator" aria-hidden="true"></span>
                     </div>
+                    <div class="now-playing-info">
+                        <span class="now-playing-label">Jetzt läuft</span>
+                        <span class="now-playing-station" id="currentStation">Sender auswählen</span>
+                    </div>
+                    <div class="now-playing-track" id="currentSongTitle" aria-live="polite"></div>
                 </div>
-                <div class="player-controls">
-                    <div class="current-station">
-                        <span class="status-indicator" id="statusIndicator"></span>
-                        <span id="currentStation">Sender auswählen</span>
-                        <button id="notificationToggle" class="notification-toggle" title="Benachrichtigungen bei Titeländerung" aria-label="Benachrichtigungen aktivieren">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-                            </svg>
-                        </button>
+                <button id="notificationToggle" class="notification-toggle" title="Benachrichtigungen bei Titeländerung" aria-label="Benachrichtigungen aktivieren">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Content Area -->
+            <div class="content-area">
+
+                <!-- Player Card -->
+                <section class="player-card" aria-label="Player">
+                    <div class="player-hero">
+                        <div class="vinyl-disc" aria-hidden="true">
+                            <div class="vinyl-inner"></div>
+                            <div class="vinyl-label">
+                                <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="2"/>
+                                    <circle cx="20" cy="20" r="5" fill="currentColor"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="player-meta">
+                            <h1 class="player-station-name" id="playerStationHero">Oidarwave</h1>
+                            <p class="player-track" id="playerTrackHero">Sender auswählen um zu starten</p>
+                        </div>
                     </div>
-                    <div class="audio-controls">
-                        <audio id="audioPlayer" controls preload="none">
+                    <div class="audio-wrapper">
+                        <audio id="audioPlayer" controls preload="none" aria-label="Audioplayer">
                             Ihr Browser unterstützt leider keine HTML5-Audiowiedergabe.
                         </audio>
-                        <span id="currentSongTitle"></span>
                     </div>
-                </div>
-            </section>
+                </section>
+
+                <!-- Station Selector -->
+                <section class="stations-card" aria-labelledby="stationsHeading">
+                    <h2 id="stationsHeading" class="section-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                        Sender
+                    </h2>
+                    <div class="station-grid" role="list">
+                        <button class="station-btn" role="listitem" data-url="https://st01.sslstream.dlf.de/dlf/01/128/mp3/stream.mp3" data-name="Deutschlandfunk" data-metadata-url="https://streamtext.dradio.de/dlf.txt">
+                            <span class="station-abbr">DLF</span>
+                            <span class="station-name">Deutschlandfunk</span>
+                        </button>
+                        <button class="station-btn" role="listitem" data-url="https://st03.sslstream.dlf.de/dlf/03/128/mp3/stream.mp3" data-name="Deutschlandfunk Nova" data-metadata-url="https://static.deutschlandfunknova.de/actions/dradio/playlist/onair">
+                            <span class="station-abbr">Nova</span>
+                            <span class="station-name">DLF Nova</span>
+                        </button>
+                        <button class="station-btn" role="listitem" data-url="https://f121.rndfnk.com/ard/ndr/ndr1niedersachsen/hannover/mp3/128/stream.mp3?aggregator=web&cid=01FCT9XYE3C7Y8087XEWPRC38Z&sid=30aynlfxURrCQmDeTH1p0OqVsoV&token=3Wf1JnFUByNruoizm4AdR_YPX5_CvsRtTKXV3VK-004&tvf=qhyw4VgcVxhmMTIxLnJuZGZuay5jb20" data-name="NDR 1 NDS" data-metadata-url="https://www.ndr.de/public/radioplaylists/ndr1niedersachsen.json">
+                            <span class="station-abbr">NDR1</span>
+                            <span class="station-name">NDR 1 NDS</span>
+                        </button>
+                        <button class="station-btn" role="listitem" data-url="https://f131.rndfnk.com/ard/ndr/ndr2/niedersachsen/mp3/128/stream.mp3?aggregator=web&cid=01FBQ2CWDYWJHGF4QAJ0SVV730&sid=30ayvsXjJydzMH4MNiWpLV4nURH&token=FMhlmkJlc2prmQ6CBBjpYxFSaNHq6IDWPQKR9jRDjMA&tvf=0axLwWccVxhmMTMxLnJuZGZuay5jb20" data-name="NDR 2" data-metadata-url="https://www.ndr.de/public/radioplaylists/ndr2.json">
+                            <span class="station-abbr">NDR2</span>
+                            <span class="station-name">NDR 2</span>
+                        </button>
+                        <button class="station-btn" role="listitem" data-url="https://f131.rndfnk.com/ard/ndr/ndrinfo/niedersachsen/mp3/128/stream.mp3?aggregator=web&cid=01FBRKHKTB73QDVNX7A9RT082R&sid=30az5c4cyuUHsy4tHS3YkD5oDcc&token=Z-H6aIgEFsx5kBPmtfq5x2UNGGmMOtyjcoYox9RHg2E&tvf=np8tvHkcVxhmMTMxLnJuZGZuay5jb20" data-name="NDR Info" data-metadata-url="https://www.ndr.de/epg/current/station-ndrinfo">
+                            <span class="station-abbr">Info</span>
+                            <span class="station-name">NDR Info</span>
+                        </button>
+                        <button class="station-btn" role="listitem" data-url="https://d141.rndfnk.com/ard/ndr/ndrkultur/live/mp3/128/stream.mp3?aggregator=web&cid=01FBQ2EJ6T7QK3WENQ5KT9S2FB&sid=30azBxZOH15ri7EofrRpS1t3RXT&token=T_eVqj_rP6Bkb57di3056sjieytJKHDUnaT86DKLi-o&tvf=P4FiYIUcVxhkMTQxLnJuZGZuay5jb20" data-name="NDR Kultur" data-metadata-url="https://www.ndr.de/public/radioplaylists/ndrkultur.json">
+                            <span class="station-abbr">Kult</span>
+                            <span class="station-name">NDR Kultur</span>
+                        </button>
+                        <button class="station-btn" role="listitem" data-url="https://f121.rndfnk.com/ard/ndr/njoy/live/mp3/128/stream.mp3?aggregator=web&cid=01FBRKKTM6TVGA3B3W6Y8NMXK8&sid=30azMobKXI3x91RNnGaf7v0Jpbl&token=VvAbuddXUjbU602noIVp6b7CQBEikUS280qPiNmxABM&tvf=i4pneZkcVxhmMTIxLnJuZGZuay5jb20" data-name="N-JOY" data-metadata-url="https://www.ndr.de/public/radioplaylists/njoy.json">
+                            <span class="station-abbr">JOY</span>
+                            <span class="station-name">N-JOY</span>
+                        </button>
+                        <button class="station-btn" role="listitem" data-url="https://regiocast.streamabc.net/regc-80s80smweb2517500-mp3-192-1672667" data-name="80s80s Digital" data-metadata-url="https://iris-80s80s.loverad.io/flow.json?station=62">
+                            <span class="station-abbr">80s</span>
+                            <span class="station-name">80s80s</span>
+                        </button>
+                        <button class="station-btn" role="listitem" data-url="https://regiocast.streamabc.net/regc-90s90spop4760822-mp3-192-9403761" data-name="90s90s">
+                            <span class="station-abbr">90s</span>
+                            <span class="station-name">90s90s</span>
+                        </button>
+                        <button class="station-btn" role="listitem" data-url="https://radio.bbg-bew.de" data-name="BBG Radio">
+                            <span class="station-abbr">BBG</span>
+                            <span class="station-name">BBG Radio</span>
+                        </button>
+                    </div>
+                </section>
+
+            </div>
         </main>
-        <footer>
-            <p>2026 by<img src="https://profilbild.vercel.app/mw.svg" width="22" loading="lazy" style="vertical-align: middle; margin-left: 5px; margin-right: 5px;">| Alle Rechte vorbehalten. | <a href="/impressum" target="_blank">Impressum & Datenschutz</a></p>
-        </footer>
     </div>
+
+    <!-- Cookie Banner -->
     <div class="cookie-banner" id="cookieBanner" role="dialog" aria-live="polite" aria-labelledby="cookieBannerHeading">
         <div class="cookie-banner-content">
-            <p>
-                Um die Website für Sie zu optimieren, nutzen wir anonyme Nutzungsstatistiken.
-            </p>
+            <p id="cookieBannerHeading">Um die Website für Sie zu optimieren, nutzen wir anonyme Nutzungsstatistiken.</p>
             <div class="cookie-buttons">
                 <button class="cookie-btn accept-btn" id="acceptCookies">Akzeptieren</button>
                 <button class="cookie-btn decline-btn" id="declineCookies">Ablehnen</button>
             </div>
         </div>
     </div>
+
+    <!-- Sync player hero display with existing player.js currentStation -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const heroStation = document.getElementById('playerStationHero');
+            const heroTrack = document.getElementById('playerTrackHero');
+            const currentStation = document.getElementById('currentStation');
+            const currentSongTitle = document.getElementById('currentSongTitle');
+
+            if (!heroStation || !heroTrack || !currentStation || !currentSongTitle) return;
+
+            const syncObserver = new MutationObserver(() => {
+                if (heroStation) heroStation.textContent = currentStation.textContent || 'Oidarwave';
+                if (heroTrack) heroTrack.textContent = currentSongTitle.textContent || 'Sender auswählen um zu starten';
+            });
+            syncObserver.observe(currentStation, { childList: true, characterData: true, subtree: true });
+            syncObserver.observe(currentSongTitle, { childList: true, characterData: true, subtree: true });
+        });
+    </script>
 </body>
 </html>
