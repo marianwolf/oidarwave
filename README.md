@@ -113,6 +113,7 @@ Beiträge sind jederzeit willkommen\! Ob es sich um Fehlerberichte, Funktionsvor
   - [x] Erweiterte Video-Fehlerdiagnose, PWA-Vorbereitung (0.9.10)
   - [x] PWA, Design Optimierung, Download mit `Ctrl + S` gefixt (0.9.11)
   - [x] Wiedergabeanzeige (0.9.12)
+  - [x] Aktualisierung des Design-Systems und Verbesserung der JavaScript-Fehlerbehandlung (0.9.13)
   - [ ] Integration weiterer Sender
   - [ ] Umschaltung zwischen Dunkel- und Hellmodus
   - [ ] Favoriten
