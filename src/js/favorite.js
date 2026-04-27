@@ -146,8 +146,8 @@ const FavoriteManager = (() => {
     }
 
     function getPreference(key, defaultValue = null) {
-        if (preferencesCache && key in preferencesCache) return preferencesCache[key];
         if (favoritesCache.preferences && key in favoritesCache.preferences) return favoritesCache.preferences[key];
+        if (preferencesCache && key in preferencesCache) return preferencesCache[key];
         return defaultValue;
     }
 
