@@ -1,13 +1,14 @@
-import pytest
-from pathlib import Path
-from typing import Generator
-from playwright.sync_api import sync_playwright, Page, Browser
-
 """
 Website- und Stream-Tests für Oidarwave.
 Benötigt: pip install pytest playwright && playwright install chromium
 Strukturierte und einheitliche Testorganisation mit Fixtures und parametrisierten Tests.
 """
+
+import pytest
+from pathlib import Path
+from typing import Generator
+from playwright.sync_api import sync_playwright, Page, Browser
+
 
 BASE_DIR = str(Path(__file__).resolve().parent.parent)
 
