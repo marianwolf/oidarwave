@@ -3,6 +3,9 @@ const StationHistory = (() => {
     const EXPIRY_DAYS = 90;
     const EXPIRY_TIME_MS = EXPIRY_DAYS * 24 * 60 * 60 * 1000;
     let historyCache;
+let stationsCache = null;
+let isCacheValid = false;
+let activeStationUrl = null;
 
     function loadHistory() {
         try {
@@ -41,18 +44,18 @@ const StationHistory = (() => {
         }
     }
 
-    function closeOtherSessions(excludeUrl, timestamp) {
-        for (const station of Object.values(historyCache.stations)) {
-            if (station.url !== excludeUrl) {
-                stopAndFinalizeSession(station, timestamp);
-            }
-        }
-    }
+
 
     function startStation(url, name, options = {}) {
         const history = historyCache;
         const now = Date.now();
-        closeOtherSessions(url, now);
+        // Close previous active station if different
+        if (activeStationUrl !== null && activeStationUrl !== url) {
+            const prevStation = historyCache.stations[activeStationUrl];
+            if (prevStation) {
+                stopAndFinalizeSession(prevStation, now);
+            }
+        }
         
         if (!history.stations[url]) {
             history.stations[url] = {
@@ -74,14 +77,20 @@ const StationHistory = (() => {
         }
         
         station.sessions.unshift({ start: now, end: null });
+        activeStationUrl = url;
         saveHistory();
+        invalidateCache();
     }
 
     function stopStation(url) {
         const station = historyCache.stations[url];
         if (!station) return;
         stopAndFinalizeSession(station, Date.now());
+        if (activeStationUrl === url) {
+            activeStationUrl = null;
+        }
         saveHistory();
+        invalidateCache();
     }
 
     function pruneHistory() {
@@ -89,49 +98,66 @@ const StationHistory = (() => {
         const now = Date.now();
         const expiryLimit = now - EXPIRY_TIME_MS;
         let hasChanged = false;
-        
+
         for (const [url, station] of Object.entries(history.stations)) {
-            const validSessions = station.sessions.filter(s => s.end === null || s.end > expiryLimit);
-            
-            if (validSessions.length < station.sessions.length) {
-                station.sessions = validSessions;
-                hasChanged = true;
-            }
-            
             let lastPlayed = 0;
+            let validSessions = [];
+
             for (const session of station.sessions) {
                 const time = session.end !== null ? session.end : session.start;
                 if (time > lastPlayed) {
                     lastPlayed = time;
                 }
+
+                if (session.end === null || session.end > expiryLimit) {
+                    validSessions.push(session);
+                }
             }
-            
+
+            if (validSessions.length !== station.sessions.length) {
+                station.sessions = validSessions;
+                hasChanged = true;
+            }
+
             if (validSessions.length === 0 && lastPlayed < expiryLimit) {
                 delete history.stations[url];
                 hasChanged = true;
             }
         }
-        
-        if (hasChanged) saveHistory();
+
+        if (hasChanged) {
+            saveHistory();
+            invalidateCache();
+        }
     }
 
-    function getLastStations() {
+    function invalidateCache() {
+        isCacheValid = false;
+    }
+
+    function computeLastStations() {
         return Object.values(historyCache.stations)
             .map(station => {
                 let totalDurationMs = 0;
                 let playCount = 0;
                 let lastPlayed = 0;
+
                 for (const session of station.sessions) {
-                    if (session.end !== null) {
-                        const duration = session.end - session.start;
-                        totalDurationMs += duration;
-                        playCount++;
-                    }
-                    const time = session.end !== null ? session.end : session.start;
+                    const start = session.start;
+                    const end = session.end;
+                    const hasEnd = end !== null;
+                    const time = hasEnd ? end : start;
+
                     if (time > lastPlayed) {
                         lastPlayed = time;
                     }
+
+                    if (hasEnd) {
+                        totalDurationMs += end - start;
+                        playCount++;
+                    }
                 }
+
                 return {
                     displayName: station.name,
                     details: {
@@ -143,6 +169,14 @@ const StationHistory = (() => {
                 };
             })
             .sort((a, b) => b.details.lastPlayed - a.details.lastPlayed);
+    }
+
+    function getLastStations() {
+        if (!isCacheValid) {
+            stationsCache = computeLastStations();
+            isCacheValid = true;
+        }
+        return stationsCache;
     }
 
     historyCache = loadHistory();
