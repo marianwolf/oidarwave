@@ -8,24 +8,15 @@ const StationHistory = (() => {
     let isCacheValid = false;
     let activeStationUrl = null;
 
-    console.log('=== LocalStorage Diagnose ===');
-    try {
-        for (let i = 0; i < localStorage.length; i++) {
-            const key = localStorage.key(i);
-            const value = localStorage.getItem(key);
-            console.log(`Key: ${key}`);
-            console.log(`Value: ${value ? value.substring(0, 200) + (value.length > 200 ? '...' : '') : 'null'}`);
-        }
-    } catch (e) {
-        console.warn('LocalStorage Zugriff fehlgeschlagen:', e);
-    }
-    console.log('===========================');
-    
     function loadHistory() {
         try {
             const historyStr = localStorage.getItem(HISTORY_KEY);
             if (!historyStr) return { stations: {} };
             const history = JSON.parse(historyStr);
+            // Restore activeStationUrl if present in saved data
+            if (history.activeStationUrl !== undefined) {
+                activeStationUrl = history.activeStationUrl;
+            }
             return { stations: history.stations || {} };
         } catch (e) {
             console.error('Fehler beim Laden des Verlaufs:', e);
@@ -35,7 +26,12 @@ const StationHistory = (() => {
 
     function saveHistory() {
         try {
-            localStorage.setItem(HISTORY_KEY, JSON.stringify(historyCache));
+            // Include activeStationUrl in the saved data
+            const dataToSave = {
+                ...historyCache,
+                activeStationUrl: activeStationUrl
+            };
+            localStorage.setItem(HISTORY_KEY, JSON.stringify(dataToSave));
         } catch (e) {
             console.error('Fehler beim Speichern des Verlaufs:', e);
         }
@@ -80,7 +76,7 @@ const StationHistory = (() => {
         // Close any existing open session
         const openSession = station.sessions.find(s => s.end === null);
         if (openSession) {
-            openSession.end = now;
+            stopAndFinalizeSession(station, now);
         }
         
         station.sessions.unshift({ start: now, end: null });
@@ -107,6 +103,10 @@ const StationHistory = (() => {
         const expiryLimit = now - EXPIRY_TIME_MS;
         let hasChanged = false;
 
+        // Find the most recently played station with an open session
+        let mostRecentOpenStationUrl = null;
+        let mostRecentOpenTime = 0;
+
         for (const [url, station] of Object.entries(history.stations)) {
             let lastPlayed = 0;
             let validSessions = [];
@@ -117,13 +117,10 @@ const StationHistory = (() => {
                     lastPlayed = time;
                 }
 
-                if (session.end === null) {
-                    if (!activeStationUrl) {
-                        activeStationUrl = url;
-                    } else if (activeStationUrl !== url) {
-                        session.end = now;
-                        hasChanged = true;
-                    }
+                // Track the most recent open session
+                if (session.end === null && session.start > mostRecentOpenTime) {
+                    mostRecentOpenTime = session.start;
+                    mostRecentOpenStationUrl = url;
                 }
 
                 if (session.end === null || session.end > expiryLimit) {
@@ -140,6 +137,21 @@ const StationHistory = (() => {
                 delete history.stations[url];
                 hasChanged = true;
             }
+        }
+
+        // Close any open sessions that aren't in the most recently played station
+        for (const [url, station] of Object.entries(history.stations)) {
+            for (const session of station.sessions) {
+                if (session.end === null && url !== mostRecentOpenStationUrl) {
+                    stopAndFinalizeSession(station, now);
+                    hasChanged = true;
+                }
+            }
+        }
+
+        // If we found a station with an open session, make it active
+        if (mostRecentOpenStationUrl) {
+            activeStationUrl = mostRecentOpenStationUrl;
         }
 
         if (hasChanged) {
