@@ -2,7 +2,8 @@ const StationHistory = (() => {
     const HISTORY_KEY = 'station_history';
     const EXPIRY_DAYS = 90;
     const EXPIRY_TIME_MS = EXPIRY_DAYS * 24 * 60 * 60 * 1000;
-    let historyCache;
+    
+    let historyCache = { stations: {} };
     let stationsCache = null;
     let isCacheValid = false;
     let activeStationUrl = null;
@@ -23,9 +24,7 @@ const StationHistory = (() => {
     function loadHistory() {
         try {
             const historyStr = localStorage.getItem(HISTORY_KEY);
-            if (!historyStr) {
-                return {version: 1, stations: {} };
-            }
+            if (!historyStr) return { stations: {} };
             const history = JSON.parse(historyStr);
             return { stations: history.stations || {} };
         } catch (e) {
@@ -35,12 +34,10 @@ const StationHistory = (() => {
     }
 
     function saveHistory() {
-        if (historyCache) {
-            try {
-                localStorage.setItem(HISTORY_KEY, JSON.stringify(historyCache));
-            } catch (e) {
-                console.error('Fehler beim Speichern des Verlaufs:', e);
-            }
+        try {
+            localStorage.setItem(HISTORY_KEY, JSON.stringify(historyCache));
+        } catch (e) {
+            console.error('Fehler beim Speichern des Verlaufs:', e);
         }
     }
 
@@ -57,11 +54,9 @@ const StationHistory = (() => {
         }
     }
 
-
-
     function startStation(url, name, options = {}) {
-        const history = historyCache;
         const now = Date.now();
+        
         // Close previous active station if different
         if (activeStationUrl !== null && activeStationUrl !== url) {
             const prevStation = historyCache.stations[activeStationUrl];
@@ -70,23 +65,22 @@ const StationHistory = (() => {
             }
         }
         
-        if (!history.stations[url]) {
-            history.stations[url] = {
+        if (!historyCache.stations[url]) {
+            historyCache.stations[url] = {
                 name,
                 sessions: [],
                 favicon: options.favicon
             };
         }
         
-        const station = history.stations[url];
+        const station = historyCache.stations[url];
         station.name = name;
         if (options.favicon) station.favicon = options.favicon;
         
+        // Close any existing open session
         const openSession = station.sessions.find(s => s.end === null);
         if (openSession) {
-            console.warn("startStation: Station hatte bereits eine offene Session. Schließe sie.", url);
             openSession.end = now;
-            stopAndFinalizeSession(station, now);
         }
         
         station.sessions.unshift({ start: now, end: null });
@@ -98,6 +92,7 @@ const StationHistory = (() => {
     function stopStation(url) {
         const station = historyCache.stations[url];
         if (!station) return;
+        
         stopAndFinalizeSession(station, Date.now());
         if (activeStationUrl === url) {
             activeStationUrl = null;
