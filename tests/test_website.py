@@ -1,13 +1,13 @@
-"""
-Website- und Stream-Tests für Oidarwave.
-Benötigt: pip install pytest playwright && playwright install chromium
-Strukturierte und einheitliche Testorganisation mit Fixtures und parametrisierten Tests.
-"""
 import pytest
 from pathlib import Path
 from typing import Generator
 from playwright.sync_api import sync_playwright, Page, Browser
 
+"""
+Website- und Stream-Tests für Oidarwave.
+Benötigt: pip install pytest playwright && playwright install chromium
+Strukturierte und einheitliche Testorganisation mit Fixtures und parametrisierten Tests.
+"""
 
 BASE_DIR = str(Path(__file__).resolve().parent.parent)
 
@@ -158,6 +158,3 @@ class TestIndexSpecific:
         """Status und Song-Titel sind vorhanden."""
         assert self.page.locator("#statusIndicator").count() > 0
         assert self.page.locator("#currentSongTitle").count() > 0
-
-if __name__ == "__main__":
-    pytest.main([__file__, "-v", "--tb=short"])
