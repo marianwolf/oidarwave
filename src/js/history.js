@@ -109,6 +109,15 @@ let activeStationUrl = null;
                     lastPlayed = time;
                 }
 
+                if (session.end === null) {
+                    if (!activeStationUrl) {
+                        activeStationUrl = url;
+                    } else if (activeStationUrl !== url) {
+                        session.end = now;
+                        hasChanged = true;
+                    }
+                }
+
                 if (session.end === null || session.end > expiryLimit) {
                     validSessions.push(session);
                 }
