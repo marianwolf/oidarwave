@@ -3,10 +3,23 @@ const StationHistory = (() => {
     const EXPIRY_DAYS = 90;
     const EXPIRY_TIME_MS = EXPIRY_DAYS * 24 * 60 * 60 * 1000;
     let historyCache;
-let stationsCache = null;
-let isCacheValid = false;
-let activeStationUrl = null;
+    let stationsCache = null;
+    let isCacheValid = false;
+    let activeStationUrl = null;
 
+    console.log('=== LocalStorage Diagnose ===');
+    try {
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            const value = localStorage.getItem(key);
+            console.log(`Key: ${key}`);
+            console.log(`Value: ${value ? value.substring(0, 200) + (value.length > 200 ? '...' : '') : 'null'}`);
+        }
+    } catch (e) {
+        console.warn('LocalStorage Zugriff fehlgeschlagen:', e);
+    }
+    console.log('===========================');
+    
     function loadHistory() {
         try {
             const historyStr = localStorage.getItem(HISTORY_KEY);

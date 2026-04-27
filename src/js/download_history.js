@@ -2,19 +2,6 @@ document.addEventListener('DOMContentLoaded', () => {
     'use strict';
     const HISTORY_KEY = 'station_history';
 
-    console.log('=== LocalStorage Diagnose ===');
-    try {
-        for (let i = 0; i < localStorage.length; i++) {
-            const key = localStorage.key(i);
-            const value = localStorage.getItem(key);
-            console.log(`Key: ${key}`);
-            console.log(`Value: ${value ? value.substring(0, 200) + (value.length > 200 ? '...' : '') : 'null'}`);
-        }
-    } catch (e) {
-        console.warn('LocalStorage Zugriff fehlgeschlagen:', e);
-    }
-    console.log('===========================');
-
     function downloadHistory() {
         try {
             const rawData = localStorage.getItem(HISTORY_KEY);
