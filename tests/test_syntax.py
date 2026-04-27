@@ -1,16 +1,12 @@
-"""
-Oidar Suite - Syntax-Tests für HTML, JS, MD und CSS Dateien.
-Strukturierte und einheitliche Testorganisation mit Fixtures und parametrisierten Tests.
-"""
-import json
-import os
-import re
+import pytest, json, os, re
 from collections.abc import Callable
 from functools import lru_cache
 from typing import Final
 
-import pytest
-
+"""
+Oidar Suite - Syntax-Tests für HTML, JS, MD und CSS Dateien.
+Strukturierte und einheitliche Testorganisation mit Fixtures und parametrisierten Tests.
+"""
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -504,5 +500,3 @@ class TestCSSResponsiveMobileStyles:
         occurrences = len(re.findall(r'\.container\s*\{', block))
         assert occurrences == 1, \
             f".container sollte genau einmal im 768px-Block stehen, gefunden: {occurrences}"
-
-
