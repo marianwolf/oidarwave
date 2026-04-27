@@ -6,10 +6,11 @@ Strukturierte und einheitliche Testorganisation mit Fixtures und parametrisierte
 import json
 import os
 import re
-import pytest
 from collections.abc import Callable
 from functools import lru_cache
 from typing import Final
+
+import pytest
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 

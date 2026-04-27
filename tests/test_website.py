@@ -4,9 +4,10 @@ Benötigt: pip install pytest playwright && playwright install chromium
 Strukturierte und einheitliche Testorganisation mit Fixtures und parametrisierten Tests.
 """
 
-import pytest
 from pathlib import Path
 from typing import Generator
+
+import pytest
 from playwright.sync_api import sync_playwright, Page, Browser
 
 
