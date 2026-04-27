@@ -3,7 +3,7 @@ const StationHistory = (() => {
     const EXPIRY_DAYS = 90;
     const EXPIRY_TIME_MS = EXPIRY_DAYS * 24 * 60 * 60 * 1000;
     
-    let historyCache = { stations: {} };
+    let historyCache;
     let stationsCache = null;
     let isCacheValid = false;
     let activeStationUrl = null;
