@@ -4,7 +4,7 @@ class NotificationManager {
         this.notificationsEnabled = false;
         this.notificationDebounceTimer = null;
         this.currentTrackTitle = '';
-            this.currentTrackStation = '';
+        this.currentTrackStation = '';
         
         // Initialisieren, sobald das DOM geladen ist
         document.addEventListener('DOMContentLoaded', () => this.init());

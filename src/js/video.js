@@ -154,7 +154,11 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Event-Handler als benannte Funktion für mögliche Cleanup
             const onManifestParsed = () => {
-                videoPlayer.play().catch(e => console.log('Autoplay failed:', e));
+                videoPlayer.play().catch(e => {
+                    if (e.name !== 'NotAllowedError') {
+                        console.warn('Autoplay failed:', e);
+                    }
+                });
                 updateQualityLevel();
                 settingsCache.captionsEnabled ? enableCaptions() : disableCaptions();
             };
@@ -202,10 +206,14 @@ document.addEventListener('DOMContentLoaded', () => {
             
         } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
             videoPlayer.src = url;
-            videoPlayer.addEventListener('loadedmetadata', () => {
-                videoPlayer.play().catch(e => console.log('Autoplay failed on native player:', e));
-                settingsCache.captionsEnabled ? enableCaptions() : disableCaptions();
-            }, { once: true });
+             videoPlayer.addEventListener('loadedmetadata', () => {
+                 videoPlayer.play().catch(e => {
+                     if (e.name !== 'NotAllowedError') {
+                         console.warn('Autoplay failed on native player:', e);
+                     }
+                 });
+                 settingsCache.captionsEnabled ? enableCaptions() : disableCaptions();
+             }, { once: true });
         } else {
             console.error('HLS is not supported by your browser.');
             alert('Ihr Browser unterstützt dieses Videoformat nicht.');
@@ -252,17 +260,21 @@ document.addEventListener('DOMContentLoaded', () => {
         // Visibility change - mit passiven Optionen
         document.addEventListener('visibilitychange', () => {
             if (document.visibilityState === 'visible' && !videoPlayer.paused) {
-                videoPlayer.play().catch(e => console.log('Resume playback failed:', e));
+                videoPlayer.play().catch(e => {
+                    if (e.name !== 'NotAllowedError') {
+                        console.warn('Resume playback failed:', e);
+                    }
+                });
             }
         }, { passive: true });
         
         // Update Media Session when playback state changes
         videoPlayer.addEventListener('pause', () => {
-            console.log('Video: Paused - updating MediaSession');
+            console.debug('Video: Paused - updating MediaSession');
         });
         
         videoPlayer.addEventListener('playing', () => {
-            console.log('Video: Playing - MediaSession active');
+            console.debug('Video: Playing - MediaSession active');
         });
         
         // Tastatur-Navigation
