@@ -98,6 +98,7 @@ class TestPageElements:
             assert page.locator(".logo").is_visible()
             assert page.locator("nav").is_visible()
             assert page.locator(".station-btn").count() > 0
+            assert page.locator("#notificationToggle").is_visible()
         elif name == "video":
             assert page.locator("#videoPlayer").is_visible()
             assert page.locator(".station-btn").count() >= 4
