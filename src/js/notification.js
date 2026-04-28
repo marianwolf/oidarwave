@@ -4,6 +4,7 @@ class NotificationManager {
         this.notificationsEnabled = false;
         this.notificationDebounceTimer = null;
         this.currentTrackTitle = '';
+            this.currentTrackStation = '';
         
         // Initialisieren, sobald das DOM geladen ist
         document.addEventListener('DOMContentLoaded', () => this.init());
@@ -91,8 +92,15 @@ class NotificationManager {
     }
 
     handleTrackChange(newTitle, stationName) {
-        if (!newTitle || newTitle === this.currentTrackTitle) return;
+        if (!newTitle || (newTitle === this.currentTrackTitle && stationName === this.currentTrackStation)) return;
         if (newTitle === "Keine Titelinformationen" || newTitle === "Metadaten nicht verfügbar") return;
+        
+        // Don't notify on station switch - only on title change within same station
+        if (stationName !== this.currentTrackStation) {
+            this.currentTrackStation = stationName;
+            this.currentTrackTitle = newTitle;
+            return;
+        }
 
         if (this.notificationDebounceTimer) {
             clearTimeout(this.notificationDebounceTimer);
