@@ -1,70 +1,24 @@
-# Add 'root' label to any root file changes
-# Quotation marks are required for the leading asterisk
-root:
-- changed-files:
-  - any-glob-to-any-file: '*'
-
-# Add 'AnyChange' label to any changes within the entire repository
-AnyChange:
-- changed-files:
-  - any-glob-to-any-file: '**'
-
-# Add 'Documentation' label to any changes within 'docs' folder or any subfolders
-Documentation:
-- changed-files:
-  - any-glob-to-any-file: docs/**
-- changed-files:
-  - any-glob-to-any-file: guides/*
-- changed-files:
-  - any-glob-to-any-file: '**/*.md'
-
-# Add 'source' label to any change to src files within the source dir EXCEPT for the docs sub-folder
-source:
-- all:
+js:
   - changed-files:
-    - any-glob-to-any-file: 'src/**/*'
-    - all-globs-to-all-files: '!src/docs/*'
+      - any-glob-to-any-file:
+          - src/js/**
 
-# Add 'feature' label to any PR where the head branch name starts with `feature` or has a `feature` section in the name
-feature:
- - head-branch: ['^feature', 'feature']
+📝documentation:
+  - changed-files:
+      - any-glob-to-any-file:
+          - '**/*.md'
 
-# Add 'feat' label to any PR where the head branch name starts with `feat` or has a `feat` section in the name
-feat:
- - head-branch: ['^feat', 'feat']
+🖥️web:
+  - changed-files:
+      - any-glob-to-any-file:
+          - '**/*.html'
 
-# Add 'fix' label to any PR where the head branch name starts with `fix` or has a `fix` section in the name
-fix:
- - head-branch: ['^fix', 'fix']
+📱styles:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'src/css/**'
 
-# Add 'ci' label to any PR where the head branch name starts with `ci` or has a `ci` section in the name
-ci:
- - head-branch: ['^ci', 'ci']
-
-# Add 'test' label to any PR where the head branch name starts with `test` or has a `test` section in the name
-test:
- - head-branch: ['^test', 'test']
-
-# Add 'refactor' label to any PR where the head branch name starts with `refactor` or has a `refactor` section in the name
-refactor:
- - head-branch: ['^refactor', 'refactor']
-
-# Add 'perf' label to any PR where the head branch name starts with `perf` or has a `perf` section in the name
-perf:
- - head-branch: ['^perf', 'perf']
-
-# Add 'style' label to any PR where the head branch name starts with `style` or has a `style` section in the name
-style:
- - head-branch: ['^style', 'style']
-
-# Add 'core' label to any PR where the head branch name starts with `core` or has a `core` section in the name
-core:
- - head-branch: ['^core', 'core']
-
-# Add 'build' label to any PR where the head branch name starts with `build` or has a `build` section in the name
-build:
- - head-branch: ['^build', 'build']
-
-# Add 'release' label to any PR that is opened against the `main` branch
-release:
- - base-branch: 'main'
+🗄️tests:
+  - changed-files:
+      - any-glob-to-any-file:
+          - tests/**
