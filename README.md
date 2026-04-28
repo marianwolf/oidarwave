@@ -76,21 +76,27 @@ Oidarwave wurde von Grund auf so konzipiert, dass es die Privatsphäre der Nutze
 Da Oidarwave eine **statische Webseite** ist, ist keine serverseitige Installation erforderlich.
 
 1.  **Repository klonen:** Öffne dein Terminal und führe folgenden Befehl aus:
- ```bash
+```bash
 git clone https://github.com/marianwolf/oidarwave.git
 ```
 2.  **Datei öffnen:** Navigiere in das neu geklonte Verzeichnis und öffne die `index.html`-Datei in deinem bevorzugten Webbrowser. Alternativ kannst du die Live-Version jederzeit hier nutzen:
 [https://oidarwave.vercel.app](https://oidarwave.vercel.app)
 
-3. **Venv initialisieren**
+3. Entwicklung & Tests
+
+Für die Ausführung der Tests ist eine Python-Virtuelle Umgebung erforderlich:
 
 ```bash
-python3 -m venv .venv && .venv/bin/pip install playwright && .venv/bin/pip install pytest && .venv/bin/playwright install chromium
+# Virtuelle Umgebung erstellen und Abhängigkeiten installieren
+python3 -m venv .venv
+source .venv/bin/activate  # Auf Windows: .venv\Scripts\activate
+pip install playwright pytest
+playwright install chromium
 ```
 
-4. **Testen:**
+4. Tests ausführen:
 ```bash
-cd /home/marian/nextcloud/github/oidarwave && /home/marian/nextcloud/github/oidarwave/.venv/bin/python tests/test_syntax.py
+python tests/test_syntax.py
 ```
 
 ## 🤝 Mitwirken
