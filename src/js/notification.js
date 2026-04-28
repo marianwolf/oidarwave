@@ -97,6 +97,10 @@ class NotificationManager {
         
         // Don't notify on station switch - only on title change within same station
         if (stationName !== this.currentTrackStation) {
+            if (this.notificationDebounceTimer) {
+                clearTimeout(this.notificationDebounceTimer);
+                this.notificationDebounceTimer = null;
+            }
             this.currentTrackStation = stationName;
             this.currentTrackTitle = newTitle;
             return;
