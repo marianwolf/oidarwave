@@ -1,0 +1,13 @@
+name: Greetings
+
+on: [pull_request_target, issues]
+
+jobs:
+  greeting:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+    steps:
+    - name: Claude Code Action Official
+      uses: anthropics/claude-code-action@v1
