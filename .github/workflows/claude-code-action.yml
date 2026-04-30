@@ -9,7 +9,5 @@ jobs:
       issues: write
       pull-requests: write
     steps:
-    - name: First interaction
-      uses: actions/first-interaction@v1.3.0
-      with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Claude Code Action Official
+      uses: anthropics/claude-code-action@v1
