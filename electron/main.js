@@ -11,16 +11,9 @@ function discoverPages(dir, basePath = '') {
     const items = fs.readdirSync(dir, { withFileTypes: true });
     for (const item of items) {
       const fullPath = path.join(dir, item.name);
-      const routePath = path.join(basePath, item.name);
+      const routePath = path.join(basePath, item.name).replace(/\\/g, '/');
       
       if (item.isDirectory()) {
-        const indexPath = path.join(fullPath, 'index.html');
-        if (fs.existsSync(indexPath)) {
-          pages.push({
-            route: '/' + basePath + (basePath ? '/' : '') + item.name,
-            file: indexPath
-          });
-        }
         pages.push(...discoverPages(fullPath, routePath));
       } else if (item.isFile() && item.name === 'index.html' && basePath && !basePath.includes('electron')) {
         pages.push({
@@ -79,7 +72,7 @@ function createWindow() {
     if (url.startsWith('oidarwave://')) {
       event.preventDefault();
       const route = url.replace('oidarwave://', '');
-      tryLoadSubpage('file://' + route) || tryLoadSubpage('oidarwave://' + route);
+      tryLoadSubpage('file:///' + route) || tryLoadSubpage('oidarwave:///' + route);
     } else if (!url.startsWith('http') && !url.startsWith('mailto:')) {
       event.preventDefault();
       if (!tryLoadSubpage(url)) {
