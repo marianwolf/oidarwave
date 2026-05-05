@@ -1,0 +1,41 @@
+{
+  "name": "oidarwave",
+  "version": "0.9.13",
+  "description": "Minimalistisches Webradio für deinen Desktop",
+  "main": "electron/main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder",
+    "dist:linux": "electron-builder --linux AppImage"
+  },
+  "author": "Marian Wolf <marianwolf200@gmail.com> (http://oidarwave.vercel.com/)",
+  "license": "MIT",
+  "build": {
+    "appId": "com.oidarwave.app",
+    "productName": "Oidarwave",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "electron/**/*",
+      "src/**/*",
+      "index.html",
+      "favicon.svg",
+      "manifest.json",
+      "video/**/*",
+      "impressum/**/*"
+    ],
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "category": "AudioVideo",
+      "icon": "favicon.svg"
+    }
+  },
+  "devDependencies": {
+    "electron": "^41.5.0",
+    "electron-builder": "^26.8.1"
+  }
+}
