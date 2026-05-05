@@ -3,23 +3,39 @@
 ![Project Status](https://img.shields.io/badge/Status-Aktiv-brightgreen)
 ![Datenschutz](https://img.shields.io/badge/Datenschutz-DSGVO--konform-blue)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
+![Version](https://img.shields.io/badge/Version-0.9.13-blue)
+
+<div align="center">
+  <p>
+    <strong>Oidarwave</strong> ist ein minimalistisches und werbefreies Webradio für deinen Browser — elegant, schnell und respektvoll mit deiner Privatsphäre.
+  </p>
+  <p>
+    <a href="https://oidarwave.vercel.app"><strong>🎧 Live Demo</strong></a> ·
+    <a href="#️-installation-und-nutzung"><strong>📖 Dokumentation</strong></a> ·
+    <a href="https://github.com/marianwolf/oidarwave/issues"><strong>❓ Issues</strong></a>
+  </p>
+</div>
+
+<br/>
 
 ## 📖 Inhaltsverzeichnis
 
-- [Über das Projekt](#-über-das-projekt)
-- [Hauptfunktionen](#-hauptfunktionen)
-- [Verfügbare Streams](#-verfügbare-streams)
-  - [Radio](#-radio)
-  - [Fernsehstream](#-fernsehstream)
-- [Technologien](#-technologien)
-- [Installation und Nutzung](#️-installation-und-nutzung)
-- [Mitwirken](#-mitwirken)
-- [Datenschutz](#️-datenschutz)
-- [Roadmap](#-roadmap)
+- [🏠 Über das Projekt](#-über-das-projekt)
+- [✨ Hauptfunktionen](#-hauptfunktionen)
+- [🎧 Verfügbare Streams](#-verfügbare-streams)
+  - [📻 Radio](#-radio)
+  - [📺 Fernsehstream](#-fernsehstream)
+- [🔧 Technologien](#-technologien)
+- [💾 Installation und Nutzung](#-installation-und-nutzung)
+- [🤝 Mitwirken](#-mitwirken)
+- [🔐 Datenschutz](#-datenschutz)
+- [📊 Roadmap](#-roadmap)
 
 ## 🚀 Über das Projekt
 
-**Oidarwave** ist ein **minimalistisches und werbefreies Webradio**, das ein reibungsloses Hörerlebnis direkt im Browser ermöglicht. Das Projekt wurde mit dem Ziel entwickelt, eine einfache und ablenkungsfreie Möglichkeit zu bieten, eine handverlesene Auswahl deutscher Radiosender zu hören. Durch die Nutzung nativer Browser-APIs wird eine hohe Performance und ein schlankes Design gewährleistet.
+**Oidarwave** ist ein minimalistisches und werbefreies Webradio, das ein reibungsloses Hörerlebnis direkt im Browser ermöglicht. Das Projekt wurde mit dem Ziel entwickelt, eine einfache und ablenkungsfreie Möglichkeit zu bieten, eine handverlesene Auswahl deutscher Radiosender und Fernsehprogramme zu hören und zu sehen.
+
+Durch die Nutzung moderner Browser-APIs, einer schlanken Architektur und der strikten Fokussierung auf Privatsphäre bietet Oidarwave eine Alternative zu kommerziellen Streaming-Plattformen — **ohne Tracking, ohne Werbung, ohne Kompromisse**.
 
 ## ✨ Hauptfunktionen
 
@@ -71,7 +87,7 @@ Oidarwave wurde von Grund auf so konzipiert, dass es die Privatsphäre der Nutze
     | Datensparmodus | `ja` od. `nein` |
   - **Transparente Einwilligung:** Externe Skripte (wie z. B. für Web-Analytics) werden nur mit Ihrer expliziten Zustimmung geladen, sodass Sie stets die volle Kontrolle über Ihre Daten haben.
 
-## 🛠️ Installation und Nutzung
+## 💾 Installation und Nutzung
 
 Da Oidarwave eine **statische Webseite** ist, ist keine serverseitige Installation erforderlich.
 
