@@ -33,7 +33,7 @@
       "target": [
         "nsis"
       ],
-      "icon": "favicon.svg",
+      "icon": "favicon.ico",
       "requestedExecutionLevel": "asInvoker"
     },
     "nsis": {
@@ -46,7 +46,7 @@
       "target": [
         "dmg"
       ],
-      "icon": "favicon.svg",
+      "icon": "favicon.icns",
       "category": "public.app-category.audio"
     },
     "dmg": {

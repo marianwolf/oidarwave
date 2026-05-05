@@ -49,6 +49,8 @@ function matchesRoute(pathname, page) {
   return false;
 }
 
+let cachedAvailablePages = null;
+
 async function createWindow() {
   const mainWindow = new BrowserWindow({
     width: 1200,
@@ -62,9 +64,14 @@ async function createWindow() {
   });
 
   const appDir = path.resolve(path.join(__dirname, '..'));
-  const availablePages = await discoverPages(appDir, '', appDir);
-  // Add root page
-  availablePages.unshift({ route: '/', file: path.join(appDir, 'index.html') });
+  
+  if (!cachedAvailablePages) {
+    cachedAvailablePages = await discoverPages(appDir, '', appDir);
+    // Add root page
+    cachedAvailablePages.unshift({ route: '/', file: path.join(appDir, 'index.html') });
+  }
+  
+  const availablePages = cachedAvailablePages;
 
   function tryLoadSubpage(url) {
     try {
