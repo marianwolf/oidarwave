@@ -90,11 +90,8 @@ async function createWindow() {
    mainWindow.webContents.on('will-navigate', (event, url) => {
      if (url.startsWith('oidarwave://')) {
        event.preventDefault();
-       const route = url.replace('oidarwave://', '');
-       const loaded = tryLoadSubpage('file:///' + route);
-       if (!loaded) {
-         tryLoadSubpage('oidarwave:///' + route);
-       }
+       const route = url.replace('oidarwave://', '').replace(/^\/+/, '');
+       tryLoadSubpage('file:///' + route);
      } else if (url.startsWith('http://') || url.startsWith('https://')) {
        event.preventDefault();
        const { shell } = require('electron');
