@@ -94,8 +94,7 @@ async function createWindow() {
        tryLoadSubpage('file:///' + route);
      } else if (url.startsWith('http://') || url.startsWith('https://')) {
        event.preventDefault();
-       const { shell } = require('electron');
-       shell.openExternal(url);
+       electron.shell.openExternal(url);
      } else if (!url.startsWith('mailto:')) {
        event.preventDefault();
        if (!tryLoadSubpage(url)) {
