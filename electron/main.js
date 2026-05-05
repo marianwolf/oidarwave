@@ -34,10 +34,15 @@ async function discoverPages(dir, basePath = '', appDir) {
 
 function matchesRoute(pathname, page) {
   const pageRouteNorm = page.route.endsWith('/') ? page.route.slice(0, -1) : page.route;
-  return pathname === pageRouteNorm ||
-         pathname === page.route ||
-         pathname === page.route + '/' ||
-         pathname.endsWith('/' + path.basename(page.file));
+  // Match exact route or route with trailing slash
+  if (pathname === pageRouteNorm || pathname === page.route || pathname === page.route + '/') {
+    return true;
+  }
+  // For index.html files, also match when pathname is route + '/index.html'
+  if (pathname === page.route + '/index.html') {
+    return true;
+  }
+  return false;
 }
 
 async function createWindow() {
@@ -77,23 +82,27 @@ async function createWindow() {
 
   mainWindow.loadFile(path.join(appDir, 'index.html'));
 
-  // Handle custom oidarwave:// protocol for in-app navigation
-  mainWindow.webContents.on('will-navigate', (event, url) => {
-    if (url.startsWith('oidarwave://')) {
-      event.preventDefault();
-      const route = url.replace('oidarwave://', '');
-      const loaded = tryLoadSubpage('file:///' + route);
-      if (!loaded) {
-        tryLoadSubpage('oidarwave:///' + route);
-      }
-    } else if (!url.startsWith('http') && !url.startsWith('mailto:')) {
-      event.preventDefault();
-      if (!tryLoadSubpage(url)) {
-        // Unknown route - stay on current page or load root
-        mainWindow.loadFile(path.join(appDir, 'index.html'));
-      }
-    }
-  });
+   // Handle custom oidarwave:// protocol for in-app navigation
+   mainWindow.webContents.on('will-navigate', (event, url) => {
+     if (url.startsWith('oidarwave://')) {
+       event.preventDefault();
+       const route = url.replace('oidarwave://', '');
+       const loaded = tryLoadSubpage('file:///' + route);
+       if (!loaded) {
+         tryLoadSubpage('oidarwave:///' + route);
+       }
+     } else if (url.startsWith('http://') || url.startsWith('https://')) {
+       event.preventDefault();
+       const { shell } = require('electron');
+       shell.openExternal(url);
+     } else if (!url.startsWith('mailto:')) {
+       event.preventDefault();
+       if (!tryLoadSubpage(url)) {
+         // Unknown route - stay on current page or load root
+         mainWindow.loadFile(path.join(appDir, 'index.html'));
+       }
+     }
+   });
 
   // Handle window.open for external links (keep default behavior for http/https)
   mainWindow.webContents.setWindowOpenHandler(({ url }) => {
