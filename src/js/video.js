@@ -86,12 +86,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // === HELPER FUNCTIONS ===
     
-    const handleAutoplayError = (error) => {
-        if (error && error.name !== 'NotAllowedError') {
-            console.warn('Autoplay failed:', error);
-        }
-    };
-    
     // Optimiert: for...of statt rückwärts-Iteration
     const disableAllTextTracks = () => {
         if (hlsPlayer) hlsPlayer.subtitleDisplay = false;
@@ -160,7 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Event-Handler als benannte Funktion für mögliche Cleanup
             const onManifestParsed = () => {
-                videoPlayer.play().catch(handleAutoplayError);
+                videoPlayer.play().catch(e => console.log('Autoplay failed:', e));
                 updateQualityLevel();
                 settingsCache.captionsEnabled ? enableCaptions() : disableCaptions();
             };
@@ -208,8 +202,8 @@ document.addEventListener('DOMContentLoaded', () => {
             
         } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
             videoPlayer.src = url;
-             videoPlayer.addEventListener('loadedmetadata', () => {
-                videoPlayer.play().catch(handleAutoplayError);
+            videoPlayer.addEventListener('loadedmetadata', () => {
+                videoPlayer.play().catch(e => console.log('Autoplay failed on native player:', e));
                 settingsCache.captionsEnabled ? enableCaptions() : disableCaptions();
             }, { once: true });
         } else {
@@ -258,17 +252,17 @@ document.addEventListener('DOMContentLoaded', () => {
         // Visibility change - mit passiven Optionen
         document.addEventListener('visibilitychange', () => {
             if (document.visibilityState === 'visible' && !videoPlayer.paused) {
-                videoPlayer.play().catch(handleAutoplayError);
+                videoPlayer.play().catch(e => console.log('Resume playback failed:', e));
             }
         }, { passive: true });
         
         // Update Media Session when playback state changes
         videoPlayer.addEventListener('pause', () => {
-            console.debug('Video: Paused - updating MediaSession');
+            console.log('Video: Paused - updating MediaSession');
         });
         
         videoPlayer.addEventListener('playing', () => {
-            console.debug('Video: Playing - MediaSession active');
+            console.log('Video: Playing - MediaSession active');
         });
         
         // Tastatur-Navigation

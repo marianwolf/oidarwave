@@ -1,9 +1,9 @@
 js:
   - changed-files:
       - any-glob-to-any-file:
-          - '**/*.js'
+          - src/js/**
 
-documentation:
+📝documentation:
   - changed-files:
       - any-glob-to-any-file:
           - '**/*.md'
@@ -21,10 +21,4 @@ documentation:
 🗄️tests:
   - changed-files:
       - any-glob-to-any-file:
-          - 'tests/**'
-
-workflows:
-  - changed-files:
-      - any-glob-to-any-file:
-          - '.github/workflows/**'
-          - '.github/**/*.yml'
+          - tests/**

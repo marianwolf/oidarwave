@@ -49,50 +49,50 @@ def check_html(content: str) -> list[str]:
     """Prüft grundlegende HTML-Struktur."""
     issues = []
     cl = content.lower()
-    
+
     if not _RE_DOCTYPE.search(cl):
         issues.append("Fehlender <doctype>")
-    
+
     required = ('html', 'head', 'body', 'title')
     for tag in required:
         if f'<{tag}' not in cl:
             issues.append(f"Fehlender <{tag}>")
-    
+
     if 'charset' not in cl:
         issues.append("Fehlender charset")
-    
+
     for _, open_re, close_re in _RE_TAGS:
         if open_re.search(content) and not close_re.search(content):
             issues.append(f"Ungeschlossener Tag")
             break
-    
+
     s_open, s_close = _RE_SCRIPT
     if s_close.search(content) and not s_open.search(content):
         issues.append("Mehr </script> als <script>")
-    
+
     st_open, st_close = _RE_STYLE
     if st_close.search(content) and not st_open.search(content):
         issues.append("Mehr </style> als <style>")
-    
+
     return issues
 
 
 def check_js(content: str) -> list[str]:
     """Prüft grundlegende JavaScript-Syntax."""
     issues = []
-    
+
     for open_c, close_c in [('[', ']'), ('{', '}'), ('(', ')')]:
         balanced, error = check_balanced(content, open_c, close_c)
         if not balanced:
             issues.append(error)
-    
+
     if content.count('`') % 2:
         issues.append("Ungerade Backticks")
-    
+
     opens, closes = content.count('/*'), content.count('*/')
     if opens != closes:
         issues.append(f"Ungleiche Kommentare: {opens} vs {closes}")
-    
+
     if ';;' in content:
         issues.append("Doppelte Semikolons")
     
