@@ -8,7 +8,7 @@
     "dist": "electron-builder",
     "dist:linux": "electron-builder --linux AppImage"
   },
-  "author": "Marian Wolf",
+  "author": "Marian Wolf <marianwolf200@gmail.com> (http://oidarwave.vercel.com/)",
   "license": "MIT",
   "build": {
     "appId": "com.oidarwave.app",
@@ -27,7 +27,8 @@
     ],
     "linux": {
       "target": [
-        "AppImage"
+        "AppImage",
+        "deb"
       ],
       "category": "AudioVideo",
       "icon": "favicon.svg"
