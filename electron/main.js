@@ -5,30 +5,42 @@ const path = require('path');
 const fs = require('fs');
 
 // Dynamically discover all available HTML subpages
-function discoverPages(dir, basePath = '') {
+async function discoverPages(dir, basePath = '', appDir) {
   const pages = [];
   try {
-    const items = fs.readdirSync(dir, { withFileTypes: true });
+    const items = await fs.promises.readdir(dir, { withFileTypes: true });
     for (const item of items) {
       const fullPath = path.join(dir, item.name);
+      const resolvedPath = path.resolve(fullPath);
+      if (item.isSymbolicLink()) continue;
+      if (!resolvedPath.startsWith(appDir)) continue;
       const routePath = path.join(basePath, item.name).replace(/\\/g, '/');
-      
+
       if (item.isDirectory()) {
-        pages.push(...discoverPages(fullPath, routePath));
+        pages.push(...await discoverPages(resolvedPath, routePath, appDir));
       } else if (item.isFile() && item.name === 'index.html' && basePath && !basePath.includes('electron')) {
         pages.push({
           route: '/' + basePath,
-          file: fullPath
+          file: resolvedPath
         });
       }
     }
   } catch (err) {
     console.error('Error discovering pages:', err);
+    return [];
   }
   return pages;
 }
 
-function createWindow() {
+function matchesRoute(pathname, page) {
+  const pageRouteNorm = page.route.endsWith('/') ? page.route.slice(0, -1) : page.route;
+  return pathname === pageRouteNorm ||
+         pathname === page.route ||
+         pathname === page.route + '/' ||
+         pathname.endsWith('/' + path.basename(page.file));
+}
+
+async function createWindow() {
   const mainWindow = new BrowserWindow({
     width: 1200,
     height: 800,
@@ -40,8 +52,8 @@ function createWindow() {
     icon: path.join(__dirname, '..', 'favicon.svg')
   });
 
-  const appDir = path.join(__dirname, '..');
-  const availablePages = discoverPages(appDir);
+  const appDir = path.resolve(path.join(__dirname, '..'));
+  const availablePages = await discoverPages(appDir, '', appDir);
   // Add root page
   availablePages.unshift({ route: '/', file: path.join(appDir, 'index.html') });
 
@@ -50,11 +62,9 @@ function createWindow() {
       const parsedUrl = new URL(url);
       const pathname = parsedUrl.pathname;
       const normalizedPath = pathname.endsWith('/') ? pathname.slice(0, -1) : pathname;
-      
+
       for (const page of availablePages) {
-        const pageRouteNorm = page.route.endsWith('/') ? page.route.slice(0, -1) : page.route;
-        if (normalizedPath === pageRouteNorm || pathname === page.route || pathname === page.route + '/' || 
-            pathname.endsWith('/' + path.basename(page.file))) {
+        if (matchesRoute(normalizedPath, page)) {
           mainWindow.loadFile(page.file);
           return true;
         }
@@ -72,7 +82,10 @@ function createWindow() {
     if (url.startsWith('oidarwave://')) {
       event.preventDefault();
       const route = url.replace('oidarwave://', '');
-      tryLoadSubpage('file:///' + route) || tryLoadSubpage('oidarwave:///' + route);
+      const loaded = tryLoadSubpage('file:///' + route);
+      if (!loaded) {
+        tryLoadSubpage('oidarwave:///' + route);
+      }
     } else if (!url.startsWith('http') && !url.startsWith('mailto:')) {
       event.preventDefault();
       if (!tryLoadSubpage(url)) {
@@ -91,12 +104,12 @@ function createWindow() {
   });
 }
 
-app.whenReady().then(() => {
-  createWindow();
+app.whenReady().then(async () => {
+  await createWindow();
 
-  app.on('activate', () => {
+  app.on('activate', async () => {
     if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow();
+      await createWindow();
     }
   });
 });

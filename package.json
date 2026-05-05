@@ -27,7 +27,7 @@
       "video/**/*",
       "impressum/**/*"
     ],
-    "compression": "maximum",
+    "compression": "normal",
     "asar": true,
     "win": {
       "target": [
