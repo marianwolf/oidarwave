@@ -86,6 +86,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // === HELPER FUNCTIONS ===
     
+    const handleAutoplayError = (error) => {
+        if (error.name !== 'NotAllowedError') {
+            console.warn('Autoplay failed:', error);
+        }
+    };
+    
     // Optimiert: for...of statt rückwärts-Iteration
     const disableAllTextTracks = () => {
         if (hlsPlayer) hlsPlayer.subtitleDisplay = false;
@@ -154,11 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Event-Handler als benannte Funktion für mögliche Cleanup
             const onManifestParsed = () => {
-                videoPlayer.play().catch(e => {
-                    if (e.name !== 'NotAllowedError') {
-                        console.warn('Autoplay failed:', e);
-                    }
-                });
+                videoPlayer.play().catch(handleAutoplayError);
                 updateQualityLevel();
                 settingsCache.captionsEnabled ? enableCaptions() : disableCaptions();
             };
@@ -207,13 +209,9 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
             videoPlayer.src = url;
              videoPlayer.addEventListener('loadedmetadata', () => {
-                 videoPlayer.play().catch(e => {
-                     if (e.name !== 'NotAllowedError') {
-                         console.warn('Autoplay failed on native player:', e);
-                     }
-                 });
-                 settingsCache.captionsEnabled ? enableCaptions() : disableCaptions();
-             }, { once: true });
+                videoPlayer.play().catch(handleAutoplayError);
+                settingsCache.captionsEnabled ? enableCaptions() : disableCaptions();
+            }, { once: true });
         } else {
             console.error('HLS is not supported by your browser.');
             alert('Ihr Browser unterstützt dieses Videoformat nicht.');
@@ -260,11 +258,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Visibility change - mit passiven Optionen
         document.addEventListener('visibilitychange', () => {
             if (document.visibilityState === 'visible' && !videoPlayer.paused) {
-                videoPlayer.play().catch(e => {
-                    if (e.name !== 'NotAllowedError') {
-                        console.warn('Resume playback failed:', e);
-                    }
-                });
+                videoPlayer.play().catch(handleAutoplayError);
             }
         }, { passive: true });
         
