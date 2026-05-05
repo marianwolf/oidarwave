@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // === HELPER FUNCTIONS ===
     
     const handleAutoplayError = (error) => {
-        if (error.name !== 'NotAllowedError') {
+        if (error?.name !== 'NotAllowedError') {
             console.warn('Autoplay failed:', error);
         }
     };
