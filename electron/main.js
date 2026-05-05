@@ -34,14 +34,18 @@ async function discoverPages(dir, basePath = '', appDir) {
 
 function matchesRoute(pathname, page) {
   const pageRouteNorm = page.route.endsWith('/') ? page.route.slice(0, -1) : page.route;
-  // Match exact route or route with trailing slash
-  if (pathname === pageRouteNorm || pathname === page.route || pathname === page.route + '/') {
+  const normalizedPathname = pathname.endsWith('/') ? pathname.slice(0, -1) : pathname;
+  
+  // Exact match (with or without trailing slash in original)
+  if (normalizedPathname === pageRouteNorm) {
     return true;
   }
-  // For index.html files, also match when pathname is route + '/index.html'
+  
+  // Handle index.html fallback - if pathname is route + "/index.html"
   if (pathname === page.route + '/index.html') {
     return true;
   }
+  
   return false;
 }
 
