@@ -24,11 +24,11 @@
 - [✨ Hauptfunktionen](#-hauptfunktionen)
 - [🎧 Verfügbare Streams](#-verfügbare-streams)
   - [📻 Radio](#-radio)
-  - [📺 Fernsehstream](#-fernsehstream)
+  - [📺 Fernsehen](#fernsehen)
 - [🔧 Technologien](#-technologien)
 - [💾 Installation und Nutzung](#-installation-und-nutzung)
 - [🤝 Mitwirken](#-mitwirken)
-- [🔐 Datenschutz](#-datenschutz)
+- [🔐 Datenschutz](#️-datenschutz)
 - [📊 Roadmap](#-roadmap)
 
 ## 🚀 Über das Projekt
