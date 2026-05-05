@@ -22,14 +22,15 @@
       "index.html",
       "favicon.svg",
       "manifest.json",
-      "build/**/*"
+      "video/**/*",
+      "impressum/**/*"
     ],
     "linux": {
       "target": [
         "AppImage"
       ],
       "category": "AudioVideo",
-      "icon": "build/icon.png"
+      "icon": "favicon.svg"
     }
   },
   "devDependencies": {
