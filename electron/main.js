@@ -2,6 +2,38 @@ const electron = require('electron');
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 const path = require('path');
+const fs = require('fs');
+
+// Dynamically discover all available HTML subpages
+function discoverPages(dir, basePath = '') {
+  const pages = [];
+  try {
+    const items = fs.readdirSync(dir, { withFileTypes: true });
+    for (const item of items) {
+      const fullPath = path.join(dir, item.name);
+      const routePath = path.join(basePath, item.name);
+      
+      if (item.isDirectory()) {
+        const indexPath = path.join(fullPath, 'index.html');
+        if (fs.existsSync(indexPath)) {
+          pages.push({
+            route: '/' + basePath + (basePath ? '/' : '') + item.name,
+            file: indexPath
+          });
+        }
+        pages.push(...discoverPages(fullPath, routePath));
+      } else if (item.isFile() && item.name === 'index.html' && basePath && !basePath.includes('electron')) {
+        pages.push({
+          route: '/' + basePath,
+          file: fullPath
+        });
+      }
+    }
+  } catch (err) {
+    console.error('Error discovering pages:', err);
+  }
+  return pages;
+}
 
 function createWindow() {
   const mainWindow = new BrowserWindow({
@@ -15,43 +47,10 @@ function createWindow() {
     icon: path.join(__dirname, '..', 'favicon.svg')
   });
 
-  mainWindow.loadFile(path.join(__dirname, '..', 'index.html'));
-
-  // Dynamically discover all available HTML subpages
   const appDir = path.join(__dirname, '..');
-  const availablePages = [];
-  
-  function discoverPages(dir, basePath = '') {
-    try {
-      const items = fs.readdirSync(dir, { withFileTypes: true });
-      for (const item of items) {
-        const fullPath = path.join(dir, item.name);
-        const routePath = path.join(basePath, item.name);
-        
-        if (item.isDirectory()) {
-          const indexPath = path.join(fullPath, 'index.html');
-          if (fs.existsSync(indexPath)) {
-            availablePages.push({
-              route: '/' + basePath + (basePath ? '/' : '') + item.name,
-              file: indexPath
-            });
-          }
-          discoverPages(fullPath, routePath);
-        } else if (item.isFile() && item.name === 'index.html' && basePath) {
-          // Skip root index.html, only handle subdirectory ones
-          availablePages.push({
-            route: '/' + basePath,
-            file: fullPath
-          });
-        }
-      }
-    } catch (err) {
-      console.error('Error discovering pages:', err);
-    }
-  }
-  
-  const fs = require('fs');
-  discoverPages(appDir);
+  const availablePages = discoverPages(appDir);
+  // Add root page
+  availablePages.unshift({ route: '/', file: path.join(appDir, 'index.html') });
 
   function tryLoadSubpage(url) {
     try {
@@ -61,30 +60,41 @@ function createWindow() {
       
       for (const page of availablePages) {
         const pageRouteNorm = page.route.endsWith('/') ? page.route.slice(0, -1) : page.route;
-        if (normalizedPath === pageRouteNorm || pathname === page.route || pathname === page.route + '/' || pathname.endsWith('/' + path.basename(page.file))) {
+        if (normalizedPath === pageRouteNorm || pathname === page.route || pathname === page.route + '/' || 
+            pathname.endsWith('/' + path.basename(page.file))) {
           mainWindow.loadFile(page.file);
           return true;
         }
       }
     } catch (err) {
-      console.error('Error loading subpage:', err);
+      console.error('Not a valid URL', err);
     }
     return false;
   }
 
-  // Handle navigation to subpages (dynamically discovered)
-  mainWindow.webContents.setWindowOpenHandler(({ url }) => {
-    if (tryLoadSubpage(url)) {
-      return { action: 'deny' };
+  mainWindow.loadFile(path.join(appDir, 'index.html'));
+
+  // Handle custom oidarwave:// protocol for in-app navigation
+  mainWindow.webContents.on('will-navigate', (event, url) => {
+    if (url.startsWith('oidarwave://')) {
+      event.preventDefault();
+      const route = url.replace('oidarwave://', '');
+      tryLoadSubpage('file://' + route) || tryLoadSubpage('oidarwave://' + route);
+    } else if (!url.startsWith('http') && !url.startsWith('mailto:')) {
+      event.preventDefault();
+      if (!tryLoadSubpage(url)) {
+        // Unknown route - stay on current page or load root
+        mainWindow.loadFile(path.join(appDir, 'index.html'));
+      }
     }
-    return { action: 'allow' };
   });
 
-  // Also handle in-app navigation via navigation links
-  mainWindow.webContents.on('will-navigate', (event, url) => {
-    if (tryLoadSubpage(url)) {
-      event.preventDefault();
+  // Handle window.open for external links (keep default behavior for http/https)
+  mainWindow.webContents.setWindowOpenHandler(({ url }) => {
+    if (url.startsWith('http')) {
+      return { action: 'allow' };
     }
+    return { action: 'deny' };
   });
 }
 
