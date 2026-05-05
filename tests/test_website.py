@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Generator
 
 import pytest
-from playwright.sync_api import sync_playwright, Page, Browser
+from playwright.sync_api import sync_playwright, Page, Browser, expect
 
 
 BASE_DIR = str(Path(__file__).resolve().parent.parent)
@@ -98,6 +98,7 @@ class TestPageElements:
             assert page.locator(".logo").is_visible()
             assert page.locator("nav").is_visible()
             assert page.locator(".station-btn").count() > 0
+            expect(page.locator("#notificationToggle")).to_be_visible()
         elif name == "video":
             assert page.locator("#videoPlayer").is_visible()
             assert page.locator(".station-btn").count() >= 4
