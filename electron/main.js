@@ -119,8 +119,7 @@ async function createWindow() {
 
     win.webContents.setWindowOpenHandler(({ url }) => {
       if (url.startsWith('http://') || url.startsWith('https://')) {
-        const { shell } = require('electron');
-        shell.openExternal(url);
+        electron.shell.openExternal(url);
       } else if (url.startsWith('file://') || url.startsWith('oidarwave://')) {
         const newWin = new BrowserWindow({
           width: 1200,
