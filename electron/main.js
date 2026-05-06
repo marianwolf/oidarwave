@@ -19,9 +19,17 @@ async function discoverPages(dir, basePath = '', appDir) {
       if (item.isDirectory()) {
         pages.push(...await discoverPages(resolvedPath, routePath, appDir));
       } else if (item.isFile() && item.name === 'index.html' && basePath && !basePath.includes('electron')) {
+        const route = '/' + basePath;
+        const file = resolvedPath;
+        const pageRouteNorm = route.endsWith('/') ? route.slice(0, -1) : route;
+        const pageFileNorm = file.replace(/\\/g, '/');
+        const pageFileDir = pageFileNorm.replace(/\/index\.html$/, '');
         pages.push({
-          route: '/' + basePath,
-          file: resolvedPath
+          route,
+          file,
+          pageRouteNorm,
+          pageFileNorm,
+          pageFileDir
         });
       }
     }
@@ -33,25 +41,22 @@ async function discoverPages(dir, basePath = '', appDir) {
 }
 
 function matchesRoute(pathname, page) {
-  const pageRouteNorm = page.route.endsWith('/') ? page.route.slice(0, -1) : page.route;
   const decodedPathname = decodeURIComponent(pathname);
   const normalizedPathname = decodedPathname.endsWith('/') ? decodedPathname.slice(0, -1) : decodedPathname;
   
   // Exact match on route
-  if (normalizedPathname === pageRouteNorm || normalizedPathname === pageRouteNorm + '/index.html') {
+  if (normalizedPathname === page.pageRouteNorm || normalizedPathname === page.pageRouteNorm + '/index.html') {
     return true;
   }
   
   // Match on file path
-  const pageFileNorm = page.file.replace(/\\/g, '/');
-  const pageFileDir = pageFileNorm.replace(/\/index\.html$/, '');
   const pathWithoutLeadingSlash = normalizedPathname.startsWith('/') ? normalizedPathname.slice(1) : normalizedPathname;
   
   if (
-    normalizedPathname === pageFileNorm || 
-    pathWithoutLeadingSlash === pageFileNorm ||
-    normalizedPathname === pageFileDir ||
-    pathWithoutLeadingSlash === pageFileDir
+    normalizedPathname === page.pageFileNorm || 
+    pathWithoutLeadingSlash === page.pageFileNorm ||
+    normalizedPathname === page.pageFileDir ||
+    pathWithoutLeadingSlash === page.pageFileDir
   ) {
     return true;
   }
@@ -78,40 +83,46 @@ async function createWindow() {
   if (!cachedAvailablePages) {
     cachedAvailablePages = await discoverPages(appDir, '', appDir);
     // Add root page
-    cachedAvailablePages.unshift({ route: '/', file: path.join(appDir, 'index.html') });
+    const route = '/';
+    const file = path.join(appDir, 'index.html');
+    const pageRouteNorm = route.endsWith('/') ? route.slice(0, -1) : route;
+    const pageFileNorm = file.replace(/\\/g, '/');
+    const pageFileDir = pageFileNorm.replace(/\/index\.html$/, '');
+    cachedAvailablePages.unshift({ route, file, pageRouteNorm, pageFileNorm, pageFileDir });
   }
   
   const availablePages = cachedAvailablePages;
 
-  function setupWindow(win) {
-    function tryLoadSubpage(url) {
-      try {
-        const parsedUrl = new URL(url);
-        const pathname = parsedUrl.pathname;
-
-        for (const page of availablePages) {
-          if (matchesRoute(pathname, page)) {
-            win.loadFile(page.file);
-            return true;
-          }
-        }
-      } catch (err) {
-        console.error('Not a valid URL', err);
-      }
-      return false;
+  function tryLoadSubpage(targetWin, url) {
+    let targetUrl = url;
+    if (url.startsWith('oidarwave://')) {
+      const route = url.replace('oidarwave://', '').replace(/^\/+/, '');
+      targetUrl = 'file:///' + route;
     }
+    try {
+      const parsedUrl = new URL(targetUrl);
+      const pathname = parsedUrl.pathname;
 
+      for (const page of availablePages) {
+        if (matchesRoute(pathname, page)) {
+          targetWin.loadFile(page.file);
+          return true;
+        }
+      }
+    } catch (err) {
+      console.error('Not a valid URL', err);
+    }
+    return false;
+  }
+
+  function setupWindow(win) {
     win.webContents.on('will-navigate', (event, url) => {
-      if (url.startsWith('oidarwave://')) {
-        event.preventDefault();
-        const route = url.replace('oidarwave://', '').replace(/^\/+/, '');
-        tryLoadSubpage('file:///' + route);
-      } else if (url.startsWith('http://') || url.startsWith('https://')) {
+      if (url.startsWith('http://') || url.startsWith('https://')) {
         event.preventDefault();
         electron.shell.openExternal(url);
       } else if (!url.startsWith('mailto:')) {
         event.preventDefault();
-        if (!tryLoadSubpage(url)) {
+        if (!tryLoadSubpage(win, url)) {
           win.loadFile(path.join(appDir, 'index.html'));
         }
       }
@@ -133,23 +144,7 @@ async function createWindow() {
         });
         setupWindow(newWin);
         
-        try {
-          let targetUrl = url;
-          if (url.startsWith('oidarwave://')) {
-            const route = url.replace('oidarwave://', '').replace(/^\/+/, '');
-            targetUrl = 'file:///' + route;
-          }
-          const pathname = new URL(targetUrl).pathname;
-          let loaded = false;
-          for (const page of availablePages) {
-            if (matchesRoute(pathname, page)) {
-              newWin.loadFile(page.file);
-              loaded = true;
-              break;
-            }
-          }
-          if (!loaded) newWin.loadFile(path.join(appDir, 'index.html'));
-        } catch (err) {
+        if (!tryLoadSubpage(newWin, url)) {
           newWin.loadFile(path.join(appDir, 'index.html'));
         }
       }
