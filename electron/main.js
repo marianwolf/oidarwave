@@ -120,19 +120,19 @@ async function createWindow() {
         return { action: 'deny' };
     });
 
-app.whenReady().then(async () => {
-    await createWindow();
+    app.whenReady().then(async () => {
+        await createWindow();
 
-    app.on('activate', async () => {
-        if (BrowserWindow.getAllWindows().length === 0) {
-            await createWindow();
+        app.on('activate', async () => {
+            if (BrowserWindow.getAllWindows().length === 0) {
+                await createWindow();
+            }
+        });
+    });
+
+    app.on('window-all-closed', () => {
+        if (process.platform !== 'darwin') {
+            app.quit();
         }
     });
-});
-
-app.on('window-all-closed', () => {
-    if (process.platform !== 'darwin') {
-        app.quit();
-    }
-});
 }
