@@ -14,9 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     artist: 'Livestream',
                     album: 'Oidarwave Video',
                     artwork: [
-                        { src: '/favicon.svg', sizes: '128x128', type: 'image/svg+xml' },
-                        { src: '/favicon.svg', sizes: '256x256', type: 'image/svg+xml' },
-                        { src: '/favicon.svg', sizes: '512x512', type: 'image/svg+xml' }
+                        { src: '/favicon/favicon.svg', sizes: '128x128', type: 'image/svg+xml' },
+                        { src: '/favicon/favicon.svg', sizes: '256x256', type: 'image/svg+xml' },
+                        { src: '/favicon/favicon.svg', sizes: '512x512', type: 'image/svg+xml' }
                     ]
                 });
 

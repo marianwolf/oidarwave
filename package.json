@@ -22,7 +22,7 @@
       "electron/**/*",
       "src/**/*",
       "index.html",
-      "favicon.svg",
+      "favicon/**/*",
       "manifest.json",
       "video/**/*",
       "impressum/**/*"
@@ -33,7 +33,7 @@
       "target": [
         "nsis"
       ],
-      "icon": "favicon.ico",
+      "icon": "favicon/favicon.ico",
       "requestedExecutionLevel": "asInvoker"
     },
     "nsis": {
@@ -46,7 +46,7 @@
       "target": [
         "dmg"
       ],
-      "icon": "favicon.icns",
+      "icon": "favicon/favicon.icns",
       "category": "public.app-category.audio"
     },
     "dmg": {
@@ -62,7 +62,7 @@
         "deb"
       ],
       "category": "AudioVideo",
-      "icon": "favicon.svg"
+      "icon": "favicon/favicon.svg"
     }
   },
   "devDependencies": {

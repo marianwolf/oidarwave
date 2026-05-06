@@ -60,7 +60,7 @@ async function createWindow() {
       contextIsolation: true,
       webSecurity: true
     },
-    icon: path.join(__dirname, '..', 'favicon.svg')
+    icon: path.join(__dirname, '..', 'favicon/favicon.svg')
   });
 
   const appDir = path.resolve(path.join(__dirname, '..'));
