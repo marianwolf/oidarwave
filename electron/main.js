@@ -34,7 +34,12 @@ async function discoverPages(dir, basePath = '', appDir) {
 
 function matchesRoute(pathname, page) {
   const pageRouteNorm = page.route.endsWith('/') ? page.route.slice(0, -1) : page.route;
-  const decodedPathname = decodeURIComponent(pathname);
+  let decodedPathname;
+  try {
+    decodedPathname = decodeURIComponent(pathname);
+  } catch {
+    decodedPathname = pathname;
+  }
   const normalizedPathname = decodedPathname.endsWith('/') ? decodedPathname.slice(0, -1) : decodedPathname;
   
   // Exact match on route
