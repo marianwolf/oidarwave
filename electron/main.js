@@ -113,12 +113,13 @@ async function createWindow() {
 
   // Handle window.open for external links (keep default behavior for http/https)
   mainWindow.webContents.setWindowOpenHandler(({ url }) => {
-    if (url.startsWith('http')) {
-      return { action: 'allow' };
+  mainWindow.webContents.setWindowOpenHandler(({ url }) => {
+    if (url.startsWith('http://') || url.startsWith('https://')) {
+      const { shell } = require('electron');
+      shell.openExternal(url);
     }
     return { action: 'deny' };
   });
-}
 
 app.whenReady().then(async () => {
   await createWindow();
