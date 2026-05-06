@@ -14,15 +14,18 @@ async function discoverPages(dir, basePath = '', appDir) {
             const resolvedPath = path.resolve(fullPath);
             if (item.isSymbolicLink()) continue;
             if (!resolvedPath.startsWith(appDir)) continue;
-                const routePath = path.join(basePath, item.name).replace(/\\/g, '/');
+            const routePath = path.join(basePath, item.name).replace(/\\/g, '/');
 
             if (item.isDirectory()) {
                 pages.push(...await discoverPages(resolvedPath, routePath, appDir));
-            } else if (item.isFile() && item.name === 'index.html' && basePath && !basePath.includes('electron')) {
-                pages.push({
-                    route: '/' + basePath,
-                    file: resolvedPath
-                });
+            } else if (item.isFile() && item.name === 'index.html') {
+                // Only add if it's not in the electron directory itself
+                if (!basePath.includes('electron')) {
+                    pages.push({
+                        route: '/' + basePath,
+                        file: resolvedPath
+                    });
+                }
             }
         }
     } catch (err) {
@@ -120,19 +123,22 @@ async function createWindow() {
         return { action: 'deny' };
     });
 
-    app.whenReady().then(async () => {
-        await createWindow();
+    // Remove the app.whenReady() block from inside createWindow
+}
 
-        app.on('activate', async () => {
-            if (BrowserWindow.getAllWindows().length === 0) {
-                await createWindow();
-            }
-        });
-    });
+// App lifecycle handlers - must be at top level
+app.whenReady().then(async () => {
+    await createWindow();
 
-    app.on('window-all-closed', () => {
-        if (process.platform !== 'darwin') {
-            app.quit();
+    app.on('activate', async () => {
+        if (BrowserWindow.getAllWindows().length === 0) {
+            await createWindow();
         }
     });
-}
+});
+
+app.on('window-all-closed', () => {
+    if (process.platform !== 'darwin') {
+        app.quit();
+    }
+});
