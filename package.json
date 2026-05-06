@@ -1,6 +1,6 @@
 {
   "name": "oidarwave",
-  "version": "0.9.13",
+  "version": "0.9.14",
   "description": "Minimalistisches Webradio für deinen Desktop",
   "main": "electron/main.js",
   "scripts": {
