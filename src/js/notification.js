@@ -78,7 +78,7 @@ class NotificationManager {
 
         const notification = new Notification('Oidarwave - Neuer Titel', {
             body: `${title}\nSender: ${stationName}`,
-            icon: '/favicon.svg',
+            icon: '/favicon/favicon.svg',
             tag: 'oidarwave-notification',
             requireInteraction: false
         });

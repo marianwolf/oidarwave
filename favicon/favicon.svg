@@ -5,6 +5,9 @@
    id="svg44"
    sodipodi:docname="favicon.svg"
    inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   inkscape:export-filename="favicon.png"
+   inkscape:export-xdpi="960"
+   inkscape:export-ydpi="960"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -21,7 +24,7 @@
      id="note1"
      sodipodi:nodetypes="csssssc"
      inkscape:label="note1" />
-     <path
+  <path
      style="display:inline;mix-blend-mode:normal;fill:url(#linearGradient465);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
      d="M 53.285789,3.1349064 C 54.453897,7.3082518 55.382264,19.880276 47.554652,20.789236 32.121608,22.581355 33.706492,34.537695 35.68906,49.116981 37.861286,65.090968 41.58926,86.651095 26.984207,96.313463 14.318801,104.69261 -0.81303306,97.968856 0.03402955,84.396695 1.4670394,61.436117 25.215249,84.883672 18.092342,48.550987 14.325772,29.33838 7.5366544,0.16372171 53.285789,3.1349064 Z"
      id="note1-7"
