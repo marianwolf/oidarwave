@@ -19,9 +19,17 @@ async function discoverPages(dir, basePath = '', appDir) {
       if (item.isDirectory()) {
         pages.push(...await discoverPages(resolvedPath, routePath, appDir));
       } else if (item.isFile() && item.name === 'index.html' && basePath && !basePath.includes('electron')) {
+        const route = '/' + basePath;
+        const file = resolvedPath;
+        const pageRouteNorm = route.endsWith('/') ? route.slice(0, -1) : route;
+        const pageFileNorm = file.replace(/\\/g, '/');
+        const pageFileDir = pageFileNorm.replace(/\/index\.html$/, '');
         pages.push({
-          route: '/' + basePath,
-          file: resolvedPath
+          route,
+          file,
+          pageRouteNorm,
+          pageFileNorm,
+          pageFileDir
         });
       }
     }
@@ -34,15 +42,28 @@ async function discoverPages(dir, basePath = '', appDir) {
 
 function matchesRoute(pathname, page) {
   const pageRouteNorm = page.route.endsWith('/') ? page.route.slice(0, -1) : page.route;
-  const normalizedPathname = pathname.endsWith('/') ? pathname.slice(0, -1) : pathname;
+  let decodedPathname;
+  try {
+    decodedPathname = decodeURIComponent(pathname);
+  } catch {
+    decodedPathname = pathname;
+  }
+  const normalizedPathname = decodedPathname.endsWith('/') ? decodedPathname.slice(0, -1) : decodedPathname;
   
-  // Exact match (with or without trailing slash in original)
-  if (normalizedPathname === pageRouteNorm) {
+  // Exact match on route
+  if (normalizedPathname === page.pageRouteNorm || normalizedPathname === page.pageRouteNorm + '/index.html') {
     return true;
   }
   
-  // Handle index.html fallback - if pathname is route + "/index.html"
-  if (pathname === page.route + '/index.html') {
+  // Match on file path
+  const pathWithoutLeadingSlash = normalizedPathname.startsWith('/') ? normalizedPathname.slice(1) : normalizedPathname;
+  
+  if (
+    normalizedPathname === page.pageFileNorm || 
+    pathWithoutLeadingSlash === page.pageFileNorm ||
+    normalizedPathname === page.pageFileDir ||
+    pathWithoutLeadingSlash === page.pageFileDir
+  ) {
     return true;
   }
   
@@ -68,20 +89,29 @@ async function createWindow() {
   if (!cachedAvailablePages) {
     cachedAvailablePages = await discoverPages(appDir, '', appDir);
     // Add root page
-    cachedAvailablePages.unshift({ route: '/', file: path.join(appDir, 'index.html') });
+    const route = '/';
+    const file = path.join(appDir, 'index.html');
+    const pageRouteNorm = route.endsWith('/') ? route.slice(0, -1) : route;
+    const pageFileNorm = file.replace(/\\/g, '/');
+    const pageFileDir = pageFileNorm.replace(/\/index\.html$/, '');
+    cachedAvailablePages.unshift({ route, file, pageRouteNorm, pageFileNorm, pageFileDir });
   }
   
   const availablePages = cachedAvailablePages;
 
-  function tryLoadSubpage(url) {
+  function tryLoadSubpage(targetWin, url) {
+    let targetUrl = url;
+    if (url.startsWith('oidarwave://')) {
+      const route = url.replace('oidarwave://', '').replace(/^\/+/, '');
+      targetUrl = 'file:///' + route;
+    }
     try {
-      const parsedUrl = new URL(url);
+      const parsedUrl = new URL(targetUrl);
       const pathname = parsedUrl.pathname;
-      const normalizedPath = pathname.endsWith('/') ? pathname.slice(0, -1) : pathname;
 
       for (const page of availablePages) {
-        if (matchesRoute(normalizedPath, page)) {
-          mainWindow.loadFile(page.file);
+        if (matchesRoute(pathname, page)) {
+          targetWin.loadFile(page.file);
           return true;
         }
       }
@@ -91,36 +121,46 @@ async function createWindow() {
     return false;
   }
 
+  function setupWindow(win) {
+    win.webContents.on('will-navigate', (event, url) => {
+      if (url.startsWith('http://') || url.startsWith('https://')) {
+        event.preventDefault();
+        electron.shell.openExternal(url);
+      } else if (!url.startsWith('mailto:')) {
+        event.preventDefault();
+        if (!tryLoadSubpage(win, url)) {
+          win.loadFile(path.join(appDir, 'index.html'));
+        }
+      }
+    });
+
+    win.webContents.setWindowOpenHandler(({ url }) => {
+      if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('mailto:')) {
+        electron.shell.openExternal(url);
+      } else if (url.startsWith('file://') || url.startsWith('oidarwave://')) {
+        const newWin = new BrowserWindow({
+          width: 1200,
+          height: 800,
+          webPreferences: {
+            nodeIntegration: false,
+            contextIsolation: true,
+            webSecurity: true
+          },
+          icon: path.join(__dirname, '..', 'favicon/favicon.svg')
+        });
+        setupWindow(newWin);
+        
+        if (!tryLoadSubpage(newWin, url)) {
+          newWin.loadFile(path.join(appDir, 'index.html'));
+        }
+      }
+      return { action: 'deny' };
+    });
+  }
+
+  setupWindow(mainWindow);
   mainWindow.loadFile(path.join(appDir, 'index.html'));
-
-   // Handle custom oidarwave:// protocol for in-app navigation
-   mainWindow.webContents.on('will-navigate', (event, url) => {
-     if (url.startsWith('oidarwave://')) {
-       event.preventDefault();
-       const route = url.replace('oidarwave://', '').replace(/^\/+/, '');
-       tryLoadSubpage('file:///' + route);
-     } else if (url.startsWith('http://') || url.startsWith('https://')) {
-       event.preventDefault();
-       electron.shell.openExternal(url);
-     } else if (!url.startsWith('mailto:')) {
-       event.preventDefault();
-       if (!tryLoadSubpage(url)) {
-         // Unknown route - stay on current page or load root
-         mainWindow.loadFile(path.join(appDir, 'index.html'));
-       }
-     }
-   });
-
-  // Handle window.open for external links (keep default behavior for http/https)
-  mainWindow.webContents.setWindowOpenHandler(({ url }) => {
-  mainWindow.webContents.setWindowOpenHandler(({ url }) => {
-    if (url.startsWith('http://') || url.startsWith('https://')) {
-      const { shell } = require('electron');
-      shell.openExternal(url);
-    }
-    return { action: 'deny' };
-  });
-
+}
 app.whenReady().then(async () => {
   await createWindow();
 
