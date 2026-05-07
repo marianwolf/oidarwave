@@ -58,7 +58,7 @@ jobs:
           echo "assets=$assets" >> $GITHUB_OUTPUT
 
       - name: Release erstellen
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v3
         with:
           files: ${{ steps.assets.outputs.assets }}
           generate_release_notes: true
