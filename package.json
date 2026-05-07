@@ -1,14 +1,14 @@
 {
   "name": "oidarwave",
   "version": "0.9.14",
-  "description": "Minimalistisches Webradio für deinen Desktop",
+  "description": "Webradio für deinen Desktop",
   "main": "electron/main.js",
   "scripts": {
     "start": "electron .",
-    "dist": "electron-builder",
-    "dist:linux": "electron-builder --linux AppImage",
-    "dist:win": "electron-builder --win",
-    "dist:mac": "electron-builder --mac"
+    "dist": "electron-builder -mwl",
+    "dist:linux": "electron-builder -l",
+    "dist:win": "electron-builder -w",
+    "dist:mac": "electron-builder -m"
   },
   "author": "Marian Wolf <marianwolf200@gmail.com> (http://oidarwave.vercel.com/)",
   "license": "MIT",
@@ -31,7 +31,14 @@
     "asar": true,
     "win": {
       "target": [
-        "nsis"
+        {
+          "target": "nsis",
+          "arch": ["x64", "arm64"]
+        },
+        {
+          "target": "zip",
+          "arch": ["x64", "arm64"]
+        }
       ],
       "icon": "favicon/favicon.ico",
       "requestedExecutionLevel": "asInvoker"
@@ -57,17 +64,41 @@
       }
     },
     "linux": {
-      "target": [
-        "AppImage",
-        "deb"
-      ],
       "category": "AudioVideo",
-      "icon": "favicon/favicon.svg"
+      "icon": "favicon/favicon.svg",
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": ["x64", "arm64"]
+        },
+        {
+          "target": "deb",
+          "arch": ["x64", "arm64"]
+        },
+        {
+          "target": "tar.gz",
+          "arch": ["x64", "arm64"]
+        },
+        {
+          "target": "rpm",
+          "arch": ["x64", "arm64"]
+        },
+        {
+          "target": "freebsd",
+          "arch": ["x64", "arm64"]
+        },
+        {
+          "target": "snap",
+          "arch": ["x64"]
+        }
+      ]
     }
   },
-  "dependencies": {
+  "devDependencies": {
     "electron": "^41.5.0",
-    "electron-builder": "^26.8.1",
+    "electron-builder": "^26.8.1"
+  },
+  "dependencies": {
     "redis": "^5.12.1"
   }
 }
