@@ -3,6 +3,44 @@ const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 const path = require('path');
 const fs = require('fs');
+const { createClient } = require('redis');
+
+let redisClient = null;
+
+async function initRedis() {
+  try {
+    redisClient = createClient();
+    await redisClient.connect();
+    console.log('Redis connected');
+  } catch (e) {
+    console.error('Redis connection failed:', e.message);
+    redisClient = null;
+  }
+}
+
+const HISTORY_KEY = 'station_history';
+
+async function loadHistoryFromRedis() {
+  try {
+    if (!redisClient) return null;
+    const data = await redisClient.get(HISTORY_KEY);
+    if (data) return JSON.parse(data);
+  } catch (e) {
+    console.error('Failed to load history from Redis:', e);
+  }
+  return null;
+}
+
+async function saveHistoryToRedis(data) {
+  try {
+    if (!redisClient) return false;
+    await redisClient.set(HISTORY_KEY, JSON.stringify(data));
+    return true;
+  } catch (e) {
+    console.error('Failed to save history to Redis:', e);
+    return false;
+  }
+}
 
 // Dynamically discover all available HTML subpages
 async function discoverPages(dir, basePath = '', appDir) {
@@ -51,7 +89,7 @@ function matchesRoute(pathname, page) {
   const normalizedPathname = decodedPathname.endsWith('/') ? decodedPathname.slice(0, -1) : decodedPathname;
   
   // Exact match on route
-  if (normalizedPathname === page.pageRouteNorm || normalizedPathname === page.pageRouteNorm + '/index.html') {
+  if (normalizedPathname === pageRouteNorm || normalizedPathname === pageRouteNorm + '/index.html') {
     return true;
   }
   
@@ -79,7 +117,8 @@ async function createWindow() {
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
-      webSecurity: true
+      webSecurity: true,
+      preload: path.join(__dirname, 'preload.js')
     },
     icon: path.join(__dirname, '..', 'favicon/favicon.svg')
   });
@@ -144,7 +183,8 @@ async function createWindow() {
           webPreferences: {
             nodeIntegration: false,
             contextIsolation: true,
-            webSecurity: true
+            webSecurity: true,
+            preload: path.join(__dirname, 'preload.js')
           },
           icon: path.join(__dirname, '..', 'favicon/favicon.svg')
         });
@@ -161,7 +201,21 @@ async function createWindow() {
   setupWindow(mainWindow);
   mainWindow.loadFile(path.join(appDir, 'index.html'));
 }
+
+// IPC Handlers
+electron.ipcMain.handle('history-get', async () => {
+  const redisData = await loadHistoryFromRedis();
+  return redisData;
+});
+
+electron.ipcMain.handle('history-save', async (event, data) => {
+  const saved = await saveHistoryToRedis(data);
+  // Also save to localStorage via return (renderer will handle it)
+  return { redis: saved };
+});
+
 app.whenReady().then(async () => {
+  await initRedis();
   await createWindow();
 
   app.on('activate', async () => {
