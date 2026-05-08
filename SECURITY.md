@@ -8,12 +8,11 @@ Wir bieten Sicherheitsupdates für die folgenden Versionen:
 
 | Version | Unterstützt |
 | :--- | :--- |
+| 0.9.14 | ✅ Ja |
+| 0.9.13 | ✅ Ja |
 | 0.9.12 | ✅ Ja |
 | 0.9.11 | ✅ Ja |
-| 0.9.10 | ✅ Ja |
-| 0.9.9 | ✅ Ja |
-| 0.9.8 | ✅ Ja |
-| ≤ 0.9.7 | ❌ Nein |
+| ≤ 0.9.10 | ❌ Nein |
 
 ## Schwachstellen melden
 
