@@ -1,7 +1,7 @@
 import pytest
 import redis
 import logging
-from typing import Optional
+from typing import Generator
 
 logger = logging.getLogger(__name__)
 
@@ -10,27 +10,25 @@ class TestRedisConnection:
     """Test suite for Redis connection and basic operations."""
 
     @pytest.fixture
-    def redis_client(self) -> Optional[redis.Redis]:
+    def redis_client(self) -> Generator[redis.Redis, None, None]:
         """Create Redis client instance."""
-        client = None
+        client = redis.Redis(
+            host='localhost',
+            port=6379,
+            db=0,
+            decode_responses=True,
+            socket_timeout=5,
+            socket_connect_timeout=5
+        )
+        logger.info("Redis client created successfully")
         try:
-            client = redis.Redis(
-                host='localhost',
-                port=6379,
-                db=0,
-                decode_responses=True,
-                socket_timeout=5,
-                socket_connect_timeout=5
-            )
-            logger.info("Redis client created successfully")
             yield client
         except redis.RedisError as e:
-            logger.error(f"Failed to create Redis client: {e}")
+            logger.error(f"Redis connection failed: {e}")
             pytest.fail(f"Redis connection failed: {e}")
         finally:
-            if client:
-                client.close()
-                logger.info("Redis client closed")
+            client.close()
+            logger.info("Redis client closed")
 
     def test_redis_connection(self, redis_client):
         """Test basic Redis connection using ping."""
