@@ -88,7 +88,7 @@ class TestRedisConnection:
             # Ensure cleanup on failure
             try:
                 redis_client.delete(test_key)
-            except:
+            except redis.RedisError:
                 pass
             raise
 
