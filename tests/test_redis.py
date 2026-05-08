@@ -1,21 +1,44 @@
 import pytest
 import redis
 import logging
+import os
 from typing import Generator
+from urllib.parse import urlparse
+from pathlib import Path
 
 logger = logging.getLogger(__name__)
 
+env_path = Path(__file__).parent.parent / ".env.local"
+if env_path.exists():
+    with open(env_path) as f:
+        for line in f:
+            line = line.strip()
+            if line and not line.startswith("#") and "=" in line:
+                key, value = line.split("=", 1)
+                os.environ.setdefault(key.strip(), value.strip().strip('"').strip("'"))
 
 class TestRedisConnection:
     """Test suite for Redis connection and basic operations."""
 
     @pytest.fixture
     def redis_client(self) -> Generator[redis.Redis, None, None]:
-        """Create Redis client instance."""
+        """Create Redis client instance from REDIS_URL environment variable."""
+        redis_url = os.environ.get("REDIS_URL", "redis://localhost:6379/0")
+        parsed = urlparse(redis_url)
+
+        db = 0
+        if parsed.path and parsed.path != "/":
+            try:
+                db = int(parsed.path.lstrip("/"))
+            except ValueError:
+                db = 0
+
         client = redis.Redis(
-            host='localhost',
-            port=6379,
-            db=0,
+            host=parsed.hostname or "localhost",
+            port=parsed.port or 6379,
+            db=db,
+            username=parsed.username,
+            password=parsed.password,
             decode_responses=True,
             socket_timeout=5,
             socket_connect_timeout=5
