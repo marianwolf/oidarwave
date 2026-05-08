@@ -225,7 +225,7 @@ function getLastStations() {
 
 async function init() {
     historyCache = await loadHistory();
-    pruneHistory();
+    await pruneHistory();
 }
 
 const StationHistory = { startStation, stopStation, getLastStations, pruneHistory, init };
