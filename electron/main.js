@@ -9,7 +9,7 @@ let redisClient = null;
 
 async function initRedis() {
   try {
-    redisClient = createClient();
+    redisClient = createClient({ url: process.env.REDIS_URL || 'redis://localhost:6379' });
     await redisClient.connect();
     console.log('Redis connected');
   } catch (e) {
