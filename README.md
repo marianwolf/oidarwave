@@ -3,7 +3,7 @@
 ![Project Status](https://img.shields.io/badge/Status-Aktiv-brightgreen)
 ![Datenschutz](https://img.shields.io/badge/Datenschutz-DSGVO--konform-blue)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
-![Version](https://img.shields.io/badge/Version-0.9.14-blue)
+![Version](https://img.shields.io/badge/Version-0.9.15-blue)
 
 <div align="center">
   <p>
@@ -117,6 +117,7 @@ Beiträge sind jederzeit willkommen\! Ob es sich um Fehlerberichte, Funktionsvor
   - [x] Wiedergabeanzeige (0.9.12)
   - [x] Aktualisierung des Design-Systems und Verbesserung der JavaScript-Fehlerbehandlung (0.9.13)
   - [x] Elektron Build und npm (0.9.14)
+  - [x] Entwicklerdokumentation, Elektron Fehlerbehebungen und Renovate Bot (0.9.15)
   - [ ] Integration weiterer Sender
   - [ ] Umschaltung zwischen Dunkel- und Hellmodus
   - [ ] Favoriten
