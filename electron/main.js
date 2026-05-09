@@ -79,7 +79,6 @@ async function discoverPages(dir, basePath = '', appDir) {
 }
 
 function matchesRoute(pathname, page) {
-  const pageRouteNorm = page.route.endsWith('/') ? page.route.slice(0, -1) : page.route;
   let decodedPathname;
   try {
     decodedPathname = decodeURIComponent(pathname);
@@ -89,7 +88,7 @@ function matchesRoute(pathname, page) {
   const normalizedPathname = decodedPathname.endsWith('/') ? decodedPathname.slice(0, -1) : decodedPathname;
   
   // Exact match on route
-  if (normalizedPathname === pageRouteNorm || normalizedPathname === pageRouteNorm + '/index.html') {
+  if (normalizedPathname === page.pageRouteNorm || normalizedPathname === page.pageRouteNorm + '/index.html') {
     return true;
   }
   
