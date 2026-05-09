@@ -1,3 +1,4 @@
+const StationHistory = (function() {
 const HISTORY_KEY = 'station_history';
 const EXPIRY_DAYS = 90;
 const EXPIRY_TIME_MS = EXPIRY_DAYS * 24 * 60 * 60 * 1000;
@@ -233,6 +234,7 @@ async function init() {
     await pruneHistory(true);
 }
 
-const StationHistory = { startStation, stopStation, getLastStations, pruneHistory, init };
-
 initPromise = init();
+
+return { startStation, stopStation, getLastStations, pruneHistory, init };
+})();
