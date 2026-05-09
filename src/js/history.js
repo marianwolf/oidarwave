@@ -6,6 +6,7 @@ let historyCache = { stations: {} };
 let stationsCache = null;
 let isCacheValid = false;
 let activeStationUrl = null;
+let initPromise = null;
 
 async function loadHistory() {
     // Try Redis first (via IPC)
@@ -72,6 +73,7 @@ function stopAndFinalizeSession(station, timestamp) {
 }
 
 async function startStation(url, name, options = {}) {
+    if (initPromise) await initPromise;
     const now = Date.now();
     
     if (activeStationUrl !== null && activeStationUrl !== url) {
@@ -105,6 +107,7 @@ async function startStation(url, name, options = {}) {
 }
 
 async function stopStation(url) {
+    if (initPromise) await initPromise;
     const station = historyCache.stations[url];
     if (!station) return;
     
@@ -116,7 +119,8 @@ async function stopStation(url) {
     invalidateCache();
 }
 
-async function pruneHistory() {
+async function pruneHistory(isInternal = false) {
+    if (!isInternal && initPromise) await initPromise;
     const history = historyCache;
     const now = Date.now();
     const expiryLimit = now - EXPIRY_TIME_MS;
@@ -215,7 +219,8 @@ function computeLastStations() {
         .sort((a, b) => b.details.lastPlayed - a.details.lastPlayed);
 }
 
-function getLastStations() {
+async function getLastStations() {
+    if (initPromise) await initPromise;
     if (!isCacheValid) {
         stationsCache = computeLastStations();
         isCacheValid = true;
@@ -225,9 +230,9 @@ function getLastStations() {
 
 async function init() {
     historyCache = await loadHistory();
-    await pruneHistory();
+    await pruneHistory(true);
 }
 
 const StationHistory = { startStation, stopStation, getLastStations, pruneHistory, init };
 
-init();
+initPromise = init();
