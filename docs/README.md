@@ -76,7 +76,7 @@ Das Projekt nutzt `electron-builder` für die Erstellung von Distributionspakete
   ```bash
   npm run dist:win
   ```
-- **Nur für Linux bauen (.AppImage, .deb, .tar.gz, .rpm, .snap):**
+- **Nur für Linux bauen (.AppImage, .deb, .tar.gz, .rpm, .snap, freebsd):**
   ```bash
   npm run dist:linux
   ```
