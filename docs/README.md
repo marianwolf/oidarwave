@@ -32,7 +32,7 @@
 
 ```text
 oidarwave/
-├── doc/                    # Projektdokumentation (dieser Ordner)
+├── docs/                   # Projektdokumentation (dieser Ordner)
 ├── electron/               # Electron-spezifischer Code
 │   ├── main.js             # Haupteinstiegspunkt für Electron, Fenster-Management & IPC
 │   └── preload.js          # Preload-Skript für sichere IPC-Kommunikation
