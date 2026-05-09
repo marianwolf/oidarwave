@@ -229,3 +229,17 @@ app.on('window-all-closed', () => {
     app.quit();
   }
 });
+
+let isQuitting = false;
+app.on('before-quit', async (e) => {
+  if (redisClient && !isQuitting) {
+    e.preventDefault();
+    isQuitting = true;
+    try {
+      await redisClient.quit();
+    } catch (err) {
+      console.error('Error disconnecting Redis:', err);
+    }
+    app.quit();
+  }
+});
