@@ -148,11 +148,14 @@ document.addEventListener('DOMContentLoaded', () => {
         disableAllTextTracks();
         
         if (window.Hls?.isSupported()) {
-            hlsPlayer = new Hls();
+            hlsPlayer = new Hls({
+                xhrSetup: function(xhr, url) {
+                    xhr.withCredentials = false; // Keine Credentials senden, hilft oft bei CORS Problemen
+                }
+            });
             hlsPlayer.loadSource(url);
             hlsPlayer.attachMedia(videoPlayer);
             
-            // Event-Handler als benannte Funktion für mögliche Cleanup
             const onManifestParsed = () => {
                 videoPlayer.play().catch(e => console.log('Autoplay failed:', e));
                 updateQualityLevel();
@@ -162,43 +165,36 @@ document.addEventListener('DOMContentLoaded', () => {
             const onHlsError = (event, data) => {
                 console.error(`HLS.js Fehler: ${data.details}`, data);
                 
-                // Erweiterte Diagnose-Informationen
                 if (data.response) {
                     const httpStatus = data.response.code;
-                    const errorMessages = {
-                        403: 'HTTP 403 - Zugriff verweigert (CORS oder Authentifizierung)',
-                        404: 'HTTP 404 - Stream-URL nicht gefunden',
-                        0: 'Netzwerkfehler oder CORS-Blockade'
-                    };
-                    console.error(`HTTP-Status: ${httpStatus} - ${errorMessages[httpStatus] || 'Unbekannt'}`);
+                    console.error(`HTTP-Status: ${httpStatus}`);
                 }
 
-                if (data.details === 'bufferAppendError') {
-                    console.error('DIAGNOSE: bufferAppendError - Fragment konnte nicht in den Buffer geschrieben werden');
-                }
-
+                // Error Recovery für bufferAppendError und andere Medienfehler
                 if (data.fatal) {
-                    const errorMessages = {
-                        bufferAppendError: 'Buffer-Fehler: Fragment konnte nicht verarbeitet werden.',
-                        networkError: 'Netzwerkfehler beim Laden des Streams.',
-                        mediaError: 'Medienfehler: Stream konnte nicht abgespielt werden.'
-                    };
-                    
-                    const errorType = Hls.ErrorTypes?.NETWORK_ERROR || 'networkError';
-                    const mediaErrorType = Hls.ErrorTypes?.MEDIA_ERROR || 'mediaError';
-                    const errorMsg = errorMessages[data.details] || errorMessages[data.type === errorType ? 'networkError' : data.type === mediaErrorType ? 'mediaError' : 'bufferAppendError'];
-                    
-                    console.warn('HLS fataler Fehler:', errorMsg);
-                    alert(`${errorMsg} (${data.details})\n\nBitte versuchen Sie es erneut oder wechseln Sie den Sender.`);
+                    switch (data.type) {
+                        case Hls.ErrorTypes.NETWORK_ERROR:
+                            console.warn("Fataler Netzwerkfehler, versuche Neustart des Ladevorgangs...");
+                            hlsPlayer.startLoad();
+                            break;
+                        case Hls.ErrorTypes.MEDIA_ERROR:
+                            console.warn("Fataler Medienfehler, versuche Wiederherstellung...");
+                            hlsPlayer.recoverMediaError();
+                            break;
+                        default:
+                            console.error("Nicht behebbarer Fehler, Player wird gestoppt.");
+                            hlsPlayer.destroy();
+                            alert(`Ein schwerwiegender Fehler ist aufgetreten (${data.details}). Bitte laden Sie die Seite neu.`);
+                            break;
+                    }
+                } else if (data.details === 'bufferAppendError') {
+                    console.warn('bufferAppendError aufgetreten, versuche Wiederherstellung des Buffers...');
+                    hlsPlayer.recoverMediaError();
                 }
             };
             
-            // Event-Listener registrieren
             hlsPlayer.on(Hls.Events.MANIFEST_PARSED, onManifestParsed);
             hlsPlayer.on(Hls.Events.ERROR, onHlsError);
-            hlsPlayer.on(Hls.Events.FRAG_BUFFER_FAILED, (event, data) => {
-                console.error('Fragment buffer failed:', data);
-            });
             
         } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
             videoPlayer.src = url;
