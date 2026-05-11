@@ -184,6 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         default:
                             console.error("Nicht behebbarer Fehler, Player wird gestoppt.");
                             hlsPlayer.destroy();
+                            hlsPlayer = null;
                             alert(`Ein schwerwiegender Fehler ist aufgetreten (${data.details}). Bitte laden Sie die Seite neu.`);
                             break;
                     }
