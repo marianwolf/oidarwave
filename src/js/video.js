@@ -44,6 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const stationButtons = document.querySelectorAll('.station-btn');
     const videoPlayer = document.getElementById('videoPlayer');
     const currentStationDisplay = document.getElementById('currentStation');
+    const statusIndicator = document.getElementById('statusIndicator');
     const rewindButton = document.getElementById('rewindButton');
     const forwardButton = document.getElementById('forwardButton');
 
@@ -58,6 +59,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // === STATE CACHING ===
     let hlsPlayer = null;
+    let retryState = {
+        count: 0,
+        timerId: null
+    };
     let settingsCache = {
         dataSaveMode: (() => {
             try {
@@ -75,6 +80,33 @@ document.addEventListener('DOMContentLoaded', () => {
                 return false;
             }
         })()
+    };
+    let statusMessageTimeout = null;
+
+    // Show non-blocking status message in the status indicator
+    const showStatusMessage = (message, type = 'error', duration = 5000) => {
+        if (statusMessageTimeout) {
+            clearTimeout(statusMessageTimeout);
+            statusMessageTimeout = null;
+        }
+        statusIndicator.textContent = message;
+        statusIndicator.classList.add('text', type);
+        if (duration > 0) {
+            statusMessageTimeout = setTimeout(() => {
+                statusIndicator.textContent = '';
+                statusIndicator.classList.remove('text', type);
+                statusMessageTimeout = null;
+            }, duration);
+        }
+    };
+
+    const clearStatusMessage = () => {
+        if (statusMessageTimeout) {
+            clearTimeout(statusMessageTimeout);
+            statusMessageTimeout = null;
+        }
+        statusIndicator.textContent = '';
+        statusIndicator.classList.remove('text', 'error', 'online', 'buffering', 'paused');
     };
 
     // Automatisch alle neuen Tracks deaktivieren
@@ -138,16 +170,27 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // === HLS PLAYER SETUP ===
-    
+
+    const MAX_RETRIES = 3;
+    const RETRY_BASE_DELAY = 1000; // 1 Sekunde Basis-Wartezeit
+
     const setupHlsPlayer = (url) => {
         // Cleanup vorheriger Player
         if (hlsPlayer) {
             hlsPlayer.destroy();
             hlsPlayer = null;
         }
+        // Retry-Zustand zurücksetzen
+        if (retryState.timerId) {
+            clearTimeout(retryState.timerId);
+            retryState.timerId = null;
+        }
+        retryState.count = 0;
         disableAllTextTracks();
         
         if (window.Hls?.isSupported()) {
+            // HLS.js uses XHR which requires CORS
+            videoPlayer.setAttribute('crossorigin', 'anonymous');
             hlsPlayer = new Hls({
                 xhrSetup: function(xhr, url) {
                     xhr.withCredentials = false; // Keine Credentials senden, hilft oft bei CORS Problemen
@@ -157,6 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
             hlsPlayer.attachMedia(videoPlayer);
             
             const onManifestParsed = () => {
+                clearStatusMessage();
                 videoPlayer.play().catch(e => console.log('Autoplay failed:', e));
                 updateQualityLevel();
                 settingsCache.captionsEnabled ? enableCaptions() : disableCaptions();
@@ -170,12 +214,25 @@ document.addEventListener('DOMContentLoaded', () => {
                     console.error(`HTTP-Status: ${httpStatus}`);
                 }
 
-                // Error Recovery für bufferAppendError und andere Medienfehler
+                // Error Recovery für Netzwerk- und Medienfehler
                 if (data.fatal) {
                     switch (data.type) {
                         case Hls.ErrorTypes.NETWORK_ERROR:
-                            console.warn("Fataler Netzwerkfehler, versuche Neustart des Ladevorgangs...");
-                            hlsPlayer.startLoad();
+                            if (retryState.count < MAX_RETRIES) {
+                                const delay = RETRY_BASE_DELAY * Math.pow(2, retryState.count);
+                                console.warn(`Fataler Netzwerkfehler (Versuch ${retryState.count + 1}/${MAX_RETRIES}), nächster Versuch in ${delay}ms...`);
+                                retryState.timerId = setTimeout(() => {
+                                    retryState.count++;
+                                    if (hlsPlayer) {
+                                        hlsPlayer.startLoad();
+                                    }
+                                }, delay);
+                            } else {
+                                console.error(`Maximale Wiederholungsanzahl (${MAX_RETRIES}) erreicht. Netzwerkfehler können nicht behoben werden.`);
+                                hlsPlayer.destroy();
+                                hlsPlayer = null;
+                                showStatusMessage(`Netzwerkfehler: Nach ${MAX_RETRIES} Versuchen keine Verbindung. Bitte Internetverbindung prüfen und Seite neu laden.`, 'error', 0);
+                            }
                             break;
                         case Hls.ErrorTypes.MEDIA_ERROR:
                             console.warn("Fataler Medienfehler, versuche Wiederherstellung...");
@@ -185,27 +242,28 @@ document.addEventListener('DOMContentLoaded', () => {
                             console.error("Nicht behebbarer Fehler, Player wird gestoppt.");
                             hlsPlayer.destroy();
                             hlsPlayer = null;
-                            alert(`Ein schwerwiegender Fehler ist aufgetreten (${data.details}). Bitte laden Sie die Seite neu.`);
+                            showStatusMessage(`Schwerwiegender Fehler: ${data.details}. Bitte Seite neu laden.`, 'error', 0);
                             break;
                     }
-                } else if (data.details === 'bufferAppendError') {
-                    console.warn('bufferAppendError aufgetreten, versuche Wiederherstellung des Buffers...');
-                    hlsPlayer.recoverMediaError();
                 }
+                // HLS.js handles non-fatal errors automatically; no manual recovery needed for bufferAppendError
             };
             
             hlsPlayer.on(Hls.Events.MANIFEST_PARSED, onManifestParsed);
             hlsPlayer.on(Hls.Events.ERROR, onHlsError);
             
-        } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
+        } else if(videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
+            // Native Safari HLS: Remove crossorigin to avoid CORS enforcement for streams without headers
+            videoPlayer.removeAttribute('crossorigin');
             videoPlayer.src = url;
             videoPlayer.addEventListener('loadedmetadata', () => {
+                clearStatusMessage();
                 videoPlayer.play().catch(e => console.log('Autoplay failed on native player:', e));
                 settingsCache.captionsEnabled ? enableCaptions() : disableCaptions();
             }, { once: true });
         } else {
             console.error('HLS is not supported by your browser.');
-            alert('Ihr Browser unterstützt dieses Videoformat nicht.');
+            showStatusMessage('Ihr Browser unterstützt dieses Videoformat nicht.', 'error', 0);
         }
     };
     
@@ -235,6 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Station buttons - Event Delegation für bessere Performance
         stationButtons.forEach(button => {
             button.addEventListener('click', () => {
+                clearStatusMessage();
                 currentStationDisplay.textContent = button.dataset.name;
                 setupHlsPlayer(button.dataset.url);
                 setupMediaSession(button.dataset.name);
