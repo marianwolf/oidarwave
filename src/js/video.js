@@ -63,23 +63,20 @@ document.addEventListener('DOMContentLoaded', () => {
         count: 0,
         timerId: null
     };
+    const getSetting = (key) => {
+        try { return localStorage.getItem(key) === 'true'; }
+        catch (e) { return false; }
+    };
+
     let settingsCache = {
-        dataSaveMode: (() => {
-            try {
-                return localStorage.getItem(DATA_SAVE_MODE_KEY) === 'true';
-            } catch (e) {
-                console.warn('localStorage Zugriff fehlgeschlagen:', e);
-                return false;
-            }
-        })(),
-        captionsEnabled: (() => {
-            try {
-                return localStorage.getItem(CAPTION_ENABLED_KEY) === 'true';
-            } catch (e) {
-                console.warn('localStorage Zugriff fehlgeschlagen:', e);
-                return false;
-            }
-        })()
+        dataSaveMode: getSetting(DATA_SAVE_MODE_KEY),
+        captionsEnabled: getSetting(CAPTION_ENABLED_KEY)
+    };
+    
+    const saveSetting = (key, value, toggleElement) => {
+        if (toggleElement) toggleElement.setAttribute('aria-pressed', String(value));
+        try { localStorage.setItem(key, String(value)); }
+        catch (e) { console.warn('localStorage speichern fehlgeschlagen:', e); }
     };
     let statusMessageTimeout = null;
 
@@ -151,17 +148,9 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const toggleCaptions = () => {
-        const newState = !settingsCache.captionsEnabled;
-        settingsCache.captionsEnabled = newState;
-        
-        captionToggle.setAttribute('aria-pressed', String(newState));
-        try {
-            localStorage.setItem(CAPTION_ENABLED_KEY, String(newState));
-        } catch (e) {
-            console.warn('localStorage speichern fehlgeschlagen:', e);
-        }
-        
-        newState ? enableCaptions() : disableCaptions();
+        settingsCache.captionsEnabled = !settingsCache.captionsEnabled;
+        saveSetting(CAPTION_ENABLED_KEY, settingsCache.captionsEnabled, captionToggle);
+        settingsCache.captionsEnabled ? enableCaptions() : disableCaptions();
     };
 
     const initializeCaptions = () => {
@@ -278,12 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const toggleDataSaveMode = () => {
         settingsCache.dataSaveMode = !settingsCache.dataSaveMode;
-        dataModeToggle.setAttribute('aria-pressed', String(settingsCache.dataSaveMode));
-        try {
-            localStorage.setItem(DATA_SAVE_MODE_KEY, String(settingsCache.dataSaveMode));
-        } catch (e) {
-            console.warn('localStorage speichern fehlgeschlagen:', e);
-        }
+        saveSetting(DATA_SAVE_MODE_KEY, settingsCache.dataSaveMode, dataModeToggle);
         updateQualityLevel();
     };
 
