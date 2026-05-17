@@ -10,7 +10,7 @@
     "enabled": true,
     "automerge": true,
     "schedule": [
-      "before 5am on monday"
+      "every day"
     ]
   },
   "packageRules": [
