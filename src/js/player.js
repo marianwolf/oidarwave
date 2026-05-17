@@ -210,17 +210,12 @@ function initializePlayer() {
                     : trackInfo.title || trackInfo.artist || '';
                 
                 if (currentSongTitleDisplay) {
-                    currentSongTitleDisplay.innerText = (displayText && displayText.length > 0) 
-                        ? displayText 
-                        : "Keine Titelinformationen";
+                    currentSongTitleDisplay.innerText = displayText || "Keine Titelinformationen";
                 }
                 
                 const stationName = currentStationDisplay ? currentStationDisplay.textContent : '';
-                const notificationText = trackInfo.title && trackInfo.artist 
-                    ? `${trackInfo.title} - ${trackInfo.artist}` 
-                    : trackInfo.title || trackInfo.artist || '';
                 if (window.notificationManager) {
-                    window.notificationManager.handleTrackChange(notificationText, stationName);
+                    window.notificationManager.handleTrackChange(displayText, stationName);
                 }
                 
                 // Update Media Session with title and artist
@@ -239,15 +234,7 @@ function initializePlayer() {
         return { title, artist };
     }
 
-    function getMusicInfo(data) {
-        const title = data?.song_now_title || data?.playlistItem?.title;
-        const artist = data?.name || data?.subtitle || data?.song_now_interpret || data?.playlistItem?.artist;
-        
-        if (title && artist) return `${title} - ${artist}`;
-        if (title) return title;
-        if (artist) return artist;
-        return null;
-    }
+
 
     // Letzte Station wiederherstellen oder erste Station starten
     let lastStationUrl = null;

@@ -44,6 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const stationButtons = document.querySelectorAll('.station-btn');
     const videoPlayer = document.getElementById('videoPlayer');
     const currentStationDisplay = document.getElementById('currentStation');
+    const statusIndicator = document.getElementById('statusIndicator');
     const rewindButton = document.getElementById('rewindButton');
     const forwardButton = document.getElementById('forwardButton');
 
@@ -58,23 +59,51 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // === STATE CACHING ===
     let hlsPlayer = null;
+    let retryState = {
+        count: 0,
+        timerId: null
+    };
+    const getSetting = (key) => {
+        try { return localStorage.getItem(key) === 'true'; }
+        catch (e) { return false; }
+    };
+
     let settingsCache = {
-        dataSaveMode: (() => {
-            try {
-                return localStorage.getItem(DATA_SAVE_MODE_KEY) === 'true';
-            } catch (e) {
-                console.warn('localStorage Zugriff fehlgeschlagen:', e);
-                return false;
-            }
-        })(),
-        captionsEnabled: (() => {
-            try {
-                return localStorage.getItem(CAPTION_ENABLED_KEY) === 'true';
-            } catch (e) {
-                console.warn('localStorage Zugriff fehlgeschlagen:', e);
-                return false;
-            }
-        })()
+        dataSaveMode: getSetting(DATA_SAVE_MODE_KEY),
+        captionsEnabled: getSetting(CAPTION_ENABLED_KEY)
+    };
+    
+    const saveSetting = (key, value, toggleElement) => {
+        if (toggleElement) toggleElement.setAttribute('aria-pressed', String(value));
+        try { localStorage.setItem(key, String(value)); }
+        catch (e) { console.warn('localStorage speichern fehlgeschlagen:', e); }
+    };
+    let statusMessageTimeout = null;
+
+    // Show non-blocking status message in the status indicator
+    const showStatusMessage = (message, type = 'error', duration = 5000) => {
+        if (statusMessageTimeout) {
+            clearTimeout(statusMessageTimeout);
+            statusMessageTimeout = null;
+        }
+        statusIndicator.textContent = message;
+        statusIndicator.classList.add('text', type);
+        if (duration > 0) {
+            statusMessageTimeout = setTimeout(() => {
+                statusIndicator.textContent = '';
+                statusIndicator.classList.remove('text', type);
+                statusMessageTimeout = null;
+            }, duration);
+        }
+    };
+
+    const clearStatusMessage = () => {
+        if (statusMessageTimeout) {
+            clearTimeout(statusMessageTimeout);
+            statusMessageTimeout = null;
+        }
+        statusIndicator.textContent = '';
+        statusIndicator.classList.remove('text', 'error', 'online', 'buffering', 'paused');
     };
 
     // Automatisch alle neuen Tracks deaktivieren
@@ -119,17 +148,9 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const toggleCaptions = () => {
-        const newState = !settingsCache.captionsEnabled;
-        settingsCache.captionsEnabled = newState;
-        
-        captionToggle.setAttribute('aria-pressed', String(newState));
-        try {
-            localStorage.setItem(CAPTION_ENABLED_KEY, String(newState));
-        } catch (e) {
-            console.warn('localStorage speichern fehlgeschlagen:', e);
-        }
-        
-        newState ? enableCaptions() : disableCaptions();
+        settingsCache.captionsEnabled = !settingsCache.captionsEnabled;
+        saveSetting(CAPTION_ENABLED_KEY, settingsCache.captionsEnabled, captionToggle);
+        settingsCache.captionsEnabled ? enableCaptions() : disableCaptions();
     };
 
     const initializeCaptions = () => {
@@ -138,77 +159,109 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // === HLS PLAYER SETUP ===
-    
+
+    const MAX_RETRIES = 3;
+    const RETRY_BASE_DELAY = 1000; // 1 Sekunde Basis-Wartezeit
+
     const setupHlsPlayer = (url) => {
         // Cleanup vorheriger Player
         if (hlsPlayer) {
             hlsPlayer.destroy();
             hlsPlayer = null;
         }
+        // Retry-Zustand zurücksetzen
+        if (retryState.timerId) {
+            clearTimeout(retryState.timerId);
+            retryState.timerId = null;
+        }
+        retryState.count = 0;
         disableAllTextTracks();
         
         if (window.Hls?.isSupported()) {
-            hlsPlayer = new Hls();
+            // HLS.js uses XHR which requires CORS
+            videoPlayer.setAttribute('crossorigin', 'anonymous');
+            hlsPlayer = new Hls({
+                xhrSetup: function(xhr) {
+                    xhr.withCredentials = false; // Keine Credentials senden, hilft oft bei CORS Problemen
+                }
+            });
+            const playerInstance = hlsPlayer;
             hlsPlayer.loadSource(url);
             hlsPlayer.attachMedia(videoPlayer);
             
-            // Event-Handler als benannte Funktion für mögliche Cleanup
             const onManifestParsed = () => {
+                if (hlsPlayer !== playerInstance) return;
+                clearStatusMessage();
                 videoPlayer.play().catch(e => console.log('Autoplay failed:', e));
                 updateQualityLevel();
                 settingsCache.captionsEnabled ? enableCaptions() : disableCaptions();
             };
             
             const onHlsError = (event, data) => {
+                if (hlsPlayer !== playerInstance) return;
                 console.error(`HLS.js Fehler: ${data.details}`, data);
                 
-                // Erweiterte Diagnose-Informationen
                 if (data.response) {
                     const httpStatus = data.response.code;
-                    const errorMessages = {
-                        403: 'HTTP 403 - Zugriff verweigert (CORS oder Authentifizierung)',
-                        404: 'HTTP 404 - Stream-URL nicht gefunden',
-                        0: 'Netzwerkfehler oder CORS-Blockade'
-                    };
-                    console.error(`HTTP-Status: ${httpStatus} - ${errorMessages[httpStatus] || 'Unbekannt'}`);
+                    console.error(`HTTP-Status: ${httpStatus}`);
                 }
 
-                if (data.details === 'bufferAppendError') {
-                    console.error('DIAGNOSE: bufferAppendError - Fragment konnte nicht in den Buffer geschrieben werden');
-                }
-
+                // Error Recovery für Netzwerk- und Medienfehler
                 if (data.fatal) {
-                    const errorMessages = {
-                        bufferAppendError: 'Buffer-Fehler: Fragment konnte nicht verarbeitet werden.',
-                        networkError: 'Netzwerkfehler beim Laden des Streams.',
-                        mediaError: 'Medienfehler: Stream konnte nicht abgespielt werden.'
-                    };
-                    
-                    const errorType = Hls.ErrorTypes?.NETWORK_ERROR || 'networkError';
-                    const mediaErrorType = Hls.ErrorTypes?.MEDIA_ERROR || 'mediaError';
-                    const errorMsg = errorMessages[data.details] || errorMessages[data.type === errorType ? 'networkError' : data.type === mediaErrorType ? 'mediaError' : 'bufferAppendError'];
-                    
-                    console.warn('HLS fataler Fehler:', errorMsg);
-                    alert(`${errorMsg} (${data.details})\n\nBitte versuchen Sie es erneut oder wechseln Sie den Sender.`);
+                    switch (data.type) {
+                        case Hls.ErrorTypes.NETWORK_ERROR:
+                            if (retryState.count < MAX_RETRIES) {
+                                const delay = RETRY_BASE_DELAY * Math.pow(2, retryState.count);
+                                console.warn(`Fataler Netzwerkfehler (Versuch ${retryState.count + 1}/${MAX_RETRIES}), nächster Versuch in ${delay}ms...`);
+                                retryState.timerId = setTimeout(() => {
+                                    retryState.count++;
+                                    if (hlsPlayer === playerInstance) {
+                                        hlsPlayer.startLoad();
+                                    }
+                                }, delay);
+                            } else {
+                                console.error(`Maximale Wiederholungsanzahl (${MAX_RETRIES}) erreicht. Netzwerkfehler können nicht behoben werden.`);
+                                if (hlsPlayer) {
+                                    hlsPlayer.destroy();
+                                    hlsPlayer = null;
+                                }
+                                showStatusMessage(`Netzwerkfehler: Nach ${MAX_RETRIES} Versuchen keine Verbindung. Bitte Internetverbindung prüfen und Seite neu laden.`, 'error', 0);
+                            }
+                            break;
+                        case Hls.ErrorTypes.MEDIA_ERROR:
+                            console.warn("Fataler Medienfehler, versuche Wiederherstellung...");
+                            if (hlsPlayer) {
+                                hlsPlayer.recoverMediaError();
+                            }
+                            break;
+                        default:
+                            console.error("Nicht behebbarer Fehler, Player wird gestoppt.");
+                            if (hlsPlayer) {
+                                hlsPlayer.destroy();
+                                hlsPlayer = null;
+                            }
+                            showStatusMessage(`Schwerwiegender Fehler: ${data.details}. Bitte Seite neu laden.`, 'error', 0);
+                            break;
+                    }
                 }
+                // HLS.js handles non-fatal errors automatically; no manual recovery needed for bufferAppendError
             };
             
-            // Event-Listener registrieren
             hlsPlayer.on(Hls.Events.MANIFEST_PARSED, onManifestParsed);
             hlsPlayer.on(Hls.Events.ERROR, onHlsError);
-            hlsPlayer.on(Hls.Events.FRAG_BUFFER_FAILED, (event, data) => {
-                console.error('Fragment buffer failed:', data);
-            });
             
-        } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
+        } else if(videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
+            // Native Safari HLS: Remove crossorigin to avoid CORS enforcement for streams without headers
+            videoPlayer.removeAttribute('crossorigin');
             videoPlayer.src = url;
             videoPlayer.addEventListener('loadedmetadata', () => {
+                clearStatusMessage();
                 videoPlayer.play().catch(e => console.log('Autoplay failed on native player:', e));
                 settingsCache.captionsEnabled ? enableCaptions() : disableCaptions();
             }, { once: true });
         } else {
             console.error('HLS is not supported by your browser.');
-            alert('Ihr Browser unterstützt dieses Videoformat nicht.');
+            showStatusMessage('Ihr Browser unterstützt dieses Videoformat nicht.', 'error', 0);
         }
     };
     
@@ -223,12 +276,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const toggleDataSaveMode = () => {
         settingsCache.dataSaveMode = !settingsCache.dataSaveMode;
-        dataModeToggle.setAttribute('aria-pressed', String(settingsCache.dataSaveMode));
-        try {
-            localStorage.setItem(DATA_SAVE_MODE_KEY, String(settingsCache.dataSaveMode));
-        } catch (e) {
-            console.warn('localStorage speichern fehlgeschlagen:', e);
-        }
+        saveSetting(DATA_SAVE_MODE_KEY, settingsCache.dataSaveMode, dataModeToggle);
         updateQualityLevel();
     };
 
@@ -238,6 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Station buttons - Event Delegation für bessere Performance
         stationButtons.forEach(button => {
             button.addEventListener('click', () => {
+                clearStatusMessage();
                 currentStationDisplay.textContent = button.dataset.name;
                 setupHlsPlayer(button.dataset.url);
                 setupMediaSession(button.dataset.name);

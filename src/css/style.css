@@ -5,8 +5,8 @@
     --color-text-main: #f8fafc;
     --color-text-muted: #94a3b8;
 
-    --color-brand-primary: #8b5cf6;
-    --color-brand-secondary: #ec4899;
+    --color-brand-primary: hsl(270, 100%, 70%);
+    --color-brand-secondary: hsl(345, 100%, 70%);
 
     --color-glass-bg: rgba(30, 41, 59, 0.4);
     --color-glass-border: rgba(255, 255, 255, 0.1);
@@ -228,6 +228,7 @@ nav a:hover {
     background: var(--color-status-online);
     box-shadow: 0 0 10px var(--color-status-online);
     flex-shrink: 0;
+    transition: all 0.3s ease;
 }
 
 .status-indicator.online {
@@ -236,6 +237,24 @@ nav a:hover {
 }
 
 .status-indicator.error {
+    background: var(--color-status-error);
+    box-shadow: 0 0 10px var(--color-status-error);
+}
+
+.status-indicator.text {
+    width: auto;
+    height: auto;
+    min-width: 12px;
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: white;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.status-indicator.text.error {
     background: var(--color-status-error);
     box-shadow: 0 0 10px var(--color-status-error);
 }

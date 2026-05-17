@@ -214,6 +214,34 @@ electron.ipcMain.handle('history-save', async (event, data) => {
 });
 
 app.whenReady().then(async () => {
+  electron.protocol.handle('file', async (request) => {
+    let urlPath = request.url.substr(7);
+    urlPath = decodeURIComponent(urlPath);
+    if (process.platform === 'win32' && urlPath.match(/^\/[a-zA-Z]:\//)) {
+      urlPath = urlPath.substr(1);
+    }
+    const appDir = path.resolve(path.join(__dirname, '..'));
+    if (!urlPath.startsWith(appDir)) {
+      if (urlPath.startsWith('/src/') || urlPath.startsWith('/favicon/') || urlPath.startsWith('/video/') || urlPath.startsWith('/manifest.json')) {
+        const joinedPath = path.resolve(path.join(appDir, urlPath));
+        if (!joinedPath.startsWith(appDir)) {
+          console.error('Path traversal attempt blocked:', request.url);
+          return new Response('Access Denied', { status: 403 });
+        }
+        urlPath = joinedPath;
+      }
+    } else {
+      const resolvedPath = path.resolve(urlPath);
+      if (!resolvedPath.startsWith(appDir)) {
+        console.error('Path traversal attempt blocked:', request.url);
+        return new Response('Access Denied', { status: 403 });
+      }
+      urlPath = resolvedPath;
+    }
+    const fileUrl = require('url').pathToFileURL(urlPath).toString();
+    return electron.net.fetch(fileUrl);
+  });
+
   await initRedis();
   await createWindow();
 
