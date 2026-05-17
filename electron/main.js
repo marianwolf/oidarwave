@@ -214,6 +214,21 @@ electron.ipcMain.handle('history-save', async (event, data) => {
 });
 
 app.whenReady().then(async () => {
+  electron.protocol.interceptFileProtocol('file', (request, callback) => {
+    let urlPath = request.url.substr(7);
+    urlPath = decodeURIComponent(urlPath);
+    if (process.platform === 'win32' && urlPath.match(/^\/[a-zA-Z]:\//)) {
+      urlPath = urlPath.substr(1);
+    }
+    const appDir = path.resolve(path.join(__dirname, '..'));
+    if (!urlPath.startsWith(appDir)) {
+      if (urlPath.startsWith('/src/') || urlPath.startsWith('/favicon/') || urlPath.startsWith('/video/') || urlPath.startsWith('/manifest.json')) {
+        urlPath = path.join(appDir, urlPath);
+      }
+    }
+    callback({ path: urlPath });
+  });
+
   await initRedis();
   await createWindow();
 
