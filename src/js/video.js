@@ -181,14 +181,16 @@ document.addEventListener('DOMContentLoaded', () => {
             // HLS.js uses XHR which requires CORS
             videoPlayer.setAttribute('crossorigin', 'anonymous');
             hlsPlayer = new Hls({
-                xhrSetup: function(xhr, url) {
+                xhrSetup: function(xhr) {
                     xhr.withCredentials = false; // Keine Credentials senden, hilft oft bei CORS Problemen
                 }
             });
+            const playerInstance = hlsPlayer;
             hlsPlayer.loadSource(url);
             hlsPlayer.attachMedia(videoPlayer);
             
             const onManifestParsed = () => {
+                if (hlsPlayer !== playerInstance) return;
                 clearStatusMessage();
                 videoPlayer.play().catch(e => console.log('Autoplay failed:', e));
                 updateQualityLevel();
@@ -196,6 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
             };
             
             const onHlsError = (event, data) => {
+                if (hlsPlayer !== playerInstance) return;
                 console.error(`HLS.js Fehler: ${data.details}`, data);
                 
                 if (data.response) {
@@ -212,25 +215,31 @@ document.addEventListener('DOMContentLoaded', () => {
                                 console.warn(`Fataler Netzwerkfehler (Versuch ${retryState.count + 1}/${MAX_RETRIES}), nächster Versuch in ${delay}ms...`);
                                 retryState.timerId = setTimeout(() => {
                                     retryState.count++;
-                                    if (hlsPlayer) {
+                                    if (hlsPlayer === playerInstance) {
                                         hlsPlayer.startLoad();
                                     }
                                 }, delay);
                             } else {
                                 console.error(`Maximale Wiederholungsanzahl (${MAX_RETRIES}) erreicht. Netzwerkfehler können nicht behoben werden.`);
-                                hlsPlayer.destroy();
-                                hlsPlayer = null;
+                                if (hlsPlayer) {
+                                    hlsPlayer.destroy();
+                                    hlsPlayer = null;
+                                }
                                 showStatusMessage(`Netzwerkfehler: Nach ${MAX_RETRIES} Versuchen keine Verbindung. Bitte Internetverbindung prüfen und Seite neu laden.`, 'error', 0);
                             }
                             break;
                         case Hls.ErrorTypes.MEDIA_ERROR:
                             console.warn("Fataler Medienfehler, versuche Wiederherstellung...");
-                            hlsPlayer.recoverMediaError();
+                            if (hlsPlayer) {
+                                hlsPlayer.recoverMediaError();
+                            }
                             break;
                         default:
                             console.error("Nicht behebbarer Fehler, Player wird gestoppt.");
-                            hlsPlayer.destroy();
-                            hlsPlayer = null;
+                            if (hlsPlayer) {
+                                hlsPlayer.destroy();
+                                hlsPlayer = null;
+                            }
                             showStatusMessage(`Schwerwiegender Fehler: ${data.details}. Bitte Seite neu laden.`, 'error', 0);
                             break;
                     }
