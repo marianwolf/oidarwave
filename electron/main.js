@@ -213,6 +213,38 @@ electron.ipcMain.handle('history-save', async (event, data) => {
   return { redis: saved };
 });
 
+electron.ipcMain.handle('redis-get', async (event, key) => {
+  try {
+    if (!redisClient) return null;
+    if (typeof key !== 'string' || key.length === 0) return null;
+    return await redisClient.get(key);
+  } catch (e) {
+    console.error('redis-get failed:', e);
+    return null;
+  }
+});
+
+electron.ipcMain.handle('redis-set', async (event, key, value, options = {}) => {
+  try {
+    if (!redisClient) return { ok: false, reason: 'not_connected' };
+    if (typeof key !== 'string' || key.length === 0) return { ok: false, reason: 'invalid_key' };
+
+    const stringValue = typeof value === 'string' ? value : JSON.stringify(value);
+    const ttlSeconds = Number.isFinite(options?.ttlSeconds) ? Math.max(0, Math.floor(options.ttlSeconds)) : null;
+
+    if (ttlSeconds && ttlSeconds > 0) {
+      await redisClient.set(key, stringValue, { EX: ttlSeconds });
+    } else {
+      await redisClient.set(key, stringValue);
+    }
+
+    return { ok: true };
+  } catch (e) {
+    console.error('redis-set failed:', e);
+    return { ok: false, reason: 'error' };
+  }
+});
+
 app.whenReady().then(async () => {
   electron.protocol.handle('file', async (request) => {
     let urlPath = request.url.substr(7);
