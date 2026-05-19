@@ -99,8 +99,7 @@ async function stopStation(url) {
 }
 
 async function pruneHistory(isInternal = false) {
-    // Await init to ensure historyCache is populated
-    if (initPromise) await initPromise;
+    if (!isInternal && initPromise) await initPromise;
     const history = historyCache;
     const now = Date.now();
     const expiryLimit = now - EXPIRY_TIME_MS;
