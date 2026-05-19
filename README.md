@@ -11,7 +11,7 @@
   </p>
   <p>
     <a href="https://oidarwave.vercel.app"><strong>🎧 Live Demo</strong></a> ·
-    <a href="docs/README.md"><strong>📖 Entwickler-Dokumentation</strong></a> ·
+    <a href="#--installation-und-nutzung"><strong>📖 Dokumentation</strong></a> ·
     <a href="https://github.com/marianwolf/oidarwave/issues"><strong>❓ Issues</strong></a>
   </p>
 </div>
@@ -20,13 +20,16 @@
 
 ## 📖 Inhaltsverzeichnis
 
-- [🚀 Über das Projekt](#-über-das-projekt)
+- [🏠 Über das Projekt](#-über-das-projekt)
 - [✨ Hauptfunktionen](#-hauptfunktionen)
-- [📻 Verfügbare Streams](#-verfügbare-streams)
-- [🛡️ Datenschutz](#️-datenschutz)
-- [💾 Installation & Entwickler-Dokumentation](#-installation--entwickler-dokumentation)
+- [🎧 Verfügbare Streams](#-verfügbare-streams)
+  - [📻 Radio](#-radio)
+  - [📺 Fernsehen](#fernsehen)
+- [🔧 Technologien](#-technologien)
+- [💾 Installation und Nutzung](#--installation-und-nutzung)
 - [🤝 Mitwirken](#-mitwirken)
-- [🚀 Roadmap](#-roadmap)
+- [🔐 Datenschutz](#️-datenschutz)
+- [📊 Roadmap](#-roadmap)
 
 ## 🚀 Über das Projekt
 
@@ -84,16 +87,33 @@ Oidarwave wurde von Grund auf so konzipiert, dass es die Privatsphäre der Nutze
     | Datensparmodus | `ja` od. `nein` |
   - **Transparente Einwilligung:** Externe Skripte (wie z. B. für Web-Analytics) werden nur mit Ihrer expliziten Zustimmung geladen, sodass Sie stets die volle Kontrolle über Ihre Daten haben.
 
-## 💾 Installation & Entwickler-Dokumentation
+## 💾 Installation und Nutzung
 
-Oidarwave kann sowohl als **Web-Applikation** im Browser genutzt werden, als auch als eigenständige **Desktop-App** (Windows, macOS, Linux) via Electron.
+Da Oidarwave eine **statische Webseite** ist, ist keine serverseitige Installation erforderlich.
 
-Die vollständige technische Dokumentation zu:
-- Installation & lokales Setup
-- Build-Prozess der Desktop-App
-- Projektstruktur & Architektur
+1.  **Repository klonen:** Öffne dein Terminal und führe folgenden Befehl aus:
+```bash
+git clone https://github.com/marianwolf/oidarwave.git
+```
+2.  **Datei öffnen:** Navigiere in das neu geklonte Verzeichnis und öffne die `index.html`-Datei in deinem bevorzugten Webbrowser. Alternativ kannst du die Live-Version jederzeit hier nutzen:
+[https://oidarwave.vercel.app](https://oidarwave.vercel.app)
 
-findest du in der **[Entwickler- und Projektdokumentation](docs/README.md)**.
+3. Entwicklung & Tests
+
+Für die Ausführung der Tests ist eine Python-Virtuelle Umgebung erforderlich:
+
+```bash
+# Virtuelle Umgebung erstellen und Abhängigkeiten installieren
+python3 -m venv .venv
+source .venv/bin/activate  # Auf Windows: .venv\Scripts\activate
+pip install playwright pytest
+playwright install chromium
+```
+
+4. Tests ausführen (z.B.):
+```bash
+python tests/test_syntax.py
+```
 
 ## 🤝 Mitwirken
 
