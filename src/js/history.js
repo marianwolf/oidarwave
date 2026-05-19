@@ -10,7 +10,6 @@ let activeStationUrl = null;
 let initPromise = null;
 
 async function loadHistory() {
-    // Load from localStorage only
     try {
         const historyStr = localStorage.getItem(HISTORY_KEY);
         if (!historyStr) return { stations: {} };
@@ -20,7 +19,7 @@ async function loadHistory() {
         }
         return { stations: history.stations || {} };
     } catch (e) {
-        console.error('Fehler beim Laden des Verlaufs:', e);
+        console.error('Error loading history:', e);
         return { stations: {} };
     }
 }
@@ -30,11 +29,10 @@ async function saveHistory() {
         ...historyCache,
         activeStationUrl: activeStationUrl
     };
-    // Save to localStorage only
     try {
         localStorage.setItem(HISTORY_KEY, JSON.stringify(dataToSave));
     } catch (e) {
-        console.error('Fehler beim Speichern des Verlaufs:', e);
+        console.error('Error saving history:', e);
     }
 }
 
