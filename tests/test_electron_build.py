@@ -9,12 +9,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 def test_electron_files_exist():
-    """Test that Electron main and preload files exist."""
+    """Test that Electron main file exists."""
     main_path = BASE_DIR / "electron" / "main.js"
-    preload_path = BASE_DIR / "electron" / "preload.js"
     
     assert main_path.exists(), f"Electron main file not found at {main_path}"
-    assert preload_path.exists(), f"Electron preload file not found at {preload_path}"
 
 
 def test_package_json_build_config():
@@ -68,7 +66,7 @@ def test_dev_dependencies():
 if __name__ == "__main__":
     # Run tests directly if executed as script
     test_electron_files_exist()
-    print("✓ Electron files exist")
+    print("✓ Electron main file exists")
     
     test_package_json_build_config()
     print("✓ Package.json build configuration is valid")

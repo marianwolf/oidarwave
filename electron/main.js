@@ -4,8 +4,6 @@ const BrowserWindow = electron.BrowserWindow;
 const path = require('path');
 const fs = require('fs');
 
-const HISTORY_KEY = 'station_history';
-
 // Dynamically discover all available HTML subpages
 async function discoverPages(dir, basePath = '', appDir) {
   const pages = [];
@@ -80,8 +78,7 @@ async function createWindow() {
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
-      webSecurity: true,
-      preload: path.join(__dirname, 'preload.js')
+      webSecurity: true
     },
     icon: path.join(__dirname, '..', 'favicon/favicon.svg')
   });
@@ -146,8 +143,7 @@ async function createWindow() {
           webPreferences: {
             nodeIntegration: false,
             contextIsolation: true,
-            webSecurity: true,
-            preload: path.join(__dirname, 'preload.js')
+            webSecurity: true
           },
           icon: path.join(__dirname, '..', 'favicon/favicon.svg')
         });
@@ -164,16 +160,6 @@ async function createWindow() {
   setupWindow(mainWindow);
   mainWindow.loadFile(path.join(appDir, 'index.html'));
 }
-
-// IPC Handlers
-electron.ipcMain.handle('history-get', async () => {
-  return null;
-});
-
-electron.ipcMain.handle('history-save', async (event, data) => {
-  // Always return false for Redis (not used), but renderer will still save to localStorage
-  return { redis: false };
-});
 
 app.whenReady().then(async () => {
   electron.protocol.handle('file', async (request) => {
