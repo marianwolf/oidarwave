@@ -25,7 +25,6 @@
 ## Technologie-Stack
 - **Frontend**: HTML5, CSS3 (Vanilla), JavaScript (ES6+).
 - **Backend / Desktop-Rahmen**: [Electron](https://www.electronjs.org/) (aktuell v41.5.0).
-- **Datenbank**: [Redis](https://redis.io/) (v5.12.1) zur zentralen/lokalen Speicherung des Sender-Verlaufs (`station_history`).
 - **Build-Tool**: `electron-builder` für das Erstellen von Installationsdateien und Binaries (AppImage, deb, rpm, snap, nsis, dmg).
 
 ## Projektstruktur
@@ -50,7 +49,6 @@ oidarwave/
 ### Voraussetzungen
 - **Node.js** (Empfohlen: v18+ oder v20+)
 - **npm** (wird meistens mit Node.js installiert)
-- **Redis-Server** (Lokal installiert und laufend, wenn die Historien-Synchronisation getestet werden soll)
 
 ### Schritte zur Einrichtung
 1. **Repository klonen** (oder den Quellordner öffnen)

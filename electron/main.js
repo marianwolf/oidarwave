@@ -3,44 +3,8 @@ const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 const path = require('path');
 const fs = require('fs');
-const { createClient } = require('redis');
-
-let redisClient = null;
-
-async function initRedis() {
-  try {
-    redisClient = createClient({ url: process.env.REDIS_URL || 'redis://localhost:6379' });
-    await redisClient.connect();
-    console.log('Redis connected');
-  } catch (e) {
-    console.error('Redis connection failed:', e.message);
-    redisClient = null;
-  }
-}
 
 const HISTORY_KEY = 'station_history';
-
-async function loadHistoryFromRedis() {
-  try {
-    if (!redisClient) return null;
-    const data = await redisClient.get(HISTORY_KEY);
-    if (data) return JSON.parse(data);
-  } catch (e) {
-    console.error('Failed to load history from Redis:', e);
-  }
-  return null;
-}
-
-async function saveHistoryToRedis(data) {
-  try {
-    if (!redisClient) return false;
-    await redisClient.set(HISTORY_KEY, JSON.stringify(data));
-    return true;
-  } catch (e) {
-    console.error('Failed to save history to Redis:', e);
-    return false;
-  }
-}
 
 // Dynamically discover all available HTML subpages
 async function discoverPages(dir, basePath = '', appDir) {
@@ -203,14 +167,12 @@ async function createWindow() {
 
 // IPC Handlers
 electron.ipcMain.handle('history-get', async () => {
-  const redisData = await loadHistoryFromRedis();
-  return redisData;
+  return null;
 });
 
 electron.ipcMain.handle('history-save', async (event, data) => {
-  const saved = await saveHistoryToRedis(data);
-  // Also save to localStorage via return (renderer will handle it)
-  return { redis: saved };
+  // Always return false for Redis (not used), but renderer will still save to localStorage
+  return { redis: false };
 });
 
 app.whenReady().then(async () => {
@@ -242,7 +204,6 @@ app.whenReady().then(async () => {
     return electron.net.fetch(fileUrl);
   });
 
-  await initRedis();
   await createWindow();
 
   app.on('activate', async () => {
@@ -260,14 +221,5 @@ app.on('window-all-closed', () => {
 
 let isQuitting = false;
 app.on('before-quit', async (e) => {
-  if (redisClient && !isQuitting) {
-    e.preventDefault();
-    isQuitting = true;
-    try {
-      await redisClient.quit();
-    } catch (err) {
-      console.error('Error disconnecting Redis:', err);
-    }
-    app.quit();
-  }
+  app.quit();
 });

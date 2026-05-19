@@ -121,7 +121,5 @@
     "electron": "^42.0.0",
     "electron-builder": "^26.8.1"
   },
-  "dependencies": {
-    "redis": "^5.12.1"
-  }
+  "dependencies": {}
 }
