@@ -26,7 +26,7 @@
   - [📻 Radio](#-radio)
   - [📺 Fernsehen](#fernsehen)
 - [🔧 Technologien](#-technologien)
-- [💾 Installation und Nutzung](#-installation-und-nutzung)
+- [💾 Installation und Nutzung](#--installation-und-nutzung)
 - [🤝 Mitwirken](#-mitwirken)
 - [🔐 Datenschutz](#️-datenschutz)
 - [📊 Roadmap](#-roadmap)
