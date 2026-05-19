@@ -218,8 +218,3 @@ app.on('window-all-closed', () => {
     app.quit();
   }
 });
-
-let isQuitting = false;
-app.on('before-quit', async (e) => {
-  app.quit();
-});

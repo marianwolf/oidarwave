@@ -10,21 +10,7 @@ let activeStationUrl = null;
 let initPromise = null;
 
 async function loadHistory() {
-    // Try Redis first (via IPC)
-    try {
-        if (window.electronAPI && window.electronAPI.history) {
-            const redisData = await window.electronAPI.history.getHistory();
-            if (redisData) {
-                if (redisData.activeStationUrl !== undefined) {
-                    activeStationUrl = redisData.activeStationUrl;
-                }
-                return { stations: redisData.stations || {} };
-            }
-        }
-    } catch (e) {
-        console.error('Fehler beim Laden aus Redis:', e);
-    }
-    // Fallback to localStorage
+    // Load from localStorage only
     try {
         const historyStr = localStorage.getItem(HISTORY_KEY);
         if (!historyStr) return { stations: {} };
@@ -44,15 +30,7 @@ async function saveHistory() {
         ...historyCache,
         activeStationUrl: activeStationUrl
     };
-    // Try Redis first (via IPC)
-    try {
-        if (window.electronAPI && window.electronAPI.history) {
-            await window.electronAPI.history.saveHistory(dataToSave);
-        }
-    } catch (e) {
-        console.error('Fehler beim Speichern in Redis:', e);
-    }
-    // Also save to localStorage as backup
+    // Save to localStorage only
     try {
         localStorage.setItem(HISTORY_KEY, JSON.stringify(dataToSave));
     } catch (e) {
@@ -121,7 +99,7 @@ async function stopStation(url) {
 }
 
 async function pruneHistory(isInternal = false) {
-    if (!isInternal && initPromise) await initPromise;
+    // No need to wait for initPromise since we're not using IPC anymore
     const history = historyCache;
     const now = Date.now();
     const expiryLimit = now - EXPIRY_TIME_MS;
