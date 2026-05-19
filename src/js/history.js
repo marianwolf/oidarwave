@@ -99,7 +99,8 @@ async function stopStation(url) {
 }
 
 async function pruneHistory(isInternal = false) {
-    // No need to wait for initPromise since we're not using IPC anymore
+    // Await init to ensure historyCache is populated
+    if (initPromise) await initPromise;
     const history = historyCache;
     const now = Date.now();
     const expiryLimit = now - EXPIRY_TIME_MS;
