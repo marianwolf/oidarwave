@@ -3,7 +3,7 @@
 ![Project Status](https://img.shields.io/badge/Status-Aktiv-brightgreen)
 ![Datenschutz](https://img.shields.io/badge/Datenschutz-DSGVO--konform-blue)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
-![Version](https://img.shields.io/badge/Version-0.9.15-blue)
+![Version](https://img.shields.io/badge/Version-0.9.16-blue)
 
 <div align="center">
   <p>
