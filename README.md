@@ -11,7 +11,7 @@
   </p>
   <p>
     <a href="https://oidarwave.vercel.app"><strong>🎧 Live Demo</strong></a> ·
-    <a href="#️-installation-und-nutzung"><strong>📖 Dokumentation</strong></a> ·
+    <a href="#--installation-und-nutzung"><strong>📖 Dokumentation</strong></a> ·
     <a href="https://github.com/marianwolf/oidarwave/issues"><strong>❓ Issues</strong></a>
   </p>
 </div>
