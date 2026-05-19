@@ -23,7 +23,8 @@ class TestRedisConnection:
     @pytest.fixture
     def redis_client(self) -> Generator[redis.Redis, None, None]:
         """Create Redis client instance from REDIS_URL environment variable."""
-        redis_url = os.environ.get("REDIS_URL", "redis://localhost:6379/0")
+        redis_url_env = os.environ.get("REDIS_URL")
+        redis_url = redis_url_env or "redis://localhost:6379/0"
         parsed = urlparse(redis_url)
 
         db = 0
@@ -44,6 +45,17 @@ class TestRedisConnection:
             socket_connect_timeout=5
         )
         logger.info("Redis client created successfully")
+
+        # Make tests robust in environments where Redis isn't running.
+        # If the user explicitly configured REDIS_URL, treat Redis as required.
+        try:
+            client.ping()
+        except redis.RedisError as e:
+            client.close()
+            if redis_url_env:
+                pytest.fail(f"Redis unavailable at REDIS_URL={redis_url}: {e}")
+            pytest.skip(f"Redis not available at default URL ({redis_url}): {e}")
+
         try:
             yield client
         except redis.RedisError as e:
