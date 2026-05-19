@@ -1,11 +1,15 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommended"
+    "config:recommended",
+    ":dependencyDashboard",
+    ":semanticCommits"
   ],
+  "timezone": "Europe/Berlin",
   "labels": [
     "dependencies"
   ],
+  "rebaseWhen": "conflicted",
   "lockFileMaintenance": {
     "enabled": true,
     "automerge": true,
@@ -14,6 +18,15 @@
     ]
   },
   "packageRules": [
+    {
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "addLabels": [
+        "major"
+      ],
+      "automerge": true
+    },
     {
       "matchUpdateTypes": [
         "minor",
@@ -29,7 +42,8 @@
         "electron",
         "electron-builder"
       ],
-      "groupName": "electron packages"
+      "groupName": "electron",
+      "separateMajorMinor": true
     }
   ]
 }
