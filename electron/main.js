@@ -169,24 +169,19 @@ app.whenReady().then(async () => {
       urlPath = urlPath.substr(1);
     }
     const appDir = path.resolve(path.join(__dirname, '..'));
-    if (!urlPath.startsWith(appDir)) {
-      if (urlPath.startsWith('/src/') || urlPath.startsWith('/favicon/') || urlPath.startsWith('/video/') || urlPath.startsWith('/manifest.json')) {
-        const joinedPath = path.resolve(path.join(appDir, urlPath));
-        if (!joinedPath.startsWith(appDir)) {
-          console.error('Path traversal attempt blocked:', request.url);
-          return new Response('Access Denied', { status: 403 });
-        }
-        urlPath = joinedPath;
-      }
-    } else {
-      const resolvedPath = path.resolve(urlPath);
-      if (!resolvedPath.startsWith(appDir)) {
-        console.error('Path traversal attempt blocked:', request.url);
-        return new Response('Access Denied', { status: 403 });
-      }
-      urlPath = resolvedPath;
+    // Resolve the urlPath to an absolute path
+    let resolvedPath;
+    try {
+      resolvedPath = path.resolve(urlPath);
+    } catch {
+      return new Response('Invalid Path', { status: 400 });
     }
-    const fileUrl = require('url').pathToFileURL(urlPath).toString();
+    // Check that the resolved path is under the appDir
+   if (!resolvedPath.startsWith(appDir)) {
+      console.error('Path traversal attempt blocked:', request.url);
+      return new Response('Access Denied', { status: 403 });
+    }
+    const fileUrl = require('url').pathToFileURL(resolvedPath).toString();
     return electron.net.fetch(fileUrl);
   });
 
