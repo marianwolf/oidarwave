@@ -1,41 +1,59 @@
-const electron = require('electron');
-const app = electron.app;
-const BrowserWindow = electron.BrowserWindow;
+const { app, BrowserWindow, protocol, shell, net } = require('electron');
 const path = require('path');
 const fs = require('fs');
+const { fileURLToPath, pathToFileURL } = require('url');
+
+// Directories that should never be scanned during page discovery
+const IGNORED_DIRS = new Set([
+  'node_modules',
+  '.git',
+  '.github',
+  '.venv',
+  '.vscode',
+  '.pytest_cache',
+  'electron',
+  'tests',
+  'dist'
+]);
 
 // Dynamically discover all available HTML subpages
 async function discoverPages(dir, basePath = '', appDir) {
   const pages = [];
   try {
     const items = await fs.promises.readdir(dir, { withFileTypes: true });
-    for (const item of items) {
-      const fullPath = path.join(dir, item.name);
-      const resolvedPath = path.resolve(fullPath);
-      if (item.isSymbolicLink()) continue;
-      if (!resolvedPath.startsWith(appDir)) continue;
-      const routePath = path.join(basePath, item.name).replace(/\\/g, '/');
+    
+    // Process items in parallel using Promise.all to optimize filesystem I/O
+    await Promise.all(
+      items.map(async (item) => {
+        if (item.isSymbolicLink()) return;
 
-      if (item.isDirectory()) {
-        pages.push(...await discoverPages(resolvedPath, routePath, appDir));
-      } else if (item.isFile() && item.name === 'index.html' && basePath && !basePath.includes('electron')) {
-        const route = '/' + basePath;
-        const file = resolvedPath;
-        const pageRouteNorm = route.endsWith('/') ? route.slice(0, -1) : route;
-        const pageFileNorm = file.replace(/\\/g, '/');
-        const pageFileDir = pageFileNorm.replace(/\/index\.html$/, '');
-        pages.push({
-          route,
-          file,
-          pageRouteNorm,
-          pageFileNorm,
-          pageFileDir
-        });
-      }
-    }
+        const fullPath = path.join(dir, item.name);
+        const resolvedPath = path.resolve(fullPath);
+        if (!resolvedPath.startsWith(appDir)) return;
+
+        const routePath = path.join(basePath, item.name).replace(/\\/g, '/');
+
+        if (item.isDirectory()) {
+          if (IGNORED_DIRS.has(item.name)) return;
+          const subPages = await discoverPages(resolvedPath, routePath, appDir);
+          pages.push(...subPages);
+        } else if (item.isFile() && item.name === 'index.html' && basePath) {
+          const route = '/' + basePath;
+          const pageRouteNorm = route.endsWith('/') ? route.slice(0, -1) : route;
+          const pageFileNorm = resolvedPath.replace(/\\/g, '/');
+          const pageFileDir = pageFileNorm.replace(/\/index\.html$/, '');
+          pages.push({
+            route,
+            file: resolvedPath,
+            pageRouteNorm,
+            pageFileNorm,
+            pageFileDir
+          });
+        }
+      })
+    );
   } catch (err) {
     console.error('Error discovering pages:', err);
-    return [];
   }
   return pages;
 }
@@ -69,34 +87,47 @@ function matchesRoute(pathname, page) {
   return false;
 }
 
-let cachedAvailablePages = null;
+let availablePagesPromise = null;
+
+// Retrieves and caches the available pages promise to avoid concurrent scans
+function getAvailablePages(appDir) {
+  if (!availablePagesPromise) {
+    availablePagesPromise = (async () => {
+      const pages = await discoverPages(appDir, '', appDir);
+      // Add root page
+      const route = '/';
+      const file = path.join(appDir, 'index.html');
+      const pageRouteNorm = route.endsWith('/') ? route.slice(0, -1) : route;
+      const pageFileNorm = file.replace(/\\/g, '/');
+      const pageFileDir = pageFileNorm.replace(/\/index\.html$/, '');
+      pages.unshift({ route, file, pageRouteNorm, pageFileNorm, pageFileDir });
+      return pages;
+    })();
+  }
+  return availablePagesPromise;
+}
 
 async function createWindow() {
+  const appDir = path.resolve(path.join(__dirname, '..'));
+  const availablePages = await getAvailablePages(appDir);
+
   const mainWindow = new BrowserWindow({
     width: 1200,
     height: 800,
+    show: false, // Prevent the initial white flash
+    backgroundColor: '#0f172a', // Set to --color-bg-base for premium look and feel
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
-      webSecurity: true
+      webSecurity: true,
+      sandbox: true // Explicitly enable process sandboxing for safety
     },
     icon: path.join(__dirname, '..', 'favicon/favicon.svg')
   });
 
-  const appDir = path.resolve(path.join(__dirname, '..'));
-  
-  if (!cachedAvailablePages) {
-    cachedAvailablePages = await discoverPages(appDir, '', appDir);
-    // Add root page
-    const route = '/';
-    const file = path.join(appDir, 'index.html');
-    const pageRouteNorm = route.endsWith('/') ? route.slice(0, -1) : route;
-    const pageFileNorm = file.replace(/\\/g, '/');
-    const pageFileDir = pageFileNorm.replace(/\/index\.html$/, '');
-    cachedAvailablePages.unshift({ route, file, pageRouteNorm, pageFileNorm, pageFileDir });
-  }
-  
-  const availablePages = cachedAvailablePages;
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.show();
+  });
 
   function tryLoadSubpage(targetWin, url) {
     let targetUrl = url;
@@ -121,32 +152,43 @@ async function createWindow() {
   }
 
   function setupWindow(win) {
-    win.webContents.on('will-navigate', (event, url) => {
+    const handleNavigation = (event, url) => {
       if (url.startsWith('http://') || url.startsWith('https://')) {
         event.preventDefault();
-        electron.shell.openExternal(url);
+        shell.openExternal(url);
       } else if (!url.startsWith('mailto:')) {
         event.preventDefault();
         if (!tryLoadSubpage(win, url)) {
           win.loadFile(path.join(appDir, 'index.html'));
         }
       }
-    });
+    };
+
+    win.webContents.on('will-navigate', handleNavigation);
+    win.webContents.on('will-redirect', handleNavigation); // Prevent redirect bypasses
 
     win.webContents.setWindowOpenHandler(({ url }) => {
       if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('mailto:')) {
-        electron.shell.openExternal(url);
+        shell.openExternal(url);
       } else if (url.startsWith('file://') || url.startsWith('oidarwave://')) {
         const newWin = new BrowserWindow({
           width: 1200,
           height: 800,
+          show: false,
+          backgroundColor: '#0f172a',
           webPreferences: {
             nodeIntegration: false,
             contextIsolation: true,
-            webSecurity: true
+            webSecurity: true,
+            sandbox: true
           },
           icon: path.join(__dirname, '..', 'favicon/favicon.svg')
         });
+        
+        newWin.once('ready-to-show', () => {
+          newWin.show();
+        });
+        
         setupWindow(newWin);
         
         if (!tryLoadSubpage(newWin, url)) {
@@ -162,27 +204,31 @@ async function createWindow() {
 }
 
 app.whenReady().then(async () => {
-  electron.protocol.handle('file', async (request) => {
-    let urlPath = request.url.substr(7);
-    urlPath = decodeURIComponent(urlPath);
-    if (process.platform === 'win32' && urlPath.match(/^\/[a-zA-Z]:\//)) {
-      urlPath = urlPath.substr(1);
-    }
-    const appDir = path.resolve(path.join(__dirname, '..'));
-    // Resolve the urlPath to an absolute path
-    let resolvedPath;
+  // Register or override the 'file' protocol securely
+  protocol.handle('file', async (request) => {
     try {
-      resolvedPath = path.resolve(urlPath);
-    } catch {
-      return new Response('Invalid Path', { status: 400 });
+      const parsedUrl = new URL(request.url);
+      
+      // Strip query parameters and hash fragments to prevent path resolution failure
+      parsedUrl.search = '';
+      parsedUrl.hash = '';
+
+      const filePath = fileURLToPath(parsedUrl.href);
+      const resolvedPath = path.resolve(filePath);
+      const appDir = path.resolve(path.join(__dirname, '..'));
+
+      // Check that the resolved path is under the appDir to prevent directory traversal
+      if (!resolvedPath.startsWith(appDir)) {
+        console.error('Path traversal attempt blocked:', request.url);
+        return new Response('Access Denied', { status: 403 });
+      }
+
+      const fileUrl = pathToFileURL(resolvedPath).toString();
+      return net.fetch(fileUrl, { bypassCustomProtocolHandlers: true });
+    } catch (err) {
+      console.error('Error handling file request:', err);
+      return new Response('Invalid Request', { status: 400 });
     }
-    // Check that the resolved path is under the appDir
-   if (!resolvedPath.startsWith(appDir)) {
-      console.error('Path traversal attempt blocked:', request.url);
-      return new Response('Access Denied', { status: 403 });
-    }
-    const fileUrl = require('url').pathToFileURL(resolvedPath).toString();
-    return electron.net.fetch(fileUrl);
   });
 
   await createWindow();
