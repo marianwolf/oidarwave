@@ -9,14 +9,20 @@ let ignoredDirsPromise = null;
 async function getIgnoredDirs(appDir) {
   if (!ignoredDirsPromise) {
     ignoredDirsPromise = (async () => {
+      const defaultIgnored = ['node_modules', '.git', 'dist', 'electron'];
       const ignoreFilePath = path.join(appDir, '.npmignore');
       try {
         const content = await fs.promises.readFile(ignoreFilePath, 'utf8');
-        const lines = content.split('\n').map(line => line.trim()).filter(line => line && !line.startsWith('#'));
-        return new Set(lines);
+        const lines = content
+          .split('\\n')
+          .map(line => line.trim().replace(/\/$/, ''))
+          .filter(line => line && !line.startsWith('#'));
+        return new Set([...defaultIgnored, ...lines]);
       } catch (err) {
-        console.warn('No .npmignore file found or error reading it:', err.message);
-        return new Set();
+        if (err.code !== 'ENOENT') {
+          console.warn('Error reading .npmignore:', err.message);
+        }
+        return new Set(defaultIgnored);
       }
     })();
   }
