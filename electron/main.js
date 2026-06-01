@@ -4,17 +4,24 @@ const fs = require('fs');
 const { fileURLToPath, pathToFileURL } = require('url');
 
 // Directories that should never be scanned during page discovery
-const IGNORED_DIRS = new Set([
-  'node_modules',
-  '.git',
-  '.github',
-  '.venv',
-  '.vscode',
-  '.pytest_cache',
-  'electron',
-  'tests',
-  'dist'
-]);
+let ignoredDirsPromise = null;
+
+async function getIgnoredDirs(appDir) {
+  if (!ignoredDirsPromise) {
+    ignoredDirsPromise = (async () => {
+      const ignoreFilePath = path.join(appDir, '.npmignore');
+      try {
+        const content = await fs.promises.readFile(ignoreFilePath, 'utf8');
+        const lines = content.split('\n').map(line => line.trim()).filter(line => line && !line.startsWith('#'));
+        return new Set(lines);
+      } catch (err) {
+        console.warn('No .npmignore file found or error reading it:', err.message);
+        return new Set();
+      }
+    })();
+  }
+  return ignoredDirsPromise;
+}
 
 // Dynamically discover all available HTML subpages
 async function discoverPages(dir, basePath = '', appDir) {
@@ -34,7 +41,8 @@ async function discoverPages(dir, basePath = '', appDir) {
         const routePath = path.join(basePath, item.name).replace(/\\/g, '/');
 
         if (item.isDirectory()) {
-          if (IGNORED_DIRS.has(item.name)) return;
+          const ignoredDirs = await getIgnoredDirs(appDir);
+          if (ignoredDirs.has(item.name)) return;
           const subPages = await discoverPages(resolvedPath, routePath, appDir);
           pages.push(...subPages);
         } else if (item.isFile() && item.name === 'index.html' && basePath) {
