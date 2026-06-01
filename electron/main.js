@@ -231,8 +231,11 @@ app.whenReady().then(async () => {
       const resolvedPath = path.resolve(filePath);
       const appDir = path.resolve(path.join(__dirname, '..'));
 
+      const relative = path.relative(appDir, resolvedPath);
+      const isSafe = !relative.startsWith('..') && !path.isAbsolute(relative);
+
       // Check that the resolved path is under the appDir to prevent directory traversal
-      if (!resolvedPath.startsWith(appDir)) {
+      if (!isSafe) {
         console.error('Path traversal attempt blocked:', request.url);
         return new Response('Access Denied', { status: 403 });
       }
