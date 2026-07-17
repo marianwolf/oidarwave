@@ -20,13 +20,13 @@
      id="title1442">Favicon</title>
   <path
      style="display:inline;mix-blend-mode:normal;fill:url(#linearGradient312);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
-     d="M 99.226295,0.21032322 C 100.3944,4.3836686 101.32277,16.955693 93.495159,17.864652 c -15.433044,1.79212 -13.84816,13.74846 -11.865592,28.327746 2.172225,15.973987 5.9002,37.534113 -8.704853,47.196482 -12.665407,8.37914 -27.797241,1.655393 -26.950178,-11.916768 1.43301,-22.960578 25.18122,0.486976 18.058313,-35.845709 C 60.266279,26.413796 53.477161,-2.7608615 99.226295,0.21032322 Z"
+     d="M 99.195947,0.21038256 C 100.40987,4.3849055 101.37466,16.960477 93.240008,17.869693 77.201608,19.662318 78.848658,31.622032 80.908992,46.205432 83.166422,62.183926 87.040626,83.750135 71.862694,93.41523 58.70049,101.79673 42.975114,95.07109 43.855403,81.4951 45.344622,58.528043 70.024349,81.982213 62.622048,45.639277 58.707735,26.421249 51.652316,-2.7616405 99.195947,0.21038256 Z"
      id="note1"
      sodipodi:nodetypes="csssssc"
      inkscape:label="note1" />
   <path
-     style="display:inline;mix-blend-mode:normal;fill:url(#linearGradient465);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
-     d="M 53.285789,3.1349064 C 54.453897,7.3082518 55.382264,19.880276 47.554652,20.789236 32.121608,22.581355 33.706492,34.537695 35.68906,49.116981 37.861286,65.090968 41.58926,86.651095 26.984207,96.313463 14.318801,104.69261 -0.81303306,97.968856 0.03402955,84.396695 1.4670394,61.436117 25.215249,84.883672 18.092342,48.550987 14.325772,29.33838 7.5366544,0.16372171 53.285789,3.1349064 Z"
+     style="display:inline;mix-blend-mode:normal;fill:url(#linearGradient1124);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+     d="M 55.375908,3.1075757 C 56.589831,7.2820992 57.554621,19.85767 49.419969,20.766886 33.381569,22.559512 35.028619,34.519225 37.088953,49.102625 39.346383,65.081119 43.220587,86.64733 28.042655,96.312427 14.880451,104.69393 -0.8449246,97.968284 0.0353644,84.392294 1.5245834,61.425237 26.20431,84.879402 18.802009,48.53647 14.887696,29.318442 7.8322774,0.13555335 55.375908,3.1075757 Z"
      id="note1-7"
      sodipodi:nodetypes="csssssc"
      inkscape:label="note1" />
@@ -34,15 +34,15 @@
      id="defs48">
     <linearGradient
        inkscape:collect="always"
-       id="linearGradient1032">
+       id="linearGradient1131">
       <stop
          style="stop-color:#b266ff;stop-opacity:1;"
          offset="0.1"
-         id="stop1028" />
+         id="stop1127" />
       <stop
          style="stop-color:#ff668c;stop-opacity:1;"
          offset="0.89999998"
-         id="stop1030" />
+         id="stop1129" />
     </linearGradient>
     <linearGradient
        inkscape:collect="always"
@@ -61,21 +61,21 @@
        xlink:href="#linearGradient1019"
        id="linearGradient312"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(1.4663939,0.04716621,0,1.2580638,28.802259,-17.260509)"
-       x1="19.13269"
-       y1="22.627127"
-       x2="44.431564"
-       y2="80.629128" />
+       gradientTransform="matrix(1.5239128,0.04717952,0,1.2584188,26.009548,-17.26538)"
+       x1="11.698959"
+       y1="13.295821"
+       x2="48.538429"
+       y2="89.048676" />
     <linearGradient
        inkscape:collect="always"
-       xlink:href="#linearGradient1032"
-       id="linearGradient465"
+       xlink:href="#linearGradient1131"
+       id="linearGradient1124"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(1.4663939,0.04716621,0,1.2580638,-17.138248,-14.335926)"
-       x1="19.13269"
-       y1="22.627127"
-       x2="44.431564"
-       y2="80.629128" />
+       gradientTransform="matrix(1.5239128,0.04717952,0,1.2584188,-17.810491,-14.368187)"
+       x1="11.698959"
+       y1="13.295821"
+       x2="48.538429"
+       y2="89.048676" />
   </defs>
   <sodipodi:namedview
      id="namedview46"
@@ -116,7 +116,7 @@
         </dc:publisher>
         <dc:rights>
           <cc:Agent>
-            <dc:title>© Marian Wolf, 2025</dc:title>
+            <dc:title>© Marian Wolf, 2025-2026</dc:title>
           </cc:Agent>
         </dc:rights>
         <cc:license

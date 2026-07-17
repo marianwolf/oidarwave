@@ -1,35 +1,34 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommended"
+    "config:recommended",
+    ":prHourlyLimitNone",
+    ":prConcurrentLimitNone"
   ],
-  "labels": [
-    "dependencies"
-  ],
+  "labels": ["dependencies"],
+  "timezone": "Europe/Berlin",
+  "schedule": ["at any time"], 
+  "dependencyDashboard": true,
   "lockFileMaintenance": {
     "enabled": true,
     "automerge": true,
-    "schedule": [
-      "every day"
-    ]
+    "schedule": ["before 5am on monday"]
   },
   "packageRules": [
     {
-      "matchUpdateTypes": [
-        "minor",
-        "patch"
-      ],
-      "matchDepTypes": [
-        "devDependencies"
-      ],
+      "description": "Automerge minor/patch updates for devDependencies to reduce noise",
+      "matchUpdateTypes": ["minor", "patch"],
+      "matchDepTypes": ["devDependencies"],
       "automerge": true
     },
     {
-      "matchPackageNames": [
-        "electron",
-        "electron-builder"
-      ],
+      "description": "Group Electron packages together to ensure compatibility",
+      "matchPackageNames": ["electron", "electron-builder"],
       "groupName": "electron packages"
     }
-  ]
+  ],
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "addLabels": ["security"]
+  }
 }
