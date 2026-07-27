@@ -19,7 +19,29 @@ const FavoriteManager = (() => {
     
     let favoritesCache;
     let preferencesCache;
-    let favoriteIdsSet; // O(1) Lookup für isFavorite()
+    let favoriteIdsSet;
+    let favoriteUrlsMap;
+
+    function isOldFavorite(favorite) {
+        return favorite.id && (favorite.id.startsWith('http://') || favorite.id.startsWith('https://'));
+    }
+
+    function migrateOldFavorites(data) {
+        if (!data.favorites) return data;
+        const migrated = data.favorites.map(f => {
+            if (isOldFavorite(f)) {
+                return {
+                    id: generateUUID(),
+                    url: f.id,
+                    name: f.name,
+                    data: f.data,
+                    addedAt: f.addedAt
+                };
+            }
+            return f;
+        });
+        return migrated;
+    }
 
     function loadFavorites() {
         try {
@@ -28,10 +50,15 @@ const FavoriteManager = (() => {
                 return { version: 1, favorites: [], preferences: {} };
             }
             const favorites = JSON.parse(favoritesStr);
+            const migrated = migrateOldFavorites(favorites);
+            if (migrated !== favorites) {
+                favoritesCache = migrated;
+                saveFavoritesDirect(migrated);
+            }
             return {
-                version: favorites.version || 1,
-                favorites: favorites.favorites || [],
-                preferences: favorites.preferences || {}
+                version: migrated.version || 1,
+                favorites: migrated.favorites || [],
+                preferences: migrated.preferences || {}
             };
         } catch (e) {
             console.error('Fehler beim Laden der Favoriten:', e);
@@ -49,6 +76,25 @@ const FavoriteManager = (() => {
         }
     }
 
+    function saveFavoritesDirect(data) {
+        try {
+            localStorage.setItem(FAVORITES_KEY, JSON.stringify(data));
+        } catch (e) {
+            console.error('Fehler beim Speichern der Favoriten:', e);
+        }
+    }
+
+    function updateFavoriteLookups() {
+        favoriteIdsSet = new Set();
+        favoriteUrlsMap = {};
+        favoritesCache.favorites.forEach(f => {
+            favoriteIdsSet.add(f.id);
+            if (f.url) {
+                favoriteUrlsMap[f.url] = f.id;
+            }
+        });
+    }
+
     function loadPreferencesFromHistory() {
         try {
             const historyStr = localStorage.getItem(HISTORY_KEY);
@@ -62,8 +108,6 @@ const FavoriteManager = (() => {
                 return { ...defaultPreferences };
             }
             
-            // Einmal sortieren: Erst nach playCount, dann nach lastPlayed
-            // Wir berechnen beide Metriken in einem Durchlauf
             let mostPlayed = stations[0];
             let lastPlayed = stations[0];
             
@@ -100,35 +144,54 @@ const FavoriteManager = (() => {
         }
     }
 
-    function updateFavoriteIdsSet() {
-        favoriteIdsSet = new Set(favoritesCache.favorites.map(f => f.id));
-    }
-
-    function addFavorite(id, name, data = {}) {
+    function addFavorite(name, data = {}, url = null) {
+        const id = generateUUID();
+        
+        const favorite = { id, name, data, addedAt: Date.now() };
+        if (url) {
+            favorite.url = url;
+        }
+        
         if (favoriteIdsSet.has(id)) {
             console.warn("Favorit existiert bereits:", id);
             return false;
         }
-        favoritesCache.favorites.push({ id, name, data, addedAt: Date.now() });
-        updateFavoriteIdsSet();
+        
+        if (url && favoriteUrlsMap[url]) {
+            console.warn("Favorit existiert bereits (URL):", url);
+            return false;
+        }
+        
+        favoritesCache.favorites.push(favorite);
+        updateFavoriteLookups();
         saveFavorites();
         return true;
     }
 
-    function removeFavorite(id) {
-        const index = favoritesCache.favorites.findIndex(f => f.id === id);
+    function removeFavorite(urlOrId) {
+        let index;
+        if (typeof urlOrId === 'string' && (urlOrId.startsWith('http://') || urlOrId.startsWith('https://'))) {
+            const id = favoriteUrlsMap[urlOrId];
+            index = favoritesCache.favorites.findIndex(f => f.id === id);
+        } else {
+            index = favoritesCache.favorites.findIndex(f => f.id === urlOrId);
+        }
+        
         if (index === -1) {
-            console.warn("Favorit nicht gefunden:", id);
+            console.warn("Favorit nicht gefunden:", urlOrId);
             return false;
         }
         favoritesCache.favorites.splice(index, 1);
-        updateFavoriteIdsSet();
+        updateFavoriteLookups();
         saveFavorites();
         return true;
     }
 
-    function isFavorite(id) {
-        return favoriteIdsSet.has(id);
+    function isFavorite(urlOrId) {
+        if (typeof urlOrId === 'string' && (urlOrId.startsWith('http://') || urlOrId.startsWith('https://'))) {
+            return !!favoriteUrlsMap[urlOrId];
+        }
+        return favoriteIdsSet.has(urlOrId);
     }
 
     function getAllFavorites() {
@@ -171,9 +234,8 @@ const FavoriteManager = (() => {
         saveFavorites();
     }
 
-    // Initialisierung
     favoritesCache = loadFavorites();
-    updateFavoriteIdsSet(); // Set für O(1) Lookup initialisieren
+    updateFavoriteLookups();
     preferencesCache = loadPreferencesFromHistory();
 
     return {

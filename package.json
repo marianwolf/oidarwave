@@ -3,6 +3,7 @@
   "version": "0.9.16",
   "description": "Webradio für deinen Desktop",
   "main": "electron/main.js",
+  "desktopName": "app.oidarwave.vercel",
   "scripts": {
     "start": "electron .",
     "dist": "electron-builder -mwl",
@@ -13,7 +14,7 @@
   "author": "Marian Wolf <marianwolf200@gmail.com> (http://oidarwave.vercel.com/)",
   "license": "MIT",
   "build": {
-    "appId": "com.oidarwave.app",
+    "appId": "app.oidarwave.vercel",
     "productName": "Oidarwave",
     "directories": {
       "output": "dist"
@@ -57,7 +58,7 @@
     },
     "mac": {
       "target": [
-        "dmg"
+        "zip"
       ],
       "icon": "favicon/favicon.icns",
       "category": "public.app-category.audio"
@@ -70,6 +71,7 @@
       }
     },
     "linux": {
+      "syncDesktopName": true,
       "category": "AudioVideo",
       "icon": "favicon/favicon.svg",
       "target": [
