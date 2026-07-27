@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: Repository auschecken
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Python Version setzen
         uses: actions/setup-python@v6
