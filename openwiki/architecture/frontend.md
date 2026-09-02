@@ -3,9 +3,6 @@ type: architecture
 title: Frontend Architecture
 description: Overview of the web frontend components, HTML structure, CSS styling, media playback engines, and client-side state management for Oidarwave.
 tags: [frontend, architecture, html, css, javascript, hls, media-session, notifications]
-verified:
-  - by: openwiki/0.5.0
-    at: 2026-09-02T15:14:31.411Z
 sources:
   - id: openwiki-source-f8d10828394c4129061d5b0e
     resource: repo://index.html

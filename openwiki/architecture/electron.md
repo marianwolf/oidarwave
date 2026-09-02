@@ -5,7 +5,7 @@ description: Documents the Electron desktop application wrapper, main process co
 tags: [electron, desktop, packaging, architecture, security, routing]
 verified:
   - by: openwiki/0.5.0
-    at: 2026-09-02T15:14:31.411Z
+    at: 2026-09-02T16:07:26.286Z
 sources:
   - id: openwiki-source-3d9e72730d09405d8d9107c1
     resource: repo://electron/main.js
