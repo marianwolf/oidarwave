@@ -11,7 +11,7 @@
   </p>
   <p>
     <a href="https://oidarwave.vercel.app"><strong>🎧 Live Demo</strong></a> ·
-    <a href="#--installation-und-nutzung"><strong>📖 Dokumentation</strong></a> ·
+    <a href="/openwiki/quickstart.md"><strong>📖 Dokumentation</strong></a> ·
     <a href="https://github.com/marianwolf/oidarwave/issues"><strong>❓ Issues</strong></a>
   </p>
 </div>
@@ -21,71 +21,15 @@
 ## 📖 Inhaltsverzeichnis
 
 - [🏠 Über das Projekt](#-über-das-projekt)
-- [✨ Hauptfunktionen](#-hauptfunktionen)
-- [🎧 Verfügbare Streams](#-verfügbare-streams)
-  - [📻 Radio](#-radio)
-  - [📺 Fernsehen](#fernsehen)
-- [🔧 Technologien](#-technologien)
 - [💾 Installation und Nutzung](#--installation-und-nutzung)
 - [🤝 Mitwirken](#-mitwirken)
-- [🔐 Datenschutz](#️-datenschutz)
-- [📊 Roadmap](#-roadmap)
+- [🚀 Roadmap](#-roadmap)
 
-## 🚀 Über das Projekt
+## 🏠 Über das Projekt
 
 **Oidarwave** ist ein minimalistisches und werbefreies Webradio, das ein reibungsloses Hörerlebnis direkt im Browser ermöglicht. Das Projekt wurde mit dem Ziel entwickelt, eine einfache und ablenkungsfreie Möglichkeit zu bieten, eine handverlesene Auswahl deutscher Radiosender und Fernsehprogramme zu hören und zu sehen.
 
 Durch die Nutzung moderner Browser-APIs, einer schlanken Architektur und der strikten Fokussierung auf Privatsphäre bietet Oidarwave eine Alternative zu kommerziellen Streaming-Plattformen — **ohne Tracking, ohne Werbung, ohne Kompromisse**.
-
-## ✨ Hauptfunktionen
-
-  - **HTML5-Audio & -Video:** Die Anwendung nutzt `https`-Adressen, um Audio- und Videoinhalte abzurufen und wiederzugeben.
-  - **HLS-Unterstützung:** `hls.js` ermöglicht die Wiedergabe von HTTP Live Streaming (HLS) Inhalten in kompatiblen Webbrowsern.
-  - **Echtzeit-Statusanzeige:** Visuelle Indikatoren informieren sofort über den aktuellen Wiedergabe- und Verbindungsstatus.
-  - **Live-TV Streams:** Unterstützung für öffentlich-rechtliche deutsche Fernsehsender.
-  - **Verlauf & Download:** Wiedergabeverlauf wird lokal gespeichert und kann als JSON heruntergeladen werden.
-  - **Hosting:** Dieses Projekt wird auf Vercel gehostet.
-
-## 📻 Verfügbare Streams
-
-### Radio
-
-| Sender | Livestream | Metadaten |
-| :--- | :--- | :--- |
-| Deutschlandfunk | [Livestream](https://st01.sslstream.dlf.de/dlf/01/128/mp3/stream.mp3) | [Metadaten](https://streamtext.dradio.de/dlf.txt) |
-| Deutschlandfunk Nova | [Livestream](https://st03.sslstream.dlf.de/dlf/03/128/mp3/stream.mp3) | [Metadaten](https://static.deutschlandfunknova.de/actions/dradio/playlist/onair) |
-| NDR 1 | [Livestream](https://f121.rndfnk.com/ard/ndr/ndr1niedersachsen/hannover/mp3/128/stream.mp3?aggregator=web&cid=01FCT9XYE3C7Y8087XEWPRC38Z&sid=30aynlfxURrCQmDeTH1p0OqVsoV&token=3Wf1JnFUByNruoizm4AdR_YPX5_CvsRtTKXV3VK-004&tvf=qhyw4VgcVxhmMTIxLnJuZGZuay5jb20) | [Metadaten](https://www.ndr.de/public/radioplaylists/ndr1niedersachsen.json) |
-| NDR 2 | [Livestream](https://f131.rndfnk.com/ard/ndr/ndr2/niedersachsen/mp3/128/stream.mp3?aggregator=web&cid=01FBQ2CWDYWJHGF4QAJ0SVV730&sid=30ayvsXjJydzMH4MNiWpLV4nURH&token=FMhlmkJlc2prmQ6CBBjpYxFSaNHq6IDWPQKR9jRDjMA&tvf=0axLwWccVxhmMTMxLnJuZGZuay5jb20) | [Metadaten](https://www.ndr.de/public/radioplaylists/ndr2.json) |
-| NDR Info | [Livestream](https://f131.rndfnk.com/ard/ndr/ndrinfo/niedersachsen/mp3/128/stream.mp3?aggregator=web&cid=01FBRKHKTB73QDVNX7A9RT082R&sid=30az5c4cyuUHsy4tHS3YkD5oDcc&token=Z-H6aIgEFsx5kBPmtfq5x2UNGGmMOtyjcoYox9RHg2E&tvf=np8tvHkcVxhmMTMxLnJuZGZuay5jb20) | [Metadaten](https://www.ndr.de/epg/current/station-ndrinfo) |
-| NDR Kultur | [Livestream](https://d141.rndfnk.com/ard/ndr/ndrkultur/live/mp3/128/stream.mp3?aggregator=web&cid=01FBQ2EJ6T7QK3WENQ5KT9S2FB&sid=30azBxZOH15ri7EofrRpS1t3RXT&token=T_eVqj_rP6Bkb57di3056sjieytJKHDUnaT86DKLi-o&tvf=P4FiYIUcVxhkMTQxLnJuZGZuay5jb20) | [Metadaten](https://www.ndr.de/public/radioplaylists/ndrkultur.json) |
-| N-JOY | [Livestream](https://f121.rndfnk.com/ard/ndr/njoy/live/mp3/128/stream.mp3?aggregator=web&cid=01FBRKKTM6TVGA3B3W6Y8NMXK8&sid=30azMobKXI3x91RNnGaf7v0Jpbl&token=VvAbuddXUjbU602noIVp6b7CQBEikUS280qPiNmxABM&tvf=i4pneZkcVxhmMTIxLnJuZGZuay5jb20) | [Metadaten](https://www.ndr.de/public/radioplaylists/njoy.json) |
-| 80s80s | [Livestream](https://regiocast.streamabc.net/regc-80s80smweb2517500-mp3-192-1672667) | [Metadaten](https://iris-80s80s.loverad.io/flow.json?station=62) |
-| 90s90s | [Livestream](https://regiocast.streamabc.net/regc-90s90spop4760822-mp3-192-9403761) | - |
-| BBG Radio | [Livestream](https://radio.bbg-bew.de) | - |
-
-### Fernsehen
-
-| Sender | Livestream |
-| :--- | :--- |
-| Das Erste | [Livestream](https://daserste-live.ard-mcdn.de/daserste/live/hls/de/master.m3u8) |
-| ZDF | [Livestream](https://zdf-hls-15.akamaized.net/hls/live/2016498/de/veryhigh/master.m3u8) |
-| ARTE | [Livestream](https://artesimulcast.akamaized.net/hls/live/2030993/artelive_de/index.m3u8) |
-| Tagesschau24 | [Livestream](https://tagesschau.akamaized.net/hls/live/2020115/tagesschau/tagesschau_1/master.m3u8) |
-
-## 🛡️ Datenschutz
-
-Oidarwave wurde von Grund auf so konzipiert, dass es die Privatsphäre der Nutzer respektiert und den **EU-Richtlinien** sowie der **DSGVO** entspricht.
-
-  - **Keine Tracking-Cookies:** Das Projekt verwendet keine persistenten Cookies zur Verfolgung von Nutzeraktivitäten.
-  - **Lokale Speicherung:** Einstellungen werden lokal im Browser (`localStorage`) gespeichert, was die Privatsphäre der Nutzer schützt. Diese Daten werden gespeichert:
-    | Attribut | Wert |
-    | :--- | :--- |
-    | Cookie | `ja` od. `nein` |
-    | Cookie-Datum | `Datum` |
-    | Letzer Radiosender | `URL` |
-    | Letzer Fernsehsender | `URL` |
-    | Datensparmodus | `ja` od. `nein` |
-  - **Transparente Einwilligung:** Externe Skripte (wie z. B. für Web-Analytics) werden nur mit Ihrer expliziten Zustimmung geladen, sodass Sie stets die volle Kontrolle über Ihre Daten haben.
 
 ## 💾 Installation und Nutzung
 
