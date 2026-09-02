@@ -227,9 +227,21 @@ app.whenReady().then(async () => {
       parsedUrl.search = '';
       parsedUrl.hash = '';
 
-      const filePath = fileURLToPath(parsedUrl.href);
-      const resolvedPath = path.resolve(filePath);
       const appDir = path.resolve(path.join(__dirname, '..'));
+      let filePath = fileURLToPath(parsedUrl.href);
+
+      // HTML pages use absolute paths (e.g. /src/css/style.css) which resolve to the
+      // filesystem root under file://. When the absolute path does not exist on disk,
+      // fall back to resolving it relative to the app directory so Electron can serve
+      // bundled assets just like a web server would.
+      if (!fs.existsSync(filePath) && parsedUrl.pathname.startsWith('/')) {
+        const candidatePath = path.join(appDir, parsedUrl.pathname);
+        if (fs.existsSync(candidatePath)) {
+          filePath = candidatePath;
+        }
+      }
+
+      const resolvedPath = path.resolve(filePath);
 
       const relative = path.relative(appDir, resolvedPath);
       const isSafe = !relative.startsWith('..') && !path.isAbsolute(relative);
