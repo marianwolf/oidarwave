@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:3eaf72dd48912dbb9c29c9391347e63333931a53ed536063b8a038b02942312b",
+  "claims": [
+    {
+      "id": "claim_e4da2d0a97da4b32a56f976ceb988ff2",
+      "statement": "The setupMediaSession function is responsible for setting media metadata and action handlers for the Media Session API.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js#L6-L33",
+          "version": "repo-lines-v1:sha256:b0caa187b1a633b4de230fd45ef604420e4b176fb971a007d3957841b90fa1e5:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJjODBkODdkZDM3MzcyZWYxMWQ1YTI3ZmM0ZWZhMGM4YWRhMGM3MWUzNjUzNDZmMzJmODAyNGRlMjNhN2YwZDYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNhMWIwNDYxYTU4MzljOTg4MGY0MjA0ZTU5YjU1NmJjZmEyMWNjODNlOWViMmNhZmNiYTFlMmE0MGFiYTZmNGUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA5ZjBhYjUwYmRlM2Q3MjllNTI0NWQxMzIxYmNhNmE5YzUyMmQxZGI0YTIwMjlhOTY0NjI2OTBlNzYyMTA4M2UifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a3e75fbf3f21425c890c23cc1dbb3463",
+      "statement": "The setupMediaSession function is invoked when the media starts playing (in the playing event handler).",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js#L89-L89",
+          "version": "repo-lines-v1:sha256:0e37ed6c1b02d453a7fa9e5e2bf9f6999cef4b19fa97eb27276fef031fb7b427:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMGUzN2VkNmMxYjAyZDQ1M2E3ZmE5ZTVlMmJmOWY2OTk5Y2VmNGIxOWZhOTdlYjI3Mjc2ZmVmMDMxZmI3YjQyNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMGUzN2VkNmMxYjAyZDQ1M2E3ZmE5ZTVlMmJmOWY2OTk5Y2VmNGIxOWZhOTdlYjI3Mjc2ZmVmMDMxZmI3YjQyNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzk5N2E3NjU1NWZjNjZhZWM4MzI3ZWIwOTQ1N2UyYWJlOGVhZDMzNDFhNjhiYTE1OGM1ZmE1NWVhNmFkYzZjYSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODMyZTI3MmZiMDQ5YTc4ZmZmZWE0N2YxNmFhMzVkZTUxOTM4NjhhMDFjNGRkNzAzZWIyM2RhNjMyZmNhYjFiYiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_68a222f2a1c24ac6aab892d886a34222",
+      "statement": "The clearMediaSession function is invoked when changing stations (in selectStation) and when handling the stop action.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js#L158-L158",
+          "version": "repo-lines-v1:sha256:a8f712d20c6d47fae56da36a4807f53e2be8b8fcdca791f73a3a1f4dcf7fdbb5:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYThmNzEyZDIwYzZkNDdmYWU1NmRhMzZhNDgwN2Y1M2UyYmU4YjhmY2RjYTc5MWY3M2EzYTFmNGRjZjdmZGJiNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYThmNzEyZDIwYzZkNDdmYWU1NmRhMzZhNDgwN2Y1M2UyYmU4YjhmY2RjYTc5MWY3M2EzYTFmNGRjZjdmZGJiNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDM3M2MxZmFhOGVhZjQ3OGNhZGU0ZTJkNDNlNjhmZDIzMWM4ZTkyZmUxMjdmZjE4ZjJkYTA5MzZmNzAwN2YyNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYWE0NTJhODJhMzU0OWQ2YzM1MGNkYmFjN2M0NDQ0OTg4ZjMwNjJjZDFkZjhhZmI3NzQ5MGVkNjI1ZWIzYzBkMSJ9"
+        },
+        {
+          "resource": "repo://src/js/player.js#L28-L28",
+          "version": "repo-lines-v1:sha256:e20ce59d7a860a47e25c6bb8a843b103394650dcf550801ae4bc8a39896fdd59:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTIwY2U1OWQ3YTg2MGE0N2UyNWM2YmI4YTg0M2IxMDMzOTQ2NTBkY2Y1NTA4MDFhZTRiYzhhMzk4OTZmZGQ1OSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTIwY2U1OWQ3YTg2MGE0N2UyNWM2YmI4YTg0M2IxMDMzOTQ2NTBkY2Y1NTA4MDFhZTRiYzhhMzk4OTZmZGQ1OSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZWZhNjU5MTdhN2JiMmIxZTFjMjBlODU0NWQ3NTU2MjU1MTJkODEyZDY2MjEyMWJkYTA5MjdmMzAxYmQ0OTM4NyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYjQzMzcxODhkZWViMjYzYzE2MTMyZDdkZWY3NTJkMmY3YzYyODY1NjE1ZmRjNjc1YTRkMjJlYzdjMDBiZGNlZSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_2844f173d95e42819a8994c63f9a45fb",
+      "statement": "The setupMediaSession function checks for the presence of 'mediaSession' in navigator before proceeding.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js#L7-L7",
+          "version": "repo-lines-v1:sha256:541207ef747b0513fe2c97ab6f8fa65417c16e342f495e5ef830ed53bb3c33f9:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNTQxMjA3ZWY3NDdiMDUxM2ZlMmM5N2FiNmY4ZmE2NTQxN2MxNmUzNDJmNDk1ZTVlZjgzMGVkNTNiYjNjMzNmOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTQxMjA3ZWY3NDdiMDUxM2ZlMmM5N2FiNmY4ZmE2NTQxN2MxNmUzNDJmNDk1ZTVlZjgzMGVkNTNiYjNjMzNmOSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzMxMjA3M2JkZjZmNjIwMjhiYzRkOTVhYTUxYTc5MTE2NWE1NGUxM2UzZGNiOTYwMzFkN2UwYWEwNmViMDJiMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjQ0N2MzMWY4MDRlZGIyZTFiZTA2MWYzNDE1MzM5Yzc1N2YwYzMyYzUzMjBiNDA5NmYwZjk1N2EwN2ViMDU3NCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_46492ceba4c84776be84988bf7a49a61",
+      "statement": "The setupMediaSession function sets action handlers for 'play', 'pause', and 'stop' media actions.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js#L20-L29",
+          "version": "repo-lines-v1:sha256:e5966c7c6b988f2020d27cc9fa6d48c757f8fe94b607048ed8c39571fa2822b2:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFiZjc5MzRlNTk2NmJkNTExNmIzNmZkNWY0NjFjY2ZhOWFmNTFhM2ExMGY3OGIwMWYwZjBmMDVkM2I2NGExOTIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdkOTllN2M0OTcxM2MzMzc2Njc3MTI5MWRiY2NjMzc2NGM0OTk1N2U5N2U0NjgyN2U3ODIxMzliM2FiZjk5NDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVhOTUxMTM4M2IxNWNhZjdlNWU3NGM0OThiMjY5ODg2NDZiOWJjMjk0MWQ2NTgwYWVjYzFkYjAxZjQ1OWFlNDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFjZjJkZTIxZjI3NzRmNjllNmYyMjEyOGEzYzc2MDgxZDk4ZmU5ZjNhZTAwNWRmMjAxNjE3ZDRiNmZkYzVmODgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_63e1cf6a4c5a4c9ebc9cb26c0a2bc40d",
+      "statement": "The clearMediaSession function sets the session metadata to null.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js#L36-L39",
+          "version": "repo-lines-v1:sha256:312e36d92c69703c1982e7aabe289f69345bbc0b815e227b28f38a352d1ed6c7:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjJhNmJhNTU3MDU5MjY3ZjliMmE0YWU0NzBjMTM0NjRkYzEyNzJjMDY5MTA1ZjNhOTY1ZWQzZGUwMTg2ZWU0YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTZiMDQ0OTE0Njk3MjJlODM2M2E5NGU0MDQ0NTM4ZTAxM2EyYTIxN2UzNmIxZTU2OGJhNjBhY2I3YjRjOGYyZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTM3ZTc0YTc0NmYzZTRmYTk4ZDdjYjk4ZGIwN2QzMGJmZjY1Y2VmNjc2ZjE3YWIxZWE0OTNhYzQ4NDkwNjgxNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNmUzMDk1NWQzMzYwMzk0NGNkMzAxNjgxZmNhN2EzMjYwZmMxOWM4ZWRhMGZlMDdlYTVjYzJjYTA1NzM2YmUzZCJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.0",
+    "at": "2026-09-02T20:22:31.727Z"
+  }
+}

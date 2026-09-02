@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:5d04faf258d04f2740bfedbb25c36abd17beab2c2c0d3306fb16c0fee17a3583",
+  "claims": [
+    {
+      "id": "claim_f1f20763fee146038d68aeb3141a0746",
+      "statement": "Oidarwave supports MP3 radio streams for audio stations and HLS video streams for video stations.",
+      "evidence": [
+        {
+          "resource": "repo://index.html#L54-L84",
+          "version": "repo-lines-v1:sha256:ec89abd3bfd9a6518b86acc7827bf3a22ce2fa2f30092eb13987eb6f8c257c32:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY4MDU1MzNlNWZjYWRiMTEzYTg5MzZmZTRkNDk3M2I3MzNlMGFmYThjNmUwMTI3M2NmMTk4Mzg2NzZmZjgwNmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMWQwNzYyM2Q1ODUyNDNiZDliNmZmMTIxOTdmOTk5MWVlY2MxN2FiNDBmYWQ5MmE4MjcwZWE2NWU4NjE5YTUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjdhMmRjYTk5MjRiYTM0ZDg0ZDNjM2M1ZmQ0NDYzYjk4ZDAzMGNjNTQ3YjgwZjg5YTA5MDVlNWY0MWVkY2JhYWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjljMjc2MmVmZTM4YWMwYTQ2YTA5ZjFmMjRjMzZkNjBjYjEzMTZlZGMyOGRhNTlkOWFjNWQ4ZmZmZGZmMjYwYWQifQ"
+        },
+        {
+          "resource": "repo://src/js/player.js#L63-L72",
+          "version": "repo-lines-v1:sha256:94c12cdcd1dc89305ac590fd2f7faf6597dc7252aba5dccc6f52d760aa5b250f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM5OTIzMmFiZjRkMGU5MzE5Y2Y1N2I1Yjk2N2NmZjc3YTVkMDgxYzlmMzdmZWMzNDZjZGJiMjFjYzhlOGQ0MzUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE0NzM1ZjFmNjRlYzE5ZWMzM2ZmMjVlZTNiZDI3NGIxMzM0Mjc0MTYxNWJjODUzYmNiMmY4ZTU5MmQ4Y2EwOWEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQwMTdiODBiZWZkZWU1NjliOGUyMzdkYjZkMGRiYjU3ZGE1YzAxNTBiOWE3ZmJhZDQyZjU0NTFmOWE5ODM3MjgifQ"
+        },
+        {
+          "resource": "repo://video/index.html#L57-L69",
+          "version": "repo-lines-v1:sha256:1b6ec630d4c5281f9294e32b539f9b24f2e2ded089e4d80cde89f1a5f7b3fcbc:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc4YzQzYTZlYjA5YWIxMTMyOGU5ZmJkYzU2NmI1ODA3ODBjZGVlYjNhZWQ5M2YwOTk2NWIzYzYyM2Y2NWNlMGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBjNzFhOGY5MjU5NDY2MDg4ZWY1YTk4MTA3NjY2ZTA0ZmZjNjQ1MTcyY2JjZDc4ZDc2ZmNiOWYyZWM2NmFlZWEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ4NDZiYmRkOTc0MTMwNjliZmI0YTI5OGM0ZDc4YTVhNjA2NWYwZmVkZTg3YjY4OGQ2YmViMzk0YTM5ODY0MzMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjY2ODY3ZmEzOWFlOGFlODNmZmIwMDM0OTY4ZTUyZTIzYTIwZGI1NDExYTI2MmIwNDBkZGY5MTE4YzgxNzIzMDcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_b7c5ad799684496ea8f6eefcb601beda",
+      "statement": "MP3 radio stream URLs are stored in the data-url attribute of station buttons in the radio interface (index.html).",
+      "evidence": [
+        {
+          "resource": "repo://index.html#L54-L84",
+          "version": "repo-lines-v1:sha256:ec89abd3bfd9a6518b86acc7827bf3a22ce2fa2f30092eb13987eb6f8c257c32:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY4MDU1MzNlNWZjYWRiMTEzYTg5MzZmZTRkNDk3M2I3MzNlMGFmYThjNmUwMTI3M2NmMTk4Mzg2NzZmZjgwNmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMWQwNzYyM2Q1ODUyNDNiZDliNmZmMTIxOTdmOTk5MWVlY2MxN2FiNDBmYWQ5MmE4MjcwZWE2NWU4NjE5YTUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjdhMmRjYTk5MjRiYTM0ZDg0ZDNjM2M1ZmQ0NDYzYjk4ZDAzMGNjNTQ3YjgwZjg5YTA5MDVlNWY0MWVkY2JhYWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjljMjc2MmVmZTM4YWMwYTQ2YTA5ZjFmMjRjMzZkNjBjYjEzMTZlZGMyOGRhNTlkOWFjNWQ4ZmZmZGZmMjYwYWQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_1329dafdd18b4be49092be575c52df5d",
+      "statement": "HLS video stream URLs are stored in the data-url attribute of station buttons in the video interface (video/index.html).",
+      "evidence": [
+        {
+          "resource": "repo://video/index.html#L57-L69",
+          "version": "repo-lines-v1:sha256:1b6ec630d4c5281f9294e32b539f9b24f2e2ded089e4d80cde89f1a5f7b3fcbc:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc4YzQzYTZlYjA5YWIxMTMyOGU5ZmJkYzU2NmI1ODA3ODBjZGVlYjNhZWQ5M2YwOTk2NWIzYzYyM2Y2NWNlMGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBjNzFhOGY5MjU5NDY2MDg4ZWY1YTk4MTA3NjY2ZTA0ZmZjNjQ1MTcyY2JjZDc4ZDc2ZmNiOWYyZWM2NmFlZWEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ4NDZiYmRkOTc0MTMwNjliZmI0YTI5OGM0ZDc4YTVhNjA2NWYwZmVkZTg3YjY4OGQ2YmViMzk0YTM5ODY0MzMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjY2ODY3ZmEzOWFlOGFlODNmZmIwMDM0OTY4ZTUyZTIzYTIwZGI1NDExYTI2MmIwNDBkZGY5MTE4YzgxNzIzMDcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_560fc3f0abba4561ab5f463148be92eb",
+      "statement": "Some radio stations provide metadata endpoints for song titles, specified in the data-metadata-url attribute of station buttons in index.html.",
+      "evidence": [
+        {
+          "resource": "repo://index.html#L54-L84",
+          "version": "repo-lines-v1:sha256:ec89abd3bfd9a6518b86acc7827bf3a22ce2fa2f30092eb13987eb6f8c257c32:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY4MDU1MzNlNWZjYWRiMTEzYTg5MzZmZTRkNDk3M2I3MzNlMGFmYThjNmUwMTI3M2NmMTk4Mzg2NzZmZjgwNmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMWQwNzYyM2Q1ODUyNDNiZDliNmZmMTIxOTdmOTk5MWVlY2MxN2FiNDBmYWQ5MmE4MjcwZWE2NWU4NjE5YTUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjdhMmRjYTk5MjRiYTM0ZDg0ZDNjM2M1ZmQ0NDYzYjk4ZDAzMGNjNTQ3YjgwZjg5YTA5MDVlNWY0MWVkY2JhYWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjljMjc2MmVmZTM4YWMwYTQ2YTA5ZjFmMjRjMzZkNjBjYjEzMTZlZGMyOGRhNTlkOWFjNWQ4ZmZmZGZmMjYwYWQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_98d2a1bb6a5b47b39a758373b517d504",
+      "statement": "The fetchMetadata function in player.js periodically fetches metadata from the metadata URL every 3 seconds (3000 ms) and updates the current song title display.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js#L160-L165",
+          "version": "repo-lines-v1:sha256:5a5c417201ec417e67185d83e7f02666a6af0fd48e18d001c78dde5bc52aee41:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiN2QxMTAxODkxMDc0MzUyNjgyNzY3YjA2MWY2ZTk1ZTZhZjUyYzM1MWVhYWQ2MTY5MTQ2ZTJjZjYxMGQwZjliYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTZiMDQ0OTE0Njk3MjJlODM2M2E5NGU0MDQ0NTM4ZTAxM2EyYTIxN2UzNmIxZTU2OGJhNjBhY2I3YjRjOGYyZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYWEzMzE1MTk2Yzg0OGU1YjM0NjVjZDQyMTVkM2JjYWVjY2IxYzYyY2VlNmNlY2ZhY2VkYTNkOTU1MjVmZWI0NCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDM4NWQzYmE3YTY3NmZiODAxNjJmMjhkYWI1OGM5MmIxNzAzNTljMzA1MjM4NTA5NmE0YjlkYjllMTI4YTMwOCJ9"
+        },
+        {
+          "resource": "repo://src/js/player.js#L195-L220",
+          "version": "repo-lines-v1:sha256:64bac6a4e2ab2d8c6d4b6bb4a03fc36c714a84029bc18e4b09b44b8b04ceb0e4:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRmNjg2YjRiZjFiZTBjYjVkNGJlYzkzNWQ3MmQxMjE3MmVmZGNjOTcyOGI4ZjA2NzRjOTA2ZGI3NmEwOTUxYzciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg3MzcxNGNkMjVlYjI3ZDliNjE0MmFmM2RmMDAyZGUwNGRhMDlkNjUzMzllYmY3ZjIwZjhkZmM3MGFlNTkwMGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk5OWJkZWZlZWFjYTYzNDBlMDI5MGRjODZlODg5Yzg5ZDVlMTg5YWE1YmE0NGI1ODViM2I3MDczNGY0YTYyZDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFlM2RhYTViYjY4MjkzZTVjNmE3ZWY5MjUyNDRkNTExMDMzYTUyOTIzYTRlNDk3MmYwZWViNGIxYTAzZjU4NWUifQ"
+        },
+        {
+          "resource": "repo://src/js/player.js#L3-L3",
+          "version": "repo-lines-v1:sha256:ed4f22ae6b77ca8b1de5c70adcdfcc729ee5ac4bcf74f4aafb6c1c4f721e2c9b:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWQ0ZjIyYWU2Yjc3Y2E4YjFkZTVjNzBhZGNkZmNjNzI5ZWU1YWM0YmNmNzRmNGFhZmI2YzFjNGY3MjFlMmM5YiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZWQ0ZjIyYWU2Yjc3Y2E4YjFkZTVjNzBhZGNkZmNjNzI5ZWU1YWM0YmNmNzRmNGFhZmI2YzFjNGY3MjFlMmM5YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjIsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDBiNGJlYmI3MWZjODc0NTkzNWViMzNlN2RmZGM4ODQxNDI2NTM4NzE0YWQ4OTZlYWU5MGE3NDVjYTU3ZWVlZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzMxMjA3M2JkZjZmNjIwMjhiYzRkOTVhYTUxYTc5MTE2NWE1NGUxM2UzZGNiOTYwMzFkN2UwYWEwNmViMDJiMyJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.0",
+    "at": "2026-09-02T20:22:31.727Z"
+  }
+}

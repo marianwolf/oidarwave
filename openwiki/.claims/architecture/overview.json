@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:8201e5f21dd53535c692bc91accf51220ccc40a0c72b337ab0f4f723a92ea8e4",
+  "claims": [
+    {
+      "id": "claim_a694fece1fa145209619e3d74ffb1708",
+      "statement": "The Electron main process in electron/main.js creates a BrowserWindow with dimensions 1200x800 pixels, initially hidden (show: false) to prevent white flash, and sets security preferences including nodeIntegration: false, contextIsolation: true, webSecurity: true, and sandbox: true.",
+      "evidence": [
+        {
+          "resource": "repo://electron/main.js",
+          "version": "repo-file-v1:sha256:7bd75b686291b4a95e71ade92b5ff81b7e2ad4b00171addb7101584934d70150"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.0",
+    "at": "2026-09-02T20:22:31.727Z"
+  }
+}

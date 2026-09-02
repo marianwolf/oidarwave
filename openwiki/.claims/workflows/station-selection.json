@@ -1,0 +1,138 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:2cdec6ac4ab295d81a93749b87021420cb02e7684ed7278df6b374ce0842a0c8",
+  "claims": [
+    {
+      "id": "claim_b96742ec174d42d09745c0774f1a3fb0",
+      "statement": "When a station button is clicked, the `selectStation` function in player.js is called.",
+      "evidence": [
+        {
+          "resource": "repo://index.html#L54-L83",
+          "version": "repo-lines-v1:sha256:9cc1d106dcf96ac8f122fc8f07cc59b9505877fd938b2878671d47975cf3b581:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY4MDU1MzNlNWZjYWRiMTEzYTg5MzZmZTRkNDk3M2I3MzNlMGFmYThjNmUwMTI3M2NmMTk4Mzg2NzZmZjgwNmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZiOWMwZmJmNWNlZTRjYzgyZjllYzc0MjJlMGNhNDE4MjE5N2U5YWFhOTk2MThkYzA4OGZmODU4MTgxOWRiY2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjdhMmRjYTk5MjRiYTM0ZDg0ZDNjM2M1ZmQ0NDYzYjk4ZDAzMGNjNTQ3YjgwZjg5YTA5MDVlNWY0MWVkY2JhYWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQzOTI2YzE4NjRhYTVkZDUyZmUzYTYzY2VmOWY0ZjRmYTkzY2VmYzRlZTEyYzQxNTg1NGVhN2I3YjVhZWM4ZDcifQ"
+        },
+        {
+          "resource": "repo://src/js/player.js#L108-L110",
+          "version": "repo-lines-v1:sha256:a165afc1480793cbe34553b969fb19de617ed43beeb658f443c7313988e897ff:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMTE0MDA0YjIxNDAwNjA1YjRkZTk3Mjg1MjQ0OTMxOTUzZDIzMTU1YTc2NjI1MjQzYWU0Y2IwYzRiOGUzOWVkNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjJkMTFjYWY0M2U5N2VmMzY5ZTZiZWVkMWEyNjhiZDA1ODM4ZjI5YjlkZDI1NGJmNjliYTY0ODg0MTQ3MjM0YSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZWMxMGJkNDJjNzI0MWJjNDZjNzc4N2EzZTNlMzNiZWViZWQ4YjM3ZDJhYzQ4OGI4ZDYxNGE1ODNlOTJhZmM3MCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTcxYTU3NjEyNzczNDA1ZmM1ZjEwYzlhZTY3ZTE0MzE0ZTRlZjJjYmZiZTk5MDliMWEzYzJjZGEwMGY0NDQ4YyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_c1e9939b23be42dc94f63efb7ca8c365",
+      "statement": "The `selectStation` function sets the clicked button as active and updates the current station display.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js#L141-L145",
+          "version": "repo-lines-v1:sha256:c7d8b3d9b8c2b3267b86de8299a27a69552d0dbbd96e5a0eaa3a1b10570ea5cf:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWYzYmUwNTQ2MDUzOTY1NTliMzI0NjkzZWViMzFmNGViMDFiNWZlZjg4MmJhZDc3YmQ2Mzc2MDI4ZmYxYWUyNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOGM3Mjc2YTgxMTY0MDM0YzlhNTEyNjVjMTEwY2I2MGRmMDk5NjYzYWNhZTZmYjQ1NWIwNGVkZTA2ZjQzMWE1YSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjljZjFmODlkNjFkZDUzOWY3N2Q4MjdmMTQ2NzE3YzdkNjk5ZjU4NWVhMzU1Mjk5Yzc5YjkwYTFhMDQ2OWIwZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNmJhNDQxMjc4NjBhNjNmNTUxOGQ0M2M3NGVlZWFjZDcyNWZjZWVlMjdlYTAzMjJhYTJiOTA5NmNlZDRhZjE4MCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_b0740551380040da8d8f47be546c449f",
+      "statement": "The function saves the selected station's URL to localStorage.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js#L148-L151",
+          "version": "repo-lines-v1:sha256:a4cb3959b81a41de26b216c01105df3f06d269fdbdfd4517abbafdd48f3cfb43:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYmVkMzExYWE4NTI3YzdjODJmMDlkNDAzM2YyMGZiZTJkM2U0NmVmN2E1MGI4MDU3MmNlOGYzZmFjN2U3NjhiNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTZiMDQ0OTE0Njk3MjJlODM2M2E5NGU0MDQ0NTM4ZTAxM2EyYTIxN2UzNmIxZTU2OGJhNjBhY2I3YjRjOGYyZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOWU4MDZlMDJiMjYxNDQyOTdmNjhkZDdlNWIxMTA4MWRjMjQ0MWRjY2FmNTk0MGQ0YjgzN2MwMzNkODMwZGE5YiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNmI1ZjVhZmVlNGYwZGUxOTVmYmJhY2MzMWUxOTI1ZDMxOWUzMThkZDViNTRhNzQ5YzM0ZTlkY2M3NTk5NzcyMyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_bd0b1ba226474d518e797231f48a625c",
+      "statement": "If the button provides a metadata URL, the function initiates an immediate metadata fetch and sets up periodic refresh.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js#L160-L165",
+          "version": "repo-lines-v1:sha256:5a5c417201ec417e67185d83e7f02666a6af0fd48e18d001c78dde5bc52aee41:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiN2QxMTAxODkxMDc0MzUyNjgyNzY3YjA2MWY2ZTk1ZTZhZjUyYzM1MWVhYWQ2MTY5MTQ2ZTJjZjYxMGQwZjliYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTZiMDQ0OTE0Njk3MjJlODM2M2E5NGU0MDQ0NTM4ZTAxM2EyYTIxN2UzNmIxZTU2OGJhNjBhY2I3YjRjOGYyZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYWEzMzE1MTk2Yzg0OGU1YjM0NjVjZDQyMTVkM2JjYWVjY2IxYzYyY2VlNmNlY2ZhY2VkYTNkOTU1MjVmZWI0NCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDM4NWQzYmE3YTY3NmZiODAxNjJmMjhkYWI1OGM5MmIxNzAzNTljMzA1MjM4NTA5NmE0YjlkYjllMTI4YTMwOCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_f980600633e143c09c6dc70cf7c9d9f6",
+      "statement": "Before setting up new metadata fetching, the function clears any existing metadata interval and media session.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js#L153-L158",
+          "version": "repo-lines-v1:sha256:7a703d41bc526162edef76bd0b13eb289690842d1c1c60bf933f2cde06c2cb1b:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiM2E2MDhkNDQ3OTEyMjM4OTc2Y2E3MWFlZTgzZjJiZDAwMGM3ZDc1Yjg4Y2I3MjgwNDJlNGViNzUyYzkzOThiZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYThmNzEyZDIwYzZkNDdmYWU1NmRhMzZhNDgwN2Y1M2UyYmU4YjhmY2RjYTc5MWY3M2EzYTFmNGRjZjdmZGJiNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjYyMGJhMmQxMWIwNTlhYTM5NzY0ZjNlMTBlMzdjM2IyZjUzZThhMGNiOTkxYTk3ZGNiM2NlYTIxN2JkZWE1ZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYWE0NTJhODJhMzU0OWQ2YzM1MGNkYmFjN2M0NDQ0OTg4ZjMwNjJjZDFkZjhhZmI3NzQ5MGVkNjI1ZWIzYzBkMSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_0faedb792eb348d1a621da948f710c29",
+      "statement": "The function sets the audio player's source to the selected station's URL and calls load().",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js#L167-L168",
+          "version": "repo-lines-v1:sha256:f49cb13c32ae26b60993c7a413aee59b587eb9bdcbbcf3db79798f1908e7adcd:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZDlhZjExMmFjNjY0NmRjMjZmNGFhN2E3Mzg4MWU1YzlhMTg3NGYzMzMwYjliZmJmY2IxOGVhZTVkNjg3NzliNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNjhlZjU0ZWEyMWNkMDI2Y2RkYzg3MDE2Y2VjNTZiODRlOWQwMTIxMTA5YTc3MzUwNzNiYzk0YzMwNzYwZjI1ZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNGE2MWM2MzYyZDhiZDRkZjBhMjhjNWI5NmIyOTczYWQxNDdhMjAwMTQ4MTFjYWVhOGRlNzYwYjczYTNkOWVhOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYWUxMmYyNjJhMWJjMDk5ZDg4Y2FiZTg5ZGM3NGVlYzRiNzQzMTdhZTM2YjUzMWE4YTliMDkwNzZkMjZkNmI3MiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_c9d4cb96e65b4ccf9c9cfd2febc2b643",
+      "statement": "Media events from the player (such as waiting, playing, error) trigger updates to the status indicator via `updateOverallStatus`.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js#L119-L132",
+          "version": "repo-lines-v1:sha256:f93efaeb1ea45a42702ca3a9103716247112aa719adcc066269bd0965a8920ae:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI2NzY3OTVkNWM5MTRiYTk1ZjlhNDI2ZDRhYTcwNmU5MjRlNGU5ZDcwYWExOThkMDQ0YmRhYjY1NzJhYmNhMTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE2OTkyZWM2YzNlZTQ2NjBmOTMzZGM3MmJmNTI1MWM0OWQwYWVlZTgyNzc3MTk4NzYyMzU5MTVmNDg5YjRhZWEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI0YzI2NmQyNTcxMmJlYjExNzRjNTE3OWU3YzRmOTg4ZDNlZTgwNDg1MzY4OWI1Y2M5NDI2ZjgxMTVhMGYyYTEifQ"
+        },
+        {
+          "resource": "repo://src/js/player.js#L75-L102",
+          "version": "repo-lines-v1:sha256:7b95b9d87d5397a5fc6530dfce6bc13b332c346e8bcf6d4baac629fcde2be463:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI4NWZhZjQ1Yzg3ZTc3OGU4MWQyYTU5NzlhZGI3ZTcyNGM2OTI2Y2ZjZGRhYzNiMjA1YTA4NjE3YmQzMTc1NTIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkOWUxMjU0NjQyNTU3NmQzZGVhZThjOWI5ZGJmMTI4ZDVkNmRkYWY1ZDdmZTg1NzkzNDkyN2RlZmZhM2I5ZGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjIwYTk4OTlkMTZjZTk4NzRiYjQxZTM5N2U5MTJjMDUxOGQwZDViMTcxMDk2ZDU0OGM4MDk3NzljZGE1ZjIyMWYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFiMDY5ZjJkNzU3YTk4Y2JhMzkzMTUyZTA4NjkxMjVkNjA0ZDgyMTgxN2Q2MmNhYTJkMTY5ODQzMDU4NTk4NTAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_26f7d50f3baa495bb935e90874bb8fd8",
+      "statement": "On the `playing` event, the function starts station history and sets up the media session with the current station name.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js#L87-L89",
+          "version": "repo-lines-v1:sha256:64db4d523ca8d7b721decf35fb7e28d947819286ab8c6cee27c5119e977a60c0:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzMwMjUzNWNmNmZkNzA4ZGU0NWQ4YzY4MDA3MzZhZjhiZjc5NDllYzEwYWJmNDE2NzE5Y2NiYWEyNmZjYjAwOCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMGUzN2VkNmMxYjAyZDQ1M2E3ZmE5ZTVlMmJmOWY2OTk5Y2VmNGIxOWZhOTdlYjI3Mjc2ZmVmMDMxZmI3YjQyNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzJkNTk3ZGJhMjVkZTExYzc4ZjhhMmY1ODNiNjMwOThmYzUyMDBmZTM3NDA1NWRkZjkxZGRhNDVjMDI5NDkyMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODMyZTI3MmZiMDQ5YTc4ZmZmZWE0N2YxNmFhMzVkZTUxOTM4NjhhMDFjNGRkNzAzZWIyM2RhNjMyZmNhYjFiYiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_5b93661adb9448199792634897c7e2ae",
+      "statement": "The `fetchMetadata` function updates the song title display and media session with the retrieved track information.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js#L195-L228",
+          "version": "repo-lines-v1:sha256:b732e62ac7c941226ccdad98245a1b2d94ab74e019d20afbd08a129513ef01b2:eyJzZWxlY3RlZExpbmVDb3VudCI6MzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRmNjg2YjRiZjFiZTBjYjVkNGJlYzkzNWQ3MmQxMjE3MmVmZGNjOTcyOGI4ZjA2NzRjOTA2ZGI3NmEwOTUxYzciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRlNDYyYmQ4NWVhMzUyMjgyMmE5YWQzZWIyNDA5OWIwMzJhMWI2MjdiZWNmZDdjNTgzMWU5OTI3ZDRiYWM0MGUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk5OWJkZWZlZWFjYTYzNDBlMDI5MGRjODZlODg5Yzg5ZDVlMTg5YWE1YmE0NGI1ODViM2I3MDczNGY0YTYyZDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImVhZmJkNmQyZjVkYTAzMDQ3MjA4YzVhYzU5OGQ3NTIyN2JkNGFjYWE0NTY0NjU0NDhjZGMxNzlhYjBlYjdlNTgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_9b85c51b157340bcba2f8cd51747d987",
+      "statement": "If metadata fetching fails, the song title display is set to \"Metadaten nicht verfügbar\" and the media session is cleared.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js#L224-L228",
+          "version": "repo-lines-v1:sha256:c9167e6fd98b036d8bd13c5adb62b446d442de3e93b42b848c8f709099228c8f:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMTUwMTYxMjQ5ODAzOTk3M2VjYmI4ZjgxZTg3OThhYWNiZWI5Y2I0ZDE1OWQ1NGNjMjYwNjFjNTg3NGFhYjI0NiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGU0NjJiZDg1ZWEzNTIyODIyYTlhZDNlYjI0MDk5YjAzMmExYjYyN2JlY2ZkN2M1ODMxZTk5MjdkNGJhYzQwZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYWUzZGFhNWJiNjgyOTNlNWM2YTdlZjkyNTI0NGQ1MTEwMzNhNTI5MjNhNGU0OTcyZjBlZWI0YjFhMDNmNTg1ZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZWFmYmQ2ZDJmNWRhMDMwNDcyMDhjNWFjNTk4ZDc1MjI3YmQ0YWNhYTQ1NjQ2NTQ0OGNkYzE3OWFiMGViN2U1OCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_f7e2b3f8d2d94a8ba0624f04373e1c98",
+      "statement": "If a media error occurs, the `hasError` flag is set and the status indicator is updated to reflect an error state.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js#L96-L100",
+          "version": "repo-lines-v1:sha256:98c88157384935cc9fc35c99425358770106424a150f2cdd7e6288434b657d9d:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTYxZDc3YTk4YWY5NTUwNGZlMTdiNjU1ZmM5YjM4MTlkMjRhNTI3OWE2MjYxZjBkOGM5NWJiOWYzNGY4NmJmNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMTc3MjMzY2Q4ODM5ZTI1YmE0ZmFlNGQ1ODRkOTAxNmQ0ZTNhMWRiNzdlNGI0NDljMzg1NTVkYjNhMTQxZjNiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzRjNTA1NTAxYTE3NTdjOGM1NTk3NDIxMzZmNmYwNmIwOWJmZjRlMGJhM2M3MDlmZDA5ODZkMDA4Yzk3ZmI1ZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTM3ZTc0YTc0NmYzZTRmYTk4ZDdjYjk4ZGIwN2QzMGJmZjY1Y2VmNjc2ZjE3YWIxZWE0OTNhYzQ4NDkwNjgxNCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_478a0d9c4b614c0490aa31395382cc42",
+      "statement": "When the browser goes offline, the function stops station history and updates the status indicator.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js#L112-L115",
+          "version": "repo-lines-v1:sha256:d88a7896132512aad61fe9ce3fa0ca950f402e80537818882079b6da665f95d8:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWEyOTdhYjQ0ZjZiZTQyZmY4OGFhMGU0ZDA2ZmJjMTkxYWE0YTlhMzhiMTBlZDczYmRiZjUwZDQzMjdjZmU1NSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjJkMTFjYWY0M2U5N2VmMzY5ZTZiZWVkMWEyNjhiZDA1ODM4ZjI5YjlkZDI1NGJmNjliYTY0ODg0MTQ3MjM0YSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjFkYmNmZWE2NjA4Y2ExZmVlYTJiNTRkYjI2NjI2MTQwOGRjZDdhZGFmMzViYTZkNDI5NGFiZTE0YTRlZWViMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTY5OTJlYzZjM2VlNDY2MGY5MzNkYzcyYmY1MjUxYzQ5ZDBhZWVlODI3NzcxOTg3NjIzNTkxNWY0ODliNGFlYSJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.0",
+    "at": "2026-09-02T20:22:31.727Z"
+  }
+}

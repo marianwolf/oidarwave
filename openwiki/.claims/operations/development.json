@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:b43b91d0912ee6d7e684a0b50a0a9c88aa17fea4dedda8926cd97ffd37f63532",
+  "claims": [
+    {
+      "id": "claim_1b664b49c4054844b0b90cb58a2ad16f",
+      "statement": "Oidarwave can be run for development as a static web page in a browser or as an Electron desktop application.",
+      "evidence": [
+        {
+          "resource": "repo://README.md#L90-L100",
+          "version": "repo-lines-v1:sha256:4995a2fadc52775d2904d06c80a76624147318c741c30bf29516d3ae1cd0f4cb:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVlY2NlNDQ0ZjU5NWI2ZDAzMzk5ODlkNzVmNzFiZTEzNDZmN2FiMDJhN2I5YmVhYzc0YTIyZDQxZDRjMDkyNzkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU4ODkxZDQxMmQ0Y2JhMDcyYWM1OWZjZDcyMjI5YjdmMjYyOTNkOGY3NmQ3ODU5NDcwMzQyNGFkNjZhMzYxY2MiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQzMzgwN2YxMmU3MmViMzI3NTJiMTkxNmEyMWQ2MzIxOGZkMGIwZTgwMWExMWE3ZWViNTFmZjVjZDg0ZGRiYjkifQ"
+        },
+        {
+          "resource": "repo://electron/main.js#L1-L5",
+          "version": "repo-lines-v1:sha256:fd3fcf0c01277f84d40fdfccd4d57df62f041ecae911a08c95c91c39c27ab98b:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzNkYmIzYmI0MTBkNWY4NDVjYTA5MzEzNTk5Yjg4N2JmNzcxODQ1M2M4MDY2OGIzMTQwN2M1YmUzZGE0NTUyMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzE5MDMwY2E1MzU4NTUxNTcyODMzOTEzYWNkNGIzZTNiZGM0NDQ5NzVkMmYzMzY5ZWNhNWJmZGY3YWE5ZjFiMyJ9"
+        },
+        {
+          "resource": "repo://package.json#L7-L13",
+          "version": "repo-lines-v1:sha256:9b10e96594e7cd88538741b51ae8fa3dc0174e0e92935c02328bc5e7171a2df3:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzQ4MzNkNTk0OWMwM2E0MGNhOTUyNDkxNjEwYTY2NTk2NDRiM2FhNDY2MzYyZjc5OTAyMGRiZjE5ODE1NDdkYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGQ1Y2QyZmI0ZjNkZjg4NDUxNTI1NWIzOTUyM2YyZjhiNTQ3MmJlZWE5ZjU2NmZmY2EyMDRkYjgwMjU2MTA0MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNmYyMmFlZTg5YTZjYmE3ZGZlN2FkMjEzODIyMWY0MWM3OWExMWZlOTkyMjM0NmY2YjhkMzc5N2ZkNTI1ZGFhNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiN2ZjY2ZhYzY3MzJiNjkxMTIyY2UzYzZhOTQwN2RlYWE4NTZlZDY4ZWY0YWNjZmU3ZmFhM2I5NThkZDQ0MDg2YSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_22cdc46fb3cb4be38870a4fc99235e0e",
+      "statement": "The Electron development mode requires Node.js and its dependencies to be installed.",
+      "evidence": [
+        {
+          "resource": "repo://package.json#L122-L125",
+          "version": "repo-lines-v1:sha256:2d73c3763f1de344d637ad8703f9c7c1ba9c634084e6f2b6ef9cb4d551f04794:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOWRjNGRlN2VkMzVhMjMzNjQ1Mzk4NjRkYWRiOTM4Yjg3MjMzMzc5MTc5ZDYyOTJiOWZmNWY2MTlhNmMxMzE2NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGQ1Y2QyZmI0ZjNkZjg4NDUxNTI1NWIzOTUyM2YyZjhiNTQ3MmJlZWE5ZjU2NmZmY2EyMDRkYjgwMjU2MTA0MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiY2EyZWJmY2QzMTA2ZDU1ZDlmNWVmODY3MGVmOTkxZjk5YTJhOTBhMTJmODdmMTZhOTQwNjFkYjUwNGMzYWY5NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDM5M2I0YjE3YjNmMWU0YzkyNWU4Y2QyMjYwNzhkMmY2MWY4MmU3ZDQ4NjJhNzk2MWUwMWY5MWYzMGFlNTZkNyJ9"
+        },
+        {
+          "resource": "repo://package.json#L7-L13",
+          "version": "repo-lines-v1:sha256:9b10e96594e7cd88538741b51ae8fa3dc0174e0e92935c02328bc5e7171a2df3:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzQ4MzNkNTk0OWMwM2E0MGNhOTUyNDkxNjEwYTY2NTk2NDRiM2FhNDY2MzYyZjc5OTAyMGRiZjE5ODE1NDdkYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGQ1Y2QyZmI0ZjNkZjg4NDUxNTI1NWIzOTUyM2YyZjhiNTQ3MmJlZWE5ZjU2NmZmY2EyMDRkYjgwMjU2MTA0MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNmYyMmFlZTg5YTZjYmE3ZGZlN2FkMjEzODIyMWY0MWM3OWExMWZlOTkyMjM0NmY2YjhkMzc5N2ZkNTI1ZGFhNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiN2ZjY2ZhYzY3MzJiNjkxMTIyY2UzYzZhOTQwN2RlYWE4NTZlZDY4ZWY0YWNjZmU3ZmFhM2I5NThkZDQ0MDg2YSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_d06f1d4549674bed92b0ffbdb13848bb",
+      "statement": "The static development mode requires no dependencies and can be run by opening the index.html file in a web browser.",
+      "evidence": [
+        {
+          "resource": "repo://README.md#L90-L100",
+          "version": "repo-lines-v1:sha256:4995a2fadc52775d2904d06c80a76624147318c741c30bf29516d3ae1cd0f4cb:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVlY2NlNDQ0ZjU5NWI2ZDAzMzk5ODlkNzVmNzFiZTEzNDZmN2FiMDJhN2I5YmVhYzc0YTIyZDQxZDRjMDkyNzkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU4ODkxZDQxMmQ0Y2JhMDcyYWM1OWZjZDcyMjI5YjdmMjYyOTNkOGY3NmQ3ODU5NDcwMzQyNGFkNjZhMzYxY2MiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQzMzgwN2YxMmU3MmViMzI3NTJiMTkxNmEyMWQ2MzIxOGZkMGIwZTgwMWExMWE3ZWViNTFmZjVjZDg0ZGRiYjkifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_e441ae9406e64a2886cd89c0eb9f3851",
+      "statement": "The command `npm start` launches the Oidarwave Electron application.",
+      "evidence": [
+        {
+          "resource": "repo://package.json#L8-L8",
+          "version": "repo-lines-v1:sha256:fc4eed3fd0c89591bcdded55459cd6f4ba2912bd47f667c0019f54139350dba9:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZmM0ZWVkM2ZkMGM4OTU5MWJjZGRlZDU1NDU5Y2Q2ZjRiYTI5MTJiZDQ3ZjY2N2MwMDE5ZjU0MTM5MzUwZGJhOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZmM0ZWVkM2ZkMGM4OTU5MWJjZGRlZDU1NDU5Y2Q2ZjRiYTI5MTJiZDQ3ZjY2N2MwMDE5ZjU0MTM5MzUwZGJhOSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiY2NkMzhhY2EyNDQ2NDU2OTE4NzkwZDE2MjRlMjFjMTVkZWMyNDZjYmVkNzAyMTVmYTE4NmVjZjFkZTk3YTJjYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMmI2NTZkN2U3NDRjMWI4ZjIyM2RkZWI0MjFjMTBlZjJmZWVhM2RjNzUwNDhmNWE3NjY1Y2FiZGE3ZDNhNGFkNiJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.0",
+    "at": "2026-09-02T20:22:31.727Z"
+  }
+}

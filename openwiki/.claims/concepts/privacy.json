@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:98d3b1c29c232de372d13311b70f995e6220493d49edcfb1839b4fa1765c23af",
+  "claims": [
+    {
+      "id": "claim_59f2708cbf9c4a3291df99fb2574694f",
+      "statement": "Oidarwave does not set or read any persistent cookies for tracking purposes.",
+      "evidence": [
+        {
+          "resource": "repo://README.md#L79-L80",
+          "version": "repo-lines-v1:sha256:85148a43e150aa131c9e4b1ff8737ce2d85e288d10e8e18be34f648feb493702:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOTgxNTM2ZTRlNGZjZjcxZWIwZGIxMWM3OGM5ZWYzMmE5MjliZjg0ZjE3Yjk1NjY2ZWI3MjQyMDUxZWY4NTJhYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjZiYTg5MGUxZDk4NTNjZmI4ZjVkOTBjMzBlMGEzMGI0ZTZkNjcxM2Q1NjdkNmUxMjhiYzU3YjE5ZmYwYTllMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOGJmYmYyYTkzOTU1YzljN2I0M2E0YWMwOGY0NTMzMDE5ZWI5MjI2YjFmMjExZjlhMGRhMmM3MTc1MTgwNjVjYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYmY0ODg4NjYxMTYzMWZhOGE3ZTk3YWMwYmUzOGI3MDE2MjY1MTNkYTQyNDY4YzU4ZjE1OGI1ZjM5OTMwN2FjOCJ9"
+        },
+        {
+          "resource": "repo://src/js/cookie.js",
+          "version": "repo-file-v1:sha256:475567d6dcfc2eb116891aa2e2916c9e4d16f25c3497858dab9ca9448103f415"
+        }
+      ]
+    },
+    {
+      "id": "claim_e3932efa5a1c4993986cf71744d0c0d1",
+      "statement": "Oidarwave stores user-related data (consent flag, consent timestamp, last radio station URL, last television station URL, and data-saver mode flag) exclusively in the browser's localStorage.",
+      "evidence": [
+        {
+          "resource": "repo://README.md#L80-L88",
+          "version": "repo-lines-v1:sha256:f8a1f4eefe7583aebd7a879b34755f6e99b6e2bf101d049fc33d53ed45735eb4:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjZiYTg5MGUxZDk4NTNjZmI4ZjVkOTBjMzBlMGEzMGI0ZTZkNjcxM2Q1NjdkNmUxMjhiYzU3YjE5ZmYwYTllMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOWFjMDgyYzQxMDMwNGIyMGM5Y2QxNTkwOGE4ZDJjZTNhYzUyMjQ4ZGJmNmFiYTEwOWM1ZjE4MTQ1NjIzYmRiMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNmQ5NDE4MDU2NGEwMjA3ODJlMzJhOGJhYjhlZTAyZDE5ZDI2ZDhlYjk2MGU0OTE5M2ExYmFjMTkwNmJjZWM3NCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTQxMTQ2ZWUwZjBlYjQwOThiMGNhYWY2NGY5YzQ4ZGJmOWE1NWRlZmRkNGVmOWNmMjJmOWEzYzE2NWE3NWFlMSJ9"
+        },
+        {
+          "resource": "repo://src/js/cookie.js#L10-L16",
+          "version": "repo-lines-v1:sha256:f0d8793d71f3e12f9b3bb4b5fad762d61959f075aa2699c5a6fe7b1e9855513e:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjAzMjNmOTAyZTBlZjBkM2MyODJjMGVjNTdmNjkzNTkxZWZmY2JlYTg0MTBmYWRiMzU5YjA4M2NlNjUwNmJkMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTQzYjk2NTg5YzgzZDRiZWQ4OGQwZmM1ZDhjN2VjYjI0NGYzMzA1YmZjYWRmMjA2ZWM4YzVlNTJhZWI1MjRjZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzI2ZDA2ZjMyNDdlN2QzNWE5NTFiY2RiZTQyYWQyNzc2NWYyOGI1ODcyNGFhM2U4NzEwZjk1ZDgwNDdkYmM5OCJ9"
+        },
+        {
+          "resource": "repo://src/js/cookie.js#L19-L26",
+          "version": "repo-lines-v1:sha256:8988f2551880040203c5ee3f563197c80e0e1e33c1b43615d49e23de21934b42:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjAyNWE0Yjc5OGYxNGIxMTU3YWIxZThkMmM0YTkzYjQwMTIyNzJjZTNhZDE3ODZkYjM0Y2M1OTkyOGY0ZjE0YiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTllNzYzNTVjZjExOTk0ODBjM2Y5OTgzNmIxNDg2Yzg0MWQ4OTFmYWFkOTA0YzYwOGUwOTMwMjJkMzc1N2FlZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjg3NzRkOWRhYjY2ZTA5M2ZiMmZkMzc0N2M3M2QwZWIyN2FhMjc3MGQ1NmMyZTc0YjhmMjY4ZmY5NmEzNTJmZCJ9"
+        },
+        {
+          "resource": "repo://src/js/cookie.js#L28-L38",
+          "version": "repo-lines-v1:sha256:4b4b6b2ef792fe3a7b5690e75120fdbf08ff359cf262ba600049dfeb2e5452d0:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJjZjBhMTMyMGZjNzkyNDU3NjI1YjA0NjZkZDM1ZDM1MzM1OTUyZGJjZDkxN2FkZDA0NDljYTA3MGUwNTRjNjEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5ZTc2MzU1Y2YxMTk5NDgwYzNmOTk4MzZiMTQ4NmM4NDFkODkxZmFhZDkwNGM2MDhlMDkzMDIyZDM3NTdhZWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM4ZDg2MjBkMTZkODE5YWUxYzdiNWQ0NWQ0YmM0OTA4YWNiODlmYWNkZjRlODNjMDY0YTgxMTY2YmJmZGFlNjMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a7544f5b63cc440085e51304a8a28e00",
+      "statement": "Oidarwave presents a consent banner to the user on first visit or after the previous consent has expired (90 days) and provides options to accept or decline the loading of external scripts.",
+      "evidence": [
+        {
+          "resource": "repo://README.md#L88-L88",
+          "version": "repo-lines-v1:sha256:9ac082c410304b20c9cd15908a8d2ce3ac52248dbf6aba109c5f18145623bdb0:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOWFjMDgyYzQxMDMwNGIyMGM5Y2QxNTkwOGE4ZDJjZTNhYzUyMjQ4ZGJmNmFiYTEwOWM1ZjE4MTQ1NjIzYmRiMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOWFjMDgyYzQxMDMwNGIyMGM5Y2QxNTkwOGE4ZDJjZTNhYzUyMjQ4ZGJmNmFiYTEwOWM1ZjE4MTQ1NjIzYmRiMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNGRhZmY3YmVhZDFjMmQ2NDAxZDA3OTY3NjE1Mjg2MGYxYTFmZDY0YWQxM2NlOWQyNzEwNzhhYWE0NjVmYjM0ZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTQxMTQ2ZWUwZjBlYjQwOThiMGNhYWY2NGY5YzQ4ZGJmOWE1NWRlZmRkNGVmOWNmMjJmOWEzYzE2NWE3NWFlMSJ9"
+        },
+        {
+          "resource": "repo://src/js/cookie.js#L63-L68",
+          "version": "repo-lines-v1:sha256:1d516faec8c06ef6f83b8b72a3b63ffdf2676357bb7acc35fb0fb3e26ad9f424:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNGU3MTk4YmFkMDM3MjIzNWVhY2UzNDUyZjZkNGJhYTRlMzE3ZjAxZTQwNmY2YzE3ZDIwMGIyMWMwN2YyMmMxNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZGZhYjcxMGRkZjc4NTllNTc1NzY0YTkxM2EwMDJjNzQ1ODVmZmE3MDAxNTEwY2I4ODExZGE4M2QyY2Y3NGIzNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDU3ZjYzYzYyYzJlZjI0ZWM5MmVmMTA2ZWQ2NmZhNGQ1YzJiM2I3MTYyODUxNzcxZjI0NGYxZDFkNjU2ZDVjYiJ9"
+        },
+        {
+          "resource": "repo://src/js/cookie.js#L70-L70",
+          "version": "repo-lines-v1:sha256:1a2a0cbeaa455e5259853ea10adeabfe73e8c6090b5f79cd8917ae7cd9849c8a:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMWEyYTBjYmVhYTQ1NWU1MjU5ODUzZWExMGFkZWFiZmU3M2U4YzYwOTBiNWY3OWNkODkxN2FlN2NkOTg0OWM4YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMWEyYTBjYmVhYTQ1NWU1MjU5ODUzZWExMGFkZWFiZmU3M2U4YzYwOTBiNWY3OWNkODkxN2FlN2NkOTg0OWM4YSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTliMzljNDFkNjZiMTMxNzMwNDAxMzA4ODkzODEzMTFiMTkyYWFkNDdkMzQxODZlZWEwNTM4NzQ5MDI4NDBlNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiY2MzNGJhMDZjMjYwMzNhMTA4NDdiNzJmZTg5MmE5ZTgyYjcwNGU5YWZmMTRkMWMzM2ZhNGVmYjljZmNmZDJmNyJ9"
+        },
+        {
+          "resource": "repo://src/js/cookie.js#L72-L86",
+          "version": "repo-lines-v1:sha256:97d310b870b01942d58e8b6b07c91443beba3811158ab88205301ed84ddedff5:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFlMjQ2OWRjOTQwZjFlMzg1ZTgzMGM4OTUxZTdiOGU3MDZmYWMxY2EyYThjNTJlZmQxOWExYTBkNGVlZWNjZTMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ1N2Y2M2M2MmMyZWYyNGVjOTJlZjEwNmVkNjZmYTRkNWMyYjNiNzE2Mjg1MTc3MWYyNDRmMWQxZDY1NmQ1Y2IiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY1YjRjYTc4MTk0NGFmOWVkM2U4NTE2NjI2ZDg3YTc4MmQwMjEyZDVmNjdlNDYzZTAyMTE1ZjM2MThmNDZhZDkifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_ad0ba06d9cf04d1caadebadd7331f6d6",
+      "statement": "Upon user acceptance of the consent banner, Oidarwave dynamically inserts the Vercel Insights, Vercel Speed Insights, and Google Tag Manager scripts into the page.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/cookie.js#L40-L61",
+          "version": "repo-lines-v1:sha256:1a85ce08dcc3e7f44d1dc415e50583787aa421c08a856d956ae6e40414ef3a7a:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE3YTIwZDBlMTI3MTc3NGE5OTViYzFmYmNmZDU3MmUwNTY4ZWFmMDA5NmFlZTM0MjBkYzNiMTlhNDk2YzE3ODMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5ZTc2MzU1Y2YxMTk5NDgwYzNmOTk4MzZiMTQ4NmM4NDFkODkxZmFhZDkwNGM2MDhlMDkzMDIyZDM3NTdhZWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhhOTJkYzViOTQ3YWZhYmMyMWEzMzJjMjk0Mzc5MDY5MDEzM2YxNjNkMTQ4ODUzOWFkNzg4Y2I0ZTY5ZjE3MzkifQ"
+        },
+        {
+          "resource": "repo://src/js/cookie.js#L67-L67",
+          "version": "repo-lines-v1:sha256:e6d227ffa52c97990291a1757cac5731949a3c9cbf60f63deb18dcc6b3cbc97b:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTZkMjI3ZmZhNTJjOTc5OTAyOTFhMTc1N2NhYzU3MzE5NDlhM2M5Y2JmNjBmNjNkZWIxOGRjYzZiM2NiYzk3YiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTZkMjI3ZmZhNTJjOTc5OTAyOTFhMTc1N2NhYzU3MzE5NDlhM2M5Y2JmNjBmNjNkZWIxOGRjYzZiM2NiYzk3YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTBmZTFhNTMxYWQxNWRhYjFmNzVlMGVhNWQ4MzAyNjU3YjEyZTdiZmUwZWM0MzVjYWNmZGRiNWEzZDY1OGJmYSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNWNmYjgzMjFjZTFjZmFmMTc3MTMwMmJjNjczNGVlNzMyY2MzYWMyYTAzN2I0ODI2MzBmMWI3NzIzMjJlYjAxZCJ9"
+        },
+        {
+          "resource": "repo://src/js/cookie.js#L75-L75",
+          "version": "repo-lines-v1:sha256:2ea6a579268732473368bf4a6b8e33afb11d69bdcce5e4a1003301619d02cc88:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMmVhNmE1NzkyNjg3MzI0NzMzNjhiZjRhNmI4ZTMzYWZiMTFkNjliZGNjZTVlNGExMDAzMzAxNjE5ZDAyY2M4OCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMmVhNmE1NzkyNjg3MzI0NzMzNjhiZjRhNmI4ZTMzYWZiMTFkNjliZGNjZTVlNGExMDAzMzAxNjE5ZDAyY2M4OCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzlmN2Q1ZTgxMjhlNjIxMjg5ZTE1MDU2OTdjMTlkYzk0OGY2ZjExNDZjZDNiMjZkMTQ1YmQzZjBiMGI5NjRlYSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMWMwNzI2MjM1MjdhZjQ0Mjk4ZGEyNDFkMzk0ZWQ3NTNkMGQ2MGMxMGFjZmMxMmNjZTgwYTA5ZTA5NDkyYzNkNSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_f6719b73b3f94e48855d7911ae8652b0",
+      "statement": "If the user does not give consent (or declines), Oidarwave does not load the external analytics scripts, thereby preventing data transmission to third-party analytics services.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/cookie.js#L65-L66",
+          "version": "repo-lines-v1:sha256:ae3a73aae5e3142f82721a42cf10ac4f8899c39092192a2a140e0dd91be15a02:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZDQyNDZlZTE1ZWMyYWQ3Y2M0NjJhMDIxZGNiYjA2NjgxNjI0OWFiNTY3MzBmNzUyZGQ2ZTBlN2E2ZjU1NTdmMSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNjg1ODRjNTBhNmUyMjFmMTIwODJkODJhMmUzOTlmZTAzMjc3ZDhiMzE2ZjQ0MDU4N2MyYTYxNjgyYThlMTI4YyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOGE5MmRjNWI5NDdhZmFiYzIxYTMzMmMyOTQzNzkwNjkwMTMzZjE2M2QxNDg4NTM5YWQ3ODhjYjRlNjlmMTczOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTliMzljNDFkNjZiMTMxNzMwNDAxMzA4ODkzODEzMTFiMTkyYWFkNDdkMzQxODZlZWEwNTM4NzQ5MDI4NDBlNSJ9"
+        },
+        {
+          "resource": "repo://src/js/cookie.js#L67-L67",
+          "version": "repo-lines-v1:sha256:e6d227ffa52c97990291a1757cac5731949a3c9cbf60f63deb18dcc6b3cbc97b:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTZkMjI3ZmZhNTJjOTc5OTAyOTFhMTc1N2NhYzU3MzE5NDlhM2M5Y2JmNjBmNjNkZWIxOGRjYzZiM2NiYzk3YiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTZkMjI3ZmZhNTJjOTc5OTAyOTFhMTc1N2NhYzU3MzE5NDlhM2M5Y2JmNjBmNjNkZWIxOGRjYzZiM2NiYzk3YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTBmZTFhNTMxYWQxNWRhYjFmNzVlMGVhNWQ4MzAyNjU3YjEyZTdiZmUwZWM0MzVjYWNmZGRiNWEzZDY1OGJmYSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNWNmYjgzMjFjZTFjZmFmMTc3MTMwMmJjNjczNGVlNzMyY2MzYWMyYTAzN2I0ODI2MzBmMWI3NzIzMjJlYjAxZCJ9"
+        },
+        {
+          "resource": "repo://src/js/cookie.js#L75-L75",
+          "version": "repo-lines-v1:sha256:2ea6a579268732473368bf4a6b8e33afb11d69bdcce5e4a1003301619d02cc88:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMmVhNmE1NzkyNjg3MzI0NzMzNjhiZjRhNmI4ZTMzYWZiMTFkNjliZGNjZTVlNGExMDAzMzAxNjE5ZDAyY2M4OCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMmVhNmE1NzkyNjg3MzI0NzMzNjhiZjRhNmI4ZTMzYWZiMTFkNjliZGNjZTVlNGExMDAzMzAxNjE5ZDAyY2M4OCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzlmN2Q1ZTgxMjhlNjIxMjg5ZTE1MDU2OTdjMTlkYzk0OGY2ZjExNDZjZDNiMjZkMTQ1YmQzZjBiMGI5NjRlYSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMWMwNzI2MjM1MjdhZjQ0Mjk4ZGEyNDFkMzk0ZWQ3NTNkMGQ2MGMxMGFjZmMxMmNjZTgwYTA5ZTA5NDkyYzNkNSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_fd17d6225ff94cf4a1a852d09b82cc4d",
+      "statement": "Oidarwave declares compliance with the EU General Data Protection Regulation (GDPR).",
+      "evidence": [
+        {
+          "resource": "repo://README.md#L77-L77",
+          "version": "repo-lines-v1:sha256:433f55ac2db1e81c21e17fdbc21c4e0bc89b8f40fb6be4ec3d0a80ef256aebea:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDMzZjU1YWMyZGIxZTgxYzIxZTE3ZmRiYzIxYzRlMGJjODliOGY0MGZiNmJlNGVjM2QwYTgwZWYyNTZhZWJlYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDMzZjU1YWMyZGIxZTgxYzIxZTE3ZmRiYzIxYzRlMGJjODliOGY0MGZiNmJlNGVjM2QwYTgwZWYyNTZhZWJlYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOWIxYTAzOTU5ZGExNmFkYTEzZjgxZDEwZDA1NjNhNTgzNmExNWZlYjMyN2U5ZmYwOWFkYzNjNjAwY2VmMDQ4OSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTkzZjdiM2NiZjM2NDg0NjJjNGMxYTgwZjY1MjU1MzM0OTM0Nzg5ZjQ3ODk2YWQyZjNjNWJjY2RjOGZjODIyYiJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.0",
+    "at": "2026-09-02T20:22:31.727Z"
+  }
+}

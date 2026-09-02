@@ -1,58 +1,90 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:f4e1861a592c44f67ef320bea677ca39a2dd5ab32a499f498092ca1670eb8735",
+  "pageVersion": "sha256:2a9b53391d6a402b22de8e837e53488b19d51cf68b57d34059fcc399cbe54765",
   "claims": [
     {
-      "id": "claim_b5462cf8bd42418f87c5332c1cc236fa",
-      "statement": "electron/main.js implements dynamic page discovery and route caching using .npmignore exclusion rules and recursive directory scans.",
+      "id": "claim_c31ffbd018ff451fbeb33655d097e295",
+      "statement": "The Electron main process creates a BrowserWindow with dimensions 1200x800 pixels, initially hidden to prevent white flash, and shows it when the 'ready-to-show' event fires.",
       "evidence": [
         {
-          "resource": "repo://electron/main.js#L1-L30",
-          "version": "repo-lines-v1:sha256:dca274b2ae7d61105db824eb1f6be88ab1310bcb8e4ab0afb61507aa0107cdb4:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjczZGJiM2JiNDEwZDVmODQ1Y2EwOTMxMzU5OWI4ODdiZjc3MTg0NTNjODA2NjhiMzE0MDdjNWJlM2RhNDU1MjIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQwYzZiOGQ0NTNhODNhYjdmNGNkODU3MDFhNmE3Y2QxMTMxYjMyNmZkYTVkMDk3YWE0NjFhZTA1ZTRjNDMxZmMifQ"
-        },
-        {
-          "resource": "repo://electron/main.js#L104-L122",
-          "version": "repo-lines-v1:sha256:5124af009d98bc0481f5c51b60a156b39e47d61cb8d2424a63e7f078f238abf3:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFjOTE0ZmUzZDE3MzAxNzJiYjgyMzI0MmZmNjI4OWI1NmU2NTdhNzFiODQ5MmZkMTZhMDU2MjIxMGE4NmVkM2UiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI2MmM0ZmZlZGM1NzYzNTZmYzllZGE5N2E2NTY3MzU1YTFiOTZkNzQ3NTk0MTEyMWM0ZTcxMDY5ODYyZDQ4NjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM0Yjk2NjI4NDYyOGU2MzNhMDk5OTY2MzgwMTBlMjM0NzAxNDM0ODUzZGU2MDIwODk2YmI1YjE1NzlmYzJkMjAifQ"
+          "resource": "repo://electron/main.js#L128-L144",
+          "version": "repo-lines-v1:sha256:6bc7fe40f457bdbe527a76321ff69a95d9d50a31652778297649bd0afa427dfe:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNlMjJlYmUxN2UxNzRiYzI2MjliNzVmNDRlYTkxZjc1M2QxNWY2ZTE4NjJjYTQyZjRiMTY3YzA4YzFkZjcyMGUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijc4NGZmMDA1NzUyOGZkYWRmMjZiN2ZlYjkwYjU3ZTQ4OGM4ZmIwOGMyZDVlYjY4OTE1NjcyMzg4ZDU3MTllZDYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYzZTMxYjA5MjkzNDk2NDE0NTc5ODA2MzI4ZDRiZjIyMWJmN2MwNDUyMGJlODJjM2RhZTcyYmJjNmJkMGQ2MTMifQ"
         }
       ]
     },
     {
-      "id": "claim_1949220ebca04d548be18d6a9d9aba98",
-      "statement": "electron/main.js intercepts the file protocol via protocol.handle to enforce root directory containment and prevent path traversal attacks.",
+      "id": "claim_555160a6a8d24a32a31b06b12ce5d03b",
+      "statement": "The BrowserWindow webPreferences are configured with nodeIntegration: false, contextIsolation: true, webSecurity: true, and sandbox: true to enforce renderer process isolation and security.",
       "evidence": [
         {
-          "resource": "repo://electron/main.js#L220-L250",
-          "version": "repo-lines-v1:sha256:72c3e150d1dc39d1eb2484b2be1f24f217e0239bd8231f02469fe69a0afda3c7:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM5YzU3NzRmYWFhZjNmMDQ4ZmQ2ODQ1OWMyOTFkZjczNDc2YWNkZTQyZDliMDgxNDM3MTcwNjVmNWUxNzdhNWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhmYzU3MTU0OTEzNTY3MGRmZmM0ZDY2NjA3ZDkyMWYyYTlhZWU2YmQ2YjViMWFiMDFiMDllN2YwY2Q5ZDkxMWIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjEyZmZjMDczNjNlMWU1YzAyNTdlZWZiMjBiNzk5NjM2ZmM4YzBhN2U4MGZmY2RjMDI5MDdlM2I4MzU0ZDAzZTkifQ"
+          "resource": "repo://electron/main.js#L133-L138",
+          "version": "repo-lines-v1:sha256:e7989e5f66dc5438e592975fd35fb10d858de66117edd663d45472672edcf23a:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYWM1Mzg4OTIyNTY0YmFmYmY1NWY4NjhmNWZmNjkxNmM4NDBiYTYxNWE0MTNhYjFiOWI5YWY3ZWFiYjAyM2Q1OCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMWYwY2RiOTcyYTdiZmI3ZWQyNDZmOWZmNjcyMzg1ZTU1ZjQ5NjhmYzExMDQzZGM1YjY4NGQ1MWRmYTMxZGJjYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZDJjZDlkZGNmNmM0Y2NmNzQ4MTViNjAzMGZlZGI3ZjZlMGYwOWUwYmNmOTNmNjcwZjAwMjc2YjI0NzFiOTI4MSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiN2YyNmE4ZTE3ZmRjMmIxZjhmNTY0NGUxNGE2MzAyMGU1NjQxZjkzYWY5ODFhYTMyMzdkN2QxOGQwMDU0MmU2NiJ9"
         }
       ]
     },
     {
-      "id": "claim_7726f0df29204dcbb580eafd1c7fb6a6",
-      "statement": "BrowserWindow instances are configured with sandbox, contextIsolation, and event handlers for navigation control and external link opening.",
+      "id": "claim_2bc7ff5244ec424281014d7b67d60ab4",
+      "statement": "Dynamic page discovery recursively scans the application directory for index.html files, builds a route map, and ignores directories listed in .npmignore (with defaults: node_modules, .git, dist, electron).",
       "evidence": [
         {
-          "resource": "repo://electron/main.js#L124-L218",
-          "version": "repo-lines-v1:sha256:25fbd23c82620cf6338a799343b4a0dd81a0ab99ae85e3512206ec67e075706e:eyJzZWxlY3RlZExpbmVDb3VudCI6OTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU0YTQyYWYzYjBiYjI3YzM3M2NiZTYwNTUyODQwOTc0ZjRkMjc0ZjIyZTQwMTA4MDM2NmE5MDcyNDcxYTM0M2UiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImIwM2ZkZjdkNWM3YWM2MDMwNTVlZGQ0YTY2MTc3OTJhYzVjMzQ0NmExMjk2MDFlMjU3ZDE0MzFhMGZjYTFjOWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQyYmY0Yjc1MjExZDI0OGRkYTgxMzlmNDVmN2Y5MDgwYjhlZTU0NjBhNWNlZmE4MDE3NzFjNWRlOTc0YTI1N2UifQ"
+          "resource": "repo://electron/main.js#L32-L73",
+          "version": "repo-lines-v1:sha256:ac0125a0cbddb14be0cf3887736f6a390e11477c49e2e3e7e72956c7a0fdc8b3:eyJzZWxlY3RlZExpbmVDb3VudCI6NDIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNmNDdlMmZiYWQ2ZGRhMjg5MDBiMWI0M2FjNWVhNTEzNTg2ZjYxNWM5ZDc5NzRkOTIyNzk5ZjJiNzJjMTE3YTgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjdhYTdlY2M1NDUyZTZjNGRjNTFmYzkwYTRhNDRkN2RlODg1OWM4OGY4MTBiYWNmMGUxNmJlZWU3YmI2OGI2NTEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjUwYzYyY2MwM2ViM2RhZDMyZmZiNzExNWE1M2YzMTNjMzY5MTlkOGNjMzlmM2Y2ZDk3MDk1M2YwZDNhNjZiZDYifQ"
         }
       ]
     },
     {
-      "id": "claim_cf3db48ea6ed4d169d4a2d07122cb246",
-      "statement": "package.json defines comprehensive electron-builder configuration for Windows, macOS, and Linux targets with explicit asset file globs.",
+      "id": "claim_2ee83c5438234dd880d510c1a7bacbca",
+      "statement": "The matchesRoute function compares requested pathnames against discovered pages using decoded URLs and supports exact matches, path variations with/without trailing slashes, and index.html suffixes.",
       "evidence": [
         {
-          "resource": "repo://package.json#L16-L121",
-          "version": "repo-lines-v1:sha256:840edb21fe5d8869f8743f4b3899294a0bb07b8dfda7945fa4c15c6180e9b4c2:eyJzZWxlY3RlZExpbmVDb3VudCI6MTA2LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI3YjA3MjAxYmRiNmJjMDU5MjA4NDk2MzY4MTg2MWE0ZmExNGFmZGE1OTFiNmQ1NjYxYjc0NThkOTIxZDVkMGViIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0ZDVjZDJmYjRmM2RmODg0NTE1MjU1YjM5NTIzZjJmOGI1NDcyYmVlYTlmNTY2ZmZjYTIwNGRiODAyNTYxMDQxIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJjNDdkNDRkNjhjMTMxODBjNmI4N2U2YjdmMTU2ZWQ2YjAzNWJkN2Y3Y2U3N2Y4YWM2ZWRmNDIyZjFlNjllZGI4IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiI1MzBhOTRiNTBmYzQ4NTgwMGFjZTU2NDZmOTI3NjlhNjBkNWQzNGJmNGEzNzM3MmQyOTFmYTY5OGVhZTk3MTI1In0"
-        },
+          "resource": "repo://electron/main.js#L75-L102",
+          "version": "repo-lines-v1:sha256:93c9cbe8b2e65e871450d2864bbf5bd76f63d7d6a925a6720d530dd6ed3c3f6c:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA2N2IxNWEwZTY0OTg3MmQwNTkxOTc2ODZmMWQzNGJjZDZmNTgwN2Y3MTI0ZGY0ZTYzOGU3NjNmYzJhMGEzZDYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjBmMmY3OWJjM2M0YjgyZDNkZjI2OWUyOWU0ZmU3MTQ4MjM4YTFhYWZmZTNhYjY1YzhjMTVlMTgyMDM3NDBkN2UiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg4NDllNjAxNDIyYjUwMDRmNzFkMjc4NmY4YTlmMWQwZGJkODIyMWQwOTZlY2I5MGQ0ODgyZDMwMTc2NzMwOGYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_d9d521094bab42e996da8abff61a2d5c",
+      "statement": "The file protocol is overridden to prevent directory traversal attacks by stripping query/hash, resolving paths, and validating that resolved paths are within the application directory before serving files via net.fetch().",
+      "evidence": [
         {
-          "resource": "repo://tests/test_electron_build.py#L18-L51",
-          "version": "repo-lines-v1:sha256:86c658df2f6b7fa5ed46d4f2ededb3900f5aaf95093774798a7ed992d1071803:eyJzZWxlY3RlZExpbmVDb3VudCI6MzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI1ZDgwZDMyZTUzZTEzNWExMTNlODlmY2RkYzVjMWIzNDI1NWQyYjRkODcwMTYzZWRjZDMzNWQ1ZTM4NTU0MGQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJhOTk4YzVmZTMwNmEyNjkzMDFiYTg2NDM5ZGRlNGMxN2MyY2Y2NmY2ZTBhODI3NGNmOTIxMDA0M2NlZjc2ZDkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA3NDAzMzJiZWU3YTBmZGJmOWFjY2YwZDhhZGJlNjg4MjRlOGU4NTg5ZTkzNzdmYTFkZDM0YTNmM2NmYWMyMmYifQ"
+          "resource": "repo://electron/main.js#L221-L249",
+          "version": "repo-lines-v1:sha256:43814f1af8b5966221aa2548335b928d984bddcbee33d292d220817e4d3b666a:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ4NTMwMmZkNjU3MzdhMzJhNzBmMjY3NjBmM2FiN2JiMTg5OTQzNjAzYTM2NzNhOTM2MDUyOGM3MjU0ZjNlMmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE2MjQ2OWIyYjNlNTg2MjUzMjA2NzA1Y2YwZTc5NmIwNTFlYzk0NGIzNDFmMTgyODZiMmNhNzkyYmNkNWI1MTQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFhZjRkNzc0YWQ5MDI4YzQxNGVmNWIyYWFlMmZlMDIyYzIyMjE0NTIwYjUzMjA3NzkxMjJlMThiMGM3ZWFlYWUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_eacb7860a5184b7c8866fd6fedc3be56",
+      "statement": "Navigation handlers intercept HTTP/HTTPS links to open in system browser, handle oidarwave:// custom routes by converting to file paths, and fallback to index.html for unmatched routes.",
+      "evidence": [
+        {
+          "resource": "repo://electron/main.js#L168-L179",
+          "version": "repo-lines-v1:sha256:de39e00f690bda0b90049c5601ff9a0d2cda5158b7cac267e3581807b0798c90:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3NjY5OTcyODJlNWU4MmYxNDk2MTczYjA3YmZhN2E4YjBlMzZlYWE3YjgyMzQ5NDcyNDk1ODdhMTdkNDNkOGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkOWUxMjU0NjQyNTU3NmQzZGVhZThjOWI5ZGJmMTI4ZDVkNmRkYWY1ZDdmZTg1NzkzNDkyN2RlZmZhM2I5ZGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM2MDcxNWY2NWVhOTM3MTAxMTc1MGM4ODg0NDM2MjliYWViMzZjNzY5ZTQwNGQ0OWM0MjNmZDViZjNjNTc3NjQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFjMWNiZGQ0ZjJmNGQ3MDE3NGFjNjQ4ZDAyZDI2ZTgzMDhhOGQ0ZTJlNmFiMDJiOWM5OGRhYzBlNDM2MWY1YzAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_0401e47f260d4a31a8181dd09b125669",
+      "statement": "New windows created via window.open() inherit the same dimensions, background color, icon, and security webPreferences as the main window, and undergo identical navigation setup.",
+      "evidence": [
+        {
+          "resource": "repo://electron/main.js#L184-L213",
+          "version": "repo-lines-v1:sha256:7a39119bcfb01ef4a843dbf0f21ef5a593f59ecad6f7f33cb58ef5b038f71f1d:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY1ODg0YTg4NjQzYmE4MGEwNjU2YzFkNTBhM2RiMDM1Zjk3N2I5N2Q5OTM4YTMzYzNhZDk4ZTY0NGNkZjIyYjgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyZDExY2FmNDNlOTdlZjM2OWU2YmVlZDFhMjY4YmQwNTgzOGYyOWI5ZGQyNTRiZjY5YmE2NDg4NDE0NzIzNGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk4NmFhNmM2MjUzMTExMTY5MjQwZWJkOTEyMmU3MGY2OWYwNmYwOGRmYzdlZDBjYzMyMWZmZjlkYzgyMWI0NzkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE4MDU4YjVmZTlmZDcyNjNiODMwMWFiMTI1MTg0Y2RkMzk3OGM4NGU3MWM1OTI3MDNjNWZlNDJjY2NmZDM0YWUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_4190790ceb7249039e1b58b2fe73a2a5",
+      "statement": "Application lifecycle follows Electron patterns: creates window when ready, recreates window on activate (macOS) when no windows exist, and quits on window-all-closed except on macOS.",
+      "evidence": [
+        {
+          "resource": "repo://electron/main.js#L220-L263",
+          "version": "repo-lines-v1:sha256:1acaa1b3b8fed82923971ad4045c5ccba2b2e1f7ea72274f1d79b3bbeb5f61d4:eyJzZWxlY3RlZExpbmVDb3VudCI6NDQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM5YzU3NzRmYWFhZjNmMDQ4ZmQ2ODQ1OWMyOTFkZjczNDc2YWNkZTQyZDliMDgxNDM3MTcwNjVmNWUxNzdhNWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhmYzU3MTU0OTEzNTY3MGRmZmM0ZDY2NjA3ZDkyMWYyYTlhZWU2YmQ2YjViMWFiMDFiMDllN2YwY2Q5ZDkxMWIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIifQ"
         }
       ]
     }
   ],
   "verification": {
     "by": "openwiki/0.5.0",
-    "at": "2026-09-02T16:07:26.286Z"
+    "at": "2026-09-02T20:22:31.727Z"
   }
 }
