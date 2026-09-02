@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:20ebd931a76d8edf4cbb1cbcfd9b9c48ecb8a52a0b4e9629bef7fd896b78a50a",
+  "claims": [
+    {
+      "id": "claim_b441e82ed961451baba13fe283c64bf4",
+      "statement": "The radio frontend view (/index.html) initializes an audio player with state tracking, 3-second metadata polling from external text/JSON endpoints, Media Session API integration, keyboard shortcuts, and local storage persistence for the last played station.",
+      "evidence": [
+        {
+          "resource": "repo://index.html#L40-L105",
+          "version": "repo-lines-v1:sha256:daa7cfbf71c4f569d804a90610af1a22227a6fa80f8c064fcdddf46df335d3c8:eyJzZWxlY3RlZExpbmVDb3VudCI6NjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk2ZGE0NzVlY2Q1ZjNmZDE1NGQ0MzJmNDlmNTBiYjYyNjgzNGRmMTcwMjg5YTI3MzAxMzcyMjI1NjBkZjQ2ODQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRkNjQyMTVlNWU2N2ViZTY0N2ZkYTk2MmM4MzlmYjcwNWVjMjcwNGVlZTQzOWZlZjFjZGZhZGI4MGU2NzM5ZDUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcyYWQwZGY0OTEwYjk4OTk2NTQ2MDljYjdkMWUyY2I5YzcwOTg3ZThiMmNjNTYwYjEyZTNlYTRiOTNhNDY3ZWIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNmMDc4NGZhYjNkMTc0MjRkZWY3ZTA5MTEyY2FmY2I3NWY5M2M1ZjU3NDk2YjRiZDE1OTU1YjU5MzJkMzMzMjgifQ"
+        },
+        {
+          "resource": "repo://src/js/player.js#L1-L257",
+          "version": "repo-lines-v1:sha256:fc2768ac04d57bd5da030c29f606d6c9cf1fe43ecd6d7f4c714718f4f2680f5b:eyJzZWxlY3RlZExpbmVDb3VudCI6MjU3LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI0ZDhhY2Q3ZTgyNTRiZDdiYjY4NTg2ZDIyZjY1ZTg1N2QwMTFlM2UyZjZmNWFkZjcxODhhZjBhODVjZTQ5OGU4IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MCwicHJlY2VkaW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MiwiZm9sbG93aW5nQ29udGV4dEhhc2giOiI0YTYyYWZiYTgzNDNjMDBjZmYxMTQwM2Q3MTA3ZmViNzY3MGI2NWViMzgzZGIyNTAxNzFiYjU3ZWY0NmVlNGJmIn0"
+        }
+      ]
+    },
+    {
+      "id": "claim_4769f379e6ac45828ab08753ec5a1fd6",
+      "statement": "The video frontend view (/video/index.html) integrates HLS.js with native Safari fallback, exponential backoff network error retries, a data-saving quality toggle, and closed caption management.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/video.js#L1-L350",
+          "version": "repo-lines-v1:sha256:2e8a1b354e706a6072a1e880e5e6f75297f035c1d0b6f535048fda82e5ecb926:eyJzZWxlY3RlZExpbmVDb3VudCI6MzUwLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiIyZWE1MTA0MDY0MzYxYWQ2MzA4MjE0YWM4YTViODFkYjYyYWY5MDk4MWE3ZTk0NzE1ZDdmNzIwYWQ0YTZiNTVkIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiIwMWJhNDcxOWM4MGI2ZmU5MTFiMDkxYTdjMDUxMjRiNjRlZWVjZTk2NGUwOWMwNThlZjhmOTgwNWRhY2E1NDZiIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MCwicHJlY2VkaW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJjN2RiMDA0MzNjODgwYjZkYWVkNmEyNzQ3NmIyNzEyNjEzOTg3ZjI3NWM5ZjA1ODg3YWNmYjg5NTAwNGExOGI4In0"
+        },
+        {
+          "resource": "repo://video/index.html#L1-L106",
+          "version": "repo-lines-v1:sha256:6f2a2df29b5ed3f1aa913062ee168f4ada44e4baaf03239c9229c73cc5c6003f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTA2LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiIzZDBiNmY1ZTMwOWRmOGZjZTg4MTVmOTA4ZGQ2ODIxYjA0OTZjZjQzY2Q5ZmI0ZmY3ZWE5YzBjZTc0NzcwODI2IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiJmZGZlMDk5M2U2ZTllOTkxNzU1NGJiOTViMTEzN2FmNTg3MDE0NmZkMzhkYTVmMTNiZWExYjUzMGFjMDViMjk2IiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MCwicHJlY2VkaW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MCwiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1In0"
+        }
+      ]
+    },
+    {
+      "id": "claim_da36bffe2640400f9212d706ed8f160b",
+      "statement": "Oidarwave's frontend utilizes a glassmorphism CSS styling system with dynamic mouse glow coordinates, a 90-day cookie consent banner controlling analytics injection, and debounced browser push notifications for radio track changes.",
+      "evidence": [
+        {
+          "resource": "repo://src/css/style.css#L3-L66",
+          "version": "repo-lines-v1:sha256:8cbbbbe9c0b5b7ec304739a956d66613a97bc728addcd5ebe8a9e9f1b11bb042:eyJzZWxlY3RlZExpbmVDb3VudCI6NjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNlZWE1MDRiZjIwYjQxYzQ3MjlkM2NjZTQwYzIzODUxZDNhZTk1YjUwMTdlNmIwYTFhOGNhMzg1ZWIzMzU3YzgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjoyLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU5MTBkYzkwOGE4OGQ4NTY4ZmVmNGNkZGI4YTA0NTZjMzBmMTVkNWQ5Y2ExODczODUyZTI3NmNmNzAxYzgyZWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNhNDdiMDA2NDZkMzc4NjAyOTdhODY1NzdkOGRlMDE4MzRjMGQyM2E4ZWM4ZWFlNjM1MzM4MmUwZGZjNWVlYTAifQ"
+        },
+        {
+          "resource": "repo://src/js/cookie.js#L1-L87",
+          "version": "repo-lines-v1:sha256:475567d6dcfc2eb116891aa2e2916c9e4d16f25c3497858dab9ca9448103f415:eyJzZWxlY3RlZExpbmVDb3VudCI6ODcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjlkMGE0ZWI4MmY0ZWUzNjUyNjIzZDcyMjFhOTY4NDhkZjNjNTcwODA0Y2E3ZWUyNzA4NmQ0MDFlYzRiMTJkZjgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY1YjRjYTc4MTk0NGFmOWVkM2U4NTE2NjI2ZDg3YTc4MmQwMjEyZDVmNjdlNDYzZTAyMTE1ZjM2MThmNDZhZDkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://src/js/notification.js#L1-L119",
+          "version": "repo-lines-v1:sha256:602f8d561dcf7751f8d87cdc74d7e1162accc1808f3d85d54ece4a233eb79423:eyJzZWxlY3RlZExpbmVDb3VudCI6MTE5LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiIxMDg0NjI3MDllMjRmY2Q0OWFhYjE4MTc4ZGIyMjQ5ZjQ0Mzc1YjhlYmE1YTA2NDNhZTg2MDE2NDk3ZGMzNjc3IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MCwicHJlY2VkaW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MiwiZm9sbG93aW5nQ29udGV4dEhhc2giOiI4ZmQ1ZDQxYzYyMGM1YWQ2OTU2NjY2YWM0ZGZiNmIzOWQ3NTViZjZmYmI1MTMxYjNiNjIzMGUyYmM1NGQ5ODg3In0"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.0",
+    "at": "2026-09-02T15:14:31.411Z"
+  }
+}

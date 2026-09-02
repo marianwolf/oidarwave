@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "pages": {
+    "/openwiki/architecture/electron.md": {
+      "pageVersion": "sha256:7b4dfd975bfe40a35a8f8291da35c180157d883fbe363a13f5eb77224dd3aa4c",
+      "completedBy": "openwiki/0.5.0",
+      "completedRunId": "8aecd03e-cb0b-4e34-927a-bf7af0792ff3",
+      "gitHead": "628402bba70135302124cd9f4064681d64268237",
+      "sourceFingerprint": "sha256:10b08e2b8dc90e47ce014659aa411cab79e7213d59c9f360b054c79862df0a1c"
+    },
+    "/openwiki/architecture/frontend.md": {
+      "pageVersion": "sha256:20ebd931a76d8edf4cbb1cbcfd9b9c48ecb8a52a0b4e9629bef7fd896b78a50a",
+      "completedBy": "openwiki/0.5.0",
+      "completedRunId": "8aecd03e-cb0b-4e34-927a-bf7af0792ff3",
+      "gitHead": "628402bba70135302124cd9f4064681d64268237",
+      "sourceFingerprint": "sha256:10b08e2b8dc90e47ce014659aa411cab79e7213d59c9f360b054c79862df0a1c"
+    }
+  }
+}
