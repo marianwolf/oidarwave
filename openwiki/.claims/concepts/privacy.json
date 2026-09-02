@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:98d3b1c29c232de372d13311b70f995e6220493d49edcfb1839b4fa1765c23af",
+  "pageVersion": "sha256:f565bc9b6838638ddbd79551172988890bf9cc13d965ac4b01b151d0bb51861b",
   "claims": [
     {
       "id": "claim_59f2708cbf9c4a3291df99fb2574694f",
       "statement": "Oidarwave does not set or read any persistent cookies for tracking purposes.",
       "evidence": [
         {
-          "resource": "repo://README.md#L79-L80",
-          "version": "repo-lines-v1:sha256:85148a43e150aa131c9e4b1ff8737ce2d85e288d10e8e18be34f648feb493702:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOTgxNTM2ZTRlNGZjZjcxZWIwZGIxMWM3OGM5ZWYzMmE5MjliZjg0ZjE3Yjk1NjY2ZWI3MjQyMDUxZWY4NTJhYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjZiYTg5MGUxZDk4NTNjZmI4ZjVkOTBjMzBlMGEzMGI0ZTZkNjcxM2Q1NjdkNmUxMjhiYzU3YjE5ZmYwYTllMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOGJmYmYyYTkzOTU1YzljN2I0M2E0YWMwOGY0NTMzMDE5ZWI5MjI2YjFmMjExZjlhMGRhMmM3MTc1MTgwNjVjYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYmY0ODg4NjYxMTYzMWZhOGE3ZTk3YWMwYmUzOGI3MDE2MjY1MTNkYTQyNDY4YzU4ZjE1OGI1ZjM5OTMwN2FjOCJ9"
+          "resource": "repo://README.md#L32-L32",
+          "version": "repo-lines-v1:sha256:18231da98828d463d0861fa075757bd463c58453cb8f996c6b9fdbd276c544e2:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMTgyMzFkYTk4ODI4ZDQ2M2QwODYxZmEwNzU3NTdiZDQ2M2M1ODQ1M2NiOGY5OTZjNmI5ZmRiZDI3NmM1NDRlMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMTgyMzFkYTk4ODI4ZDQ2M2QwODYxZmEwNzU3NTdiZDQ2M2M1ODQ1M2NiOGY5OTZjNmI5ZmRiZDI3NmM1NDRlMiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNzNiOWMxNDdhYmU4ZDI1NTk4NjUwZDUwNGUwOWZkYzRhMDQ2YzA0NmE3YTM1ODgxZjVjZGU1ZTgyNTYwZGJhMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTQxMTQ2ZWUwZjBlYjQwOThiMGNhYWY2NGY5YzQ4ZGJmOWE1NWRlZmRkNGVmOWNmMjJmOWEzYzE2NWE3NWFlMSJ9"
         },
         {
           "resource": "repo://src/js/cookie.js",
@@ -18,11 +18,11 @@
     },
     {
       "id": "claim_e3932efa5a1c4993986cf71744d0c0d1",
-      "statement": "Oidarwave stores user-related data (consent flag, consent timestamp, last radio station URL, last television station URL, and data-saver mode flag) exclusively in the browser's localStorage.",
+      "statement": "Oidarwave stores user-related data (consent flag, consent timestamp, last radio station URL, last television station URL, data-saver mode flag, and playback history) exclusively in the browser's localStorage.",
       "evidence": [
         {
-          "resource": "repo://README.md#L80-L88",
-          "version": "repo-lines-v1:sha256:f8a1f4eefe7583aebd7a879b34755f6e99b6e2bf101d049fc33d53ed45735eb4:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjZiYTg5MGUxZDk4NTNjZmI4ZjVkOTBjMzBlMGEzMGI0ZTZkNjcxM2Q1NjdkNmUxMjhiYzU3YjE5ZmYwYTllMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOWFjMDgyYzQxMDMwNGIyMGM5Y2QxNTkwOGE4ZDJjZTNhYzUyMjQ4ZGJmNmFiYTEwOWM1ZjE4MTQ1NjIzYmRiMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNmQ5NDE4MDU2NGEwMjA3ODJlMzJhOGJhYjhlZTAyZDE5ZDI2ZDhlYjk2MGU0OTE5M2ExYmFjMTkwNmJjZWM3NCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTQxMTQ2ZWUwZjBlYjQwOThiMGNhYWY2NGY5YzQ4ZGJmOWE1NWRlZmRkNGVmOWNmMjJmOWEzYzE2NWE3NWFlMSJ9"
+          "resource": "repo://README.md#L77-L78",
+          "version": "repo-lines-v1:sha256:99db4afb3a640a88cf28337bc2a25afbb47580940b0f760840d88391d6ec218b:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTM5Y2VmM2IxZjRjM2I5YjMwMWQ0ZWJiMDhkMjljYjgyZTQyNDY0ZGQ3NDQ1NWE4ZGIwYzU3ODk4ODgwOWNiNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTE3OWYwNzJmMTliZWJhY2FiYjQyNGEwOGMxMjYwMGVkNzlkMmRlMDcyZjc3ZmNjNTdmMzA4MzRlODM0YmU3MyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTQ3ZTViYWMxOWE0NTZjNmIwMWIzMThiOWI1Njk2ZDViNTFmMzdiOWJiMjNkM2U0ZDFlMGU3MTYzOWU1NGM5MyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMWE5Y2IzNGZjNjAyYmU2MTQyOGIwNTljMmJmMWY4ZGFmMDUwM2Y4YzJlZDRhMWQzN2JiMmFkYTI0NTlkNDRlMSJ9"
         },
         {
           "resource": "repo://src/js/cookie.js#L10-L16",
@@ -35,6 +35,22 @@
         {
           "resource": "repo://src/js/cookie.js#L28-L38",
           "version": "repo-lines-v1:sha256:4b4b6b2ef792fe3a7b5690e75120fdbf08ff359cf262ba600049dfeb2e5452d0:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJjZjBhMTMyMGZjNzkyNDU3NjI1YjA0NjZkZDM1ZDM1MzM1OTUyZGJjZDkxN2FkZDA0NDljYTA3MGUwNTRjNjEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5ZTc2MzU1Y2YxMTk5NDgwYzNmOTk4MzZiMTQ4NmM4NDFkODkxZmFhZDkwNGM2MDhlMDkzMDIyZDM3NTdhZWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM4ZDg2MjBkMTZkODE5YWUxYzdiNWQ0NWQ0YmM0OTA4YWNiODlmYWNkZjRlODNjMDY0YTgxMTY2YmJmZGFlNjMifQ"
+        },
+        {
+          "resource": "repo://src/js/download_history.js#L3-L7",
+          "version": "repo-lines-v1:sha256:4d12670bc5493dc1dba313933b213b0d718acae6502a8f5a3e0bed7d0eb0416e:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZDJlNGFjNGIxMGJiMzgxZDBmYjRiZGI5NmZhMGEzYjc2OTljMGIzMTcyMTEyOGYyZTVkMjczZDBkY2FlMTM0ZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZGYyZGQ4YTgxZDBmYTg4ZjY5NjM3ZTY1NmU4YjBlZDYzMzM4MGIyMDVhY2QzYzUzOGRiNzY4YmExZTE3MGU4MiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjIsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZGUwZjFhZmYzYjkzNGJhYWQwNjU3MmNkMDNiOTM4NGUxOGRjOGY1YzE2YmE1ZjQ5YzgyYWMwZWM4ZTkwNTA3ZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTBiNDIwZWNhY2VlOGUwN2MyM2RmZTUxYjYwMmI0ZDU4MWJiMGM1MzEyYWIyNWEzOWVkYmY1Y2QxMDRhZGU1NSJ9"
+        },
+        {
+          "resource": "repo://src/js/history.js#L44-L46",
+          "version": "repo-lines-v1:sha256:26ef46ce047a4e0dc512377496e4d438239376d5acb26ff7cc1550cb339cb908:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZjE1MDliNGU2MDM3YTUzNjRjOTVlMTFlZGNhNGJkN2QzZWY2NDM1MTc3MjZlNTg3MDE3MzBjOTllZjFkYjg0YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDBhZjJkMjI0ZTU3ODU1MzU5MGFhNzYzOWQzMDVlZjFlYWZmNTRhMTFmNTVmMjI5MmU1OTQ2YWU5YTcyOWQzYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTk5YmRlZmVlYWNhNjM0MGUwMjkwZGM4NmU4ODljODlkNWUxODlhYTViYTQ0YjU4NWIzYjcwNzM0ZjRhNjJkOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiM2JlYWUwNjNjMWUzOWUzMzJkMzRiNGM0ZDhhMzU0OGQxMTJjZmFmMDk0MDk1MDIzNWYyOTlhODE0Y2U3MzJlMSJ9"
+        },
+        {
+          "resource": "repo://src/js/history.js#L64-L69",
+          "version": "repo-lines-v1:sha256:3307f975dea2a5d2a37170f53b18b325ee49a35e1cce4aea0ac70298d0136ee6:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMTMwNTMzM2E4YjUzYmFmZjIzOTM5YTVkNmQ3Yjc3YTdiN2I2ODc3ZDQwZjdjYjIyMmVjODM2OGM2ZjMzZmE0NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTZiMDQ0OTE0Njk3MjJlODM2M2E5NGU0MDQ0NTM4ZTAxM2EyYTIxN2UzNmIxZTU2OGJhNjBhY2I3YjRjOGYyZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTk5YmRlZmVlYWNhNjM0MGUwMjkwZGM4NmU4ODljODlkNWUxODlhYTViYTQ0YjU4NWIzYjcwNzM0ZjRhNjJkOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYjEyYmJhMTBhOTYzMzEwZTlhZDQ0MTdiYjdhM2I1NTA2ZTg4OTViOGRkZTUxZDlhNmY4ZDc4YmEzYmE1ODlkYiJ9"
+        },
+        {
+          "resource": "repo://src/js/history.js#L72-L81",
+          "version": "repo-lines-v1:sha256:c9560f8f24ad970792ad15a00d1f19bb4d574e8dc31eca0104545e7023eafadc:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkzY2U2NGZiNWI1ZmQ2MDVlOTczZGE5MWI1YzJiZDkzOWM1Y2YwNDUxMzI5MGM0YzNiZDhkYWViZmUyMGQ0OGYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk5OWJkZWZlZWFjYTYzNDBlMDI5MGRjODZlODg5Yzg5ZDVlMTg5YWE1YmE0NGI1ODViM2I3MDczNGY0YTYyZDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ2NzM4ZTU2NzkzYjJjMjEwZTYzY2MwOWJiOGM1NTQyOGY0YmQ4MGFhZWRlY2MzMzVmZGZmYWViMjlhMjJmM2QifQ"
         }
       ]
     },
@@ -43,8 +59,8 @@
       "statement": "Oidarwave presents a consent banner to the user on first visit or after the previous consent has expired (90 days) and provides options to accept or decline the loading of external scripts.",
       "evidence": [
         {
-          "resource": "repo://README.md#L88-L88",
-          "version": "repo-lines-v1:sha256:9ac082c410304b20c9cd15908a8d2ce3ac52248dbf6aba109c5f18145623bdb0:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOWFjMDgyYzQxMDMwNGIyMGM5Y2QxNTkwOGE4ZDJjZTNhYzUyMjQ4ZGJmNmFiYTEwOWM1ZjE4MTQ1NjIzYmRiMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOWFjMDgyYzQxMDMwNGIyMGM5Y2QxNTkwOGE4ZDJjZTNhYzUyMjQ4ZGJmNmFiYTEwOWM1ZjE4MTQ1NjIzYmRiMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNGRhZmY3YmVhZDFjMmQ2NDAxZDA3OTY3NjE1Mjg2MGYxYTFmZDY0YWQxM2NlOWQyNzEwNzhhYWE0NjVmYjM0ZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTQxMTQ2ZWUwZjBlYjQwOThiMGNhYWY2NGY5YzQ4ZGJmOWE1NWRlZmRkNGVmOWNmMjJmOWEzYzE2NWE3NWFlMSJ9"
+          "resource": "repo://README.md#L32-L32",
+          "version": "repo-lines-v1:sha256:18231da98828d463d0861fa075757bd463c58453cb8f996c6b9fdbd276c544e2:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMTgyMzFkYTk4ODI4ZDQ2M2QwODYxZmEwNzU3NTdiZDQ2M2M1ODQ1M2NiOGY5OTZjNmI5ZmRiZDI3NmM1NDRlMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMTgyMzFkYTk4ODI4ZDQ2M2QwODYxZmEwNzU3NTdiZDQ2M2M1ODQ1M2NiOGY5OTZjNmI5ZmRiZDI3NmM1NDRlMiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNzNiOWMxNDdhYmU4ZDI1NTk4NjUwZDUwNGUwOWZkYzRhMDQ2YzA0NmE3YTM1ODgxZjVjZGU1ZTgyNTYwZGJhMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTQxMTQ2ZWUwZjBlYjQwOThiMGNhYWY2NGY5YzQ4ZGJmOWE1NWRlZmRkNGVmOWNmMjJmOWEzYzE2NWE3NWFlMSJ9"
         },
         {
           "resource": "repo://src/js/cookie.js#L63-L68",
@@ -101,14 +117,14 @@
       "statement": "Oidarwave declares compliance with the EU General Data Protection Regulation (GDPR).",
       "evidence": [
         {
-          "resource": "repo://README.md#L77-L77",
-          "version": "repo-lines-v1:sha256:433f55ac2db1e81c21e17fdbc21c4e0bc89b8f40fb6be4ec3d0a80ef256aebea:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDMzZjU1YWMyZGIxZTgxYzIxZTE3ZmRiYzIxYzRlMGJjODliOGY0MGZiNmJlNGVjM2QwYTgwZWYyNTZhZWJlYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDMzZjU1YWMyZGIxZTgxYzIxZTE3ZmRiYzIxYzRlMGJjODliOGY0MGZiNmJlNGVjM2QwYTgwZWYyNTZhZWJlYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOWIxYTAzOTU5ZGExNmFkYTEzZjgxZDEwZDA1NjNhNTgzNmExNWZlYjMyN2U5ZmYwOWFkYzNjNjAwY2VmMDQ4OSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTkzZjdiM2NiZjM2NDg0NjJjNGMxYTgwZjY1MjU1MzM0OTM0Nzg5ZjQ3ODk2YWQyZjNjNWJjY2RjOGZjODIyYiJ9"
+          "resource": "repo://README.md#L4-L4",
+          "version": "repo-lines-v1:sha256:6595e82795fec3a72d1bc03451cadfaa535c3bee613a56f9ed2018b43552ef9c:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjU5NWU4Mjc5NWZlYzNhNzJkMWJjMDM0NTFjYWRmYWE1MzVjM2JlZTYxM2E1NmY5ZWQyMDE4YjQzNTUyZWY5YyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNjU5NWU4Mjc5NWZlYzNhNzJkMWJjMDM0NTFjYWRmYWE1MzVjM2JlZTYxM2E1NmY5ZWQyMDE4YjQzNTUyZWY5YyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDdhMjljMmMwODIwYjlmNjk0YWViZjYwMDUzNzRhMmY2Y2ZjNWVlZGQzYWQ1NWQ3ODRhMDc2MmFmZDZiNWI2NiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMGQ4NGMwYjY4NDEzNWIyNWMwODY1ZmMxODM4ZDI5MWEzODA5MDNjMTQ1OWM3MTQ0Nzc3MjkyOTdmYjgzZDZjNyJ9"
         }
       ]
     }
   ],
   "verification": {
     "by": "openwiki/0.5.0",
-    "at": "2026-09-02T20:22:31.727Z"
+    "at": "2026-09-02T21:38:00.224Z"
   }
 }

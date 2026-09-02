@@ -3,9 +3,6 @@ type: process
 title: Deployment to Vercel
 description: Describes how Oidarwave is hosted as a static web application on Vercel, including configuration evidence from README and package.json, and analytics integration.
 tags: [deployment, vercel, static-web, hosting]
-verified:
-  - by: openwiki/0.5.0
-    at: 2026-09-02T20:22:31.727Z
 sources:
   - id: openwiki-source-5b54a58d1b51cd490b0e7162
     resource: repo://package.json
@@ -13,7 +10,10 @@ sources:
     resource: repo://README.md
   - id: openwiki-source-f5dd57353d17e5dc5ea58a83
     resource: repo://src/js/cookie.js
-generated: { by: "openwiki/0.5.0", at: "2026-09-02T20:22:31.727Z" }
+generated: { by: "openwiki/0.5.0", at: "2026-09-02T21:38:00.224Z" }
+verified:
+  - by: openwiki/0.5.0
+    at: 2026-09-02T21:38:00.224Z
 ---
 # Deployment to Vercel
 
@@ -38,6 +38,20 @@ The application conditionally loads Vercel Insights (`/_vercel/insights/script.j
 ## Deployment Process
 
 Changes to the repository are automatically built and deployed by Vercel via its Git integration. Since the application is static, no build step is required; Vercel deploys the files directly. However, the project's package.json does not define a Vercel-specific build command, relying on Vercel's static site detection.
+
+## Test Environment Requirements
+
+Executing tests requires a Python virtual environment with Playwright and pytest, as documented in the README.
+
+```bash
+# Virtuelle Umgebung erstellen und Abhängigkeiten installieren
+python3 -m venv .venv
+source .venv/bin/activate  # Auf Windows: .venv\Scripts\activate
+pip install playwright pytest
+playwright install chromium
+```
+
+For more detailed development setup instructions, see the [Development](./development.md) operations page.
 
 ## Environment and Configuration
 
