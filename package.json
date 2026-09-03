@@ -124,6 +124,7 @@
     "electron-builder": "^26.16.0"
   },
   "dependencies": {
+    "electron-log": "^5.3.0",
     "openwiki": "^0.5.0"
   },
   "allowScripts": {
