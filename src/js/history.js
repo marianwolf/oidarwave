@@ -56,7 +56,11 @@ const StationHistory = (function() {
             }
             return { stations: history.stations || {} };
         } catch (e) {
-            console.error('Error loading history:', e);
+            const errType = e?.name || 'UnknownError';
+            const ctx = { key: HISTORY_KEY, type: errType };
+            if (errType === 'SyntaxError') ctx.reason = 'corrupt-json';
+            if (errType === 'QuotaExceededError' || e?.code === 22) ctx.reason = 'quota-exceeded';
+            logError(ErrorCode.STORAGE_READ, e, ctx);
             return { stations: {} };
         }
     }
@@ -65,7 +69,7 @@ const StationHistory = (function() {
         try {
             localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
         } catch (e) {
-            console.error('Error saving history:', e);
+            logStorageError(ErrorCode.STORAGE_WRITE, e, HISTORY_KEY);
         }
     }
 
@@ -77,7 +81,7 @@ const StationHistory = (function() {
         try {
             localStorage.setItem(HISTORY_KEY, JSON.stringify(dataToSave));
         } catch (e) {
-            console.error('Error saving history:', e);
+            logStorageError(ErrorCode.STORAGE_WRITE, e, HISTORY_KEY);
         }
     }
 
@@ -186,14 +190,15 @@ const StationHistory = (function() {
                 delete history.stations[id];
                 delete urlToIdMap[station.url];
                 hasChanged = true;
-            }
-        }
-
-        for (const [id, station] of Object.entries(history.stations)) {
-            for (const session of station.sessions) {
-                if (session.end === null && station.url !== mostRecentOpenStationUrl) {
-                    stopAndFinalizeSession(station, now);
-                    hasChanged = true;
+            } else {
+                // Finalize stale open sessions for any station other than the most recently opened one
+                if (station.url !== mostRecentOpenStationUrl) {
+                    for (const session of station.sessions) {
+                        if (session.end === null) {
+                            stopAndFinalizeSession(station, now);
+                            hasChanged = true;
+                        }
+                    }
                 }
             }
         }

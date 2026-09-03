@@ -22,7 +22,7 @@ class NotificationManager {
             try {
                 this.notificationsEnabled = localStorage.getItem('notificationsEnabled') === 'true';
             } catch (e) {
-                console.warn('localStorage notificationsEnabled read failed:', e);
+                logStorageError(ErrorCode.STORAGE_READ, e, 'notificationsEnabled');
             }
             this.updateNotificationToggleUI();
             
@@ -55,21 +55,18 @@ class NotificationManager {
         try {
             localStorage.setItem('notificationsEnabled', this.notificationsEnabled.toString());
         } catch (e) {
-            console.warn('localStorage notificationsEnabled save failed:', e);
+            logStorageError(ErrorCode.STORAGE_WRITE, e, 'notificationsEnabled');
         }
     }
 
     updateNotificationToggleUI() {
         if (!this.notificationToggle) return;
-        if (this.notificationsEnabled) {
-            this.notificationToggle.classList.add('active');
-            this.notificationToggle.title = 'Benachrichtigungen deaktivieren';
-            this.notificationToggle.setAttribute('aria-label', 'Benachrichtigungen deaktivieren');
-        } else {
-            this.notificationToggle.classList.remove('active');
-            this.notificationToggle.title = 'Benachrichtigungen bei Titeländerung';
-            this.notificationToggle.setAttribute('aria-label', 'Benachrichtigungen aktivieren');
-        }
+        const enabled = this.notificationsEnabled;
+        const label = enabled ? 'Benachrichtigungen deaktivieren' : 'Benachrichtigungen aktivieren';
+        const title = enabled ? label : 'Benachrichtigungen bei Titeländerung';
+        this.notificationToggle.classList.toggle('active', enabled);
+        this.notificationToggle.title = title;
+        this.notificationToggle.setAttribute('aria-label', label);
     }
 
     sendNotification(title, stationName) {

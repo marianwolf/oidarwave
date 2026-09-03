@@ -12,7 +12,7 @@ function setCookieConsent(consent) {
         localStorage.setItem(CONSENT_KEY, consent);
         localStorage.setItem(TIMESTAMP_KEY, Date.now());
     } catch (e) {
-        console.warn('localStorage speichern fehlgeschlagen:', e);
+        logStorageError(ErrorCode.STORAGE_WRITE, e, CONSENT_KEY);
     }
 }
 
@@ -20,7 +20,7 @@ function getCookieConsent() {
     try {
         return localStorage.getItem(CONSENT_KEY);
     } catch (e) {
-        console.warn('localStorage Zugriff fehlgeschlagen:', e);
+        logStorageError(ErrorCode.STORAGE_READ, e, CONSENT_KEY);
         return null;
     }
 }
@@ -33,7 +33,7 @@ function checkConsentExpiry() {
             localStorage.removeItem(TIMESTAMP_KEY);
         }
     } catch (e) {
-        console.warn('localStorage Zugriff fehlgeschlagen:', e);
+        logStorageError(ErrorCode.STORAGE_READ, e, TIMESTAMP_KEY);
     }
 }
 

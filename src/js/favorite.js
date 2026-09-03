@@ -22,24 +22,20 @@ const FavoriteManager = (() => {
     let favoriteIdsSet;
     let favoriteUrlsMap;
 
+    function isUrl(value) {
+        return typeof value === 'string' && (value.startsWith('http://') || value.startsWith('https://'));
+    }
+
     function isOldFavorite(favorite) {
-        return favorite.id && (favorite.id.startsWith('http://') || favorite.id.startsWith('https://'));
+        return !!favorite.id && isUrl(favorite.id);
     }
 
     function migrateOldFavorites(data) {
         if (!data.favorites) return data;
-        const migrated = data.favorites.map(f => {
-            if (isOldFavorite(f)) {
-                return {
-                    id: generateUUID(),
-                    url: f.id,
-                    name: f.name,
-                    data: f.data,
-                    addedAt: f.addedAt
-                };
-            }
-            return f;
-        });
+        const migrated = data.favorites.map(f => isOldFavorite(f)
+            ? { id: generateUUID(), url: f.id, name: f.name, data: f.data, addedAt: f.addedAt }
+            : f
+        );
         return migrated;
     }
 
@@ -61,7 +57,7 @@ const FavoriteManager = (() => {
                 preferences: migrated.preferences || {}
             };
         } catch (e) {
-            console.error('Fehler beim Laden der Favoriten:', e);
+            logError(ErrorCode.FAVORITE_LOAD, e, { source: 'loadFavorites' });
             return { version: 1, favorites: [], preferences: {} };
         }
     }
@@ -71,7 +67,7 @@ const FavoriteManager = (() => {
             try {
                 localStorage.setItem(FAVORITES_KEY, JSON.stringify(favoritesCache));
             } catch (e) {
-                console.error('Fehler beim Speichern der Favoriten:', e);
+                logError(ErrorCode.FAVORITE_SAVE, e, { source: 'saveFavorites' });
             }
         }
     }
@@ -80,7 +76,7 @@ const FavoriteManager = (() => {
         try {
             localStorage.setItem(FAVORITES_KEY, JSON.stringify(data));
         } catch (e) {
-            console.error('Fehler beim Speichern der Favoriten:', e);
+            logError(ErrorCode.FAVORITE_SAVE, e, { source: 'saveFavoritesDirect' });
         }
     }
 
@@ -139,7 +135,7 @@ const FavoriteManager = (() => {
                 lastUpdated: Date.now()
             };
         } catch (e) {
-            console.error("Fehler beim Laden der Präferenzen aus dem Verlauf:", e);
+            logError(ErrorCode.FAVORITE_LOAD, e, { source: 'loadPreferencesFromHistory' });
             return { ...defaultPreferences };
         }
     }
@@ -153,12 +149,12 @@ const FavoriteManager = (() => {
         }
         
         if (favoriteIdsSet.has(id)) {
-            console.warn("Favorit existiert bereits:", id);
+            logWarn(ErrorCode.FAVORITE_DUPLICATE_ID, null, { id });
             return false;
         }
         
         if (url && favoriteUrlsMap[url]) {
-            console.warn("Favorit existiert bereits (URL):", url);
+            logWarn(ErrorCode.FAVORITE_DUPLICATE_URL, null, { url });
             return false;
         }
         
@@ -170,15 +166,15 @@ const FavoriteManager = (() => {
 
     function removeFavorite(urlOrId) {
         let index;
-        if (typeof urlOrId === 'string' && (urlOrId.startsWith('http://') || urlOrId.startsWith('https://'))) {
+        if (isUrl(urlOrId)) {
             const id = favoriteUrlsMap[urlOrId];
             index = favoritesCache.favorites.findIndex(f => f.id === id);
         } else {
             index = favoritesCache.favorites.findIndex(f => f.id === urlOrId);
         }
-        
+
         if (index === -1) {
-            console.warn("Favorit nicht gefunden:", urlOrId);
+            logWarn(ErrorCode.FAVORITE_NOT_FOUND, null, { urlOrId });
             return false;
         }
         favoritesCache.favorites.splice(index, 1);
@@ -188,10 +184,7 @@ const FavoriteManager = (() => {
     }
 
     function isFavorite(urlOrId) {
-        if (typeof urlOrId === 'string' && (urlOrId.startsWith('http://') || urlOrId.startsWith('https://'))) {
-            return !!favoriteUrlsMap[urlOrId];
-        }
-        return favoriteIdsSet.has(urlOrId);
+        return isUrl(urlOrId) ? !!favoriteUrlsMap[urlOrId] : favoriteIdsSet.has(urlOrId);
     }
 
     function getAllFavorites() {

@@ -4,31 +4,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const DATA_SAVE_MODE_KEY = 'dataSaveMode';
     const CAPTION_ENABLED_KEY = 'captionsEnabled';
     const CAPTION_TRACK_KINDS = ['subtitles', 'captions', 'metadata'];
+    const FAVICON_ARTWORK = [
+        { src: '/favicon/favicon.svg', sizes: '128x128', type: 'image/svg+xml' },
+        { src: '/favicon/favicon.svg', sizes: '256x256', type: 'image/svg+xml' },
+        { src: '/favicon/favicon.svg', sizes: '512x512', type: 'image/svg+xml' }
+    ];
 
     // === MEDIA SESSION API (Android/iOS Lock Screen & System Controls) ===
     const setupMediaSession = (stationName) => {
-        if ('mediaSession' in navigator) {
-            try {
-                navigator.mediaSession.metadata = new MediaMetadata({
-                    title: stationName || 'Livestream',
-                    artist: 'Livestream',
-                    album: 'Oidarwave Video',
-                    artwork: [
-                        { src: '/favicon/favicon.svg', sizes: '128x128', type: 'image/svg+xml' },
-                        { src: '/favicon/favicon.svg', sizes: '256x256', type: 'image/svg+xml' },
-                        { src: '/favicon/favicon.svg', sizes: '512x512', type: 'image/svg+xml' }
-                    ]
-                });
-
-                navigator.mediaSession.setActionHandler('play', () => {
-                    videoPlayer?.play();
-                });
-                navigator.mediaSession.setActionHandler('pause', () => {
-                    videoPlayer?.pause();
-                });
-            } catch (e) {
-                console.warn('MediaSession Einrichtung fehlgeschlagen:', e);
-            }
+        if (!('mediaSession' in navigator)) return;
+        try {
+            navigator.mediaSession.metadata = new MediaMetadata({
+                title: stationName || 'Livestream',
+                artist: 'Livestream',
+                album: 'Oidarwave Video',
+                artwork: FAVICON_ARTWORK
+            });
+            navigator.mediaSession.setActionHandler('play', () => videoPlayer?.play());
+            navigator.mediaSession.setActionHandler('pause', () => videoPlayer?.pause());
+        } catch (e) {
+            logWarn(ErrorCode.MEDIA_SESSION_SETUP, e, { page: location.pathname });
         }
     };
 
@@ -49,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const forwardButton = document.getElementById('forwardButton');
 
     if (!videoPlayer) {
-        console.warn('Video-Element nicht gefunden.');
+        logError(ErrorCode.PLAYER_INIT_NO_ELEMENT, null, { selector: '#videoPlayer', page: location.pathname });
         return;
     }
 
@@ -65,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     const getSetting = (key) => {
         try { return localStorage.getItem(key) === 'true'; }
-        catch (e) { return false; }
+        catch (e) { logStorageError(ErrorCode.STORAGE_READ, e, key); return false; }
     };
 
     let settingsCache = {
@@ -76,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const saveSetting = (key, value, toggleElement) => {
         if (toggleElement) toggleElement.setAttribute('aria-pressed', String(value));
         try { localStorage.setItem(key, String(value)); }
-        catch (e) { console.warn('localStorage speichern fehlgeschlagen:', e); }
+        catch (e) { logStorageError(ErrorCode.STORAGE_WRITE, e, key); }
     };
     let statusMessageTimeout = null;
 
@@ -192,57 +187,75 @@ document.addEventListener('DOMContentLoaded', () => {
             const onManifestParsed = () => {
                 if (hlsPlayer !== playerInstance) return;
                 clearStatusMessage();
-                videoPlayer.play().catch(e => console.log('Autoplay failed:', e));
+                videoPlayer.play().catch(e => handlePlayError(e, 'manifest-parsed'));
                 updateQualityLevel();
                 settingsCache.captionsEnabled ? enableCaptions() : disableCaptions();
             };
             
+            const buildHlsErrorContext = (data) => {
+                const ctx = {
+                    type: data.type,
+                    mappedType: HlsErrorMap[data.type] || data.type,
+                    fatal: data.fatal,
+                    details: data.details,
+                    url: hlsPlayer?.url
+                };
+                if (data.response) {
+                    ctx.httpStatus = data.response.code;
+                    ctx.httpUrl = data.response.url;
+                }
+                if (data.error && data.error.code !== undefined) {
+                    ctx.systemErrorCode = data.error.code;
+                }
+                return ctx;
+            };
+
+            const handleNetworkRetry = () => {
+                if (retryState.count >= MAX_RETRIES) {
+                    logError(ErrorCode.HLS_NETWORK, null, { retries: MAX_RETRIES, url: hlsPlayer?.url });
+                    hlsPlayer?.destroy();
+                    hlsPlayer = null;
+                    showStatusMessage(`Netzwerkfehler: Nach ${MAX_RETRIES} Versuchen keine Verbindung. Bitte Internetverbindung prüfen und Seite neu laden.`, 'error', 0);
+                    return;
+                }
+                const delay = RETRY_BASE_DELAY * Math.pow(2, retryState.count);
+                logWarn('HLS_NETWORK_RETRY', null, { attempt: retryState.count + 1, max: MAX_RETRIES, delayMs: delay });
+                retryState.timerId = setTimeout(() => {
+                    retryState.count++;
+                    if (hlsPlayer === playerInstance) {
+                        hlsPlayer.startLoad();
+                    }
+                }, delay);
+            };
+
+            const handleFatalHlsError = (data) => {
+                if (data.type === Hls.ErrorTypes.NETWORK_ERROR) {
+                    handleNetworkRetry();
+                    return;
+                }
+                if (data.type === Hls.ErrorTypes.MEDIA_ERROR) {
+                    logWarn(ErrorCode.HLS_MEDIA, null, { action: 'recoverMediaError' });
+                    hlsPlayer?.recoverMediaError();
+                    return;
+                }
+                logError(ErrorCode.HLS_FATAL, null, { details: data.details, type: data.type });
+                hlsPlayer?.destroy();
+                hlsPlayer = null;
+                showStatusMessage(`Schwerwiegender Fehler: ${data.details}. Bitte Seite neu laden.`, 'error', 0);
+            };
+
             const onHlsError = (event, data) => {
                 if (hlsPlayer !== playerInstance) return;
-                console.error(`HLS.js Fehler: ${data.details}`, data);
-                
-                if (data.response) {
-                    const httpStatus = data.response.code;
-                    console.error(`HTTP-Status: ${httpStatus}`);
-                }
 
-                // Error Recovery für Netzwerk- und Medienfehler
+                const ctx = buildHlsErrorContext(data);
+                const code = data.fatal
+                    ? ErrorCode.HLS_FATAL
+                    : (ErrorCode[`HLS_${ctx.mappedType}`] || 'HLS_ERROR');
+
+                logError(code, null, ctx);
+
                 if (data.fatal) {
-                    switch (data.type) {
-                        case Hls.ErrorTypes.NETWORK_ERROR:
-                            if (retryState.count < MAX_RETRIES) {
-                                const delay = RETRY_BASE_DELAY * Math.pow(2, retryState.count);
-                                console.warn(`Fataler Netzwerkfehler (Versuch ${retryState.count + 1}/${MAX_RETRIES}), nächster Versuch in ${delay}ms...`);
-                                retryState.timerId = setTimeout(() => {
-                                    retryState.count++;
-                                    if (hlsPlayer === playerInstance) {
-                                        hlsPlayer.startLoad();
-                                    }
-                                }, delay);
-                            } else {
-                                console.error(`Maximale Wiederholungsanzahl (${MAX_RETRIES}) erreicht. Netzwerkfehler können nicht behoben werden.`);
-                                if (hlsPlayer) {
-                                    hlsPlayer.destroy();
-                                    hlsPlayer = null;
-                                }
-                                showStatusMessage(`Netzwerkfehler: Nach ${MAX_RETRIES} Versuchen keine Verbindung. Bitte Internetverbindung prüfen und Seite neu laden.`, 'error', 0);
-                            }
-                            break;
-                        case Hls.ErrorTypes.MEDIA_ERROR:
-                            console.warn("Fataler Medienfehler, versuche Wiederherstellung...");
-                            if (hlsPlayer) {
-                                hlsPlayer.recoverMediaError();
-                            }
-                            break;
-                        default:
-                            console.error("Nicht behebbarer Fehler, Player wird gestoppt.");
-                            if (hlsPlayer) {
-                                hlsPlayer.destroy();
-                                hlsPlayer = null;
-                            }
-                            showStatusMessage(`Schwerwiegender Fehler: ${data.details}. Bitte Seite neu laden.`, 'error', 0);
-                            break;
-                    }
+                    handleFatalHlsError(data);
                 }
                 // HLS.js handles non-fatal errors automatically; no manual recovery needed for bufferAppendError
             };
@@ -256,11 +269,11 @@ document.addEventListener('DOMContentLoaded', () => {
             videoPlayer.src = url;
             videoPlayer.addEventListener('loadedmetadata', () => {
                 clearStatusMessage();
-                videoPlayer.play().catch(e => console.log('Autoplay failed on native player:', e));
+                videoPlayer.play().catch(e => handlePlayError(e, 'native-player'));
                 settingsCache.captionsEnabled ? enableCaptions() : disableCaptions();
             }, { once: true });
         } else {
-            console.error('HLS is not supported by your browser.');
+            logError(ErrorCode.HLS_FATAL, null, { reason: 'HLS not supported by browser' });
             showStatusMessage('Ihr Browser unterstützt dieses Videoformat nicht.', 'error', 0);
         }
     };
@@ -301,17 +314,17 @@ document.addEventListener('DOMContentLoaded', () => {
         // Visibility change - mit passiven Optionen
         document.addEventListener('visibilitychange', () => {
             if (document.visibilityState === 'visible' && !videoPlayer.paused) {
-                videoPlayer.play().catch(e => console.log('Resume playback failed:', e));
+                videoPlayer.play().catch(e => handlePlayError(e, 'visibilitychange-resume'));
             }
         }, { passive: true });
         
         // Update Media Session when playback state changes
         videoPlayer.addEventListener('pause', () => {
-            console.log('Video: Paused - updating MediaSession');
+            logDebug(ErrorCode.MEDIA_SESSION_SETUP, null, { state: 'paused' });
         });
         
         videoPlayer.addEventListener('playing', () => {
-            console.log('Video: Playing - MediaSession active');
+            logDebug(ErrorCode.MEDIA_SESSION_SETUP, null, { state: 'playing' });
         });
         
         // Tastatur-Navigation
