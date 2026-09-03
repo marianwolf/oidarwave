@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:a27509bec65e7e96eb560e98e35dd5066f76bd6b2dc781146ef4b80f81588b8e",
+  "claims": [
+    {
+      "id": "claim_205d207ef3cb4bdfbecbf48e486f521a",
+      "statement": "The HLS.js integration implements an exponential backoff retry mechanism for fatal network errors, making up to three attempts with increasing delays.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/video.js#L163-L164",
+          "version": "repo-lines-v1:sha256:ab9fe086345b0f37ddfed703deac56e7a39587bebaa42a241570e0dd88866f9c:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMWQ0NzI0YWY5N2MzYmM2MjhhZGZkNzhlOTE3ZTFkMGRmOTVhNjVlMDQyNWNhMDRjMjlkZjc3MjI4NWJmMDA1NiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzhiMmNkYzY5OTZlZDQ0YzExYmQwYWY4NTBmMmMxZDkxMTRhODg3ZTI2ZmUyYWEwMmI5NTlmZDhiZDQ2MjcwZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZDNiMDUzY2NiNDNjNzg5ZmIyNDIzNGQ2MDZhN2QyNDZjNzliMjhkZTQ4M2Y1MTNiZTFkMWY2Njk1MjAzNjE4OSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOWRmM2QyMDRmNzJlYmE3NzhmNGE5ZWM5NTdjYjdkMGI4MDFjNDRjOTE0ZWIzNzJhNTQ4YjU3MGMxZGM2YTg4ZiJ9"
+        },
+        {
+          "resource": "repo://src/js/video.js#L213-L221",
+          "version": "repo-lines-v1:sha256:02b6d9d15884a8d8592dd98ee1c5ec76fc6d167083d4007bb2f8218a5e17ec30:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjQ5YjhkNWI5M2Q1MDc2YmQ4Yzg3YjQ5ODE4YzRkYjg2ZDllYWIzZWY1NjEzM2I0ODhlMzM2OWQ1ZDdlOTgzOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTgzODEzNmMxNmMxNzcxZjc4YTJmN2M3OGMxY2ExMDZkYmY0OGIwYWMxNTgwMDgyMzFjNTIyZWI3NTRlNjIzMiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYWQ0YjQ1ZTNiZTAzYWY1MmMzMDJjOGY5NDBhYzlkYWE2YTAxOGI3YmNlMzk4OGFkOTY0YWFjYWZlNGFjYTEwNiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzhlY2Q4ZGJhOWIzZDIxNDVkOGFlMzRkMjc4ZTE1MTM0YzI1N2VjZDA5OTZlNjQxNDdhMDEzZTI1NDk2Zjg2NyJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.0",
+    "at": "2026-09-02T20:22:31.727Z"
+  }
+}

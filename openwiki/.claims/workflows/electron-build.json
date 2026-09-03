@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:7002d6d574cf02a63f54b6f17ff340db8239d829cd9836e6c5328e0e5bd6a872",
+  "claims": [
+    {
+      "id": "claim_d75035fb78784ae5ab1642b381c187ea",
+      "statement": "The electron-build workflow provides npm scripts to build the Oidarwave desktop application for Windows, macOS, and Linux platforms.",
+      "evidence": [
+        {
+          "resource": "repo://package.json#L7-L13",
+          "version": "repo-lines-v1:sha256:9b10e96594e7cd88538741b51ae8fa3dc0174e0e92935c02328bc5e7171a2df3:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzQ4MzNkNTk0OWMwM2E0MGNhOTUyNDkxNjEwYTY2NTk2NDRiM2FhNDY2MzYyZjc5OTAyMGRiZjE5ODE1NDdkYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGQ1Y2QyZmI0ZjNkZjg4NDUxNTI1NWIzOTUyM2YyZjhiNTQ3MmJlZWE5ZjU2NmZmY2EyMDRkYjgwMjU2MTA0MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNmYyMmFlZTg5YTZjYmE3ZGZlN2FkMjEzODIyMWY0MWM3OWExMWZlOTkyMjM0NmY2YjhkMzc5N2ZkNTI1ZGFhNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiN2ZjY2ZhYzY3MzJiNjkxMTIyY2UzYzZhOTQwN2RlYWE4NTZlZDY4ZWY0YWNjZmU3ZmFhM2I5NThkZDQ0MDg2YSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_dc78aeb3f1c64baf8adc8dc82715ae21",
+      "statement": "The `npm run dist` script builds the application for all supported platforms (macOS, Windows, Linux).",
+      "evidence": [
+        {
+          "resource": "repo://package.json#L9-L9",
+          "version": "repo-lines-v1:sha256:628b65b7199c2811f7c0f8dff5b0653672708f795563f2f36ce038e567034907:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjI4YjY1YjcxOTljMjgxMWY3YzBmOGRmZjViMDY1MzY3MjcwOGY3OTU1NjNmMmYzNmNlMDM4ZTU2NzAzNDkwNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNjI4YjY1YjcxOTljMjgxMWY3YzBmOGRmZjViMDY1MzY3MjcwOGY3OTU1NjNmMmYzNmNlMDM4ZTU2NzAzNDkwNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMWUwY2IwOWU2ZWVhNzc2ODAxNjU3ZDc3YTgzZTA4MmJmNmY0YTk5NDlmOWE3MzVjZjgyYzUxMGRiYTBlYWQ5ZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODY2ODI0YjRjNzczMWRmMmJhODZlZjJlMjczMmJhOGU4ZDlhOTk1YWFlNWE0ZjllZDgxOWUzZTk5OTlhMGZmMSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_287403bdae6048298301f549c1633479",
+      "statement": "The `npm run dist:linux`, `npm run dist:win`, and `npm run dist:mac` scripts build the application for Linux, Windows, and macOS respectively.",
+      "evidence": [
+        {
+          "resource": "repo://package.json#L10-L12",
+          "version": "repo-lines-v1:sha256:866824b4c7731df2ba86ef2e2732ba8e8d9a995aae5a4f9ed819e3e9999a0ff1:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiM2E3ZDFlOTM3N2ZiZmEzODRhMDQzYTUyOWY4OGM3NGUyMzlhNTJiN2Y5MGEzMzYxNjRmZDRmMjJjZjMwODM1YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTMyNzdiOTQ3MjRkYTFjZmIyYTcwNTU3MmFmMmQ5NWNiMDkyNGZhN2IxMGM0MDc1NDA5Nzk2OWY2MDlkYTcwOCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODY1OWNhYjI5ZWNkYTI3ZWFkMGI3YThiNTE4ZjMxMTA0YWZhOGY5ZTkxMGEzOWNjZGIzYTNjMTU0NmVkODQ1NyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzQ3ZDQ0ZDY4YzEzMTgwYzZiODdlNmI3ZjE1NmVkNmIwMzViZDdmN2NlNzdmOGFjNmVkZjQyMmYxZTY5ZWRiOCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_c547ac2895fc4c128a930a75cf96d553",
+      "statement": "The build configuration for electron-builder is located in the `build` object of `package.json`.",
+      "evidence": [
+        {
+          "resource": "repo://package.json#L16-L121",
+          "version": "repo-lines-v1:sha256:840edb21fe5d8869f8743f4b3899294a0bb07b8dfda7945fa4c15c6180e9b4c2:eyJzZWxlY3RlZExpbmVDb3VudCI6MTA2LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI3YjA3MjAxYmRiNmJjMDU5MjA4NDk2MzY4MTg2MWE0ZmExNGFmZGE1OTFiNmQ1NjYxYjc0NThkOTIxZDVkMGViIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0ZDVjZDJmYjRmM2RmODg0NTE1MjU1YjM5NTIzZjJmOGI1NDcyYmVlYTlmNTY2ZmZjYTIwNGRiODAyNTYxMDQxIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJjNDdkNDRkNjhjMTMxODBjNmI4N2U2YjdmMTU2ZWQ2YjAzNWJkN2Y3Y2U3N2Y4YWM2ZWRmNDIyZjFlNjllZGI4IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiI1MzBhOTRiNTBmYzQ4NTgwMGFjZTU2NDZmOTI3NjlhNjBkNWQzNGJmNGEzNzM3MmQyOTFmYTY5OGVhZTk3MTI1In0"
+        }
+      ]
+    },
+    {
+      "id": "claim_0171cb53d9da4e3e8e95399781210e18",
+      "statement": "The build configuration specifies the application identifier as `app.oidarwave.vercel` and the product name as `Oidarwave`.",
+      "evidence": [
+        {
+          "resource": "repo://package.json#L17-L18",
+          "version": "repo-lines-v1:sha256:b3220697ce204ee14c96161d1c17f2353c6662b13130f4023520057c1db61a14:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMThhM2E0Nzg3ZTViYmMxZWM3NzIyYTg0YWM1NzQyNmY3NmU4NDEwOTI1ZDU1NWM4ZTkwZDNiMWUzOGNlZDg5MiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMGExMDAxMmJlNWIyZjE3YTM0MjVlOWFiYTNkYTMwMWM4NWE3ZGZmYmYyZDg2OTM3ZGQxYTAyZDQ0ZjVhMTlhYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiN2ZjY2ZhYzY3MzJiNjkxMTIyY2UzYzZhOTQwN2RlYWE4NTZlZDY4ZWY0YWNjZmU3ZmFhM2I5NThkZDQ0MDg2YSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDZhZjU4MjViNzFhZWVhMDg5NWJlMDkxZGJkOGJkNTk5ODk5ZTgzY2Q3MzM0ODI1MjYxYWQzYzYxN2ZhMjRkYiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_bd7cf7b3fc4b4cfd9c8e71d362896ae4",
+      "statement": "The build configuration includes the `electron/`, `src/`, `index.html`, `favicon/`, `manifest.json`, `video/`, and `impressum/` directories and files in the packaged application.",
+      "evidence": [
+        {
+          "resource": "repo://package.json#L22-L29",
+          "version": "repo-lines-v1:sha256:9a61a7d27d09008a0f97d9f2fab6e5bfd09c40a00ba8137983bab4b33b793aed:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjllYjJhMDAzZDIyNGRiMDU0NTE5ODIxZTg1NWUwN2Q1MmI5OTQ4OTA3MDBkZjNlYTk0ZTQ2MTlmMzgzOGZhMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzdkOGExYzYwZDhmM2FmZGQxYWYzYWE3ZTQ5ODYzMzhiMDg2ZjAzZGMyYWQ3Yjk4MDVmZWFhYWY5NjUyNzM2ZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDZhZjU4MjViNzFhZWVhMDg5NWJlMDkxZGJkOGJkNTk5ODk5ZTgzY2Q3MzM0ODI1MjYxYWQzYzYxN2ZhMjRkYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjQ2MDgxNWVhMTM2ZGEzNTIwOTQ5NDkyMDk1OTQ1NzRiODI5NWRhNDFiOWQ4Y2NhY2U1N2RkMGI2YWUwNjZjZSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_c31b60d834ca41e7b0868a8fd781eadc",
+      "statement": "The build configuration enables ASAR archiving and sets compression to normal.",
+      "evidence": [
+        {
+          "resource": "repo://package.json#L31-L32",
+          "version": "repo-lines-v1:sha256:9e9aaf4bd7ee1d245d384f844f1c1ae62bfcf197873855d1afb151b04f8a697f:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZDczNjIzNzAwY2FjYzQ0ZjE0MGQyZTJkOTViYWQ4MjUyYWViNGQ4YWQyMzBlZWYyOWE0MDkxYmI3ZTAyMzYyZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiODBiOTdhM2I2ZmRhZGM3NWQ2MDJmZjdjNGZmNGFkOWE5ZGJmMDhiZWUyN2E0MWQxYjdhNTA1ZjViNmVkNmVkMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjA5MTAyYjEwZmFlMzkxNjM4N2VmMzI4MTNmNTc5ODdhYzc2ZGEyM2VlODdmNDQwODViMjcxODgzNGIxNmQyNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNWMyYjIwZWE2NDk5ODExZmVhZjAzNzI3ZTQ5Y2M1MzIwODk2YTY3YmFmYWI0OTgwMDQ0NTVlM2M1MDU2MmNkYSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_cc3527a128d34d53bf7028d80b7f8790",
+      "statement": "For Windows, the build produces NSIS installer and ZIP archive targets for both x64 and arm64 architectures, uses the favicon/favicon.ico icon, and sets the execution level to asInvoker.",
+      "evidence": [
+        {
+          "resource": "repo://package.json#L33-L58",
+          "version": "repo-lines-v1:sha256:4482f7c89552b481b935ac71f7de275fbd8120c716471bc12cf03857834c029b:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk3ZmZjNzk4NjFhNzc5ZjlkZjc4OWQ2Zjg5Y2QyZDQ3YjAxYjViMmU2NzI4ODQ2ZDQwODQ1ZDY0OWEzYzA1NzAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFmMGNkYjk3MmE3YmZiN2VkMjQ2ZjlmZjY3MjM4NWU1NWY0OTY4ZmMxMTA0M2RjNWI2ODRkNTFkZmEzMWRiY2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY0NjA4MTVlYTEzNmRhMzUyMDk0OTQ5MjA5NTk0NTc0YjgyOTVkYTQxYjlkOGNjYWNlNTdkZDBiNmFlMDY2Y2UiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUyMTRlYmE5NWUzNTFhZjI2Mjc3YmFkYmUxNDcyN2QzYjRlMjdkNGVmN2Y1ZjM1OWRjNjY4NDdmNTc0MTc3MWUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_5d925897558844338395ab2250f74320",
+      "statement": "For macOS, the build produces a ZIP archive target, uses the favicon/favicon.icns icon, and sets the category to public.app-category.audio.",
+      "evidence": [
+        {
+          "resource": "repo://package.json#L59-L65",
+          "version": "repo-lines-v1:sha256:8a634210b5fd6fe0f3c829f1092a9f665b4b9dc62eada849d5f16f153a218c23:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDI0NzNkNTk3Y2UzMGNjMTFmZTMwYWRmOGM3MWVhN2UzNjRhNmI4OTI1NzI3Mzk3ZmZjZGNjZjc4ZjNmNWEzMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMWYwY2RiOTcyYTdiZmI3ZWQyNDZmOWZmNjcyMzg1ZTU1ZjQ5NjhmYzExMDQzZGM1YjY4NGQ1MWRmYTMxZGJjYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMWE1NjFlYTQ3MDQ1ZDMxYjIzY2FhNmM3MmUyNGQxNTU5ZTUxMzhhYWU4ZWZhYmNkMWE4ZDIwMzViOGRiYWM1ZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjc5M2JlOGMzZGUxOTczYzZkZDVkOTg0N2JkZTEwMzJjZGJkMzJkMzQ4ZmNlMjkwNDBmMTMwOTBhYjdhZjA3ZCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_3d61eb2b254f43e2b4b49413a6a67221",
+      "statement": "For Linux, the build produces AppImage, deb, rpm, tar.gz, freebsd, and snap targets (with snap being x64-only) for both x64 and arm64 architectures, uses the favicon/favicon.svg icon, and sets the category to AudioVideo.",
+      "evidence": [
+        {
+          "resource": "repo://package.json#L73-L120",
+          "version": "repo-lines-v1:sha256:9b8cbd9404d9a6f902e473ad4e92bdbce80695c1701224c12cbba6caef1dc11e:eyJzZWxlY3RlZExpbmVDb3VudCI6NDgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YWZlZjhmNDZlOTFmNDY3ZmYyNmE5MTdlMzk5NTViODIyOTMyMGVkNzQwM2Q0NDI5YThkYmE0YTg3YTZmY2IiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ2MThjMGJkOGM1OGM2ZGNhZWMzMjhiYWQxMjc1Mzg4ZWI3ZTEyN2Y5Yjc2ZjliOGExYzkxNjc1MjQwNzY3ZjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjExM2ZiNzBiYTM5MzBjZThlNmE5MjAyMzkzYzhiYWViMmExYmNjYTExMGE2NGZiZmExMjhmOTU4NzFhM2UxZDcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_8496e5e7363442fd9978695fdf8ff2dd",
+      "statement": "The built artifacts are placed in the `dist` directory.",
+      "evidence": [
+        {
+          "resource": "repo://package.json#L20-L20",
+          "version": "repo-lines-v1:sha256:8b12829945f58c7ca85d6a4d58155f81d3ceacff454fd61219b2efae3d309cd9:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOGIxMjgyOTk0NWY1OGM3Y2E4NWQ2YTRkNTgxNTVmODFkM2NlYWNmZjQ1NGZkNjEyMTliMmVmYWUzZDMwOWNkOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOGIxMjgyOTk0NWY1OGM3Y2E4NWQ2YTRkNTgxNTVmODFkM2NlYWNmZjQ1NGZkNjEyMTliMmVmYWUzZDMwOWNkOSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZWQ4NjU0NjQ3MGZjZDI4NTQ1N2VjN2VmYThkNTE3YjA3YTdhY2MzODJkNThhODViNmQ5ZGZlNzA2MTIwODcxMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTFhNjQwODU1M2Q4MGFmNTBlMGJhNmM1ZTAwMTk5MDgyNDk2ZWIzODU4ZDhmZjVlMTQwYzYxODUwZGQwNWVhNyJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.0",
+    "at": "2026-09-02T20:22:31.727Z"
+  }
+}

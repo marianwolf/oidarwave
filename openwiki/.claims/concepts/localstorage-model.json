@@ -1,0 +1,140 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:be20501b397635ca4df001a2b9c2aaa0628a2a8cd55ec9547d3f4572754d6aa4",
+  "claims": [
+    {
+      "id": "claim_cd2df66844aa420380c973776c5796ac",
+      "statement": "The application uses specific localStorage keys for different purposes: cookieConsent for tracking consent, consentTimestamp for consent timing, station_history for playback history, user_favorites for bookmarks and preferences, dataSaveMode for bandwidth-saving mode, and captionsEnabled for caption display preference.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/cookie.js#L5-L8",
+          "version": "repo-lines-v1:sha256:71f16bba1052de742dae87d77d3c01fcda38253c4ae1e6bf0a1133683d875568:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjRiZDIwMzcyYjkwMDUzN2U0MmM5M2I0ZDllYzQyYTdjYjk1N2U2NmRhOWJhZmRlMDhhNDUyNjJkNTk2NmE3ZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDU4NGUwMTEwYTdkOWJhNjcxMDZmMGIwYTIwY2U5MDRkMWM1NTIyYTgyNGQ3MjJlNjk3YWQ4ZWM3NTMzNzQ2MyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjc0ZmUxMTcyOGZkNDYxNjY3YmE2ZmZmZmM5OWQ1OTY2YjUxYTk4ODVkOWQ2ZTgwNTg3OTFiYTZiMmI4NjU2OSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTMzM2U2MTZlMGM1ZmFmYzc2MWY3ZWEyNzUyYTBkOTdkYzU2Nzg0ZjJlOGQ5ZTYxM2UxNjA4MjZhY2VlMDljZiJ9"
+        },
+        {
+          "resource": "repo://src/js/favorite.js#L6-L7",
+          "version": "repo-lines-v1:sha256:346185d0c7d8b043a00958e21785f920d4a463a481e4a68ee05e76549903d191:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWRhMTU5N2RlMjNlMzNkMzczMDI4NzdiZWVlNmJlNjExNTQ2YTMxYmNlNGM3ZWM5OGZhMjA4ZjU1MTczN2ZlMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZDJlNGFjNGIxMGJiMzgxZDBmYjRiZGI5NmZhMGEzYjc2OTljMGIzMTcyMTEyOGYyZTVkMjczZDBkY2FlMTM0ZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZmNmMGM5YjczYjVhYmRjZTIyOGQ4OTdlMDQ5Y2NjZWJjZjQ0ODdjMGM1MzUwYzlkNjhmZjliMGNiZDMyZmFhZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDM2ZTJjZTkzZDlkNWU5MzZiNTE4OWQ1ZTFlNTE5MjAxMTQ2ZDhlMjAxODVmNjhhNzM5OWY0OTgyMjQxMDVkMCJ9"
+        },
+        {
+          "resource": "repo://src/js/history.js#L2-L2",
+          "version": "repo-lines-v1:sha256:d2e4ac4b10bb381d0fb4bdb96fa0a3b7699c0b31721128f2e5d273d0dcae134f:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZDJlNGFjNGIxMGJiMzgxZDBmYjRiZGI5NmZhMGEzYjc2OTljMGIzMTcyMTEyOGYyZTVkMjczZDBkY2FlMTM0ZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZDJlNGFjNGIxMGJiMzgxZDBmYjRiZGI5NmZhMGEzYjc2OTljMGIzMTcyMTEyOGYyZTVkMjczZDBkY2FlMTM0ZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjEsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTk3ZTZjZDMzMTE1MmNlYzY2N2Y4NDFiY2JhNjEwMGM4YTY5MjdmM2VlNDBiYmI1NjkwNWU4YTNkMmY4OGJkZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzBkZjMwZTQ3NmJjZTA2YTNlODQ5NDE3YmMwZTQ3YmRhNDU1M2Q5YzRiODQxZmI0NzliNjBlMjk2OWRiNjRjYSJ9"
+        },
+        {
+          "resource": "repo://src/js/video.js#L4-L5",
+          "version": "repo-lines-v1:sha256:ae9a8fc76354678795db427fd82f4a6c08d20f7b719f333dcfd46a449512224e:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOWExYzA1ZTA5MjU5MTM1NmNjMWE5OTU2ZjgwN2UxN2Y3OWUyMzYwM2YwNTY4ZWZmNjMzYzVlNWY5Y2ZhYTI3NiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZjZjY2UzMjcyZjNjZTlmNGJjNzFhMTI4ODJmZjIyYjM5ZGZhMDUxN2UzZDI5NTUyNDY3MWE0Mzk1MTljMmU5NiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOGJhMzQ2MWVjNmU2NWMwM2Y2YWQ0ODgwYzA2YWU3YTlmZGNlMzg4YmM4Zjg0MWJmYjBiZmVkZTU2ZWRiNjEzNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjU5NzE1ZTQ2NjA5Y2QwN2RlNmIxMWI0ZTUzMjEzYjdjMWU0NGFiYjNhNWQ0YzFmNjc0NGY5ZDQxNjBlMWY0NiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_c59e35e34b7a4028803a9febe979411c",
+      "statement": "Cookie consent data includes a consent value ('true'/'false') and a timestamp, with automatic expiration after 90 days via the checkConsentExpiry function.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/cookie.js#L10-L17",
+          "version": "repo-lines-v1:sha256:24f34f6fc86e8e323c6c7dd7b39a2adbc8290d83b93038de7daafd8b41d6796f:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjAzMjNmOTAyZTBlZjBkM2MyODJjMGVjNTdmNjkzNTkxZWZmY2JlYTg0MTBmYWRiMzU5YjA4M2NlNjUwNmJkMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTQzYjk2NTg5YzgzZDRiZWQ4OGQwZmM1ZDhjN2VjYjI0NGYzMzA1YmZjYWRmMjA2ZWM4YzVlNTJhZWI1MjRjZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMWMwOGRlMTM2MmVjNmVhNTdiZjU4YzRkM2MwYmQ3MGVmYTY5ODcwY2JiNzNkMjJlYmE5MWJlOWM4NjMwNzk3MSJ9"
+        },
+        {
+          "resource": "repo://src/js/cookie.js#L28-L38",
+          "version": "repo-lines-v1:sha256:4b4b6b2ef792fe3a7b5690e75120fdbf08ff359cf262ba600049dfeb2e5452d0:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJjZjBhMTMyMGZjNzkyNDU3NjI1YjA0NjZkZDM1ZDM1MzM1OTUyZGJjZDkxN2FkZDA0NDljYTA3MGUwNTRjNjEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5ZTc2MzU1Y2YxMTk5NDgwYzNmOTk4MzZiMTQ4NmM4NDFkODkxZmFhZDkwNGM2MDhlMDkzMDIyZDM3NTdhZWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM4ZDg2MjBkMTZkODE5YWUxYzdiNWQ0NWQ0YmM0OTA4YWNiODlmYWNkZjRlODNjMDY0YTgxMTY2YmJmZGFlNjMifQ"
+        },
+        {
+          "resource": "repo://src/js/cookie.js#L5-L8",
+          "version": "repo-lines-v1:sha256:71f16bba1052de742dae87d77d3c01fcda38253c4ae1e6bf0a1133683d875568:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjRiZDIwMzcyYjkwMDUzN2U0MmM5M2I0ZDllYzQyYTdjYjk1N2U2NmRhOWJhZmRlMDhhNDUyNjJkNTk2NmE3ZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDU4NGUwMTEwYTdkOWJhNjcxMDZmMGIwYTIwY2U5MDRkMWM1NTIyYTgyNGQ3MjJlNjk3YWQ4ZWM3NTMzNzQ2MyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjc0ZmUxMTcyOGZkNDYxNjY3YmE2ZmZmZmM5OWQ1OTY2YjUxYTk4ODVkOWQ2ZTgwNTg3OTFiYTZiMmI4NjU2OSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTMzM2U2MTZlMGM1ZmFmYzc2MWY3ZWEyNzUyYTBkOTdkYzU2Nzg0ZjJlOGQ5ZTYxM2UxNjA4MjZhY2VlMDljZiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_9c8ba7ed1e8b428c81dd817527079836",
+      "statement": "Station history uses a UUID-based structure tracking stations with URLs, names, session arrays (start/end timestamps), and favicons, plus an activeStationUrl field.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/history.js#L215-L258",
+          "version": "repo-lines-v1:sha256:c603c05a1eb43171ebdd23c3fb07a4912c1f2793d5c181a79653286d4dc55085:eyJzZWxlY3RlZExpbmVDb3VudCI6NDQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjllODFhZjFlMjY0N2YyNTBlZDA4NmZlMTkyNDFmNmQ3Y2IwMjlkM2I2Yzg2Y2VkNDc3NDM5Mjc2YjliZDc2ZmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ4MTBmMDg4MzgwZmJkNGE3YThmOGMyMWY4NjI1M2ZhMzk0ZDgxODZiYzhkZTU5NzUyZGY3OTIxNzQ3NWQ0OGMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjRlZTk5ZjU3MTA1YTVmNjUwZmQ2YjkzZjEzZDBmZDQ2ZGM3MWIxZGNkMTBjNGE4ZjFjYjg0Zjk3ODg2NDc4N2YifQ"
+        },
+        {
+          "resource": "repo://src/js/history.js#L6-L11",
+          "version": "repo-lines-v1:sha256:f53758315462140c70f62615aa7c4acbf9f28246b6bf6544fad1478a675ede47:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODc1OTM0NDExZDI0ZGJiMTM2OTk2OTU0YjcwMjQ5ZGUwZjBmNWZlZDZlMzQ1MGRiM2I0MzAxZmU3MzczM2ZmNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiY2JhYzI4YWE4NTZlZThkNWJiNmYwNGMzNzdjM2E0Mzc1MWY5ZWY3NjExNGY3Mjk5NDIwMWM5NjNjNzJhOTYwYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzBkZjMwZTQ3NmJjZTA2YTNlODQ5NDE3YmMwZTQ3YmRhNDU1M2Q5YzRiODQxZmI0NzliNjBlMjk2OWRiNjRjYSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDZhNTM2N2M3ZGYzNDhmYjY5NTQ3NmZiZDRiODc5ZGY3NWIxNDkxNGM0ZTc4Y2E1MTNhMDhkODUzMzc3ZWNjNiJ9"
+        },
+        {
+          "resource": "repo://src/js/history.js#L97-L148",
+          "version": "repo-lines-v1:sha256:2f25d45055e0500910cfc4a45ff30919b78a86591ca3a3b0d427c8ec74059a9f:eyJzZWxlY3RlZExpbmVDb3VudCI6NTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxOGM1NTM4YTNkN2Y2N2QwZDIzNDNiN2U2OTcxNjEyODdlNTMwYzk0N2RiMDcxNzBiZjBlMTMyNzIyOGM2ODIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk5OWJkZWZlZWFjYTYzNDBlMDI5MGRjODZlODg5Yzg5ZDVlMTg5YWE1YmE0NGI1ODViM2I3MDczNGY0YTYyZDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA2NGQzNGFjZDYwMTVkMjRiYjZkYzE3M2MzZTQ5ZTYwZWM4YmRkZTAyZjNkODM4MmZiZTgyMTk3MTQ3NzYzYmQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_726980a1967843238b95c5a566f05c8a",
+      "statement": "The favorites module stores user bookmarks as UUID-based objects with name, URL, metadata, and timestamp, while deriving preferences from station history including most/last played stations and aggregate play counts.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/favorite.js#L102-L121",
+          "version": "repo-lines-v1:sha256:e0129278569f8c60f3ab23d7bd443dd131d82d12309dc0a21d04c686def624ed:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI1ODQyNzVmMjBhYzFjMDkzMmE0ODNjYzBjM2RkYmI5ZjUzMTU1Mjc5MGM4YTZmNDYyYTgwZTFkZTBhY2I2MzkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBjNjQ3OWNjMjMwNDQwZmQ0MWU4MjI0MjE4Njc5Njk4NTU5ZDI4OTNiZDY3YjQzODBhZmFiODExYjM4YTU1YWEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjgzMjlkMTgxMmQxNzQ3MmVjNDBlNDIyNzFjYTRjODcyNDdkZDYxMjMxOTAyMmRkMDhiNGE5ZDBkMmVkNjAzZjEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImI0YTY5ZjBkNmYzMGY1OTI3MGU2NjE1MWRhOWIyYjE3ZmI4NjQwNGIxOGI2YTY3ZTVkZTBjNjE1YjBhZTI1ZTkifQ"
+        },
+        {
+          "resource": "repo://src/js/favorite.js#L147-L169",
+          "version": "repo-lines-v1:sha256:1e57cd5f5375da2b4d2391f09affb9a335c13b68d697ced5920c53553e39a506:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUxYWE5M2JkMmM2YTM1OTlhMjk5YWY2ODUyNGNhYTk0MmM2NGViZmRlNzA3MzM5MjZhYmMxMDkxNDYzMDE3MjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk5OWJkZWZlZWFjYTYzNDBlMDI5MGRjODZlODg5Yzg5ZDVlMTg5YWE1YmE0NGI1ODViM2I3MDczNGY0YTYyZDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjkyNjg0OTY4MzhmYmYxY2IwNWVhMjFhNWIxMTQ5MTg2Y2ViMDQ2ZDFhMjAxZmY3MWQyMGFmMGU1ZWVlYTU3ZTAifQ"
+        },
+        {
+          "resource": "repo://src/js/favorite.js#L98-L145",
+          "version": "repo-lines-v1:sha256:1a7cb121cdb56cc499e378657caa99e4e7daf667ce17b124be6f38af2cd45d24:eyJzZWxlY3RlZExpbmVDb3VudCI6NDgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkwZTkyZDUzYmRmOGEzNjc0ZjI4NzExMzJmOTc2YjZjZmVjNzlkMDUxYTI3NTI5MzUxOTQ4Njg0YTM4YzI3ZWUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImEyY2MwZDQ0ZGRlMzkxMDE4YTQ1OWMwNmIwOTBlZWVjOGRmNTA0MTg4Mjk3MzIwMmQwYTc2NWZjOTM1NjRjYTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjkzNjk3YTI2OTFiNDM0MzAzYjZlNDFmNDdhZmFjYjkyYjJhMDZiYzI0MjI1ZDE3YzliZDViNGU2ZDI0NTcxZTIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_7f3b4f11e4e54020b09d289326ba6992",
+      "statement": "Video settings store dataSaveMode and captionsEnabled as string boolean values ('true'/'false') that are synchronized with UI elements and applied to media playback.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/video.js#L150-L159",
+          "version": "repo-lines-v1:sha256:840dd2014f1b8eea8710e669068d6d2fc5dda0a582353ae19c62af6ff9fbe625:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYzNTczZjFlMGI1YmY0YzkxNTk0YmQ3MTFhMmNlMTlmYjgxNGI5NDY1NzNjZWZkODNiZjNjZWY0ZGE1ZWRkMjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkOWUxMjU0NjQyNTU3NmQzZGVhZThjOWI5ZGJmMTI4ZDVkNmRkYWY1ZDdmZTg1NzkzNDkyN2RlZmZhM2I5ZGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZlZTdhZjFiNGQzOWVlYjQ1OWRjYjAyYTk2OTRjYzliMGRhOTI5NjI0ZTNjNDg1MzFhM2E1YjVlMWJjZGNhMDIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQzYjA1M2NjYjQzYzc4OWZiMjQyMzRkNjA2YTdkMjQ2Yzc5YjI4ZGU0ODNmNTEzYmUxZDFmNjY5NTIwMzYxODkifQ"
+        },
+        {
+          "resource": "repo://src/js/video.js#L66-L69",
+          "version": "repo-lines-v1:sha256:2ee6dcf721adbbadc07211ecc07a6510e079bfbbdaf482437339c74fd3e85319:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZjFmZjI2NTQzZjQwNTUxNWJmMmVhNTIyYTA5NTJiMmQ3NGNmMTUwM2Y4YjExM2RkYjJlOTBkMmQ1ZjIzYTk5YiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYWQ5ZTEyNTQ2NDI1NTc2ZDNkZWFlOGM5YjlkYmYxMjhkNWQ2ZGRhZjVkN2ZlODU3OTM0OTI3ZGVmZmEzYjlkZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjVkODM0ODRkMGFhMTYyNWM2ZjU4NDc5OTRhNTJlYTdmNzNmYjlhMGZmNjFmYTEzMjY1NDBkMDE3MjYwODZmZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDAwZWM3YWM1NmIzNzBjYTgwZDU2ZTFiZTc0N2I5MDI5MmZiZjQ3MDdlOGJmYzQ1ODkyMmI4Y2EyZmQyMTIzMCJ9"
+        },
+        {
+          "resource": "repo://src/js/video.js#L76-L80",
+          "version": "repo-lines-v1:sha256:2180356d84b9500f1ad1791329540fa7c5269ab904b70a242424d62b67f71d0f:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYWZiMTdmYWI2YzVjNTNiY2UzYzlkNWE5M2VkNzgwZmJkMzFmNWYyYTcxNjVlMWRmNDlhMWVjODRkZWQzYTlkOCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYWQ5ZTEyNTQ2NDI1NTc2ZDNkZWFlOGM5YjlkYmYxMjhkNWQ2ZGRhZjVkN2ZlODU3OTM0OTI3ZGVmZmEzYjlkZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTQwNmNmYzkzYTI0ZDdhYjRjODI1MmYwOGQ5MzE3MDMwNDY2YjEzMTg2MjY5NTgyZmZmMGU5OWNiZGIzOTcwYSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiM2Y2MWVjOTRhNmNjYzAzMDkxYjdjMjk2ZDczNWQxZjE3YmNmYjY2ODg5MjYxNTk0MjM3MjI3NjY3OTQyZTAxYyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_c455335ab3be4f40b98e80cf4aaeae28",
+      "statement": "Both favorites and history modules include automatic migration functions (migrateOldFavorites and migrateOldHistory) to convert legacy URL-based formats to UUID-based structures.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/favorite.js#L29-L44",
+          "version": "repo-lines-v1:sha256:da71f63e0ff21523a8c5efcf69b2871e72862cd3fff03fd9822f7d0a4ea38669:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZmYTBkZTdlNmQzMzFhMzI1YmU5ZGFkN2I3YjliOWQ0OTkzYWMyYmQ4OWE5OTA1ZjQ3YWFmZGVjNTZkZjkzN2QiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjczOTA2MjMzNDEyYmFkYWNjZmU0ZDBjZTc4MDE1ODNkZjk4Yzk0M2FhMmE1MGMzOWY4MmUxNTA0NDNlMzQ4ZGUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJiYTUwMzNmNjJjNTlmNjhiMGZkODUzNzg5ZmE3NmJhZjZmNGZjNDViOWY4MDhjNjk5NmI3ZmExYjA5ZWI1NWMifQ"
+        },
+        {
+          "resource": "repo://src/js/history.js#L13-L33",
+          "version": "repo-lines-v1:sha256:d0e71d9ceefece4a19ff2df0e34ea379e27dfa398c9efe172e27c234957a8ecf:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNiODZiY2Q5Yjk1ZDM4ZTlhYWJkYjI4MjFmOWE4Y2Q0NmIwNzNmZTU4YTU4YzQzNjg2NGI2YzFiNWJiNGRmMWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE0OWFhNzlhNjcwNDYwYjU4YjdhMjY1NzU2ZTNlNjQ3ODNlZWE5YzhkNGIyOTVmNTkyMWYxMWZjNjdhODgwMDYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjAwNTlkYjE0NTc1NjU1Y2UyNWMyNWRhMTRlMDViNzhjMTZiYjk2YjBjNjdhMzU3ZGE1YmZhMDYxMGEwM2I0ZTYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_d47871c096c64b189a0cc5dd481717e8",
+      "statement": "Different data types have distinct expiration policies: cookie consent expires after 90 days, station history sessions expire after 90 days, while favorites, preferences, and video settings persist until manually changed.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/cookie.js#L28-L38",
+          "version": "repo-lines-v1:sha256:4b4b6b2ef792fe3a7b5690e75120fdbf08ff359cf262ba600049dfeb2e5452d0:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJjZjBhMTMyMGZjNzkyNDU3NjI1YjA0NjZkZDM1ZDM1MzM1OTUyZGJjZDkxN2FkZDA0NDljYTA3MGUwNTRjNjEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5ZTc2MzU1Y2YxMTk5NDgwYzNmOTk4MzZiMTQ4NmM4NDFkODkxZmFhZDkwNGM2MDhlMDkzMDIyZDM3NTdhZWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM4ZDg2MjBkMTZkODE5YWUxYzdiNWQ0NWQ0YmM0OTA4YWNiODlmYWNkZjRlODNjMDY0YTgxMTY2YmJmZGFlNjMifQ"
+        },
+        {
+          "resource": "repo://src/js/cookie.js#L8-L8",
+          "version": "repo-lines-v1:sha256:0584e0110a7d9ba67106f0b0a20ce904d1c5522a824d722e697ad8ec75337463:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDU4NGUwMTEwYTdkOWJhNjcxMDZmMGIwYTIwY2U5MDRkMWM1NTIyYTgyNGQ3MjJlNjk3YWQ4ZWM3NTMzNzQ2MyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDU4NGUwMTEwYTdkOWJhNjcxMDZmMGIwYTIwY2U5MDRkMWM1NTIyYTgyNGQ3MjJlNjk3YWQ4ZWM3NTMzNzQ2MyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTVkMzhkYjJjMTcyMWQ5M2FjY2QzODlmYjQ1MzZjODM4YmE1OTllODBjMDFlYzk2MWUyOTUzN2NiOTI1OWU5NCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTMzM2U2MTZlMGM1ZmFmYzc2MWY3ZWEyNzUyYTBkOTdkYzU2Nzg0ZjJlOGQ5ZTYxM2UxNjA4MjZhY2VlMDljZiJ9"
+        },
+        {
+          "resource": "repo://src/js/history.js#L150-L209",
+          "version": "repo-lines-v1:sha256:675b726e1a2e82283215cd35bbfcb0774eb2c7b11922a5ee1c10bab681a441f1:eyJzZWxlY3RlZExpbmVDb3VudCI6NjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcxNGUxNjViYmE4YjM3MmQ4NmYwZTcyOTQ4YmVkYTg4M2Y4MmFhNDc2NzE1MzgzMDdmNGE5ZjNmZDE4ZWUwMGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkxNjBmZjE0ZGYzM2U3Yzk0ZTcyOTkzMWY5OWQ3YzUyYTIxODI0NDQ4MjQ4Mjk5NTYxMjViMTUzZjIyNjFiYzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBhZGMzMDYwMGM4OGMyZjVjMDMyOTcwYWQ0M2ZjNzIxMzdhNDRkZmNlMzlkZTBmN2U1ZTY2NTJkNjQ4NTc1N2UifQ"
+        },
+        {
+          "resource": "repo://src/js/history.js#L3-L4",
+          "version": "repo-lines-v1:sha256:22480d0297f0f9e15ada02ae960764125005e15197bcd1dc372f79555cb2b537:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDM1MTIxM2ExYjVlZGJjYmMzMGJjNGE3OTA0MGJhM2MzMTdlZWJjMjhkZjg3ZTRiZGNmNGFkNTg4MmU4MTk3YyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYzgxZTMxZDBkZWI3MWJiMGFiYTlmOWY5Y2I1ZTA0MWI4ZTMyMDJkMTljZTkxODg3ZTFjZTAyOGU4MjE3MDMzNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjIsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTRlODM2ZmE1YzQwMGNlYTg1NzYwMDFkNmUyNTVmNGUzZDIzYWMzMzRmZTc1NzQxZWRmMjFhZDBlZjBhYThmOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODYwMTA5ZTgwYThjNDkzN2Y3ZmVlNTUzZDRlZWVjYmU3OTc1ODQ3MzUyMjk1ZDEwNjA1YWFmNTIxNmRlNzc3NSJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.0",
+    "at": "2026-09-02T20:22:31.727Z"
+  }
+}

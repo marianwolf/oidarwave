@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:3da3f643250b6f502fa3c14996213a6c00c4d0bdfbc2de40d41807d419865ba0",
+  "claims": [
+    {
+      "id": "claim_e2690e3f09424d99b55738d61c97551c",
+      "statement": "The NotificationManager suppresses notifications when switching stations, only sending notifications for title changes within the same station.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/notification.js#L99-L106",
+          "version": "repo-lines-v1:sha256:929bdd21350436edba10ebd86c61a16a07c83e4ff25605e7dc1f8caa12efb93f:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTUwN2VmZWQ2NWJmODU1NjA5MmU4MjRkMjZkZjAzNjljZTBjY2QwNzYxZjhhY2JlMWJkM2JhNzQ1YmJjY2Q5NyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZmMxMGQ4NzVhMjE1NTg2YjU5OGMzNTQ2NjY3NTM3NDZjZTljMzc2YzZmMWFjNjQ3NWRhNjQ3ZDYxNjA2MjlmOSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZWI0M2JkNzUwYjc3MzJmY2EyNGQ2MmQ0Zjg0ZGU2YjI3ZDkyNjcyMzY1NzRmZTkxOTJlYjU1N2E1ZmZhMTVkNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZGI1ZTQxNGQ2NWQyOTJhZjhjYWRkNWRiNzNhOWJmYzRhYWRmNjcwYmQ0ZjNjYjk3OWI4OWE0OWYwMDk4YWFlMiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_2b336e08ed124c4bba9a5ff07ae5f17c",
+      "statement": "The NotificationManager uses a 2000ms debounce timer to prevent notification spam from rapid metadata updates.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/notification.js#L109-L115",
+          "version": "repo-lines-v1:sha256:72a3b08dfdbd45c838ece97048ba280f5b6ba63c7ea431eea459f01a05df3899:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMTdkZWJiNjdlYWU4MmI3YjJkNzdiOTE1NGI5MDkzZDAyYjNkZGM2YjE0NGQ4ODJkNmM3MWI0MzgwZTVkMGE5NSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOGQ5ZDg4ZjAyNGQxZjY1YTAzZDhmNDc3MmNlNTg0ZGY1OTU0ZDZiNjdiZjg2ZDczOGUyOGYzZjIwNWQ1MjJmMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjMzOGZkMjgxZjEwNjQ3MjE4NDNkMzRmMDc4Y2NjMmM0Y2M2OTgzZTVjODJiZDgyYmVmOTkyNjFlZDA2Y2YyMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZmViMTcyYWUwYjhiYWNlZTNiMWYxZjFmNWNmNzYwZjg3MzVmNjYxZjQwMDY3ZjY0ODk3Y2YwM2QwYmJjYmRiNSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_a65c8cd7714a4aafafa730f12ba4cb60",
+      "statement": "Notifications sent by the NotificationManager have the title 'Oidarwave - Neuer Titel', include the track title and station name in the body, use the favicon as icon, and are tagged with 'oidarwave-notification' to replace existing notifications.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/notification.js#L75-L84",
+          "version": "repo-lines-v1:sha256:9292b09166f9b999b2cad78f2c6ae1da0003a91d3ea9979ffc20481e45a71352:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM3YjY5YjA4Nzg3MWQ4ZTIzMjMyNWUwMWY2ZDIxZDM4ZDVkZTAxNGU2NTFjOWE5Mzg1MDk0ZDEwZmMyZDIyMzciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU5YzEzNTkwNjY1NjMyM2QxYzVlYTQxNjU0ZWU2NmFmYjU4NWFjZGNmYWVhY2ExMjFkNWUzMGJmMTkzZWVkZDciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk5OWJkZWZlZWFjYTYzNDBlMDI5MGRjODZlODg5Yzg5ZDVlMTg5YWE1YmE0NGI1ODViM2I3MDczNGY0YTYyZDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJlN2U3NzczZmY5NzM0Yzk1MjMzMDk2YzZmYzc4ZjkxNjMxZmE5YzkyZmNhODI2NTNiNTJkYTk0ZGU1MjU3ZmYifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.0",
+    "at": "2026-09-02T20:22:31.727Z"
+  }
+}

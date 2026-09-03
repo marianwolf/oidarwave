@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:0e493651fd9839a6e4af750f4212a806a4c74b4b4edfda8edc9fbcddd722c6aa",
+  "claims": [
+    {
+      "id": "claim_5de37c703d0141f3a94df3b617a89fbe",
+      "statement": "The syntax test suite (tests/test_syntax.py) validates the structural and syntactic correctness of HTML, JavaScript, Markdown, and CSS files by checking balanced brackets, required HTML tags and attributes, and JavaScript-specific syntax patterns.",
+      "evidence": [
+        {
+          "resource": "repo://tests/test_syntax.py#L1-L4",
+          "version": "repo-lines-v1:sha256:47cf12279c8b0470835fe2132afb36f8eac743de6651f8ea6ff08664ca0e3b48:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTMwM2VjZGQ0YTRkMTBmMTljNzNmZDQyZmQxMjQzN2ZkMzM1NGE4MjY4MTYwNWRhNTI1NWE5N2EzOTA2OGRiYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYTMwM2VjZGQ0YTRkMTBmMTljNzNmZDQyZmQxMjQzN2ZkMzM1NGE4MjY4MTYwNWRhNTI1NWE5N2EzOTA2OGRiYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOWM1MzY0MWZhYWFmMjA5OTMwOWM1NTlkYjJhODg5Y2MxY2VmMGRkM2FhMjUyNjc1MTQyZTkyNGE4ZGJmNGZmNiJ9"
+        },
+        {
+          "resource": "repo://tests/test_syntax.py#L48-L77",
+          "version": "repo-lines-v1:sha256:cc4f23952f0540da36fedbf5eaeab597009b16ce74c9c302aeb723770a04c96a:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIxNmMxNzY3ZjQyZDMyOTg2YmFiNjU2NjdiZjI5OGYzNDg1MTkwYWRiYjcxMGYxMjQ0ZDA1NDBiMjU5YzE3OTAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY1NWE3ZDI2OThhMWRjODkzZDg1ODNmMzk0ZjEzYTk4Y2Y1MTY5MGFjZTZhMTU4ZjhlYzZhNmNiZWY0MDIyZmMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjAzNjY4MDc5ZjgwYjQwN2Y1Y2ZmZDNkNjUwNTVjMDEwYzFjNDZhYmU4ZGZlNWVmY2ZkMWFmMjQwMWFjNzhmZjkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxOTYzZDM5OTY0NWIyOWM0NzBjNTc0NDBlNDA1Y2M0YmRjZTAyMmQ2MmY3ZjhiMjdiN2EwNDQ0ODBkZjNiOWQifQ"
+        },
+        {
+          "resource": "repo://tests/test_syntax.py#L80-L98",
+          "version": "repo-lines-v1:sha256:55963394e21597065f35a7bcca8cd6c1127b1387e8296a17c3be2e81d4ce7f58:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZhZDdjMDQ3YTE3NjM2YTA2ZmQzZDVhZDI3OGRlZjQ5MGM5ZGUzOTg4Yzg5MGM2ZTFjNTVhNzg0NGU4NDE3Y2YiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYzYWQ4ZTg1MzQ5ZmUxMTgxOTg4NTk3NmVmOTZjYmUzZjZmNjVjMjg4YjI5MDcxM2FjYWRiZGY5YTkyODAzODgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZkYzA1M2M5NmIxMTljMDA5Yzc5MjgxNjk2Zjk4YjUwMTUwYzhiNDdhY2U4ZjY2ZmFlN2UwYThiOTI5Zjk2NTIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZkYzA1M2M5NmIxMTljMDA5Yzc5MjgxNjk2Zjk4YjUwMTUwYzhiNDdhY2U4ZjY2ZmFlN2UwYThiOTI5Zjk2NTIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_1dcc240349d24d809d3f0d9fd79f605d",
+      "statement": "The syntax test suite uses helper functions check_balanced for bracket matching and check_html for HTML-specific validation, and excludes directories like node_modules, .venv, __pycache__, .git, dist, build, and .pytest_cache during file traversal.",
+      "evidence": [
+        {
+          "resource": "repo://tests/test_syntax.py#L17-L19",
+          "version": "repo-lines-v1:sha256:432441153b3c531bd0704e564d08f1f44f21c357c85a630fc2ed8625dbeb1211:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjAwNGE0YTMxNGI1M2FjYzg2ZTk2ZGFmZjBmMjlkZDkwMDhlY2FhMTRiN2I1MDA2OGUxYWEyYzFlYmQ1NmM2YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiODU4MGI3NjUxOGRhZTk3OWZhZWJkMDIzNjdhMjkyOTJhNTBkOTc2MDkyMjUxYTM4YTZjZTMwODgwYmE0MjgyNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzYxMTdlYzI4OWFlZTliNjYxMDUxMjU0NTIxMGI0YzY5MjM4OTRiODAwMTRkZDk2MjhhN2U3MzI4ZWU1NmQ2MiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYWUyYTEzNTJmZDBkM2IyMmQ3YjMzN2VkZWUzNDAzYWNhYmUzMGM2OGEyYWY4YTkwNGQ2ZDZmMzY4NTU4MDU4MiJ9"
+        },
+        {
+          "resource": "repo://tests/test_syntax.py#L33-L45",
+          "version": "repo-lines-v1:sha256:17b0152c19ecc4f76ff4722b265bfd4514f665ab21d3741c5ef9bc5c8e4c9331:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIwMTI2MmQ3Yjk2OTM3ZTU5YWYwMmEzNTcwNTNiYjkwNGJiMDM4OGFlMTllZmUyYzM0NTIzYWY1NDk0ZTk3YWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRkNTU3OGQ3YzFjOTNlYzFhZmI0NDlhOWQyYjkzY2MwOWNkMDc5NDQ5ZWE2OWUzMGI1ZmYwZDUyNGIwNGRmZGMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI4YjNkYTVmNzY1OTJhMDI4NGE1OTk4ZTEzOGU1NTlkY2Y1NGY4ZmZhMmM3MzU2YjBjYWQ1YTIzNDM1NzdmNjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImI0ZmYxMTFiMTUwNTQ3ZjQ2ZjRhN2E3MzBlNjdmYTgyMDBkNTJjMWY3YzhmZTkwNThlMDYzNDJhMjM2MGJjMjUifQ"
+        },
+        {
+          "resource": "repo://tests/test_syntax.py#L48-L77",
+          "version": "repo-lines-v1:sha256:cc4f23952f0540da36fedbf5eaeab597009b16ce74c9c302aeb723770a04c96a:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIxNmMxNzY3ZjQyZDMyOTg2YmFiNjU2NjdiZjI5OGYzNDg1MTkwYWRiYjcxMGYxMjQ0ZDA1NDBiMjU5YzE3OTAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY1NWE3ZDI2OThhMWRjODkzZDg1ODNmMzk0ZjEzYTk4Y2Y1MTY5MGFjZTZhMTU4ZjhlYzZhNmNiZWY0MDIyZmMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjAzNjY4MDc5ZjgwYjQwN2Y1Y2ZmZDNkNjUwNTVjMDEwYzFjNDZhYmU4ZGZlNWVmY2ZkMWFmMjQwMWFjNzhmZjkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxOTYzZDM5OTY0NWIyOWM0NzBjNTc0NDBlNDA1Y2M0YmRjZTAyMmQ2MmY3ZjhiMjdiN2EwNDQ0ODBkZjNiOWQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_69d3e61933564fbeacf4fd96272e875c",
+      "statement": "The website validation test suite (tests/test_website.py) uses Playwright to automate Chromium and validates that the index, video, and impressum pages load without critical errors, contain expected text in the title, and have key UI elements present (logo, navigation, station buttons on index; video player on video page; heading on impressum page).",
+      "evidence": [
+        {
+          "resource": "repo://tests/test_website.py#L137-L157",
+          "version": "repo-lines-v1:sha256:dfd1b465cf93cf3359148e3641ece0e1cc971a2510c4730c6cc7ac6752ffecce:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ3ZTVkMjM0MDI2MzZiZGU5ZDkwOTAyMTYzNmUwNDQzMWQ0MmMyNzI1MWVmYTY1NmMxYTQxYmE2MWY4NjE2ZGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM2NDQ3OWFkMTUxMGFmMzM2NmRkNzBhZWJmYjJkOWEyNDVmODhkNDBjZTA3NjNjNDAzODMwOTc2ZTYxOGMxMzkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjFlYzdhMjM5MTBmOTQyZjdhNDAyZTI5ODk0MGYxOTFiYTUwNjlkOWQ3MTIxOWU2MjEyN2EwODI0YTU3Nzk2NjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY5ZWM1YzE2MWYzYmIxZmFlNTQ0Yjg5ZWU2OWU0MTZkYjY1ODExZDI2YTg5YmU1NmZhMDFhZGM0MmM4MzNmZDAifQ"
+        },
+        {
+          "resource": "repo://tests/test_website.py#L82-L86",
+          "version": "repo-lines-v1:sha256:27c2e2ec23030091209b74caf6bbf9cc4dc1988c74912a0fc9b29063d0de37be:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDY0MWExOGExMTVhNTlhMWI0NDEwYWUwMzMyMWRmYjYyYzc3ZjQ4MWU0NTIyMTBjZGI5ZmRmNjVjY2I4ZjIwYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOWZhNjAwNGFiNGQzMTY5ZTNkN2E1NDE1Yzc5MTgxYzE2ZGI4ZThjNjc3NDIzOGZiMThiY2MxMzA2NDVkMWYzMiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZGUxNWUzNTEyNzNjZWY0OTg0ZWU1NzM2YTc5NjllYjRlMzI4Yzg0YmJiZTZkMmE1OGVjMDk1MWYwZWVkYTc2ZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTdlZjcwNGNhM2MyYmEyZjY5NmM2Yjk3YTdiYjYwNWVkZTQ2NTY5OTczNjk3MmU0MzQxN2FhM2IxMGY5NmNkNCJ9"
+        },
+        {
+          "resource": "repo://tests/test_website.py#L93-L105",
+          "version": "repo-lines-v1:sha256:e71be6652e3877137eb69217d096c7af579a6e363648fd6384f06dd54d656a29:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ3ZGVkNDdiNzU1NmRlZThkYTAxYmExMTQ4ZjlmN2IxYjgxOGZkYTVmMzkzZjBjYTllNWQ1NDIwNGY3NDg5NTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg5YTQ2NzE3M2FhNTc4NDdiM2VlM2I3YmQwZGMwY2QzM2YwMjY5NDlmYTZjNDJkYzM2Yzk1NTllM2VkZmYzYmMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjI4ZWUzY2I5Y2I0OGE5Mjk0MmYwYzdjNWQ1NDE1YjdmYTFlYjk2ZWQwODIzMTg0ODAyNzZhYWUyMDIwNGU2MTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYzOTE2NTJjZDlhNjkyNDA1Njk3NmYzOTU1ZmY1MTU4ODNhYWNiZDMyZDlmNTQ1ZjI2NDFhMDI5ZjQ3MGE4NmUifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.0",
+    "at": "2026-09-03T14:41:27.574Z"
+  }
+}

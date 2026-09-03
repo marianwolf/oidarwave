@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:19cf7e961e033867100d10ca590669d665aff5ac9a1f3c472817beac0daa0d67",
+  "claims": [
+    {
+      "id": "claim_b227c66065314f21bf0e1258680aeff0",
+      "statement": "The history export workflow is implemented in src/js/download_history.js.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/download_history.js",
+          "version": "repo-file-v1:sha256:710bc2294d7b6c2ba952ecfe219daacee727395b7dfb1b1ed6fd405796578b9e"
+        }
+      ]
+    },
+    {
+      "id": "claim_dff9724c1db0439d823cc99df244ff87",
+      "statement": "The workflow retrieves the raw station history data from localStorage using the key 'station_history'.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/download_history.js#L3-L3",
+          "version": "repo-lines-v1:sha256:d2e4ac4b10bb381d0fb4bdb96fa0a3b7699c0b31721128f2e5d273d0dcae134f:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZDJlNGFjNGIxMGJiMzgxZDBmYjRiZGI5NmZhMGEzYjc2OTljMGIzMTcyMTEyOGYyZTVkMjczZDBkY2FlMTM0ZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZDJlNGFjNGIxMGJiMzgxZDBmYjRiZGI5NmZhMGEzYjc2OTljMGIzMTcyMTEyOGYyZTVkMjczZDBkY2FlMTM0ZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjIsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZGUwZjFhZmYzYjkzNGJhYWQwNjU3MmNkMDNiOTM4NGUxOGRjOGY1YzE2YmE1ZjQ5YzgyYWMwZWM4ZTkwNTA3ZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYTA4YmI4YjcxYmQ3ZTFkNWY4N2U2ZGYyYzBmN2FkN2IzZWEwNjkzYTkzNTQ0YmIwYWFmYmQ1NDg0OWQ4NWU2NSJ9"
+        },
+        {
+          "resource": "repo://src/js/download_history.js#L7-L7",
+          "version": "repo-lines-v1:sha256:df2dd8a81d0fa88f69637e656e8b0ed633380b205acd3c538db768ba1e170e82:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZGYyZGQ4YTgxZDBmYTg4ZjY5NjM3ZTY1NmU4YjBlZDYzMzM4MGIyMDVhY2QzYzUzOGRiNzY4YmExZTE3MGU4MiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZGYyZGQ4YTgxZDBmYTg4ZjY5NjM3ZTY1NmU4YjBlZDYzMzM4MGIyMDVhY2QzYzUzOGRiNzY4YmExZTE3MGU4MiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTA4YmI4YjcxYmQ3ZTFkNWY4N2U2ZGYyYzBmN2FkN2IzZWEwNjkzYTkzNTQ0YmIwYWFmYmQ1NDg0OWQ4NWU2NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTBiNDIwZWNhY2VlOGUwN2MyM2RmZTUxYjYwMmI0ZDU4MWJiMGM1MzEyYWIyNWEzOWVkYmY1Y2QxMDRhZGU1NSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_9c8228fde69f402f91f855315c5156e7",
+      "statement": "The workflow can be triggered by pressing Ctrl+S (when not focused on an input or textarea).",
+      "evidence": [
+        {
+          "resource": "repo://src/js/download_history.js#L27-L33",
+          "version": "repo-lines-v1:sha256:c55a45333bdc8acd1516d0818f5d7b72a0b06688ecaa51d31e060451b38c4a29:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZGZiMGE5ZjkwNjNiMjQ3NGVmOWUxZDIzNTY1M2E4Y2UwYjgwOTUyNGViNjMyOTdhZDM5YmIwMjYxZDc5MmFjNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjJkMTFjYWY0M2U5N2VmMzY5ZTZiZWVkMWEyNjhiZDA1ODM4ZjI5YjlkZDI1NGJmNjliYTY0ODg0MTQ3MjM0YSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTk5YmRlZmVlYWNhNjM0MGUwMjkwZGM4NmU4ODljODlkNWUxODlhYTViYTQ0YjU4NWIzYjcwNzM0ZjRhNjJkOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjEsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjk1NzZiNTRlMjU1ZTNjOTQ4ZWVhNWI1OTA0ZmEzOGI4MTY4MmZkZDNjYmQ5YWU4NDFmZjBlN2JkODBkMzk0YyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_3d3d9ab96f0142d8be337e42ba0c55c6",
+      "statement": "The workflow generates a filename in the format 'station_history_YYYY-MM-DD-HH-MM-SS.json'.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/download_history.js#L11-L11",
+          "version": "repo-lines-v1:sha256:ac7f4c0ab1be5a9db4f5c0513beeb60da92cc15d4fe1037052d0e4eb7cc66dfa:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYWM3ZjRjMGFiMWJlNWE5ZGI0ZjVjMDUxM2JlZWI2MGRhOTJjYzE1ZDRmZTEwMzcwNTJkMGU0ZWI3Y2M2NmRmYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYWM3ZjRjMGFiMWJlNWE5ZGI0ZjVjMDUxM2JlZWI2MGRhOTJjYzE1ZDRmZTEwMzcwNTJkMGU0ZWI3Y2M2NmRmYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTBiNDIwZWNhY2VlOGUwN2MyM2RmZTUxYjYwMmI0ZDU4MWJiMGM1MzEyYWIyNWEzOWVkYmY1Y2QxMDRhZGU1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjg5ZDdjMDk0ZGZhOTJkODQyNTlkOWVjZGVmMzMxMjcxOTc0MWMyNGIzMjVjNDUwZjA3ZDFiMWFjNzZlYjkwYyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_d268c5f2602841f187b887b498e6c7c8",
+      "statement": "The workflow creates a Blob from the raw history data with MIME type 'application/json'.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/download_history.js#L12-L12",
+          "version": "repo-lines-v1:sha256:f9acb9c122453338b3202231440921a0f5921906a5b6efd3c00b8e18e8b0f350:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZjlhY2I5YzEyMjQ1MzMzOGIzMjAyMjMxNDQwOTIxYTBmNTkyMTkwNmE1YjZlZmQzYzAwYjhlMThlOGIwZjM1MCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZjlhY2I5YzEyMjQ1MzMzOGIzMjAyMjMxNDQwOTIxYTBmNTkyMTkwNmE1YjZlZmQzYzAwYjhlMThlOGIwZjM1MCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjAwOWNlMzIwNjE2NTBlNzE1YmY0MDJiZWJkMmU1YWVjZmE5YWI2ZmM3YmM0MWVhZjliMzhkZTdhNTExMTI5ZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiY2VjNDBiNzEwN2Q3NzVjZjFkYmU4ZTMzZGVmNGUxNzRlMGE4ZWNiNTczZTMzNDJmYTc5MmY3NTM2OTgxMmEyYiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_269cdcb565f14fbbbf000ad5d875d00e",
+      "statement": "The workflow creates an object URL for the Blob, uses it to trigger a download via a dynamically created anchor element, and then revokes the object URL.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/download_history.js#L13-L21",
+          "version": "repo-lines-v1:sha256:5e8a842abd7488add2e78a08c799f7953e97bae8d7c8fdff587c0ce3cf536b44:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMGY5OTkwYjY0NGRlMTYwZjg0NzFiYzc2YTllNzIwMWM5MjBiMTM2ZGZjNzY2MjMzMzY0OTNlMmRjZjExMWE4ZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTY2YjI1ZDgzOTI5YTE0NjgyZTgxOGE4OTU3NjJjMzY0MDdlMjVlNGVmMTZmYzUwMjI5YTVlMjBhMjliYWJiNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMmFhNjZmZGJkMGUzY2IzNTgyNGFkODEwOTcyNzVjMWMxYTVlYWU5ZWZhYWUzYjBlZTgyYTNkYjY3NTg2YmRiOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMmZjNDBkZjc1NTZlZjNiM2Q1NzRlNGUyZTE5ZTgyYzk4MDZjOWM0MGExMGZiOWM2ZjVjOTU5NmM2NTc4OTg3OSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_5a5860c0f1a043a599be1905a285d620",
+      "statement": "Any errors during the process are caught and logged to the console with the message 'Download fehlgeschlagen:'.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/download_history.js#L22-L24",
+          "version": "repo-lines-v1:sha256:2fc40df7556ef3b3d574e4e2e19e82c9806c9c40a10fb9c6f5c9596c65789879:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjRjMjlhYjExZWEyNzZmNDRhOWQxOTE1Y2U2MjY1NjllZWVmOWUzODQ5N2JlZjFjM2VhZGZlNTVkZGI5ZmZmMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTZiMDQ0OTE0Njk3MjJlODM2M2E5NGU0MDQ0NTM4ZTAxM2EyYTIxN2UzNmIxZTU2OGJhNjBhY2I3YjRjOGYyZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZDBiNDQ5NmM3NjEyMmVjYWE1ZWZkNTAxY2ViZTRjMDUwYTJhZDJjZDU3ODY2ZWUxZTM0Zjg3NGJlM2FkZDIwNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOWYyYWJjZDRhOTRlNjQ0NzMzZjgyYWU3ZDBiYTA2ZTlkNWU2ZGVjM2FmOTgwOWZlMTkwY2NjZjlhM2E2MTdlYSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_f676b84bc437436687c7b3adc422a0d5",
+      "statement": "The workflow depends on the station_history key defined in history.js, which is used to store the station playback history structure (including stations, sessions, and active station).",
+      "evidence": [
+        {
+          "resource": "repo://src/js/history.js#L2-L2",
+          "version": "repo-lines-v1:sha256:d2e4ac4b10bb381d0fb4bdb96fa0a3b7699c0b31721128f2e5d273d0dcae134f:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZDJlNGFjNGIxMGJiMzgxZDBmYjRiZGI5NmZhMGEzYjc2OTljMGIzMTcyMTEyOGYyZTVkMjczZDBkY2FlMTM0ZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZDJlNGFjNGIxMGJiMzgxZDBmYjRiZGI5NmZhMGEzYjc2OTljMGIzMTcyMTEyOGYyZTVkMjczZDBkY2FlMTM0ZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjEsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTk3ZTZjZDMzMTE1MmNlYzY2N2Y4NDFiY2JhNjEwMGM4YTY5MjdmM2VlNDBiYmI1NjkwNWU4YTNkMmY4OGJkZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzBkZjMwZTQ3NmJjZTA2YTNlODQ5NDE3YmMwZTQ3YmRhNDU1M2Q5YzRiODQxZmI0NzliNjBlMjk2OWRiNjRjYSJ9"
+        },
+        {
+          "resource": "repo://src/js/history.js#L44-L70",
+          "version": "repo-lines-v1:sha256:c1567cced508bf69db622d628efbc28add7413366df3c9d4cf5331d93122ce63:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImYxNTA5YjRlNjAzN2E1MzY0Yzk1ZTExZWRjYTRiZDdkM2VmNjQzNTE3NzI2ZTU4NzAxNzMwYzk5ZWYxZGI4NGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk5OWJkZWZlZWFjYTYzNDBlMDI5MGRjODZlODg5Yzg5ZDVlMTg5YWE1YmE0NGI1ODViM2I3MDczNGY0YTYyZDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg1NmNiODk2OTk3OTRiZjA1NjFhOWE0ZjUyYzFmN2U5MjRjN2U0NTA1N2RiOWRhZGZjYmQ1NjlkMzc3ZDQ2ZDYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_cf03626fe17043818931ec77070ee051",
+      "statement": "The workflow is stateless and operates on-demand, reading the current state of station_history from localStorage at the moment of export.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/download_history.js#L5-L25",
+          "version": "repo-lines-v1:sha256:1f1261eceb7b7b11177b3cc435dcf9b1b640c1a39e1be1d53a57911302316fdc:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjExMzg3NWJhMmQzOWY5ZDA5NTkzNGVhMjNmYjgyMDk0NjhhMzYyMWZhNmUzMWZmMDNkOWFmYmMxOGIzYjk4MDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjI5MThlM2Y2MjdmMGY2NjQwMDU3OGE3Yjg1ZmI2ZjdjNTZmYmJkNjZlZDM2Nzc1NzMyOWFiYzhhZDQ3M2IxMTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjZkZjAxMWYyYzk5OGEwZTljMGIyYzc5NDJmYmRkOWEzMDNiMjdkNjhmMDIzODA5N2ZhNmVjYjA1YmRhOWUwYTcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_ce639cc8e93d4097ae62a17b5021d54e",
+      "statement": "The exported file is a static snapshot of the history at export time.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/download_history.js#L7-L12",
+          "version": "repo-lines-v1:sha256:83ec2492014d1eefc5264f4ed16dc7d0d534443aa5a3d437ba600f8294c426b5:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZGYyZGQ4YTgxZDBmYTg4ZjY5NjM3ZTY1NmU4YjBlZDYzMzM4MGIyMDVhY2QzYzUzOGRiNzY4YmExZTE3MGU4MiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZjlhY2I5YzEyMjQ1MzMzOGIzMjAyMjMxNDQwOTIxYTBmNTkyMTkwNmE1YjZlZmQzYzAwYjhlMThlOGIwZjM1MCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTA4YmI4YjcxYmQ3ZTFkNWY4N2U2ZGYyYzBmN2FkN2IzZWEwNjkzYTkzNTQ0YmIwYWFmYmQ1NDg0OWQ4NWU2NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiY2VjNDBiNzEwN2Q3NzVjZjFkYmU4ZTMzZGVmNGUxNzRlMGE4ZWNiNTczZTMzNDJmYTc5MmY3NTM2OTgxMmEyYiJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.0",
+    "at": "2026-09-02T20:22:31.727Z"
+  }
+}

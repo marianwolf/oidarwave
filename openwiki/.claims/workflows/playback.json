@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:c5a6384259df677694b53e7b5e5a81864844172b9818609de4a7f8645f580d6b",
+  "claims": [
+    {
+      "id": "claim_7cc0ddb7596b4ee89af2a6a888f50e0d",
+      "statement": "The playback workflow initializes the media player, sets up event listeners, and restores the last station on DOMContentLoaded.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js#L1-L259",
+          "version": "repo-lines-v1:sha256:bb0fbb3e7160c785ee8922822a259448e3d1be60a6036cdae188cbee9e5bffed:eyJzZWxlY3RlZExpbmVDb3VudCI6MjU5LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI0ZDhhY2Q3ZTgyNTRiZDdiYjY4NTg2ZDIyZjY1ZTg1N2QwMTFlM2UyZjZmNWFkZjcxODhhZjBhODVjZTQ5OGU4IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI1MTk4NWEzNjZiYWQxYmU3OGMxMDEwYWNhNWQ4MDk5ZWFhZWM4YWI4YTJkZTAxOWQzM2M4MzQ4ZmIzNTliOWFjIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MCwicHJlY2VkaW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MCwiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1In0"
+        }
+      ]
+    },
+    {
+      "id": "claim_112f83c1d53142b7b9cc5dd34ad4fad9",
+      "statement": "Selecting a station updates the UI, persists the selection, configures metadata polling, and loads the stream into the player.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js#L138-L169",
+          "version": "repo-lines-v1:sha256:31d13830242182580ed5d0a1096555d7917f969409a667ae66f220753c709feb:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc4MGE3ZGE3NGEyZmY2ODMwZDZjMjRlYTc2ZjQ2YjE3YWIzMTMzN2I1MGNlNTVhMjUyMDM4MjU5YjZjMDlhZDgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjAxZTU1ZTM5ZDI4OWVhZDE3NTZhNmNmMzBlYmJiNzAwMWMxMGNmNmIwNmRiZjQzZDk2MWYxNzNlMDA4MjBiZTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImRlMWU5NmIzNTFmMTlmOWUxNzBkNTc1NTBkM2QwNjk1YmRjZjY3N2MwMzkzN2UwNDM5NDNhMWMxZGIzMTY2MzkifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_774dec6fac3c4ad88620a909e8b3ea22",
+      "statement": "The workflow transitions between playback states (idle, loading, buffering, playing, paused, error) based on media events and updates the UI accordingly.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js#L119-L132",
+          "version": "repo-lines-v1:sha256:f93efaeb1ea45a42702ca3a9103716247112aa719adcc066269bd0965a8920ae:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI2NzY3OTVkNWM5MTRiYTk1ZjlhNDI2ZDRhYTcwNmU5MjRlNGU5ZDcwYWExOThkMDQ0YmRhYjY1NzJhYmNhMTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE2OTkyZWM2YzNlZTQ2NjBmOTMzZGM3MmJmNTI1MWM0OWQwYWVlZTgyNzc3MTk4NzYyMzU5MTVmNDg5YjRhZWEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI0YzI2NmQyNTcxMmJlYjExNzRjNTE3OWU3YzRmOTg4ZDNlZTgwNDg1MzY4OWI1Y2M5NDI2ZjgxMTVhMGYyYTEifQ"
+        },
+        {
+          "resource": "repo://src/js/player.js#L75-L106",
+          "version": "repo-lines-v1:sha256:12df73e9c0c8a3488743a72c560450205e39ab6f71f89dc7b81c46867f2c8e8e:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI4NWZhZjQ1Yzg3ZTc3OGU4MWQyYTU5NzlhZGI3ZTcyNGM2OTI2Y2ZjZGRhYzNiMjA1YTA4NjE3YmQzMTc1NTIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyZDExY2FmNDNlOTdlZjM2OWU2YmVlZDFhMjY4YmQwNTgzOGYyOWI5ZGQyNTRiZjY5YmE2NDg4NDE0NzIzNGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjIwYTk4OTlkMTZjZTk4NzRiYjQxZTM5N2U5MTJjMDUxOGQwZDViMTcxMDk2ZDU0OGM4MDk3NzljZGE1ZjIyMWYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFkY2MyY2M2MTdmOWMwNDA0YTgxYTFkZmNmMmU5YjM0ZmRkZmNmZDhmOGRiNWEwYmEzNGEwM2ExZTU4OTg4MjYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c80b503050b844c18d80797a8298385a",
+      "statement": "Playback can be controlled via the playMedia() function and keyboard shortcuts (Space for play/pause, ArrowUp/ArrowDown for volume).",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js#L134-L136",
+          "version": "repo-lines-v1:sha256:42399a40025cfd493409e179ba743bdeacf8cd161a316d2be75e1bcd68868f9c:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMmJiMjMxNDU1YWIzMTU4NGQxZjk3YWMwZDVhN2M5YTVmZGFjNWIzODBiZmYyZGE2ZDAzZmRlNDQyOThjYjZhMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTk5YmRlZmVlYWNhNjM0MGUwMjkwZGM4NmU4ODljODlkNWUxODlhYTViYTQ0YjU4NWIzYjcwNzM0ZjRhNjJkOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZGIzM2MyODFhMDlkYWQzZDQ0ODZkNWY2ODAwNTViYzZhM2Y5MmI5MzcwMTllZGEzOWE5M2U0YTY5NjdmMjMxNCJ9"
+        },
+        {
+          "resource": "repo://src/js/player.js#L171-L193",
+          "version": "repo-lines-v1:sha256:6aec8343f9b5db677fc2fed286f16a67b9ec2fdfc68cbab44bb5dbb307d3467f:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMzY2QyNTkyMGZmZThjOTQ3ZGYwMjEyY2VmMTIzZDI5Y2JhN2M1YTIzODMzMzg5ZTA3NTA4ZGM1MjI4MjY0ODIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjllY2ZmMjM4YjM3MDlhMWIwNzQzOTM2YjgwMzJkNzFiNDE5MTIzYjQ0MTdlOWMwZGQzYThiYmI0OWZlOTMwZjEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE0YmY1YzIzOTczMzAxYjU1YTk4OGZjYTcxMTJkY2FiMTliMTMzOTM2NTBkNzExZWY0ODY0NzRmZWZlYTcwNDYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a95e1be7bb6c42e19b2876278d89e0e9",
+      "statement": "Metadata polling is initiated when a station with a metadata URL is selected and updates the display and Media Session API.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js#L160-L165",
+          "version": "repo-lines-v1:sha256:5a5c417201ec417e67185d83e7f02666a6af0fd48e18d001c78dde5bc52aee41:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiN2QxMTAxODkxMDc0MzUyNjgyNzY3YjA2MWY2ZTk1ZTZhZjUyYzM1MWVhYWQ2MTY5MTQ2ZTJjZjYxMGQwZjliYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTZiMDQ0OTE0Njk3MjJlODM2M2E5NGU0MDQ0NTM4ZTAxM2EyYTIxN2UzNmIxZTU2OGJhNjBhY2I3YjRjOGYyZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYWEzMzE1MTk2Yzg0OGU1YjM0NjVjZDQyMTVkM2JjYWVjY2IxYzYyY2VlNmNlY2ZhY2VkYTNkOTU1MjVmZWI0NCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDM4NWQzYmE3YTY3NmZiODAxNjJmMjhkYWI1OGM5MmIxNzAzNTljMzA1MjM4NTA5NmE0YjlkYjllMTI4YTMwOCJ9"
+        },
+        {
+          "resource": "repo://src/js/player.js#L195-L229",
+          "version": "repo-lines-v1:sha256:fbe794184bf7bf4c310442c29fb44b9560feb940a456273965a21bb53e5491db:eyJzZWxlY3RlZExpbmVDb3VudCI6MzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRmNjg2YjRiZjFiZTBjYjVkNGJlYzkzNWQ3MmQxMjE3MmVmZGNjOTcyOGI4ZjA2NzRjOTA2ZGI3NmEwOTUxYzciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk5OWJkZWZlZWFjYTYzNDBlMDI5MGRjODZlODg5Yzg5ZDVlMTg5YWE1YmE0NGI1ODViM2I3MDczNGY0YTYyZDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI4YzMwZDg0ODQ0YzI4MWI1YzBkNDU5YTBlODQ1MThiYjFhOTRiNDcwYTVhMmM1NmYyZDk0NzhiZjhhYTViNzEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_828531f272c94f2db58c9fcc1705fd62",
+      "statement": "The Media Session API is configured to display media metadata and handle play/pause/stop actions from system controls.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js#L6-L33",
+          "version": "repo-lines-v1:sha256:b0caa187b1a633b4de230fd45ef604420e4b176fb971a007d3957841b90fa1e5:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJjODBkODdkZDM3MzcyZWYxMWQ1YTI3ZmM0ZWZhMGM4YWRhMGM3MWUzNjUzNDZmMzJmODAyNGRlMjNhN2YwZDYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNhMWIwNDYxYTU4MzljOTg4MGY0MjA0ZTU5YjU1NmJjZmEyMWNjODNlOWViMmNhZmNiYTFlMmE0MGFiYTZmNGUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA5ZjBhYjUwYmRlM2Q3MjllNTI0NWQxMzIxYmNhNmE5YzUyMmQxZGI0YTIwMjlhOTY0NjI2OTBlNzYyMTA4M2UifQ"
+        },
+        {
+          "resource": "repo://src/js/video.js#L9-L31",
+          "version": "repo-lines-v1:sha256:af7094f73a18225537e3644904e8f2fbf9df7c5f4f94dad2f36a9111baba9066:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM5YmMxMDBlMGU3YTEwN2I1MjJmY2JjNWUxNWQ0ZTMxZTVkNTY5MjViODYxNDFkYjYzMDA3NTYwM2Q5OGE3YzUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU1MjJjNDJjZDE5YzZkMDNkODA4YzQ1MjcyMDU1MjgyNWI3ZWExYzViNDkxYjIxODUxMWNhYzc0MTVjZjlkOWIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY1OTcxNWU0NjYwOWNkMDdkZTZiMTFiNGU1MzIxM2I3YzFlNDRhYmIzYTVkNGMxZjY3NDRmOWQ0MTYwZTFmNDYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjEzN2U3NGE3NDZmM2U0ZmE5OGQ3Y2I5OGRiMDdkMzBiZmY2NWNlZjY3NmYxN2FiMWVhNDkzYWM0ODQ5MDY4MTQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_4971f6c79ff84e6597c22e9494666293",
+      "statement": "Error and stalled states are detected via the error and waiting events, respectively, and trigger UI updates and history logging.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js#L119-L132",
+          "version": "repo-lines-v1:sha256:f93efaeb1ea45a42702ca3a9103716247112aa719adcc066269bd0965a8920ae:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI2NzY3OTVkNWM5MTRiYTk1ZjlhNDI2ZDRhYTcwNmU5MjRlNGU5ZDcwYWExOThkMDQ0YmRhYjY1NzJhYmNhMTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE2OTkyZWM2YzNlZTQ2NjBmOTMzZGM3MmJmNTI1MWM0OWQwYWVlZTgyNzc3MTk4NzYyMzU5MTVmNDg5YjRhZWEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI0YzI2NmQyNTcxMmJlYjExNzRjNTE3OWU3YzRmOTg4ZDNlZTgwNDg1MzY4OWI1Y2M5NDI2ZjgxMTVhMGYyYTEifQ"
+        },
+        {
+          "resource": "repo://src/js/player.js#L95-L102",
+          "version": "repo-lines-v1:sha256:e82eb13d3852b1d2fb94b9902a1270b239182668d099d96d08e53ae05fd56b1a:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjJhNTBmYjE3ZjQwMWI5MzZhNjg4YjI5YThmOGVjM2Y4ZjZkYWM1OTAwMjRiNzU3OGM5Y2UyODJkZmYxZGI2MSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYWQ5ZTEyNTQ2NDI1NTc2ZDNkZWFlOGM5YjlkYmYxMjhkNWQ2ZGRhZjVkN2ZlODU3OTM0OTI3ZGVmZmEzYjlkZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTBhYTI4ZDcxZjM0ODZkZTVjOWNmOGE5NDNkNjQ2Zjg4ZTExMWU0NTI4N2JiMjNhYjFiYTE0MWQzNTM0MGZlNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMWIwNjlmMmQ3NTdhOThjYmEzOTMxNTJlMDg2OTEyNWQ2MDRkODIxODE3ZDYyY2FhMmQxNjk4NDMwNTg1OTg1MCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_d6228a8736f944df9cf2e38a97a2684d",
+      "statement": "The workflow interacts with the station-selection workflow (via button clicks), drives the metadata-polling workflow (via intervals), and logs station starts/stops to history.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js#L108-L110",
+          "version": "repo-lines-v1:sha256:a165afc1480793cbe34553b969fb19de617ed43beeb658f443c7313988e897ff:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMTE0MDA0YjIxNDAwNjA1YjRkZTk3Mjg1MjQ0OTMxOTUzZDIzMTU1YTc2NjI1MjQzYWU0Y2IwYzRiOGUzOWVkNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjJkMTFjYWY0M2U5N2VmMzY5ZTZiZWVkMWEyNjhiZDA1ODM4ZjI5YjlkZDI1NGJmNjliYTY0ODg0MTQ3MjM0YSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZWMxMGJkNDJjNzI0MWJjNDZjNzc4N2EzZTNlMzNiZWViZWQ4YjM3ZDJhYzQ4OGI4ZDYxNGE1ODNlOTJhZmM3MCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTcxYTU3NjEyNzczNDA1ZmM1ZjEwYzlhZTY3ZTE0MzE0ZTRlZjJjYmZiZTk5MDliMWEzYzJjZGEwMGY0NDQ4YyJ9"
+        },
+        {
+          "resource": "repo://src/js/player.js#L114-L114",
+          "version": "repo-lines-v1:sha256:c0e042269facb304d9b9f9f6e12410f50f22ddabea09179aa09797ed5ca18be1:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzBlMDQyMjY5ZmFjYjMwNGQ5YjlmOWY2ZTEyNDEwZjUwZjIyZGRhYmVhMDkxNzlhYTA5Nzk3ZWQ1Y2ExOGJlMSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYzBlMDQyMjY5ZmFjYjMwNGQ5YjlmOWY2ZTEyNDEwZjUwZjIyZGRhYmVhMDkxNzlhYTA5Nzk3ZWQ1Y2ExOGJlMSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTcxYTU3NjEyNzczNDA1ZmM1ZjEwYzlhZTY3ZTE0MzE0ZTRlZjJjYmZiZTk5MDliMWEzYzJjZGEwMGY0NDQ4YyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMmZmMGM5N2NhY2VkM2VkZTEzN2Y5YTliMDYxZWNmMTkwZDNjMmU3NDkwZTYwNzdkNmEwNWVkZGYxOWYxNzk4ZiJ9"
+        },
+        {
+          "resource": "repo://src/js/player.js#L153-L165",
+          "version": "repo-lines-v1:sha256:42385e480c92aef719121c9548241c33122b2fcffbd1d3fecf268cdb2f5776fe:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhNjA4ZDQ0NzkxMjIzODk3NmNhNzFhZWU4M2YyYmQwMDBjN2Q3NWI4OGNiNzI4MDQyZTRlYjc1MmM5Mzk4YmQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjI2MjBiYTJkMTFiMDU5YWEzOTc2NGYzZTEwZTM3YzNiMmY1M2U4YTBjYjk5MWE5N2RjYjNjZWEyMTdiZGVhNWYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQzODVkM2JhN2E2NzZmYjgwMTYyZjI4ZGFiNThjOTJiMTcwMzU5YzMwNTIzODUwOTZhNGI5ZGI5ZTEyOGEzMDgifQ"
+        },
+        {
+          "resource": "repo://src/js/player.js#L87-L87",
+          "version": "repo-lines-v1:sha256:c302535cf6fd708de45d8c6800736af8bf7949ec10abf416719ccbaa26fcb008:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzMwMjUzNWNmNmZkNzA4ZGU0NWQ4YzY4MDA3MzZhZjhiZjc5NDllYzEwYWJmNDE2NzE5Y2NiYWEyNmZjYjAwOCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYzMwMjUzNWNmNmZkNzA4ZGU0NWQ4YzY4MDA3MzZhZjhiZjc5NDllYzEwYWJmNDE2NzE5Y2NiYWEyNmZjYjAwOCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzJkNTk3ZGJhMjVkZTExYzc4ZjhhMmY1ODNiNjMwOThmYzUyMDBmZTM3NDA1NWRkZjkxZGRhNDVjMDI5NDkyMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNmI2NmI1N2QwYjYwZmQzZTk0ZDkzZGMzNWM5YzBiZDJlYTZiNDUzMTZjNTY2ZjU4NWM5MDkwMTRlNDc0MzEwNCJ9"
+        },
+        {
+          "resource": "repo://src/js/player.js#L93-L93",
+          "version": "repo-lines-v1:sha256:177233cd8839e25ba4fae4d584d9016d4e3a1db77e4b449c38555db3a141f3b7:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMTc3MjMzY2Q4ODM5ZTI1YmE0ZmFlNGQ1ODRkOTAxNmQ0ZTNhMWRiNzdlNGI0NDljMzg1NTVkYjNhMTQxZjNiNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMTc3MjMzY2Q4ODM5ZTI1YmE0ZmFlNGQ1ODRkOTAxNmQ0ZTNhMWRiNzdlNGI0NDljMzg1NTVkYjNhMTQxZjNiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODMyZTI3MmZiMDQ5YTc4ZmZmZWE0N2YxNmFhMzVkZTUxOTM4NjhhMDFjNGRkNzAzZWIyM2RhNjMyZmNhYjFiYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYTAzYjkwODlmMWVmMzAxYzQzOGU2YTU3YThhMzBhOGZhMmJmN2QxNDFmMTUyZTQyYmJhZDcwNDg5OGYxY2U3ZCJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.0",
+    "at": "2026-09-02T20:22:31.727Z"
+  }
+}

@@ -1,0 +1,150 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:938bef183cb3a6262c64becbb36f1543af96548cc756ef1c218cf07300ff0c37",
+  "claims": [
+    {
+      "id": "claim_1f000368a9e14516a63bb52fbee0c5a4",
+      "statement": "The radio stream for Deutschlandfunk has URL https://st01.sslstream.dlf.de/dlf/01/128/mp3/stream.mp3 and metadata URL https://streamtext.dradio.de/dlf.txt.",
+      "evidence": [
+        {
+          "resource": "repo://index.html#L54-L54",
+          "version": "repo-lines-v1:sha256:f805533e5fcadb113a8936fe4d4973b733e0afa8c6e01273cf19838676ff806f:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZjgwNTUzM2U1ZmNhZGIxMTNhODkzNmZlNGQ0OTczYjczM2UwYWZhOGM2ZTAxMjczY2YxOTgzODY3NmZmODA2ZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZjgwNTUzM2U1ZmNhZGIxMTNhODkzNmZlNGQ0OTczYjczM2UwYWZhOGM2ZTAxMjczY2YxOTgzODY3NmZmODA2ZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiN2EyZGNhOTkyNGJhMzRkODRkM2MzYzVmZDQ0NjNiOThkMDMwY2M1NDdiODBmODlhMDkwNWU1ZjQxZWRjYmFhZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiM2I2YjRiMTkzMDMyNzc5N2I5YTFjYmEyYmVlZDQ4MWE2YjBlOTQwNTc5ZGQ5M2Q5NjQ3MjIwOTkwN2ZlOGI1MSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_d1f09541cf5a44db89aecba8a65ed4ad",
+      "statement": "The radio stream for Deutschlandfunk Nova has URL https://st03.sslstream.dlf.de/dlf/03/128/mp3/stream.mp3 and metadata URL https://static.deutschlandfunknova.de/actions/dradio/playlist/onair.",
+      "evidence": [
+        {
+          "resource": "repo://index.html#L57-L57",
+          "version": "repo-lines-v1:sha256:2f91fd056a177f3c22984cb8a01258d41253dbbb7f85e7dd6d9f6423a7dcceb2:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMmY5MWZkMDU2YTE3N2YzYzIyOTg0Y2I4YTAxMjU4ZDQxMjUzZGJiYjdmODVlN2RkNmQ5ZjY0MjNhN2RjY2ViMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMmY5MWZkMDU2YTE3N2YzYzIyOTg0Y2I4YTAxMjU4ZDQxMjUzZGJiYjdmODVlN2RkNmQ5ZjY0MjNhN2RjY2ViMiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNzM2NzYwMWQyZDVkMTU3MjRiZGZkMzIxNjMwYTVlYjRhYzJmM2YyMmViMjdiNTQwNThjNjYxZmQwMzUwNjgyMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiM2RiOWUzNDg1OGFjYmI0MTIyZmIyMGJmNTAyYTVlMTU5OTQxZDBkMDM3MGZhMDIxMTQ4ODE4MjM3ZjRhMDIxYSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_d057311799774106a02cec407339588a",
+      "statement": "The radio stream for NDR 1 NDS has URL https://f121.rndfnk.com/ard/ndr/ndr1niedersachsen/hannover/mp3/128/stream.mp3?aggregator=web&cid=01FCT9XYE3C7Y8087XEWPRC38Z&sid=30aynlfxURrCQmDeTH1p0OqVsoV&token=3Wf1JnFUByNruoizm4AdR_YPX5_CvsRtTKXV3VK-004&tvf=qhyw4VgcVxhmMTIxLnJuZGZuay5jb20 and metadata URL https://www.ndr.de/public/radioplaylists/ndr1niedersachsen.json.",
+      "evidence": [
+        {
+          "resource": "repo://index.html#L60-L60",
+          "version": "repo-lines-v1:sha256:3b3b40cb8aaa3e4b9db24da46f90dd3f58208efc1852fa97133b4ff56d0e6815:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiM2IzYjQwY2I4YWFhM2U0YjlkYjI0ZGE0NmY5MGRkM2Y1ODIwOGVmYzE4NTJmYTk3MTMzYjRmZjU2ZDBlNjgxNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2IzYjQwY2I4YWFhM2U0YjlkYjI0ZGE0NmY5MGRkM2Y1ODIwOGVmYzE4NTJmYTk3MTMzYjRmZjU2ZDBlNjgxNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjljNzE1ZTY1M2ZmYzRlZmJmMTYzOTNjNzgzNmM3Mjg5NzlmZjc4ZDQwZWQ2MjZmMjI4OTA0YzFjOTkzZjFiMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjkyN2E5MDE5NWExNDBmZGJjYzBkMzBlMGRiZmUwYzA2NmZjNzk1ZDY4ZDI5YTVkYmU4NGRmN2ViOTNkNzRmMSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_bef2c4d43ea4427cad30a867bab0867f",
+      "statement": "The radio stream for NDR 2 has URL https://f131.rndfnk.com/ard/ndr/ndr2/niedersachsen/mp3/128/stream.mp3?aggregator=web&cid=01FBQ2CWDYWJHGF4QAJ0SVV730&sid=30ayvsXjJydzMH4MNiWpLV4nURH&token=FMhlmkJlc2prmQ6CBBjpYxFSaNHq6IDWPQKR9jRDjMA&tvf=0axLwWccVxhmMTMxLnJuZGZuay5jb20 and metadata URL https://www.ndr.de/public/radioplaylists/ndr2.json.",
+      "evidence": [
+        {
+          "resource": "repo://index.html#L63-L63",
+          "version": "repo-lines-v1:sha256:a979ca6effbe17d83d04c3b94f88c53e867157c03be638488d7651f2db733ce4:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTk3OWNhNmVmZmJlMTdkODNkMDRjM2I5NGY4OGM1M2U4NjcxNTdjMDNiZTYzODQ4OGQ3NjUxZjJkYjczM2NlNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYTk3OWNhNmVmZmJlMTdkODNkMDRjM2I5NGY4OGM1M2U4NjcxNTdjMDNiZTYzODQ4OGQ3NjUxZjJkYjczM2NlNCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTNlZTczNjc0NTMzZDg5MDliNzZkOWU0ZTQ2ZWI4ZDZkYjE1Y2NmYmQxYTFhZmJiOWJlMmJjNDUwNWQ4MmY4ZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYmM2ZGU2OTVlZDhhOTFkYTczYWE3Nzc5MGFjMDMyOGJjYTdjYjA2OWE4MjBhMzFhZTVlYzUyNDRmN2IzNGFhYSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_87e540b039c4483787277cbfb3713298",
+      "statement": "The radio stream for NDR Info has URL https://f131.rndfnk.com/ard/ndr/ndrinfo/niedersachsen/mp3/128/stream.mp3?aggregator=web&cid=01FBRKHKTB73QDVNX7A9RT082R&sid=30az5c4cyuUHsy4tHS3YkD5oDcc&token=Z-H6aIgEFsx5kBPmtfq5x2UNGGmMOtyjcoYox9RHg2E&tvf=np8tvHkcVxhmMTMxLnJuZGZuay5jb20 and metadata URL https://www.ndr.de/epg/current/station-ndrinfo.",
+      "evidence": [
+        {
+          "resource": "repo://index.html#L66-L66",
+          "version": "repo-lines-v1:sha256:e34dc6c79a43b2341946f51914c6541de4683ab98bdde7a910536d7ebbc5346a:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTM0ZGM2Yzc5YTQzYjIzNDE5NDZmNTE5MTRjNjU0MWRlNDY4M2FiOThiZGRlN2E5MTA1MzZkN2ViYmM1MzQ2YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTM0ZGM2Yzc5YTQzYjIzNDE5NDZmNTE5MTRjNjU0MWRlNDY4M2FiOThiZGRlN2E5MTA1MzZkN2ViYmM1MzQ2YSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTVjMTIwOWJhNjRjMTY2ZTAyMDFmMWM2NzE1ZWY1NjY4YTUzZTNjNDcwZDcxOGY3YTg1Mzc3ZTBkMTg2NmJiMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDU3ZWJiZjQ1MWZiOWNkZTc4OTYyNmQyNDE2ZjZiMjZmOWQyYWNhYjJiMjczYmEyYmU1ZTk4M2FkNWRjMTA0YSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_49805b9250334b89895916ddce6ccc44",
+      "statement": "The radio stream for NDR Kultur has URL https://d141.rndfnk.com/ard/ndr/ndrkultur/live/mp3/128/stream.mp3?aggregator=web&cid=01FBQ2EJ6T7QK3WENQ5KT9S2FB&sid=30azBxZOH15ri7EofrRpS1t3RXT&token=T_eVqj_rP6Bkb57di3056sjieytJKHDUnaT86DKLi-o&tvf=P4FiYIUcVxhkMTQxLnJuZGZuay5jb20 and metadata URL https://www.ndr.de/public/radioplaylists/ndrkultur.json.",
+      "evidence": [
+        {
+          "resource": "repo://index.html#L69-L69",
+          "version": "repo-lines-v1:sha256:081045d72f1cd97a70d2e6ef163d61cf1652ff0abc8791071d108ebe721de016:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDgxMDQ1ZDcyZjFjZDk3YTcwZDJlNmVmMTYzZDYxY2YxNjUyZmYwYWJjODc5MTA3MWQxMDhlYmU3MjFkZTAxNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDgxMDQ1ZDcyZjFjZDk3YTcwZDJlNmVmMTYzZDYxY2YxNjUyZmYwYWJjODc5MTA3MWQxMDhlYmU3MjFkZTAxNiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODhlYWZlMTM0NDFkZmMwZjc5ZDM3YjU5OWRjYmM0MzhkNThkYWRmODcyODU3ZmI1ZDU2OTc5NzJlZjMxMGJmMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDNmNDFkMjZmNDA2ZWZlN2I5ZmNmZWQzMTI2NTc1NTAwNWJlYjA4ZWIxYzJmYjBlNjQ4MjE5OTM1YWJiZjYzYiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_36c276472ae9430f834ea362fcfff1a6",
+      "statement": "The radio stream for N-JOY has URL https://f121.rndfnk.com/ard/ndr/njoy/live/mp3/128/stream.mp3?aggregator=web&cid=01FBRKKTM6TVGA3B3W6Y8NMXK8&sid=30azMobKXI3x91RNnGaf7v0Jpbl&token=VvAbuddXUjbU602noIVp6b7CQBEikUS280qPiNmxABM&tvf=i4pneZkcVxhmMTIxLnJuZGZuay5jb20 and metadata URL https://www.ndr.de/public/radioplaylists/njoy.json.",
+      "evidence": [
+        {
+          "resource": "repo://index.html#L72-L72",
+          "version": "repo-lines-v1:sha256:4da9cf52f937cb82a60474ad7268f91033b4d71b6c999620e8528993cd185fa1:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNGRhOWNmNTJmOTM3Y2I4MmE2MDQ3NGFkNzI2OGY5MTAzM2I0ZDcxYjZjOTk5NjIwZTg1Mjg5OTNjZDE4NWZhMSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGRhOWNmNTJmOTM3Y2I4MmE2MDQ3NGFkNzI2OGY5MTAzM2I0ZDcxYjZjOTk5NjIwZTg1Mjg5OTNjZDE4NWZhMSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNzRlZTBkMWY1ZmI4MWRkODI4MTE2M2Q2NGQ2OGM5ZmVhODdjMzVlNzFiZTEzZDMyYjFiODY0ZmIzNDc3N2E3MSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTg5ODVjNzc1ZmZlZjc0NmIxODkzYzhjNTI1MmZjZjY1YzIyODY5Y2EyMDQ5MDdhZmU1ZjRiYzlhZTgyMjUyMyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_e9d6d8ca196540e2a005c2d079a64b38",
+      "statement": "The radio stream for 80s80s Digital has URL https://regiocast.streamabc.net/regc-80s80smweb2517500-mp3-192-1672667 and metadata URL https://iris-80s80s.loverad.io/flow.json?station=62.",
+      "evidence": [
+        {
+          "resource": "repo://index.html#L75-L75",
+          "version": "repo-lines-v1:sha256:72331672bab292e1cda0150f98b32065223db9a5de3b65389ff4410dd7cacf14:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzIzMzE2NzJiYWIyOTJlMWNkYTAxNTBmOThiMzIwNjUyMjNkYjlhNWRlM2I2NTM4OWZmNDQxMGRkN2NhY2YxNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNzIzMzE2NzJiYWIyOTJlMWNkYTAxNTBmOThiMzIwNjUyMjNkYjlhNWRlM2I2NTM4OWZmNDQxMGRkN2NhY2YxNCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYmU0N2RiNTQ0MjVmNzIyOGE5NmNhOTYyZmJmOGM0NTM5OGQ2YWY3YzI2NTU1NjExZmVjOTE2YWRlYmE1ZDliZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjIzMzU5ZjE1NDk0YTBhMWIyYWRkMTZiZTJkZGY1OWVlMWM3MzhhZTI2MGMwNzQyNzJiZTk1YjNhNzQ1OTBhZiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_bcbbc39b8ffa4d15bc16ef3147ad7a9e",
+      "statement": "The radio stream for 90s90s has URL https://regiocast.streamabc.net/regc-90s90spop4760822-mp3-192-9403761 and no metadata URL provided in the source.",
+      "evidence": [
+        {
+          "resource": "repo://index.html#L78-L78",
+          "version": "repo-lines-v1:sha256:5084cc80e1fb734437bab3e3a9cf77a05b54174ff3012941d51b209b027cf926:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNTA4NGNjODBlMWZiNzM0NDM3YmFiM2UzYTljZjc3YTA1YjU0MTc0ZmYzMDEyOTQxZDUxYjIwOWIwMjdjZjkyNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTA4NGNjODBlMWZiNzM0NDM3YmFiM2UzYTljZjc3YTA1YjU0MTc0ZmYzMDEyOTQxZDUxYjIwOWIwMjdjZjkyNiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiY2QxZDgyNjFiNDQwY2FjMGFiMDkzZWQwMjZlMjlmMTBjNTQzOWU2OTcxNGM3YzE5NjUyZDhlZThmNDQ5NDkyMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiY2JhNGVkZjllZjJlMjEzZTUxYzlkY2RkOTliYzY5MDBlN2YyZjAwYmZhMjhiZmE2YTEwOTQ4MjE4NzYwNjUwOSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_cff9a3bf4bd74eeebe82902fd935c69d",
+      "statement": "The radio stream for BBG Radio has URL https://radio.bbg-bew.de and no metadata URL provided in the source.",
+      "evidence": [
+        {
+          "resource": "repo://index.html#L81-L81",
+          "version": "repo-lines-v1:sha256:dd7335a0aed9256582c3ad6385e4e037e984f672511dd42987f122052b785f77:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZGQ3MzM1YTBhZWQ5MjU2NTgyYzNhZDYzODVlNGUwMzdlOTg0ZjY3MjUxMWRkNDI5ODdmMTIyMDUyYjc4NWY3NyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZGQ3MzM1YTBhZWQ5MjU2NTgyYzNhZDYzODVlNGUwMzdlOTg0ZjY3MjUxMWRkNDI5ODdmMTIyMDUyYjc4NWY3NyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZGY4ZThjOTRhMjllMmRlY2FlZGZiZTM2NThmODlmOGUzOTczZjEzYTE1ZmVjM2VkOTZmZWE2N2RlZDZhZmZkYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTkyYjliNDBhYzk5NzI2MDIxNTg1ZjYwZjI0NmM0ZTg1ZDVkOWYyYTA1ODczMjkwNDExOTI0OWYyZjY3YTA3MiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_e7429866144d481ea7d65c2af37fae3c",
+      "statement": "The video stream for Das Erste has URL https://daserste-live.ard-mcdn.de/daserste/live/hls/de/master.m3u8.",
+      "evidence": [
+        {
+          "resource": "repo://video/index.html#L57-L57",
+          "version": "repo-lines-v1:sha256:78c43a6eb09ab11328e9fbdc566b580780cdeeb3aed93f09965b3c623f65ce0a:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzhjNDNhNmViMDlhYjExMzI4ZTlmYmRjNTY2YjU4MDc4MGNkZWViM2FlZDkzZjA5OTY1YjNjNjIzZjY1Y2UwYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNzhjNDNhNmViMDlhYjExMzI4ZTlmYmRjNTY2YjU4MDc4MGNkZWViM2FlZDkzZjA5OTY1YjNjNjIzZjY1Y2UwYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZDg0NmJiZGQ5NzQxMzA2OWJmYjRhMjk4YzRkNzhhNWE2MDY1ZjBmZWRlODdiNjg4ZDZiZWIzOTRhMzk4NjQzMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjhkMmVhNmZiYjVlODZlMTkyZmQxMjc4YTc2ODQ5ZWIwODMxNmE5MmU0MjkwZjM1OTQ5ZTA4N2NmOGY1NDIyMyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_41cb5ba46a4141a0bc679a8167fcf6aa",
+      "statement": "The video stream for ZDF has URL https://zdf-hls-15.akamaized.net/hls/live/2016498/de/veryhigh/master.m3u8.",
+      "evidence": [
+        {
+          "resource": "repo://video/index.html#L60-L60",
+          "version": "repo-lines-v1:sha256:b92e64d9709ec7a7e8efc8eb62323b6b676a00c4194e6ca96961fe2cd20e22eb:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjkyZTY0ZDk3MDllYzdhN2U4ZWZjOGViNjIzMjNiNmI2NzZhMDBjNDE5NGU2Y2E5Njk2MWZlMmNkMjBlMjJlYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYjkyZTY0ZDk3MDllYzdhN2U4ZWZjOGViNjIzMjNiNmI2NzZhMDBjNDE5NGU2Y2E5Njk2MWZlMmNkMjBlMjJlYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDE2NTY2OGNmMzQ1MzVkMDc1MTAzYTNiNjQ4MDZhZGQ5NjYxMzU3MWVjNzc2ZTc4OTU0MjExYmFhMjE4YzMzNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDBmZmU2ZTAwYmRjYzVkMzgyNjYyNWFjMmUwYTZjZGI3MWNiZGU3MTVlODJhOGY1NGZmMzM5MzMyNDFjYTg0NSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_a705a73c34be4d2789138728d1f4ce43",
+      "statement": "The video stream for ARTE has URL https://artesimulcast.akamaized.net/hls/live/2030993/artelive_de/index.m3u8.",
+      "evidence": [
+        {
+          "resource": "repo://video/index.html#L63-L63",
+          "version": "repo-lines-v1:sha256:ccb0bd26a3e48659b16e08627caa10a527adca67437fa43fb493e8069ebaf7ab:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiY2NiMGJkMjZhM2U0ODY1OWIxNmUwODYyN2NhYTEwYTUyN2FkY2E2NzQzN2ZhNDNmYjQ5M2U4MDY5ZWJhZjdhYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiY2NiMGJkMjZhM2U0ODY1OWIxNmUwODYyN2NhYTEwYTUyN2FkY2E2NzQzN2ZhNDNmYjQ5M2U4MDY5ZWJhZjdhYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjBhYmIzMWFjNjUwMDQwMmRmMjEyOGU4ZmI4NTY2NzNjYWFhMDkyNjhlYmVjMzk0YTdlMDlmMWE4NDI1MDJlNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMmYyNjJjZTliYjJiNzQ4YzMyZTE4MjJiNDdiYTZhNjMxZDdjMThiOGM3OGY4MmJjY2JiZDIyZWMxMDNlNTRmYiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_dbd7338d9453499bb014644b6efd202b",
+      "statement": "The video stream for Tagesschau24 has URL https://tagesschau.akamaized.net/hls/live/2020115/tagesschau/tagesschau_1/master.m3u8.",
+      "evidence": [
+        {
+          "resource": "repo://video/index.html#L66-L66",
+          "version": "repo-lines-v1:sha256:a983e7f3b0fd654d5dcd1cc792d175df656dd812ba5dcd7fae448d787a82732d:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTk4M2U3ZjNiMGZkNjU0ZDVkY2QxY2M3OTJkMTc1ZGY2NTZkZDgxMmJhNWRjZDdmYWU0NDhkNzg3YTgyNzMyZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYTk4M2U3ZjNiMGZkNjU0ZDVkY2QxY2M3OTJkMTc1ZGY2NTZkZDgxMmJhNWRjZDdmYWU0NDhkNzg3YTgyNzMyZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTMyZmEyNGJkMWQyYzcwMmUyOTZiZTlhMjNiNzNhYTdjMWQyYTIyYzg5OTFkMDMyNmUwNDk5NDU1ZThkOTJkZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiY2M2YTU2NDI2ZDlkZGJlYTA0ZGY1ZGE3YTMwYzJlN2JhNjNhNTI2YzlmYTVkOWUyZGE5MDI1M2M5NGM0ZWZlNiJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.0",
+    "at": "2026-09-02T20:22:31.727Z"
+  }
+}
