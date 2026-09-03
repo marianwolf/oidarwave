@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:de5fef3135648055f7f133fde92807c466f5a380556b20f1121c7589ba614987",
+  "pageVersion": "sha256:c2dac4f275ce7aeea22437b8da3f1023fec3695d6322f60ecae26b6b77dcfdaa",
   "claims": [
     {
       "id": "claim_0d8e87a29fc04941b096ba6225a9e1ff",
@@ -8,7 +8,7 @@
       "evidence": [
         {
           "resource": "repo://tests/test_website.py",
-          "version": "repo-file-v1:sha256:4c9749356ba5a002e996ae9f1983e3607b2fdf7003ce944096c45d440260fc11"
+          "version": "repo-file-v1:sha256:ee05ecde9349d518dddd0799433eeca2111530e57a85d430a5c9a66c47b4c5af"
         }
       ]
     },
@@ -33,26 +33,6 @@
       ]
     },
     {
-      "id": "claim_2104de565c7243f69a8dcbfde9fd317f",
-      "statement": "The TestAudioStreams and TestVideoStreams classes validate the format of audio and video stream URLs: audio streams must start with http:// or https:// and have length > 10; video streams must start with https:// and end with .m3u8.",
-      "evidence": [
-        {
-          "resource": "repo://tests/test_website.py#L108-L125",
-          "version": "repo-lines-v1:sha256:71e62899fa688dffe90997fdc26b86a47d0148ec1145033cf90b8512ba2ba542:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQwZjcxMjQ0MWRkZjU0MTAwOTcxZjY2N2VjZjNmYzBmMDBmYmEyNzhiMzE1YWE3MTA4YmIyYTgyMGZmOWZmYjEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg2MmVkNjk3MzdmMWY2NWQwZDk2YmNkMzI5ZmEwZmM2YmVkYTRiY2NiNzg3OWYwYTE4NzIxNDhlM2EwMGExYjYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjJhYTRkYWQ1MDgyY2E2MTVlMDliOTBjMDE4MzVhMmU0NzkyMzkyMDQzOTI1MTQzNGE0NWQyYTk3OWY1NTM0MWEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE3MjFmMGNmNjc0MGVkYjEwODk0ZDdiNTMzY2I4OGRhMjNlYWY2MmM0MDA3NjkyODlkZjM5YTkwMjQzOWE4OGMifQ"
-        }
-      ]
-    },
-    {
-      "id": "claim_9192eb43f58343c8941fdc7d8cfe3ad9",
-      "statement": "The test suite uses session-scoped fixtures for browser, pages, audio_streams, and video_streams, and a function-scoped fixture for page to provide isolated tests.",
-      "evidence": [
-        {
-          "resource": "repo://tests/test_website.py#L43-L75",
-          "version": "repo-lines-v1:sha256:c724f65608d931aa29072b20fd5b53a14e24afddd2b6cdf4208f34997bfff5a6:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjUzMDM2NWQxNGM3ZGFiM2Q2NWIyMGVlYjNhZmU3ZTVkNGUzMGU4Zjc5OGU3OWFkMDZlNTk0MjI4Nzc0YTc0ODYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjlkNTk2ZTdmNTBlZDcwODAwNDJlOWZhYjBkNjNmZjhjZjBmMDQ0MWNjMTlmYzkzZTU4YzMyNWY2MDU2ZTExM2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE5OGIwNjNkOWI0N2U2NTM3OTYyNTU3MmNjZTE5NzY2OWQ1NzY3ZTEyYzE4YmUwNzU2NTJiOGNkOTgxY2U4ZDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk3ZWY3MDRjYTNjMmJhMmY2OTZjNmI5N2E3YmI2MDVlZGU0NjU2OTk3MzY5NzJlNDM0MTdhYTNiMTBmOTZjZDQifQ"
-        }
-      ]
-    },
-    {
       "id": "claim_9851f599aa1c4cecaf1216065041a1a3",
       "statement": "The TestIndexSpecific class runs additional checks on the index page, including navigation (at least three links including \"Radio\" and \"Video\"), audio player (visibility and controls attribute of #audioPlayer), cookie banner (visibility of #cookieBanner and its accept/decline buttons), and status display (existence of #statusIndicator and #currentSongTitle).",
       "evidence": [
@@ -65,6 +45,6 @@
   ],
   "verification": {
     "by": "openwiki/0.5.0",
-    "at": "2026-09-02T20:22:31.727Z"
+    "at": "2026-09-03T14:41:27.574Z"
   }
 }

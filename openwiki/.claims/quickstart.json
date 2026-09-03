@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:9d1de9661aae71d760560d33e1a3bd8e80186de9e1502d778ce9f99e074edd9e",
+  "pageVersion": "sha256:c6fa0b970e8f4cfdca40f8fb974e498fee4c69511add8ae56304fb67fa71a46b",
   "claims": [
     {
       "id": "claim_6a4117277c4345d18bd871c5d99a7fe5",
       "statement": "Oidarwave can be run as a static web application by opening index.html directly in a browser without any build steps or dependencies.",
       "evidence": [
         {
-          "resource": "repo://README.md#L92-L99",
-          "version": "repo-lines-v1:sha256:2226b219463e4463c578e939e0768e0377a9f4f2b2cf1a40adde68fe0d348b0b:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTY1MTYxZGYyNmZjNGI0OThiYTM3YjE5YzQwZmRkMTI4NDM3NDE1YTI5YWNlOTk5MTEwNzU4MzlkMThlYzQ2ZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMGNiYTU3NDhlYmE5ZGU4NTY5Y2NlZGExODZkMTk5MTY5ZWEwNTA4ZDBkZTQxZjNjZGZlMTc3ZjMwZTFhMGIzZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTQxMTQ2ZWUwZjBlYjQwOThiMGNhYWY2NGY5YzQ4ZGJmOWE1NWRlZmRkNGVmOWNmMjJmOWEzYzE2NWE3NWFlMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzQ0ZTZjYzg4MDIyMWJjZWEyN2MyYTYyYzQyOTRhZTg3ZWJjYzM4OTkzYmI3YWVkNTYxYWVhNjFlMmVhNmZiNCJ9"
+          "resource": "repo://README.md#L38-L45",
+          "version": "repo-lines-v1:sha256:9dd360aaaf714942f045245f05b7a7a8cdce8c7c552069f437ef357a3ab8a903:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNmU0YWI2NDJkYmQ3ZTRkYWUwYTdlM2MzNzA2ODM1OTA1ZmI1MWU2NjI1ZjI4ODc4ZGQwY2VlNGRiM2RmMDc2NyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjA0ZDNkMDFkMjVjNzMxM2VmNjFlNDNlMTEyNTNlM2JmODQzYmNjNGQzZDRkMGE2ZTgxMTU2OGI0NDYxMTY5YSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiY2QwNmNmMjlkNzc1MTQwMGE0Njg4OTJhOTRlMWQ2YWQ3ZWI2MWMxYTMyMmQ4OGI4MDUxODVlZjcwNzFmZTQ5NyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDlhNzNkNmEyMjZkMzEzYzk2NjMyOGNjYjE3ODk5NTRjZWM5ZTA5ODYyZmRjYTk5Mzc5Nzc5NTdhZWY4ZmY2NiJ9"
         }
       ]
     },
@@ -67,6 +67,6 @@
   ],
   "verification": {
     "by": "openwiki/0.5.0",
-    "at": "2026-09-02T20:22:31.727Z"
+    "at": "2026-09-03T14:41:27.574Z"
   }
 }

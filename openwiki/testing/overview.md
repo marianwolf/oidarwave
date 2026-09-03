@@ -3,17 +3,15 @@ type: overview
 title: Testing Overview
 description: Overview of the test suites for syntax checking, website validation, and Electron build validation in the Oidarwave project.
 tags: [testing, syntax, website, electron]
-verified:
-  - by: openwiki/0.5.0
-    at: 2026-09-02T20:22:31.727Z
 sources:
-  - id: openwiki-source-780facd41b2c78b19fa7c115
-    resource: repo://tests/test_electron_build.py
   - id: openwiki-source-f99a7ec1ea05bc870c213f40
     resource: repo://tests/test_syntax.py
   - id: openwiki-source-4636a46c1ad9ea46ccbd30e4
     resource: repo://tests/test_website.py
-generated: { by: "openwiki/0.5.0", at: "2026-09-02T20:22:31.727Z" }
+generated: { by: "openwiki/0.5.0", at: "2026-09-03T14:41:27.574Z" }
+verified:
+  - by: openwiki/0.5.0
+    at: 2026-09-03T14:41:27.574Z
 ---
 
 # Testing Overview
@@ -41,29 +39,29 @@ The syntax test suite (`tests/test_syntax.py`) validates the structural and synt
 
 ## Website Validation
 
-The website test suite (`tests/test_website.py`) uses Playwright to automate Chromium and validate the rendered behavior of the Oidarwave web application. It checks that pages load correctly, essential UI elements are present, and configured audio/video streams are accessible.
+The website test suite (`tests/test_website.py`) uses Playwright to automate Chromium and validate the rendered behavior of the Oidarwave web application. It checks that pages load correctly and essential UI elements are present.
 
 ### Responsibilities
 - Confirm that the index, video, and impressum pages load without critical errors and contain expected text in the title.
 - Verify the presence of key UI elements on the index page (logo, navigation, station buttons).
-- Validate that predefined audio stream URLs (e.g., DLF, NDR stations, BBG) and video stream URLs (e.g., Das Erste, ZDF, ARTE) have the correct format (HTTP(S) for audio, HTTPS and .m3u8 extension for video).
+- Verify the presence of key UI elements on the video page (video player, station buttons).
+- Verify the presence of key UI elements on the impressum page (heading).
+- Additionally, on the index page: verify navigation links, audio player with controls, cookie banner, and status display.
 
 ### Entrypoints and Mechanisms
-- The suite uses Playwright fixtures: a session-scoped browser instance, a fresh page per test, and parametrized fixtures for pages, audio streams, and video streams.
+- The suite uses Playwright fixtures: a session-scoped browser instance, a fresh page per test, and parametrized fixtures for pages.
 - Tests are organized into classes:
   - `TestPages`: checks basic page load and title.
   - `TestPageElements`: validates DOM elements on each page.
-  - Separate parametrized test classes for audio and video streams (not shown in the excerpt but implied by fixtures and typical usage).
-- Stream tests likely attempt to fetch the stream URL and verify the response (implementation details would be in the full test file).
+  - `TestIndexSpecific`: additional tests for the index page (navigation, player, cookie banner, status display).
 
 ### Configuration and Operation
 - Requires `pytest` and `playwright` to be installed, with Chromium browsers available via `playwright install chromium`.
 - Tests run in headless mode by default but can be adjusted for debugging.
-- The suite is sensitive to network availability and the uptime of external stream providers.
+- The suite runs against local files and does not require network access.
 
 ### Important Invariants
-- A test failure indicates either a regression in the web application (missing element, incorrect title) or an accessibility issue with a configured stream.
-- Stream tests may be flaky due to external dependencies; they are best suited for environments with reliable internet access.
+- A test failure indicates a regression in the web application (missing element, incorrect title).
 
 ## Electron Build Validation
 

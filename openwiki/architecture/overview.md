@@ -3,13 +3,13 @@ type: architecture
 title: System Architecture Overview
 description: A high-level description of Oidarwave's components including the user interface, media player, persistence mechanisms, Electron desktop wrapper, and build system, along with their interactions and responsibilities.
 tags: [architecture, overview, components, electron, ui, player, persistence, build]
-verified:
-  - by: openwiki/0.5.0
-    at: 2026-09-02T20:22:31.727Z
 sources:
   - id: openwiki-source-3d9e72730d09405d8d9107c1
     resource: repo://electron/main.js
 generated: { by: "openwiki/0.5.0", at: "2026-09-02T20:22:31.727Z" }
+verified:
+  - by: openwiki/0.5.0
+    at: 2026-09-03T14:41:27.574Z
 ---
 
 # System Architecture Overview

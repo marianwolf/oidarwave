@@ -3,13 +3,13 @@ type: test suite
 title: Electron Build Test Suite
 description: This test suite validates the Electron build configuration for Oidarwave, ensuring the main Electron file exists, package.json has correct build settings, and required dependencies are present.
 tags: [testing, electron, build, configuration]
-verified:
-  - by: openwiki/0.5.0
-    at: 2026-09-02T20:22:31.727Z
 sources:
   - id: openwiki-source-780facd41b2c78b19fa7c115
     resource: repo://tests/test_electron_build.py
-generated: { by: "openwiki/0.5.0", at: "2026-09-02T20:22:31.727Z" }
+generated: { by: "openwiki/0.5.0", at: "2026-09-03T14:41:27.574Z" }
+verified:
+  - by: openwiki/0.5.0
+    at: 2026-09-03T14:41:27.574Z
 ---
 
 The Electron build test suite (`tests/test_electron_build.py`) verifies critical aspects of the Electron application build configuration to ensure successful packaging and distribution. It focuses on three key areas: existence of the Electron entry point, validity of the build configuration in `package.json`, and presence of required development dependencies.

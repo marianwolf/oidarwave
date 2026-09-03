@@ -5,11 +5,11 @@ description: Validates structural and syntactic correctness of source files incl
 tags: [testing, syntax, validation, html, javascript, css, markdown, json]
 verified:
   - by: openwiki/0.5.0
-    at: 2026-09-02T20:22:31.727Z
+    at: 2026-09-03T14:41:27.574Z
 sources:
   - id: openwiki-source-f99a7ec1ea05bc870c213f40
     resource: repo://tests/test_syntax.py
-generated: { by: "openwiki/0.5.0", at: "2026-09-02T20:22:31.727Z" }
+generated: { by: "openwiki/0.5.0", at: "2026-09-03T14:41:27.574Z" }
 ---
 # Syntax Testing
 

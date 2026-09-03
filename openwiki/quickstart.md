@@ -5,7 +5,7 @@ description: Learn how to run Oidarwave locally, understand the project structur
 tags: [getting-started, installation, build, development]
 verified:
   - by: openwiki/0.5.0
-    at: 2026-09-02T20:22:31.727Z
+    at: 2026-09-03T14:41:27.574Z
 sources:
   - id: openwiki-source-3d9e72730d09405d8d9107c1
     resource: repo://electron/main.js
@@ -15,7 +15,7 @@ sources:
     resource: repo://package.json
   - id: openwiki-source-23775c3de52f3ab95a13cb8b
     resource: repo://README.md
-generated: { by: "openwiki/0.5.0", at: "2026-09-02T20:22:31.727Z" }
+generated: { by: "openwiki/0.5.0", at: "2026-09-03T14:41:27.574Z" }
 ---
 
 # Quickstart
@@ -40,7 +40,7 @@ The simplest way to run Oidarwave is to open the `index.html` file directly in a
    xdg-open index.html # Linux
    ```
 
-Alternatively, use the live demo at [https://oidarwave.vercel.app](https://oidarwave.vercel.app) {repo://README.md#L94-L99}.
+Alternatively, use the live demo at [https://oidarwave.vercel.app](https://oidarwave.vercel.app) {repo://README.md#L13,L43}.
 
 ### Using Electron
 
@@ -105,7 +105,7 @@ The web version is optimized for static hosting and is already configured for de
 2. Since no transpilation or bundling is required, the contents of the project directory (excluding `electron/` and `node_modules/`) constitute the deployable web artifact.
 3. Push to a Git repository connected to Vercel for automatic deployments, or use the Vercel CLI manually.
 
-The live demo at [https://oidarwave.vercel.app](https://oidarwave.vercel.app) reflects the latest static build {repo://README.md#L13,L98}.
+The live demo at [https://oidarwave.vercel.app](https://oidarwave.vercel.app) reflects the latest static build {repo://README.md#L13,L43}.
 
 ## Next Steps
 

@@ -5,11 +5,11 @@ description: The Electron main process handles window creation, secure file prot
 tags: [electron, main-process, window-management, protocol-handling, packaging]
 verified:
   - by: openwiki/0.5.0
-    at: 2026-09-02T20:22:31.727Z
+    at: 2026-09-03T14:41:27.574Z
 sources:
   - id: openwiki-source-3d9e72730d09405d8d9107c1
     resource: repo://electron/main.js
-generated: { by: "openwiki/0.5.0", at: "2026-09-02T20:22:31.727Z" }
+generated: { by: "openwiki/0.5.0", at: "2026-09-03T14:41:27.574Z" }
 ---
 
 ## Overview
