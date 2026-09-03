@@ -72,14 +72,28 @@ const HlsErrorMap = Object.freeze(
     } : {}
 );
 
+let electronLog = null;
+if (typeof module !== 'undefined') {
+    try {
+        electronLog = require('electron-log');
+    } catch (e) {
+        electronLog = null;
+    }
+}
+
+function getLogger() {
+    return electronLog ? electronLog : console;
+}
+
 function createLogger(method, level) {
     return (code, err, ctx = {}) => {
         if (!shouldLog(level)) return;
+        const log = getLogger();
         const entry = formatLogEntry(code, err, ctx);
         if (!code || typeof code !== 'string') {
-            console[method](entry);
+            log[method](entry);
         } else {
-            console[method](`[${code}]`, entry);
+            log[method](`[${code}]`, entry);
         }
     };
 }

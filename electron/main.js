@@ -2,6 +2,11 @@ const { app, BrowserWindow, protocol, shell, net } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const { fileURLToPath, pathToFileURL } = require('url');
+const log = require('electron-log');
+log.transports.file.level = 'debug';
+log.transports.file.format = '{y}-{m}-{d} {h}:{i}:{s}.{ms} {level}: {msg}';
+log.transports.console.level = 'debug';
+
 const { ErrorCode, logError, logWarn, initMainProcessErrorHandlers } = require('../src/js/errors.js');
 initMainProcessErrorHandlers();
 
