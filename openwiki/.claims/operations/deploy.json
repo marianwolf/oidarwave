@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:98fcf66dcd417739453cd3d28e7ef9e43a05796e6a4eb81a2a5ed3d15a3457d2",
+  "claims": [
+    {
+      "id": "claim_b8c09a340ad142c89c9633f292d5fb37",
+      "statement": "Oidarwave is hosted as a static web application on Vercel, providing a live demo at https://oidarwave.vercel.app.",
+      "evidence": [
+        {
+          "resource": "repo://README.md#L13-L13",
+          "version": "repo-lines-v1:sha256:d1206dd4a424759c56dd978d1c3b6a168eb8c3fdd36bc7fb0aef7fca2e48cbea:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZDEyMDZkZDRhNDI0NzU5YzU2ZGQ5NzhkMWMzYjZhMTY4ZWI4YzNmZGQzNmJjN2ZiMGFlZjdmY2EyZTQ4Y2JlYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZDEyMDZkZDRhNDI0NzU5YzU2ZGQ5NzhkMWMzYjZhMTY4ZWI4YzNmZGQzNmJjN2ZiMGFlZjdmY2EyZTQ4Y2JlYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDdlNzlmYWFmODBlOTBhNjVjYWQ4N2QyMTFhOTgzODMxYTAxZGNhZDIzMmUzYjJiYjMyZDU4NWIzOGM3YTFlZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMGYxZWQ1ZTNhZGFhMTYyMWU1NThiYTI0ODlhMzQwNWJiMDllZTYyYzczMmNkMjU3M2M2ZjZlZTAyMzliYTgyNCJ9"
+        },
+        {
+          "resource": "repo://README.md#L36-L36",
+          "version": "repo-lines-v1:sha256:e65161df26fc4b498ba37b19c40fdd128437415a29ace99911075839d18ec46d:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTY1MTYxZGYyNmZjNGI0OThiYTM3YjE5YzQwZmRkMTI4NDM3NDE1YTI5YWNlOTk5MTEwNzU4MzlkMThlYzQ2ZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTY1MTYxZGYyNmZjNGI0OThiYTM3YjE5YzQwZmRkMTI4NDM3NDE1YTI5YWNlOTk5MTEwNzU4MzlkMThlYzQ2ZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTQxMTQ2ZWUwZjBlYjQwOThiMGNhYWY2NGY5YzQ4ZGJmOWE1NWRlZmRkNGVmOWNmMjJmOWEzYzE2NWE3NWFlMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzJhZGFkMTEyZjM1OTUyZGU3OTlhNGE1ZjQ4ODZkOTIwNWRhMzk5OWU4ZTY3YjMxZDYyY2YxMGE3ZDg1NTJhZSJ9"
+        },
+        {
+          "resource": "repo://README.md#L43-L43",
+          "version": "repo-lines-v1:sha256:0cba5748eba9de8569cceda186d199169ea0508d0de41f3cdfe177f30e1a0b3e:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMGNiYTU3NDhlYmE5ZGU4NTY5Y2NlZGExODZkMTk5MTY5ZWEwNTA4ZDBkZTQxZjNjZGZlMTc3ZjMwZTFhMGIzZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMGNiYTU3NDhlYmE5ZGU4NTY5Y2NlZGExODZkMTk5MTY5ZWEwNTA4ZDBkZTQxZjNjZGZlMTc3ZjMwZTFhMGIzZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMWNjZmU3Zjc2YWM3ZjdiMGI5YTI1NDI2NTgwMWJjY2E5YjYzNDRhMTZjOThiMjIwMjhlMDVjYTM3ZDYzMzMxMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzQ0ZTZjYzg4MDIyMWJjZWEyN2MyYTYyYzQyOTRhZTg3ZWJjYzM4OTkzYmI3YWVkNTYxYWVhNjFlMmVhNmZiNCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_117fbd714c2a4d098eeced69aa10c48d",
+      "statement": "The project is explicitly configured for Vercel hosting via the appId field set to 'app.oidarwave.vercel' and desktopName field set to 'app.oidarwave.vercel' in package.json.",
+      "evidence": [
+        {
+          "resource": "repo://package.json#L17-L17",
+          "version": "repo-lines-v1:sha256:18a3a4787e5bbc1ec7722a84ac57426f76e8410925d555c8e90d3b1e38ced892:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMThhM2E0Nzg3ZTViYmMxZWM3NzIyYTg0YWM1NzQyNmY3NmU4NDEwOTI1ZDU1NWM4ZTkwZDNiMWUzOGNlZDg5MiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMThhM2E0Nzg3ZTViYmMxZWM3NzIyYTg0YWM1NzQyNmY3NmU4NDEwOTI1ZDU1NWM4ZTkwZDNiMWUzOGNlZDg5MiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiN2ZjY2ZhYzY3MzJiNjkxMTIyY2UzYzZhOTQwN2RlYWE4NTZlZDY4ZWY0YWNjZmU3ZmFhM2I5NThkZDQ0MDg2YSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiM2RiMzkzYTllNzRhYTUzYzdmMTE0Mjk1OGUzOWRhMWRlMWMzM2Y1ZGI1YjM0Y2JiZDU4ZmFhMGUwNzBhZTU4NiJ9"
+        },
+        {
+          "resource": "repo://package.json#L6-L6",
+          "version": "repo-lines-v1:sha256:b59adbb316b8dc0711200e5200230be22653afd5f50ec2cf252d3e05ab54d4b6:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjU5YWRiYjMxNmI4ZGMwNzExMjAwZTUyMDAyMzBiZTIyNjUzYWZkNWY1MGVjMmNmMjUyZDNlMDVhYjU0ZDRiNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYjU5YWRiYjMxNmI4ZGMwNzExMjAwZTUyMDAyMzBiZTIyNjUzYWZkNWY1MGVjMmNmMjUyZDNlMDVhYjU0ZDRiNiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNzU0MmU0NDhiNWU4NjU3YjRkZjhlMDgzNDM5MDRmMzE4YzRlODkwYjEzZDFhZjlkNTFiYjkyMTU5MDFiODRhMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODY1OWNhYjI5ZWNkYTI3ZWFkMGI3YThiNTE4ZjMxMTA0YWZhOGY5ZTkxMGEzOWNjZGIzYTNjMTU0NmVkODQ1NyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_94d5475e1f624cdc8f8fce92aa582021",
+      "statement": "As a static web site, Oidarwave requires no server-side installation and can be served directly from any static file host.",
+      "evidence": [
+        {
+          "resource": "repo://README.md#L92-L92",
+          "version": "repo-lines-v1:sha256:e65161df26fc4b498ba37b19c40fdd128437415a29ace99911075839d18ec46d:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTY1MTYxZGYyNmZjNGI0OThiYTM3YjE5YzQwZmRkMTI4NDM3NDE1YTI5YWNlOTk5MTEwNzU4MzlkMThlYzQ2ZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTY1MTYxZGYyNmZjNGI0OThiYTM3YjE5YzQwZmRkMTI4NDM3NDE1YTI5YWNlOTk5MTEwNzU4MzlkMThlYzQ2ZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTQxMTQ2ZWUwZjBlYjQwOThiMGNhYWY2NGY5YzQ4ZGJmOWE1NWRlZmRkNGVmOWNmMjJmOWEzYzE2NWE3NWFlMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzJhZGFkMTEyZjM1OTUyZGU3OTlhNGE1ZjQ4ODZkOTIwNWRhMzk5OWU4ZTY3YjMxZDYyY2YxMGE3ZDg1NTJhZSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_36ea4050d16048e287e9526540d01191",
+      "statement": "The application conditionally loads Vercel Insights (_/vercel/insights/script.js) and Vercel Speed Insights (_/vercel/speed-insights/script.js) based on user consent for analytics.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/cookie.js#L42-L50",
+          "version": "repo-lines-v1:sha256:d09daa0d9c4a1a90eea75977c8c7458cb5470912ec657d592353f5da57a04a93:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOTRhODc3OTc4ZDEyNTkwMjIyYjdkYjk5NWY5ZmU1MjdkN2U3YTZlODZhMDg0MTk2ZjNjNTRhNjZkMjQ4NDY4NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2Q1Mzc3OGExMGI3NjJiYTY4YTViMGE3ZjZlNmM2OTI0NWFlNmM3OGVmODZjYzAyNzdiMDZmOTc4NDkwZmJhZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzhkODYyMGQxNmQ4MTlhZTFjN2I1ZDQ1ZDRiYzQ5MDhhY2I4OWZhY2RmNGU4M2MwNjRhODExNjZiYmZkYWU2MyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYjE2Y2U5ZWYyY2NhNmZjZmMxYjNjZjI4ODM0ZmQxMGY3NzQyYzYwYjE1ODRiMjE4MTc3MzljMGJkMDlmZmJiOCJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.0",
+    "at": "2026-09-02T21:38:00.224Z"
+  }
+}

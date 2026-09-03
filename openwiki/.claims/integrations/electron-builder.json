@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:b6402f221f2345f1c56b4622e3f451038823f844f6da949814aada55b4a76714",
+  "claims": [
+    {
+      "id": "claim_c533b243c0fb4ecb9c762ed6c5a9c965",
+      "statement": "The Electron Builder configuration is located in the 'build' object within package.json.",
+      "evidence": [
+        {
+          "resource": "repo://package.json#L16-L16",
+          "version": "repo-lines-v1:sha256:7b07201bdb6bc0592084963681861a4fa14afda591b6d5661b7458d921d5d0eb:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiN2IwNzIwMWJkYjZiYzA1OTIwODQ5NjM2ODE4NjFhNGZhMTRhZmRhNTkxYjZkNTY2MWI3NDU4ZDkyMWQ1ZDBlYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiN2IwNzIwMWJkYjZiYzA1OTIwODQ5NjM2ODE4NjFhNGZhMTRhZmRhNTkxYjZkNTY2MWI3NDU4ZDkyMWQ1ZDBlYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzQ3ZDQ0ZDY4YzEzMTgwYzZiODdlNmI3ZjE1NmVkNmIwMzViZDdmN2NlNzdmOGFjNmVkZjQyMmYxZTY5ZWRiOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZWQ4NjU0NjQ3MGZjZDI4NTQ1N2VjN2VmYThkNTE3YjA3YTdhY2MzODJkNThhODViNmQ5ZGZlNzA2MTIwODcxMiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_9342bbd9acfb4e47ab90b842414d5cc8",
+      "statement": "The application identifier (appId) is set to 'app.oidarwave.vercel'.",
+      "evidence": [
+        {
+          "resource": "repo://package.json#L17-L17",
+          "version": "repo-lines-v1:sha256:18a3a4787e5bbc1ec7722a84ac57426f76e8410925d555c8e90d3b1e38ced892:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMThhM2E0Nzg3ZTViYmMxZWM3NzIyYTg0YWM1NzQyNmY3NmU4NDEwOTI1ZDU1NWM4ZTkwZDNiMWUzOGNlZDg5MiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMThhM2E0Nzg3ZTViYmMxZWM3NzIyYTg0YWM1NzQyNmY3NmU4NDEwOTI1ZDU1NWM4ZTkwZDNiMWUzOGNlZDg5MiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiN2ZjY2ZhYzY3MzJiNjkxMTIyY2UzYzZhOTQwN2RlYWE4NTZlZDY4ZWY0YWNjZmU3ZmFhM2I5NThkZDQ0MDg2YSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiM2RiMzkzYTllNzRhYTUzYzdmMTE0Mjk1OGUzOWRhMWRlMWMzM2Y1ZGI1YjM0Y2JiZDU4ZmFhMGUwNzBhZTU4NiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_611381a5478f47678149c5408e87b819",
+      "statement": "The product name is configured as 'Oidarwave'.",
+      "evidence": [
+        {
+          "resource": "repo://package.json#L18-L18",
+          "version": "repo-lines-v1:sha256:0a10012be5b2f17a3425e9aba3da301c85a7dffbf2d86937dd1a02d44f5a19ab:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMGExMDAxMmJlNWIyZjE3YTM0MjVlOWFiYTNkYTMwMWM4NWE3ZGZmYmYyZDg2OTM3ZGQxYTAyZDQ0ZjVhMTlhYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMGExMDAxMmJlNWIyZjE3YTM0MjVlOWFiYTNkYTMwMWM4NWE3ZGZmYmYyZDg2OTM3ZGQxYTAyZDQ0ZjVhMTlhYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDAxZDcxMjllMzM5NDYyYmI5YzMyYTgwNGQwZjRjNGM4MjU4MzFlYzIxN2I1MTI3Mzg5ZWQ5OTQ2YjE1MzFlMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDZhZjU4MjViNzFhZWVhMDg5NWJlMDkxZGJkOGJkNTk5ODk5ZTgzY2Q3MzM0ODI1MjYxYWQzYzYxN2ZhMjRkYiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_76901a8678754e3da02653ca2a1537e0",
+      "statement": "The output directory for built artifacts is configured as 'dist'.",
+      "evidence": [
+        {
+          "resource": "repo://package.json#L19-L20",
+          "version": "repo-lines-v1:sha256:2ebd6b66b38ae110bbd75372b7a946e569c42ea68df151c68ef8d83c0121f5ab:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiM2Y2Y2RmZTY5ZjUwYTJjODAwNDUwOTViNTg2ZGE3N2Y0MzU0NGJiZmQwNTViZmRhN2YyMThmNDJkZThlODVjNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOGIxMjgyOTk0NWY1OGM3Y2E4NWQ2YTRkNTgxNTVmODFkM2NlYWNmZjQ1NGZkNjEyMTliMmVmYWUzZDMwOWNkOSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzc3N2FmNDUyOTc1NjA3NzRlZTJmZTM1NzUxOTY3Mzc4ODhmYTQzZWIwNzU5MzU1ZjFkZWU1N2E1ZGQwZGQ0NyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTFhNjQwODU1M2Q4MGFmNTBlMGJhNmM1ZTAwMTk5MDgyNDk2ZWIzODU4ZDhmZjVlMTQwYzYxODUwZGQwNWVhNyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_e26bbfec57db44b2b92f25403f487826",
+      "statement": "The build configuration includes electron/**/* files in the package.",
+      "evidence": [
+        {
+          "resource": "repo://package.json#L22-L23",
+          "version": "repo-lines-v1:sha256:ed247fdfca854ed3b0a8120a6b21379e4393cce55f88e4ecf09d1e0ab8281238:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjllYjJhMDAzZDIyNGRiMDU0NTE5ODIxZTg1NWUwN2Q1MmI5OTQ4OTA3MDBkZjNlYTk0ZTQ2MTlmMzgzOGZhMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZGFiNzQ1MDdiZWIxMDQ2NmIyYThhYjNkNTJlZjc2Y2YyMDFhM2ViMTI0MTIyMTc2ZGQ2MWUzZmM4M2E3YjdlZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDZhZjU4MjViNzFhZWVhMDg5NWJlMDkxZGJkOGJkNTk5ODk5ZTgzY2Q3MzM0ODI1MjYxYWQzYzYxN2ZhMjRkYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjY5YjViMzg2NDM4NDFkYWQ1OWUwNGUxNTRkNjMxNjYxYzMyMjAyNjNiNzdjZGNiYzIzZmMwZmIxMGE3YjkzYyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_1efd499f77f14a96ac7d325b85f7d1fc",
+      "statement": "ASAR archiving is enabled in the build configuration.",
+      "evidence": [
+        {
+          "resource": "repo://package.json#L31-L32",
+          "version": "repo-lines-v1:sha256:9e9aaf4bd7ee1d245d384f844f1c1ae62bfcf197873855d1afb151b04f8a697f:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZDczNjIzNzAwY2FjYzQ0ZjE0MGQyZTJkOTViYWQ4MjUyYWViNGQ4YWQyMzBlZWYyOWE0MDkxYmI3ZTAyMzYyZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiODBiOTdhM2I2ZmRhZGM3NWQ2MDJmZjdjNGZmNGFkOWE5ZGJmMDhiZWUyN2E0MWQxYjdhNTA1ZjViNmVkNmVkMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjA5MTAyYjEwZmFlMzkxNjM4N2VmMzI4MTNmNTc5ODdhYzc2ZGEyM2VlODdmNDQwODViMjcxODgzNGIxNmQyNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNWMyYjIwZWE2NDk5ODExZmVhZjAzNzI3ZTQ5Y2M1MzIwODk2YTY3YmFmYWI0OTgwMDQ0NTVlM2M1MDU2MmNkYSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_d1803f3b19f84a948152f4162bd566fa",
+      "statement": "Compression is set to 'normal' in the build configuration.",
+      "evidence": [
+        {
+          "resource": "repo://package.json#L30-L31",
+          "version": "repo-lines-v1:sha256:af8a1c53e4acd31ef01b766d61cdfe7ff3b8783bfc96688b6ea437a75b232ba8:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzYzZDUzNWNlMzgwNjNkNmI0YzUxZDhjMzg2YTdmOWIzZTU4MGExNGExMGMwN2IxOThkZmFmMTljOTNhM2JmZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZDczNjIzNzAwY2FjYzQ0ZjE0MGQyZTJkOTViYWQ4MjUyYWViNGQ4YWQyMzBlZWYyOWE0MDkxYmI3ZTAyMzYyZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMGU2YjhkYWRmNjE5MDhmNTJkODlhYTVmZDY0ZTViMmY1MjAxMTY3Y2Q3YWMxZDFiMzk2MWIwYzBlN2Q0Yzk3NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzg4N2RlNjZkZWI4ZTM5NWIyYmM3OWI3Y2JmNjljYjdhMjYwMjE1Njc4N2ZlM2M0YmMzYzlmNTlkZjhiYzQwMyJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.0",
+    "at": "2026-09-02T20:22:31.727Z"
+  }
+}

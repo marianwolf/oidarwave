@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:c2dac4f275ce7aeea22437b8da3f1023fec3695d6322f60ecae26b6b77dcfdaa",
+  "claims": [
+    {
+      "id": "claim_0d8e87a29fc04941b096ba6225a9e1ff",
+      "statement": "The test suite uses Playwright and pytest to validate the Oidarwave website functionality.",
+      "evidence": [
+        {
+          "resource": "repo://tests/test_website.py",
+          "version": "repo-file-v1:sha256:ee05ecde9349d518dddd0799433eeca2111530e57a85d430a5c9a66c47b4c5af"
+        }
+      ]
+    },
+    {
+      "id": "claim_c89de6c31fe543388abfdd2d08550a67",
+      "statement": "The TestPages class verifies that each page loads and contains the expected title (either \"Oidarwave\" or \"Impressum\").",
+      "evidence": [
+        {
+          "resource": "repo://tests/test_website.py#L78-L86",
+          "version": "repo-lines-v1:sha256:9f17d87c6da9d71576faa15606fee63bc3f6c0a5feb765df06fb9fbfa79df25d:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNTYwNmI4NjQ5ZjEzZTJlMDBlMzEzN2IwNWUxYTJiZGU1MzgwZWIyYzRkZDE1OGYwNmUwZjVlMWQyNjEzYzFjZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOWZhNjAwNGFiNGQzMTY5ZTNkN2E1NDE1Yzc5MTgxYzE2ZGI4ZThjNjc3NDIzOGZiMThiY2MxMzA2NDVkMWYzMiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjI2NWZlMjQzZmU1MDE1ZDE3MDIwYjg4NTc1NmQ2OGFmMTFhYjlmZjU1ODI5NGE5ZDQzMTJkMTI4MzYzOTEzMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTdlZjcwNGNhM2MyYmEyZjY5NmM2Yjk3YTdiYjYwNWVkZTQ2NTY5OTczNjk3MmU0MzQxN2FhM2IxMGY5NmNkNCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_df4c38961d4a46679dfa1b0c9741321e",
+      "statement": "The TestPageElements class checks for the presence of required elements on each page: index page (logo, navigation, station buttons), video page (video player and at least four station buttons), and impressum page (at least one visible heading).",
+      "evidence": [
+        {
+          "resource": "repo://tests/test_website.py#L89-L106",
+          "version": "repo-lines-v1:sha256:e1953f32d31c11083b9e63a9db5f51fac89a56f4b94f238d1bc20b1c79d10939:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU2MDZiODY0OWYxM2UyZTAwZTMxMzdiMDVlMWEyYmRlNTM4MGViMmM0ZGQxNThmMDZlMGY1ZTFkMjYxM2MxY2QiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM1ODcwNWVhM2E5NzlhZWFkMzc0MGFhNjU2Mzg5MmRiYTk5MmJmODI2ZTMwZWU5MGE5ZWYwZGQwYjY5YWJkMjAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU0NDIwMGE2OTA2NDM4YmM3NjkyNzUzZTlmZjg1MmVjY2U1YTQ5MDg3OWRjMDliMzE2OTgwNzJiODk5MzVlYTYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_9851f599aa1c4cecaf1216065041a1a3",
+      "statement": "The TestIndexSpecific class runs additional checks on the index page, including navigation (at least three links including \"Radio\" and \"Video\"), audio player (visibility and controls attribute of #audioPlayer), cookie banner (visibility of #cookieBanner and its accept/decline buttons), and status display (existence of #statusIndicator and #currentSongTitle).",
+      "evidence": [
+        {
+          "resource": "repo://tests/test_website.py#L128-L162",
+          "version": "repo-lines-v1:sha256:6a8e6d7e7529e613bcb12ac2d51c4fb6dce0d843726c49eba835e8ff39d5dd0e:eyJzZWxlY3RlZExpbmVDb3VudCI6MzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMxMmM1ZTNiNzhiOGQ0N2I2NmE5NmUzYmE5YzQ3YmQzZTJlOGZjODJiZTAwZmE3NTcwMjc0MTE5MjJjNGYxOWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg1ZmU4MjcwOTQyYWE1MjgzYWEzMzBhYTA0MzFkZmFlZmNlYjg5MGViZGE2ZjdlN2Y4MTFiMGQ5NmQyMmI0N2MiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY3YWE1ODc3ODJhOTQwNWNhYzhmMzA5NzFmZjhiZTM0ZWViYTQzMzdkMzBhZmYxYTFiOThlN2QzN2NhZDZhY2EiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.0",
+    "at": "2026-09-03T14:41:27.574Z"
+  }
+}

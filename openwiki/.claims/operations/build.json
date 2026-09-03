@@ -1,0 +1,128 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:405367a2208c015ffb9baaff248961e6f28550b8c07ad6b8216c134e33a66ec4",
+  "claims": [
+    {
+      "id": "claim_448ac43305ae420ea18214d9af215280",
+      "statement": "Oidarwave uses electron-builder to create distributable packages for macOS, Windows, and Linux.",
+      "evidence": [
+        {
+          "resource": "repo://package.json#L16-L121",
+          "version": "repo-lines-v1:sha256:840edb21fe5d8869f8743f4b3899294a0bb07b8dfda7945fa4c15c6180e9b4c2:eyJzZWxlY3RlZExpbmVDb3VudCI6MTA2LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI3YjA3MjAxYmRiNmJjMDU5MjA4NDk2MzY4MTg2MWE0ZmExNGFmZGE1OTFiNmQ1NjYxYjc0NThkOTIxZDVkMGViIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0ZDVjZDJmYjRmM2RmODg0NTE1MjU1YjM5NTIzZjJmOGI1NDcyYmVlYTlmNTY2ZmZjYTIwNGRiODAyNTYxMDQxIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJjNDdkNDRkNjhjMTMxODBjNmI4N2U2YjdmMTU2ZWQ2YjAzNWJkN2Y3Y2U3N2Y4YWM2ZWRmNDIyZjFlNjllZGI4IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiI1MzBhOTRiNTBmYzQ4NTgwMGFjZTU2NDZmOTI3NjlhNjBkNWQzNGJmNGEzNzM3MmQyOTFmYTY5OGVhZTk3MTI1In0"
+        },
+        {
+          "resource": "repo://package.json#L7-L13",
+          "version": "repo-lines-v1:sha256:9b10e96594e7cd88538741b51ae8fa3dc0174e0e92935c02328bc5e7171a2df3:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzQ4MzNkNTk0OWMwM2E0MGNhOTUyNDkxNjEwYTY2NTk2NDRiM2FhNDY2MzYyZjc5OTAyMGRiZjE5ODE1NDdkYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGQ1Y2QyZmI0ZjNkZjg4NDUxNTI1NWIzOTUyM2YyZjhiNTQ3MmJlZWE5ZjU2NmZmY2EyMDRkYjgwMjU2MTA0MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNmYyMmFlZTg5YTZjYmE3ZGZlN2FkMjEzODIyMWY0MWM3OWExMWZlOTkyMjM0NmY2YjhkMzc5N2ZkNTI1ZGFhNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiN2ZjY2ZhYzY3MzJiNjkxMTIyY2UzYzZhOTQwN2RlYWE4NTZlZDY4ZWY0YWNjZmU3ZmFhM2I5NThkZDQ0MDg2YSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_42ae68868c5d457c8d8be45bf713e8bd",
+      "statement": "The npm script `dist` builds packages for all three platforms (macOS, Windows, Linux).",
+      "evidence": [
+        {
+          "resource": "repo://package.json#L8-L8",
+          "version": "repo-lines-v1:sha256:fc4eed3fd0c89591bcdded55459cd6f4ba2912bd47f667c0019f54139350dba9:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZmM0ZWVkM2ZkMGM4OTU5MWJjZGRlZDU1NDU5Y2Q2ZjRiYTI5MTJiZDQ3ZjY2N2MwMDE5ZjU0MTM5MzUwZGJhOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZmM0ZWVkM2ZkMGM4OTU5MWJjZGRlZDU1NDU5Y2Q2ZjRiYTI5MTJiZDQ3ZjY2N2MwMDE5ZjU0MTM5MzUwZGJhOSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiY2NkMzhhY2EyNDQ2NDU2OTE4NzkwZDE2MjRlMjFjMTVkZWMyNDZjYmVkNzAyMTVmYTE4NmVjZjFkZTk3YTJjYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMmI2NTZkN2U3NDRjMWI4ZjIyM2RkZWI0MjFjMTBlZjJmZWVhM2RjNzUwNDhmNWE3NjY1Y2FiZGE3ZDNhNGFkNiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_f3d7ad823b3544b9ade717e742a81049",
+      "statement": "The npm script `dist:linux` builds Linux-specific packages only.",
+      "evidence": [
+        {
+          "resource": "repo://package.json#L9-L9",
+          "version": "repo-lines-v1:sha256:628b65b7199c2811f7c0f8dff5b0653672708f795563f2f36ce038e567034907:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjI4YjY1YjcxOTljMjgxMWY3YzBmOGRmZjViMDY1MzY3MjcwOGY3OTU1NjNmMmYzNmNlMDM4ZTU2NzAzNDkwNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNjI4YjY1YjcxOTljMjgxMWY3YzBmOGRmZjViMDY1MzY3MjcwOGY3OTU1NjNmMmYzNmNlMDM4ZTU2NzAzNDkwNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMWUwY2IwOWU2ZWVhNzc2ODAxNjU3ZDc3YTgzZTA4MmJmNmY0YTk5NDlmOWE3MzVjZjgyYzUxMGRiYTBlYWQ5ZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODY2ODI0YjRjNzczMWRmMmJhODZlZjJlMjczMmJhOGU4ZDlhOTk1YWFlNWE0ZjllZDgxOWUzZTk5OTlhMGZmMSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_279d34c293784ca38975a49fc51a09eb",
+      "statement": "The npm script `dist:win` builds Windows-specific packages only.",
+      "evidence": [
+        {
+          "resource": "repo://package.json#L10-L10",
+          "version": "repo-lines-v1:sha256:3a7d1e9377fbfa384a043a529f88c74e239a52b7f90a336164fd4f22cf30835a:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiM2E3ZDFlOTM3N2ZiZmEzODRhMDQzYTUyOWY4OGM3NGUyMzlhNTJiN2Y5MGEzMzYxNjRmZDRmMjJjZjMwODM1YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2E3ZDFlOTM3N2ZiZmEzODRhMDQzYTUyOWY4OGM3NGUyMzlhNTJiN2Y5MGEzMzYxNjRmZDRmMjJjZjMwODM1YSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODY1OWNhYjI5ZWNkYTI3ZWFkMGI3YThiNTE4ZjMxMTA0YWZhOGY5ZTkxMGEzOWNjZGIzYTNjMTU0NmVkODQ1NyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzE1ZDE4ZWE5YTVkZmU4MDNlMTE1NTJhOGI0MDM5ZTk2NGJhMGI5ZjVkZWQ4OWJmYzRmYjA4NGYxNzgwZTcyYSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_7fe66ab83fac477fa1d0c77b634282bf",
+      "statement": "The npm script `dist:mac` builds macOS-specific packages only.",
+      "evidence": [
+        {
+          "resource": "repo://package.json#L11-L11",
+          "version": "repo-lines-v1:sha256:0f5266968dfbdae64ce1a8260758f48f6de6914b132c2ed28f8d52e92cd1d0fd:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMGY1MjY2OTY4ZGZiZGFlNjRjZTFhODI2MDc1OGY0OGY2ZGU2OTE0YjEzMmMyZWQyOGY4ZDUyZTkyY2QxZDBmZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMGY1MjY2OTY4ZGZiZGFlNjRjZTFhODI2MDc1OGY0OGY2ZGU2OTE0YjEzMmMyZWQyOGY4ZDUyZTkyY2QxZDBmZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYmRhNzcyNzM2MTZmZDUxNWEwMTdlNmFlOTBkYzk1Zjk3OWVjMWQ5MjRkMjViMjIzYjkyMjlmNTA4ZWY0YWY2NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTU2MjgxNzY3NmE5NmVkZjc1NmZmODM2YTM1NjlkYzBmNTk4OGFmNjNkMWZhOTQ2NjE1OWFmOThjY2M4YmEwMiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_b12b514f7dfe48e8a393a8b5875f4258",
+      "statement": "The build configuration specifies the application identity (appId and productName) and output directory.",
+      "evidence": [
+        {
+          "resource": "repo://package.json#L16-L18",
+          "version": "repo-lines-v1:sha256:3777af45297560774ee2fe3575196737888fa43eb0759355f1dee57a5dd0dd47:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiN2IwNzIwMWJkYjZiYzA1OTIwODQ5NjM2ODE4NjFhNGZhMTRhZmRhNTkxYjZkNTY2MWI3NDU4ZDkyMWQ1ZDBlYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMGExMDAxMmJlNWIyZjE3YTM0MjVlOWFiYTNkYTMwMWM4NWE3ZGZmYmYyZDg2OTM3ZGQxYTAyZDQ0ZjVhMTlhYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzQ3ZDQ0ZDY4YzEzMTgwYzZiODdlNmI3ZjE1NmVkNmIwMzViZDdmN2NlNzdmOGFjNmVkZjQyMmYxZTY5ZWRiOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDZhZjU4MjViNzFhZWVhMDg5NWJlMDkxZGJkOGJkNTk5ODk5ZTgzY2Q3MzM0ODI1MjYxYWQzYzYxN2ZhMjRkYiJ9"
+        },
+        {
+          "resource": "repo://package.json#L19-L21",
+          "version": "repo-lines-v1:sha256:46af5825b71aeea0895be091dbd8bd599899e83cd7334825261ad3c617fa24db:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiM2Y2Y2RmZTY5ZjUwYTJjODAwNDUwOTViNTg2ZGE3N2Y0MzU0NGJiZmQwNTViZmRhN2YyMThmNDJkZThlODVjNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMWYwY2RiOTcyYTdiZmI3ZWQyNDZmOWZmNjcyMzg1ZTU1ZjQ5NjhmYzExMDQzZGM1YjY4NGQ1MWRmYTMxZGJjYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzc3N2FmNDUyOTc1NjA3NzRlZTJmZTM1NzUxOTY3Mzc4ODhmYTQzZWIwNzU5MzU1ZjFkZWU1N2E1ZGQwZGQ0NyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTZjZGE1YjcxYzFjNjkwODUyZDdjNDQzZWMwN2Y1MjZlYjQ1OTU3MWM1MTk1Y2NmZTI1MTFiNjkwNzYyZGM4ZSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_df1865f1513f424d98e01e079d3a74f4",
+      "statement": "The build configuration lists the files and directories to include in the package.",
+      "evidence": [
+        {
+          "resource": "repo://package.json#L19-L30",
+          "version": "repo-lines-v1:sha256:0bcbec522fe94059c0944494853bb646c7e3834f1a2e5ac1bdb1580432bfdb84:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNmNmNkZmU2OWY1MGEyYzgwMDQ1MDk1YjU4NmRhNzdmNDM1NDRiYmZkMDU1YmZkYTdmMjE4ZjQyZGU4ZTg1YzUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM2M2Q1MzVjZTM4MDYzZDZiNGM1MWQ4YzM4NmE3ZjliM2U1ODBhMTRhMTBjMDdiMTk4ZGZhZjE5YzkzYTNiZmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM3NzdhZjQ1Mjk3NTYwNzc0ZWUyZmUzNTc1MTk2NzM3ODg4ZmE0M2ViMDc1OTM1NWYxZGVlNTdhNWRkMGRkNDciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA1ZTQxODc2NWE3MDA0Y2E2MTI1NzVjMTRmNjVmOTI5MmZkMGFiYWVjOTI1OTFkOTRiYjEwOTliMDBhMzczOWIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_d6607276858646e0b8be17a97e2fb8ee",
+      "statement": "The build configuration enables ASAR archiving with normal compression.",
+      "evidence": [
+        {
+          "resource": "repo://package.json#L31-L32",
+          "version": "repo-lines-v1:sha256:9e9aaf4bd7ee1d245d384f844f1c1ae62bfcf197873855d1afb151b04f8a697f:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZDczNjIzNzAwY2FjYzQ0ZjE0MGQyZTJkOTViYWQ4MjUyYWViNGQ4YWQyMzBlZWYyOWE0MDkxYmI3ZTAyMzYyZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiODBiOTdhM2I2ZmRhZGM3NWQ2MDJmZjdjNGZmNGFkOWE5ZGJmMDhiZWUyN2E0MWQxYjdhNTA1ZjViNmVkNmVkMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjA5MTAyYjEwZmFlMzkxNjM4N2VmMzI4MTNmNTc5ODdhYzc2ZGEyM2VlODdmNDQwODViMjcxODgzNGIxNmQyNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNWMyYjIwZWE2NDk5ODExZmVhZjAzNzI3ZTQ5Y2M1MzIwODk2YTY3YmFmYWI0OTgwMDQ0NTVlM2M1MDU2MmNkYSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_52bae5b1efb8469c8b59d109536fec76",
+      "statement": "For Windows, the build produces both an NSIS installer and a ZIP archive for x64 and arm64 architectures, and the NSIS installer is configured to not be one-click, allow changing installation directory, and create desktop and start menu shortcuts.",
+      "evidence": [
+        {
+          "resource": "repo://package.json#L33-L58",
+          "version": "repo-lines-v1:sha256:4482f7c89552b481b935ac71f7de275fbd8120c716471bc12cf03857834c029b:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk3ZmZjNzk4NjFhNzc5ZjlkZjc4OWQ2Zjg5Y2QyZDQ3YjAxYjViMmU2NzI4ODQ2ZDQwODQ1ZDY0OWEzYzA1NzAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFmMGNkYjk3MmE3YmZiN2VkMjQ2ZjlmZjY3MjM4NWU1NWY0OTY4ZmMxMTA0M2RjNWI2ODRkNTFkZmEzMWRiY2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY0NjA4MTVlYTEzNmRhMzUyMDk0OTQ5MjA5NTk0NTc0YjgyOTVkYTQxYjlkOGNjYWNlNTdkZDBiNmFlMDY2Y2UiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUyMTRlYmE5NWUzNTFhZjI2Mjc3YmFkYmUxNDcyN2QzYjRlMjdkNGVmN2Y1ZjM1OWRjNjY4NDdmNTc0MTc3MWUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_ca3667f9a7424ccf96ef4f141cb69cea",
+      "statement": "For macOS, the build produces a ZIP archive, uses the specified icon, and assigns the public.app-category.audio category.",
+      "evidence": [
+        {
+          "resource": "repo://package.json#L59-L65",
+          "version": "repo-lines-v1:sha256:8a634210b5fd6fe0f3c829f1092a9f665b4b9dc62eada849d5f16f153a218c23:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDI0NzNkNTk3Y2UzMGNjMTFmZTMwYWRmOGM3MWVhN2UzNjRhNmI4OTI1NzI3Mzk3ZmZjZGNjZjc4ZjNmNWEzMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMWYwY2RiOTcyYTdiZmI3ZWQyNDZmOWZmNjcyMzg1ZTU1ZjQ5NjhmYzExMDQzZGM1YjY4NGQ1MWRmYTMxZGJjYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMWE1NjFlYTQ3MDQ1ZDMxYjIzY2FhNmM3MmUyNGQxNTU5ZTUxMzhhYWU4ZWZhYmNkMWE4ZDIwMzViOGRiYWM1ZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjc5M2JlOGMzZGUxOTczYzZkZDVkOTg0N2JkZTEwMzJjZGJkMzJkMzQ4ZmNlMjkwNDBmMTMwOTBhYjdhZjA3ZCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_2a649049002740db954fd6ec34cc0c36",
+      "statement": "For Linux, the build supports multiple package formats (AppImage, deb, tar.gz, rpm, freebsd, snap) for x64 and arm64 (snap x64-only), and sets the desktop name sync, category, and icon.",
+      "evidence": [
+        {
+          "resource": "repo://package.json#L73-L119",
+          "version": "repo-lines-v1:sha256:baf7efbf99833c8095e9b1ecc11aa1ac3bb1675224b3e1b5470cd489f55135ab:eyJzZWxlY3RlZExpbmVDb3VudCI6NDcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YWZlZjhmNDZlOTFmNDY3ZmYyNmE5MTdlMzk5NTViODIyOTMyMGVkNzQwM2Q0NDI5YThkYmE0YTg3YTZmY2IiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI0MjIzOWIxYmQ4MmI4NWVkNTBjMThhYmU2YjhlOTk3ODc1NWRhYzZmZDgwNDA5MjRjOGE4ODBjNTJmMDY1ZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ2MThjMGJkOGM1OGM2ZGNhZWMzMjhiYWQxMjc1Mzg4ZWI3ZTEyN2Y5Yjc2ZjliOGExYzkxNjc1MjQwNzY3ZjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI0MTMxNDgxYzA0YWVkNDgyYWNlZTg1YWUyNjFkZmFhM2Y0YTAyYWJiOTk2YWEzMWQ1ZDE0MDA1OTg4NzE5MDkifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.0",
+    "at": "2026-09-02T20:22:31.727Z"
+  }
+}

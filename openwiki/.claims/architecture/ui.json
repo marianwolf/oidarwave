@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:31ce939137287e1e28e494f138e6ca6da29f5042a5ee15251ba562657f27ffc9",
+  "claims": [
+    {
+      "id": "claim_12571d2427c943fb8dc23ce52e2fe45c",
+      "statement": "The Oidarwave user interface consists of two static HTML pages: radio at index.html and video at video/index.html.",
+      "evidence": [
+        {
+          "resource": "repo://index.html",
+          "version": "repo-file-v1:sha256:750d990e99f93441ca6fd3f33a5e7bb221baec5f2bb02aa7c85fe8bf93fe3995"
+        },
+        {
+          "resource": "repo://video/index.html",
+          "version": "repo-file-v1:sha256:6f2a2df29b5ed3f1aa913062ee168f4ada44e4baaf03239c9229c73cc5c6003f"
+        }
+      ]
+    },
+    {
+      "id": "claim_7b51f0a8adf94108b46cd17ce94533e6",
+      "statement": "Both radio and video interfaces use the glassmorphism design from src/css/style.css for header, station selector, player controls, and cookie banner, featuring blurred semi-transparent backgrounds with borders.",
+      "evidence": [
+        {
+          "resource": "repo://src/css/style.css#L77-L87",
+          "version": "repo-lines-v1:sha256:466293a5b0fbb91484c3d0ec2653f52587b88ab930df96154f887750f4af684a:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYwZmUwODZhOWJmNWI5ZGQ1MDAxNWZkM2M5OWY1NWI2MmJhZGQ1ZDQ2OWIwNDU0NzM0ZmE0MTYyNGZmOTc5OWUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ2NzY1ZTIzOWE0MWEyYjIxMDRkNzdlZTZhN2JkYzc0N2IwNTZjZjQ4NDJjMWI5MDkwNzQ2NmI2NjZiZTA3ZjMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg3ZjlhZGQ0MmUyYWRlNDU4YWFiMzFlY2U5YTVlNWJjZWFiMmUzMjNmNmFmYWI2NzFhNDc2ZTNjMzk0OTZlOTkifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_02fc5d378fec4e71bf1b9e80d94f9c4b",
+      "statement": "Radio station buttons in index.html store stream URLs in data-url attributes and metadata URLs (for song titles) in data-metadata-url attributes where available.",
+      "evidence": [
+        {
+          "resource": "repo://index.html#L54-L84",
+          "version": "repo-lines-v1:sha256:ec89abd3bfd9a6518b86acc7827bf3a22ce2fa2f30092eb13987eb6f8c257c32:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY4MDU1MzNlNWZjYWRiMTEzYTg5MzZmZTRkNDk3M2I3MzNlMGFmYThjNmUwMTI3M2NmMTk4Mzg2NzZmZjgwNmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMWQwNzYyM2Q1ODUyNDNiZDliNmZmMTIxOTdmOTk5MWVlY2MxN2FiNDBmYWQ5MmE4MjcwZWE2NWU4NjE5YTUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjdhMmRjYTk5MjRiYTM0ZDg0ZDNjM2M1ZmQ0NDYzYjk4ZDAzMGNjNTQ3YjgwZjg5YTA5MDVlNWY0MWVkY2JhYWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjljMjc2MmVmZTM4YWMwYTQ2YTA5ZjFmMjRjMzZkNjBjYjEzMTZlZGMyOGRhNTlkOWFjNWQ4ZmZmZGZmMjYwYWQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_f6650ba1509d484d95ee5aa05bc31d85",
+      "statement": "Video station buttons in video/index.html store HLS stream URLs in data-url attributes and include toggle buttons for data mode (#dataModeToggle) and captions (#captionToggle).",
+      "evidence": [
+        {
+          "resource": "repo://video/index.html#L57-L75",
+          "version": "repo-lines-v1:sha256:bdb24e7077d5cdb100a3f6de84e7fbc8c6537ddfa427ccaa48b531a56ae7f621:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc4YzQzYTZlYjA5YWIxMTMyOGU5ZmJkYzU2NmI1ODA3ODBjZGVlYjNhZWQ5M2YwOTk2NWIzYzYyM2Y2NWNlMGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc3YWMwNzBjNzliNzNlNGRiMmQ4MWNkZGFlNjVkY2UxMGUxMzViNDkwYzE0Yzk0ZmVjMmIwMjhmODIwZDJmY2YiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ4NDZiYmRkOTc0MTMwNjliZmI0YTI5OGM0ZDc4YTVhNjA2NWYwZmVkZTg3YjY4OGQ2YmViMzk0YTM5ODY0MzMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjExNDI4MTEwNmIzMTI5OTgyZmNjMDM2MmU2NWM0MWEyOTAxODRiZmU2OWMyMjJlYjg4M2Q1ZWIzMzlkNmMxNjcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_102106e721184020bb6d4912e319448a",
+      "statement": "The player logic in src/js/player.js dynamically detects audioPlayer or videoPlayer elements and configures event listeners, localStorage keys, and media session setup accordingly.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js#L51-L72",
+          "version": "repo-lines-v1:sha256:b41c76d6527ced2b9ca211e35519fbcbacf54b2ab4f1d42cecb964d7b7d98568:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdkYTI2YzNlMTRhNGM1YzRmNmYzNGYxMjMyMTQ4ZDMwOGE2Zjk3YThmMDJjZTM2NWIxMGJjNWQ0MTc3MmQ3N2YiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ1NGUzYWU2ZTM0NmRiZTc2N2IwNjZmYjhmMmEwMjUwYjIyMjY1ZTViMGE1ZTE5MzFjYTI3NDFkNWNjYjc1NDQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQwMTdiODBiZWZkZWU1NjliOGUyMzdkYjZkMGRiYjU3ZGE1YzAxNTBiOWE3ZmJhZDQyZjU0NTFmOWE5ODM3MjgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_1789c3b856324e0cb16350a8a1313ad6",
+      "statement": "The status indicator (#statusIndicator) is updated by the updateOverallStatus function to reflect playback state via CSS classes: online (playing), error (offline/media error), buffering (waiting), or paused.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js#L119-L132",
+          "version": "repo-lines-v1:sha256:f93efaeb1ea45a42702ca3a9103716247112aa719adcc066269bd0965a8920ae:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI2NzY3OTVkNWM5MTRiYTk1ZjlhNDI2ZDRhYTcwNmU5MjRlNGU5ZDcwYWExOThkMDQ0YmRhYjY1NzJhYmNhMTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE2OTkyZWM2YzNlZTQ2NjBmOTMzZGM3MmJmNTI1MWM0OWQwYWVlZTgyNzc3MTk4NzYyMzU5MTVmNDg5YjRhZWEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI0YzI2NmQyNTcxMmJlYjExNzRjNTE3OWU3YzRmOTg4ZDNlZTgwNDg1MzY4OWI1Y2M5NDI2ZjgxMTVhMGYyYTEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_ebd24f4c08434f7bbbb1f2d36d20ac8a",
+      "statement": "Player.js integrates with the Media Session API to provide lock screen controls (play/pause/stop) and sets metadata including station name, title, artist, and album art.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js#L6-L33",
+          "version": "repo-lines-v1:sha256:b0caa187b1a633b4de230fd45ef604420e4b176fb971a007d3957841b90fa1e5:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJjODBkODdkZDM3MzcyZWYxMWQ1YTI3ZmM0ZWZhMGM4YWRhMGM3MWUzNjUzNDZmMzJmODAyNGRlMjNhN2YwZDYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNhMWIwNDYxYTU4MzljOTg4MGY0MjA0ZTU5YjU1NmJjZmEyMWNjODNlOWViMmNhZmNiYTFlMmE0MGFiYTZmNGUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA5ZjBhYjUwYmRlM2Q3MjllNTI0NWQxMzIxYmNhNmE5YzUyMmQxZGI0YTIwMjlhOTY0NjI2OTBlNzYyMTA4M2UifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.0",
+    "at": "2026-09-02T20:22:31.727Z"
+  }
+}

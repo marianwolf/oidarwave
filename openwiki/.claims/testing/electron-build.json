@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:6c093ab533814edaf330c6ed91605c7df71e9318ba2a1cf0c4b928d1105466a8",
+  "claims": [
+    {
+      "id": "claim_5c77f80fc06349e48a59c1b8cc2e353b",
+      "statement": "The test suite verifies the existence of the Electron main file at `electron/main.js`.",
+      "evidence": [
+        {
+          "resource": "repo://tests/test_electron_build.py#L16-L20",
+          "version": "repo-lines-v1:sha256:0bb784ff2dddb4eaeda2b2a74efef8192364fd80d11b7e8db9cfbdc98f192bb7:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjEwMWZmODJkZjJlZTdiOGQxYzllZjE1OGNmNzhjN2U3MTU4YjZkOGVkYThmMGY5NTc2MmM4MjE5YmY0OGY4NiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTFlNDc3ODViMzAxNDg0ZWFjNmVmNTllMzVkMTVjYmQ1MzhiNGE4NWFmODE1NzdhOWFiZDViMWFhOWE0ZDk4NiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZWMzNmViZjUwOGE5MTA5YTkxZmI4NDJhMmE4ZDQ5ODk3ZDRjOGI5MDc2OTQ0MDljZGUzMjczNzg3MGNiYWE0NyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_ffa2adb80bb143099a25fc84b1a41a76",
+      "statement": "The test suite validates that `package.json` contains a valid Electron builder configuration with required fields (appId, productName, directories, files) and specific file patterns.",
+      "evidence": [
+        {
+          "resource": "repo://tests/test_electron_build.py#L22-L52",
+          "version": "repo-lines-v1:sha256:8eb6cb8fc04c45cd5f2f30f91d16efbad38146eaf4917b6c1b8ac27224fde67a:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZmNDgyOTVjYTFiNzNlYWYzMDExNzFjNjUyMTZkOWQ5YjczMDRmMTExZWU4OTNhMzEwZWFkMjZmNTljYzkzZTgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMzYzVmMTZlM2YyY2E3ZTIyOTg5NDYxN2U1MDRkMWRlOTVhNzIwZThhNzFmYzFmZjg4Njg4MTc4YmNiMmRhODQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJhOTk4YzVmZTMwNmEyNjkzMDFiYTg2NDM5ZGRlNGMxN2MyY2Y2NmY2ZTBhODI3NGNmOTIxMDA0M2NlZjc2ZDkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUxZTQ3Nzg1YjMwMTQ4NGVhYzZlZjU5ZTM1ZDE1Y2JkNTM4YjRhODVhZjgxNTc3YTlhYmQ1YjFhYTlhNGQ5ODYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_40523f11122f4c7a8f3b16d45e967e7c",
+      "statement": "The test suite ensures that `electron` and `electron-builder` are present in `package.json` devDependencies.",
+      "evidence": [
+        {
+          "resource": "repo://tests/test_electron_build.py#L55-L66",
+          "version": "repo-lines-v1:sha256:998f1729001bde5aec63b4f3bd34cc1329e6d0b9701b7ab39feda06776584024:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZmNDgyOTVjYTFiNzNlYWYzMDExNzFjNjUyMTZkOWQ5YjczMDRmMTExZWU4OTNhMzEwZWFkMjZmNTljYzkzZTgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg5YjI5OGY0YzhmNmM2OWU1MmNkZDQ2Zjg3MGI0ZTI4ZmVlYTRhMjBhYmMxY2EyNjZiZDExNGFiZTQ2OWI0M2MiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA0OTRjNDU0NzEyYjBjOTRlZTUwOGIxOGJmZjIxZGQ0OGFlMTA1NTUxMzhlNDMwZWM1ZWYyNDk0MTVhYWMyMmIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_47b8d9e649a74519a8ed498b72974893",
+      "statement": "The test suite can be executed as a standalone script to verify Electron build configuration.",
+      "evidence": [
+        {
+          "resource": "repo://tests/test_electron_build.py#L1-L13",
+          "version": "repo-lines-v1:sha256:8b648fb4cbe4a9e3ec5b6a06c40b9123002417374e28b50731155c6dec9df31f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEzMDNlY2RkNGE0ZDEwZjE5YzczZmQ0MmZkMTI0MzdmZDMzNTRhODI2ODE2MDVkYTUyNTVhOTdhMzkwNjhkYmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjkxYjQxMjk5NTA5MTE5MmQ3ZWQ0NTI1ZjNlZDVjMWE4ZDNlMWE4OWE0YWJhNTI0ZjY5Y2M3MjA1YmY5NzRmNzAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_78ef2128f6354fdeb7082fa0632a43ab",
+      "statement": "The test suite's purpose is to validate the Electron build configuration for Oidarwave.",
+      "evidence": [
+        {
+          "resource": "repo://tests/test_electron_build.py#L1-L3",
+          "version": "repo-lines-v1:sha256:a196c9994b85717af25d6951a40c903b248dd7b96923337e9a3917682b56bd77:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTMwM2VjZGQ0YTRkMTBmMTljNzNmZDQyZmQxMjQzN2ZkMzM1NGE4MjY4MTYwNWRhNTI1NWE5N2EzOTA2OGRiYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYTMwM2VjZGQ0YTRkMTBmMTljNzNmZDQyZmQxMjQzN2ZkMzM1NGE4MjY4MTYwNWRhNTI1NWE5N2EzOTA2OGRiYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTA2NTgwYTc4NjA5ZjY4ZmNmYmUwNjU4Y2JkN2MzZThjNzQyMzMxOTEwY2M3YjE4MWQ3YjUwNGZlNTBkYjY4NiJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.0",
+    "at": "2026-09-03T14:41:27.574Z"
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:c6fa0b970e8f4cfdca40f8fb974e498fee4c69511add8ae56304fb67fa71a46b",
+  "claims": [
+    {
+      "id": "claim_6a4117277c4345d18bd871c5d99a7fe5",
+      "statement": "Oidarwave can be run as a static web application by opening index.html directly in a browser without any build steps or dependencies.",
+      "evidence": [
+        {
+          "resource": "repo://README.md#L38-L45",
+          "version": "repo-lines-v1:sha256:9dd360aaaf714942f045245f05b7a7a8cdce8c7c552069f437ef357a3ab8a903:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNmU0YWI2NDJkYmQ3ZTRkYWUwYTdlM2MzNzA2ODM1OTA1ZmI1MWU2NjI1ZjI4ODc4ZGQwY2VlNGRiM2RmMDc2NyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjA0ZDNkMDFkMjVjNzMxM2VmNjFlNDNlMTEyNTNlM2JmODQzYmNjNGQzZDRkMGE2ZTgxMTU2OGI0NDYxMTY5YSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiY2QwNmNmMjlkNzc1MTQwMGE0Njg4OTJhOTRlMWQ2YWQ3ZWI2MWMxYTMyMmQ4OGI4MDUxODVlZjcwNzFmZTQ5NyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDlhNzNkNmEyMjZkMzEzYzk2NjMyOGNjYjE3ODk5NTRjZWM5ZTA5ODYyZmRjYTk5Mzc5Nzc5NTdhZWY4ZmY2NiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_c8ae05f8397f4545981ddbd80fec51fe",
+      "statement": "Oidarwave can be run as a desktop application via Electron by executing 'npm start' after installing dependencies.",
+      "evidence": [
+        {
+          "resource": "repo://package.json#L8-L8",
+          "version": "repo-lines-v1:sha256:fc4eed3fd0c89591bcdded55459cd6f4ba2912bd47f667c0019f54139350dba9:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZmM0ZWVkM2ZkMGM4OTU5MWJjZGRlZDU1NDU5Y2Q2ZjRiYTI5MTJiZDQ3ZjY2N2MwMDE5ZjU0MTM5MzUwZGJhOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZmM0ZWVkM2ZkMGM4OTU5MWJjZGRlZDU1NDU5Y2Q2ZjRiYTI5MTJiZDQ3ZjY2N2MwMDE5ZjU0MTM5MzUwZGJhOSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiY2NkMzhhY2EyNDQ2NDU2OTE4NzkwZDE2MjRlMjFjMTVkZWMyNDZjYmVkNzAyMTVmYTE4NmVjZjFkZTk3YTJjYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMmI2NTZkN2U3NDRjMWI4ZjIyM2RkZWI0MjFjMTBlZjJmZWVhM2RjNzUwNDhmNWE3NjY1Y2FiZGE3ZDNhNGFkNiJ9"
+        },
+        {
+          "resource": "repo://package.json#L9-L9",
+          "version": "repo-lines-v1:sha256:628b65b7199c2811f7c0f8dff5b0653672708f795563f2f36ce038e567034907:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjI4YjY1YjcxOTljMjgxMWY3YzBmOGRmZjViMDY1MzY3MjcwOGY3OTU1NjNmMmYzNmNlMDM4ZTU2NzAzNDkwNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNjI4YjY1YjcxOTljMjgxMWY3YzBmOGRmZjViMDY1MzY3MjcwOGY3OTU1NjNmMmYzNmNlMDM4ZTU2NzAzNDkwNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMWUwY2IwOWU2ZWVhNzc2ODAxNjU3ZDc3YTgzZTA4MmJmNmY0YTk5NDlmOWE3MzVjZjgyYzUxMGRiYTBlYWQ5ZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODY2ODI0YjRjNzczMWRmMmJhODZlZjJlMjczMmJhOGU4ZDlhOTk1YWFlNWE0ZjllZDgxOWUzZTk5OTlhMGZmMSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_1709d3637cae485984c243fbbb986b2a",
+      "statement": "The Electron main process is defined in electron/main.js and is responsible for window creation and application lifecycle.",
+      "evidence": [
+        {
+          "resource": "repo://electron/main.js#L1-L5",
+          "version": "repo-lines-v1:sha256:fd3fcf0c01277f84d40fdfccd4d57df62f041ecae911a08c95c91c39c27ab98b:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzNkYmIzYmI0MTBkNWY4NDVjYTA5MzEzNTk5Yjg4N2JmNzcxODQ1M2M4MDY2OGIzMTQwN2M1YmUzZGE0NTUyMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzE5MDMwY2E1MzU4NTUxNTcyODMzOTEzYWNkNGIzZTNiZGM0NDQ5NzVkMmYzMzY5ZWNhNWJmZGY3YWE5ZjFiMyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_125eb41bc48f4129b249268826ca6611",
+      "statement": "The project structure includes index.html as the primary entry point that loads CSS and JavaScript modules from src/, and package.json specifies which files are included in desktop builds.",
+      "evidence": [
+        {
+          "resource": "repo://index.html#L1-L37",
+          "version": "repo-lines-v1:sha256:231847f6bf0a0266a08656025e756f6fb6cc0eb38045cdbe32b04586f94c69ff:eyJzZWxlY3RlZExpbmVDb3VudCI6MzcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJhMzA0ZjE1MzQwZWViM2RiYTliNDFkOGFiODY2ZDhjZTlhNDdmNDNiYmNmYjYxOTQ5ZWE1MDFhM2M5ZjFhNTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhjMzBkM2FlMjVhM2U0ODA3OThlYTUyNTdmNmY3ODg5OTg4NTk1NjY0ZjEzNDBhYTlhNDc1YTAxMWJjYjI4NDYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE2MjVjYTcyM2RiY2Y4NjIxYzUwMWI5MTBlYjMxNTgyZWQ2MDFhY2U5NjJmYjViNDVkN2M3YjViNzM3MDlmODYifQ"
+        },
+        {
+          "resource": "repo://package.json#L22-L30",
+          "version": "repo-lines-v1:sha256:03f798e0d22535f09cd2db99c00016732a7bd0af416f493f3fed4a05c9b3b069:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjllYjJhMDAzZDIyNGRiMDU0NTE5ODIxZTg1NWUwN2Q1MmI5OTQ4OTA3MDBkZjNlYTk0ZTQ2MTlmMzgzOGZhMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYzYzZDUzNWNlMzgwNjNkNmI0YzUxZDhjMzg2YTdmOWIzZTU4MGExNGExMGMwN2IxOThkZmFmMTljOTNhM2JmZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDZhZjU4MjViNzFhZWVhMDg5NWJlMDkxZGJkOGJkNTk5ODk5ZTgzY2Q3MzM0ODI1MjYxYWQzYzYxN2ZhMjRkYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDVlNDE4NzY1YTcwMDRjYTYxMjU3NWMxNGY2NWY5MjkyZmQwYWJhZWM5MjU5MWQ5NGJiMTA5OWIwMGEzNzM5YiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_50199c693bbf4b6483f7162ef71d6b5f",
+      "statement": "Distribution packages for Windows, macOS, and Linux are built using electron-builder via npm scripts defined in package.json.",
+      "evidence": [
+        {
+          "resource": "repo://package.json#L16-L30",
+          "version": "repo-lines-v1:sha256:c61a2cc249fce7558ab9f85f7ff83e5035107231fbf88aafd61c9d796689dec7:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdiMDcyMDFiZGI2YmMwNTkyMDg0OTYzNjgxODYxYTRmYTE0YWZkYTU5MWI2ZDU2NjFiNzQ1OGQ5MjFkNWQwZWIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM2M2Q1MzVjZTM4MDYzZDZiNGM1MWQ4YzM4NmE3ZjliM2U1ODBhMTRhMTBjMDdiMTk4ZGZhZjE5YzkzYTNiZmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImM0N2Q0NGQ2OGMxMzE4MGM2Yjg3ZTZiN2YxNTZlZDZiMDM1YmQ3ZjdjZTc3ZjhhYzZlZGY0MjJmMWU2OWVkYjgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA1ZTQxODc2NWE3MDA0Y2E2MTI1NzVjMTRmNjVmOTI5MmZkMGFiYWVjOTI1OTFkOTRiYjEwOTliMDBhMzczOWIifQ"
+        },
+        {
+          "resource": "repo://package.json#L9-L12",
+          "version": "repo-lines-v1:sha256:1b8ac08788a22842d88ddc6e9399e79bd71c315cadc7679648f86e0a2b1995a0:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjI4YjY1YjcxOTljMjgxMWY3YzBmOGRmZjViMDY1MzY3MjcwOGY3OTU1NjNmMmYzNmNlMDM4ZTU2NzAzNDkwNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTMyNzdiOTQ3MjRkYTFjZmIyYTcwNTU3MmFmMmQ5NWNiMDkyNGZhN2IxMGM0MDc1NDA5Nzk2OWY2MDlkYTcwOCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMWUwY2IwOWU2ZWVhNzc2ODAxNjU3ZDc3YTgzZTA4MmJmNmY0YTk5NDlmOWE3MzVjZjgyYzUxMGRiYTBlYWQ5ZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzQ3ZDQ0ZDY4YzEzMTgwYzZiODdlNmI3ZjE1NmVkNmIwMzViZDdmN2NlNzdmOGFjNmVkZjQyMmYxZTY5ZWRiOCJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.0",
+    "at": "2026-09-03T14:41:27.574Z"
+  }
+}
