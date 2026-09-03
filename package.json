@@ -120,11 +120,8 @@
     }
   },
   "devDependencies": {
-    "electron": "^44.1.1",
-    "electron-builder": "^26.16.0"
-  },
-  "dependencies": {
-    "openwiki": "^0.5.0"
+    "electron": "^44.0.0",
+    "electron-builder": "^26.8.1"
   },
   "allowScripts": {
     "electron-winstaller": true,
