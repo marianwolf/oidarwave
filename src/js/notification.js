@@ -22,7 +22,7 @@ class NotificationManager {
             try {
                 this.notificationsEnabled = localStorage.getItem('notificationsEnabled') === 'true';
             } catch (e) {
-                console.warn('localStorage notificationsEnabled read failed:', e);
+                logStorageError(ErrorCode.STORAGE_READ, e, 'notificationsEnabled');
             }
             this.updateNotificationToggleUI();
             
@@ -55,7 +55,7 @@ class NotificationManager {
         try {
             localStorage.setItem('notificationsEnabled', this.notificationsEnabled.toString());
         } catch (e) {
-            console.warn('localStorage notificationsEnabled save failed:', e);
+            logStorageError(ErrorCode.STORAGE_WRITE, e, 'notificationsEnabled');
         }
     }
 

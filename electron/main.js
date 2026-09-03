@@ -2,6 +2,7 @@ const { app, BrowserWindow, protocol, shell, net } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const { fileURLToPath, pathToFileURL } = require('url');
+const { ErrorCode, logError, logWarn, logDebug } = require('../src/js/errors.js');
 
 // Directories that should never be scanned during page discovery
 let ignoredDirsPromise = null;
@@ -19,9 +20,10 @@ async function getIgnoredDirs(appDir) {
           .filter(line => line && !line.startsWith('#'));
         return new Set([...defaultIgnored, ...lines]);
       } catch (err) {
-        if (err.code !== 'ENOENT') {
-          console.warn('Error reading .npmignore:', err.message);
+        if (err.code === 'ENOENT') {
+          return new Set(defaultIgnored);
         }
+        logError(ErrorCode.NPMIGNORE_READ, err, { path: ignoreFilePath, code: err.code });
         return new Set(defaultIgnored);
       }
     })();
@@ -67,7 +69,7 @@ async function discoverPages(dir, basePath = '', appDir) {
       })
     );
   } catch (err) {
-    console.error('Error discovering pages:', err);
+    logError(ErrorCode.PAGE_DISCOVERY, err, { dir, basePath, appDir, pagesFound: pages.length });
   }
   return pages;
 }
@@ -160,7 +162,7 @@ async function createWindow() {
         }
       }
     } catch (err) {
-      console.error('Not a valid URL', err);
+      logWarn(ErrorCode.INVALID_NAVIGATION_URL, err, { url, page: location.pathname });
     }
     return false;
   }
@@ -248,15 +250,36 @@ app.whenReady().then(async () => {
 
       // Check that the resolved path is under the appDir to prevent directory traversal
       if (!isSafe) {
-        console.error('Path traversal attempt blocked:', request.url);
-        return new Response('Access Denied', { status: 403 });
+        logError(ErrorCode.PATH_TRAVERSAL, null, {
+          url: request.url,
+          resolvedPath,
+          appDir,
+          referer: request.headers.get('referer')
+        });
+        return new Response(JSON.stringify({ code: ErrorCode.PATH_TRAVERSAL, url: request.url }), {
+          status: 403,
+          headers: { 'Content-Type': 'application/json' }
+        });
       }
 
       const fileUrl = pathToFileURL(resolvedPath).toString();
       return net.fetch(fileUrl, { bypassCustomProtocolHandlers: true });
     } catch (err) {
-      console.error('Error handling file request:', err);
-      return new Response('Invalid Request', { status: 400 });
+      const errCode = err.code || 'UNKNOWN';
+      let status = 500;
+      let body = JSON.stringify({ code: ErrorCode.FILE_REQUEST, message: 'Internal error' });
+      if (errCode === 'ENOENT') {
+        status = 404;
+        body = JSON.stringify({ code: 'FILE_NOT_FOUND', message: 'Not Found' });
+      } else if (errCode === 'EACCES' || errCode === 'EPERM') {
+        status = 403;
+        body = JSON.stringify({ code: 'FILE_ACCESS_DENIED', message: 'Forbidden' });
+      }
+      logError(ErrorCode.FILE_REQUEST, err, { url: request.url, resolvedPath, fsCode: errCode, status });
+      return new Response(body, {
+        status,
+        headers: { 'Content-Type': 'application/json' }
+      });
     }
   });
 

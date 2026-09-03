@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const forwardButton = document.getElementById('forwardButton');
 
     if (!videoPlayer) {
-        console.warn('Video-Element nicht gefunden.');
+        logError(ErrorCode.PLAYER_INIT_NO_ELEMENT, null, { selector: '#videoPlayer', page: location.pathname });
         return;
     }
 
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     const getSetting = (key) => {
         try { return localStorage.getItem(key) === 'true'; }
-        catch (e) { return false; }
+        catch (e) { logStorageError(ErrorCode.STORAGE_READ, e, key); return false; }
     };
 
     let settingsCache = {
@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const saveSetting = (key, value, toggleElement) => {
         if (toggleElement) toggleElement.setAttribute('aria-pressed', String(value));
         try { localStorage.setItem(key, String(value)); }
-        catch (e) { console.warn('localStorage speichern fehlgeschlagen:', e); }
+        catch (e) { logStorageError(ErrorCode.STORAGE_WRITE, e, key); }
     };
     let statusMessageTimeout = null;
 
@@ -192,18 +192,35 @@ document.addEventListener('DOMContentLoaded', () => {
             const onManifestParsed = () => {
                 if (hlsPlayer !== playerInstance) return;
                 clearStatusMessage();
-                videoPlayer.play().catch(e => console.log('Autoplay failed:', e));
+                videoPlayer.play().catch(e => handlePlayError(e, 'manifest-parsed'));
                 updateQualityLevel();
                 settingsCache.captionsEnabled ? enableCaptions() : disableCaptions();
             };
             
             const onHlsError = (event, data) => {
                 if (hlsPlayer !== playerInstance) return;
-                console.error(`HLS.js Fehler: ${data.details}`, data);
-                
+
+                const mappedType = HlsErrorMap[data.type] || data.type;
+                const ctx = {
+                  type: data.type,
+                  mappedType,
+                  fatal: data.fatal,
+                  details: data.details,
+                  url: hlsPlayer?.url
+                };
+
                 if (data.response) {
-                    const httpStatus = data.response.code;
-                    console.error(`HTTP-Status: ${httpStatus}`);
+                  ctx.httpStatus = data.response.code;
+                  ctx.httpUrl = data.response.url;
+                }
+                if (data.error && data.error.code !== undefined) {
+                  ctx.systemErrorCode = data.error.code;
+                }
+
+                if (data.fatal) {
+                  logError(ErrorCode.HLS_FATAL, null, ctx);
+                } else {
+                  logError(ErrorCode[`HLS_${mappedType}`] || 'HLS_ERROR', null, ctx);
                 }
 
                 // Error Recovery für Netzwerk- und Medienfehler
@@ -212,7 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         case Hls.ErrorTypes.NETWORK_ERROR:
                             if (retryState.count < MAX_RETRIES) {
                                 const delay = RETRY_BASE_DELAY * Math.pow(2, retryState.count);
-                                console.warn(`Fataler Netzwerkfehler (Versuch ${retryState.count + 1}/${MAX_RETRIES}), nächster Versuch in ${delay}ms...`);
+                                logWarn('HLS_NETWORK_RETRY', null, { attempt: retryState.count + 1, max: MAX_RETRIES, delayMs: delay });
                                 retryState.timerId = setTimeout(() => {
                                     retryState.count++;
                                     if (hlsPlayer === playerInstance) {
@@ -220,7 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                     }
                                 }, delay);
                             } else {
-                                console.error(`Maximale Wiederholungsanzahl (${MAX_RETRIES}) erreicht. Netzwerkfehler können nicht behoben werden.`);
+                                logError(ErrorCode.HLS_NETWORK, null, { retries: MAX_RETRIES, url: hlsPlayer?.url });
                                 if (hlsPlayer) {
                                     hlsPlayer.destroy();
                                     hlsPlayer = null;
@@ -229,13 +246,13 @@ document.addEventListener('DOMContentLoaded', () => {
                             }
                             break;
                         case Hls.ErrorTypes.MEDIA_ERROR:
-                            console.warn("Fataler Medienfehler, versuche Wiederherstellung...");
+                            logWarn(ErrorCode.HLS_MEDIA, null, { action: 'recoverMediaError' });
                             if (hlsPlayer) {
                                 hlsPlayer.recoverMediaError();
                             }
                             break;
                         default:
-                            console.error("Nicht behebbarer Fehler, Player wird gestoppt.");
+                            logError(ErrorCode.HLS_FATAL, null, { details: data.details, type: data.type });
                             if (hlsPlayer) {
                                 hlsPlayer.destroy();
                                 hlsPlayer = null;
@@ -256,11 +273,11 @@ document.addEventListener('DOMContentLoaded', () => {
             videoPlayer.src = url;
             videoPlayer.addEventListener('loadedmetadata', () => {
                 clearStatusMessage();
-                videoPlayer.play().catch(e => console.log('Autoplay failed on native player:', e));
+                videoPlayer.play().catch(e => handlePlayError(e, 'native-player'));
                 settingsCache.captionsEnabled ? enableCaptions() : disableCaptions();
             }, { once: true });
         } else {
-            console.error('HLS is not supported by your browser.');
+            logError(ErrorCode.HLS_FATAL, null, { reason: 'HLS not supported by browser' });
             showStatusMessage('Ihr Browser unterstützt dieses Videoformat nicht.', 'error', 0);
         }
     };
@@ -301,7 +318,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Visibility change - mit passiven Optionen
         document.addEventListener('visibilitychange', () => {
             if (document.visibilityState === 'visible' && !videoPlayer.paused) {
-                videoPlayer.play().catch(e => console.log('Resume playback failed:', e));
+                videoPlayer.play().catch(e => handlePlayError(e, 'visibilitychange-resume'));
             }
         }, { passive: true });
         

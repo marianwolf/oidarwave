@@ -56,7 +56,7 @@ function initializePlayer() {
     const currentSongTitleDisplay = document.getElementById('currentSongTitle');
 
     if (!audioPlayer && !videoPlayer) {
-        console.error("Kein Player-Element gefunden (audioPlayer oder videoPlayer).");
+        logError(ErrorCode.PLAYER_INIT_NO_ELEMENT, null, { selectors: ['#audioPlayer', '#videoPlayer'], page: location.pathname });
         return;
     }
 
@@ -94,7 +94,13 @@ function initializePlayer() {
         },
         waiting: () => { isStalled = true; updateOverallStatus(); },
         error: (e) => {
-            console.error('Media Error:', e);
+            const mediaError = currentPlayer?.error;
+            logError(ErrorCode.PLAYER_MEDIA_ERROR, e, {
+              code: mediaError?.code,
+              message: mediaError?.message,
+              src: currentPlayer?.src,
+              page: location.pathname
+            });
             hasError = true;
             updateOverallStatus();
             StationHistory.stopStation(currentPlayer.src);
@@ -132,7 +138,7 @@ function initializePlayer() {
     }
 
     function playMedia() {
-        currentPlayer.play().catch(e => console.error("Autoplay Error:", e));
+        currentPlayer.play().catch(e => handlePlayError(e, 'audio-player'));
     }
 
     function selectStation(button) {
@@ -147,7 +153,7 @@ function initializePlayer() {
         try {
             localStorage.setItem(lastStationKey, url);
         } catch (e) {
-            console.warn('localStorage speichern fehlgeschlagen:', e);
+            logStorageError(ErrorCode.STORAGE_WRITE, e, lastStationKey);
         }
         
         if (metadataInterval) {
@@ -222,7 +228,18 @@ function initializePlayer() {
                 setupMediaSession(trackInfo.title, trackInfo.artist, stationName);
             })
             .catch(error => {
-                console.error('Fehler beim Abrufen der Metadaten:', error);
+                const errType = error?.name || 'UnknownError';
+                const errCtx = {
+                  metadataUrl,
+                  station: currentStationDisplay ? currentStationDisplay.textContent : '',
+                  type: errType
+                };
+                if (error?.message?.includes('JSON')) {
+                  errCtx.reason = 'invalid-json';
+                } else if (error?.message?.includes('NetworkError') || error?.message?.includes('Failed to fetch')) {
+                  errCtx.reason = 'network-error';
+                }
+                logError(ErrorCode.METADATA_FETCH, error, errCtx);
                 if (currentSongTitleDisplay) currentSongTitleDisplay.innerText = "Metadaten nicht verfügbar";
                 clearMediaSession();
             });
@@ -241,7 +258,7 @@ function initializePlayer() {
     try {
         lastStationUrl = localStorage.getItem(lastStationKey);
     } catch (e) {
-        console.warn('localStorage Zugriff fehlgeschlagen:', e);
+        logStorageError(ErrorCode.STORAGE_READ, e, lastStationKey);
     }
     const lastStationButton = lastStationUrl 
         ? document.querySelector(`.station-btn[data-url="${lastStationUrl}"]`) 
