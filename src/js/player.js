@@ -28,7 +28,7 @@ function initializePlayer() {
                     clearMediaSession();
                 });
             } catch (e) {
-                console.warn('MediaSession Einrichtung fehlgeschlagen:', e);
+                logWarn(ErrorCode.MEDIA_SESSION_SETUP, e, { page: location.pathname });
             }
         }
     };

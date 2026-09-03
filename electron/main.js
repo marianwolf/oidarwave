@@ -2,7 +2,8 @@ const { app, BrowserWindow, protocol, shell, net } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const { fileURLToPath, pathToFileURL } = require('url');
-const { ErrorCode, logError, logWarn, logDebug } = require('../src/js/errors.js');
+const { ErrorCode, logError, logWarn, logDebug, initMainProcessErrorHandlers } = require('../src/js/errors.js');
+initMainProcessErrorHandlers();
 
 // Directories that should never be scanned during page discovery
 let ignoredDirsPromise = null;
@@ -78,7 +79,8 @@ function matchesRoute(pathname, page) {
   let decodedPathname;
   try {
     decodedPathname = decodeURIComponent(pathname);
-  } catch {
+  } catch (err) {
+    logWarn(ErrorCode.PAGE_DISCOVERY, err, { pathname, reason: 'decodeURIComponent' });
     decodedPathname = pathname;
   }
   const normalizedPathname = decodedPathname.endsWith('/') ? decodedPathname.slice(0, -1) : decodedPathname;
@@ -162,7 +164,7 @@ async function createWindow() {
         }
       }
     } catch (err) {
-      logWarn(ErrorCode.INVALID_NAVIGATION_URL, err, { url, page: location.pathname });
+      logWarn(ErrorCode.INVALID_NAVIGATION_URL, err, { url });
     }
     return false;
   }

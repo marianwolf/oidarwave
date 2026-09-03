@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
         } catch (e) {
-            console.error('Download fehlgeschlagen:', e);
+            logError(ErrorCode.DOWNLOAD_HISTORY, e, { key: HISTORY_KEY });
         }
     }
 

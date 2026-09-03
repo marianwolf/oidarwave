@@ -61,7 +61,7 @@ const FavoriteManager = (() => {
                 preferences: migrated.preferences || {}
             };
         } catch (e) {
-            console.error('Fehler beim Laden der Favoriten:', e);
+            logError(ErrorCode.FAVORITE_LOAD, e, { source: 'loadFavorites' });
             return { version: 1, favorites: [], preferences: {} };
         }
     }
@@ -71,7 +71,7 @@ const FavoriteManager = (() => {
             try {
                 localStorage.setItem(FAVORITES_KEY, JSON.stringify(favoritesCache));
             } catch (e) {
-                console.error('Fehler beim Speichern der Favoriten:', e);
+                logError(ErrorCode.FAVORITE_SAVE, e, { source: 'saveFavorites' });
             }
         }
     }
@@ -80,7 +80,7 @@ const FavoriteManager = (() => {
         try {
             localStorage.setItem(FAVORITES_KEY, JSON.stringify(data));
         } catch (e) {
-            console.error('Fehler beim Speichern der Favoriten:', e);
+            logError(ErrorCode.FAVORITE_SAVE, e, { source: 'saveFavoritesDirect' });
         }
     }
 
@@ -139,7 +139,7 @@ const FavoriteManager = (() => {
                 lastUpdated: Date.now()
             };
         } catch (e) {
-            console.error("Fehler beim Laden der Präferenzen aus dem Verlauf:", e);
+            logError(ErrorCode.FAVORITE_LOAD, e, { source: 'loadPreferencesFromHistory' });
             return { ...defaultPreferences };
         }
     }
@@ -153,12 +153,12 @@ const FavoriteManager = (() => {
         }
         
         if (favoriteIdsSet.has(id)) {
-            console.warn("Favorit existiert bereits:", id);
+            logWarn(ErrorCode.FAVORITE_DUPLICATE_ID, null, { id });
             return false;
         }
         
         if (url && favoriteUrlsMap[url]) {
-            console.warn("Favorit existiert bereits (URL):", url);
+            logWarn(ErrorCode.FAVORITE_DUPLICATE_URL, null, { url });
             return false;
         }
         
@@ -178,7 +178,7 @@ const FavoriteManager = (() => {
         }
         
         if (index === -1) {
-            console.warn("Favorit nicht gefunden:", urlOrId);
+            logWarn(ErrorCode.FAVORITE_NOT_FOUND, null, { urlOrId });
             return false;
         }
         favoritesCache.favorites.splice(index, 1);

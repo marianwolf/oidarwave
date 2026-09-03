@@ -1,3 +1,40 @@
+const LOG_LEVELS = Object.freeze({ DEBUG: 0, INFO: 1, WARN: 2, ERROR: 3 });
+
+function getLogLevel() {
+  if (typeof window !== 'undefined' && window.LOG_LEVEL) {
+    const level = String(window.LOG_LEVEL).toUpperCase();
+    return LOG_LEVELS[level] !== undefined ? LOG_LEVELS[level] : LOG_LEVELS.WARN;
+  }
+  if (typeof localStorage !== 'undefined') {
+    const stored = localStorage.getItem('logLevel');
+    if (stored) {
+      const level = String(stored).toUpperCase();
+      return LOG_LEVELS[level] !== undefined ? LOG_LEVELS[level] : LOG_LEVELS.WARN;
+    }
+  }
+  return LOG_LEVELS.WARN;
+}
+
+const currentLogLevel = getLogLevel();
+
+function shouldLog(level) {
+  return level >= currentLogLevel;
+}
+
+function formatLogEntry(code, err, ctx, timestamp) {
+  const entry = {
+    timestamp: timestamp || new Date().toISOString(),
+    code: code || 'UNKNOWN',
+    message: err?.message || null,
+    name: err?.name || null,
+    ...ctx
+  };
+  if (err instanceof Error && err.stack) {
+    entry.stack = err.stack;
+  }
+  return entry;
+}
+
 const ErrorCode = Object.freeze({
   STORAGE_READ: 'STORAGE_READ_FAILED',
   STORAGE_WRITE: 'STORAGE_WRITE_FAILED',
@@ -6,6 +43,8 @@ const ErrorCode = Object.freeze({
   HLS_NETWORK: 'HLS_NETWORK_ERROR',
   HLS_MEDIA: 'HLS_MEDIA_ERROR',
   HLS_FATAL: 'HLS_FATAL_ERROR',
+  HLS_KEY_ERROR: 'HLS_KEY_ERROR',
+  HLS_MUX_ERROR: 'HLS_MUX_ERROR',
   PATH_TRAVERSAL: 'PATH_TRAVERSAL_BLOCKED',
   FILE_REQUEST: 'FILE_REQUEST_FAILED',
   NPMIGNORE_READ: 'NPMIGNORE_READ_FAILED',
@@ -13,40 +52,64 @@ const ErrorCode = Object.freeze({
   INVALID_NAVIGATION_URL: 'INVALID_NAVIGATION_URL',
   PLAYER_INIT_NO_ELEMENT: 'PLAYER_INIT_NO_ELEMENT',
   PLAYER_MEDIA_ERROR: 'PLAYER_MEDIA_ERROR',
+  FAVORITE_LOAD: 'FAVORITE_LOAD_FAILED',
+  FAVORITE_SAVE: 'FAVORITE_SAVE_FAILED',
   FAVORITE_DUPLICATE_ID: 'FAVORITE_DUPLICATE_ID',
   FAVORITE_DUPLICATE_URL: 'FAVORITE_DUPLICATE_URL',
   FAVORITE_NOT_FOUND: 'FAVORITE_NOT_FOUND',
+  MEDIA_SESSION_SETUP: 'MEDIA_SESSION_SETUP_FAILED',
+  DOWNLOAD_HISTORY: 'DOWNLOAD_HISTORY_FAILED',
+  UNHANDLED_ERROR: 'UNHANDLED_ERROR',
+  UNHANDLED_REJECTION: 'UNHANDLED_REJECTION',
 });
 
-const HlsErrorMap = Object.freeze({
-  [Hls.ErrorTypes.NETWORK_ERROR]: 'HLS_NETWORK',
-  [Hls.ErrorTypes.MEDIA_ERROR]: 'HLS_MEDIA',
-  [Hls.ErrorTypes.KEY_ERROR]: 'HLS_KEY_ERROR',
-  [Hls.ErrorTypes.MUX_ERROR]: 'HLS_MUX_ERROR',
-});
+const HlsErrorMap = Object.freeze(
+  typeof Hls !== 'undefined' && Hls.ErrorTypes ? {
+    [Hls.ErrorTypes.NETWORK_ERROR]: 'HLS_NETWORK',
+    [Hls.ErrorTypes.MEDIA_ERROR]: 'HLS_MEDIA',
+    [Hls.ErrorTypes.KEY_ERROR]: 'HLS_KEY_ERROR',
+    [Hls.ErrorTypes.MUX_ERROR]: 'HLS_MUX_ERROR',
+  } : {}
+);
 
 function logError(code, err, ctx = {}) {
+  if (!shouldLog(LOG_LEVELS.ERROR)) return;
+  const entry = formatLogEntry(code, err, ctx);
   if (!code || typeof code !== 'string') {
-    console.error('[UNKNOWN_ERROR]', { message: err?.message, name: err?.name, ...ctx });
+    console.error(entry);
     return;
   }
-  console.error(`[${code}]`, { message: err?.message, name: err?.name, ...ctx });
+  console.error(`[${code}]`, entry);
 }
 
 function logWarn(code, err, ctx = {}) {
+  if (!shouldLog(LOG_LEVELS.WARN)) return;
+  const entry = formatLogEntry(code, err, ctx);
   if (!code || typeof code !== 'string') {
-    console.warn('[UNKNOWN_WARN]', { message: err?.message, name: err?.name, ...ctx });
+    console.warn(entry);
     return;
   }
-  console.warn(`[${code}]`, { message: err?.message, name: err?.name, ...ctx });
+  console.warn(`[${code}]`, entry);
+}
+
+function logInfo(code, err, ctx = {}) {
+  if (!shouldLog(LOG_LEVELS.INFO)) return;
+  const entry = formatLogEntry(code, err, ctx);
+  if (!code || typeof code !== 'string') {
+    console.info(entry);
+    return;
+  }
+  console.info(`[${code}]`, entry);
 }
 
 function logDebug(code, err, ctx = {}) {
+  if (!shouldLog(LOG_LEVELS.DEBUG)) return;
+  const entry = formatLogEntry(code, err, ctx);
   if (!code || typeof code !== 'string') {
-    console.debug('[UNKNOWN_DEBUG]', { message: err?.message, name: err?.name, ...ctx });
+    console.debug(entry);
     return;
   }
-  console.debug(`[${code}]`, { message: err?.message, name: err?.name, ...ctx });
+  console.debug(`[${code}]`, entry);
 }
 
 function handlePlayError(e, context = '') {
@@ -72,13 +135,49 @@ function logStorageError(code, err, key = '') {
   logError(code, err, { key, type: errType });
 }
 
-window.ErrorCode = ErrorCode;
-window.HlsErrorMap = HlsErrorMap;
-window.logError = logError;
-window.logWarn = logWarn;
-window.logDebug = logDebug;
-window.handlePlayError = handlePlayError;
-window.logStorageError = logStorageError;
+function initGlobalErrorHandlers() {
+  if (typeof window === 'undefined') return;
+
+  window.onerror = (message, source, lineno, colno, error) => {
+    logError(ErrorCode.UNHANDLED_ERROR, error || new Error(message), {
+      source,
+      lineno,
+      colno,
+      message
+    });
+  };
+
+  window.addEventListener('unhandledrejection', (event) => {
+    const err = event.reason instanceof Error ? event.reason : new Error(String(event.reason));
+    logError(ErrorCode.UNHANDLED_REJECTION, err, {});
+  });
+}
+
+function initMainProcessErrorHandlers() {
+  if (typeof process === 'undefined') return;
+
+  process.on('unhandledRejection', (reason, promise) => {
+    const err = reason instanceof Error ? reason : new Error(String(reason));
+    logError(ErrorCode.UNHANDLED_REJECTION, err, {});
+  });
+
+  process.on('uncaughtException', (err) => {
+    logError(ErrorCode.UNHANDLED_ERROR, err, {});
+  });
+}
+
+if (typeof window !== 'undefined') {
+  window.ErrorCode = ErrorCode;
+  window.HlsErrorMap = HlsErrorMap;
+  window.logError = logError;
+  window.logWarn = logWarn;
+  window.logInfo = logInfo;
+  window.logDebug = logDebug;
+  window.handlePlayError = handlePlayError;
+  window.logStorageError = logStorageError;
+  window.initGlobalErrorHandlers = initGlobalErrorHandlers;
+  initGlobalErrorHandlers();
+}
 
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = {
@@ -86,8 +185,11 @@ if (typeof module !== 'undefined' && module.exports) {
     HlsErrorMap,
     logError,
     logWarn,
+    logInfo,
     logDebug,
     handlePlayError,
     logStorageError,
+    initGlobalErrorHandlers,
+    initMainProcessErrorHandlers,
   };
 }

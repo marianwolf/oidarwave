@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     videoPlayer?.pause();
                 });
             } catch (e) {
-                console.warn('MediaSession Einrichtung fehlgeschlagen:', e);
+                logWarn(ErrorCode.MEDIA_SESSION_SETUP, e, { page: location.pathname });
             }
         }
     };
@@ -324,11 +324,11 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Update Media Session when playback state changes
         videoPlayer.addEventListener('pause', () => {
-            console.log('Video: Paused - updating MediaSession');
+            logDebug(ErrorCode.MEDIA_SESSION_SETUP, null, { state: 'paused' });
         });
         
         videoPlayer.addEventListener('playing', () => {
-            console.log('Video: Playing - MediaSession active');
+            logDebug(ErrorCode.MEDIA_SESSION_SETUP, null, { state: 'playing' });
         });
         
         // Tastatur-Navigation
