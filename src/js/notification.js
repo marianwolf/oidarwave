@@ -61,15 +61,12 @@ class NotificationManager {
 
     updateNotificationToggleUI() {
         if (!this.notificationToggle) return;
-        if (this.notificationsEnabled) {
-            this.notificationToggle.classList.add('active');
-            this.notificationToggle.title = 'Benachrichtigungen deaktivieren';
-            this.notificationToggle.setAttribute('aria-label', 'Benachrichtigungen deaktivieren');
-        } else {
-            this.notificationToggle.classList.remove('active');
-            this.notificationToggle.title = 'Benachrichtigungen bei Titeländerung';
-            this.notificationToggle.setAttribute('aria-label', 'Benachrichtigungen aktivieren');
-        }
+        const enabled = this.notificationsEnabled;
+        const label = enabled ? 'Benachrichtigungen deaktivieren' : 'Benachrichtigungen aktivieren';
+        const title = enabled ? label : 'Benachrichtigungen bei Titeländerung';
+        this.notificationToggle.classList.toggle('active', enabled);
+        this.notificationToggle.title = title;
+        this.notificationToggle.setAttribute('aria-label', label);
     }
 
     sendNotification(title, stationName) {

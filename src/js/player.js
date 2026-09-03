@@ -1,35 +1,32 @@
 function initializePlayer() {
     // === KONSTANTEN ===
     const METADATA_REFRESH_INTERVAL = 3000;
+    const VOLUME_STEP = 0.1;
+    const VOLUME_PRECISION = 1;
+    const FAVICON_ARTWORK = [
+        { src: '/favicon/favicon.svg', sizes: '128x128', type: 'image/svg+xml' },
+        { src: '/favicon/favicon.svg', sizes: '256x256', type: 'image/svg+xml' },
+        { src: '/favicon/favicon.svg', sizes: '512x512', type: 'image/svg+xml' }
+    ];
 
     // === MEDIA SESSION API (Android/iOS Lock Screen & System Controls) ===
     const setupMediaSession = (title, artist, stationName) => {
-        if ('mediaSession' in navigator) {
-            try {
-                navigator.mediaSession.metadata = new MediaMetadata({
-                    title: title || stationName || 'Livestream',
-                    artist: artist || stationName || 'Oidarwave Radio',
-                    album: stationName || 'Oidarwave',
-                    artwork: [
-                        { src: '/favicon/favicon.svg', sizes: '128x128', type: 'image/svg+xml' },
-                        { src: '/favicon/favicon.svg', sizes: '256x256', type: 'image/svg+xml' },
-                        { src: '/favicon/favicon.svg', sizes: '512x512', type: 'image/svg+xml' }
-                    ]
-                });
-
-                navigator.mediaSession.setActionHandler('play', () => {
-                    playMedia();
-                });
-                navigator.mediaSession.setActionHandler('pause', () => {
-                    currentPlayer?.pause();
-                });
-                navigator.mediaSession.setActionHandler('stop', () => {
-                    currentPlayer?.pause();
-                    clearMediaSession();
-                });
-            } catch (e) {
-                logWarn(ErrorCode.MEDIA_SESSION_SETUP, e, { page: location.pathname });
-            }
+        if (!('mediaSession' in navigator)) return;
+        try {
+            navigator.mediaSession.metadata = new MediaMetadata({
+                title: title || stationName || 'Livestream',
+                artist: artist || stationName || 'Oidarwave Radio',
+                album: stationName || 'Oidarwave',
+                artwork: FAVICON_ARTWORK
+            });
+            navigator.mediaSession.setActionHandler('play', () => playMedia());
+            navigator.mediaSession.setActionHandler('pause', () => currentPlayer?.pause());
+            navigator.mediaSession.setActionHandler('stop', () => {
+                currentPlayer?.pause();
+                clearMediaSession();
+            });
+        } catch (e) {
+            logWarn(ErrorCode.MEDIA_SESSION_SETUP, e, { page: location.pathname });
         }
     };
 
@@ -38,8 +35,6 @@ function initializePlayer() {
             navigator.mediaSession.metadata = null;
         }
     };
-    const VOLUME_STEP = 0.1;
-    const VOLUME_PRECISION = 1;
 
     let hasError = false;
     let isStalled = false;
@@ -184,18 +179,18 @@ function initializePlayer() {
                 currentPlayer.paused ? playMedia() : currentPlayer.pause();
                 break;
             case 'ArrowUp':
-                if (isAudioPlayer) {
-                    e.preventDefault();
-                    currentPlayer.volume = parseFloat(Math.min(1, currentPlayer.volume + VOLUME_STEP).toFixed(VOLUME_PRECISION));
-                }
-                break;
             case 'ArrowDown':
                 if (isAudioPlayer) {
                     e.preventDefault();
-                    currentPlayer.volume = parseFloat(Math.max(0, currentPlayer.volume - VOLUME_STEP).toFixed(VOLUME_PRECISION));
+                    const direction = e.code === 'ArrowUp' ? 1 : -1;
+                    currentPlayer.volume = clampVolume(currentPlayer.volume + direction * VOLUME_STEP);
                 }
                 break;
         }
+    }
+
+    function clampVolume(value) {
+        return parseFloat(Math.max(0, Math.min(1, value)).toFixed(VOLUME_PRECISION));
     }
 
     function fetchMetadata(metadataUrl) {

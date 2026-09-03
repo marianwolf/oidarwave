@@ -4,31 +4,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const DATA_SAVE_MODE_KEY = 'dataSaveMode';
     const CAPTION_ENABLED_KEY = 'captionsEnabled';
     const CAPTION_TRACK_KINDS = ['subtitles', 'captions', 'metadata'];
+    const FAVICON_ARTWORK = [
+        { src: '/favicon/favicon.svg', sizes: '128x128', type: 'image/svg+xml' },
+        { src: '/favicon/favicon.svg', sizes: '256x256', type: 'image/svg+xml' },
+        { src: '/favicon/favicon.svg', sizes: '512x512', type: 'image/svg+xml' }
+    ];
 
     // === MEDIA SESSION API (Android/iOS Lock Screen & System Controls) ===
     const setupMediaSession = (stationName) => {
-        if ('mediaSession' in navigator) {
-            try {
-                navigator.mediaSession.metadata = new MediaMetadata({
-                    title: stationName || 'Livestream',
-                    artist: 'Livestream',
-                    album: 'Oidarwave Video',
-                    artwork: [
-                        { src: '/favicon/favicon.svg', sizes: '128x128', type: 'image/svg+xml' },
-                        { src: '/favicon/favicon.svg', sizes: '256x256', type: 'image/svg+xml' },
-                        { src: '/favicon/favicon.svg', sizes: '512x512', type: 'image/svg+xml' }
-                    ]
-                });
-
-                navigator.mediaSession.setActionHandler('play', () => {
-                    videoPlayer?.play();
-                });
-                navigator.mediaSession.setActionHandler('pause', () => {
-                    videoPlayer?.pause();
-                });
-            } catch (e) {
-                logWarn(ErrorCode.MEDIA_SESSION_SETUP, e, { page: location.pathname });
-            }
+        if (!('mediaSession' in navigator)) return;
+        try {
+            navigator.mediaSession.metadata = new MediaMetadata({
+                title: stationName || 'Livestream',
+                artist: 'Livestream',
+                album: 'Oidarwave Video',
+                artwork: FAVICON_ARTWORK
+            });
+            navigator.mediaSession.setActionHandler('play', () => videoPlayer?.play());
+            navigator.mediaSession.setActionHandler('pause', () => videoPlayer?.pause());
+        } catch (e) {
+            logWarn(ErrorCode.MEDIA_SESSION_SETUP, e, { page: location.pathname });
         }
     };
 
@@ -197,69 +192,70 @@ document.addEventListener('DOMContentLoaded', () => {
                 settingsCache.captionsEnabled ? enableCaptions() : disableCaptions();
             };
             
+            const buildHlsErrorContext = (data) => {
+                const ctx = {
+                    type: data.type,
+                    mappedType: HlsErrorMap[data.type] || data.type,
+                    fatal: data.fatal,
+                    details: data.details,
+                    url: hlsPlayer?.url
+                };
+                if (data.response) {
+                    ctx.httpStatus = data.response.code;
+                    ctx.httpUrl = data.response.url;
+                }
+                if (data.error && data.error.code !== undefined) {
+                    ctx.systemErrorCode = data.error.code;
+                }
+                return ctx;
+            };
+
+            const handleNetworkRetry = () => {
+                if (retryState.count >= MAX_RETRIES) {
+                    logError(ErrorCode.HLS_NETWORK, null, { retries: MAX_RETRIES, url: hlsPlayer?.url });
+                    hlsPlayer?.destroy();
+                    hlsPlayer = null;
+                    showStatusMessage(`Netzwerkfehler: Nach ${MAX_RETRIES} Versuchen keine Verbindung. Bitte Internetverbindung prüfen und Seite neu laden.`, 'error', 0);
+                    return;
+                }
+                const delay = RETRY_BASE_DELAY * Math.pow(2, retryState.count);
+                logWarn('HLS_NETWORK_RETRY', null, { attempt: retryState.count + 1, max: MAX_RETRIES, delayMs: delay });
+                retryState.timerId = setTimeout(() => {
+                    retryState.count++;
+                    if (hlsPlayer === playerInstance) {
+                        hlsPlayer.startLoad();
+                    }
+                }, delay);
+            };
+
+            const handleFatalHlsError = (data) => {
+                if (data.type === Hls.ErrorTypes.NETWORK_ERROR) {
+                    handleNetworkRetry();
+                    return;
+                }
+                if (data.type === Hls.ErrorTypes.MEDIA_ERROR) {
+                    logWarn(ErrorCode.HLS_MEDIA, null, { action: 'recoverMediaError' });
+                    hlsPlayer?.recoverMediaError();
+                    return;
+                }
+                logError(ErrorCode.HLS_FATAL, null, { details: data.details, type: data.type });
+                hlsPlayer?.destroy();
+                hlsPlayer = null;
+                showStatusMessage(`Schwerwiegender Fehler: ${data.details}. Bitte Seite neu laden.`, 'error', 0);
+            };
+
             const onHlsError = (event, data) => {
                 if (hlsPlayer !== playerInstance) return;
 
-                const mappedType = HlsErrorMap[data.type] || data.type;
-                const ctx = {
-                  type: data.type,
-                  mappedType,
-                  fatal: data.fatal,
-                  details: data.details,
-                  url: hlsPlayer?.url
-                };
+                const ctx = buildHlsErrorContext(data);
+                const code = data.fatal
+                    ? ErrorCode.HLS_FATAL
+                    : (ErrorCode[`HLS_${ctx.mappedType}`] || 'HLS_ERROR');
 
-                if (data.response) {
-                  ctx.httpStatus = data.response.code;
-                  ctx.httpUrl = data.response.url;
-                }
-                if (data.error && data.error.code !== undefined) {
-                  ctx.systemErrorCode = data.error.code;
-                }
+                logError(code, null, ctx);
 
                 if (data.fatal) {
-                  logError(ErrorCode.HLS_FATAL, null, ctx);
-                } else {
-                  logError(ErrorCode[`HLS_${mappedType}`] || 'HLS_ERROR', null, ctx);
-                }
-
-                // Error Recovery für Netzwerk- und Medienfehler
-                if (data.fatal) {
-                    switch (data.type) {
-                        case Hls.ErrorTypes.NETWORK_ERROR:
-                            if (retryState.count < MAX_RETRIES) {
-                                const delay = RETRY_BASE_DELAY * Math.pow(2, retryState.count);
-                                logWarn('HLS_NETWORK_RETRY', null, { attempt: retryState.count + 1, max: MAX_RETRIES, delayMs: delay });
-                                retryState.timerId = setTimeout(() => {
-                                    retryState.count++;
-                                    if (hlsPlayer === playerInstance) {
-                                        hlsPlayer.startLoad();
-                                    }
-                                }, delay);
-                            } else {
-                                logError(ErrorCode.HLS_NETWORK, null, { retries: MAX_RETRIES, url: hlsPlayer?.url });
-                                if (hlsPlayer) {
-                                    hlsPlayer.destroy();
-                                    hlsPlayer = null;
-                                }
-                                showStatusMessage(`Netzwerkfehler: Nach ${MAX_RETRIES} Versuchen keine Verbindung. Bitte Internetverbindung prüfen und Seite neu laden.`, 'error', 0);
-                            }
-                            break;
-                        case Hls.ErrorTypes.MEDIA_ERROR:
-                            logWarn(ErrorCode.HLS_MEDIA, null, { action: 'recoverMediaError' });
-                            if (hlsPlayer) {
-                                hlsPlayer.recoverMediaError();
-                            }
-                            break;
-                        default:
-                            logError(ErrorCode.HLS_FATAL, null, { details: data.details, type: data.type });
-                            if (hlsPlayer) {
-                                hlsPlayer.destroy();
-                                hlsPlayer = null;
-                            }
-                            showStatusMessage(`Schwerwiegender Fehler: ${data.details}. Bitte Seite neu laden.`, 'error', 0);
-                            break;
-                    }
+                    handleFatalHlsError(data);
                 }
                 // HLS.js handles non-fatal errors automatically; no manual recovery needed for bufferAppendError
             };

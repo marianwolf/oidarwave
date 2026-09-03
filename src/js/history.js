@@ -190,14 +190,15 @@ const StationHistory = (function() {
                 delete history.stations[id];
                 delete urlToIdMap[station.url];
                 hasChanged = true;
-            }
-        }
-
-        for (const [id, station] of Object.entries(history.stations)) {
-            for (const session of station.sessions) {
-                if (session.end === null && station.url !== mostRecentOpenStationUrl) {
-                    stopAndFinalizeSession(station, now);
-                    hasChanged = true;
+            } else {
+                // Finalize stale open sessions for any station other than the most recently opened one
+                if (station.url !== mostRecentOpenStationUrl) {
+                    for (const session of station.sessions) {
+                        if (session.end === null) {
+                            stopAndFinalizeSession(station, now);
+                            hasChanged = true;
+                        }
+                    }
                 }
             }
         }

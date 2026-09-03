@@ -2,8 +2,22 @@ const { app, BrowserWindow, protocol, shell, net } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const { fileURLToPath, pathToFileURL } = require('url');
-const { ErrorCode, logError, logWarn, logDebug, initMainProcessErrorHandlers } = require('../src/js/errors.js');
+const { ErrorCode, logError, logWarn, initMainProcessErrorHandlers } = require('../src/js/errors.js');
 initMainProcessErrorHandlers();
+
+const WINDOW_OPTIONS = {
+  width: 1200,
+  height: 800,
+  show: false, // Prevent the initial white flash
+  backgroundColor: '#0f172a', // Set to --color-bg-base for premium look and feel
+  webPreferences: {
+    nodeIntegration: false,
+    contextIsolation: true,
+    webSecurity: true,
+    sandbox: true // Explicitly enable process sandboxing for safety
+  },
+  icon: path.join(__dirname, '..', 'favicon/favicon.svg')
+};
 
 // Directories that should never be scanned during page discovery
 let ignoredDirsPromise = null;
@@ -32,12 +46,19 @@ async function getIgnoredDirs(appDir) {
   return ignoredDirsPromise;
 }
 
+function buildPageEntry(route, file) {
+  const pageRouteNorm = route.length > 1 && route.endsWith('/') ? route.slice(0, -1) : route;
+  const pageFileNorm = file.replace(/\\/g, '/');
+  const pageFileDir = pageFileNorm.replace(/\/index\.html$/, '');
+  return { route, file, pageRouteNorm, pageFileNorm, pageFileDir };
+}
+
 // Dynamically discover all available HTML subpages
 async function discoverPages(dir, basePath = '', appDir) {
   const pages = [];
   try {
     const items = await fs.promises.readdir(dir, { withFileTypes: true });
-    
+
     // Process items in parallel using Promise.all to optimize filesystem I/O
     await Promise.all(
       items.map(async (item) => {
@@ -55,17 +76,7 @@ async function discoverPages(dir, basePath = '', appDir) {
           const subPages = await discoverPages(resolvedPath, routePath, appDir);
           pages.push(...subPages);
         } else if (item.isFile() && item.name === 'index.html' && basePath) {
-          const route = '/' + basePath;
-          const pageRouteNorm = route.endsWith('/') ? route.slice(0, -1) : route;
-          const pageFileNorm = resolvedPath.replace(/\\/g, '/');
-          const pageFileDir = pageFileNorm.replace(/\/index\.html$/, '');
-          pages.push({
-            route,
-            file: resolvedPath,
-            pageRouteNorm,
-            pageFileNorm,
-            pageFileDir
-          });
+          pages.push(buildPageEntry('/' + basePath, resolvedPath));
         }
       })
     );
@@ -83,26 +94,19 @@ function matchesRoute(pathname, page) {
     logWarn(ErrorCode.PAGE_DISCOVERY, err, { pathname, reason: 'decodeURIComponent' });
     decodedPathname = pathname;
   }
-  const normalizedPathname = decodedPathname.endsWith('/') ? decodedPathname.slice(0, -1) : decodedPathname;
-  
-  // Exact match on route
-  if (normalizedPathname === page.pageRouteNorm || normalizedPathname === page.pageRouteNorm + '/index.html') {
-    return true;
-  }
-  
-  // Match on file path
-  const pathWithoutLeadingSlash = normalizedPathname.startsWith('/') ? normalizedPathname.slice(1) : normalizedPathname;
-  
-  if (
-    normalizedPathname === page.pageFileNorm || 
-    pathWithoutLeadingSlash === page.pageFileNorm ||
+  const normalizedPathname = decodedPathname.length > 1 && decodedPathname.endsWith('/')
+    ? decodedPathname.slice(0, -1)
+    : decodedPathname;
+  const pathnameNoSlash = normalizedPathname.startsWith('/') ? normalizedPathname.slice(1) : normalizedPathname;
+
+  return (
+    normalizedPathname === page.pageRouteNorm ||
+    normalizedPathname === page.pageRouteNorm + '/index.html' ||
+    normalizedPathname === page.pageFileNorm ||
+    pathnameNoSlash === page.pageFileNorm ||
     normalizedPathname === page.pageFileDir ||
-    pathWithoutLeadingSlash === page.pageFileDir
-  ) {
-    return true;
-  }
-  
-  return false;
+    pathnameNoSlash === page.pageFileDir
+  );
 }
 
 let availablePagesPromise = null;
@@ -112,13 +116,7 @@ function getAvailablePages(appDir) {
   if (!availablePagesPromise) {
     availablePagesPromise = (async () => {
       const pages = await discoverPages(appDir, '', appDir);
-      // Add root page
-      const route = '/';
-      const file = path.join(appDir, 'index.html');
-      const pageRouteNorm = route.endsWith('/') ? route.slice(0, -1) : route;
-      const pageFileNorm = file.replace(/\\/g, '/');
-      const pageFileDir = pageFileNorm.replace(/\/index\.html$/, '');
-      pages.unshift({ route, file, pageRouteNorm, pageFileNorm, pageFileDir });
+      pages.unshift(buildPageEntry('/', path.join(appDir, 'index.html')));
       return pages;
     })();
   }
@@ -129,19 +127,7 @@ async function createWindow() {
   const appDir = path.resolve(path.join(__dirname, '..'));
   const availablePages = await getAvailablePages(appDir);
 
-  const mainWindow = new BrowserWindow({
-    width: 1200,
-    height: 800,
-    show: false, // Prevent the initial white flash
-    backgroundColor: '#0f172a', // Set to --color-bg-base for premium look and feel
-    webPreferences: {
-      nodeIntegration: false,
-      contextIsolation: true,
-      webSecurity: true,
-      sandbox: true // Explicitly enable process sandboxing for safety
-    },
-    icon: path.join(__dirname, '..', 'favicon/favicon.svg')
-  });
+  const mainWindow = new BrowserWindow(WINDOW_OPTIONS);
 
   mainWindow.once('ready-to-show', () => {
     mainWindow.show();
@@ -154,8 +140,7 @@ async function createWindow() {
       targetUrl = 'file:///' + route;
     }
     try {
-      const parsedUrl = new URL(targetUrl);
-      const pathname = parsedUrl.pathname;
+      const pathname = new URL(targetUrl).pathname;
 
       for (const page of availablePages) {
         if (matchesRoute(pathname, page)) {
@@ -189,26 +174,10 @@ async function createWindow() {
       if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('mailto:')) {
         shell.openExternal(url);
       } else if (url.startsWith('file://') || url.startsWith('oidarwave://')) {
-        const newWin = new BrowserWindow({
-          width: 1200,
-          height: 800,
-          show: false,
-          backgroundColor: '#0f172a',
-          webPreferences: {
-            nodeIntegration: false,
-            contextIsolation: true,
-            webSecurity: true,
-            sandbox: true
-          },
-          icon: path.join(__dirname, '..', 'favicon/favicon.svg')
-        });
-        
-        newWin.once('ready-to-show', () => {
-          newWin.show();
-        });
-        
+        const newWin = new BrowserWindow(WINDOW_OPTIONS);
+        newWin.once('ready-to-show', () => newWin.show());
         setupWindow(newWin);
-        
+
         if (!tryLoadSubpage(newWin, url)) {
           newWin.loadFile(path.join(appDir, 'index.html'));
         }

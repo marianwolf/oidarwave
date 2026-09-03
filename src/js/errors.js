@@ -72,45 +72,22 @@ const HlsErrorMap = Object.freeze(
   } : {}
 );
 
-function logError(code, err, ctx = {}) {
-  if (!shouldLog(LOG_LEVELS.ERROR)) return;
-  const entry = formatLogEntry(code, err, ctx);
-  if (!code || typeof code !== 'string') {
-    console.error(entry);
-    return;
-  }
-  console.error(`[${code}]`, entry);
+function createLogger(method, level) {
+  return (code, err, ctx = {}) => {
+    if (!shouldLog(level)) return;
+    const entry = formatLogEntry(code, err, ctx);
+    if (!code || typeof code !== 'string') {
+      console[method](entry);
+    } else {
+      console[method](`[${code}]`, entry);
+    }
+  };
 }
 
-function logWarn(code, err, ctx = {}) {
-  if (!shouldLog(LOG_LEVELS.WARN)) return;
-  const entry = formatLogEntry(code, err, ctx);
-  if (!code || typeof code !== 'string') {
-    console.warn(entry);
-    return;
-  }
-  console.warn(`[${code}]`, entry);
-}
-
-function logInfo(code, err, ctx = {}) {
-  if (!shouldLog(LOG_LEVELS.INFO)) return;
-  const entry = formatLogEntry(code, err, ctx);
-  if (!code || typeof code !== 'string') {
-    console.info(entry);
-    return;
-  }
-  console.info(`[${code}]`, entry);
-}
-
-function logDebug(code, err, ctx = {}) {
-  if (!shouldLog(LOG_LEVELS.DEBUG)) return;
-  const entry = formatLogEntry(code, err, ctx);
-  if (!code || typeof code !== 'string') {
-    console.debug(entry);
-    return;
-  }
-  console.debug(`[${code}]`, entry);
-}
+const logError = createLogger('error', LOG_LEVELS.ERROR);
+const logWarn = createLogger('warn', LOG_LEVELS.WARN);
+const logInfo = createLogger('info', LOG_LEVELS.INFO);
+const logDebug = createLogger('debug', LOG_LEVELS.DEBUG);
 
 function handlePlayError(e, context = '') {
   const name = e?.name || e?.constructor?.name || 'UnknownError';
@@ -131,8 +108,7 @@ function getStorageErrorType(err) {
 }
 
 function logStorageError(code, err, key = '') {
-  const errType = getStorageErrorType(err);
-  logError(code, err, { key, type: errType });
+  logError(code, err, { key, type: getStorageErrorType(err) });
 }
 
 function initGlobalErrorHandlers() {
@@ -156,7 +132,7 @@ function initGlobalErrorHandlers() {
 function initMainProcessErrorHandlers() {
   if (typeof process === 'undefined') return;
 
-  process.on('unhandledRejection', (reason, promise) => {
+  process.on('unhandledRejection', (reason) => {
     const err = reason instanceof Error ? reason : new Error(String(reason));
     logError(ErrorCode.UNHANDLED_REJECTION, err, {});
   });
