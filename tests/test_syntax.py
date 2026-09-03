@@ -191,6 +191,7 @@ def all_contents() -> dict[str, dict[str, str]]:
     return contents
 
 
+@pytest.mark.unit
 @pytest.mark.parametrize('ext,name,checker', SYNTAX_CONFIGS, ids=['HTML', 'JavaScript', 'CSS', 'Markdown', 'JSON', 'Gitignore'])
 class TestFilesExist:
     """Test-Klasse: Prüft ob Dateien existieren."""
@@ -203,6 +204,7 @@ class TestFilesExist:
         assert len(files) > 0, f"Erwartet mindestens 1 {name}-Datei"
 
 
+@pytest.mark.unit
 @pytest.mark.parametrize('ext,name,checker', SYNTAX_CONFIGS, ids=['HTML', 'JavaScript', 'CSS', 'Markdown', 'JSON', 'Gitignore'])
 class TestSyntaxValidation:
     """Test-Klasse: Prüft Syntax validity aller Dateien."""
@@ -213,7 +215,8 @@ class TestSyntaxValidation:
         contents = all_contents.get(ext, {})
 
         errors = []
-        for path, content in contents.items():
+        for path in files:
+            content = contents.get(path, "")
             file_errors = checker(content)
             if file_errors:
                 errors.extend(f"{path}: {e}" for e in file_errors)
@@ -252,6 +255,7 @@ def _extract_media_block(css: str, max_width: int) -> str:
     return css[start:i - 1]
 
 
+@pytest.mark.unit
 class TestCSSResponsiveMobileStyles:
     """Tests für die neu hinzugefügten responsiven Styles in style.css."""
 

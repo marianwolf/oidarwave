@@ -1,9 +1,7 @@
 """
-Website- und Stream-Tests für Oidarwave.
-Benötigt: pip install pytest playwright && playwright install chromium
-Strukturierte und einheitliche Testorganisation mit Fixtures und parametrisierten Tests.
+Integration tests for Oidarwave website using Playwright.
+Requires: pip install pytest playwright && playwright install chromium
 """
-
 from pathlib import Path
 from typing import Generator
 
@@ -12,26 +10,6 @@ from playwright.sync_api import sync_playwright, Page, Browser
 
 
 BASE_DIR = str(Path(__file__).resolve().parent.parent)
-
-STREAMS: tuple[tuple[str, str], ...] = (
-    ("DLF", "https://st01.sslstream.dlf.de/dlf/01/128/mp3/stream.mp3"),
-    ("DLF Nova", "https://st03.sslstream.dlf.de/dlf/03/128/mp3/stream.mp3"),
-    ("NDR 1", "https://f121.rndfnk.com/ard/ndr/ndr1niedersachsen/hannover/mp3/128/stream.mp3"),
-    ("NDR 2", "https://f131.rndfnk.com/ard/ndr/ndr2/niedersachsen/mp3/128/stream.mp3"),
-    ("NDR Info", "https://f131.rndfnk.com/ard/ndr/ndrinfo/niedersachsen/mp3/128/stream.mp3"),
-    ("NDR Kultur", "https://d141.rndfnk.com/ard/ndr/ndrkultur/live/mp3/128/stream.mp3"),
-    ("N-JOY", "https://f121.rndfnk.com/ard/ndr/njoy/live/mp3/128/stream.mp3"),
-    ("80s80s", "https://regiocast.streamabc.net/regc-80s80smweb2517500-mp3-192-1672667"),
-    ("90s90s", "https://regiocast.streamabc.net/regc-90s90spop4760822-mp3-192-9403761"),
-    ("BBG", "https://radio.bbg-bew.de"),
-)
-
-VIDEO_STREAMS: tuple[tuple[str, str], ...] = (
-    ("Das Erste", "https://daserste-live.ard-mcdn.de/daserste/live/hls/de/master.m3u8"),
-    ("ZDF", "https://zdf-hls-15.akamaized.net/hls/live/2016498/de/veryhigh/master.m3u8"),
-    ("ARTE", "https://artesimulcast.akamaized.net/hls/live/2030993/artelive_de/index.m3u8"),
-    ("Tagesschau24", "https://tagesschau.akamaized.net/hls/live/2020115/tagesschau/tagesschau_1/master.m3u8"),
-)
 
 PAGES: tuple[tuple[str, str], ...] = (
     ("index", f"file://{BASE_DIR}/index.html"),
@@ -42,7 +20,6 @@ PAGES: tuple[tuple[str, str], ...] = (
 
 @pytest.fixture(scope="session")
 def browser() -> Generator[Browser, None, None]:
-    """Startet Browser für alle Tests (Session-scoped)."""
     with sync_playwright() as p:
         b = p.chromium.launch(headless=True)
         yield b
@@ -51,7 +28,6 @@ def browser() -> Generator[Browser, None, None]:
 
 @pytest.fixture
 def page(browser: Browser) -> Generator[Page, None, None]:
-    """Neue Seite für jeden Test."""
     p = browser.new_page()
     yield p
     p.close()
@@ -59,22 +35,10 @@ def page(browser: Browser) -> Generator[Page, None, None]:
 
 @pytest.fixture(scope="session")
 def pages() -> tuple[tuple[str, str], ...]:
-    """Alle Seiten-URLs."""
     return PAGES
 
 
-@pytest.fixture(scope="session")
-def audio_streams() -> tuple[tuple[str, str], ...]:
-    """Alle Audio-Stream-URLs."""
-    return STREAMS
-
-
-@pytest.fixture(scope="session")
-def video_streams() -> tuple[tuple[str, str], ...]:
-    """Alle Video-Stream-URLs."""
-    return VIDEO_STREAMS
-
-
+@pytest.mark.integration
 @pytest.mark.parametrize("name,url", PAGES, ids=[p[0] for p in PAGES])
 class TestPages:
     """Tests für alle Seiten."""
@@ -86,6 +50,7 @@ class TestPages:
         assert "Oidarwave" in title or "Impressum" in title
 
 
+@pytest.mark.integration
 @pytest.mark.parametrize("name,url", PAGES, ids=[p[0] for p in PAGES])
 class TestPageElements:
     """Tests für Seiten-Elemente (parametrisiert pro Seite)."""
@@ -103,26 +68,6 @@ class TestPageElements:
             assert page.locator(".station-btn").count() >= 4
         elif name == "impressum":
             assert page.locator("h1").first.is_visible()
-
-
-@pytest.mark.parametrize("name,url", STREAMS, ids=[s[0] for s in STREAMS])
-class TestAudioStreams:
-    """Tests für Audio-Stream-URLs."""
-    
-    def test_audio_stream_url_format(self, name: str, url: str):
-        """Audio-Stream-URLs haben das richtige Format."""
-        assert url.startswith(("http://", "https://"))
-        assert len(url) > 10
-
-
-@pytest.mark.parametrize("name,url", VIDEO_STREAMS, ids=[v[0] for v in VIDEO_STREAMS])
-class TestVideoStreams:
-    """Tests für Video-Stream-URLs."""
-    
-    def test_video_stream_url_format(self, name: str, url: str):
-        """Video-Stream-URLs haben das richtige Format."""
-        assert url.endswith(".m3u8")
-        assert url.startswith("https://")
 
 
 class TestIndexSpecific:
