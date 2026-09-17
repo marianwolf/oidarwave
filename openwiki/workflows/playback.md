@@ -2,9 +2,6 @@
 type: "Reference"
 title: "## Overview"
 openwiki_generated: true
-verified:
-  - by: openwiki/0.5.0
-    at: 2026-09-02T20:22:31.727Z
 sources:
   - id: openwiki-source-85af3a53f2cd35307c2af95c
     resource: repo://src/js/player.js

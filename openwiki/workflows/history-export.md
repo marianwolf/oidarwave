@@ -3,15 +3,13 @@ type: workflow
 title: History Export Workflow
 description: Exporting the station playback history as a JSON file via the download button or Ctrl+S keyboard shortcut.
 tags: [history, export, download, localStorage, workflow]
-verified:
-  - by: openwiki/0.5.0
-    at: 2026-09-02T20:22:31.727Z
 sources:
   - id: openwiki-source-859a83c9cf83489fefa6211b
     resource: repo://src/js/download_history.js
-  - id: openwiki-source-cd156ee2be7a00377eeb8dbd
-    resource: repo://src/js/history.js
 generated: { by: "openwiki/0.5.0", at: "2026-09-02T20:22:31.727Z" }
+verified:
+  - by: openwiki/0.5.1
+    at: 2026-09-17T12:53:45.685Z
 ---
 # History Export Workflow
 

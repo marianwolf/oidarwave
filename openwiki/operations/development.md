@@ -3,9 +3,6 @@ type: guide
 title: Development Setup
 description: How to run Oidarwave locally for development, either as a static web page or using Electron.
 tags: [development, electron, static, local]
-verified:
-  - by: openwiki/0.5.0
-    at: 2026-09-02T20:22:31.727Z
 sources:
   - id: openwiki-source-3d9e72730d09405d8d9107c1
     resource: repo://electron/main.js

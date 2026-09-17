@@ -3,9 +3,6 @@ type: concept
 title: LocalStorage Data Model
 description: Detailed specification of all keys, data structures, and storage mechanisms used in the application's localStorage implementation.
 tags: [localStorage, storage, data-model, persistence, schema]
-verified:
-  - by: openwiki/0.5.0
-    at: 2026-09-02T20:22:31.727Z
 sources:
   - id: openwiki-source-f5dd57353d17e5dc5ea58a83
     resource: repo://src/js/cookie.js

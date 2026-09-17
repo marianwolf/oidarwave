@@ -3,9 +3,6 @@ type: architecture
 title: Persistence Layer
 description: LocalStorage schema and usage for cookie consent, station history, favorites, preferences, data-save mode, and caption settings.
 tags: [localStorage, persistence, storage, cookie, history, favorites, preferences]
-verified:
-  - by: openwiki/0.5.0
-    at: 2026-09-02T20:22:31.727Z
 sources:
   - id: openwiki-source-f5dd57353d17e5dc5ea58a83
     resource: repo://src/js/cookie.js
