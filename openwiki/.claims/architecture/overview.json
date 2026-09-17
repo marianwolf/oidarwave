@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:e339252dc030993199c71be09ccf8b04dea7ace2aa161100bc0f2907b6a9abc3",
+  "pageVersion": "sha256:056dd14672a4460d6d9de93645c1aa6326667c393727742921203ae0706afaf6",
   "claims": [
     {
       "id": "claim_a694fece1fa145209619e3d74ffb1708",
@@ -8,13 +8,13 @@
       "evidence": [
         {
           "resource": "repo://electron/main.js",
-          "version": "repo-file-v1:sha256:51fed63ed476116308a1eaad5a17cdbaa2829804f679d7ac3f83285590621a7a"
+          "version": "repo-file-v1:sha256:4e964fb988e756b451862cf6925caedfeeb0bc2e5a50f3447eebefd11658ce0e"
         }
       ]
     }
   ],
   "verification": {
-    "by": "openwiki/0.5.0",
-    "at": "2026-09-03T14:41:27.574Z"
+    "by": "openwiki/0.5.1",
+    "at": "2026-09-17T12:53:45.685Z"
   }
 }

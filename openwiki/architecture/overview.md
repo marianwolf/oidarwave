@@ -8,8 +8,8 @@ sources:
     resource: repo://electron/main.js
 generated: { by: "openwiki/0.5.0", at: "2026-09-02T20:22:31.727Z" }
 verified:
-  - by: openwiki/0.5.0
-    at: 2026-09-03T14:41:27.574Z
+  - by: openwiki/0.5.1
+    at: 2026-09-17T12:53:45.685Z
 ---
 
 # System Architecture Overview

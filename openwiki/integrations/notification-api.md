@@ -1,15 +1,15 @@
 ---
-type: integration
-title: Notification API Integration
-description: Implementation of browser Notification API for now-playing track alerts in the Oidarwave web player.
-tags: [notification, browser-api, frontend, integration]
+type: notification-system
+title: Notification API
+description: Documents the notification system for displaying station updates and status messages to the user, including browser notifications on track changes, permission handling, and debounced delivery.
+tags: [notification, browser-api, frontend, station-updates]
 verified:
-  - by: openwiki/0.5.0
-    at: 2026-09-02T20:22:31.727Z
+  - by: openwiki/0.5.1
+    at: 2026-09-17T12:53:45.685Z
 sources:
   - id: openwiki-source-399a6a20fee1e90b61c555cb
     resource: repo://src/js/notification.js
-generated: { by: "openwiki/0.5.0", at: "2026-09-02T20:22:31.727Z" }
+generated: { by: "openwiki/0.5.1", at: "2026-09-17T12:53:45.685Z" }
 ---
 
 ## Overview

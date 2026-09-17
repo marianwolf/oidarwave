@@ -3,13 +3,13 @@ type: API Integration
 title: Media Session API for Lock Screen and System Controls
 description: Implementation of the Media Session API to enable media controls (play, pause, stop) and display metadata on device lock screens and system UIs for audio/video playback.
 tags: [media-session, lock-screen, system-controls, playback, web-apis]
-verified:
-  - by: openwiki/0.5.0
-    at: 2026-09-02T20:22:31.727Z
 sources:
   - id: openwiki-source-85af3a53f2cd35307c2af95c
     resource: repo://src/js/player.js
 generated: { by: "openwiki/0.5.0", at: "2026-09-02T20:22:31.727Z" }
+verified:
+  - by: openwiki/0.5.1
+    at: 2026-09-17T12:53:45.685Z
 ---
 
 # Media Session API
