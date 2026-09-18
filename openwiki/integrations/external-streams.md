@@ -4,8 +4,8 @@ title: External Streams Catalog
 description: Catalog of external radio and TV streams used by Oidarwave, including their stream URLs and metadata sources for track information.
 tags: [streams, radio, TV, metadata, integration]
 verified:
-  - by: openwiki/0.5.0
-    at: 2026-09-02T20:22:31.727Z
+  - by: openwiki/0.5.1
+    at: 2026-09-18T12:30:21.131Z
 sources:
   - id: openwiki-source-f8d10828394c4129061d5b0e
     resource: repo://index.html

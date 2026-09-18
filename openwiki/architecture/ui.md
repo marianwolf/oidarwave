@@ -20,7 +20,7 @@ sources:
     resource: repo://video/index.html
 verified:
   - by: openwiki/0.5.1
-    at: 2026-09-17T12:53:45.685Z
+    at: 2026-09-18T12:30:21.131Z
 generated: { by: "openwiki/0.5.1", at: "2026-09-17T12:53:45.685Z" }
 ---
 

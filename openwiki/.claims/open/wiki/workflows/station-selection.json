@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:74b625c62873a506f184fc4c7ab30b7f9027d604f6efc2e8069abfa05facee26",
+  "claims": [
+    {
+      "id": "claim_f4eb2b6c0fea4ebebdd7dda3b2cb3db7",
+      "statement": "The `selectStation` function updates the UI by marking the clicked station button as active and updating the current station display with the station name.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js#L138-L169",
+          "version": "repo-lines-v1:sha256:c341dc74b7565a1b810d26b8fb66282375f0803d734c9932d3b0ab89dfcc7aca:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY4ZWY1NGVhMjFjZDAyNmNkZGM4NzAxNmNlYzU2Yjg0ZTlkMDEyMTEwOWE3NzM1MDczYmM5NGMzMDc2MGYyNWQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjczNDA5ZTFmZmRmMWFiZmJkYzM3NjAyNzUzMDQ2NmMzZTgzNjIzN2FiMGJmY2U1ODU2NmFkZDUwZTRmOTYxMjgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFlMTJmMjYyYTFiYzA5OWQ4OGNhYmU4OWRjNzRlZWM0Yjc0MzE3YWUzNmI1MzFhOGE5YjA5MDc2ZDI2ZDZiNzIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c22a6381f0c24a5eaae2ca51222425dd",
+      "statement": "The `selectStation` function persists the selected station URL to `localStorage` under the key `lastStationAudioUrl` before updating the media element's source.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js#L138-L169",
+          "version": "repo-lines-v1:sha256:c341dc74b7565a1b810d26b8fb66282375f0803d734c9932d3b0ab89dfcc7aca:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY4ZWY1NGVhMjFjZDAyNmNkZGM4NzAxNmNlYzU2Yjg0ZTlkMDEyMTEwOWE3NzM1MDczYmM5NGMzMDc2MGYyNWQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjczNDA5ZTFmZmRmMWFiZmJkYzM3NjAyNzUzMDQ2NmMzZTgzNjIzN2FiMGJmY2U1ODU2NmFkZDUwZTRmOTYxMjgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFlMTJmMjYyYTFiYzA5OWQ4OGNhYmU4OWRjNzRlZWM0Yjc0MzE3YWUzNmI1MzFhOGE5YjA5MDc2ZDI2ZDZiNzIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_321fefe722ea40c9a000b580e4458929",
+      "statement": "When a station has a metadata URL available, `selectStation` initiates metadata fetching and sets up periodic polling at the `METADATA_REFRESH_INTERVAL` (3000 ms).",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js#L138-L169",
+          "version": "repo-lines-v1:sha256:c341dc74b7565a1b810d26b8fb66282375f0803d734c9932d3b0ab89dfcc7aca:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY4ZWY1NGVhMjFjZDAyNmNkZGM4NzAxNmNlYzU2Yjg0ZTlkMDEyMTEwOWE3NzM1MDczYmM5NGMzMDc2MGYyNWQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjczNDA5ZTFmZmRmMWFiZmJkYzM3NjAyNzUzMDQ2NmMzZTgzNjIzN2FiMGJmY2U1ODU2NmFkZDUwZTRmOTYxMjgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFlMTJmMjYyYTFiYzA5OWQ4OGNhYmU4OWRjNzRlZWM0Yjc0MzE3YWUzNmI1MzFhOGE5YjA5MDc2ZDI2ZDZiNzIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_e0ee6c7948644f8f8ebf9076a2985221",
+      "statement": "The `selectStation` function clears any existing metadata polling interval before starting a new one when switching stations, preventing overlapping intervals.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js#L138-L169",
+          "version": "repo-lines-v1:sha256:c341dc74b7565a1b810d26b8fb66282375f0803d734c9932d3b0ab89dfcc7aca:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY4ZWY1NGVhMjFjZDAyNmNkZGM4NzAxNmNlYzU2Yjg0ZTlkMDEyMTEwOWE3NzM1MDczYmM5NGMzMDc2MGYyNWQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjczNDA5ZTFmZmRmMWFiZmJkYzM3NjAyNzUzMDQ2NmMzZTgzNjIzN2FiMGJmY2U1ODU2NmFkZDUwZTRmOTYxMjgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFlMTJmMjYyYTFiYzA5OWQ4OGNhYmU4OWRjNzRlZWM0Yjc0MzE3YWUzNmI1MzFhOGE5YjA5MDc2ZDI2ZDZiNzIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_75f7ad771de94e94a58bec5a194a8dc6",
+      "statement": "After updating the UI and persisting the selection, `selectStation` sets the player's `src` attribute to the station URL and calls `load()` to begin loading the stream.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js#L138-L169",
+          "version": "repo-lines-v1:sha256:c341dc74b7565a1b810d26b8fb66282375f0803d734c9932d3b0ab89dfcc7aca:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY4ZWY1NGVhMjFjZDAyNmNkZGM4NzAxNmNlYzU2Yjg0ZTlkMDEyMTEwOWE3NzM1MDczYmM5NGMzMDc2MGYyNWQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjczNDA5ZTFmZmRmMWFiZmJkYzM3NjAyNzUzMDQ2NmMzZTgzNjIzN2FiMGJmY2U1ODU2NmFkZDUwZTRmOTYxMjgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFlMTJmMjYyYTFiYzA5OWQ4OGNhYmU4OWRjNzRlZWM0Yjc0MzE3YWUzNmI1MzFhOGE5YjA5MDc2ZDI2ZDZiNzIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_f7dba128cf69484287d44a5a367a86c0",
+      "statement": "The click listener attached during `initializePlayer` invokes `selectStation(button)` with the clicked button element as the argument when any station button is clicked.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js#L138-L169",
+          "version": "repo-lines-v1:sha256:c341dc74b7565a1b810d26b8fb66282375f0803d734c9932d3b0ab89dfcc7aca:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY4ZWY1NGVhMjFjZDAyNmNkZGM4NzAxNmNlYzU2Yjg0ZTlkMDEyMTEwOWE3NzM1MDczYmM5NGMzMDc2MGYyNWQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjczNDA5ZTFmZmRmMWFiZmJkYzM3NjAyNzUzMDQ2NmMzZTgzNjIzN2FiMGJmY2U1ODU2NmFkZDUwZTRmOTYxMjgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFlMTJmMjYyYTFiYzA5OWQ4OGNhYmU4OWRjNzRlZWM0Yjc0MzE3YWUzNmI1MzFhOGE5YjA5MDc2ZDI2ZDZiNzIifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.1",
+    "at": "2026-09-18T12:30:21.131Z"
+  }
+}

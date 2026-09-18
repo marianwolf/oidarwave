@@ -5,7 +5,7 @@ description: Oidarwave implements a privacy-first approach with GDPR compliance,
 tags: ["privacy", "data-protection", "gdpr", "localstorage", "consent"]
 verified:
   - by: openwiki/0.5.1
-    at: 2026-09-17T12:53:45.685Z
+    at: 2026-09-18T12:30:21.131Z
 sources:
   - id: openwiki-source-23775c3de52f3ab95a13cb8b
     resource: repo://README.md
