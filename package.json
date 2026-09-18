@@ -126,8 +126,6 @@
     "freebuff": "^0.0.177",
     "openwiki": "^0.5.0"
   },
-  "dependencies": {
-  },
   "allowScripts": {
     "electron-winstaller": true,
     "better-sqlite3": true

@@ -62,7 +62,8 @@ function enableVercelScripts() {
 
 function showCookieBanner() {
     const consent = getCookieConsent();
-    const show = consent !== 'true';
+    // Only show the banner when no decision has been made yet; declined users ('false') stay opted out.
+    const show = consent === null;
     if (cookieBanner) cookieBanner.style.display = show ? 'block' : 'none';
     if (consent === 'true') enableVercelScripts();
 }
