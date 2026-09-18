@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ main, master ]
 
+# Least privilege: Tests benötigen keinerlei Schreibrechte.
+permissions:
+  contents: read
+
 jobs:
   unit-tests:
     runs-on: ubuntu-latest

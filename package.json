@@ -13,6 +13,7 @@
   },
   "author": "Marian Wolf <marianwolf200@gmail.com> (http://oidarwave.vercel.com/)",
   "license": "MIT",
+  "private": true,
   "build": {
     "appId": "app.oidarwave.vercel",
     "productName": "Oidarwave",

@@ -255,8 +255,10 @@ function initializePlayer() {
     } catch (e) {
         logStorageError(ErrorCode.STORAGE_READ, e, lastStationKey);
     }
-    const lastStationButton = lastStationUrl 
-        ? document.querySelector(`.station-btn[data-url="${lastStationUrl}"]`) 
+    // Sauber: Attribut-Suche über alle Buttons statt Interpolation in einen
+    // Selektor (verhindert Selector-Injection aus localStorage-Werten).
+    const lastStationButton = lastStationUrl
+        ? Array.from(stationButtons).find(button => button.dataset.url === lastStationUrl) || null
         : null;
     
     if (lastStationButton) {

@@ -7,6 +7,26 @@ log.transports.file.level = 'debug';
 log.transports.file.format = '{y}-{m}-{d} {h}:{i}:{s}.{ms} {level}: {msg}';
 log.transports.console.level = 'debug';
 
+// Only ever open http(s) (and mailto) links in the external browser. Anything
+// else (file:, javascript:, custom schemes, ...) is refused to prevent
+// privileged code execution via shell.openExternal.
+function isSafeExternalUrl(rawUrl) {
+    try {
+        const parsed = new URL(rawUrl);
+        return parsed.protocol === 'https:' || parsed.protocol === 'http:' || parsed.protocol === 'mailto:';
+    } catch (e) {
+        return false;
+    }
+}
+
+function openExternal(rawUrl) {
+    if (!isSafeExternalUrl(rawUrl)) {
+        logWarn(ErrorCode.INVALID_NAVIGATION_URL, null, { url: rawUrl, reason: 'unsafe-external-url-blocked' });
+        return;
+    }
+    shell.openExternal(rawUrl);
+}
+
 const { ErrorCode, logError, logWarn, initMainProcessErrorHandlers } = require('../src/js/errors.js');
 initMainProcessErrorHandlers();
 
@@ -35,7 +55,7 @@ async function getIgnoredDirs(appDir) {
             try {
                 const content = await fs.promises.readFile(ignoreFilePath, 'utf8');
                 const lines = content
-                    .split('\\n')
+                    .split(/\r?\n/)
                     .map(line => line.trim().replace(/\/$/, ''))
                     .filter(line => line && !line.startsWith('#'));
                 return new Set([...defaultIgnored, ...lines]);
@@ -163,7 +183,7 @@ async function createWindow() {
         const handleNavigation = (event, url) => {
             if (url.startsWith('http://') || url.startsWith('https://')) {
                 event.preventDefault();
-                shell.openExternal(url);
+                openExternal(url);
             } else if (!url.startsWith('mailto:')) {
                 event.preventDefault();
                 if (!tryLoadSubpage(win, url)) {
@@ -172,12 +192,18 @@ async function createWindow() {
             }
         };
 
+        // Deny privileged web permissions by default; the app needs none of them.
+        win.webContents.session.setPermissionRequestHandler((webContents, permission, callback) => {
+            logWarn(ErrorCode.PAGE_DISCOVERY, null, { permission, reason: 'permission-request-denied' });
+            callback(false);
+        });
+
         win.webContents.on('will-navigate', handleNavigation);
         win.webContents.on('will-redirect', handleNavigation); // Prevent redirect bypasses
 
         win.webContents.setWindowOpenHandler(({ url }) => {
             if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('mailto:')) {
-                shell.openExternal(url);
+                openExternal(url);
             } else if (url.startsWith('file://') || url.startsWith('oidarwave://')) {
                 const newWin = new BrowserWindow(WINDOW_OPTIONS);
                 newWin.once('ready-to-show', () => newWin.show());
