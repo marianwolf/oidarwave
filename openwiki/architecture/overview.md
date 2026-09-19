@@ -9,7 +9,7 @@ sources:
 generated: { by: "openwiki/0.5.0", at: "2026-09-02T20:22:31.727Z" }
 verified:
   - by: openwiki/0.5.1
-    at: 2026-09-17T12:53:45.685Z
+    at: 2026-09-18T12:30:21.131Z
 ---
 
 # System Architecture Overview

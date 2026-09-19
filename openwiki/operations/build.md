@@ -4,8 +4,8 @@ title: Build Process
 description: Describes how to build distribution packages for Oidarwave using npm run dist and platform-specific scripts, powered by electron-builder.
 tags: [build, electron, packaging, distribution]
 verified:
-  - by: openwiki/0.5.0
-    at: 2026-09-02T20:22:31.727Z
+  - by: openwiki/0.5.1
+    at: 2026-09-18T12:30:21.131Z
 sources:
   - id: openwiki-source-5b54a58d1b51cd490b0e7162
     resource: repo://package.json

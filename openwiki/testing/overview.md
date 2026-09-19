@@ -9,9 +9,6 @@ sources:
   - id: openwiki-source-4636a46c1ad9ea46ccbd30e4
     resource: repo://tests/test_website.py
 generated: { by: "openwiki/0.5.0", at: "2026-09-03T14:41:27.574Z" }
-verified:
-  - by: openwiki/0.5.0
-    at: 2026-09-03T14:41:27.574Z
 ---
 
 # Testing Overview

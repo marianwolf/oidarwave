@@ -5,7 +5,7 @@ description: Documents the notification system for displaying station updates an
 tags: [notification, browser-api, frontend, station-updates]
 verified:
   - by: openwiki/0.5.1
-    at: 2026-09-17T12:53:45.685Z
+    at: 2026-09-18T12:30:21.131Z
 sources:
   - id: openwiki-source-399a6a20fee1e90b61c555cb
     resource: repo://src/js/notification.js
