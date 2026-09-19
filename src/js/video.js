@@ -4,34 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const DATA_SAVE_MODE_KEY = 'dataSaveMode';
     const CAPTION_ENABLED_KEY = 'captionsEnabled';
     const CAPTION_TRACK_KINDS = ['subtitles', 'captions', 'metadata'];
-    const FAVICON_ARTWORK = [
-        { src: '/favicon/favicon.svg', sizes: '128x128', type: 'image/svg+xml' },
-        { src: '/favicon/favicon.svg', sizes: '256x256', type: 'image/svg+xml' },
-        { src: '/favicon/favicon.svg', sizes: '512x512', type: 'image/svg+xml' }
-    ];
+    const MAX_RETRIES = 3;
+    const RETRY_BASE_DELAY = 1000; // 1 Sekunde Basis-Wartezeit
 
-    // === MEDIA SESSION API (Android/iOS Lock Screen & System Controls) ===
-    const setupMediaSession = (stationName) => {
-        if (!('mediaSession' in navigator)) return;
-        try {
-            navigator.mediaSession.metadata = new MediaMetadata({
-                title: stationName || 'Livestream',
-                artist: 'Livestream',
-                album: 'Oidarwave Video',
-                artwork: FAVICON_ARTWORK
-            });
-            navigator.mediaSession.setActionHandler('play', () => videoPlayer?.play());
-            navigator.mediaSession.setActionHandler('pause', () => videoPlayer?.pause());
-        } catch (e) {
-            logWarn(ErrorCode.MEDIA_SESSION_SETUP, e, { page: location.pathname });
-        }
-    };
-
-    const clearMediaSession = () => {
-        if ('mediaSession' in navigator && navigator.mediaSession?.metadata) {
-            navigator.mediaSession.metadata = null;
-        }
-    };
+    const { setupMediaSession, clearMediaSession, readBoolSetting, writeSetting } = window.PlayerCore;
 
     // === DOM-REFERENZEN CACHEN ===
     const dataModeToggle = document.getElementById('dataModeToggle');
@@ -58,24 +34,21 @@ document.addEventListener('DOMContentLoaded', () => {
         count: 0,
         timerId: null
     };
-    const getSetting = (key) => {
-        try { return localStorage.getItem(key) === 'true'; }
-        catch (e) { logStorageError(ErrorCode.STORAGE_READ, e, key); return false; }
-    };
 
     let settingsCache = {
-        dataSaveMode: getSetting(DATA_SAVE_MODE_KEY),
-        captionsEnabled: getSetting(CAPTION_ENABLED_KEY)
+        dataSaveMode: readBoolSetting(DATA_SAVE_MODE_KEY),
+        captionsEnabled: readBoolSetting(CAPTION_ENABLED_KEY)
     };
-    
+
+    // Speichert eine Einstellung und synchronisiert den zugehörigen Toggle-Button
     const saveSetting = (key, value, toggleElement) => {
         if (toggleElement) toggleElement.setAttribute('aria-pressed', String(value));
-        try { localStorage.setItem(key, String(value)); }
-        catch (e) { logStorageError(ErrorCode.STORAGE_WRITE, e, key); }
+        writeSetting(key, value);
     };
+
     let statusMessageTimeout = null;
 
-    // Show non-blocking status message in the status indicator
+    // Zeigt eine nicht-blockierende Statusmeldung im Status-Indicator
     const showStatusMessage = (message, type = 'error', duration = 5000) => {
         if (statusMessageTimeout) {
             clearTimeout(statusMessageTimeout);
@@ -98,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
             statusMessageTimeout = null;
         }
         statusIndicator.textContent = '';
-        statusIndicator.classList.remove('text', 'error', 'online', 'buffering', 'paused');
+        PlayerCore.setStatusClass(statusIndicator, null);
     };
 
     // Automatisch alle neuen Tracks deaktivieren
@@ -109,8 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // === HELPER FUNCTIONS ===
-    
-    // Optimiert: for...of statt rückwärts-Iteration
+
     const disableAllTextTracks = () => {
         if (hlsPlayer) hlsPlayer.subtitleDisplay = false;
         for (const track of videoPlayer.textTracks) {
@@ -118,7 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Optimiert: Optional chaining und konsistenter Rückgabewert
     const findCaptionTrack = () => {
         return Array.from(videoPlayer.textTracks)
             .find(track => CAPTION_TRACK_KINDS.includes(track?.kind)) ?? null;
@@ -130,33 +101,27 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // === CAPTION MANAGEMENT ===
-    
-    const disableCaptions = () => {
-        if (hlsPlayer) hlsPlayer.subtitleDisplay = false;
-        disableAllTextTracks();
-    };
 
-    const enableCaptions = () => {
-        if (hlsPlayer) hlsPlayer.subtitleDisplay = true;
+    // Wendet die aktuelle Untertitel-Einstellung an (statt enable/disable doppelt zu pflegen)
+    const applyCaptions = () => {
+        if (hlsPlayer) hlsPlayer.subtitleDisplay = settingsCache.captionsEnabled;
         const track = findCaptionTrack();
-        if (track) track.mode = 'showing';
+        if (track) track.mode = settingsCache.captionsEnabled ? 'showing' : 'disabled';
+        else if (settingsCache.captionsEnabled) disableAllTextTracks();
     };
 
     const toggleCaptions = () => {
         settingsCache.captionsEnabled = !settingsCache.captionsEnabled;
         saveSetting(CAPTION_ENABLED_KEY, settingsCache.captionsEnabled, captionToggle);
-        settingsCache.captionsEnabled ? enableCaptions() : disableCaptions();
+        applyCaptions();
     };
 
     const initializeCaptions = () => {
         captionToggle.setAttribute('aria-pressed', String(settingsCache.captionsEnabled));
-        settingsCache.captionsEnabled ? enableCaptions() : disableCaptions();
+        applyCaptions();
     };
 
     // === HLS PLAYER SETUP ===
-
-    const MAX_RETRIES = 3;
-    const RETRY_BASE_DELAY = 1000; // 1 Sekunde Basis-Wartezeit
 
     const setupHlsPlayer = (url) => {
         // Cleanup vorheriger Player
@@ -171,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         retryState.count = 0;
         disableAllTextTracks();
-        
+
         if (window.Hls?.isSupported()) {
             // HLS.js uses XHR which requires CORS
             videoPlayer.setAttribute('crossorigin', 'anonymous');
@@ -183,15 +148,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const playerInstance = hlsPlayer;
             hlsPlayer.loadSource(url);
             hlsPlayer.attachMedia(videoPlayer);
-            
+
             const onManifestParsed = () => {
                 if (hlsPlayer !== playerInstance) return;
                 clearStatusMessage();
                 videoPlayer.play().catch(e => handlePlayError(e, 'manifest-parsed'));
                 updateQualityLevel();
-                settingsCache.captionsEnabled ? enableCaptions() : disableCaptions();
+                applyCaptions();
             };
-            
+
             const buildHlsErrorContext = (data) => {
                 const ctx = {
                     type: data.type,
@@ -259,10 +224,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 // HLS.js handles non-fatal errors automatically; no manual recovery needed for bufferAppendError
             };
-            
+
             hlsPlayer.on(Hls.Events.MANIFEST_PARSED, onManifestParsed);
             hlsPlayer.on(Hls.Events.ERROR, onHlsError);
-            
+
         } else if(videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
             // Native Safari HLS: Remove crossorigin to avoid CORS enforcement for streams without headers
             videoPlayer.removeAttribute('crossorigin');
@@ -270,70 +235,80 @@ document.addEventListener('DOMContentLoaded', () => {
             videoPlayer.addEventListener('loadedmetadata', () => {
                 clearStatusMessage();
                 videoPlayer.play().catch(e => handlePlayError(e, 'native-player'));
-                settingsCache.captionsEnabled ? enableCaptions() : disableCaptions();
+                applyCaptions();
             }, { once: true });
         } else {
             logError(ErrorCode.HLS_FATAL, null, { reason: 'HLS not supported by browser' });
             showStatusMessage('Ihr Browser unterstützt dieses Videoformat nicht.', 'error', 0);
         }
     };
-    
+
     // === SEEK FUNCTIONALITY ===
-    
+
     const seek = (seconds) => {
         const { currentTime, duration } = videoPlayer;
         videoPlayer.currentTime = Math.max(0, Math.min(duration || Infinity, currentTime + seconds));
     };
 
     // === DATA SAVE MODE ===
-    
+
     const toggleDataSaveMode = () => {
         settingsCache.dataSaveMode = !settingsCache.dataSaveMode;
         saveSetting(DATA_SAVE_MODE_KEY, settingsCache.dataSaveMode, dataModeToggle);
         updateQualityLevel();
     };
 
+    // === STATION SELECTION (dedupliziert gegenüber player.js über gemeinsames Setup) ===
+
+    const selectStation = (button) => {
+        clearStatusMessage();
+        currentStationDisplay.textContent = button.dataset.name;
+        setupHlsPlayer(button.dataset.url);
+        setupMediaSession({
+            title: button.dataset.name,
+            artist: 'Livestream',
+            album: 'Oidarwave Video',
+            media: videoPlayer,
+            onStop: clearMediaSession
+        });
+    };
+
     // === EVENT LISTENERS ===
-    
+
     const initializeEventListeners = () => {
         // Station buttons - Event Delegation für bessere Performance
         stationButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                clearStatusMessage();
-                currentStationDisplay.textContent = button.dataset.name;
-                setupHlsPlayer(button.dataset.url);
-                setupMediaSession(button.dataset.name);
-            }, { passive: true });
+            button.addEventListener('click', () => selectStation(button), { passive: true });
         });
-        
+
         dataModeToggle.addEventListener('click', toggleDataSaveMode, { passive: true });
         captionToggle.addEventListener('click', toggleCaptions, { passive: true });
         if (rewindButton) rewindButton.addEventListener('click', () => seek(-SEEK_TIME), { passive: true });
         if (forwardButton) forwardButton.addEventListener('click', () => seek(SEEK_TIME), { passive: true });
-        
+
         // Visibility change - mit passiven Optionen
         document.addEventListener('visibilitychange', () => {
             if (document.visibilityState === 'visible' && !videoPlayer.paused) {
                 videoPlayer.play().catch(e => handlePlayError(e, 'visibilitychange-resume'));
             }
         }, { passive: true });
-        
+
         // Update Media Session when playback state changes
         videoPlayer.addEventListener('pause', () => {
             logDebug(ErrorCode.MEDIA_SESSION_SETUP, null, { state: 'paused' });
         });
-        
+
         videoPlayer.addEventListener('playing', () => {
             logDebug(ErrorCode.MEDIA_SESSION_SETUP, null, { state: 'playing' });
         });
-        
+
         // Tastatur-Navigation
         document.addEventListener('keydown', (event) => {
             const activeElement = document.activeElement;
             const isInputFocused = activeElement?.tagName === 'INPUT' || activeElement?.tagName === 'TEXTAREA';
-            
+
             if (isInputFocused) return;
-            
+
             switch (event.key) {
                 case 'ArrowLeft':
                     event.preventDefault();
@@ -348,16 +323,14 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // === INITIALIZATION ===
-    
+
     const initializePlayer = () => {
         dataModeToggle.setAttribute('aria-pressed', String(settingsCache.dataSaveMode));
         initializeCaptions();
-        
+
         const firstStationButton = stationButtons[0];
         if (firstStationButton) {
-            currentStationDisplay.textContent = firstStationButton.dataset.name;
-            setupHlsPlayer(firstStationButton.dataset.url);
-            setupMediaSession(firstStationButton.dataset.name);
+            selectStation(firstStationButton);
         }
     };
 
