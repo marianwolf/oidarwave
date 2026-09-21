@@ -26,5 +26,5 @@
 
 ### 15. **Auto-Reconnect bei Verbindungsabbruch (Radio)**
 Der Videoplayer hat bereits Retry-Logik mit exponentiellem Backoff (hls.js) – der Audioplayer startet bei Streamabbrüchen nicht neu.
-- [ ] Exponentielles Backoff (z. B. 1s/2s/4s, max. 3 Versuche) für Audio-Streams
-- [ ] Automatische Wiederaufnahme nach Netzwerkrückkehr (`online`-Event, Listener existiert schon)
+- [x] Exponentielles Backoff (z. B. 1s/2s/4s, max. 3 Versuche) für Audio-Streams
+- [x] Automatische Wiederaufnahme nach Netzwerkrückkehr (`online`-Event, Listener existiert schon)
