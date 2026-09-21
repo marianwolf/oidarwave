@@ -4,12 +4,17 @@ function initializePlayer() {
     const VOLUME_STEP = 0.1;
     const VOLUME_PRECISION = 1;
     const AUDIO_STORAGE_KEY = 'lastStationAudioUrl';
+    const MAX_RETRIES = 3;
+    const RETRY_BASE_DELAY = 1000;
 
     const { setupMediaSession, clearMediaSession, readSetting, writeSetting } = window.PlayerCore;
 
     let hasError = false;
     let isStalled = false;
     let metadataInterval = null;
+    let wasPlayingBeforeError = false;
+    let isAutoRetry = false;
+    let retryState = { count: 0, timerId: null };
     const currentPlayer = document.getElementById('audioPlayer');
     const stationButtons = document.querySelectorAll('.station-btn');
     const currentStationDisplay = document.getElementById('currentStation');
@@ -36,16 +41,26 @@ function initializePlayer() {
             if (currentPlayer.paused) playMedia();
             isStalled = false;
             hasError = false;
+            isAutoRetry = false;
+            clearAudioRetry();
             updateOverallStatus();
         },
         playing: () => {
             isStalled = false;
             hasError = false;
+            wasPlayingBeforeError = true;
+            isAutoRetry = false;
+            clearAudioRetry();
             updateOverallStatus();
             StationHistory.startStation(currentPlayer.src);
             updateMediaSession('', '');
         },
         pause: () => {
+            // Nur User-Pause bricht Retry ab (kein Fehlerzustand).
+            if (!hasError && !currentPlayer.error) {
+                wasPlayingBeforeError = false;
+                clearAudioRetry();
+            }
             updateOverallStatus();
             StationHistory.stopStation(currentPlayer.src);
         },
@@ -59,8 +74,12 @@ function initializePlayer() {
               page: location.pathname
             });
             hasError = true;
+            // Neuer User-Versuch (kein Auto-Retry) startet eine frische Sequenz.
+            if (!isAutoRetry) clearAudioRetry();
+            isAutoRetry = false;
             updateOverallStatus();
             StationHistory.stopStation(currentPlayer.src);
+            scheduleAudioRetry();
         }
     };
 
@@ -73,8 +92,27 @@ function initializePlayer() {
     });
 
     window.addEventListener('offline', () => {
+        // Pending Retry pausieren, Count behalten für Resume bei 'online'.
+        if (retryState.timerId) {
+            clearTimeout(retryState.timerId);
+            retryState.timerId = null;
+        }
         updateOverallStatus();
         StationHistory.stopStation(currentPlayer.src);
+    });
+
+    window.addEventListener('online', () => {
+        if (hasError && wasPlayingBeforeError && currentPlayer.src) {
+            // Ein sofortiger Retry bei Netzrückkehr (zählt als ein Versuch).
+            if (retryState.count >= MAX_RETRIES) retryState.count = MAX_RETRIES - 1;
+            if (retryState.timerId) {
+                clearTimeout(retryState.timerId);
+                retryState.timerId = null;
+            }
+            retryAudio();
+        } else {
+            updateOverallStatus();
+        }
     });
 
     document.addEventListener('keydown', handleKeyDown);
@@ -84,15 +122,69 @@ function initializePlayer() {
         if (!navigator.onLine || hasError) status = 'error';
         else if (currentPlayer.paused) status = 'paused';
         else if (isStalled) status = 'buffering';
+        // Retry-Text nicht überschreiben, nur Klasse setzen.
+        if (!retryState.timerId && statusIndicator && statusIndicator.classList.contains('text')) {
+            statusIndicator.textContent = '';
+        }
         PlayerCore.setStatusClass(statusIndicator, status);
     }
 
+    function clearAudioRetry() {
+        if (retryState.timerId) {
+            clearTimeout(retryState.timerId);
+            retryState.timerId = null;
+        }
+        retryState.count = 0;
+        isAutoRetry = false;
+        if (statusIndicator && statusIndicator.classList.contains('text')) {
+            statusIndicator.textContent = '';
+        }
+    }
+
+    function scheduleAudioRetry() {
+        if (!wasPlayingBeforeError) return;
+        if (!navigator.onLine) return;
+        if (retryState.count >= MAX_RETRIES) {
+            logError(ErrorCode.AUDIO_RECONNECT_FAILED, null, { retries: MAX_RETRIES, src: currentPlayer?.src });
+            if (statusIndicator) {
+                statusIndicator.textContent = 'Verbindung verloren – erneut versuchen';
+                statusIndicator.classList.add('text', 'error');
+            }
+            return;
+        }
+        const delay = RETRY_BASE_DELAY * Math.pow(2, retryState.count);
+        logWarn(ErrorCode.AUDIO_RECONNECT_RETRY, null, { attempt: retryState.count + 1, max: MAX_RETRIES, delayMs: delay, src: currentPlayer?.src });
+        if (statusIndicator) {
+            statusIndicator.textContent = `Versuch ${retryState.count + 1}/${MAX_RETRIES} in ${delay / 1000}s…`;
+            PlayerCore.setStatusClass(statusIndicator, 'buffering');
+            statusIndicator.classList.add('text');
+        }
+        retryState.timerId = setTimeout(() => {
+            retryState.timerId = null;
+            retryState.count++;
+            retryAudio();
+        }, delay);
+    }
+
+    function retryAudio() {
+        if (!currentPlayer.src) return;
+        hasError = false;
+        isAutoRetry = true;
+        updateOverallStatus();
+        currentPlayer.load();
+        playMedia();
+    }
+
     function playMedia() {
+        wasPlayingBeforeError = true;
         currentPlayer.play().catch(e => handlePlayError(e, 'audio-player'));
     }
 
     function selectStation(button) {
         if (!button) return;
+
+        clearAudioRetry();
+        wasPlayingBeforeError = true;
 
         stationButtons.forEach(btn => btn.classList.remove('active'));
         button.classList.add('active');
