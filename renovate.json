@@ -7,8 +7,14 @@
   ],
   "labels": ["dependencies"],
   "timezone": "Europe/Berlin",
-  "schedule": ["at any time"], 
+  "schedule": ["at any time"],
   "dependencyDashboard": true,
+  "platformAutomerge": true,
+  "semanticCommits": "enabled",
+  "semanticCommitType": "chore",
+  "semanticCommitScope": "deps",
+  "minimumReleaseAge": "2 days",
+  "osvVulnerabilityAlerts": true,
   "lockFileMaintenance": {
     "enabled": true,
     "automerge": true,
@@ -16,15 +22,38 @@
   },
   "packageRules": [
     {
-      "description": "Automerge minor/patch updates for devDependencies to reduce noise",
-      "matchUpdateTypes": ["minor", "patch"],
+      "description": "Electron: gruppieren, nie automergen (Desktop-Build muss manuell geprueft werden)",
+      "matchPackageNames": ["electron", "electron-builder"],
+      "groupName": "electron packages",
+      "automerge": false,
+      "assignees": ["marianwolf"]
+    },
+    {
+      "description": "JS-Werkzeuge (ohne Electron): Minor/Patch gruppieren und automergen",
+      "matchManagers": ["npm"],
       "matchDepTypes": ["devDependencies"],
+      "matchPackageNames": ["!electron", "!electron-builder"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "dev tooling",
       "automerge": true
     },
     {
-      "description": "Group Electron packages together to ensure compatibility",
-      "matchPackageNames": ["electron", "electron-builder"],
-      "groupName": "electron packages"
+      "description": "Python-Testdeps: Minor/Patch automergen",
+      "matchManagers": ["pip_requirements"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
+    },
+    {
+      "description": "GitHub Actions: Minor/Patch automergen (CI prueft)",
+      "matchManagers": ["github-actions"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
+    },
+    {
+      "description": "Major-Updates: manuell reviewen und Maintainer zuweisen",
+      "matchUpdateTypes": ["major"],
+      "automerge": false,
+      "assignees": ["marianwolf"]
     }
   ],
   "vulnerabilityAlerts": {
