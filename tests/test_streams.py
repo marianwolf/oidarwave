@@ -39,3 +39,15 @@ class TestVideoStreams:
     def test_video_stream_url_format(self, name: str, url: str):
         assert url.endswith(".m3u8")
         assert url.startswith("https://")
+
+
+@pytest.mark.unit
+class TestNoSecretsInStationUrls:
+    """Keine Session-Tokens in den Sender-URLs von index.html (Lieferanten-Redirects liefern frische Tokens)."""
+
+    def test_index_has_no_stream_tokens(self):
+        from pathlib import Path
+
+        html = (Path(__file__).resolve().parent.parent / "index.html").read_text(encoding="utf-8")
+        for param in ("token=", "sid=", "cid=", "tvf="):
+            assert param not in html, f"Session-Parameter {param!r} in index.html gefunden"
