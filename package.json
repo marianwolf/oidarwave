@@ -7,10 +7,10 @@
   "scripts": {
     "start": "electron .",
     "pack": "electron-builder --dir",
-    "build": "electron-builder",
-    "build:linux": "electron-builder -l",
-    "build:win": "electron-builder -w",
-    "build:mac": "electron-builder -m"
+    "dist": "electron-builder",
+    "dist:linux": "electron-builder -l",
+    "dist:win": "electron-builder -w",
+    "dist:mac": "electron-builder -m"
   },
   "author": "Marian Wolf <marianwolf200@gmail.com> (http://oidarwave.vercel.com/)",
   "license": "MIT",
@@ -18,7 +18,7 @@
     "appId": "app.oidarwave.vercel",
     "productName": "Oidarwave",
     "directories": {
-      "output": "build"
+      "output": "dist"
     },
     "files": [
       "electron/**/*",
