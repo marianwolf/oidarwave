@@ -6,7 +6,8 @@
   "desktopName": "app.oidarwave.vercel",
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder -mwl",
+    "pack": "electron-builder --dir",
+    "build": "electron-builder",
     "build:linux": "electron-builder -l",
     "build:win": "electron-builder -w",
     "build:mac": "electron-builder -m"
@@ -123,7 +124,7 @@
     "@opencode/cli": "^2.0.12",
     "electron": "^44.1.1",
     "electron-builder": "^26.16.0",
-    "electron-log": "^5.3.0",
+    "electron-log": "^5.4.4",
     "freebuff": "^0.0.177",
     "openwiki": "^0.5.2"
   },
