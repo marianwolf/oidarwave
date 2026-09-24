@@ -3,13 +3,13 @@ type: integration
 title: HLS.js Integration
 description: Integration of hls.js for adaptive bitrate HLS video playback in the browser, with fallback to native HLS, caption support, quality selection, and error recovery.
 tags: [hls, video, streaming, javascript, media-session]
-verified:
-  - by: openwiki/0.5.0
-    at: 2026-09-02T20:22:31.727Z
 sources:
   - id: openwiki-source-ae0af3fbadd75265cd996542
     resource: repo://src/js/video.js
 generated: { by: "openwiki/0.5.0", at: "2026-09-02T20:22:31.727Z" }
+verified:
+  - by: openwiki/0.5.1
+    at: 2026-09-18T12:30:21.131Z
 ---
 
 # HLS.js Integration

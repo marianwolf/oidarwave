@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:04aba4b4c2e70a430fe5bb9b1fba8fc8c5d21e76f171bfade357da5f0623376a",
+  "claims": [
+    {
+      "id": "claim_b6094fdab96e406c841437b4c1e06408",
+      "statement": "The initializePlayer() function sets up the Media Session API, initializes state variables, caches DOM element references, determines player type based on availability, attaches media event listeners, restores last station from localStorage, and calls updateOverallStatus() to set initial UI state.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js",
+          "version": "repo-file-v1:sha256:eaad40e8841ef077139a8f2963dc4da4c94ebea3497b691bfa61b003fad636fd"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.1",
+    "at": "2026-09-18T12:30:21.131Z"
+  }
+}

@@ -1,5 +1,5 @@
 ---
-okf_version: "0.1"
+okf_version: "0.2"
 ---
 
 # Files
@@ -11,6 +11,7 @@ okf_version: "0.1"
 - [architecture](architecture/)
 - [concepts](concepts/)
 - [integrations](integrations/)
+- [open](open/)
 - [operations](operations/)
 - [testing](testing/)
 - [workflows](workflows/)

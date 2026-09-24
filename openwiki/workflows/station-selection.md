@@ -3,15 +3,15 @@ type: workflow
 title: Station Selection Workflow
 description: Describes the flow from clicking a station button to updating the player UI and metadata, including player initialization, source change, and metadata handling.
 tags: [station-selection, player, ui, workflow]
-verified:
-  - by: openwiki/0.5.0
-    at: 2026-09-02T20:22:31.727Z
 sources:
   - id: openwiki-source-f8d10828394c4129061d5b0e
     resource: repo://index.html
   - id: openwiki-source-85af3a53f2cd35307c2af95c
     resource: repo://src/js/player.js
 generated: { by: "openwiki/0.5.0", at: "2026-09-02T20:22:31.727Z" }
+verified:
+  - by: openwiki/0.5.1
+    at: 2026-09-17T12:53:45.685Z
 ---
 
 ## Overview

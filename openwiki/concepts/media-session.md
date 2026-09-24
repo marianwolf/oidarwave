@@ -4,12 +4,12 @@ title: Media Session API for Lock Screen and System Controls
 description: Implementation of the Media Session API to enable media controls (play, pause, stop) and display metadata on device lock screens and system UIs for audio/video playback.
 tags: [media-session, lock-screen, system-controls, playback, web-apis]
 verified:
-  - by: openwiki/0.5.0
-    at: 2026-09-02T20:22:31.727Z
+  - by: openwiki/0.5.1
+    at: 2026-09-18T12:30:21.131Z
 sources:
   - id: openwiki-source-85af3a53f2cd35307c2af95c
     resource: repo://src/js/player.js
-generated: { by: "openwiki/0.5.0", at: "2026-09-02T20:22:31.727Z" }
+generated: { by: "openwiki/0.5.1", at: "2026-09-18T12:30:21.131Z" }
 ---
 
 # Media Session API
@@ -25,7 +25,7 @@ The Media Session API is used to provide a consistent media control experience a
 ## Entrypoints
 The Media Session API is initialized through the `setupMediaSession` function, which is called:
 - When media begins playing (in the `playing` event handler of the audio/video player).
-- When station metadata is updated (though note: in the current code, it is called with empty title/artist and only station name in the `playing` event).
+- When track metadata is fetched and updated (in the `fetchMetadata` success handler).
 
 The `clearMediaSession` function is called:
 - When changing stations (in `selectStation` before loading a new URL).
@@ -42,7 +42,11 @@ The `clearMediaSession` function is called:
      - `play`: calls `playMedia()` to resume playback.
      - `pause`: pauses the current player.
      - `stop`: pauses the player and clears the media session.
-3. On media change (station change) or stop:
+3. On track metadata fetch (via `fetchMetadata`):
+   - Fetch metadata from the station's metadata URL.
+   - Update the UI display with the track title and artist.
+   - Call `setupMediaSession(trackInfo.title, trackInfo.artist, stationName)` to update the Media Session metadata with the new track information.
+4. On media change (station change) or stop:
    - `clearMediaSession` is called to remove the metadata.
 
 ## State/Lifecycle
@@ -50,16 +54,19 @@ The `clearMediaSession` function is called:
 - When playback starts, the session is activated with metadata.
 - When playback is paused or stopped via system controls, the corresponding event handler is invoked.
 - When the media source changes (station change), the session is cleared and then re-setup upon next play.
+- After track metadata is fetched, the Media Session is updated with the new title and artist.
 
 ## Relationships
 - Depends on the audio/video player element (`currentPlayer`) for playback control.
 - Interacts with the UI to get the current station name for metadata.
 - Works alongside the StationHistory module (as seen in event handlers) for tracking.
+- Coordinates with the `fetchMetadata` function for updating track information.
 
 ## Invariant/Failures
 - If the Media Session API is not supported (`'mediaSession' not in navigator`), setup is skipped with a warning.
 - Errors during setup are caught and logged to the console but do not break playback.
 - The artwork uses the favicon URLs; if these are unavailable, the artwork may not display.
+- If metadata fetch fails, the Media Session is cleared and the UI displays "Metadaten nicht verfügbar".
 
 ## Extension Points
 - Additional media actions (e.g., 'seekbackward', 'seekforward', 'previoustrack', 'nexttrack') can be added by setting more action handlers.
@@ -67,10 +74,13 @@ The `clearMediaSession` function is called:
 
 ## Configuration/Operations
 - The artwork URLs and sizes are hardcoded to use the favicon at multiple sizes.
-- The metadata refresh interval for fetching station metadata is defined by `METADATA_REFRESH_INTERVAL` (3000ms) but note: the Media Session setup itself does not refresh; it is set once per playback. The metadata for the station (song title) is updated separately via `fetchMetadata` and UI update, but the Media Session metadata is not updated with that information in the current code.
+- The metadata refresh interval for fetching station metadata is defined by `METADATA_REFRESH_INTERVAL` (3000ms).
+- The Media Session is initially set up on play and updated when new track metadata becomes available via `fetchMetadata`.
+- When metadata is fetched, both the UI display and the Media Session metadata are updated simultaneously with the track title and artist.
 
 ## Focused Tests
 - Verify that `setupMediaSession` correctly sets the media metadata and action handlers when called.
 - Verify that `clearMediaSession` clears the metadata.
 - Verify that the action handlers (play, pause, stop) trigger the expected player actions.
 - Verify that the Media Session is set up on play and cleared on station change and stop.
+- Verify that the Media Session metadata is updated when track metadata is fetched via `fetchMetadata`.

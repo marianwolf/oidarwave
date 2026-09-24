@@ -4,8 +4,8 @@ title: Website Testing
 description: Test suite for validating the Oidarwave website functionality, including page loads and element presence.
 tags: [testing, website, Playwright]
 verified:
-  - by: openwiki/0.5.0
-    at: 2026-09-03T14:41:27.574Z
+  - by: openwiki/0.5.1
+    at: 2026-09-18T12:30:21.131Z
 sources:
   - id: openwiki-source-4636a46c1ad9ea46ccbd30e4
     resource: repo://tests/test_website.py

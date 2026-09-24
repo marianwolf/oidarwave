@@ -3,15 +3,15 @@ type: subsystem
 title: Player Subsystem
 description: Handles audio and video playback logic, HLS support, media session integration, error handling, and stall recovery for both audio and video streams.
 tags: [playback, media, hls, audio, video, media-session]
-verified:
-  - by: openwiki/0.5.0
-    at: 2026-09-02T20:22:31.727Z
 sources:
   - id: openwiki-source-85af3a53f2cd35307c2af95c
     resource: repo://src/js/player.js
   - id: openwiki-source-ae0af3fbadd75265cd996542
     resource: repo://src/js/video.js
 generated: { by: "openwiki/0.5.0", at: "2026-09-02T20:22:31.727Z" }
+verified:
+  - by: openwiki/0.5.1
+    at: 2026-09-18T12:30:21.131Z
 ---
 # Player Subsystem
 

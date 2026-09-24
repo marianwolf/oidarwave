@@ -4,8 +4,8 @@ title: Syntax Testing
 description: Validates structural and syntactic correctness of source files including HTML, JavaScript, CSS, Markdown, JSON, and Gitignore through automated pytest checks.
 tags: [testing, syntax, validation, html, javascript, css, markdown, json]
 verified:
-  - by: openwiki/0.5.0
-    at: 2026-09-03T14:41:27.574Z
+  - by: openwiki/0.5.1
+    at: 2026-09-18T12:30:21.131Z
 sources:
   - id: openwiki-source-f99a7ec1ea05bc870c213f40
     resource: repo://tests/test_syntax.py

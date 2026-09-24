@@ -4,8 +4,8 @@ title: Stream Sources
 description: Describes the external stream sources used by Oidarwave, including MP3 radio streams, HLS video streams, and metadata endpoints for song titles.
 tags: [streaming, audio, video, hls, mp3, metadata]
 verified:
-  - by: openwiki/0.5.0
-    at: 2026-09-02T20:22:31.727Z
+  - by: openwiki/0.5.1
+    at: 2026-09-18T12:30:21.131Z
 sources:
   - id: openwiki-source-f8d10828394c4129061d5b0e
     resource: repo://index.html

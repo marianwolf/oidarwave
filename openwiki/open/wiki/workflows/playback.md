@@ -1,23 +1,18 @@
 ---
-type: "Reference"
-title: "## Overview"
-openwiki_generated: true
-sources:
-  - id: openwiki-source-85af3a53f2cd35307c2af95c
-    resource: repo://src/js/player.js
-  - id: openwiki-source-ae0af3fbadd75265cd996542
-    resource: repo://src/js/video.js
-generated: { by: "openwiki/0.5.0", at: "2026-09-02T20:22:31.727Z" }
----
-
----
 type: workflow
 title: Playback Workflow
 description: Describes the initialization, stream loading, and state handling (playing, paused, stalled, error) for audio and video playback in the application.
 tags: [playback, media, player, state-machine]
-#
+verified:
+  - by: openwiki/0.5.1
+    at: 2026-09-18T12:30:21.131Z
+sources:
+  - id: openwiki-source-85af3a53f2cd35307c2af95c
+    resource: repo://src/js/player.js
+generated: { by: "openwiki/0.5.1", at: "2026-09-18T12:30:21.131Z" }
+---
 
-## Overview
+# Playback Workflow
 
 The playback workflow manages the lifecycle of media playback for both audio and video streams. It handles player initialization, stream loading, transitions between playing, paused, stalled, and error states, and integrates with the Media Session API for system controls.
 
@@ -91,8 +86,8 @@ The Media Session API is configured via `setupMediaSession()` (see [player.js#L6
 - Depends on [station-selection workflow](/openwiki/workflows/station-selection.md) for UI interactions that trigger stream changes.
 <!-- openwiki: broken internal link [/openwiki/workflows/metadata-polling.md] file "/openwiki/workflows/metadata-polling.md" does not exist. Fix the href or restore the target, then delete this comment. -->
 - Drives [metadata-polling workflow](/openwiki/workflows/metadata-polling.md) by starting/stopping intervals based on station metadata availability.
-<!-- openwiki: broken internal link [/openwiki/workflows/history.md] file "/openwiki/workflows/history.md" does not exist. Fix the href or restore the target, then delete this comment. -->
-- Interacts with [history.js](/openwiki/workflows/history.md) via `StationHistory` to log station starts and stops.
+<!-- openwiki: broken internal link [/openwiki/architecture/player.md#station-history] heading anchor "station-history" does not exist in "/openwiki/architecture/player.md". Fix the href or restore the target, then delete this comment. -->
+- Interacts with [history.js](/openwiki/architecture/player.md#station-history) via `StationHistory` to log station starts and stops.
 
 ## State Diagram
 
@@ -112,9 +107,9 @@ stateDiagram-v2
     Paused --> Error: error event
     Buffering --> Error: error event
     Error --> [*]: User selects new station or recovers
-```
 
-*Note: The Idle state represents a prepared player with no active stream. Loading begins when a station URL is set.*
+*Note: The Idle state represents a prepared player with no active stream. Loading begins when a station URL is set.
+```
 
 ## Extension Points
 

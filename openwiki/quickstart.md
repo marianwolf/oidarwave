@@ -3,9 +3,6 @@ type: guide
 title: Quickstart
 description: Learn how to run Oidarwave locally, understand the project structure, and build desktop or web versions.
 tags: [getting-started, installation, build, development]
-verified:
-  - by: openwiki/0.5.0
-    at: 2026-09-03T14:41:27.574Z
 sources:
   - id: openwiki-source-3d9e72730d09405d8d9107c1
     resource: repo://electron/main.js
