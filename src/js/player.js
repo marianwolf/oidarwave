@@ -3,87 +3,64 @@ function initializePlayer() {
     const METADATA_REFRESH_INTERVAL = 3000;
     const VOLUME_STEP = 0.1;
     const VOLUME_PRECISION = 1;
-    const FAVICON_ARTWORK = [
-        { src: '/favicon/favicon.svg', sizes: '128x128', type: 'image/svg+xml' },
-        { src: '/favicon/favicon.svg', sizes: '256x256', type: 'image/svg+xml' },
-        { src: '/favicon/favicon.svg', sizes: '512x512', type: 'image/svg+xml' }
-    ];
+    const AUDIO_STORAGE_KEY = 'lastStationAudioUrl';
+    const MAX_RETRIES = 3;
+    const RETRY_BASE_DELAY = 1000;
 
-    // === MEDIA SESSION API (Android/iOS Lock Screen & System Controls) ===
-    const setupMediaSession = (title, artist, stationName) => {
-        if (!('mediaSession' in navigator)) return;
-        try {
-            navigator.mediaSession.metadata = new MediaMetadata({
-                title: title || stationName || 'Livestream',
-                artist: artist || stationName || 'Oidarwave Radio',
-                album: stationName || 'Oidarwave',
-                artwork: FAVICON_ARTWORK
-            });
-            navigator.mediaSession.setActionHandler('play', () => playMedia());
-            navigator.mediaSession.setActionHandler('pause', () => currentPlayer?.pause());
-            navigator.mediaSession.setActionHandler('stop', () => {
-                currentPlayer?.pause();
-                clearMediaSession();
-            });
-        } catch (e) {
-            logWarn(ErrorCode.MEDIA_SESSION_SETUP, e, { page: location.pathname });
-        }
-    };
-
-    const clearMediaSession = () => {
-        if ('mediaSession' in navigator && navigator.mediaSession?.metadata) {
-            navigator.mediaSession.metadata = null;
-        }
-    };
+    const { setupMediaSession, clearMediaSession, readSetting, writeSetting } = window.PlayerCore;
 
     let hasError = false;
     let isStalled = false;
-    let isAudioPlayer = false;
     let metadataInterval = null;
-    let currentPlayer = null;
-    let lastStationKey = '';
-
+    let wasPlayingBeforeError = false;
+    let isAutoRetry = false;
+    let retryState = { count: 0, timerId: null };
+    const currentPlayer = document.getElementById('audioPlayer');
     const stationButtons = document.querySelectorAll('.station-btn');
-    const audioPlayer = document.getElementById('audioPlayer');
-    const videoPlayer = document.getElementById('videoPlayer');
     const currentStationDisplay = document.getElementById('currentStation');
     const statusIndicator = document.getElementById('statusIndicator');
     const currentSongTitleDisplay = document.getElementById('currentSongTitle');
 
-    if (!audioPlayer && !videoPlayer) {
-        logError(ErrorCode.PLAYER_INIT_NO_ELEMENT, null, { selectors: ['#audioPlayer', '#videoPlayer'], page: location.pathname });
+    if (!currentPlayer) {
+        logError(ErrorCode.PLAYER_INIT_NO_ELEMENT, null, { selector: '#audioPlayer', page: location.pathname });
         return;
     }
 
-    if (audioPlayer) {
-        currentPlayer = audioPlayer;
-        isAudioPlayer = true;
-        currentPlayer.volume = 1;
-        lastStationKey = 'lastStationAudioUrl';
-    } else if (videoPlayer) {
-        currentPlayer = videoPlayer;
-        isAudioPlayer = false;
-        lastStationKey = 'lastStationVideoUrl';
-    }
+    currentPlayer.volume = 1;
+
+    // === MEDIA SESSION (dedupliziert, siehe player-core.js) ===
+    const updateMediaSession = (title, artist) => {
+        const stationName = currentStationDisplay ? currentStationDisplay.textContent : '';
+        setupMediaSession({ title, artist, album: stationName || 'Oidarwave', media: currentPlayer, onStop: clearMediaSession });
+    };
 
     // === EVENT LISTENER ===
     const mediaEvents = {
         loadstart: () => { isStalled = false; updateOverallStatus(); },
         canplay: () => {
-            if (isAudioPlayer && currentPlayer.paused) playMedia();
+            if (currentPlayer.paused) playMedia();
             isStalled = false;
             hasError = false;
+            isAutoRetry = false;
+            clearAudioRetry();
             updateOverallStatus();
         },
         playing: () => {
             isStalled = false;
             hasError = false;
+            wasPlayingBeforeError = true;
+            isAutoRetry = false;
+            clearAudioRetry();
             updateOverallStatus();
             StationHistory.startStation(currentPlayer.src);
-            const stationName = currentStationDisplay ? currentStationDisplay.textContent : '';
-            setupMediaSession('', '', stationName);
+            updateMediaSession('', '');
         },
         pause: () => {
+            // Nur User-Pause bricht Retry ab (kein Fehlerzustand).
+            if (!hasError && !currentPlayer.error) {
+                wasPlayingBeforeError = false;
+                clearAudioRetry();
+            }
             updateOverallStatus();
             StationHistory.stopStation(currentPlayer.src);
         },
@@ -97,8 +74,12 @@ function initializePlayer() {
               page: location.pathname
             });
             hasError = true;
+            // Neuer User-Versuch (kein Auto-Retry) startet eine frische Sequenz.
+            if (!isAutoRetry) clearAudioRetry();
+            isAutoRetry = false;
             updateOverallStatus();
             StationHistory.stopStation(currentPlayer.src);
+            scheduleAudioRetry();
         }
     };
 
@@ -111,60 +92,122 @@ function initializePlayer() {
     });
 
     window.addEventListener('offline', () => {
+        // Pending Retry pausieren, Count behalten für Resume bei 'online'.
+        if (retryState.timerId) {
+            clearTimeout(retryState.timerId);
+            retryState.timerId = null;
+        }
         updateOverallStatus();
         StationHistory.stopStation(currentPlayer.src);
+    });
+
+    window.addEventListener('online', () => {
+        if (hasError && wasPlayingBeforeError && currentPlayer.src) {
+            // Ein sofortiger Retry bei Netzrückkehr (zählt als ein Versuch).
+            if (retryState.count >= MAX_RETRIES) retryState.count = MAX_RETRIES - 1;
+            if (retryState.timerId) {
+                clearTimeout(retryState.timerId);
+                retryState.timerId = null;
+            }
+            retryAudio();
+        } else {
+            updateOverallStatus();
+        }
     });
 
     document.addEventListener('keydown', handleKeyDown);
 
     function updateOverallStatus() {
-        if (!statusIndicator) return;
-        statusIndicator.classList.remove('online', 'error', 'buffering', 'paused');
-        
-        if (!navigator.onLine || hasError) {
-            statusIndicator.classList.add('error');
-        } else if (currentPlayer.paused) {
-            statusIndicator.classList.add('paused');
-        } else if (isStalled) {
-            statusIndicator.classList.add('buffering');
-        } else {
-            statusIndicator.classList.add('online');
+        let status = 'online';
+        if (!navigator.onLine || hasError) status = 'error';
+        else if (currentPlayer.paused) status = 'paused';
+        else if (isStalled) status = 'buffering';
+        // Retry-Text nicht überschreiben, nur Klasse setzen.
+        if (!retryState.timerId && statusIndicator && statusIndicator.classList.contains('text')) {
+            statusIndicator.textContent = '';
+        }
+        PlayerCore.setStatusClass(statusIndicator, status);
+    }
+
+    function clearAudioRetry() {
+        if (retryState.timerId) {
+            clearTimeout(retryState.timerId);
+            retryState.timerId = null;
+        }
+        retryState.count = 0;
+        isAutoRetry = false;
+        if (statusIndicator && statusIndicator.classList.contains('text')) {
+            statusIndicator.textContent = '';
         }
     }
 
+    function scheduleAudioRetry() {
+        if (!wasPlayingBeforeError) return;
+        if (!navigator.onLine) return;
+        if (retryState.count >= MAX_RETRIES) {
+            logError(ErrorCode.AUDIO_RECONNECT_FAILED, null, { retries: MAX_RETRIES, src: currentPlayer?.src });
+            if (statusIndicator) {
+                statusIndicator.textContent = 'Verbindung verloren – erneut versuchen';
+                statusIndicator.classList.add('text', 'error');
+            }
+            return;
+        }
+        const delay = RETRY_BASE_DELAY * Math.pow(2, retryState.count);
+        logWarn(ErrorCode.AUDIO_RECONNECT_RETRY, null, { attempt: retryState.count + 1, max: MAX_RETRIES, delayMs: delay, src: currentPlayer?.src });
+        if (statusIndicator) {
+            statusIndicator.textContent = `Versuch ${retryState.count + 1}/${MAX_RETRIES} in ${delay / 1000}s…`;
+            PlayerCore.setStatusClass(statusIndicator, 'buffering');
+            statusIndicator.classList.add('text');
+        }
+        retryState.timerId = setTimeout(() => {
+            retryState.timerId = null;
+            retryState.count++;
+            retryAudio();
+        }, delay);
+    }
+
+    function retryAudio() {
+        if (!currentPlayer.src) return;
+        hasError = false;
+        isAutoRetry = true;
+        updateOverallStatus();
+        currentPlayer.load();
+        playMedia();
+    }
+
     function playMedia() {
+        wasPlayingBeforeError = true;
         currentPlayer.play().catch(e => handlePlayError(e, 'audio-player'));
     }
 
     function selectStation(button) {
-        if (!button || !currentPlayer) return;
-        
+        if (!button) return;
+
+        clearAudioRetry();
+        wasPlayingBeforeError = true;
+
         stationButtons.forEach(btn => btn.classList.remove('active'));
         button.classList.add('active');
-        
+
         const { url, name, metadataUrl } = button.dataset;
         if (currentStationDisplay) currentStationDisplay.textContent = name;
-        
-        try {
-            localStorage.setItem(lastStationKey, url);
-        } catch (e) {
-            logStorageError(ErrorCode.STORAGE_WRITE, e, lastStationKey);
-        }
-        
+
+        writeSetting(AUDIO_STORAGE_KEY, url);
+
         if (metadataInterval) {
             clearInterval(metadataInterval);
             metadataInterval = null;
         }
-        
+
         clearMediaSession();
-        
+
         if (metadataUrl) {
             fetchMetadata(metadataUrl);
             metadataInterval = setInterval(() => fetchMetadata(metadataUrl), METADATA_REFRESH_INTERVAL);
         } else if (currentSongTitleDisplay) {
             currentSongTitleDisplay.textContent = "Metadaten nicht verfügbar";
         }
-        
+
         currentPlayer.src = url;
         currentPlayer.load();
     }
@@ -172,7 +215,7 @@ function initializePlayer() {
     function handleKeyDown(e) {
         const tag = e.target.tagName;
         if (tag === 'INPUT' || tag === 'BUTTON' || tag === 'TEXTAREA') return;
-        
+
         switch (e.code) {
             case 'Space':
                 e.preventDefault();
@@ -180,11 +223,8 @@ function initializePlayer() {
                 break;
             case 'ArrowUp':
             case 'ArrowDown':
-                if (isAudioPlayer) {
-                    e.preventDefault();
-                    const direction = e.code === 'ArrowUp' ? 1 : -1;
-                    currentPlayer.volume = clampVolume(currentPlayer.volume + direction * VOLUME_STEP);
-                }
+                e.preventDefault();
+                currentPlayer.volume = clampVolume(currentPlayer.volume + (e.code === 'ArrowUp' ? VOLUME_STEP : -VOLUME_STEP));
                 break;
         }
     }
@@ -197,30 +237,29 @@ function initializePlayer() {
         fetch(metadataUrl)
             .then(response => {
                 if (!response.ok) throw new Error(`Netzwerkfehler: ${response.status}`);
-                return metadataUrl.endsWith('.txt') 
+                return metadataUrl.endsWith('.txt')
                     ? response.text().then(text => ({ type: 'text', data: text }))
                     : response.json().then(json => ({ type: 'json', data: json }));
             })
             .then(({ data, type }) => {
-                const trackInfo = type === 'text' 
+                const trackInfo = type === 'text'
                     ? { title: data.split('\n')[0].trim(), artist: '' }
                     : getMusicInfoWithArtist(data);
-                
-                const displayText = trackInfo.title && trackInfo.artist 
-                    ? `${trackInfo.title} - ${trackInfo.artist}` 
+
+                const displayText = trackInfo.title && trackInfo.artist
+                    ? `${trackInfo.title} - ${trackInfo.artist}`
                     : trackInfo.title || trackInfo.artist || '';
-                
+
                 if (currentSongTitleDisplay) {
                     currentSongTitleDisplay.innerText = displayText || "Keine Titelinformationen";
                 }
-                
-                const stationName = currentStationDisplay ? currentStationDisplay.textContent : '';
+
                 if (window.notificationManager) {
-                    window.notificationManager.handleTrackChange(displayText, stationName);
+                    window.notificationManager.handleTrackChange(displayText, currentStationDisplay ? currentStationDisplay.textContent : '');
                 }
-                
-                // Update Media Session with title and artist
-                setupMediaSession(trackInfo.title, trackInfo.artist, stationName);
+
+                // Media Session mit Titel und Interpret aktualisieren
+                updateMediaSession(trackInfo.title, trackInfo.artist);
             })
             .catch(error => {
                 const errType = error?.name || 'UnknownError';
@@ -246,25 +285,18 @@ function initializePlayer() {
         return { title, artist };
     }
 
-
-
     // Letzte Station wiederherstellen oder erste Station starten
-    let lastStationUrl = null;
-    try {
-        lastStationUrl = localStorage.getItem(lastStationKey);
-    } catch (e) {
-        logStorageError(ErrorCode.STORAGE_READ, e, lastStationKey);
-    }
-    const lastStationButton = lastStationUrl 
-        ? document.querySelector(`.station-btn[data-url="${lastStationUrl}"]`) 
+    const lastStationUrl = readSetting(AUDIO_STORAGE_KEY);
+    const lastStationButton = lastStationUrl
+        ? document.querySelector(`.station-btn[data-url="${lastStationUrl}"]`)
         : null;
-    
+
     if (lastStationButton) {
         selectStation(lastStationButton);
     } else if (stationButtons.length > 0) {
         selectStation(stationButtons[0]);
     }
-    
+
     updateOverallStatus();
 }
 

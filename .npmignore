@@ -20,3 +20,11 @@ Thumbs.db
 __pycache__/
 *.py[cod]
 .pytest_cache/
+tests/
+
+# AI
+openwiki/
+.kilo/
+
+# Github Actions
+.github/

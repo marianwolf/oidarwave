@@ -6,10 +6,11 @@
   "desktopName": "app.oidarwave.vercel",
   "scripts": {
     "start": "electron .",
-    "dist": "electron-builder -mwl",
-    "dist:linux": "electron-builder -l",
-    "dist:win": "electron-builder -w",
-    "dist:mac": "electron-builder -m"
+    "pack": "electron-builder --dir",
+    "build": "electron-builder",
+    "build:linux": "electron-builder -l",
+    "build:win": "electron-builder -w",
+    "build:mac": "electron-builder -m"
   },
   "author": "Marian Wolf <marianwolf200@gmail.com> (http://oidarwave.vercel.com/)",
   "license": "MIT",
@@ -17,7 +18,7 @@
     "appId": "app.oidarwave.vercel",
     "productName": "Oidarwave",
     "directories": {
-      "output": "dist"
+      "output": "build"
     },
     "files": [
       "electron/**/*",
@@ -120,15 +121,16 @@
     }
   },
   "devDependencies": {
+    "@opencode/cli": "^2.0.16",
     "electron": "^44.1.1",
-    "electron-builder": "^26.16.0"
-  },
-  "dependencies": {
-    "electron-log": "^5.3.0",
-    "openwiki": "^0.5.0"
+    "electron-builder": "^26.16.1",
+    "electron-log": "^5.4.4",
+    "freebuff": "^0.0.177",
+    "openwiki": "^0.6.0"
   },
   "allowScripts": {
-    "electron-winstaller": true,
-    "better-sqlite3": true
+    "@opencode/cli": true,
+    "better-sqlite3": true,
+    "electron-winstaller": true
   }
 }

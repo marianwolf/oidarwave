@@ -1,0 +1,544 @@
+{
+  "schemaVersion": 1,
+  "runId": "1c98986c-43cc-4c9f-b454-8cee651bb8a0",
+  "mode": "update",
+  "phase": "generating",
+  "startedAt": "2026-09-20T15:56:20.828Z",
+  "language": "en",
+  "languageChanged": false,
+  "requiredRewritePages": [],
+  "initialPages": [
+    "/openwiki/architecture/electron.md",
+    "/openwiki/architecture/overview.md",
+    "/openwiki/architecture/persistence.md",
+    "/openwiki/architecture/player.md",
+    "/openwiki/architecture/ui.md",
+    "/openwiki/concepts/localstorage-model.md",
+    "/openwiki/concepts/media-session.md",
+    "/openwiki/concepts/privacy.md",
+    "/openwiki/concepts/streaming.md",
+    "/openwiki/integrations/electron-builder.md",
+    "/openwiki/integrations/external-streams.md",
+    "/openwiki/integrations/hlsjs.md",
+    "/openwiki/integrations/notification-api.md",
+    "/openwiki/operations/build.md",
+    "/openwiki/operations/deploy.md",
+    "/openwiki/operations/development.md",
+    "/openwiki/quickstart.md",
+    "/openwiki/testing/electron-build.md",
+    "/openwiki/testing/overview.md",
+    "/openwiki/testing/syntax.md",
+    "/openwiki/testing/website.md",
+    "/openwiki/workflows/electron-build.md",
+    "/openwiki/workflows/history-export.md",
+    "/openwiki/workflows/notifications.md",
+    "/openwiki/workflows/playback.md",
+    "/openwiki/workflows/station-selection.md"
+  ],
+  "sourceFingerprint": "sha256:fffb98f22772dd5e888398aad5e2fced81ee7028754f1e4b937527139f0d9a7e",
+  "targetGitHead": "167cdd640ad606badcd79aa7f1598258f92a31ae",
+  "actor": {
+    "producerActor": "openwiki/0.5.2",
+    "metadataModel": "nvidia/nemotron-3-super-120b-a12b"
+  },
+  "previousLastUpdate": {
+    "updatedAt": "2026-09-11T22:44:14.915Z",
+    "command": "update",
+    "gitHead": "821c24e457d1682817e92fe96e88e581be1cf5de",
+    "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+    "status": "complete"
+  },
+  "baseGitHead": "821c24e457d1682817e92fe96e88e581be1cf5de",
+  "wikiGoal": "A code wiki for this repository.",
+  "beforeContentSnapshot": "d7af62647828ee2869596815fcd81d989bd57afec27bb970592e85262693ea8a",
+  "preparedWiki": {
+    "generatedProvenance": [
+      {
+        "page": "/openwiki/architecture/electron.md",
+        "bodyHash": "4e0ff2e85f687beabe2e037c00096bd66994bc4e386a7dc29f9e1df21f1a43a3",
+        "generated": {
+          "by": "openwiki/0.5.0",
+          "at": "2026-09-03T14:41:27.574Z"
+        }
+      },
+      {
+        "page": "/openwiki/architecture/overview.md",
+        "bodyHash": "a477260aa8a34121e2f4fdaf0416513e07ae466f6ae084c2eae4f9e78dd5cbf3",
+        "generated": {
+          "by": "openwiki/0.5.0",
+          "at": "2026-09-02T20:22:31.727Z"
+        }
+      },
+      {
+        "page": "/openwiki/architecture/persistence.md",
+        "bodyHash": "311741fcc2b53f1517c2d2005678bb2d37fa5e8dd6043049361c08f6312685ca",
+        "generated": {
+          "by": "openwiki/0.5.0",
+          "at": "2026-09-02T20:22:31.727Z"
+        }
+      },
+      {
+        "page": "/openwiki/architecture/player.md",
+        "bodyHash": "c68d4de6cabd82a29c21249b6a9a2fbbbbdf3af3448d829b7b0106c20f4033c8",
+        "generated": {
+          "by": "openwiki/0.5.0",
+          "at": "2026-09-02T20:22:31.727Z"
+        }
+      },
+      {
+        "page": "/openwiki/architecture/ui.md",
+        "bodyHash": "4afd2fda9a0e8554c8155d6f22ebc23c9ede6882f5ec147a1e2bc6087552668c",
+        "generated": {
+          "by": "openwiki/0.5.0",
+          "at": "2026-09-02T20:22:31.727Z"
+        }
+      },
+      {
+        "page": "/openwiki/concepts/localstorage-model.md",
+        "bodyHash": "a7be5c2d9fc36173816ee5e1253e9b24ee30a284a10e0380bf6afed81c639e8f",
+        "generated": {
+          "by": "openwiki/0.5.0",
+          "at": "2026-09-02T20:22:31.727Z"
+        }
+      },
+      {
+        "page": "/openwiki/concepts/media-session.md",
+        "bodyHash": "35659788f2a0843847d1fd04e879bb225e4d0dc5140db17721f27b2d57a80a6c",
+        "generated": {
+          "by": "openwiki/0.5.0",
+          "at": "2026-09-02T20:22:31.727Z"
+        }
+      },
+      {
+        "page": "/openwiki/concepts/privacy.md",
+        "bodyHash": "eb6080362835a72a0f635a7db5e1b48ee80e66b697251716da10a119e6ab3ced",
+        "generated": {
+          "by": "openwiki/0.5.0",
+          "at": "2026-09-02T21:38:00.224Z"
+        }
+      },
+      {
+        "page": "/openwiki/concepts/streaming.md",
+        "bodyHash": "fbb49f56d54cdb5680b168295b64c91cad1b39261ee3eb3256d272e7608ac994",
+        "generated": {
+          "by": "openwiki/0.5.0",
+          "at": "2026-09-02T20:22:31.727Z"
+        }
+      },
+      {
+        "page": "/openwiki/integrations/electron-builder.md",
+        "bodyHash": "ebac61a1a437c76819909d3d830c46737ca8e282305d53e437d45551d5d54fbb",
+        "generated": {
+          "by": "openwiki/0.5.0",
+          "at": "2026-09-02T20:22:31.727Z"
+        }
+      },
+      {
+        "page": "/openwiki/integrations/external-streams.md",
+        "bodyHash": "de34cc236514b0bc7fcc1467d3ae04a4bf0f9f65e0959c95d3a3d8de2c497cab",
+        "generated": {
+          "by": "openwiki/0.5.0",
+          "at": "2026-09-02T20:22:31.727Z"
+        }
+      },
+      {
+        "page": "/openwiki/integrations/hlsjs.md",
+        "bodyHash": "8c654c3fbac4d40f00479a086d838e001d992968841284d215c21406d6b586cc",
+        "generated": {
+          "by": "openwiki/0.5.0",
+          "at": "2026-09-02T20:22:31.727Z"
+        }
+      },
+      {
+        "page": "/openwiki/integrations/notification-api.md",
+        "bodyHash": "ffb758b4773479161aa33c540b9c259ae773cb42ff0c240924eaf3ca9511788e",
+        "generated": {
+          "by": "openwiki/0.5.0",
+          "at": "2026-09-02T20:22:31.727Z"
+        }
+      },
+      {
+        "page": "/openwiki/operations/build.md",
+        "bodyHash": "7716ed9fc7536a7807dbd4db0c6660de93820a2def2649a28a5828d19b29032b",
+        "generated": {
+          "by": "openwiki/0.5.0",
+          "at": "2026-09-02T20:22:31.727Z"
+        }
+      },
+      {
+        "page": "/openwiki/operations/deploy.md",
+        "bodyHash": "c38096e22d8dbc42c0df06be71da149517854ebd270d34700b713d5646bc09c0",
+        "generated": {
+          "by": "openwiki/0.5.0",
+          "at": "2026-09-02T21:38:00.224Z"
+        }
+      },
+      {
+        "page": "/openwiki/operations/development.md",
+        "bodyHash": "b4eef7e5999a9cf676843c3c75d896ebb8ac02d772c341d72c7d9e8fd1f348ac",
+        "generated": {
+          "by": "openwiki/0.5.0",
+          "at": "2026-09-02T20:22:31.727Z"
+        }
+      },
+      {
+        "page": "/openwiki/quickstart.md",
+        "bodyHash": "fd6eb1bf34a044ff1e7206ebde2b857517a67f4ce9a49c7399f28ba9b7c461d0",
+        "generated": {
+          "by": "openwiki/0.5.0",
+          "at": "2026-09-03T14:41:27.574Z"
+        }
+      },
+      {
+        "page": "/openwiki/testing/electron-build.md",
+        "bodyHash": "ec9be236aafbfbe6c2201981d08b5306e7537531a60106add4a107b410b509a5",
+        "generated": {
+          "by": "openwiki/0.5.0",
+          "at": "2026-09-03T14:41:27.574Z"
+        }
+      },
+      {
+        "page": "/openwiki/testing/overview.md",
+        "bodyHash": "1139aff29aada7d904ab71a3f47fddef235d68467c04061cc57ce3148dfdf286",
+        "generated": {
+          "by": "openwiki/0.5.0",
+          "at": "2026-09-03T14:41:27.574Z"
+        }
+      },
+      {
+        "page": "/openwiki/testing/syntax.md",
+        "bodyHash": "7020bdf016c90359bf530cce3727da1fb02c3fd62d48cd02b433b57d894389e1",
+        "generated": {
+          "by": "openwiki/0.5.0",
+          "at": "2026-09-03T14:41:27.574Z"
+        }
+      },
+      {
+        "page": "/openwiki/testing/website.md",
+        "bodyHash": "7f2e558a2b6f63f00801854d7e9e38b306a022a48be190ecade6ff53fe21110f",
+        "generated": {
+          "by": "openwiki/0.5.0",
+          "at": "2026-09-03T14:41:27.574Z"
+        }
+      },
+      {
+        "page": "/openwiki/workflows/electron-build.md",
+        "bodyHash": "dbd88ee2b8281ed0ec203365b4602213061b00b0c408454ec132a951490a924c",
+        "generated": {
+          "by": "openwiki/0.5.0",
+          "at": "2026-09-02T20:22:31.727Z"
+        }
+      },
+      {
+        "page": "/openwiki/workflows/history-export.md",
+        "bodyHash": "f107f6de1d2230a46cd3968f9fcacf6e871dfead3855185376d3428039d55233",
+        "generated": {
+          "by": "openwiki/0.5.0",
+          "at": "2026-09-02T20:22:31.727Z"
+        }
+      },
+      {
+        "page": "/openwiki/workflows/notifications.md",
+        "bodyHash": "5c17f337c695fdf265c9e9e8490fc42c0a88dc2a3817448c5c2ca8bd989fcd16",
+        "generated": {
+          "by": "openwiki/0.5.0",
+          "at": "2026-09-02T20:22:31.727Z"
+        }
+      },
+      {
+        "page": "/openwiki/workflows/playback.md",
+        "bodyHash": "cd23da6b3d4455a11ec99709dc74b0abba5c001cf77fd2417d1abad55acb1085",
+        "generated": {
+          "by": "openwiki/0.5.0",
+          "at": "2026-09-02T20:22:31.727Z"
+        }
+      },
+      {
+        "page": "/openwiki/workflows/station-selection.md",
+        "bodyHash": "b4300dd9fdd65d859d739aaaa6c96600073e7385a33297563bf437dcaa20fd07",
+        "generated": {
+          "by": "openwiki/0.5.0",
+          "at": "2026-09-02T20:22:31.727Z"
+        }
+      }
+    ]
+  },
+  "plan": {
+    "pages": [
+      {
+        "id": "14f6688c-7d46-4613-acd8-cf7087afa432",
+        "path": "/openwiki/architecture/electron.md",
+        "title": "Electron Main Process",
+        "purpose": "Details of the Electron main process including window management, protocol handling, page discovery, and security configurations.",
+        "seedPaths": [
+          "electron/main.js"
+        ],
+        "relatedPages": [
+          "/openwiki/architecture/overview.md",
+          "/openwiki/integrations/electron-builder.md",
+          "/openwiki/operations/build.md"
+        ],
+        "instructions": [],
+        "status": "pending"
+      },
+      {
+        "id": "6dcfbfa9-475f-4d9d-853f-735efbadee0b",
+        "path": "/openwiki/architecture/overview.md",
+        "title": "System Architecture Overview",
+        "purpose": "High-level overview of the Oidarwave system architecture, including Electron main process, renderer process, and key subsystems.",
+        "seedPaths": [
+          "electron/main.js",
+          "src/js/player.js",
+          "src/js/video.js"
+        ],
+        "relatedPages": [
+          "/openwiki/architecture/electron.md",
+          "/openwiki/architecture/persistence.md",
+          "/openwiki/architecture/player.md",
+          "/openwiki/concepts/localstorage-model.md"
+        ],
+        "instructions": [],
+        "status": "pending"
+      },
+      {
+        "id": "e9e61822-be36-492c-bb09-27ca39b39127",
+        "path": "/openwiki/architecture/persistence.md",
+        "title": "Data Persistence Layer",
+        "purpose": "How Oidarwave persists data using localStorage for favorites, history, cookies, and video state.",
+        "seedPaths": [
+          "src/js/cookie.js",
+          "src/js/favorite.js",
+          "src/js/history.js",
+          "src/js/video.js"
+        ],
+        "relatedPages": [
+          "/openwiki/architecture/player.md",
+          "/openwiki/concepts/localstorage-model.md",
+          "/openwiki/workflows/history-export.md"
+        ],
+        "instructions": [],
+        "status": "pending"
+      },
+      {
+        "id": "2ec4a50d-73fb-42cd-9097-514c3aa7f7d5",
+        "path": "/openwiki/architecture/player.md",
+        "title": "Player Subsystem",
+        "purpose": "Core audio/video player functionality including playback controls, media session integration, streaming, and event handling.",
+        "seedPaths": [
+          "src/js/player-core.js",
+          "src/js/player.js",
+          "src/js/video.js"
+        ],
+        "relatedPages": [
+          "/openwiki/architecture/ui.md",
+          "/openwiki/concepts/media-session.md",
+          "/openwiki/concepts/streaming.md",
+          "/openwiki/workflows/playback.md"
+        ],
+        "instructions": [],
+        "status": "pending"
+      },
+      {
+        "id": "c4a91d74-f3b4-47c2-9984-c7f820eb7944",
+        "path": "/openwiki/architecture/ui.md",
+        "title": "User Interface",
+        "purpose": "UI structure, components, and interactions including page layout, controls, and responsiveness.",
+        "seedPaths": [
+          "impressum/index.html",
+          "index.html",
+          "src/js/player.js",
+          "video/index.html"
+        ],
+        "relatedPages": [
+          "/openwiki/architecture/overview.md",
+          "/openwiki/architecture/player.md",
+          "/openwiki/concepts/privacy.md"
+        ],
+        "instructions": [],
+        "status": "pending"
+      },
+      {
+        "id": "e431c4c0-2a25-455b-b6f3-fc66b4a6c27e",
+        "path": "/openwiki/concepts/localstorage-model.md",
+        "title": "LocalStorage Data Model",
+        "purpose": "Structure and usage of localStorage for storing favorites, history, cookies, and application state.",
+        "seedPaths": [
+          "src/js/cookie.js",
+          "src/js/favorite.js",
+          "src/js/history.js"
+        ],
+        "relatedPages": [
+          "/openwiki/architecture/persistence.md",
+          "/openwiki/concepts/privacy.md",
+          "/openwiki/workflows/history-export.md"
+        ],
+        "instructions": [],
+        "status": "pending"
+      },
+      {
+        "id": "3a2d234b-5843-4abb-acb9-6c7ba22b0d0c",
+        "path": "/openwiki/concepts/media-session.md",
+        "title": "Media Session API Integration",
+        "purpose": "How Oidarwave integrates with the Media Session API for system media controls and metadata display.",
+        "seedPaths": [
+          "src/js/player.js"
+        ],
+        "relatedPages": [
+          "/openwiki/architecture/player.md",
+          "/openwiki/workflows/playback.md"
+        ],
+        "instructions": [],
+        "status": "pending"
+      },
+      {
+        "id": "4e9b2682-0378-4fb1-87d5-9152bf9df4ff",
+        "path": "/openwiki/concepts/privacy.md",
+        "title": "Privacy and Data Handling",
+        "purpose": "Privacy considerations including cookie consent, data minimization, and handling of user data.",
+        "seedPaths": [
+          "src/js/cookie.js",
+          "src/js/history.js"
+        ],
+        "relatedPages": [
+          "/openwiki/architecture/ui.md",
+          "/openwiki/concepts/localstorage-model.md",
+          "/openwiki/concepts/streaming.md"
+        ],
+        "instructions": [],
+        "status": "pending"
+      },
+      {
+        "id": "8356f328-5e88-4f15-b556-c7be5aa0f1f9",
+        "path": "/openwiki/concepts/streaming.md",
+        "title": "Streaming Technology",
+        "purpose": "How Oidarwave handles audio streaming including HLS.js integration, stream switching, and error recovery.",
+        "seedPaths": [
+          "src/js/player.js",
+          "src/js/video.js"
+        ],
+        "relatedPages": [
+          "/openwiki/architecture/player.md",
+          "/openwiki/concepts/media-session.md",
+          "/openwiki/integrations/hlsjs.md"
+        ],
+        "instructions": [],
+        "status": "pending"
+      },
+      {
+        "id": "1808f74f-64bf-479e-8bfb-7500cb3ac7d7",
+        "path": "/openwiki/integrations/hlsjs.md",
+        "title": "HLS.js Integration",
+        "purpose": "Details of integrating HLS.js for HTTP Live Streaming support in the video element.",
+        "seedPaths": [
+          "src/js/video.js"
+        ],
+        "relatedPages": [
+          "/openwiki/architecture/player.md",
+          "/openwiki/concepts/streaming.md"
+        ],
+        "instructions": [],
+        "status": "pending"
+      },
+      {
+        "id": "8a64c260-9ace-4de0-8e50-cbb67d97e613",
+        "path": "/openwiki/integrations/notification-api.md",
+        "title": "Notification API Integration",
+        "purpose": "How Oidarwave uses the Notification API for desktop notifications and user alerts.",
+        "seedPaths": [
+          "src/js/notification.js"
+        ],
+        "relatedPages": [
+          "/openwiki/architecture/electron.md",
+          "/openwiki/workflows/notifications.md"
+        ],
+        "instructions": [],
+        "status": "pending"
+      },
+      {
+        "id": "db36ab9a-1cc0-4494-9bcc-f399d6d675a4",
+        "path": "/openwiki/operations/development.md",
+        "title": "Development Setup",
+        "purpose": "Setting up the development environment, running the application, and debugging practices.",
+        "seedPaths": [
+          "electron/main.js",
+          "package.json"
+        ],
+        "relatedPages": [
+          "/openwiki/operations/build.md",
+          "/openwiki/quickstart.md",
+          "/openwiki/testing/overview.md"
+        ],
+        "instructions": [],
+        "status": "pending"
+      },
+      {
+        "id": "0753a383-32ce-4918-9602-9c08e658cfdb",
+        "path": "/openwiki/workflows/history-export.md",
+        "title": "History Export Workflow",
+        "purpose": "Exporting listening history to JSON or CSV files for backup or analysis.",
+        "seedPaths": [
+          "src/js/download_history.js",
+          "src/js/history.js"
+        ],
+        "relatedPages": [
+          "/openwiki/architecture/persistence.md",
+          "/openwiki/concepts/localstorage-model.md"
+        ],
+        "instructions": [],
+        "status": "pending"
+      },
+      {
+        "id": "b336188b-d11d-4030-b701-a9f3510f8529",
+        "path": "/openwiki/workflows/playback.md",
+        "title": "Playback Workflow",
+        "purpose": "Core playback workflow including loading stations, controlling playback, handling events, and managing state.",
+        "seedPaths": [
+          "src/js/player.js",
+          "src/js/video.js"
+        ],
+        "relatedPages": [
+          "/openwiki/architecture/player.md",
+          "/openwiki/concepts/media-session.md",
+          "/openwiki/workflows/station-selection.md"
+        ],
+        "instructions": [],
+        "status": "pending"
+      },
+      {
+        "id": "5d544bf6-1c2d-4ee5-b761-937f2135283f",
+        "path": "/openwiki/workflows/station-selection.md",
+        "title": "Station Selection Workflow",
+        "purpose": "How users select and switch between radio stations, including UI interactions and stream handling.",
+        "seedPaths": [
+          "src/js/player.js"
+        ],
+        "relatedPages": [
+          "/openwiki/architecture/player.md",
+          "/openwiki/concepts/streaming.md",
+          "/openwiki/workflows/playback.md"
+        ],
+        "instructions": [],
+        "status": "pending"
+      },
+      {
+        "id": "583cc8cd-1d9f-4e15-927f-295b5cf6fcb6",
+        "path": "/openwiki/quickstart.md",
+        "title": "Quickstart",
+        "purpose": "Get started with contributing to the Oidarwave repository. Routes readers through the documentation hierarchy.",
+        "seedPaths": [
+          "README.md",
+          "electron/main.js",
+          "package.json"
+        ],
+        "relatedPages": [
+          "/openwiki/architecture/overview.md",
+          "/openwiki/operations/development.md",
+          "/openwiki/workflows/playback.md"
+        ],
+        "instructions": [],
+        "status": "pending"
+      }
+    ],
+    "deletePages": []
+  }
+}

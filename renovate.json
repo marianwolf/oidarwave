@@ -1,34 +1,68 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended",
-    ":prHourlyLimitNone",
-    ":prConcurrentLimitNone"
-  ],
+  "extends": ["config:recommended", ":prHourlyLimitNone", ":prConcurrentLimitNone"],
   "labels": ["dependencies"],
   "timezone": "Europe/Berlin",
-  "schedule": ["at any time"], 
+  "schedule": ["at any time"],
   "dependencyDashboard": true,
+  "platformAutomerge": false,
+  "automergeType": "pr",
+  "semanticCommits": "enabled",
+  "semanticCommitType": "chore",
+  "semanticCommitScope": "deps",
+  "minimumReleaseAge": "2 days",
+  "osvVulnerabilityAlerts": true,
   "lockFileMaintenance": {
     "enabled": true,
     "automerge": true,
+    "automergeType": "pr",
     "schedule": ["before 5am on monday"]
   },
   "packageRules": [
     {
-      "description": "Automerge minor/patch updates for devDependencies to reduce noise",
-      "matchUpdateTypes": ["minor", "patch"],
-      "matchDepTypes": ["devDependencies"],
-      "automerge": true
+      "description": "Electron: gruppieren, nie automergen (Desktop-Build muss manuell geprueft werden)",
+      "matchManagers": ["npm"],
+      "matchPackageNames": ["electron", "electron-builder"],
+      "groupName": "electron packages",
+      "automerge": false,
+      "assignees": ["marianwolf"]
     },
     {
-      "description": "Group Electron packages together to ensure compatibility",
-      "matchPackageNames": ["electron", "electron-builder"],
-      "groupName": "electron packages"
+      "description": "JS-Werkzeuge (ohne Electron): Minor/Patch gruppieren und automergen",
+      "matchManagers": ["npm"],
+      "matchDepTypes": ["devDependencies"],
+      "excludePackageNames": ["electron", "electron-builder"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "dev tooling",
+      "automerge": true,
+      "automergeType": "pr",
+      "requiredStatusChecks": null
+    },
+    {
+      "description": "Python-Testdeps: Minor/Patch automergen",
+      "matchManagers": ["pip_requirements"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true,
+      "automergeType": "pr",
+      "requiredStatusChecks": null
+    },
+    {
+      "description": "GitHub Actions: Minor/Patch automergen (CI prueft)",
+      "matchManagers": ["github-actions"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true,
+      "automergeType": "pr",
+      "requiredStatusChecks": null
+    },
+    {
+      "description": "Major-Updates: manuell reviewen und Maintainer zuweisen",
+      "matchUpdateTypes": ["major"],
+      "automerge": false,
+      "assignees": ["marianwolf"]
     }
   ],
   "vulnerabilityAlerts": {
     "enabled": true,
-    "addLabels": ["security"]
+    "labels": ["dependencies", "security"]
   }
 }
