@@ -121,12 +121,12 @@
     }
   },
   "devDependencies": {
-    "@opencode/cli": "^2.0.12",
+    "@opencode/cli": "^2.0.16",
     "electron": "^44.1.1",
-    "electron-builder": "^26.16.0",
+    "electron-builder": "^26.16.1",
     "electron-log": "^5.4.4",
     "freebuff": "^0.0.177",
-    "openwiki": "^0.5.2"
+    "openwiki": "^0.6.0"
   },
   "allowScripts": {
     "@opencode/cli": true,
