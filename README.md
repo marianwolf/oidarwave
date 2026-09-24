@@ -50,13 +50,14 @@ Für die Ausführung der Tests ist eine Python-Virtuelle Umgebung erforderlich:
 # Virtuelle Umgebung erstellen und Abhängigkeiten installieren
 python3 -m venv .venv
 source .venv/bin/activate  # Auf Windows: .venv\Scripts\activate
-pip install playwright pytest
+pip install -r requirements-dev.txt
 playwright install chromium
 ```
 
 4. Tests ausführen (z.B.):
 ```bash
-python tests/test_syntax.py
+pytest -m unit
+pytest tests/test_syntax.py
 ```
 
 ## 🤝 Mitwirken

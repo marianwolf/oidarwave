@@ -1,6 +1,14 @@
 name: "Pull Request Labeler"
+
 on:
-- pull_request_target
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+
+permissions: {}
+
+concurrency:
+  group: labeler-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
 
 jobs:
   labeler:
@@ -8,5 +16,12 @@ jobs:
       contents: read
       pull-requests: write
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
-    - uses: actions/labeler@v7
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Label PR
+        uses: actions/labeler@v7
