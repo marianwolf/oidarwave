@@ -10,9 +10,14 @@ permissions:
   contents: write
   pull-requests: write
 
+concurrency:
+  group: npm-auto-update
+  cancel-in-progress: false
+
 jobs:
   npm-update:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -25,17 +30,19 @@ jobs:
 
       - name: npm install && npm update
         run: |
-          npm install
-          npm update
+          set -euo pipefail
+          npm install --no-audit --no-fund
+          npm update --no-audit --no-fund
           # Hinweis: "npm upgrade" existiert nicht als npm-Befehl.
           # "npm update" bringt Dependencies im Semver-Rahmen auf den neuesten Stand.
           # Fuer Updates ueber den Semver-Rahmen hinaus (Major-Upgrades):
-          # npx -y npm-check-updates -u && npm install
+          # npx -y npm-check-updates -u && npm install --no-audit --no-fund
           git status --short
 
       - name: Detect changes
         id: changes
         run: |
+          set -euo pipefail
           if git diff --quiet -- package.json package-lock.json; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
@@ -64,4 +71,5 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          set -euo pipefail
           gh pr merge --auto --squash "${{ steps.cpr.outputs.pull-request-number }}"
