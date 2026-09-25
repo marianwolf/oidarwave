@@ -5,7 +5,6 @@
         "github.vscode-pull-request-github",
         "idered.npm",
         "ms-python.python",
-        "ms-pyright.pyright",
         "ms-playwright.playwright"
     ]
 }
