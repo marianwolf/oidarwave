@@ -125,6 +125,7 @@
     "electron": "^44.1.1",
     "electron-builder": "^26.16.1",
     "electron-log": "^5.4.4",
+    "eslint": "^10.11.0",
     "freebuff": "^0.0.177",
     "openwiki": "^0.6.0"
   },
