@@ -121,12 +121,17 @@
     }
   },
   "devDependencies": {
+    "@eslint/css": "^2.0.0",
+    "@eslint/js": "^10.0.1",
+    "@eslint/json": "^2.1.0",
+    "@eslint/markdown": "^8.0.3",
     "@opencode/cli": "^2.0.16",
     "electron": "^44.1.1",
     "electron-builder": "^26.16.1",
     "electron-log": "^5.4.4",
     "eslint": "^10.11.0",
     "freebuff": "^0.0.177",
+    "globals": "^17.12.0",
     "openwiki": "^0.6.0"
   },
   "allowScripts": {
