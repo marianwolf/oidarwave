@@ -1,0 +1,7 @@
+{
+  "updatedAt": "2026-09-27T19:14:12.625Z",
+  "command": "update",
+  "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+  "status": "interrupted",
+  "language": "en"
+}
