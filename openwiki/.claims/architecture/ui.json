@@ -1,0 +1,140 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:3d54d900e5ac75e8228873b2bc6f3299aa1f9bcf98c1e84c222dac17d2279d5e",
+  "claims": [
+    {
+      "id": "claim_31db1e6e92344d2f9b9897e6070a22be",
+      "statement": "The Oidarwave UI uses a glassmorphism design pattern with backdrop blur, semi-transparent backgrounds, and subtle borders for header, station selector, player controls, and cookie banner components.",
+      "evidence": [
+        {
+          "resource": "repo://index.html#L41-L48",
+          "version": "repo-lines-v1:sha256:93da2ccfdd8c67a5dff9885eec97afa380346f38785f5036e0c25ef605ebc73f:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNmU4YjlhNWIyNzY2YmRiYjM2YTM5ZjU1M2FhYjI0OWYyMzkzZDVhNjM3NDYzZDRjNWFiOWQxYjQyMzZjYTI5MSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZjRmM2YzNWM0YzY5YjgzYTdlYTY0MjU0NThlMTQ0MjIwMTRmOWYxYTEwMDc0Yjk0MDkzMTFjZDFmNDg5YzNkNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjVmZTM2ZWNiMGNhNGVlZWYyYjgyMGQ0MzFhYWQxMDQ2NTE5M2Q4MDFlZDQxNWExMTVhZGE0NGNjNDM0NjRmNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiN2Y0MWQyNmQ2YmFlNjA5ZjlhYTA3YmM1NjNmN2UyYzRhZTUxZmI2YTJjZjkyMjMwZmUxNDU2OThhODdjZmZjYiJ9"
+        },
+        {
+          "resource": "repo://src/css/style.css#L80-L87",
+          "version": "repo-lines-v1:sha256:68230754043fcb14ddb6144c126e1beabf42105fd656bc34ff6a1c8535bf6e83:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiN2U2MzFhY2I0ZjQwMTg4YTI1Yjk5MGY5M2U3MmRjOGVkMDFkN2UwMzBkOGU5NzNjZTg5MTRmYjEwMTU0ODIyNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDM5OGY5Mzk0OWNjMzI1ZDIzNzRiYWQwNjViZTY4MjhjODQxOWQ2MTQ3MjEwYTUwNGViNzQxMjRhN2Y0ZWY0YSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODdmOWFkZDQyZTJhZGU0NThhYWIzMWVjZTlhNWU1YmNlYWIyZTMyM2Y2YWZhYjY3MWE0NzZlM2MzOTQ5NmU5OSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_d4d9059229164ac2ba650d74d9015731",
+      "statement": "The station selector component renders radio stations as interactive buttons in a CSS grid layout with auto-fill columns, storing stream URLs, station names, and metadata endpoints in data attributes.",
+      "evidence": [
+        {
+          "resource": "repo://index.html#L53-L86",
+          "version": "repo-lines-v1:sha256:db09b2d60fd05a2d9a02079c5f3d8034c59a8655a5a71077217951fb49785e6e:eyJzZWxlY3RlZExpbmVDb3VudCI6MzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQzNDJmOWMxZmE5MmU2ZmRjNjAwMjc2NzJhNjE1YjkwZDYyYWY4ZTU4Y2RhNmMyMjk4NTYzNDAwZjNlZjg0YjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMWQwNzYyM2Q1ODUyNDNiZDliNmZmMTIxOTdmOTk5MWVlY2MxN2FiNDBmYWQ5MmE4MjcwZWE2NWU4NjE5YTUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA3NTE0NjE2ZTk2ZGMwNTM3MDJmYTBhZjUxNjk0ZjI2MGEyOWFhZjQzOWFiZGFkYzRlMzBjMzI5YjQ2ODNkODkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjljMjc2MmVmZTM4YWMwYTQ2YTA5ZjFmMjRjMzZkNjBjYjEzMTZlZGMyOGRhNTlkOWFjNWQ4ZmZmZGZmMjYwYWQifQ"
+        },
+        {
+          "resource": "repo://src/css/style.css#L160-L180",
+          "version": "repo-lines-v1:sha256:9decbbca3d81c3fc68403da2fbbfa4904ff1369be55b2247a58ecdb4e2442c43:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM2MzNjMTQxNDkxNWZkOGQ0MjE3Mjg2NTQxNWUzZTQyZDc2MTE2YTNkYzU1ZWQ4MWVkZjAwYjdjOGE2YjBhNzMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFlMDJkNDZlNzRmNDE4YTgzMWM4Nzk5NDUzOTYwYzU4NGRjMjI2ZTZkMTFhNzkzODA1Yzk2YWI1NmU3ZDBlNTEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY1MWI3MmRlZGM5MjhhMjUyZjdiNDUzYzk0NjZlYmY3ODJkY2FkZDI3NzkyODk2ZDQ1Nzc4YmJkNjYxNzQzNTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_72739114dc8045a7af499b6bf1916316",
+      "statement": "Player controls display playback status via a color-coded indicator, show current station and track title, and include a notification toggle button for managing browser notification preferences.",
+      "evidence": [
+        {
+          "resource": "repo://index.html#L88-L104",
+          "version": "repo-lines-v1:sha256:716592afb124672e77a6bad6a6d8574ffb2de9b4965af8d35f9b25b56fc00318:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIzMTMwNmVhYTRiOGIxMzIzYzVkYjNlMDhkZjc1NWM5NDNmYTEyYmNiNmYzZWY0ODdhYzMyMTkyOWEyYjIxZDQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMWQwNzYyM2Q1ODUyNDNiZDliNmZmMTIxOTdmOTk5MWVlY2MxN2FiNDBmYWQ5MmE4MjcwZWE2NWU4NjE5YTUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU4OTQwMjRiMzM2NGE1ZGM1ZWUwNDRjY2Q2MzFlYzNjY2JkZTM4NDNlYTFmYmE0OGJkNzUxNWZjOWRhMzRjZjgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY0OGI2NjIxZWRhODE1ZGY1OWZmM2EyNTM1ZmE4NjJkOGI4YWQ5ZjM2NGViNjNkNDU0YmVjMTMyODg0ZDdlNWMifQ"
+        },
+        {
+          "resource": "repo://src/css/style.css#L141-L147",
+          "version": "repo-lines-v1:sha256:99d6fb9c4ed5c1f7a37a8569a82de91d32294b5d41b8e65e286e6b743f316f1e:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjQ0YWQ0Y2M0MjEyNzJmYmJhZjFkMTdlMzA3YzU2ZDMwNmNiZThkMmVkMjRjZDNlZGM0NjE3MzRkYjQyMjY3YyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjEyMDA4OTU0YWYwN2Y1NmM3YjUwZTNjYjM5NjM5Y2UyOWZlNTVmMDI2MmZhNDY0ZmI1ZjUyNTFlYWM1OTc4OCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODIwN2UxZjU0NWNlNzZiMTBhYWQwMzA2YjZiZDQ3Y2U1MjZiNjQ2NWVjMWQ1NzQ4YWRlZWM4NjNiZDE2YTFkMSJ9"
+        },
+        {
+          "resource": "repo://src/js/notification.js#L14-L70",
+          "version": "repo-lines-v1:sha256:7c5aa509d17511a185d527cac2fd0a476a273cb4f1f32fa2399046d3c508b735:eyJzZWxlY3RlZExpbmVDb3VudCI6NTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YTU4ZjViNGQxZDdiYzQ2MGVkNTA5YTMzNTY5NWFlOTEzMmJhYTM3MzI3ZmRiMDY4ZjMxZDFjYmUxNGQ5NjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkyYmZlM2E0NmRiNWE1MGRhYzJmNmM4Yzg5OWUwMTQyOWE1Y2NjYzkxYzE3MTQ2NDMwMzk4MjBiYzdkNzY1MDQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImRkYmRmMTUxOTJiMGQ1NjM0OWI1Zjk4OGNiNGM1NGM3ZTVmZWMzMTk0ODA5MTkyMGEzNDhjMmZiNmVjODZiZTcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_8717294e838d4f8a99fa8c4d6c823f1d",
+      "statement": "The notification toggle button updates its label, title, aria-label, and active class based on user preference state persisted in localStorage under the key 'notificationsEnabled'.",
+      "evidence": [
+        {
+          "resource": "repo://index.html#L92-L97",
+          "version": "repo-lines-v1:sha256:bc748d001fbc82cbe800f2d48512f84191bd5a9f94aed14e1e0a3659a646d2ef:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZGVlM2M2MDg2ODczN2VjNjg0YmNiN2E5MDk0NWY2MTUzNTFjODNmMDA4ZjZjOTU1YWE4OGJhZjNmZDUxZjJiYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZmI5YzBmYmY1Y2VlNGNjODJmOWVjNzQyMmUwY2E0MTgyMTk3ZTlhYWE5OTYxOGRjMDg4ZmY4NTgxODE5ZGJjYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZmVhZTkyYTE2ZGM2N2Q0OGMyN2I3Y2VmNjQ3MjNhNWU0MjYxMzU1MjNkMmEwODE0ZTI4OGFlMDU2YmIzZGJkYSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYTJhYjQ4ZDFmMmQ3YzUxM2I2YmUxYjgxYzRlNDMxOThiYTFjYzUzOWFlYmRmMWQ5NTk5NDU2ZDg4ZDczMThjZSJ9"
+        },
+        {
+          "resource": "repo://src/js/notification.js#L54-L60",
+          "version": "repo-lines-v1:sha256:15e8598269131b68ae49099518cd6598d95c503dd2226003d548825ac3ea5fbf:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiY2U1MjUxMWVlM2M0NzFhNTI5MGU2ODI5YzkwYzdiNmMzOWRlOTQ0MTU2OThhODZjNGM5NjI0MGNlOTQ1M2MyMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTk5YmRlZmVlYWNhNjM0MGUwMjkwZGM4NmU4ODljODlkNWUxODlhYTViYTQ0YjU4NWIzYjcwNzM0ZjRhNjJkOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDE0NWRlODJiYTljODQxMTFjOGY4ZTU3MGVlZDRmYTk2MmU1MWFlMzRkODAyZDY2OTBjMDY5NDZjOGVhYTEyNCJ9"
+        },
+        {
+          "resource": "repo://src/js/notification.js#L62-L70",
+          "version": "repo-lines-v1:sha256:cc699c9f70af0e1b370668a6b389fbdcf44302c74f59de09c01c8c14674ad265:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDljMDUzMTBkMmNkZTI2ZjI5MjYwN2E2NmNiMzVmNWQ1YTA5ZGYyMzc0MjJhZWRiMzdmYjg1MDgwYjRmNDhlZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTk5YmRlZmVlYWNhNjM0MGUwMjkwZGM4NmU4ODljODlkNWUxODlhYTViYTQ0YjU4NWIzYjcwNzM0ZjRhNjJkOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZGRiZGYxNTE5MmIwZDU2MzQ5YjVmOTg4Y2I0YzU0YzdlNWZlYzMxOTQ4MDkxOTIwYTM0OGMyZmI2ZWM4NmJlNyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_b3c7d5d6b81e4579b432eb6a3a635e9c",
+      "statement": "UI state updates for playback include changing the status indicator color via CSS custom properties, updating the station name in #currentStation, and updating the track title in #currentSongTitle.",
+      "evidence": [
+        {
+          "resource": "repo://index.html#L103-L103",
+          "version": "repo-lines-v1:sha256:42c24d584cbc897e7b6d109bc1232f5b5d3c2283c1bd6150715930da106abced:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDJjMjRkNTg0Y2JjODk3ZTdiNmQxMDliYzEyMzJmNWI1ZDNjMjI4M2MxYmQ2MTUwNzE1OTMwZGExMDZhYmNlZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDJjMjRkNTg0Y2JjODk3ZTdiNmQxMDliYzEyMzJmNWI1ZDNjMjI4M2MxYmQ2MTUwNzE1OTMwZGExMDZhYmNlZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTE4OTk1ZTRmYzZjY2I1NzBjYzZhZDRmOTc1YjY2OGZiMzQwODY5Mjk5MDc2MGMwY2M2MDZlMTcxMmMwNmRmNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYTNkZTUzODdlNjkyMTFhM2YwNzhkOGM4ODE3YzQ0MTczZDRhNDg1MWM1YzNmNjBjMTJmZWJlMmVhODUzZTc4NyJ9"
+        },
+        {
+          "resource": "repo://index.html#L90-L92",
+          "version": "repo-lines-v1:sha256:230a8ebd2fe655f2872235d7185973f9eb6151c14f451f01b287d7893932955b:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiM2QzNDgxOGI4ZDU1MzQ4OWFkNTY4YzJlOWRiNGE3YjYwM2VlZDZhNzBlNzBkZmFkNDAxMzFlMmU2M2I2ZTlkMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZGVlM2M2MDg2ODczN2VjNjg0YmNiN2E5MDk0NWY2MTUzNTFjODNmMDA4ZjZjOTU1YWE4OGJhZjNmZDUxZjJiYyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOWMyNzYyZWZlMzhhYzBhNDZhMDlmMWYyNGMzNmQ2MGNiMTMxNmVkYzI4ZGE1OWQ5YWM1ZDhmZmZkZmYyNjBhZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzM0NGM0ZDJiYTkyNjgyZmFhNzk4Y2NiODI2MDg3MmZiNmMzZDBlYmFkMTMyMzM5NTBiNjJhZjAxMzRkYmI0ZiJ9"
+        },
+        {
+          "resource": "repo://src/css/style.css#L14-L17",
+          "version": "repo-lines-v1:sha256:5b3473e554bdcbd80fd37ed95ae9b5bb8484741ed24d6e978cbbd82bc6f2bbb1:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNWQ0N2M3MjdiYTY3MjVjOGEwMDVkYmFkMzA4ZThhYzdjM2Q0MzU5ZmRmNmU4NTlhNGEyODFiYTFmZTczZTc2OCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjA2Y2FmNzc5ZTEyYmNjNjBiOWVhZjdkNDBmM2Y2NGRiZGY2YTRiMzI0N2I4NGE5ZGJhMzY2NTUxOGQ0ZDg5MCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOGJhN2I4ZmJlY2VkOTU0NzliOGU5OTM1ZTcxN2M3YzBiYzRkZWUxZGMwZDc2N2FhNDk5MjQ2NjBjNjI4MzU3YiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjU2Y2JhNDlhMjg3ZGJiMTI0ZjI5OWVjZjk3NWY3NjkxZDIxODRiN2E1YzExNDczMGQxZjExNzE5ZDlmMzc2OSJ9"
+        },
+        {
+          "resource": "repo://src/js/player.js#L20-L22",
+          "version": "repo-lines-v1:sha256:cc555d705bc3efbd8cec55cd25211e28af81a5b401c9cff28195bcbc82a9a1bb:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzJlNzY1ODIxODA1MDA4NzljOWFjYmNmZmNkMmFmMjFkYWE2Y2EzMjM4ZjI3Y2EwZjdhM2FjMzgxNDY4MWE0NiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTA0MWJiOGE2MTRlMTU3NmJlZTdjYjgxMDQzZDUyOTEzYjNhODU1NmQ1ZDMzNTZiZTkzMjEzMDkzZTNmY2RhYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTUxMTgyNzgxZGMzZWQ5ZDMzMjYwNWJjZDkyZGYzOTRkODliOTE5YmYzMjUwMjRhMjBlNDk0MTIyOTg3ZDBiYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiY2IxNWQ1MTJkNDBlNzM1Njc5ODI3NTI2MmM3ZDk0M2FlMDllODhjOTA4MGQ3MTYxOGViMDZmMWE1ODY4MDU0YyJ9"
+        },
+        {
+          "resource": "repo://src/js/player.js#L55-L56",
+          "version": "repo-lines-v1:sha256:ae2e271cb1674805ddd34360a5ce699f990451303046c817c24344c42c2cf1e7:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzMwMjUzNWNmNmZkNzA4ZGU0NWQ4YzY4MDA3MzZhZjhiZjc5NDllYzEwYWJmNDE2NzE5Y2NiYWEyNmZjYjAwOCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNzNlZGM4NWYzZmIzNjhkNjU2YzQ1OTJmOWVjOWI2ZmUzODNmNDU0Y2Y0MWI3MWViOTdlZWE5NzFjMDBiZWE5NyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZWNkMmVjNWZmMDhmYTliYWY3ZGE4MDZlMzM4ZjdkYmEzZTY4ZjllMjg0OTMxNWY1OWE3YWI4YmM2ZDg4YTA4ZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMGY5MjFlMDI4NmNlZDBhZGUxYzQ3NzU5ZGY0OWNlMDhjZDdiMmU3NWJjZTNjYjk3ZmExN2M1OTY2ZDE0NWY2YiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_f2e40055b5ac455b9fdde788f92a1e17",
+      "statement": "The UI implements responsive design through a max-width container, auto-fill grid columns for station buttons, and flexible wrapping navigation that adapts to viewport width.",
+      "evidence": [
+        {
+          "resource": "repo://src/css/style.css#L109-L118",
+          "version": "repo-lines-v1:sha256:b1a79cd4fd99b72c2994db12eae18a34dab62655c8a0a6c775f453f472251547:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU2ZjZjY2RhNWQ0MzU3ODE0NDNhNWVlY2JiZDBkZDFjMDllYzJmMGI4ZjAyMzE2Y2EwNjRiZmJiZDVhYjhiZGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY5MjJhMGM2MmFkMTdlMzBjMTJiYzNkNGZlZTdmOWVhNjkyODQwOGM4ZmQ5M2E4NzY5YzRkNTI0ZDA3MTIyYmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE2OTExYjM5YWM3NmY3M2ViYjMwNTk2NDk5YzlmMzQ0NjJmNTU3OTUwYWVjYzg3NTM0ODUyMGFkNTM5NWM0NzcifQ"
+        },
+        {
+          "resource": "repo://src/css/style.css#L161-L164",
+          "version": "repo-lines-v1:sha256:adb60e5fa69e908417d4f88c6cf5925fbfee6f132ac3b12820bf63bca5629848:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMmFmMmY0OTAwM2M2MWI5OWY3ZDBiMGIzNGM2OGY5NzQ4MWU0NjlkMzNhMDk2NDI4MjBhNjNlZDQ1MGYyNDEwNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjk5MGVhNjlhY2VkYmI0OTIzMWE5YmY2YmE0YWQzMTUwZDAzMTE5NjVhN2E1MmVjYzdiZjYwYWYxMTU2NjIyNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjdiYzY3YmMyZjg2NzNhNTUwMDJhYjNhNGE4YWU2OGU0YmQxYmRkMTVlNDAzMjc5Y2I3ZGE3Mzg1NTg0ZjJkNiJ9"
+        },
+        {
+          "resource": "repo://src/css/style.css#L68-L75",
+          "version": "repo-lines-v1:sha256:48b52fef8fe8b16740a829f63af1d26f800b90bab40bae8731d763626092a1d2:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTgzYzZmYTNmNTBiNDQ2ZTQ0ZTQ3ZDJmOWVjOGIxMmQyNTg1OTIyYzgzYTViYjczYTI1MTUzOWEyZWVkOGVjNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZDJkYWZlOTIxZmFlMDQyMTAwYjY3YmY0MGY3YjhkOTU3ODkxYmFkNjI0NDkzN2U0YWRlN2I3YWE0MzkzNTNjMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTUxNjI0MTQyZTJkZDNjZDJkMmFkODI5MzdjNDAyNzk2NmJjNGRkNWUxNTg2OGE4MTNiMGE0YThmNGY1Mzg5ZSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_4a74fa716dab4b47a2ee08083634ec1e",
+      "statement": "Accessibility features include semantic HTML elements, ARIA labels and roles (notification toggle aria-label, cookie banner role='dialog', nav aria-label), and color contrast compliance for text and UI elements.",
+      "evidence": [
+        {
+          "resource": "repo://index.html#L112-L122",
+          "version": "repo-lines-v1:sha256:66142b7d2e53c1f9012abce63faa01a351bb65ab6170d53a9d676f2b2118fdef:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE4NmJiYjA1YmVjMjYzZmFjODQ3NTY0MmE5Y2QxNmIwMDQyZTBhMmQzZGE4ZmUxNWUyNDk1MzBlYTcxN2EwOTMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRjZmM0OWRmZDIyNmQ5MTE4ZGNhOTM1ZDAyZTU0YmI4MjI2ZjNiM2Q0NDVlMzkwMGQ5ZGY1M2NhOWU4N2Y1N2MiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijc3YjA1MTQxZmNiYjgwYjkzMTVhM2FhNzdhNTNkM2FhYWQ0YjFjYjBkNWJjNjE1YTM1ODg5MmE3NDNjNDUzNjkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA0MWYwYTE0ZTc3YTAzMTQ3NDU5NDkzODZjMTkyOTg2MzVlZGU2ODhlZTUxMzQzOTc1NWVkNjAxZTRmM2ZiZjIifQ"
+        },
+        {
+          "resource": "repo://index.html#L42-L49",
+          "version": "repo-lines-v1:sha256:3863f0c5c398d9dd4818b1454639ed940661c5a6c7dc49055b49b639d332e5af:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOTZkYTQ3NWVjZDVmM2ZkMTU0ZDQzMmY0OWY1MGJiNjI2ODM0ZGYxNzAyODlhMjczMDEzNzIyMjU2MGRmNDY4NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZmM0M2JmNjZlZWQxMzA3Nzg4N2U3ZDRkMTMxMzFkNjNjZDljNTg1NmFkYjdlZGI2NmVkNjQ0Mjk4NDU4NjY4MiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNzJhZDBkZjQ5MTBiOTg5OTY1NDYwOWNiN2QxZTJjYjljNzA5ODdlOGIyY2M1NjBiMTJlM2VhNGI5M2E0NjdlYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDc1MTQ2MTZlOTZkYzA1MzcwMmZhMGFmNTE2OTRmMjYwYTI5YWFmNDM5YWJkYWRjNGUzMGMzMjliNDY4M2Q4OSJ9"
+        },
+        {
+          "resource": "repo://index.html#L44-L48",
+          "version": "repo-lines-v1:sha256:4f0896f3360bede9d2a98f41a977302c586e4ff9bcc0f4f05b863973eb056a2c:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWVjMzY1ODE2MmY4NjlkYzhlNjI0MjMwZjA4MDBhMTExMDFhMWI1MjQ2MmU3NTA1YzJkYjQ3ZTExYzVlMGQ3OSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZjRmM2YzNWM0YzY5YjgzYTdlYTY0MjU0NThlMTQ0MjIwMTRmOWYxYTEwMDc0Yjk0MDkzMTFjZDFmNDg5YzNkNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjVlZTY0MjlkMDY4N2I3MTZmNDdmMzA5M2ZkNTNmMGI2ZmUyODg0MTA3NzI1OTU4YjllYjZjYWZjMTM4Yjc3MyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiN2Y0MWQyNmQ2YmFlNjA5ZjlhYTA3YmM1NjNmN2UyYzRhZTUxZmI2YTJjZjkyMjMwZmUxNDU2OThhODdjZmZjYiJ9"
+        },
+        {
+          "resource": "repo://src/css/style.css#L5-L7",
+          "version": "repo-lines-v1:sha256:d706490b19e38c7b99a0974a21508ac625cb25ed3c75fb2e838da30dcad4fd4e:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZDI0Mzk5Y2UwMTBlYmE0NGNmMDRhOTkzYmZiZGI0NGFhNzQ5ZTI0ZDg0ODE5NmZmYzNiNDA3OWFhM2QwYWM4ZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjg2OWI1OTIxMWNhZDdjNWNkYTQwZTZkMDRlZWEwMjEzZjg3NjAwZWNjOGEyMmRlOTg0MTk5N2UxOTcwZWJlYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOGMwOWU0MzhiZDU0YzA3NDgwODZiODA1MWEzZTQ1MzM5NGI0Mzc1NmNmMzJmNWU5MjJmMWZkNjI1MzJmMmE1ZCJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.2",
+    "at": "2026-09-27T19:48:35.317Z"
+  }
+}

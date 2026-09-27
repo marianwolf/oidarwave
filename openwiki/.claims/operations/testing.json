@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:17bb1c5ae7a85a63da782c27608457e0d8cfa78ef5514b566a6362364359ce5e",
+  "claims": [
+    {
+      "id": "claim_c0f7c638df1940a4b37da0fdc7f13c9b",
+      "statement": "The project uses pytest as its test runner with configuration defined in pytest.ini.",
+      "evidence": [
+        {
+          "resource": "repo://pytest.ini",
+          "version": "repo-file-v1:sha256:87c5bf0bde59829437d686ce86705d2e840f1ea75cdc9d9c0846a6a0c4851d0a"
+        }
+      ]
+    },
+    {
+      "id": "claim_6c2c0699e29f4b7aa8ce348eb67e170d",
+      "statement": "Tests are categorized using pytest markers 'unit' for fast tests without external dependencies and 'integration' for tests requiring browser, network, or file I/O.",
+      "evidence": [
+        {
+          "resource": "repo://pytest.ini",
+          "version": "repo-file-v1:sha256:87c5bf0bde59829437d686ce86705d2e840f1ea75cdc9d9c0846a6a0c4851d0a"
+        }
+      ]
+    },
+    {
+      "id": "claim_db644bdecc854a8b900b0fc09856279c",
+      "statement": "Stream validation tests in tests/test_streams.py verify the structure of stream URLs in index.html and video/index.html without requiring network access.",
+      "evidence": [
+        {
+          "resource": "repo://tests/test_streams.py",
+          "version": "repo-file-v1:sha256:ad1d080ff362d8991495c2dd87e02563830826f4ca2f16ab39ff564b46fc2a53"
+        }
+      ]
+    },
+    {
+      "id": "claim_c838305ea7ec4878b94b3fe9f24f8a99",
+      "statement": "Syntax check tests in tests/test_syntax.py validate HTML, JavaScript, Markdown, and CSS files for balanced tags and proper syntax, excluding directories like .venv, node_modules, __pycache__, .git, dist, build, and .pytest_cache.",
+      "evidence": [
+        {
+          "resource": "repo://tests/test_syntax.py",
+          "version": "repo-file-v1:sha256:72fd310035e31ac4a9a47928b28149374396f41fd25f63486197b2da0779d867"
+        }
+      ]
+    },
+    {
+      "id": "claim_cd2adc25878c4a7bb1011cc4fa885ff7",
+      "statement": "Website integration tests in tests/test_website.py use Playwright to test index.html, video/index.html, and impressum/index.html rendering and functionality.",
+      "evidence": [
+        {
+          "resource": "repo://tests/test_website.py",
+          "version": "repo-file-v1:sha256:ad68060e2fc94b31d070194dcd947f8482ab3639358ef2606ae8f233d1750cf3"
+        }
+      ]
+    },
+    {
+      "id": "claim_90d614fb8e1f4e4b9df599ddf7bde4af",
+      "statement": "Electron build verification tests in tests/test_electron_build.py validate that package.json contains proper Electron builder configuration and that required files and dependencies are present.",
+      "evidence": [
+        {
+          "resource": "repo://tests/test_electron_build.py",
+          "version": "repo-file-v1:sha256:6a643688e455e0a77b65c2a7d9f9b24cd93f2a008ea5c67e2ea8c97388cc8c39"
+        }
+      ]
+    },
+    {
+      "id": "claim_8f6d49be109e44d08a3d13090805aead",
+      "statement": "All test files located in the tests/ directory are automatically discovered and executed by pytest.",
+      "evidence": [
+        {
+          "resource": "repo://pytest.ini",
+          "version": "repo-file-v1:sha256:87c5bf0bde59829437d686ce86705d2e840f1ea75cdc9d9c0846a6a0c4851d0a"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.2",
+    "at": "2026-09-27T19:48:35.317Z"
+  }
+}

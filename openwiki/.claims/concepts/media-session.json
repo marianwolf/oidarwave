@@ -1,0 +1,160 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:114624befcd29efe15891511afb3882fff1c154e8cbe68c49146f91a47612ff3",
+  "claims": [
+    {
+      "id": "claim_01e93ac6541249b9b88be2d66b2adf09",
+      "statement": "The `setupMediaSession` function in `player-core.js` configures the Media Session API with metadata and action handlers for play, pause, and stop.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player-core.js#L22-L57",
+          "version": "repo-lines-v1:sha256:e1af247b45101499255f100a481f79637b8c8898ec2eabed135d529e11c7c542:eyJzZWxlY3RlZExpbmVDb3VudCI6MzYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU4Y2Q3ODM2ZjFmZTg5NTM2MmJmNWRmMzQxZmQyMDgyM2RhMWJhOGMxNzc4OGY3MjBkZDBiOTVhMTQ0NzIyMDEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkOWUxMjU0NjQyNTU3NmQzZGVhZThjOWI5ZGJmMTI4ZDVkNmRkYWY1ZDdmZTg1NzkzNDkyN2RlZmZhM2I5ZGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhmZGU5ODY3YWFhYWNiZDYyMGNkNWYwN2FmY2U4MmY3MmFlNzA2ZTBjOTZiMTNkNTMwODkzYTkzOGMzMDZkMDciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImI4MzFhYTQ0Y2U5OThjNjJhZjY0ODU1OTEwNDQyYjJlZjU1ZjRkNGY3OTgxZTNjMGM3ZTYwMDRiY2MxMGQxMDEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_2235a8097fcc42ab88ba69d12133e5f9",
+      "statement": "The `clearMediaSession` function in `player-core.js` resets the media session metadata to null.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player-core.js#L53-L57",
+          "version": "repo-lines-v1:sha256:5bcf7e286d4f8e523b2444bdf2b5a71f440f634832e3aa2686db4760e8817453:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjJhNmJhNTU3MDU5MjY3ZjliMmE0YWU0NzBjMTM0NjRkYzEyNzJjMDY5MTA1ZjNhOTY1ZWQzZGUwMTg2ZWU0YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYWQ5ZTEyNTQ2NDI1NTc2ZDNkZWFlOGM5YjlkYmYxMjhkNWQ2ZGRhZjVkN2ZlODU3OTM0OTI3ZGVmZmEzYjlkZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTM3ZTc0YTc0NmYzZTRmYTk4ZDdjYjk4ZGIwN2QzMGJmZjY1Y2VmNjc2ZjE3YWIxZWE0OTNhYzQ4NDkwNjgxNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYjgzMWFhNDRjZTk5OGM2MmFmNjQ4NTU5MTA0NDJiMmVmNTVmNGQ0Zjc5ODFlM2MwYzdlNjAwNGJjYzEwZDEwMSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_3bd34ec555b44937bfd51bfebb3444d4",
+      "statement": "The audio player (`player.js`) uses `setupMediaSession` and `clearMediaSession` from `window.PlayerCore` (imported via destructuring).",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js#L10-L10",
+          "version": "repo-lines-v1:sha256:3982228a061a2f43d1bbacf35659a00d83216c6725c301c17c68ad05831f622d:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzk4MjIyOGEwNjFhMmY0M2QxYmJhY2YzNTY1OWEwMGQ4MzIxNmM2NzI1YzMwMWMxN2M2OGFkMDU4MzFmNjIyZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzk4MjIyOGEwNjFhMmY0M2QxYmJhY2YzNTY1OWEwMGQ4MzIxNmM2NzI1YzMwMWMxN2M2OGFkMDU4MzFmNjIyZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMWVmNzMwZTAxY2QwODQ2NDg5Zjc4ZThkZTM3MTc5YTA4MWNjZTBlZjQxYTZkNjkwNmNlZmMxMzAxZmIzZjgzNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjM4NTdkY2FhMmFlNDc2NDM1YTc4M2RkZDFmZGFkNDc5MGU3MWRjZTMyMTRlMzJkMWMwM2RhNGMyOTgyMWI4OSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_d193e3ec6a394d24b15deed2ad259666",
+      "statement": "In the audio player, when a station is selected, any existing media session is cleared by calling `clearMediaSession`.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js#L202-L202",
+          "version": "repo-lines-v1:sha256:a8f712d20c6d47fae56da36a4807f53e2be8b8fcdca791f73a3a1f4dcf7fdbb5:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYThmNzEyZDIwYzZkNDdmYWU1NmRhMzZhNDgwN2Y1M2UyYmU4YjhmY2RjYTc5MWY3M2EzYTFmNGRjZjdmZGJiNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYThmNzEyZDIwYzZkNDdmYWU1NmRhMzZhNDgwN2Y1M2UyYmU4YjhmY2RjYTc5MWY3M2EzYTFmNGRjZjdmZGJiNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTljMDk4OWEyYTgwNzkxZmQxMTBlOTg4MTgzY2E4ZWU2NWZmYjIzYjYzMjcwMGNlNWYxMmZmZmJmYWZjZTc1MCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTQ1NTU2MDUzZTZmZTUxYmNkZDJhYzBiNDg5YzA0ODAzOTY5OWViNzYyMmJmZjAzODk2ZmFhZWVkYTA2MWZmNCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_f46a89234c2d426b91f379d8b5eab73b",
+      "statement": "In the audio player, when playback starts (playing event), the media session is updated with empty title and artist via `updateMediaSession('', '')`.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js#L56-L56",
+          "version": "repo-lines-v1:sha256:73edc85f3fb368d656c4592f9ec9b6fe383f454cf41b71eb97eea971c00bea97:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzNlZGM4NWYzZmIzNjhkNjU2YzQ1OTJmOWVjOWI2ZmUzODNmNDU0Y2Y0MWI3MWViOTdlZWE5NzFjMDBiZWE5NyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNzNlZGM4NWYzZmIzNjhkNjU2YzQ1OTJmOWVjOWI2ZmUzODNmNDU0Y2Y0MWI3MWViOTdlZWE5NzFjMDBiZWE5NyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjI5MWZkNTRkNTRiNTg0MDRjZTY0MjJkZjMyNzE0OGM1YTc0ODA4ZTk1Y2MxNTQxOWI3ODUxYTliY2ViYWQ4MCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMGY5MjFlMDI4NmNlZDBhZGUxYzQ3NzU5ZGY0OWNlMDhjZDdiMmU3NWJjZTNjYjk3ZmExN2M1OTY2ZDE0NWY2YiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_f748a940b82642808b2264c7d1af15fe",
+      "statement": "In the audio player, when metadata is successfully fetched, the media session is updated with the current track's title and artist via `updateMediaSession`.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js#L262-L262",
+          "version": "repo-lines-v1:sha256:3d03071fddc032992dceefea7b863e5342658607a4664d239a9c107e175bfe13:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiM2QwMzA3MWZkZGMwMzI5OTJkY2VlZmVhN2I4NjNlNTM0MjY1ODYwN2E0NjY0ZDIzOWE5YzEwN2UxNzViZmUxMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2QwMzA3MWZkZGMwMzI5OTJkY2VlZmVhN2I4NjNlNTM0MjY1ODYwN2E0NjY0ZDIzOWE5YzEwN2UxNzViZmUxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjA3YzUyMDdjYWZmMTJlNTUzZmNkYTNlMTE4Mzc0YzU2ZGFiMTQyNDg4NjYyMzE4ODdkODViNjEzMzM2ZGQ2NiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDJkNzM2ZWY3ODMxOGNmOTE1ZDNhNDE4ZWJkNzhlYTNiZmE2OWU3Mzg1YzE3ZDIxOTc1MzgwZGFiODg5MTM1YiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_ff5d6f85b52d4fe99ea0c4bbb91d2be5",
+      "statement": "In the audio player, when metadata fetch fails, the media session is cleared by calling `clearMediaSession`.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js#L278-L278",
+          "version": "repo-lines-v1:sha256:0b687a073ff05b10c64bef7f6c7694ce0d97df93700956e84b9c22f68e31d916:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMGI2ODdhMDczZmYwNWIxMGM2NGJlZjdmNmM3Njk0Y2UwZDk3ZGY5MzcwMDk1NmU4NGI5YzIyZjY4ZTMxZDkxNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMGI2ODdhMDczZmYwNWIxMGM2NGJlZjdmNmM3Njk0Y2UwZDk3ZGY5MzcwMDk1NmU4NGI5YzIyZjY4ZTMxZDkxNiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjBjMTZhNzA1NDdmMWQxYjk4YTFiZjM3MmRjYzY1NzBkNzQzMmUwNTk1NjQ0ZDI2NjU0NTk1NDIyOTIwNzVlNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYjNjOWYzNmI0NjVlNzI0ZjM5ZmRiN2IwOGUwN2ZmMjFlY2M3ODI3NzdjZWI1MmQ4ZWRiY2JkMDJjOWRkZjNkNCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_d45ff19bf3cc4fe1a8eaa30cd3ef8a18",
+      "statement": "The video player (`video.js`) uses `setupMediaSession` and `clearMediaSession` from `window.PlayerCore`.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/video.js#L10-L10",
+          "version": "repo-lines-v1:sha256:59c98b8dfd36c620b058d4bebc2b79eabe4c495dd81ed06c638bce14b8d41f90:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNTljOThiOGRmZDM2YzYyMGIwNThkNGJlYmMyYjc5ZWFiZTRjNDk1ZGQ4MWVkMDZjNjM4YmNlMTRiOGQ0MWY5MCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTljOThiOGRmZDM2YzYyMGIwNThkNGJlYmMyYjc5ZWFiZTRjNDk1ZGQ4MWVkMDZjNjM4YmNlMTRiOGQ0MWY5MCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMGYzZGMxYTJhZjVhOTE1MDNjODMyYjk2OTgwMWIyMTc0NWRiYjI5NTg5ZWU5Y2M2OGUyOWI4MGMzNDc4ZmI5ZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYTk2MTllNzU2ZTYyNjg3NjA5Y2NkOGFiMjYyYjVlMDlmNDg3ZGZhOTI0YzU2MDcyYTYyNGE1ODk0OThkZTBmYyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_42ab230359ac4bcda6756b3ec61976d4",
+      "statement": "In the video player, when a station is selected, the media session is set up with the station name as title, 'Livestream' as artist, 'Oidarwave Video' as album, the video player element as media, and `clearMediaSession` as the onStop callback.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/video.js#L267-L273",
+          "version": "repo-lines-v1:sha256:d5b3abc63ac1aa79a0ec4c7466aadc70baaaca20dbdd0f4631356561308a88c9:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZGU2NDdlNDUyNzVkM2ZjZDA3OGU2ZThmYmNkNTNmYWE4OGI2NTA5ZjFjNjEwNGMwMTMzOWM2NzRkMDNhNTQ5YiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTljMTM1OTA2NjU2MzIzZDFjNWVhNDE2NTRlZTY2YWZiNTg1YWNkY2ZhZWFjYTEyMWQ1ZTMwYmYxOTNlZWRkNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTE5YzExMmUxMDVjYzdhZjc2MTg3N2M3ZmQ5MDhhZjgwZmQwZGZhYjg4OTdlZTY5NjMyOThhY2E4YjJkMGJkMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDM1OWViOWEwZDM2ZWUzZTg4NWNjZjFkNWFiNzE5ZDliNDEyMTE2Y2ZjZTYwNWI5OTBjODA3YmQxNTZkOWQyYyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_5fffc5e7f9a943b382ea4c30329ac9de",
+      "statement": "In the video player, debug messages are logged for the pause and playing events (but no metadata updates are performed in these event handlers).",
+      "evidence": [
+        {
+          "resource": "repo://src/js/video.js#L297-L303",
+          "version": "repo-lines-v1:sha256:07bdd87ee0698e55a99ae779a4cfd706ace2d324ba14845e0f87e71e83b7a919:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZGI5ZDViOGQ4ZGVlNmI1NDcwZjdhNzYyNjdiYTAxMGFiMjIxZWFmZjVjMDIzMDU5ZmE4MDg5OGI1OWJjYWZiMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTljMTM1OTA2NjU2MzIzZDFjNWVhNDE2NTRlZTY2YWZiNTg1YWNkY2ZhZWFjYTEyMWQ1ZTMwYmYxOTNlZWRkNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjZjZWQ5NmVlNTdjNTI4ZjE3NmQ2YzcxNzA5OWRkMDI3MzdjZjZlM2ZhYWViYzMxMDk3NTdhYzlkYTY3ZjIzNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzE4OTYzMTYxMDQ4NGVlYzIwZmZhYWZlZmM1MWM1M2IwZTQ3MmE2ZDZjMWY2YmZiNTIxNzRkNTgxYWU1NjVmOSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_1260eb648ae644268b4d0b74386e77b1",
+      "statement": "The Media Session API integration handles system media control actions: play (attempts to play media), pause (pauses media), stop (pauses media and invokes onStop callback).",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player-core.js#L42-L47",
+          "version": "repo-lines-v1:sha256:16696ef1d7399690bc5b503337892a24e64254ed16389744c8b573c3d17e5083:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDkwMWJjMmE1ODY3NjBkNmI5YzU0NmEyYTZjYzY4MzU3NWFkNzBjYjQ5NjRkNDhmYThiNjRkZDVhMjY1M2JiYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGU0NjJiZDg1ZWEzNTIyODIyYTlhZDNlYjI0MDk5YjAzMmExYjYyN2JlY2ZkN2M1ODMxZTk5MjdkNGJhYzQwZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDI2MjUxMDZkODdkYjhjZDM1Mzk0ZGJlYWRlZWNiYmNkODc2ZmJkNjllYjBmNTQxOTkyZWEwY2UxMGMzMjcyNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYWUzZGI0Mzg0ZTE0MzA4ZWE2ZGI4YmViM2NhZWNiNjM1ZDI3YWFhYzZiOTljMDM2MGZmZDk1ZDBmOTQ0OWE2YyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_38b53e0937d64844bca56bb86be52935",
+      "statement": "If the `mediaSession` property is not available in the `navigator` object, the `setupMediaSession` function returns early without setting up the media session.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player-core.js#L34-L34",
+          "version": "repo-lines-v1:sha256:0e64d6d7a59ebaf43b608c5e5df19bece5ec08681c67a2c57c07be34108e0512:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMGU2NGQ2ZDdhNTllYmFmNDNiNjA4YzVlNWRmMTliZWNlNWVjMDg2ODFjNjdhMmM1N2MwN2JlMzQxMDhlMDUxMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMGU2NGQ2ZDdhNTllYmFmNDNiNjA4YzVlNWRmMTliZWNlNWVjMDg2ODFjNjdhMmM1N2MwN2JlMzQxMDhlMDUxMiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzg3NTZmOTllOWE2Y2Q4OGY4Y2Y1NDFjOGI2OTZhNmM2Yzc1MDY1NTcxZjEwMDVkNjdlYzljYjU4NDcyNmFjMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDRlYmRjMGNiYmJlMzBlOWQ3Y2QyZDk3NGY4MmViZGUyMzE5NzUzZmIwOWMyMDEwNjQzMGRiYzRmY2M3ODA2ZiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_44b968bd6fb544288a5e71e848374a2e",
+      "statement": "Errors during the setup of the media session (e.g., when creating MediaMetadata or setting action handlers) are caught and logged via `logWarn`.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player-core.js#L48-L50",
+          "version": "repo-lines-v1:sha256:ae3db4384e14308ea6db8beb3caecb635d27aaac6b99c0360ffd95d0f9449a6c:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjRjMjlhYjExZWEyNzZmNDRhOWQxOTE1Y2U2MjY1NjllZWVmOWUzODQ5N2JlZjFjM2VhZGZlNTVkZGI5ZmZmMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTZiMDQ0OTE0Njk3MjJlODM2M2E5NGU0MDQ0NTM4ZTAxM2EyYTIxN2UzNmIxZTU2OGJhNjBhY2I3YjRjOGYyZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjI3NmU1Nzk5ZTgzZjQ4Y2U0ZDRhN2RjNTBlNzU1NzQ3ZTMxNzQ4MDU3ZTgwZTI3Y2Y4N2FlODE2YTdkNzVjYSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDlmMGFiNTBiZGUzZDcyOWU1MjQ1ZDEzMjFiY2E2YTljNTIyZDFkYjRhMjAyOWE5NjQ2MjY5MGU3NjIxMDgzZSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_ea5b205091814b318278a29c0a27ab03",
+      "statement": "Errors triggered by the play action handler (e.g., when the media element fails to play) are handled by the `handlePlayError` function with the context 'media-session'.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player-core.js#L42-L42",
+          "version": "repo-lines-v1:sha256:4901bc2a586760d6b9c546a2a6cc683575ad70cb4964d48fa8b64dd5a2653bba:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDkwMWJjMmE1ODY3NjBkNmI5YzU0NmEyYTZjYzY4MzU3NWFkNzBjYjQ5NjRkNDhmYThiNjRkZDVhMjY1M2JiYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDkwMWJjMmE1ODY3NjBkNmI5YzU0NmEyYTZjYzY4MzU3NWFkNzBjYjQ5NjRkNDhmYThiNjRkZDVhMjY1M2JiYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDI2MjUxMDZkODdkYjhjZDM1Mzk0ZGJlYWRlZWNiYmNkODc2ZmJkNjllYjBmNTQxOTkyZWEwY2UxMGMzMjcyNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMGFhOGU2MjJhNDQ1NGIxMGMyZjdlMjI5NjJiMThjNmMxMWMwZjQ1YzMxODlmNmRlMDJiNDM1OTM4NzNlNTgyZCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_437cde636dac40fcadcb5fd6c0ab19db",
+      "statement": "The media session uses predefined artwork icons from the `FAVICON_ARTWORK` constant, which includes SVG favicons at 128x128, 256x256, and 512x512 pixels.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player-core.js#L14-L18",
+          "version": "repo-lines-v1:sha256:0955eafddff8c0693c8996bbfa74e72d47dfd0774ce38fe24455e6d9669e9ef8:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWIyMDNkMTdhMDBmOTFlMGNjZGQ5NzJhNDg2NzY1NzM2NDFkNmE1MThlMmFhOGNiNDhlNTYwN2ZiNTQ5ZmZmZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTA5M2UxMjkwNmE2MWZkNWMwODlmZWU4ZmNhZmQ5NTJlNTdhNTkwOWEyNDlkZDEyNTA5NDk4ZDI3MWE3MWM5NiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZDY2NTMzNDFkNmY0ZDE1N2VhY2Q3YWZiMjQ0YmJhMGE0OGViY2M4NmQ1ODZkYjc5MDcwODNmMTBkOWU2NjliMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOGZkZTk4NjdhYWFhY2JkNjIwY2Q1ZjA3YWZjZTgyZjcyYWU3MDZlMGM5NmIxM2Q1MzA4OTNhOTM4YzMwNmQwNyJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.2",
+    "at": "2026-09-27T19:48:35.317Z"
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:5fdae6aa1e09b3b0728de7cb96183657adadce4456dad6b1d0ac039ee2795c5d",
+  "claims": [
+    {
+      "id": "claim_f298865e899f4d10a3615037107b4c4c",
+      "statement": "The NotificationManager class checks for browser Notification API support and initializes state for managing notifications.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/notification.js#L1-L11",
+          "version": "repo-lines-v1:sha256:a20cdd6cdbb6cb620c40db804aee16193f48be0ca6210317d8205f54e3fee0db:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjEwODQ2MjcwOWUyNGZjZDQ5YWFiMTgxNzhkYjIyNDlmNDQzNzViOGViYTVhMDY0M2FlODYwMTY0OTdkYzM2NzciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJkNWVmOWI3YTBhNDkxMTMxOTMxZjNiYjBlZThjOTkzN2UwZGQ4OWNiNTkxOTllY2E4OWQ0OTZjNzJmMTRhOWYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_d89a442f52be4ec5b7961c6aaf9388de",
+      "statement": "The NotificationManager loads and saves user notification preferences using localStorage with the key 'notificationsEnabled'.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/notification.js#L23-L26",
+          "version": "repo-lines-v1:sha256:7c71d0f149384551630ec8366af16d2ff40204d1bcf07826346d6ae52d9ec226:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZGZiNzc1YWRkZjE2NzVlZjk0NThkZmU0Y2M3MzZjNDk3MDAwYTk1NzI4YjUyZGU3ODdlMTVhMDZhOTA3N2I1ZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTUyMmM0MmNkMTljNmQwM2Q4MDhjNDUyNzIwNTUyODI1YjdlYTFjNWI0OTFiMjE4NTExY2FjNzQxNWNmOWQ5YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjA5YmI5MzMzZTIxNjcyMjgxYTczOTVjMWQyMTgxY2IzNzYzNTI2YmRjOTJkOWI1MDc0N2ZmNGQ4NTI0MmZiOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDA4ZDE1ZTY3MGU2ZWM4ZDNmN2VlMTM4ZDY1ZDNkZThkNDU4MzI2ZjI5ZDM3NjY0OWNiM2RhNGZhODdlYzA4OCJ9"
+        },
+        {
+          "resource": "repo://src/js/notification.js#L54-L60",
+          "version": "repo-lines-v1:sha256:15e8598269131b68ae49099518cd6598d95c503dd2226003d548825ac3ea5fbf:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiY2U1MjUxMWVlM2M0NzFhNTI5MGU2ODI5YzkwYzdiNmMzOWRlOTQ0MTU2OThhODZjNGM5NjI0MGNlOTQ1M2MyMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTk5YmRlZmVlYWNhNjM0MGUwMjkwZGM4NmU4ODljODlkNWUxODlhYTViYTQ0YjU4NWIzYjcwNzM0ZjRhNjJkOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDE0NWRlODJiYTljODQxMTFjOGY4ZTU3MGVlZDRmYTk2MmU1MWFlMzRkODAyZDY2OTBjMDY5NDZjOGVhYTEyNCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_c65baff433a04c62899243dd197beb6f",
+      "statement": "The NotificationManager sends notifications for track changes only when the station remains the same and the title changes, with a 2000ms debounce to prevent spamming.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/notification.js#L91-L115",
+          "version": "repo-lines-v1:sha256:6250d921a8ebb5e0f760076ef18c3b7b891d8db0f1bb8a9555ce7fe588a9ff6d:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk4ZDkzNjc2Y2MxM2VjMDZmYWRhOGEwN2U5ZTE0MDRkNjJlMjdlODA2Y2RhMTQ0MzVkM2JhNjYwYWI5ZDU4NzkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFiYWQ2YTZmZmExMGFiODQ0YzgxZWJiZmM4MjYwMzc1ZWNmMmU3ZWMwODBkZjRiMmUwNjU0MjZmZTVkOTYxZjIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQzMjIzZDEwNDEyY2VmNWEyNjk1MThkMjZjMjg2NDExOTc5NTBiZjY5Y2QzNzZmYTU0YzFiNzM5YzlhMDg5YWQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_09b029ff2a70443d9954437c1316184f",
+      "statement": "The NotificationManager creates browser notifications with title 'Oidarwave - Neuer Titel', includes track title and station name in the body, uses the favicon icon, and auto-closes after 10 seconds.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/notification.js#L72-L89",
+          "version": "repo-lines-v1:sha256:6051758443d28e4a6df6e5af73115697dd5fb4a005a37042e5cc5139b9cc9909:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM3YjY5YjA4Nzg3MWQ4ZTIzMjMyNWUwMWY2ZDIxZDM4ZDVkZTAxNGU2NTFjOWE5Mzg1MDk0ZDEwZmMyZDIyMzciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImU5YTIwMjIzZjQ5NmYwMmJmMDkyNzViOTViOGZmYjE2YjE0YjNmZDFkNTY0MDY2ZjJhMzdmNDU2Mjc5YjFhZGUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjRhODQ4NTY4ZjhkM2JmNTk1ZWE0Y2Q3MTA5ZjA1YzEzN2M4NTgzZmY1MzRiYTNkODkzNmMwZWVkMGU3NGNjNzYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_cb091ea41ebf477a8345d831f9793f7f",
+      "statement": "The NotificationManager is initialized on DOMContentLoaded and sets up the notification toggle UI based on API support and page context.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/notification.js#L10-L15",
+          "version": "repo-lines-v1:sha256:6c6eafd8a1acf57b5e157d55271450488345383688154dec0b33db0b8628dd79:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjdjNTMzZWRjOTA4ZWM2YzMwNDU3MTljMjYxOWE2Njg5YjU2ZmM4ZDE2MGQwY2JiMWE5YmY2MTA2ZGJhYWExMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiN2ZjNzY2NmMwMTIwNWQxNWFmMWEwN2Y2YTcyNThhMWU5NDI3MWNiMzBiMjE0MGZmYmJmNjdiNzRjYzhhZmMzMiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDU1ZmEzMzBlZWM4ZjgwMTkzY2ZkZjUyOWJlNmExYWRiNTY1ZDUwNjhkOTJmOTJmY2E3OWU1NTA1MTlkZWI5YyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNGM4MTZiN2U5OTJjN2YxMzBhNjNiNTFjNDMwZmU2MjMxNDI4NzZlMzk3NmE3MWFjY2UxOTRjOGY0ZTgzNTNjYSJ9"
+        },
+        {
+          "resource": "repo://src/js/notification.js#L19-L22",
+          "version": "repo-lines-v1:sha256:6a8755691596f078010b4e58570199a1732561821911168c67e3bf8a4ce03b9c:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTYxN2Q5ZmU3MDAzMTBiZDhkZmQ3ZmVhNjEyM2U2MTlkZGYzZjE3M2M3NTA5OTJiYzMwMjllMmZkYzRkMjE3ZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzEyNTM3YmQzOTJkMDE3OTMxZGU5ZDUyNGFiNGQxZDViNzhhNzVhZTY4YzBkOWU5NGQ1ODY0MDZmOGM1ODYwMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNGM4MTZiN2U5OTJjN2YxMzBhNjNiNTFjNDMwZmU2MjMxNDI4NzZlMzk3NmE3MWFjY2UxOTRjOGY0ZTgzNTNjYSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiM2EyMGI4YjMxYWMyOGQ3YTc4YWM5MGY0MDkxMjMxZjE0MjZjYWM0NTg1ZjM0Y2UwODdlNjA0MTAzZjRiZDYxOCJ9"
+        },
+        {
+          "resource": "repo://src/js/notification.js#L27-L52",
+          "version": "repo-lines-v1:sha256:1cf91a265443fafcdffe7e33754081efb4683e136ebcf0d38b1451d414b7b6f7:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQyMGZkNzExZDk0NjMxZDQ5NTQyMjY1ZjBiNzQ3NjE4MmE2OGQwZDgyYTU0NjY4N2ViM2Q0YzZmYzU2NDY4ODEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQzNDg2NmIxMTE2MTlhYWU2MzFmNTkwMjYxMmU4NTZlN2E5YWI1ZjIzZDg5MmE4NjAzNzg3OWZkNmQ3NGM2NzAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjMxNjJiNjcwZGFmNDYzNjI0NjYzNTI4NGJjNmMwZWQyYjRiOGFkYTY3OTAwNzM3YTRjMzlmZDg3YTY3ZWJjM2UifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.2",
+    "at": "2026-09-27T19:48:35.317Z"
+  }
+}
