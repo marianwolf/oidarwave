@@ -1,7 +1,8 @@
 {
-  "updatedAt": "2026-09-27T19:14:12.625Z",
+  "updatedAt": "2026-09-27T20:27:12.667Z",
   "command": "update",
-  "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
-  "status": "interrupted",
+  "gitHead": "294e36d9133fec40f5408da8cf84949e1af1e7be",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "status": "complete",
   "language": "en"
 }

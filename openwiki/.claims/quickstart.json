@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:145a819a1ab04f3d0f2968490d09aa2b5ef5ccbb0f4880a3039fb968b8bfb042",
+  "claims": [
+    {
+      "id": "claim_4c5205490b5c422f98a1eafa7ba61c4f",
+      "statement": "Oidarwave is a minimalist, ad-free webradio application that runs in the browser and as a desktop application via Electron.",
+      "evidence": [
+        {
+          "resource": "repo://README.md#L8-L12",
+          "version": "repo-lines-v1:sha256:a434252816537288a1de526e422aad2d9312bbc643149e9ecdf8bf6da1543d0a:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWM5OTY2MGRhYzJkY2Y3YTYwY2EwMjJlZTA2MzYwNTdmMmJmZTU1MTRiODViYmRkNDYzZTRlMzNkYjc0N2U0ZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMThjYWE0MjZmNzRjNzgyMmVkMzVkNzUzMWQxODBiZTgwMTM4N2UwNDlhYWM5NWQ4MGVjZGU5NTg1ODI0YTcyYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMGQ4NGMwYjY4NDEzNWIyNWMwODY1ZmMxODM4ZDI5MWEzODA5MDNjMTQ1OWM3MTQ0Nzc3MjkyOTdmYjgzZDZjNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzBjYmExNDM5ODBjNzQyOWJhMmJiN2MzNDEyOTZlOWQ1YTc3NjIwZTcyMTRmMGRhYzFmZjU4M2JiODAzMmE3NyJ9"
+        },
+        {
+          "resource": "repo://package.json#L5-L5",
+          "version": "repo-lines-v1:sha256:ecc3de98a1d3361b36680708785fcf154b3063efe09b8107c0bc23b3f42ce710:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWNjM2RlOThhMWQzMzYxYjM2NjgwNzA4Nzg1ZmNmMTU0YjMwNjNlZmUwOWI4MTA3YzBiYzIzYjNmNDJjZTcxMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZWNjM2RlOThhMWQzMzYxYjM2NjgwNzA4Nzg1ZmNmMTU0YjMwNjNlZmUwOWI4MTA3YzBiYzIzYjNmNDJjZTcxMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjNmYzkxZTU3ZTZhYWI4NmQ5NjRlY2U2MjY5YmViZjU3NjkyZGQxMDg2N2EyNGY2MjUzZGRjMTEzYjhiNjRjMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMWUwY2IwOWU2ZWVhNzc2ODAxNjU3ZDc3YTgzZTA4MmJmNmY0YTk5NDlmOWE3MzVjZjgyYzUxMGRiYTBlYWQ5ZiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_0a00006566d04e2cb6fd4dbb6a78868c",
+      "statement": "The static web application can be run by opening index.html in a web browser.",
+      "evidence": [
+        {
+          "resource": "repo://README.md#L38-L43",
+          "version": "repo-lines-v1:sha256:51ebab8e2315ee5f75e198bf6d62898a969eea04cef846268305c9fec9ef017a:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNmU0YWI2NDJkYmQ3ZTRkYWUwYTdlM2MzNzA2ODM1OTA1ZmI1MWU2NjI1ZjI4ODc4ZGQwY2VlNGRiM2RmMDc2NyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMGNiYTU3NDhlYmE5ZGU4NTY5Y2NlZGExODZkMTk5MTY5ZWEwNTA4ZDBkZTQxZjNjZGZlMTc3ZjMwZTFhMGIzZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiY2QwNmNmMjlkNzc1MTQwMGE0Njg4OTJhOTRlMWQ2YWQ3ZWI2MWMxYTMyMmQ4OGI4MDUxODVlZjcwNzFmZTQ5NyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzQ0ZTZjYzg4MDIyMWJjZWEyN2MyYTYyYzQyOTRhZTg3ZWJjYzM4OTkzYmI3YWVkNTYxYWVhNjFlMmVhNmZiNCJ9"
+        },
+        {
+          "resource": "repo://index.html",
+          "version": "repo-file-v1:sha256:79a5b37926108d278024e5aa037290b35e38d1fdcf56a20ea7a59097185fa7fb"
+        }
+      ]
+    },
+    {
+      "id": "claim_4e89ebf701d846cb960a925c7fd4d568",
+      "statement": "To run the test suite, one must set up a Python virtual environment, install dependencies from requirements-dev.txt, and install Playwright browsers.",
+      "evidence": [
+        {
+          "resource": "repo://README.md#L49-L55",
+          "version": "repo-lines-v1:sha256:b06ca5cbdb8f579de632fc9a74d5a1069e5720b43da47a8c25db0862fa83b353:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNWRlMmY1MzI4ZWU2ZTgwNTBlOGFhZmQ4ZGM4NjlhMDY5Y2Q5NTg0ZWRhYWY1NGZlNTg5ZDczYzNiN2RjZDc5OSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDdjMDZjNTYxZDVjMzI3MzQzNjg1MjY4YTQ2YjMzOTFmMzk5OGVlZTg5MGQyYmU1MWYwZDIxY2M0YTUzYWU2ZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDlhNzNkNmEyMjZkMzEzYzk2NjMyOGNjYjE3ODk5NTRjZWM5ZTA5ODYyZmRjYTk5Mzc5Nzc5NTdhZWY4ZmY2NiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODQzYmVkNjlhMjVhZmJlMjZiYjM1YjFmY2EyNzU3YjFlMzYyY2JkZDQwMDY0MjQ0ODI2ZjAwNjBmYWQ4YjYxNCJ9"
+        },
+        {
+          "resource": "repo://requirements-dev.txt",
+          "version": "repo-file-v1:sha256:02b1814466bd92ae9fb83c3c612808072489d9745f53eeb3fb430774b2ee922b"
+        }
+      ]
+    },
+    {
+      "id": "claim_f6c791682b8e44739299cd9d5628e655",
+      "statement": "The test suite can be executed using the command `pytest`.",
+      "evidence": [
+        {
+          "resource": "repo://README.md#L57-L61",
+          "version": "repo-lines-v1:sha256:64040cc43828686979fdd43ebc28bbff7313c9d90c39ffacb2815efded5d4771:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZGQxNTk2N2NkNzllMzM2YzViMDJiNDQ1NjNhN2ZlNzQ4MTBkZDdmODE1ZjFhZWRhNjhiNTU0MDFlMWE1ODA2MiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDdjMDZjNTYxZDVjMzI3MzQzNjg1MjY4YTQ2YjMzOTFmMzk5OGVlZTg5MGQyYmU1MWYwZDIxY2M0YTUzYWU2ZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNWQ0NDBlYjgxMDUxM2RjNjBhYjczM2QxYjMzM2Y3OWE4NjJkNWQ1NmVhZGFkNGNiOWU5ZDRiN2RjNGFmMmJmNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYjA1MDViZWI0YTE2MzQ0ZThkMGFkYmRhZjkzMTE2YWVlMzYyYTM4NWRjMzAwNzM0OTUyZGM2YWQzZWZjMDQ4ZCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_6d62ff4b8ba344899578342065ceb71c",
+      "statement": "Electron applications can be built using the npm scripts defined in package.json, such as `npm run dist` for creating distributable packages.",
+      "evidence": [
+        {
+          "resource": "repo://package.json#L17-L31",
+          "version": "repo-lines-v1:sha256:c61a2cc249fce7558ab9f85f7ff83e5035107231fbf88aafd61c9d796689dec7:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdiMDcyMDFiZGI2YmMwNTkyMDg0OTYzNjgxODYxYTRmYTE0YWZkYTU5MWI2ZDU2NjFiNzQ1OGQ5MjFkNWQwZWIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM2M2Q1MzVjZTM4MDYzZDZiNGM1MWQ4YzM4NmE3ZjliM2U1ODBhMTRhMTBjMDdiMTk4ZGZhZjE5YzkzYTNiZmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImM0N2Q0NGQ2OGMxMzE4MGM2Yjg3ZTZiN2YxNTZlZDZiMDM1YmQ3ZjdjZTc3ZjhhYzZlZGY0MjJmMWU2OWVkYjgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA1ZTQxODc2NWE3MDA0Y2E2MTI1NzVjMTRmNjVmOTI5MmZkMGFiYWVjOTI1OTFkOTRiYjEwOTliMDBhMzczOWIifQ"
+        },
+        {
+          "resource": "repo://package.json#L7-L13",
+          "version": "repo-lines-v1:sha256:6521320a5066a6fc389ce16a693bf3ee13732860a41747896b4a2c2465229c2c:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzQ4MzNkNTk0OWMwM2E0MGNhOTUyNDkxNjEwYTY2NTk2NDRiM2FhNDY2MzYyZjc5OTAyMGRiZjE5ODE1NDdkYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTMyNzdiOTQ3MjRkYTFjZmIyYTcwNTU3MmFmMmQ5NWNiMDkyNGZhN2IxMGM0MDc1NDA5Nzk2OWY2MDlkYTcwOCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNmYyMmFlZTg5YTZjYmE3ZGZlN2FkMjEzODIyMWY0MWM3OWExMWZlOTkyMjM0NmY2YjhkMzc5N2ZkNTI1ZGFhNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzQ3ZDQ0ZDY4YzEzMTgwYzZiODdlNmI3ZjE1NmVkNmIwMzViZDdmN2NlNzdmOGFjNmVkZjQyMmYxZTY5ZWRiOCJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.2",
+    "at": "2026-09-27T19:48:35.317Z"
+  }
+}

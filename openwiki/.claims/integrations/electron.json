@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:58e1f3dc2e3cb04edc4861b247836028af344579f3e49e5a1146b3c3340c02e6",
+  "claims": [
+    {
+      "id": "claim_9ce2bd663b9d4d71afde5902a8f9911e",
+      "statement": "The Electron main process creates a BrowserWindow with dimensions 1200x800, initially hidden (show: false), with background color #0f172a, and security-focused webPreferences including nodeIntegration: false, contextIsolation: true, webSecurity: true, and sandbox: true.",
+      "evidence": [
+        {
+          "resource": "repo://electron/main.js#L13-L25",
+          "version": "repo-lines-v1:sha256:2848725cee8e08e0046fbd7e7fa846e073404971366f4c23b893dcfdc1f21f72:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZjMjc3OWM0ZDEyZGIzZDdhZjZkMDI3MzRkOGMwZGFkNDRlMTJjYThlMDdiYTlmODNmNTliNmY3Y2RkYmNhNmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhMWQxYTYzMzkwMjI5Yzc5ODM0N2U4M2EwNDA1NDQxYzk0MDAwMzUyODRhZDE2OGMxYmY2Y2RmMWQ3MGEzNzAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ3Mjg2MTM2Yzc4MmM1YzVjZmYxNTc3NTMzM2JmOWU1YWVmYWQ3OGRhNzAxMjQ4NmQ0NjE3YWEwMDE2MGI4OTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc2MDc0NGExNjZhOWZlZDg0NTNiNWYxZjE3MmRkYmVkZTkwMWRjMGE4OGFhM2U2MjVkMjMzY2Y4MjcyNTkyMDEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_4c636c64be8e49b5ad52259dd01111c0",
+      "statement": "The main process discovers available HTML pages by recursively scanning the application directory for index.html files, excluding directories listed in .npmignore or default ignored directories (node_modules, .git, dist, electron).",
+      "evidence": [
+        {
+          "resource": "repo://electron/main.js#L28-L52",
+          "version": "repo-lines-v1:sha256:1e79f2e383fca74a2bbde6f46a1e3fd6c7aeb646dd9dccd8e601d443b6b24318:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFmNzAxYmJkYWRiYzc1NjE0NGVlMjRhNDE0Y2FkNjBkNjRiYWYzMjRmMTk5N2MwYTdlYzNmNjI2ZDg4ZGUyNzYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE0NTU3NmUwZWJjNzljMzQ2MTdmMTE1NTBjYTc1ZjExZTY1OTZlYTMxODM0OWQzYzRhZTBjZDJlYWE5NzI1MGMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjUxOGJhNGQ0ZjhlNGM0Zjg5NzcyN2JmZTNjOTZkMDdhMjQ3MzZlNDYwN2E2ZjQxMzA3ZjAzMjg1YWE1MjllYzMifQ"
+        },
+        {
+          "resource": "repo://electron/main.js#L61-L92",
+          "version": "repo-lines-v1:sha256:dbb65d7ffe095e4a7bda25bcd8a0ec71ff720896d6c6df61cd775c3105b7f28b:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNmNDdlMmZiYWQ2ZGRhMjg5MDBiMWI0M2FjNWVhNTEzNTg2ZjYxNWM5ZDc5NzRkOTIyNzk5ZjJiNzJjMTE3YTgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM3MmZjMDI0YTRmZmQyNjZhNzNiYWI2ZWUxYzU3Y2Y2NGEyZjg3NzM5MDc2NGE2NjNmMmI4ZWExOTg5MDc1MjMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjUzYzBkYjcxYTc0Y2M2MTQ5NWNlMjFlMjE1OGYxYjViMzYwMDNjOTYyYmJiODQzNTc4OWY4OGNlZTIyMmQ2MTgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c16b12b9722944048cd025b1c1abd7fd",
+      "statement": "The custom file protocol handler prevents directory traversal attacks by ensuring resolved paths are within the application directory and returns a 403 error for unsafe paths.",
+      "evidence": [
+        {
+          "resource": "repo://electron/main.js#L224-L239",
+          "version": "repo-lines-v1:sha256:a71536008f76b08879103b7a8a9a2fb0ccd4f85f22e14023fa91f7fd21a61f0c:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU4MWNlNWUzYTdiM2M3ZDYzMDc2NzgyMjMxZmU0ZDkzM2YyMzI3MTRjMTI1ODQyMTY5YmI4NTg3MWVlMDkxNWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU1MjJjNDJjZDE5YzZkMDNkODA4YzQ1MjcyMDU1MjgyNWI3ZWExYzViNDkxYjIxODUxMWNhYzc0MTVjZjlkOWIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY1YzM0ZDAyZGIzN2Q3MTRkNjk4NDFlYjY0ODc4ZTc2OThlNDQ3Y2VhOTJjYmRiM2VkYmI0NjliNzYwZmMwY2IiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNiYmRhOTNjNDkzZmQ5NzUyOGY1MGM2NjEzODlkZjA1NTE0MGI5M2MwMzFmNTY1OGExYzEzMWZjM2E0MjY5MTYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_7f4734a52ff843359c0d54a11a4bf79b",
+      "statement": "The package.json file specifies electron/main.js as the main entry point for the Electron application.",
+      "evidence": [
+        {
+          "resource": "repo://package.json#L5-L5",
+          "version": "repo-lines-v1:sha256:ecc3de98a1d3361b36680708785fcf154b3063efe09b8107c0bc23b3f42ce710:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWNjM2RlOThhMWQzMzYxYjM2NjgwNzA4Nzg1ZmNmMTU0YjMwNjNlZmUwOWI4MTA3YzBiYzIzYjNmNDJjZTcxMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZWNjM2RlOThhMWQzMzYxYjM2NjgwNzA4Nzg1ZmNmMTU0YjMwNjNlZmUwOWI4MTA3YzBiYzIzYjNmNDJjZTcxMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjNmYzkxZTU3ZTZhYWI4NmQ5NjRlY2U2MjY5YmViZjU3NjkyZGQxMDg2N2EyNGY2MjUzZGRjMTEzYjhiNjRjMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMWUwY2IwOWU2ZWVhNzc2ODAxNjU3ZDc3YTgzZTA4MmJmNmY0YTk5NDlmOWE3MzVjZjgyYzUxMGRiYTBlYWQ5ZiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_b7348e2bc1d74936a3d73ab7caacaaba",
+      "statement": "The Electron builder configuration includes the src/ directory, index.html, manifest.json, favicon/, video/, and impressum/ directories in the build output.",
+      "evidence": [
+        {
+          "resource": "repo://package.json#L23-L30",
+          "version": "repo-lines-v1:sha256:9a61a7d27d09008a0f97d9f2fab6e5bfd09c40a00ba8137983bab4b33b793aed:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjllYjJhMDAzZDIyNGRiMDU0NTE5ODIxZTg1NWUwN2Q1MmI5OTQ4OTA3MDBkZjNlYTk0ZTQ2MTlmMzgzOGZhMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzdkOGExYzYwZDhmM2FmZGQxYWYzYWE3ZTQ5ODYzMzhiMDg2ZjAzZGMyYWQ3Yjk4MDVmZWFhYWY5NjUyNzM2ZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDZhZjU4MjViNzFhZWVhMDg5NWJlMDkxZGJkOGJkNTk5ODk5ZTgzY2Q3MzM0ODI1MjYxYWQzYzYxN2ZhMjRkYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjQ2MDgxNWVhMTM2ZGEzNTIwOTQ5NDkyMDk1OTQ1NzRiODI5NWRhNDFiOWQ4Y2NhY2U1N2RkMGI2YWUwNjZjZSJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.2",
+    "at": "2026-09-27T19:48:35.317Z"
+  }
+}

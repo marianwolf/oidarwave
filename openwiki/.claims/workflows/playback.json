@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:306651102985cd89cbef2e6a8e9717a4bab2482aa901fa6fc38c8fdbccfa8ff1",
+  "claims": [
+    {
+      "id": "claim_bd6619f54f0c49949f5b083b7e239c7c",
+      "statement": "In the audio player, selecting a station via a button click clears any existing retry state, updates the UI to reflect the selected station, persists the station URL to localStorage, and initiates metadata fetching if a metadata URL is provided.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js#L183-L213",
+          "version": "repo-lines-v1:sha256:9f76fb9f162f17da155c3473b3c99e212f49eb57472effcc2affc3a4a4be6bf5:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc4MGE3ZGE3NGEyZmY2ODMwZDZjMjRlYTc2ZjQ2YjE3YWIzMTMzN2I1MGNlNTVhMjUyMDM4MjU5YjZjMDlhZDgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjAyZjEzZjdlYjE1Y2I5MzYzZjA2ZjkyNjgwYzhmYzdkOWQ5M2RiMjMxZTgzMDc3NGE3NWE5MjQ2NWYyNDA3YTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImRlMWU5NmIzNTFmMTlmOWUxNzBkNTc1NTBkM2QwNjk1YmRjZjY3N2MwMzkzN2UwNDM5NDNhMWMxZGIzMTY2MzkifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_cbfb1d8df7f04de68b6fc3f27ce38dec",
+      "statement": "In the video player, selecting a station via a button click clears status messages, updates the current station display, and initializes HLS playback via the setupHlsPlayer function while configuring the Media Session with station-specific metadata.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/video.js#L263-L274",
+          "version": "repo-lines-v1:sha256:ad1a92362212d545a6f5a0b67ceae046fabb4d96c3f6be2a9aa3631385162693:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNmMmFmYjNhYzg2YjRmZDJmYWZmNDkwOThhZGExODRhZGVmNjg1NmViYTI3ZjZiNmMzNzc1MjE5YWZjOGE3MDciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkOWUxMjU0NjQyNTU3NmQzZGVhZThjOWI5ZGJmMTI4ZDVkNmRkYWY1ZDdmZTg1NzkzNDkyN2RlZmZhM2I5ZGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZjMDIwM2NmMjQxZmQ5OGU0NWM4OWQ3OWMxMjg3OWVlMTc1NGY4ZTllY2ZhYzBkNjFmODRkMDMwYmIzMWM3M2MiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA2MzhiZWY2ZTc2Y2Q5ZWY2ZjRjZDFjZTg4MmJlYmNkYTFjNmRmNTNhNWM1YzM0MDE1ZTBmY2NjMzM3OGE4NTcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_6bae1c69027f4e2888266956d65d2423",
+      "statement": "The audio player responds to media events (loadstart, canplay, playing) by updating the status indicator, resetting error and attempting playback on canplay, and starting station history tracking and clearing media session metadata on playing.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js#L38-L57",
+          "version": "repo-lines-v1:sha256:c4664d10105a190bc8965d5986b19fadf4e02823380c33abef56c55066980586:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI4NWZhZjQ1Yzg3ZTc3OGU4MWQyYTU5NzlhZGI3ZTcyNGM2OTI2Y2ZjZGRhYzNiMjA1YTA4NjE3YmQzMTc1NTIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFlNjczYWJkNDU3YTk3ZWVhMTdhNjAwNjJlYjBmYWVhNmJkZjA5NDg2OGNjNmI4ZjhjMGViZGEyZjYxZWQ0MmYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjMzOTdkZmU1OWNjZjE0YjY3NjNkYTM1NjM0ODhiZDc1NWVjMTIxZGI0OTE1MWUzYmRiYzkzZTA5NDQ5NzYzY2QiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImVlMmYyYjZkYmZiYjczNTBlYzM0MjE2ZjFhNTE2ZThjMWQxZjQ2MjYyYTA5NjYxNzgyODc5NWJkYjliZjcxODcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_cc674c567cf4429e84e26e70405c4683",
+      "statement": "The video player initializes HLS playback by either using Hls.js (with XHR configuration and event listeners for manifest parsing and errors) or falling back to native Safari HLS support, and upon successful manifest load, attempts playback and applies caption and quality settings.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/video.js#L126-L244",
+          "version": "repo-lines-v1:sha256:6a4a553b317a80dd82ecb51e3fe7c1add13334458b33f5b29e3dcb4f23c4e7ab:eyJzZWxlY3RlZExpbmVDb3VudCI6MTE5LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJmNTBhZGY4N2NiMjYwMTNjY2U5NTVkZDQyMzBiODJjZDE3MzhiMDU2NjFiMTNjMjgxYTY3OTUxMzAwOWY0OWIzIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiJhZDllMTI1NDY0MjU1NzZkM2RlYWU4YzliOWRiZjEyOGQ1ZDZkZGFmNWQ3ZmU4NTc5MzQ5MjdkZWZmYTNiOWRkIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJkM2IwNTNjY2I0M2M3ODlmYjI0MjM0ZDYwNmE3ZDI0NmM3OWIyOGRlNDgzZjUxM2JlMWQxZjY2OTUyMDM2MTg5IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJiNDkxZWQ4YzEyMDRhZjNmNzQ4NmQwODBiMzlmYTNhZTU0MWVmYzdlMmIwMThjYjQ5NzE5YjQzMzQ4NDY5MGNjIn0"
+        }
+      ]
+    },
+    {
+      "id": "claim_85138beba3b04e06952441df47ce573a",
+      "statement": "The audio player fetches metadata from a configured URL at regular intervals, parses the response as text or JSON to extract track information, updates the UI and Media Session with the current track details, and handles errors by clearing the Media Session and showing an error message.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js#L236-L280",
+          "version": "repo-lines-v1:sha256:faba321be223df481e86a3db41fddfac916b2617a3ec7667dfa2a948f5d12d88:eyJzZWxlY3RlZExpbmVDb3VudCI6NDUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRmNjg2YjRiZjFiZTBjYjVkNGJlYzkzNWQ3MmQxMjE3MmVmZGNjOTcyOGI4ZjA2NzRjOTA2ZGI3NmEwOTUxYzciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImVlNDgyY2E2NDUzNTQ4ZDRiOGRmZjIzZDkyZmNkMzc5MWFkMGIwOTBjYmE2OGNjODRiMjQ4MmJkZDcyODQ5ZjUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI4YzMwZDg0ODQ0YzI4MWI1YzBkNDU5YTBlODQ1MThiYjFhOTRiNDcwYTVhMmM1NmYyZDk0NzhiZjhhYTViNzEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_ac69a1ffc3e6431cb484122b34762c74",
+      "statement": "Both players integrate with the Media Session API to set metadata (title, artist, album, artwork) and configure action handlers for play, pause, and stop commands, enabling system-level media controls.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player-core.js#L24-L57",
+          "version": "repo-lines-v1:sha256:a0ebea2d5faced08c08ad909c3aa5fc168b334809251ec6005f8f38cc2895431:eyJzZWxlY3RlZExpbmVDb3VudCI6MzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM5Y2JiYzY1NDY5ZGIxY2EyODQyZWZkOTdkZjdlZTJjZTZjYzE1NzE0ODJkMDFhMThiNzkwYTEwYzdjNTEwZjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkOWUxMjU0NjQyNTU3NmQzZGVhZThjOWI5ZGJmMTI4ZDVkNmRkYWY1ZDdmZTg1NzkzNDkyN2RlZmZhM2I5ZGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZhNWI2MmNjZjhlYzg0NTVjOWZhMWUzYjM2ZTAyZjZmM2JlZDJlNjU2NTU0OTg3NTQ5MTRlZTNhOGM5NDA5ODMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImI4MzFhYTQ0Y2U5OThjNjJhZjY0ODU1OTEwNDQyYjJlZjU1ZjRkNGY3OTgxZTNjMGM3ZTYwMDRiY2MxMGQxMDEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_dc5ba2ef2cd34708898d94a3dee4ff5f",
+      "statement": "The audio player implements automatic error recovery with exponential backoff retry logic, distinguishing between user-initiated and automatic retry attempts, and persisting retry state across online/offline events.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js#L144-L167",
+          "version": "repo-lines-v1:sha256:ec69bcac07a8030cb4dc722795ee3eb0cec4fadd7eb886d0dd09afab15eddfce:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQyZjliYzllZTNkZDI4NjExZGJmNzVjYWNmNmI1YjViYjI0M2QyMDc0NTIwMTk3N2VhZGIwMzY5ODk5MjUxMjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk5OWJkZWZlZWFjYTYzNDBlMDI5MGRjODZlODg5Yzg5ZDVlMTg5YWE1YmE0NGI1ODViM2I3MDczNGY0YTYyZDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg1NWZkNzcwMDBjZjVkYmNlM2U1OTA4NWJjYzc5Y2FiZWQ3NzMzNTRkYjJhNTAxNzM5NTM1YWFiNDRmMzI2ZWIifQ"
+        },
+        {
+          "resource": "repo://src/js/player.js#L169-L176",
+          "version": "repo-lines-v1:sha256:c09a85013598bbe3129d9395c9feed6bab1d013e0679c7240cd62136fa960be4:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTM4MWRhN2Y3ZWViODFiMjdjNDIwNTkwZjRhOTUwNWU4ODgwNDU5ZTRmNDU1NjU4YmMzY2U3OTgwYWVlN2Q1NiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTViMzdhZWVhNzRlZjcyOTIxYTg0NWYxMzdkMjc2YmI3YTRhY2U3Mjg1MjIyMTY5NGJiYWRiNjI3MzllZWU4YSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYWIyOGU0YWJiMjcwYzMxNzgwODQyYWY5MTBkOGMyYTE5YWY3N2YxNjVmODJlYWQyOTdjMTA3N2QwOWViYmQ0YyJ9"
+        },
+        {
+          "resource": "repo://src/js/player.js#L68-L83",
+          "version": "repo-lines-v1:sha256:d7bac4250e4f10836a63206b563f4f8a990f5f3ef55e9f18f2af911f602a0d81:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2MWQ3N2E5OGFmOTU1MDRmZTE3YjY1NWZjOWIzODE5ZDI0YTUyNzlhNjI2MWYwZDhjOTViYjlmMzRmODZiZjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImM0YzUwNTUwMWExNzU3YzhjNTU5NzQyMTM2ZjZmMDZiMDliZmY0ZTBiYTNjNzA5ZmQwOTg2ZDAwOGM5N2ZiNWYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjcyOTY1ODQ5ZDdmMTI3YjdhNGNkMzUyN2IyMzI2MmQ0NTgwZGFhZDczZmE0M2ZlZGY5ZDAxNzBmZDViM2FiZjUifQ"
+        },
+        {
+          "resource": "repo://src/js/player.js#L94-L116",
+          "version": "repo-lines-v1:sha256:a62c1e63b0937ef376eebb124ca5101bbe36df192eb454c50768a5140e5d78cf:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhMjk3YWI0NGY2YmU0MmZmODhhYTBlNGQwNmZiYzE5MWFhNGE5YTM4YjEwZWQ3M2JkYmY1MGQ0MzI3Y2ZlNTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyZDExY2FmNDNlOTdlZjM2OWU2YmVlZDFhMjY4YmQwNTgzOGYyOWI5ZGQyNTRiZjY5YmE2NDg4NDE0NzIzNGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImIxZGJjZmVhNjYwOGNhMWZlZWEyYjU0ZGIyNjYyNjE0MDhkY2Q3YWRhZjM1YmE2ZDQyOTRhYmUxNGE0ZWVlYjEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE2OTkyZWM2YzNlZTQ2NjBmOTMzZGM3MmJmNTI1MWM0OWQwYWVlZTgyNzc3MTk4NzYyMzU5MTVmNDg5YjRhZWEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_9c45cf0d78c2470db730a63271bfe4ec",
+      "statement": "The video player handles HLS errors by retrying network errors with exponential backoff, attempting recovery for media errors, and destroying the HLS instance on fatal errors, while providing user feedback via status messages.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/video.js#L178-L226",
+          "version": "repo-lines-v1:sha256:c876f6ac73274afd7cfe6e78f76d04cbf5648c0a0b96577ce9b3e09227e37632:eyJzZWxlY3RlZExpbmVDb3VudCI6NDksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQwMmQ4N2M4M2U1NzI3YmQxYzk0MDQ5ZDUwNThhOGYzMmRmZmJjNzM3OGRhZTNlYjA1NWRmYjg1MTkyZThlMDgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJhYzJiYzc1YjdhMWI4N2QwZjFlMjJjMGMyNDVmYmM5MzZiNmVkYzAyYzI2NjQ4OWMxMzliYWMxNjJhMjIwNzciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY2YjQxYzZlOTgzMWUyMzE5MTE2MTJiODdiMTNlMmVhMzg2YTljNDYwOTU3NTdlMjJmMjU2Mjc2YTNiOGIyNTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImJlNDAwZTkxMzFkZjNkNDEwNGY1OGI1MGFjM2YyMTg2OWQwOGZhMGMwZWNiNzRmY2Y0MTg3M2RjNmE2NGYyMjkifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_453dde01cb134ddaa3854939eb65c9fc",
+      "statement": "The playback workflow integrates with page visibility and online/offline events to pause retries when offline and attempt immediate retry when online if playback was active before an error, and updates the Media Session on play and pause events.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player-core.js#L33-L51",
+          "version": "repo-lines-v1:sha256:78d257726199d3a6271458303756e217f336acb1265429092261fb3be6d5ffb7:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBkZWY4NjFkYjQ5ZmYzNTI4Y2JhZWFkZTlkNzZkNGM0N2M3YTBiOWRiNDI4ZDNlZmI4Mzg2OWEwN2YxNzM5MmQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkOWUxMjU0NjQyNTU3NmQzZGVhZThjOWI5ZGJmMTI4ZDVkNmRkYWY1ZDdmZTg1NzkzNDkyN2RlZmZhM2I5ZGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY5M2FiNDUzZTJkZjQ5YTcwNTY1Y2YwMTFhOGM0MWI5MGNjZDFiZTFkZDU3ZjVkN2Y0MzZlN2Y0YmViMzhjMjkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM4M2VmODAyZWJjNWQ4ODUwYTBhNjAwZjJkZTVmMzI0OGIwYmE5NmNkYmNlYjAyYmU4OWQ5ZTlkMzk5NTgyMzcifQ"
+        },
+        {
+          "resource": "repo://src/js/player.js#L94-L116",
+          "version": "repo-lines-v1:sha256:a62c1e63b0937ef376eebb124ca5101bbe36df192eb454c50768a5140e5d78cf:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhMjk3YWI0NGY2YmU0MmZmODhhYTBlNGQwNmZiYzE5MWFhNGE5YTM4YjEwZWQ3M2JkYmY1MGQ0MzI3Y2ZlNTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyZDExY2FmNDNlOTdlZjM2OWU2YmVlZDFhMjY4YmQwNTgzOGYyOWI5ZGQyNTRiZjY5YmE2NDg4NDE0NzIzNGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImIxZGJjZmVhNjYwOGNhMWZlZWEyYjU0ZGIyNjYyNjE0MDhkY2Q3YWRhZjM1YmE2ZDQyOTRhYmUxNGE0ZWVlYjEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE2OTkyZWM2YzNlZTQ2NjBmOTMzZGM3MmJmNTI1MWM0OWQwYWVlZTgyNzc3MTk4NzYyMzU5MTVmNDg5YjRhZWEifQ"
+        },
+        {
+          "resource": "repo://src/js/video.js#L289-L294",
+          "version": "repo-lines-v1:sha256:8850869f9fc2245d6d169cef4e7a6879c322b1e7b69eb3526beb547af2ec145e:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYmJmZGNhMzYzZWMyZWFjYzgxZDBlZmFkMTQ3OTQ4ZTE5NGU3ZGE0NTU1MDQ1MjEzNWRiZmQ1MjRjMjViMTFmMSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiODQwNTE2ZjVlOTRiZjBlNTlmNTExNTJjOGRlNzJiMDg0ZTVkYjZiMDlkZjRhZWIzZDM5NGMzNzgyOGVmMTljZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMGUwMWU5NzA3M2U5ZmM4OWE5ZTdmNTFhODc2YTJjOTczMjJkMTYxZjI2MjI3Y2JmOTgyNTVjNWEwOGZhNmNjMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYWFmYzE3ZTA1ZWRiNTU2YTJjNmY4ZGMwOTAwZjgxZWU3M2Q0YmY4ZWUxZDFlNTgyY2JjZmU3NTA3MTY0OGY4NSJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.2",
+    "at": "2026-09-27T19:48:35.317Z"
+  }
+}

@@ -1,0 +1,392 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:ce19fd3ab126233255df2c6e043112f5c7b87132d2bac8ef30fc8bb04ec2bd2b",
+  "claims": [
+    {
+      "id": "claim_1d543124e61d492190022c895d403041",
+      "statement": "Oidarwave is a web radio player that provides access to various radio stations and video livestreams.",
+      "evidence": [
+        {
+          "resource": "repo://index.html",
+          "version": "repo-file-v1:sha256:79a5b37926108d278024e5aa037290b35e38d1fdcf56a20ea7a59097185fa7fb"
+        },
+        {
+          "resource": "repo://manifest.json",
+          "version": "repo-file-v1:sha256:377c96278c5013039724fbfe38e3df56c80804cd408d2d0b874c4549102d7702"
+        }
+      ]
+    },
+    {
+      "id": "claim_63e3e59edb114f07b2cf731498e3e1ff",
+      "statement": "The system is designed to run in three contexts: as a standard web application, as a Progressive Web App (PWA) installable via the browser, and as a desktop application using Electron.",
+      "evidence": [
+        {
+          "resource": "repo://index.html",
+          "version": "repo-file-v1:sha256:79a5b37926108d278024e5aa037290b35e38d1fdcf56a20ea7a59097185fa7fb"
+        },
+        {
+          "resource": "repo://manifest.json",
+          "version": "repo-file-v1:sha256:377c96278c5013039724fbfe38e3df56c80804cd408d2d0b874c4549102d7702"
+        },
+        {
+          "resource": "repo://package.json",
+          "version": "repo-file-v1:sha256:0762942cfd6967989b416df61a94ecd6fb2ccd903863c8cae139edc1a91c1c9d"
+        }
+      ]
+    },
+    {
+      "id": "claim_493b8a98e1884b3489785892119e98ef",
+      "statement": "The core user interface and functionality are implemented as a web application located in the repository root, with key files including index.html, src/js/player.js, manifest.json, and favicon/favicon.svg.",
+      "evidence": [
+        {
+          "resource": "repo://favicon/favicon.svg",
+          "version": "repo-file-v1:sha256:cccc8b551fcb60250e4ee0d6ffe948ab9a2c81182c6a8d10e95e678d067888fa"
+        },
+        {
+          "resource": "repo://index.html",
+          "version": "repo-file-v1:sha256:79a5b37926108d278024e5aa037290b35e38d1fdcf56a20ea7a59097185fa7fb"
+        },
+        {
+          "resource": "repo://manifest.json",
+          "version": "repo-file-v1:sha256:377c96278c5013039724fbfe38e3df56c80804cd408d2d0b874c4549102d7702"
+        },
+        {
+          "resource": "repo://src/js/player.js",
+          "version": "repo-file-v1:sha256:1215a57162ce3e32c236988468c497db05b376c70a7df38d71920d18f0c606be"
+        }
+      ]
+    },
+    {
+      "id": "claim_f657eed615fd4223ad49c721d5de6180",
+      "statement": "The web application is responsible for rendering the user interface (station selection, player controls, now-playing information).",
+      "evidence": [
+        {
+          "resource": "repo://index.html#L41-L51",
+          "version": "repo-lines-v1:sha256:6832d1d994280a383f25d4f9e9f470fab9bcba1777dfb78a5516aa8cc831a281:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZlOGI5YTViMjc2NmJkYmIzNmEzOWY1NTNhYWIyNDlmMjM5M2Q1YTYzNzQ2M2Q0YzVhYjlkMWI0MjM2Y2EyOTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJmMDJhMDQ5ZjkyMWJhNjQ2MGMyZDBkNDM0NTUwMTc0Y2Q1NzNkZWNiZGJiMTNlZDk2MzBjYjhmZWQ3MDc3YWMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI1ZmUzNmVjYjBjYTRlZWVmMmI4MjBkNDMxYWFkMTA0NjUxOTNkODAxZWQ0MTVhMTE1YWRhNDRjYzQzNDY0ZjciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJmYzcyMWQ3ZGUwNjk2YzVkMjg2NjgxYjk5ZDhlZTEwMDM0OGEyYmNlZWUyODdkZDYyYTg5MmIzYmI0ZTMyNzcifQ"
+        },
+        {
+          "resource": "repo://index.html#L52-L91",
+          "version": "repo-lines-v1:sha256:6300c074db15095f4b113e21137a75a74f536a1df8623dc5c0d05faaab12b584:eyJzZWxlY3RlZExpbmVDb3VudCI6NDAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ3M2UwMWYwN2FiYzc3MTRhYTg5NzMxNzNkOTk0ZjA5NjMwNzYwOGUxYWRkYzVkNjBmMTBjNmY3NWU5OTU0YjgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ2OWY1OTE3ODFiMGU5NDhmZGYyMWUxYzIxMWY0MzViZmVkODJiNTkyM2NmMWE3MGY1Yjk4NjQ3ZjBmMjdlY2YiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjdmNDFkMjZkNmJhZTYwOWY5YWEwN2JjNTYzZjdlMmM0YWU1MWZiNmEyY2Y5MjIzMGZlMTQ1Njk4YTg3Y2ZmY2IiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ4ZjU4YTFjNzgxZWI4NmQyMTUwNDk1YjdjMDgxODZjYzNlMWZlODEzNjJkZmQxOTc5MDdmOTkzNWNmZjdmMWEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_85fb9fb2d353427ab65ed2d2962b39d9",
+      "statement": "The web application manages audio playback via the HTML5 <audio> element.",
+      "evidence": [
+        {
+          "resource": "repo://index.html#L99-L100",
+          "version": "repo-lines-v1:sha256:ceffe3ffd9205d5cdac5dbe3a3e226740a82e7cbb6b22f4c071e8d817ffad1fb:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWY3YjEwOTYxMGEwM2M4N2NjYjE1NDQzNGQ0ZjFkNjY2MTk5ODE0NjFiYzg0MTM3MjQzYWY2NTU5NzkzODc0YiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjM2NDY0NWNkZWRhZTk0MjY5OTlkNGM1OTg2ODYxOWQ0ZDY1ODVmZmM3NmIyY2QwYzMwZmNkODEwNjBjNWNmNiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTExOWZlMGNiZWE2NmIxMGY5MDg4YTVhNDMzNWQ2OTdkOTM2MWM0YzVjMDI4MWE0N2JkNGUwN2U0OWE2NjlhZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzIwODI4NmRmYzViZTY0OWJiNGY4OGI3ZDI2ZTQ0MmZiZjg2MTg1NDVlYTQ1ZTcxZTNhMWEyOTVkYmI4NGFlMyJ9"
+        },
+        {
+          "resource": "repo://src/js/player.js#L18-L18",
+          "version": "repo-lines-v1:sha256:aa30d5aa02d0e5829fd5a4eecc4d7c4988eebf22e0a8346691b8f8190f6bb458:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYWEzMGQ1YWEwMmQwZTU4MjlmZDVhNGVlY2M0ZDdjNDk4OGVlYmYyMmUwYTgzNDY2OTFiOGY4MTkwZjZiYjQ1OCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYWEzMGQ1YWEwMmQwZTU4MjlmZDVhNGVlY2M0ZDdjNDk4OGVlYmYyMmUwYTgzNDY2OTFiOGY4MTkwZjZiYjQ1OCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZDBmOWZiMDBiZWJlNDY4MmViOGQ4MTM5NWIyNmI4ODQ2Y2I0MTQ4NmU4Y2FhNGY0Y2QzMzllZDQyMWE5ZmQ4ZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDBkNmRkZWMwMjlkOGVhZGI2MDEwMjM1ZWJlODIxODJjYjNmMjIyYjg2ZGFhNTc0YjZhNzU4MmZkYjU0ODkwNyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_8663c17ca779409dafc9bcf1c782de40",
+      "statement": "The web application fetches and parses station metadata to display current track information.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js",
+          "version": "repo-file-v1:sha256:1215a57162ce3e32c236988468c497db05b376c70a7df38d71920d18f0c606be"
+        }
+      ]
+    },
+    {
+      "id": "claim_ff0271a27f8742ddb4e1beb3a6631243",
+      "statement": "The web application handles user interface includes station selection buttons with data-url, data-name, and data-metadata-url attributes.",
+      "evidence": [
+        {
+          "resource": "repo://index.html#L55-L86",
+          "version": "repo-lines-v1:sha256:ef57659cf31126a101ae58793225f64ce9ce4046135fac881255c6e6c7ae3aec:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk3YjViZjQ1OWEzNzA0MGNjZmIxZDkyZmQxOWUxMWU5N2IzNDBjYzJiMjljOTI2MGEyNGE5NGJmYzk0ZWQxY2IiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMWQwNzYyM2Q1ODUyNDNiZDliNmZmMTIxOTdmOTk5MWVlY2MxN2FiNDBmYWQ5MmE4MjcwZWE2NWU4NjE5YTUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjJmYzcyMWQ3ZGUwNjk2YzVkMjg2NjgxYjk5ZDhlZTEwMDM0OGEyYmNlZWUyODdkZDYyYTg5MmIzYmI0ZTMyNzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjljMjc2MmVmZTM4YWMwYTQ2YTA5ZjFmMjRjMzZkNjBjYjEzMTZlZGMyOGRhNTlkOWFjNWQ4ZmZmZGZmMjYwYWQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_08583a35e3ae42b9998fa8349edad990",
+      "statement": "The web application persists user preferences (last station, volume, notification settings) using localStorage and cookies.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/cookie.js",
+          "version": "repo-file-v1:sha256:9f4f8a17da32fdc5e5c8354e847aee8c9057f07e9dd4983c054b2cd8b89ae5cc"
+        },
+        {
+          "resource": "repo://src/js/history.js",
+          "version": "repo-file-v1:sha256:ec797491d68d516edf91f83b1e1ef25e8a33a404c4e44befd2e9ec70fee09cf3"
+        },
+        {
+          "resource": "repo://src/js/player.js",
+          "version": "repo-file-v1:sha256:1215a57162ce3e32c236988468c497db05b376c70a7df38d71920d18f0c606be"
+        }
+      ]
+    },
+    {
+      "id": "claim_f3804deaf07f449491d067c0fd333a48",
+      "statement": "The web application implements browser notifications for track changes.",
+      "evidence": [
+        {
+          "resource": "repo://index.html#L92-L97",
+          "version": "repo-lines-v1:sha256:bc748d001fbc82cbe800f2d48512f84191bd5a9f94aed14e1e0a3659a646d2ef:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZGVlM2M2MDg2ODczN2VjNjg0YmNiN2E5MDk0NWY2MTUzNTFjODNmMDA4ZjZjOTU1YWE4OGJhZjNmZDUxZjJiYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZmI5YzBmYmY1Y2VlNGNjODJmOWVjNzQyMmUwY2E0MTgyMTk3ZTlhYWE5OTYxOGRjMDg4ZmY4NTgxODE5ZGJjYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZmVhZTkyYTE2ZGM2N2Q0OGMyN2I3Y2VmNjQ3MjNhNWU0MjYxMzU1MjNkMmEwODE0ZTI4OGFlMDU2YmIzZGJkYSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYTJhYjQ4ZDFmMmQ3YzUxM2I2YmUxYjgxYzRlNDMxOThiYTFjYzUzOWFlYmRmMWQ5NTk5NDU2ZDg4ZDczMThjZSJ9"
+        },
+        {
+          "resource": "repo://src/js/notification.js",
+          "version": "repo-file-v1:sha256:63d8acbfb08c6e5707807fb8451508a901a9a5ae8d1bfa4096bdedbaa548b9a2"
+        }
+      ]
+    },
+    {
+      "id": "claim_040fe88bc06649efb52cec9d9e63585d",
+      "statement": "The web application provides a video section for livestreams.",
+      "evidence": [
+        {
+          "resource": "repo://index.html#L46-L48",
+          "version": "repo-lines-v1:sha256:40ad8afe0b3507bfbc24851bb9f73828867cfd67742d5c9ee502f5bf2ff29059:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjZkZTMxMmU0ODVkNThkZmI4NGI4MGZjMDA2MzNlNTA3MzlhMDM0ZjA2MzBjNTI5OGU1NDIzZGM2YjhmMzBmMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZjRmM2YzNWM0YzY5YjgzYTdlYTY0MjU0NThlMTQ0MjIwMTRmOWYxYTEwMDc0Yjk0MDkzMTFjZDFmNDg5YzNkNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTBkNGFhZDc4M2ZlY2JmZDk1ZjM2ZjMwOWI3OWRiZmQzOThiNDIxZDA2NWIxZjFmODcyODY4ZDk1OTg1NmNjNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiN2Y0MWQyNmQ2YmFlNjA5ZjlhYTA3YmM1NjNmN2UyYzRhZTUxZmI2YTJjZjkyMjMwZmUxNDU2OThhODdjZmZjYiJ9"
+        },
+        {
+          "resource": "repo://index.html#L50-L51",
+          "version": "repo-lines-v1:sha256:d18ba212d86ba1ad927af6f51477098725affd21f09a4622f988007fe0469c33:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNTIyMjA3ODFiZjVlM2MyY2ZiMTMyMjg2OTY5MmM3YmVmY2E3ZGI3NzUxODQzMmE0YTBlNDI1Y2Q1OGU4NmQ0YyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYmYwMmEwNDlmOTIxYmE2NDYwYzJkMGQ0MzQ1NTAxNzRjZDU3M2RlY2JkYmIxM2VkOTYzMGNiOGZlZDcwNzdhYyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNWI4NDlmMzYzM2M0NDY2MTdjOTEyNDc5NjAwZjVkMTY2YzA1MjgxMjJiNjRkMzY3MzA2OTY2ZDQ1YTg0YTQ0YSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMmZjNzIxZDdkZTA2OTZjNWQyODY2ODFiOTlkOGVlMTAwMzQ4YTJiY2VlZTI4N2RkNjJhODkyYjNiYjRlMzI3NyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_50c85a0441c14ad6a1447565fa30c306",
+      "statement": "The Electron wrapper, located in electron/main.js, provides a desktop-native experience by embedding the web application in a Chromium BrowserWindow.",
+      "evidence": [
+        {
+          "resource": "repo://electron/main.js",
+          "version": "repo-file-v1:sha256:4e964fb988e756b451862cf6925caedfeeb0bc2e5a50f3447eebefd11658ce0e"
+        }
+      ]
+    },
+    {
+      "id": "claim_3ac83d4e61eb446cae5bc461d8495b98",
+      "statement": "The Electron wrapper creates and manages the application window with specific dimensions, background color, and security settings (context isolation, sandboxing).",
+      "evidence": [
+        {
+          "resource": "repo://electron/main.js#L13-L25",
+          "version": "repo-lines-v1:sha256:2848725cee8e08e0046fbd7e7fa846e073404971366f4c23b893dcfdc1f21f72:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZjMjc3OWM0ZDEyZGIzZDdhZjZkMDI3MzRkOGMwZGFkNDRlMTJjYThlMDdiYTlmODNmNTliNmY3Y2RkYmNhNmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhMWQxYTYzMzkwMjI5Yzc5ODM0N2U4M2EwNDA1NDQxYzk0MDAwMzUyODRhZDE2OGMxYmY2Y2RmMWQ3MGEzNzAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ3Mjg2MTM2Yzc4MmM1YzVjZmYxNTc3NTMzM2JmOWU1YWVmYWQ3OGRhNzAxMjQ4NmQ0NjE3YWEwMDE2MGI4OTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc2MDc0NGExNjZhOWZlZDg0NTNiNWYxZjE3MmRkYmVkZTkwMWRjMGE4OGFhM2U2MjVkMjMzY2Y4MjcyNTkyMDEifQ"
+        },
+        {
+          "resource": "repo://electron/main.js#L135-L136",
+          "version": "repo-lines-v1:sha256:b5dd95730cfb05da7b79a2dbe6e240e21a0e6b503780c7447543d404e5a29565:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjEwODhiODM0YTQ1YWU4Yzg2YzI3YTBkMGVhNDcxMWY5YTBlN2M5NTQ2ZjgwZWI1MThiNjQ0NmI2OGRmNGRlNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjI0YmMyNDcwNzA1YjRmMTdiZmMwNjVjM2U1NDY2ODE3YmY1MTU1MmYwYzliZTBiMTBkYWRlNTU1N2EwZDRlOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzc0YmU0NjBiYzUzZjJkYWVjZDAxYWE0MzAyY2U5OWRhNTE3YjVhZTY3Njg0N2I3YjcxMDNmZGU5NjE5MTY5MiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_d24ce2845ee74c6bb236f0550ac50fa4",
+      "statement": "The Electron wrapper implements custom navigation handling: intercepting navigation attempts to external URLs and opening them in the system browser, supporting a custom protocol oidarwave:// for internal navigation to dynamically discovered local pages, and preventing navigation to mailto: links.",
+      "evidence": [
+        {
+          "resource": "repo://electron/main.js#L162-L192",
+          "version": "repo-lines-v1:sha256:b48eb1cff54e590733e1f54067e6fa962bf605c909457ee9eaee7257b17ba085:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjMzOWJmYTA2ZjhlMzQ4NzE2YWU3MTk2MDU4YmVjZTBjMWFmZjEzNzFkMTg2ZmI0MDAyNWM4YTQ2YTNjOGY2OWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYwMWU5NmNkMjQ0NWU3NjRjOTg3YmVjOGQ2MDM1OTZjMTNlNjY1YTMzMDU1MTA2MzFhMWFkZjI4OWU2OTJkZjkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjliOTdjMWZiMTJhNWNlZDExZjM1N2UyMTdiNWEwYTllYmQzNzkyODBlZmQzYTE0NTJmNTFhNGRlYTY4OTE1NjkifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_558e229a8194448ba2e6e0551d1bfc11",
+      "statement": "The Electron wrapper dynamically discovers available HTML subpages at startup by scanning the application directory for index.html files (excluding ignored directories) and building a route map.",
+      "evidence": [
+        {
+          "resource": "repo://electron/main.js#L119-L129",
+          "version": "repo-lines-v1:sha256:56767453d93336c454164d490ca0160d1fee42b18981ae24c1d94dc865e2c825:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNiMWFmMWUyOTVlNTUxODBmN2FlNzdlMDY1MmYzZjY0NzY0MDZlZTllODM5MWJlNWEyMWE4YmNjYzhkYTljOTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg4NDllNjAxNDIyYjUwMDRmNzFkMjc4NmY4YTlmMWQwZGJkODIyMWQwOTZlY2I5MGQ0ODgyZDMwMTc2NzMwOGYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE3Y2E4YjljNDE3YTViYWE0MGVlYzc2ZGQzN2MwZTA1ZjFlYzc3MWY0ZGJiY2ViZTMyMTAzNzRlYzViNzg2NDAifQ"
+        },
+        {
+          "resource": "repo://electron/main.js#L61-L92",
+          "version": "repo-lines-v1:sha256:dbb65d7ffe095e4a7bda25bcd8a0ec71ff720896d6c6df61cd775c3105b7f28b:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNmNDdlMmZiYWQ2ZGRhMjg5MDBiMWI0M2FjNWVhNTEzNTg2ZjYxNWM5ZDc5NzRkOTIyNzk5ZjJiNzJjMTE3YTgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM3MmZjMDI0YTRmZmQyNjZhNzNiYWI2ZWUxYzU3Y2Y2NGEyZjg3NzM5MDc2NGE2NjNmMmI4ZWExOTg5MDc1MjMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjUzYzBkYjcxYTc0Y2M2MTQ5NWNlMjFlMjE1OGYxYjViMzYwMDNjOTYyYmJiODQzNTc4OWY4OGNlZTIyMmQ2MTgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_39ebe5729ad848c580cafd5927f13c91",
+      "statement": "The Electron wrapper overrides the file protocol to securely serve local assets, preventing directory traversal attacks while allowing the web app to request resources via absolute paths.",
+      "evidence": [
+        {
+          "resource": "repo://electron/main.js#L199-L260",
+          "version": "repo-lines-v1:sha256:a095de73ea5c599b7303b6b3ee480834326f8d83d6776d9bb5fc10c855fa6c1a:eyJzZWxlY3RlZExpbmVDb3VudCI6NjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ4Y2FhM2NiYzEwN2U4MGZiNTE0OTg5NTIzNmRmZjY5YmQ3ZDZlZTYzY2Y0ZDllYjNjZDZmMTBhY2ViODllOTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyZDExY2FmNDNlOTdlZjM2OWU2YmVlZDFhMjY4YmQwNTgzOGYyOWI5ZGQyNTRiZjY5YmE2NDg4NDE0NzIzNGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE2MjQ2OWIyYjNlNTg2MjUzMjA2NzA1Y2YwZTc5NmIwNTFlYzk0NGIzNDFmMTgyODZiMmNhNzkyYmNkNWI1MTQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ1NjZiOThhZmI0ZjIyYmIyODc3NWUxZDEyNDk3NDM0OTIwZmRkMjFiNTNlNjc3Yjc4OGQ1ZDkwZjQxZDdmM2IifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_4d0750119c3445b29aa575fba2fd0493",
+      "statement": "The Electron wrapper manages the application lifecycle (window activation, quit on window-all-closed except on macOS).",
+      "evidence": [
+        {
+          "resource": "repo://electron/main.js#L264-L275",
+          "version": "repo-lines-v1:sha256:e93608b9ab17bf446dbeb3a708f9e991b97d9ac40c3d38af450ee6d9c50dc3ff:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZiM2VlYmVkNjZiOWY0ZDE1YzhmZjI2YWY5NWZhMGQwZDE0NTEzMDlkZWJkNmIzYjQ0Y2UwYzY1ZmIzOGMwZDQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ1NjZiOThhZmI0ZjIyYmIyODc3NWUxZDEyNDk3NDM0OTIwZmRkMjFiNTNlNjc3Yjc4OGQ1ZDkwZjQxZDdmM2IiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_672458dae49442609388ffce25540161",
+      "statement": "In the web/PWA context, navigation is handled by standard HTML links and browser history.",
+      "evidence": [
+        {
+          "resource": "repo://index.html#L44-L49",
+          "version": "repo-lines-v1:sha256:fc15d845f78b4d0f91059286770c2d19da0bcf2018c447d08510088a3a4a2a5f:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWVjMzY1ODE2MmY4NjlkYzhlNjI0MjMwZjA4MDBhMTExMDFhMWI1MjQ2MmU3NTA1YzJkYjQ3ZTExYzVlMGQ3OSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZmM0M2JmNjZlZWQxMzA3Nzg4N2U3ZDRkMTMxMzFkNjNjZDljNTg1NmFkYjdlZGI2NmVkNjQ0Mjk4NDU4NjY4MiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjVlZTY0MjlkMDY4N2I3MTZmNDdmMzA5M2ZkNTNmMGI2ZmUyODg0MTA3NzI1OTU4YjllYjZjYWZjMTM4Yjc3MyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDc1MTQ2MTZlOTZkYzA1MzcwMmZhMGFmNTE2OTRmMjYwYTI5YWFmNDM5YWJkYWRjNGUzMGMzMjliNDY4M2Q4OSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_cb31bcb780a24cc99b107a2ef9248d46",
+      "statement": "In Electron, the main process intercepts all navigation events (will-navigate, will-redirect, setWindowOpenHandler). For oidarwave:// URLs, it maps the route to a local file path using the pre-discovered page map and loads the corresponding index.html file. For external http/https URLs, it delegates to the shell to open in the system browser. All other navigations fall back to loading the root index.html.",
+      "evidence": [
+        {
+          "resource": "repo://electron/main.js#L141-L160",
+          "version": "repo-lines-v1:sha256:00f43705543768f3f066e77ab30db603f48937d6d7118c35ce25ad1fd75f8a52:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVjMzQ4YWIzNThlYzhjMWQwMjJkZDRiMzZlMTFhNmQwMjc5YThjZWJmMzdkOWQxZDg3NzEyYmZjZTZiYjFiZmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU5M2YzMzc1MjNkYjliMmE5YTk2OGVkZjgwOTRkMDllMjFmOTkyOWQwY2U1MTYyZGM4MmZjYTExZjI4YTU1OTciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjYwZWY4YThkM2U2MjU1YTJkMzZkNjYyNjBmOWU0NzQ1MDVmNzYwMTAyOTNhMzYxMjBlZTlhOGFjZGVjOWEyNmEifQ"
+        },
+        {
+          "resource": "repo://electron/main.js#L163-L192",
+          "version": "repo-lines-v1:sha256:7bc3e0fbfc7d873db46dd21735d26082594253d59681e66903e04a1bf5e1af9d:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRkNjg1Njg5OWI0NWEzYTc0OGJlNTU4YjAxMTU3YzU5YjJlYTZmOTQ3OGE2YWFiMTc2MDY1OThmYjRmOTQxNTgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImU4OGYwMDZhMDM4N2Q2M2FlMGI0NzZhNGRiZDRlZWUzMWFiY2M2NTk3MDY2MDhiZmNjMDUwZDc3YWJjNmQ3MTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjliOTdjMWZiMTJhNWNlZDExZjM1N2UyMTdiNWEwYTllYmQzNzkyODBlZmQzYTE0NTJmNTFhNGRlYTY4OTE1NjkifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_756e11b2603d463297bac0b69d224d7f",
+      "statement": "The renderer process (web app) makes standard web requests for assets (CSS, JS, images, metadata) which are served via the overridden file protocol in the main process.",
+      "evidence": [
+        {
+          "resource": "repo://electron/main.js#L201-L242",
+          "version": "repo-lines-v1:sha256:8203ec01925a3d45b683d0dcf066d88c7fed93c08d7b7e43c463cb155cdf36df:eyJzZWxlY3RlZExpbmVDb3VudCI6NDIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM4NzhhMDdmNWU3MGFhMjU1NTZlYTAwYWVkZmVhNGRmOWVmOTllZTg2ZDI3NDI3NWUwM2I3ZTk3YjRmY2FkNDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZmMjJkYzRmMDRjNGM4YzMwYmZhOWMzMGViNDFlNDE4ZGRlOGYzNzljMTkwOGJlZDk5NjhjYjJiMmEzM2ZhYjIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg0Y2M0ZDlmYWRlMDcyOGVhMGMxY2I3YmNiMzcwOTRmMWQ2ZjEzYTM5MGU1ZjNiZjgwNjczYTc1ZTc2ZGI3MDkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImVjYWFkMDMwZmQxMTZjODgyZTkxZGRhNjdkOGQyOWI3YWJkMTk1ZjljOWFmZWNlYWE3OTQ3M2VjNThlY2RhZmEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c0f1753c26144a8799dbd4cc2b44f6d0",
+      "statement": "The main process influences the renderer's environment by setting webPreferences (e.g., sandbox: true, contextIsolation: true) and handling protocol schemes.",
+      "evidence": [
+        {
+          "resource": "repo://electron/main.js#L18-L25",
+          "version": "repo-lines-v1:sha256:4448b75f1036eec023cd0cc37264244472ee00ee4e753bbff93035546a833555:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYWM1Mzg4OTIyNTY0YmFmYmY1NWY4NjhmNWZmNjkxNmM4NDBiYTYxNWE0MTNhYjFiOWI5YWY3ZWFiYjAyM2Q1OCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYWExZDFhNjMzOTAyMjljNzk4MzQ3ZTgzYTA0MDU0NDFjOTQwMDAzNTI4NGFkMTY4YzFiZjZjZGYxZDcwYTM3MCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZDJjZDlkZGNmNmM0Y2NmNzQ4MTViNjAzMGZlZGI3ZjZlMGYwOWUwYmNmOTNmNjcwZjAwMjc2YjI0NzFiOTI4MSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzYwNzQ0YTE2NmE5ZmVkODQ1M2I1ZjFmMTcyZGRiZWRlOTAxZGMwYTg4YWEzZTYyNWQyMzNjZjgyNzI1OTIwMSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_5fa7007d9f2f4675bb675d8c325c34dd",
+      "statement": "The web application initializes modules (player, notifications, history, etc.) on DOMContentLoaded.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/notification.js",
+          "version": "repo-file-v1:sha256:63d8acbfb08c6e5707807fb8451508a901a9a5ae8d1bfa4096bdedbaa548b9a2"
+        },
+        {
+          "resource": "repo://src/js/player.js",
+          "version": "repo-file-v1:sha256:1215a57162ce3e32c236988468c497db05b376c70a7df38d71920d18f0c606be"
+        }
+      ]
+    },
+    {
+      "id": "claim_51901d8097014aecbf03c4df607c0e3c",
+      "statement": "The player module sets up event listeners on the <audio> element to handle playback, stalls, errors, and metadata updates.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js#L38-L50",
+          "version": "repo-lines-v1:sha256:8c35b355a6808cb972f1022d57fcb492ebb5be1cbcd62b7e5507e429f7d8278e:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI4NWZhZjQ1Yzg3ZTc3OGU4MWQyYTU5NzlhZGI3ZTcyNGM2OTI2Y2ZjZGRhYzNiMjA1YTA4NjE3YmQzMTc1NTIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjllZDQ4YjAwMzAzMzBlMzg2MTZjNmFhMmYyZTgzMjQyMTNmNjRkNzgwYjhiYTEwOTdmNWE5NTg1ZTkyYWYwYjAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjMzOTdkZmU1OWNjZjE0YjY3NjNkYTM1NjM0ODhiZDc1NWVjMTIxZGI0OTE1MWUzYmRiYzkzZTA5NDQ5NzYzY2QiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZhNGU5MjgwZjQ2OTI4YjI0Mzc5ZDc0ZGJlYTZlMGRiZDI3MjI4OTIzMWQ2MWU5YmE1NjI0YmQwOThjOWYyOGYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_1f6071a0513d4bbeb039874a877fc28c",
+      "statement": "Metadata is fetched periodically (every 3 seconds) from station-specific URLs; when updated, it triggers UI updates and, if notifications are enabled, a notification via the NotificationManager.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player.js",
+          "version": "repo-file-v1:sha256:1215a57162ce3e32c236988468c497db05b376c70a7df38d71920d18f0c606be"
+        },
+        {
+          "resource": "repo://src/js/player.js#L3-L3",
+          "version": "repo-lines-v1:sha256:ed4f22ae6b77ca8b1de5c70adcdfcc729ee5ac4bcf74f4aafb6c1c4f721e2c9b:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWQ0ZjIyYWU2Yjc3Y2E4YjFkZTVjNzBhZGNkZmNjNzI5ZWU1YWM0YmNmNzRmNGFhZmI2YzFjNGY3MjFlMmM5YiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZWQ0ZjIyYWU2Yjc3Y2E4YjFkZTVjNzBhZGNkZmNjNzI5ZWU1YWM0YmNmNzRmNGFhZmI2YzFjNGY3MjFlMmM5YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjIsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDBiNGJlYmI3MWZjODc0NTkzNWViMzNlN2RmZGM4ODQxNDI2NTM4NzE0YWQ4OTZlYWU5MGE3NDVjYTU3ZWVlZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiM2NmNzFiZDk2MzQyYjhmZDg0YzU5ZTBlN2QwZDRhNmJkMjdkMDdmMTIzZjBmZjcxNTMxM2M1ZjkzNjRmYjY0NSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_90c3ec9a45644ee0ade9db9344671d11",
+      "statement": "User interactions (station clicks, volume changes) update the UI and persist settings to localStorage/cookies.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/cookie.js",
+          "version": "repo-file-v1:sha256:9f4f8a17da32fdc5e5c8354e847aee8c9057f07e9dd4983c054b2cd8b89ae5cc"
+        },
+        {
+          "resource": "repo://src/js/history.js",
+          "version": "repo-file-v1:sha256:ec797491d68d516edf91f83b1e1ef25e8a33a404c4e44befd2e9ec70fee09cf3"
+        },
+        {
+          "resource": "repo://src/js/player.js",
+          "version": "repo-file-v1:sha256:1215a57162ce3e32c236988468c497db05b376c70a7df38d71920d18f0c606be"
+        }
+      ]
+    },
+    {
+      "id": "claim_811f02b1706a4b1a9ba68b0ddac5f315",
+      "statement": "Notification permissions are managed via the NotificationManager, which stores the enabled state in localStorage and requests permissions from the browser as needed.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/notification.js",
+          "version": "repo-file-v1:sha256:63d8acbfb08c6e5707807fb8451508a901a9a5ae8d1bfa4096bdedbaa548b9a2"
+        }
+      ]
+    },
+    {
+      "id": "claim_9e759e0171014ab28ef325f80559246e",
+      "statement": "The main process validates all file requests through the custom file protocol, ensuring they originate from within the application directory.",
+      "evidence": [
+        {
+          "resource": "repo://electron/main.js#L222-L239",
+          "version": "repo-lines-v1:sha256:83f13750794ebed7e1c0e9b544d370007600d0400a4fd3487222f08f77e51494:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ0Y2FlM2NjYTU0MGE4M2I1NDI0YWM1NmQ4ODQzYzI1YTZiMmM5NjBlMWM3YzY0ZmQ2N2JmZDcyYWI0ZWI1YjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU1MjJjNDJjZDE5YzZkMDNkODA4YzQ1MjcyMDU1MjgyNWI3ZWExYzViNDkxYjIxODUxMWNhYzc0MTVjZjlkOWIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE3NjFiZjRiZTFiMWZjOTM5NDEyZDdiNjhhY2VkZmUyNjNjMWNiYzIyMjMxMjEyZGYzOTA5YzcyMjljZDE2ZWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNiYmRhOTNjNDkzZmQ5NzUyOGY1MGM2NjEzODlkZjA1NTE0MGI5M2MwMzFmNTY1OGExYzEzMWZjM2E0MjY5MTYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_1a3b266897b74d21b4c4f0104e4ca426",
+      "statement": "Navigation attempts are filtered: external links open in the system browser, internal oidarwave:// routes are mapped to local files, and invalid navigations default to the home page.",
+      "evidence": [
+        {
+          "resource": "repo://electron/main.js#L144-L145",
+          "version": "repo-lines-v1:sha256:faa61788e3446e09c7037a480b8bcacab8b9512857fff57090e6ce3f64194fbc:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTIwZDIwMjI0MmRlYTlkNmNiMGQ4YTI1NTNkNDQ2NWU2NTMxMjY1NTZiOWNjNmMyNDRmNjQ1ODM1YzRjNTk3ZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTZkZGNmNWE0MTUzMjM3YTQ1ZjJkYmI0ZTBmZDFiNzk3ZmU0OTc0YTYzMjU1ZGEzZTQ0YmM2NTY1ODEwZGE5MyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODM2ZTU2MDMyNjhhY2YzNmQ1NzRjZTEzMmI4N2NmMzY4MmZhNzAyMTQ0N2YxYWU0NmYyYjYwYzQ0NGUyMGNiYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzlhMjk5MmZhYmExZmY4NjFhOGI3YTFkOTUzNWRkYjkwMzdmYmMwYzk4ODQ4NzdlNTFhMDFhN2E4YzI4N2E1YyJ9"
+        },
+        {
+          "resource": "repo://electron/main.js#L164-L172",
+          "version": "repo-lines-v1:sha256:280dd01e747037d837a7f5dae367d655f6d3dfd684a81607d9e6dd897caa6478:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZmQ1YzI5ZTg5NzcxZDQ1YTExZGEzZTAwODQ3ODBlM2ZjNTI1ZTg0ODQxMjIyMzQwMmY4YWQ2MWE4ZDNhY2Q0OSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTUyMmM0MmNkMTljNmQwM2Q4MDhjNDUyNzIwNTUyODI1YjdlYTFjNWI0OTFiMjE4NTExY2FjNzQxNWNmOWQ5YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjBlZjhhOGQzZTYyNTVhMmQzNmQ2NjI2MGY5ZTQ3NDUwNWY3NjAxMDI5M2EzNjEyMGVlOWE4YWNkZWM5YTI2YSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDIwYzc2Zjk4YTk0ZWQ3ZWIyNmJhZWQyM2ExMzA0NmUwZmEzOGRiNTQ0MTkyZDMyZGU0MTNjOTVmZTIzODQ0YiJ9"
+        },
+        {
+          "resource": "repo://electron/main.js#L169-L171",
+          "version": "repo-lines-v1:sha256:c9091726b05391cbab26794bf89c750039717d3011e54b3c750561821db80bd7:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMGI5Njc2ODYzYmRlZGU2MDI2Y2FhYTdlYzFmYmMzZGExNjExNWE3MDNjNmFlMjQ1ZTE3ZDM5YmU3NmJhYzFkNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMGM2NDc5Y2MyMzA0NDBmZDQxZTgyMjQyMTg2Nzk2OTg1NTlkMjg5M2JkNjdiNDM4MGFmYWI4MTFiMzhhNTVhYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDI3ZmYwNDAwZTJmYWQ2ZmMxMjRmMmI4Y2Q5YWRhNzgyNTMzYmY1OGM4MzZlMjQ0NmNkYjJlYjAxMGUzYjU1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjQ1YTdjZWNiZjFlYTJjN2I1MjA1OWYwM2FkOTA2NTZiZDAyZTkzZDE4MWQ1MzA2YWIwNjFkN2YxMWU0NmViZCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_624217ca8c2447f5b234860708ed09a8",
+      "statement": "Adding new stations is done by modifying the station buttons in index.html (or dynamically generating them from a configuration file) with appropriate data-url, data-name, and data-metadata-url attributes.",
+      "evidence": [
+        {
+          "resource": "repo://index.html#L55-L86",
+          "version": "repo-lines-v1:sha256:ef57659cf31126a101ae58793225f64ce9ce4046135fac881255c6e6c7ae3aec:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk3YjViZjQ1OWEzNzA0MGNjZmIxZDkyZmQxOWUxMWU5N2IzNDBjYzJiMjljOTI2MGEyNGE5NGJmYzk0ZWQxY2IiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMWQwNzYyM2Q1ODUyNDNiZDliNmZmMTIxOTdmOTk5MWVlY2MxN2FiNDBmYWQ5MmE4MjcwZWE2NWU4NjE5YTUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjJmYzcyMWQ3ZGUwNjk2YzVkMjg2NjgxYjk5ZDhlZTEwMDM0OGEyYmNlZWUyODdkZDYyYTg5MmIzYmI0ZTMyNzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjljMjc2MmVmZTM4YWMwYTQ2YTA5ZjFmMjRjMzZkNjBjYjEzMTZlZGMyOGRhNTlkOWFjNWQ4ZmZmZGZmMjYwYWQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_77227529dcdc4ab2a8b899e690c3e36d",
+      "statement": "New pages can be added by creating a new directory containing an index.html file anywhere in the project root (outside ignored directories). The Electron wrapper will automatically discover it and make it available via the oidarwave:// protocol.",
+      "evidence": [
+        {
+          "resource": "repo://electron/main.js#L119-L129",
+          "version": "repo-lines-v1:sha256:56767453d93336c454164d490ca0160d1fee42b18981ae24c1d94dc865e2c825:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNiMWFmMWUyOTVlNTUxODBmN2FlNzdlMDY1MmYzZjY0NzY0MDZlZTllODM5MWJlNWEyMWE4YmNjYzhkYTljOTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg4NDllNjAxNDIyYjUwMDRmNzFkMjc4NmY4YTlmMWQwZGJkODIyMWQwOTZlY2I5MGQ0ODgyZDMwMTc2NzMwOGYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE3Y2E4YjljNDE3YTViYWE0MGVlYzc2ZGQzN2MwZTA1ZjFlYzc3MWY0ZGJiY2ViZTMyMTAzNzRlYzViNzg2NDAifQ"
+        },
+        {
+          "resource": "repo://electron/main.js#L144-L145",
+          "version": "repo-lines-v1:sha256:faa61788e3446e09c7037a480b8bcacab8b9512857fff57090e6ce3f64194fbc:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTIwZDIwMjI0MmRlYTlkNmNiMGQ4YTI1NTNkNDQ2NWU2NTMxMjY1NTZiOWNjNmMyNDRmNjQ1ODM1YzRjNTk3ZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTZkZGNmNWE0MTUzMjM3YTQ1ZjJkYmI0ZTBmZDFiNzk3ZmU0OTc0YTYzMjU1ZGEzZTQ0YmM2NTY1ODEwZGE5MyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODM2ZTU2MDMyNjhhY2YzNmQ1NzRjZTEzMmI4N2NmMzY4MmZhNzAyMTQ0N2YxYWU0NmYyYjYwYzQ0NGUyMGNiYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzlhMjk5MmZhYmExZmY4NjFhOGI3YTFkOTUzNWRkYjkwMzdmYmMwYzk4ODQ4NzdlNTFhMDFhN2E4YzI4N2E1YyJ9"
+        },
+        {
+          "resource": "repo://electron/main.js#L61-L92",
+          "version": "repo-lines-v1:sha256:dbb65d7ffe095e4a7bda25bcd8a0ec71ff720896d6c6df61cd775c3105b7f28b:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNmNDdlMmZiYWQ2ZGRhMjg5MDBiMWI0M2FjNWVhNTEzNTg2ZjYxNWM5ZDc5NzRkOTIyNzk5ZjJiNzJjMTE3YTgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM3MmZjMDI0YTRmZmQyNjZhNzNiYWI2ZWUxYzU3Y2Y2NGEyZjg3NzM5MDc2NGE2NjNmMmI4ZWExOTg5MDc1MjMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjUzYzBkYjcxYTc0Y2M2MTQ5NWNlMjFlMjE1OGYxYjViMzYwMDNjOTYyYmJiODQzNTc4OWY4OGNlZTIyMmQ2MTgifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.2",
+    "at": "2026-09-27T19:48:35.317Z"
+  }
+}

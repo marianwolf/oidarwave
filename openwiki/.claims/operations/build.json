@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:7acbba1b79c03f75fa61c70eed18593a7ed91aea9d8ad7cd1cecb675542cd8c4",
+  "claims": [
+    {
+      "id": "claim_1337f21a423a45e8b8ed8b455b676392",
+      "statement": "The project uses electron-builder for building Electron applications, as evidenced by the electron-builder dependency in devDependencies and build scripts in package.json.",
+      "evidence": [
+        {
+          "resource": "repo://package.json",
+          "version": "repo-file-v1:sha256:0762942cfd6967989b416df61a94ecd6fb2ccd903863c8cae139edc1a91c1c9d"
+        }
+      ]
+    },
+    {
+      "id": "claim_87c8e2e22f894eda8291b5de64e2ac46",
+      "statement": "The npm script \"dist\" runs electron-builder to build distributable packages for all platforms.",
+      "evidence": [
+        {
+          "resource": "repo://package.json",
+          "version": "repo-file-v1:sha256:0762942cfd6967989b416df61a94ecd6fb2ccd903863c8cae139edc1a91c1c9d"
+        }
+      ]
+    },
+    {
+      "id": "claim_12c68c70468e4d2f8ec1095654cfefd7",
+      "statement": "The npm script \"dist:win\" builds Windows distributables only using electron-builder with the -w flag.",
+      "evidence": [
+        {
+          "resource": "repo://package.json",
+          "version": "repo-file-v1:sha256:0762942cfd6967989b416df61a94ecd6fb2ccd903863c8cae139edc1a91c1c9d"
+        }
+      ]
+    },
+    {
+      "id": "claim_291f30d39bca4820b04c447a1efdb4ef",
+      "statement": "The build configuration specifies that the electron/**/* and src/**/* directories, along with index.html, favicon/**/*, manifest.json, video/**/*, and impressum/**/* files are included in the build.",
+      "evidence": [
+        {
+          "resource": "repo://package.json",
+          "version": "repo-file-v1:sha256:0762942cfd6967989b416df61a94ecd6fb2ccd903863c8cae139edc1a91c1c9d"
+        }
+      ]
+    },
+    {
+      "id": "claim_f6c067841a84416386e02cfdf0c262e7",
+      "statement": "The Windows build configuration targets NSIS installer and ZIP archive for both x64 and arm64 architectures.",
+      "evidence": [
+        {
+          "resource": "repo://package.json",
+          "version": "repo-file-v1:sha256:0762942cfd6967989b416df61a94ecd6fb2ccd903863c8cae139edc1a91c1c9d"
+        }
+      ]
+    },
+    {
+      "id": "claim_726dc62857dc48f8a2eee1ac36e934c2",
+      "statement": "The Linux build configuration targets AppImage, deb, tar.gz, rpm, freebsd, and snap packages for both x64 and arm64 architectures.",
+      "evidence": [
+        {
+          "resource": "repo://package.json",
+          "version": "repo-file-v1:sha256:0762942cfd6967989b416df61a94ecd6fb2ccd903863c8cae139edc1a91c1c9d"
+        }
+      ]
+    },
+    {
+      "id": "claim_617b4f5337d240dbafe2100ac38fe17e",
+      "statement": "The macOS build configuration targets ZIP archive distribution.",
+      "evidence": [
+        {
+          "resource": "repo://package.json",
+          "version": "repo-file-v1:sha256:0762942cfd6967989b416df61a94ecd6fb2ccd903863c8cae139edc1a91c1c9d"
+        }
+      ]
+    },
+    {
+      "id": "claim_1764edc876a1437aa67eebd37ab6236e",
+      "statement": "The build enables asar archiving for the application source code for security and performance.",
+      "evidence": [
+        {
+          "resource": "repo://package.json",
+          "version": "repo-file-v1:sha256:0762942cfd6967989b416df61a94ecd6fb2ccd903863c8cae139edc1a91c1c9d"
+        }
+      ]
+    },
+    {
+      "id": "claim_b7a07896f1aa4c759acf0f9171605b71",
+      "statement": "The output directory for built applications is configured as 'dist'.",
+      "evidence": [
+        {
+          "resource": "repo://package.json",
+          "version": "repo-file-v1:sha256:0762942cfd6967989b416df61a94ecd6fb2ccd903863c8cae139edc1a91c1c9d"
+        }
+      ]
+    },
+    {
+      "id": "claim_d75e11d71e774e9988b6e3f2ce699a65",
+      "statement": "The application ID is configured as 'app.oidarwave.vercel' in the build settings.",
+      "evidence": [
+        {
+          "resource": "repo://package.json",
+          "version": "repo-file-v1:sha256:0762942cfd6967989b416df61a94ecd6fb2ccd903863c8cae139edc1a91c1c9d"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.2",
+    "at": "2026-09-27T19:48:35.317Z"
+  }
+}
