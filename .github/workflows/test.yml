@@ -2,9 +2,9 @@ name: Tests
 
 on:
   push:
-    branches: [main, master]
+    branches: [main, beta, gamma]
   pull_request:
-    branches: [main, master]
+    branches: [main, beta, gamma]
   workflow_dispatch:
 
 permissions:

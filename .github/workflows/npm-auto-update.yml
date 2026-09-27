@@ -19,8 +19,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - name: Checkout
+      - name: Checkout gamma
         uses: actions/checkout@v7
+        with:
+          ref: gamma
 
       - name: Setup Node.js
         uses: actions/setup-node@v6
@@ -58,11 +60,12 @@ jobs:
           commit-message: "chore(deps): weekly npm update"
           title: "chore(deps): weekly npm update"
           body: |
-            Automatischer wöchentlicher Dependency-Update (`npm install && npm update`).
+            Automatischer wöchentlicher Dependency-Update (`npm install && npm update`) nach `gamma`.
 
             - Erstellt: montags per Schedule, manuell via `workflow_dispatch` möglich
             - Auto-Merge: aktiviert (Squash, wartet auf erforderliche Checks)
           branch: chore/weekly-npm-update
+          base: gamma
           delete-branch: true
           labels: dependencies
 
