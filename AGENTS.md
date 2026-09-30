@@ -13,10 +13,12 @@ The scheduled OpenWiki GitHub Actions workflow refreshes the repository wiki. Do
 
 ## OpenCode (Kodierhinweise)
 
-* Kein Web-Build nötig: `index.html` direkt im Browser öffnen. Desktop: `npm start` (Electron, `electron/main.js`); Pakete via `npm run build:*`.
-* Python-Umgebung: `.venv` (siehe `pyrightconfig.json`), Deps aus `requirements-dev.txt`. Browser einmalig installieren: `python -m playwright install chromium` (CI-Workflow `test.yml` macht das automatisch via `--with-deps`).
-* Tests: `pytest -m unit` (schnell, ohne Browser) bzw. gezielt `pytest tests/<datei>.py`. Website-Tests (`tests/test_website.py`) laufen ausschließlich mit Playwright (`integration`-Marker, zentrale `browser`/`page`-Fixtures in `tests/conftest.py`).
-* Geteilte Fixtures in `tests/conftest.py` nutzen (`base_dir`, `index_html`, `video_html`, `package_json`, `main_css_content`) statt lokaler Pfad-/JSON-Duplikate.
-* Stream-URLs nie hardcoden: Single Source of Truth sind die `data-url`-Attribute in `index.html` / `video/index.html` (vgl. `tests/test_streams.py`).
+* Statische Seite ohne Bundler/Build: `index.html` direkt im Browser öffnen. Desktop: `npm start` (Electron, `electron/main.js`); Paketieren via `npm run pack` / `npm run dist*` (kein `build:*`-Skript).
+* JS-Ladereihenfolge einhalten (`defer` in `index.html` / `video/index.html`): `errors.js` → `player-core.js` → `player.js`/`video.js`. Module hängen sich an `window.*` (`ErrorCode`, `PlayerCore`) und exportieren zusätzlich via `module.exports` für Electron (`src/js/errors.js:161-187`) – beim Hinzufügen neuer Module beides pflegen.
+* Absolute Asset-Pfade (`/src/...`, `/favicon/...`) nicht auf relativ umschreiben: Electron fängt sie per `file`-Protokoll-Fallback ab (`electron/main.js:200-260`). Externe `http(s)`-Links immer via `shell.openExternal` (Navigation-Guard), `sandbox:true` + `nodeIntegration:false` bleiben an.
+* Python-Umgebung: `.venv` (siehe `pyrightconfig.json`), Deps aus `requirements-dev.txt`. Browser einmalig: `python -m playwright install chromium` (CI `test.yml` nutzt `--with-deps`; Branches `main`, `beta`, `gamma`).
+* Tests: `pytest tests/test_unit.py -m unit` (schnell, ohne Browser) bzw. `pytest tests/test_website.py` (Playwright, `integration`-Marker, Fixtures `browser`/`page` aus `tests/conftest.py`). Kein `test_syntax.py` / `test_streams.py` – das ist jetzt alles in `test_unit.py`.
+* Fixtures in `tests/conftest.py` wiederverwenden (`base_dir`, `index_html`, `video_html`, `package_json`, `main_css_content`, `audio_stations`, `video_stations`, `page_urls`) statt lokale Pfad-/JSON-Duplikate.
+* Stream-URLs nie hardcoden: Single Source of Truth sind die `data-url`-Attribute in `index.html` / `video/index.html` (Tests: `test_audio_streams`, `test_video_streams`, `test_no_duplicate_station_urls` in `tests/test_unit.py`).
 * CSS-Tests nur strukturell (Blöcke vorhanden, Klammern balanciert, Kern-Selektoren), keine exakten Wert-Regexes — brechen bei jedem Redesign.
-* Bekannt fehlschlagend: `TestNoSecretsInStationUrls` (`index.html` enthält `token=`/`sid=`/`cid=`/`tvf=`). Test nicht löschen, Fix von `index.html` ist eine Produktentscheidung.
+* Bekannt per `xfail`: `test_no_secrets_in_station_urls` (`index.html` enthält `token=`/`sid=`/`cid=`/`tvf=`). Test nicht löschen, Fix von `index.html` ist eine Produktentscheidung.
