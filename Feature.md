@@ -3,11 +3,11 @@
 > **Stand:** September 2026 – abgehakt = im Code umgesetzt, Notizen zeigen Teilstände.
 
 ### 8. **PWA-Optimierung (Progressive Web App)**
-- [x] Offline-Fallback-Seite
-- [x] Installierbare App
-- [x] Background-Audio-Wiedergabe
-- [x] Skeleton
-- [x] Push-Benachrichtigungen
+- [ ] Offline-Fallback-Seite – fehlt: kein Service Worker, keine `offline.html`, keine SW-Registrierung im Code
+- [ ] Installierbare App – Teilstand: `manifest.json` + `<link rel="manifest">` in `index.html:21` vorhanden, aber ohne Service Worker nicht nach PWA-Kriterien installierbar
+- [x] Background-Audio-Wiedergabe – umgesetzt via Media Session API (`src/js/player-core.js:33`, genutzt in `src/js/player.js:32`, `src/js/video.js:267`)
+- [ ] Skeleton – fehlt: kein Skeleton-Markup, keine `.skeleton`/Shimmer-CSS in `src/css/`
+- [ ] Push-Benachrichtigungen – fehlt: nur lokale `Notification`-API bei Titelwechsel (`src/js/notification.js:72`), kein Push-API/`PushManager`, kein Service Worker, kein VAPID
 
 ---
 
@@ -21,10 +21,3 @@
 - [ ] Uhrzeit einstellen
 - [ ] Sender als Weckton wählen
 - [ ] Sanftes Aufwachen (Lautstärke hochfahren)
-
----
-
-### 15. **Auto-Reconnect bei Verbindungsabbruch (Radio)**
-Der Videoplayer hat bereits Retry-Logik mit exponentiellem Backoff (hls.js) – der Audioplayer startet bei Streamabbrüchen nicht neu.
-- [x] Exponentielles Backoff (z. B. 1s/2s/4s, max. 3 Versuche) für Audio-Streams
-- [x] Automatische Wiederaufnahme nach Netzwerkrückkehr (`online`-Event, Listener existiert schon)
