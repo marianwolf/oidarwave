@@ -2,9 +2,9 @@ name: Tests
 
 on:
   push:
-    branches: [main, master]
+    branches: [main, beta, gamma]
   pull_request:
-    branches: [main, master]
+    branches: [main, beta, gamma]
   workflow_dispatch:
 
 permissions:
@@ -36,6 +36,7 @@ jobs:
           set -euo pipefail
           python -m pip install --upgrade pip
           pip install -r requirements-dev.txt
+          python -m playwright install --with-deps chromium
 
       - name: Run unit tests
         run: pytest -m unit

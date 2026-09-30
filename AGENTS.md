@@ -14,8 +14,8 @@ The scheduled OpenWiki GitHub Actions workflow refreshes the repository wiki. Do
 ## OpenCode (Kodierhinweise)
 
 * Kein Web-Build nötig: `index.html` direkt im Browser öffnen. Desktop: `npm start` (Electron, `electron/main.js`); Pakete via `npm run build:*`.
-* Python-Umgebung: `.venv` (siehe `pyrightconfig.json`), Deps aus `requirements-dev.txt`. Vor `tests/test_website.py` einmalig `playwright install chromium` ausführen (CI-Workflow `test.yml` installiert das nicht selbst).
-* Tests: `pytest -m unit` (schnell, ohne Browser) bzw. gezielt `pytest tests/<datei>.py`. Marker `unit`/`integration` aus `pytest.ini` immer setzen.
+* Python-Umgebung: `.venv` (siehe `pyrightconfig.json`), Deps aus `requirements-dev.txt`. Browser einmalig installieren: `python -m playwright install chromium` (CI-Workflow `test.yml` macht das automatisch via `--with-deps`).
+* Tests: `pytest -m unit` (schnell, ohne Browser) bzw. gezielt `pytest tests/<datei>.py`. Website-Tests (`tests/test_website.py`) laufen ausschließlich mit Playwright (`integration`-Marker, zentrale `browser`/`page`-Fixtures in `tests/conftest.py`).
 * Geteilte Fixtures in `tests/conftest.py` nutzen (`base_dir`, `index_html`, `video_html`, `package_json`, `main_css_content`) statt lokaler Pfad-/JSON-Duplikate.
 * Stream-URLs nie hardcoden: Single Source of Truth sind die `data-url`-Attribute in `index.html` / `video/index.html` (vgl. `tests/test_streams.py`).
 * CSS-Tests nur strukturell (Blöcke vorhanden, Klammern balanciert, Kern-Selektoren), keine exakten Wert-Regexes — brechen bei jedem Redesign.

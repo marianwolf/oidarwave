@@ -1,45 +1,31 @@
 """
-Integration tests for Oidarwave website using Playwright.
-Requires: pip install pytest playwright && playwright install chromium
+Integration tests for Oidarwave website using Playwright only.
+
+Requires: pip install -r requirements-dev.txt && python -m playwright install chromium
 """
 from pathlib import Path
-from typing import Generator
 
 import pytest
-from playwright.sync_api import sync_playwright, Page, Browser
-
-
-BASE_DIR = str(Path(__file__).resolve().parent.parent)
-
-PAGES: tuple[tuple[str, str], ...] = (
-    ("index", f"file://{BASE_DIR}/index.html"),
-    ("video", f"file://{BASE_DIR}/video/index.html"),
-    ("impressum", f"file://{BASE_DIR}/impressum/index.html"),
-)
+from playwright.sync_api import Page
 
 
 @pytest.fixture(scope="session")
-def browser() -> Generator[Browser, None, None]:
-    with sync_playwright() as p:
-        b = p.chromium.launch(headless=True)
-        yield b
-        b.close()
-
-
-@pytest.fixture
-def page(browser: Browser) -> Generator[Page, None, None]:
-    p = browser.new_page()
-    yield p
-    p.close()
+def page_urls(base_dir: Path) -> dict[str, str]:
+    """file:// URLs aller Seiten (Single Source of Truth: base_dir Fixture)."""
+    return {
+        "index": (base_dir / "index.html").as_uri(),
+        "video": (base_dir / "video" / "index.html").as_uri(),
+        "impressum": (base_dir / "impressum" / "index.html").as_uri(),
+    }
 
 
 @pytest.mark.integration
-@pytest.mark.parametrize("name,url", PAGES, ids=[p[0] for p in PAGES])
+@pytest.mark.parametrize("name", ["index", "video", "impressum"])
 class TestPages:
     """Seiten laden und enthalten ihre Kern-Elemente (ein Seitenaufruf pro Seite)."""
 
-    def test_page_loads_with_elements(self, page: Page, name: str, url: str):
-        page.goto(url)
+    def test_page_loads_with_elements(self, page: Page, page_urls: dict[str, str], name: str):
+        page.goto(page_urls[name])
         title = page.title()
         assert "Oidarwave" in title or "Impressum" in title
 
@@ -59,9 +45,9 @@ class TestIndexSpecific:
     """Spezifische Tests für die Index-Seite."""
 
     @pytest.fixture(autouse=True)
-    def index_page(self, page: Page):
+    def index_page(self, page: Page, page_urls: dict[str, str]) -> Page:
         """Lädt die Index-Seite für jeden Test."""
-        page.goto(PAGES[0][1])
+        page.goto(page_urls["index"])
         return page
 
     def test_navigation(self, index_page: Page):
