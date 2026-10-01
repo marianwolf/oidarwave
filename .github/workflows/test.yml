@@ -43,3 +43,6 @@ jobs:
 
       - name: Run website tests
         run: pytest tests/test_website.py
+
+      - name: Run design/layout tests
+        run: pytest tests/test_design_layout.py
