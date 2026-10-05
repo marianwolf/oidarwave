@@ -1,0 +1,230 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:9d4b706ae38734aefa27bf92ed135b9381190a791eed1537c97a5d54ccf3ac6e",
+  "claims": [
+    {
+      "id": "claim_fcc5ef7c2220458187952d12c740d4bc",
+      "statement": "The document head of index.html contains a link element with rel=\"manifest\" href=\"/manifest.json\".",
+      "evidence": [
+        {
+          "resource": "repo://index.html#L21-L21",
+          "version": "repo-lines-v1:sha256:f523735283347cafa1e51ff030c8b34a5adc6a3c3522151089488cc3092ff0e1:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZjUyMzczNTI4MzM0N2NhZmExZTUxZmYwMzBjOGIzNGE1YWRjNmEzYzM1MjIxNTEwODk0ODhjYzMwOTJmZjBlMSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZjUyMzczNTI4MzM0N2NhZmExZTUxZmYwMzBjOGIzNGE1YWRjNmEzYzM1MjIxNTEwODk0ODhjYzMwOTJmZjBlMSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZGU4ZThmMThhMzJjY2E2M2RjYTI1MGZjMmY5ZTk5ZTBiNThhYjNhZTBjMjg0OTA4ZTAwNjgxYTZlOGRiY2QyNiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYmVlNDBjNDk1ZGUyNjAyOTA2NjdhM2UzN2Y2MWRmNWFlZGY2ZDhhZGI1ZjdkMWY3MGY3ZTcwNzg2MzA0NzQ1MCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_69e2ffc8593149379748a0a2fc10ca1c",
+      "statement": "The manifest.json specifies the app name as \"Oidarwave - Dein Webradio\".",
+      "evidence": [
+        {
+          "resource": "repo://manifest.json#L2-L2",
+          "version": "repo-lines-v1:sha256:c1c41843b2de6da65038cecf70aae0459d28bfe4fdae5b0181feb137bff94b3f:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzFjNDE4NDNiMmRlNmRhNjUwMzhjZWNmNzBhYWUwNDU5ZDI4YmZlNGZkYWU1YjAxODFmZWIxMzdiZmY5NGIzZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYzFjNDE4NDNiMmRlNmRhNjUwMzhjZWNmNzBhYWUwNDU5ZDI4YmZlNGZkYWU1YjAxODFmZWIxMzdiZmY5NGIzZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjEsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTZmYjA4ZmRhMWFjYjk1N2I2MTE2YmQzNzgxMWExZmU0MWEwMTYxMWMwNjMxZWRiZjc4NmQ2ODg5YTI3YTU1YyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMGU0ZmU5MzQ0NzkzZmU2YjQ4MTU3MGZlMDVkN2JlYWU2OTcyNDY2MzFmZTU3YmFjZWYxZDE5OWM3NzE2NTA0MiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_abe9aa78d54845a8bf228d98836a3915",
+      "statement": "The manifest.json specifies the short_name as \"Oidarwave\".",
+      "evidence": [
+        {
+          "resource": "repo://manifest.json#L3-L3",
+          "version": "repo-lines-v1:sha256:9068e5bcb3edc8428354326fc69e1a6c485ddf16f5da508170ee246e2522fe96:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOTA2OGU1YmNiM2VkYzg0MjgzNTQzMjZmYzY5ZTFhNmM0ODVkZGYxNmY1ZGE1MDgxNzBlZTI0NmUyNTIyZmU5NiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTA2OGU1YmNiM2VkYzg0MjgzNTQzMjZmYzY5ZTFhNmM0ODVkZGYxNmY1ZGE1MDgxNzBlZTI0NmUyNTIyZmU5NiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjIsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiY2Y5MmJmNjM3MDFiMmUyZTBmN2EyNzQ5NzRlNmJmZTAxMWZmYjAxZDM0OWI5ZjAxZWM1NzE3OTBjZWFlMzI3ZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjUyZTBiNjdhZDVkYmZjNDlhZjkxMWExNGE4ZDE1ZDYzMzQ1OTFhMWEyZGZmYTIxODc2YjQ4YmVlNjc1NThjNCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_4dea312a5656467997985ff2098ab099",
+      "statement": "The manifest.json specifies the description as \"Oidarwave ist dein Webradio für jeden Geschmack.\".",
+      "evidence": [
+        {
+          "resource": "repo://manifest.json#L4-L4",
+          "version": "repo-lines-v1:sha256:3afd6f722271049ddc23a42dae0a119da7c65bccbd17364216169d62156429c0:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiM2FmZDZmNzIyMjcxMDQ5ZGRjMjNhNDJkYWUwYTExOWRhN2M2NWJjY2JkMTczNjQyMTYxNjlkNjIxNTY0MjljMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2FmZDZmNzIyMjcxMDQ5ZGRjMjNhNDJkYWUwYTExOWRhN2M2NWJjY2JkMTczNjQyMTYxNjlkNjIxNTY0MjljMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTIwMzU0NTc1YTc3N2I0YjI3Y2U4YjAzMGFhMWQ2ZGJlYmExYmY0OTRhNmQyYWI3YjNmYTBkNzlmNjg1MzVmNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZGJkMzk2NzRlZTg2MjQyZjUyMTE2NTE2OTUyMWJkNTkwMDY1ZTA4OWViMjQ4MzgwOWZjYmVlZjUwNmQ4ODYwNiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_831fc52c733f45dba3440a6819720b36",
+      "statement": "The manifest.json specifies start_url as \"/\".",
+      "evidence": [
+        {
+          "resource": "repo://manifest.json#L5-L5",
+          "version": "repo-lines-v1:sha256:940efbda8611daafe11d9f6c3c8e575ed507c378d80cdc2b67c1e35ed9279ef0:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOTQwZWZiZGE4NjExZGFhZmUxMWQ5ZjZjM2M4ZTU3NWVkNTA3YzM3OGQ4MGNkYzJiNjdjMWUzNWVkOTI3OWVmMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTQwZWZiZGE4NjExZGFhZmUxMWQ5ZjZjM2M4ZTU3NWVkNTA3YzM3OGQ4MGNkYzJiNjdjMWUzNWVkOTI3OWVmMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNGZiOTViMGJhMTVmMGYyYmRlZGJmOGU1ZWVhZGMzNDA4NThmMDM2MDk3MTYzOTY3NGEzZGQ4Y2Y0ZWQxZTJmNiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzY5MGNlODIwN2I1NGExZGUzNjJiMDJhNDlmYmJmYTA0YzU5YTM1OTY1ZTZjNmFlMzYyZWE5OTVmN2I1MzU1YyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_2749ae2fe7ba494a8d07f1d08f6ac11d",
+      "statement": "The manifest.json specifies scope as \"/\".",
+      "evidence": [
+        {
+          "resource": "repo://manifest.json#L6-L6",
+          "version": "repo-lines-v1:sha256:a9ac54717f3b0a187407e2a1afcc27162932daf1418bb716d22184ca65450c09:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTlhYzU0NzE3ZjNiMGExODc0MDdlMmExYWZjYzI3MTYyOTMyZGFmMTQxOGJiNzE2ZDIyMTg0Y2E2NTQ1MGMwOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYTlhYzU0NzE3ZjNiMGExODc0MDdlMmExYWZjYzI3MTYyOTMyZGFmMTQxOGJiNzE2ZDIyMTg0Y2E2NTQ1MGMwOSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMGU0ZmU5MzQ0NzkzZmU2YjQ4MTU3MGZlMDVkN2JlYWU2OTcyNDY2MzFmZTU3YmFjZWYxZDE5OWM3NzE2NTA0MiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODE0ZTQ5ZDljZmEyNjk2MjFiNjE3YjlhYjJlNmVmMWU0Yjg3NjFhZmUyOTQ2MTI1MzJkNGM5MmNlYjk3NTkzNiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_555ef32862b04d37b5ae24434733d4af",
+      "statement": "The manifest.json specifies display as \"standalone\".",
+      "evidence": [
+        {
+          "resource": "repo://manifest.json#L7-L7",
+          "version": "repo-lines-v1:sha256:751de8815dc2a8f6b4dd89c0c9422cb1c17b5d9a9305ca31c8f6c1aff40e90ba:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzUxZGU4ODE1ZGMyYThmNmI0ZGQ4OWMwYzk0MjJjYjFjMTdiNWQ5YTkzMDVjYTMxYzhmNmMxYWZmNDBlOTBiYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNzUxZGU4ODE1ZGMyYThmNmI0ZGQ4OWMwYzk0MjJjYjFjMTdiNWQ5YTkzMDVjYTMxYzhmNmMxYWZmNDBlOTBiYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjUyZTBiNjdhZDVkYmZjNDlhZjkxMWExNGE4ZDE1ZDYzMzQ1OTFhMWEyZGZmYTIxODc2YjQ4YmVlNjc1NThjNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiY2U5NjNiZjcyYWQ1ZTY4NmJhOTJjOGQ0MzlkYTg5MTVmNjZjODkzZDAxYTQ3YWRlZmY5ZGI4Yzg5OGExZmIwOCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_ee179bf4e33548aeb72454ea97289c0e",
+      "statement": "The manifest.json specifies orientation as \"any\".",
+      "evidence": [
+        {
+          "resource": "repo://manifest.json#L8-L8",
+          "version": "repo-lines-v1:sha256:ce4a8fcea9ec1d1679ade54885331470f0423a5a42edb28e81891386213634db:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiY2U0YThmY2VhOWVjMWQxNjc5YWRlNTQ4ODUzMzE0NzBmMDQyM2E1YTQyZWRiMjhlODE4OTEzODYyMTM2MzRkYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiY2U0YThmY2VhOWVjMWQxNjc5YWRlNTQ4ODUzMzE0NzBmMDQyM2E1YTQyZWRiMjhlODE4OTEzODYyMTM2MzRkYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZGJkMzk2NzRlZTg2MjQyZjUyMTE2NTE2OTUyMWJkNTkwMDY1ZTA4OWViMjQ4MzgwOWZjYmVlZjUwNmQ4ODYwNiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYjhhNjA0N2FmM2RjNDkwZjc0ZTViZDk1MGFmMTJkYmFlOTY2M2YxMzQ5MzQ5N2M5NjIzOTVjMjYxZDQzNDkwNSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_ea9cda7954db464d9f327abc709bd100",
+      "statement": "The manifest.json specifies version as \"0.9.12\".",
+      "evidence": [
+        {
+          "resource": "repo://manifest.json#L9-L9",
+          "version": "repo-lines-v1:sha256:d459791266c3606b0ae85aa1656193d333353bfade95c3a0d9cb31e04f22c738:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZDQ1OTc5MTI2NmMzNjA2YjBhZTg1YWExNjU2MTkzZDMzMzM1M2JmYWRlOTVjM2EwZDljYjMxZTA0ZjIyYzczOCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZDQ1OTc5MTI2NmMzNjA2YjBhZTg1YWExNjU2MTkzZDMzMzM1M2JmYWRlOTVjM2EwZDljYjMxZTA0ZjIyYzczOCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNzY5MGNlODIwN2I1NGExZGUzNjJiMDJhNDlmYmJmYTA0YzU5YTM1OTY1ZTZjNmFlMzYyZWE5OTVmN2I1MzU1YyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDJkNWUxOWMzYTljODI4MTc2NDI5ZDhiNDAzOTFkMjc4YTAzNjhmYTY4N2Q3M2Q1MzUxMjRjNmM3MTYzMGM4MSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_3132ea5d3b0c4f2796e33a47a96ea57b",
+      "statement": "The manifest.json specifies categories as [\"entertainment\", \"music\"].",
+      "evidence": [
+        {
+          "resource": "repo://manifest.json#L10-L13",
+          "version": "repo-lines-v1:sha256:44c3d124f22ff6e3d017a35d162bede8b67a792c1387224688bd53e2fd81912b:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiY2VjMTRiMjhkMWM4MGQ2ZGZjYTY4ZDU3MGZlOWM2ZTFmN2EyODM4YjQ1OGFlMmJlYThkOGRhOWMzMGY4YmNhOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYzYzZDUzNWNlMzgwNjNkNmI0YzUxZDhjMzg2YTdmOWIzZTU4MGExNGExMGMwN2IxOThkZmFmMTljOTNhM2JmZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODE0ZTQ5ZDljZmEyNjk2MjFiNjE3YjlhYjJlNmVmMWU0Yjg3NjFhZmUyOTQ2MTI1MzJkNGM5MmNlYjk3NTkzNiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiN2ZhNjM3NDQxMWQ0M2Q4NmYyMDBhNjhiNjZlYjZmOWMyYWQxZDc0NjU2NThjNTRiZWNiMjJiOGYwMjliYzVjZSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_757c0ef9f9a84993ad9646639c394a83",
+      "statement": "The manifest.json specifies lang as \"de\".",
+      "evidence": [
+        {
+          "resource": "repo://manifest.json#L14-L14",
+          "version": "repo-lines-v1:sha256:17f1f2f718e17409a60b1ad37192b7320f8656ff06412d1277c8116806c537de:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMTdmMWYyZjcxOGUxNzQwOWE2MGIxYWQzNzE5MmI3MzIwZjg2NTZmZjA2NDEyZDEyNzdjODExNjgwNmM1MzdkZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMTdmMWYyZjcxOGUxNzQwOWE2MGIxYWQzNzE5MmI3MzIwZjg2NTZmZjA2NDEyZDEyNzdjODExNjgwNmM1MzdkZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjNjZjMzZWI1MTA4YWE1YTFkZDBjMjk4M2E0YWVmNDhkZDEyMDY5YWJiZTRmMmU0MzBlMWQyMzA5MTk3ZWJjYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzBhZjQzYzI5Zjg5ZWQ4Y2RjNzhhN2UwODA5NDgxMjc4MDlhNDhlNGEwMWQ4MjhkMzZiYmJiYWY1Y2FmMjg0YSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_8b2fcfb20db5402fb1bc581371b6a5e1",
+      "statement": "The manifest.json specifies dir as \"ltr\".",
+      "evidence": [
+        {
+          "resource": "repo://manifest.json#L15-L15",
+          "version": "repo-lines-v1:sha256:8de44ed1a2723b1e5f21b02537d1ded54911fdaef0b99066acd3f435c6a5dfcb:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOGRlNDRlZDFhMjcyM2IxZTVmMjFiMDI1MzdkMWRlZDU0OTExZmRhZWYwYjk5MDY2YWNkM2Y0MzVjNmE1ZGZjYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOGRlNDRlZDFhMjcyM2IxZTVmMjFiMDI1MzdkMWRlZDU0OTExZmRhZWYwYjk5MDY2YWNkM2Y0MzVjNmE1ZGZjYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjViYjg5YTgxNmI3YjAyNzFjNjUyOTY0Y2EyYWJhOWQ3YmE3ZGRhMWRjNTUyOWI4Nzc0NDBiNGVhYmVlMGE3OCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjA2MDJjM2FjZjhkYmMzMzg2ODg1YmFjMDZhZGZiZGMzYjllMTFjMjVlMTQ2ZTNiNDdhZWE2NTkxNmZlN2IwYyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_6aec4d716bb748c489745f8cd79a4b67",
+      "statement": "The manifest.json includes an icon entry with src \"favicon/favicon.svg\", sizes \"any\", type \"image/svg+xml\", purpose \"any\".",
+      "evidence": [
+        {
+          "resource": "repo://manifest.json#L17-L23",
+          "version": "repo-lines-v1:sha256:1eaba81c1805bd7c8a0b95e40445faba48f39f0894dc63fdfa954abc9dd63418:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMGY1ZmU5YmIxYTk2ZGQwOTY0N2NhNWViYmJjMTkyMGNkYzJmMDRjYzFhNzNiOTNhMzY2MWQyYjFkYTdjZThjZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMWU2NzNhYmQ0NTdhOTdlZWExN2E2MDA2MmViMGZhZWE2YmRmMDk0ODY4Y2M2YjhmOGMwZWJkYTJmNjFlZDQyZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiN2ZhNjM3NDQxMWQ0M2Q4NmYyMDBhNjhiNjZlYjZmOWMyYWQxZDc0NjU2NThjNTRiZWNiMjJiOGYwMjliYzVjZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTczOGRkZjhlNjkwZjRiYTNlY2Y3ODBkNjZlMDExNmM0Y2IyZGMyMTI3OWRkZmEwNzFhNWFkNjkzOWU0YTJhMiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_138b3187c4fb480aa9aa07b1771c9f41",
+      "statement": "The manifest.json includes an icon entry with src \"favicon/favicon.svg\", sizes \"180x180\", type \"image/svg+xml\", purpose \"any\".",
+      "evidence": [
+        {
+          "resource": "repo://manifest.json#L24-L28",
+          "version": "repo-lines-v1:sha256:32e7bada63c14fc7207e73b876e8e673381b344193da366a6386821e31d91240:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNTkzZmM5Nzg5NDE0MDYyMzA5NmNhOWRiNzE1NDQyMmQ0MDQ0Y2RkYmZjOTVhZDQwZGFhNzg1ZjliOTM0MmNmYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzdjNWMwOGI2MzQ1ZTEwM2Q4NmEyNWZkNWM2MjNlMTU2ZWYwOWQxOTBiZWFmNzU4NTU4MmI3ZjA2NjUwMzg4NiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZWJmNzY2MmQ4NWUzNjgwMDNkZjAyNjg5YzllMGQ5MDk3NmM3NTA5Njg5YjUzZjY2NWE1ODkwZjM3ZjI1ZGMzNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMGIyZjhiZmNiNjBmZTgxMmU3M2M1ZjQ1Mjk5Nzg1YzQwYzRiNDgzYjgxNmUxOTI0NGNhYWVjY2FlY2Y0YTJiNCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_0c5d2acb19c9450388a181afe953cc01",
+      "statement": "The manifest.json includes an icon entry with src \"favicon/favicon.svg\", sizes \"192x192\", type \"image/svg+xml\", purpose \"any\".",
+      "evidence": [
+        {
+          "resource": "repo://manifest.json#L29-L34",
+          "version": "repo-lines-v1:sha256:a3ae64b3a8daebea3ef066e270571d279cfd268408cf617b22c8d89a48baac3b:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMWU2NzNhYmQ0NTdhOTdlZWExN2E2MDA2MmViMGZhZWE2YmRmMDk0ODY4Y2M2YjhmOGMwZWJkYTJmNjFlZDQyZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzdjNWMwOGI2MzQ1ZTEwM2Q4NmEyNWZkNWM2MjNlMTU2ZWYwOWQxOTBiZWFmNzU4NTU4MmI3ZjA2NjUwMzg4NiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTUzOTA4NjJiYTQ3NTkzODFmN2FlNWYyNTUyOGM3ZTgzYWZlMmYzZTBjYWNjMmE5YzgzNzAxY2VhZGYxNTMyOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMGIyZjhiZmNiNjBmZTgxMmU3M2M1ZjQ1Mjk5Nzg1YzQwYzRiNDgzYjgxNmUxOTI0NGNhYWVjY2FlY2Y0YTJiNCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_1ed17ecaa198406a8f0400234201bd9a",
+      "statement": "The manifest.json includes an icon entry with src \"favicon/favicon.svg\", sizes \"512x512\", type \"image/svg+xml\", purpose \"any\".",
+      "evidence": [
+        {
+          "resource": "repo://manifest.json#L35-L40",
+          "version": "repo-lines-v1:sha256:3d7aa86ac59950fd51a51df9e9fce364a75b6a2a8b86f3a97c9c9ae337d8a087:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMWU2NzNhYmQ0NTdhOTdlZWExN2E2MDA2MmViMGZhZWE2YmRmMDk0ODY4Y2M2YjhmOGMwZWJkYTJmNjFlZDQyZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzdjNWMwOGI2MzQ1ZTEwM2Q4NmEyNWZkNWM2MjNlMTU2ZWYwOWQxOTBiZWFmNzU4NTU4MmI3ZjA2NjUwMzg4NiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOWNiYzdjZDY2MjFiNDlkOTdjYzc4Mjk3NWU0NWU3YTQ1NjM3ZGMwNzU5ZThiODNkMDI0ZGRlY2MxMjFkNDUyOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMGIyZjhiZmNiNjBmZTgxMmU3M2M1ZjQ1Mjk5Nzg1YzQwYzRiNDgzYjgxNmUxOTI0NGNhYWVjY2FlY2Y0YTJiNCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_03f488f499454c87bf5f8f8e496243c8",
+      "statement": "The manifest.json includes an icon entry with src \"favicon/favicon.svg\", sizes \"192x192\", type \"image/svg+xml\", purpose \"maskable\".",
+      "evidence": [
+        {
+          "resource": "repo://manifest.json#L41-L46",
+          "version": "repo-lines-v1:sha256:469151f85963fd871580972bb3355a689e36b156840983e3da48027b88f7ac57:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMWU2NzNhYmQ0NTdhOTdlZWExN2E2MDA2MmViMGZhZWE2YmRmMDk0ODY4Y2M2YjhmOGMwZWJkYTJmNjFlZDQyZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZDcyYTU4OWQ4YTMyMWM4YzVhMGE2ZmU2ZDZlNDkyOWI3ZTk1MmI3YTFiODQzOTJjYTEwZTgyMjYxZGEyZTgzZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDNmMThkZTkzOWQzODAxMjM5ODdhMDcyYjMxMmVmYTJmZjQ1ZjU5MGFmNThlNWQzZWQyMWFjZDkxODUyODdhYSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMGIyZjhiZmNiNjBmZTgxMmU3M2M1ZjQ1Mjk5Nzg1YzQwYzRiNDgzYjgxNmUxOTI0NGNhYWVjY2FlY2Y0YTJiNCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_fb919610e38640868045a9edaa196283",
+      "statement": "The manifest.json includes an icon entry with src \"favicon/favicon.svg\", sizes \"512x512\", type \"image/svg+xml\", purpose \"maskable\".",
+      "evidence": [
+        {
+          "resource": "repo://manifest.json#L47-L52",
+          "version": "repo-lines-v1:sha256:bc1852351bac11d2d2848e5c1e8e9508582214e769522164c85f62621de3c627:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMWU2NzNhYmQ0NTdhOTdlZWExN2E2MDA2MmViMGZhZWE2YmRmMDk0ODY4Y2M2YjhmOGMwZWJkYTJmNjFlZDQyZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZDcyYTU4OWQ4YTMyMWM4YzVhMGE2ZmU2ZDZlNDkyOWI3ZTk1MmI3YTFiODQzOTJjYTEwZTgyMjYxZGEyZTgzZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNGYxNGNmMjhkZjA4Njk2ZDBmZGRmZjY5MzEwNDg0N2E4OWM0YWJlODdmMTVmZGU4MGU2ZDQ3MTg2Y2VkNzQwNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDc2NzEyYmI2NTg0YjUwZjdjMmU0ODAzNmM2MDcwNGI3MTY5YjYzNDczNzU4YzUyYThkOTY5NzFlODhjZGEzMSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_07e7b07ec57d4e6c834192da7e3c8734",
+      "statement": "The manifest.json defines a shortcut with name \"Radio starten\", short_name \"Start\", description \"Starte das Radio\", url \"/\", and an icon pointing to \"favicon/favicon.svg\".",
+      "evidence": [
+        {
+          "resource": "repo://manifest.json#L56-L68",
+          "version": "repo-lines-v1:sha256:1d02187db5ab8e61f8abcfe156451115e4bee9f73e84ad7a5602ec94c6273e1d:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE3NDA4NjM5NDk3YzM0NTRiZjMyMTYzNzBmMzYwMjdkY2VjZjBlYWVmYWY2YWIwN2YxZDhiNGZlMDNjMGM1ODgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU3ZjIzNDI0N2I3OThhOTE3ZjI4MmM5YWU4NjU2MWYxMTAwYmJhYWNhYWQ5MzdjOWYyY2VmOGUwNzdlYzA3NzEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ3NjcxMmJiNjU4NGI1MGY3YzJlNDgwMzZjNjA3MDRiNzE2OWI2MzQ3Mzc1OGM1MmE4ZDk2OTcxZTg4Y2RhMzEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYzYmM2ZGQ1OGI5MDRlMzhmODZiMTZlNTQxNmIyMTI4YWI4ZjY0Y2JmMDVjMDhjNDM4YTE4ZDlmZjRhODg2OGEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_652ac734f7e64bc1ad6d6d6c7c53ebfc",
+      "statement": "The manifest.json defines a shortcut with name \"Livestream starten\", short_name \"Livestream\", description \"Starte den Livestream\", url \"video\", and an icon pointing to \"favicon/favicon.svg\".",
+      "evidence": [
+        {
+          "resource": "repo://manifest.json#L70-L82",
+          "version": "repo-lines-v1:sha256:d3087b6086c876cfd85e441b57bee24d2fa7e4c8575a52ca23a891a03e778c4d:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU5M2ZjOTc4OTQxNDA2MjMwOTZjYTlkYjcxNTQ0MjJkNDA0NGNkZGJmYzk1YWQ0MGRhYTc4NWY5YjkzNDJjZmEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg0MWYyZjllNjQwMjA4YzU5MmVmY2M2ZDNhN2RlMTUwYjNlNWU5MzkzOTZiNzgxZTM2ZWIzYTgyOGI0ZmVkZjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE3NGI4ZDk4MmE0MjcyYzNkMTI4M2NiZmQ5MmIwMTBjNGJmNTkzZTFkOWM0ZDRjZjc4MjE3YmEyODM1MWY1YTcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_931fd9466af2478caef3efa4c80ea0fa",
+      "statement": "The manifest.json declares a share_target with action \"/\", method \"GET\", and an empty params object.",
+      "evidence": [
+        {
+          "resource": "repo://manifest.json#L84-L88",
+          "version": "repo-lines-v1:sha256:c4ebaca0ae2f476c4c4048774fe0ab31c48fb72189494f963b716db7e5256ed4:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOThiYjM2MzM4NTBiY2I4ZmRkMDkxZGRkMTMxM2MwNDQ0ZjFjYTZhNmZlODk4OWIxNzI2MzBmMzM2MDQ2ZjRkNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjhkZDY3YmIzNDRhYzM1NDA3ZmJhMTU0NGE2ZGI3MzRlODY4OTlmYmM4YWU3MjE4MDcwYzAzYThhMjExZGY5NyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjEsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDEwYjM2YWE3NGE1OWJjZjRhODgxODU4MzdmNjU4YWZhZjM2NDZlZmYyYmIxNmMzOTI4ZDBlOTMzNWU5NDVkMiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_eb9a53bd5797402ab21478adb3007e9e",
+      "statement": "The index.html does not contain a script that registers a service worker; the listed scripts are errors.js, player-core.js, uuid.js, mouse.js, cookie.js, notification.js, player.js, history.js, download_history.js.",
+      "evidence": [
+        {
+          "resource": "repo://index.html#L30-L38",
+          "version": "repo-lines-v1:sha256:eed8a8a607d59fc161a4bc3a0c0fab9c0cc778b282af805b971e7dadcdb08500:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZGFhNTlkMDA4YzQzYmNkNTFiZmMxYTUxYjFiZDZkOTQ5N2UwYTA4MzI5ODAwZTMzMDdmYTBjYjNmNzU5MWQ3ZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMWFkMTJjNWYyMTdlNzlhOTA2ZDNlNmEwYzA5OGFjYTI0M2RiMTE0NGE2ODEyNDA2NWRlNjAxMDZjZTVmNmI5NCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTBlZjFlMmI0YjE4YmEyMGQ3NzhhM2VlZGVjZmNmY2Q4ZGNlNjUzNWIwYmY1ZDk3OWM4ZDAxYzU3NjM0ZDNkMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzJhZDBkZjQ5MTBiOTg5OTY1NDYwOWNiN2QxZTJjYjljNzA5ODdlOGIyY2M1NjBiMTJlM2VhNGI5M2E0NjdlYiJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.2",
+    "at": "2026-09-27T19:48:35.317Z"
+  }
+}
