@@ -6,16 +6,19 @@
     <meta name="description" content="Impressum und Datenschutzerklärung von Oidarwave"/>
     <meta name="keywords" content="Webradio, Radio, Online-Radio, Oidarwave, Datenschutz, Impressum"/>
     <meta name="author" content="Marian Wolf">
-    
+    <meta name="robots" content="noindex, follow">
+
     <meta property="og:title" content="Oidarwave - Impressum & Datenschutz">
     <meta property="og:description" content="Impressum und Datenschutzerklärung von Oidarwave"/>
     <meta property="og:image" content="/favicon/favicon.svg">
     <meta property="og:url" content="/impressum/">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="de_DE">
-    
-    <title>Oidarwave - Impressum</title>
+    <meta property="og:site_name" content="Oidarwave">
+
+    <title>Oidarwave - Impressum & Datenschutz</title>
     <meta name="color-scheme" content="dark">
+    <meta name="theme-color" content="#0f172a">
     <link rel="canonical" href="/impressum/">
     <link rel="icon" href="/favicon/favicon.svg" type="image/svg+xml">
     <link rel="manifest" href="/manifest.json">
@@ -26,11 +29,11 @@
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" as="style">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap"></noscript>
-    
+
     <link rel="stylesheet" href="/src/css/style.css">
     <link rel="stylesheet" href="/src/css/style-impressum.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap" media="print" onload="this.media='all'">
-    
+
     <script src="/src/js/mouse.js" defer></script>
     <script src="/src/js/cookie.js" defer></script>
     <script src="/src/js/download_history.js" defer></script>
@@ -38,7 +41,7 @@
 <body>
     <div class="container">
         <header>
-            <div class="logo">🎵 Oidarwave</div>
+            <a class="logo" href="/" aria-label="Oidarwave Startseite">🎵 Oidarwave</a>
             <nav aria-label="Hauptnavigation">
                 <a href="/">Radio</a>
                 <a href="/video">Video</a>
@@ -49,91 +52,90 @@
 
         <main class="main-section">
             <article class="impressum-content" aria-labelledby="impressum-heading">
-                <h1 id="impressum-heading">Impressum</h1>
+                <h1 id="impressum-heading">Impressum &amp; Datenschutz</h1>
+                <p class="impressum-meta">Stand: <time datetime="2026-10">Oktober 2026</time></p>
 
-                <section class="impressum-section">
-                    <h2>Angaben gemäß § 5 TMG</h2>
+                <nav class="impressum-toc" aria-label="Inhaltsverzeichnis">
+                    <a href="#impressum">Impressum</a>
+                    <a href="#datenschutz">Datenschutzerklärung</a>
+                    <a href="#ds-speicherung">Lokale Speicherung &amp; Einwilligung</a>
+                    <a href="#ds-analyse">Analyse (nur nach Einwilligung)</a>
+                    <a href="#ds-dienste">Externe Dienste</a>
+                    <a href="#ds-rechte">Ihre Rechte</a>
+                </nav>
+
+                <section class="impressum-section" id="impressum" aria-labelledby="impressum-titel">
+                    <h2 id="impressum-titel">Impressum</h2>
+
+                    <h3>Angaben gemäß § 5 DDG</h3>
                     <address>
                         <strong>Marian Wolf</strong><br>
                         [Straße und Hausnummer]<br>
                         [PLZ Ort]<br>
                         Deutschland
                     </address>
-                </section>
 
-                <section class="impressum-section">
-                    <h2>Kontakt</h2>
+                    <h3>Kontakt</h3>
                     <p>
                         E-Mail: <a href="mailto:marian.wolf2008@gmail.com">marian.wolf2008@gmail.com</a>
                     </p>
-                </section>
 
-                <section class="impressum-section">
-                    <h2>Redaktionell Verantwortlicher</h2>
-                    <p>Gemäß § 55 Abs. 2 RStV:</p>
+                    <h3>Redaktionell verantwortlich gemäß § 18 Abs. 2 MStV</h3>
                     <address>
                         Marian Wolf<br>
                         [Straße und Hausnummer], [PLZ Ort]<br>
                         Deutschland
                     </address>
-                </section>
 
-                <section class="impressum-section">
-                    <h2>Kein kommerzielles Angebot</h2>
+                    <h3>Kein kommerzielles Angebot</h3>
                     <p>
-                        Oidarwave ist ein <strong>privates, nicht-kommerzielles</strong> Webradio-Projekt. 
-                        Es wird keine Gewinnerzielungsabsicht verfolgt. 
+                        Oidarwave ist ein <strong>privates, nicht-kommerzielles</strong> Webradio-Projekt.
+                        Es wird keine Gewinnerzielungsabsicht verfolgt.
                         Der Dienst wird ausschließlich zu privaten Zwecken angeboten.
                     </p>
-                </section>
 
-                <section class="impressum-section">
-                    <h2>Haftung für Inhalte</h2>
+                    <h3>Haftung für Inhalte</h3>
                     <p>
-                        Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, 
-                        Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen. 
-                        Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten 
+                        Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit,
+                        Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen.
+                        Als Diensteanbieter sind wir gemäß § 7 Abs. 1 DDG für eigene Inhalte auf diesen Seiten
                         nach den allgemeinen Gesetzen verantwortlich.
                     </p>
-                </section>
 
-                <section class="impressum-section">
-                    <h2>Haftung für externe Links</h2>
+                    <h3>Haftung für externe Links</h3>
                     <p>
-                        Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. 
-                        Deshalb können wir für diese fremden Inhalte keine Gewähr übernehmen. Für die Inhalte der verlinkten 
+                        Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben.
+                        Deshalb können wir für diese fremden Inhalte keine Gewähr übernehmen. Für die Inhalte der verlinkten
                         Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.
                     </p>
                     <p>
-                        Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. 
-                        Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar. Bei Bekanntwerden von 
+                        Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft.
+                        Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar. Bei Bekanntwerden von
                         Rechtsverletzungen werden wir derartige Links umgehend entfernen.
                     </p>
-                </section>
 
-                <section class="impressum-section">
-                    <h2>Urheberrecht</h2>
+                    <h3>Urheberrecht</h3>
                     <p>
-                        Die durch den Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem 
-                        deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung 
-                        außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors 
-                        bzw. Erstellers. Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen 
+                        Die durch den Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem
+                        deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung
+                        außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors
+                        bzw. Erstellers. Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen
                         Gebrauch gestattet.
                     </p>
                     <p>
-                        Soweit auf dieser Seite Inhalte verwendet werden, deren Urheberrechte Dritten zustehen, werden diese 
-                        als solche gekennzeichnet. Sollten Sie trotzdem auf eine Urheberrechtsverletzung aufmerksam werden, 
-                        bitten wir um einen entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen werden wir 
+                        Soweit auf dieser Seite Inhalte verwendet werden, deren Urheberrechte Dritten zustehen, werden diese
+                        als solche gekennzeichnet. Sollten Sie trotzdem auf eine Urheberrechtsverletzung aufmerksam werden,
+                        bitten wir um einen entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen werden wir
                         derartige Inhalte umgehend entfernen.
                     </p>
                 </section>
 
                 <hr>
 
-                <h1 id="datenschutz-heading">Datenschutzerklärung</h1>
+                <section class="impressum-section" aria-labelledby="datenschutz">
+                    <h2 id="datenschutz">Datenschutzerklärung</h2>
 
-                <section class="impressum-section">
-                    <h2>1. Verantwortlicher</h2>
+                    <h3 id="ds-verantwortlicher">1. Verantwortlicher</h3>
                     <address>
                         <strong>Verantwortlich für die Datenverarbeitung:</strong><br>
                         Marian Wolf<br>
@@ -141,147 +143,150 @@
                         Deutschland<br>
                         E-Mail: <a href="mailto:marian.wolf2008@gmail.com">marian.wolf2008@gmail.com</a>
                     </address>
-                </section>
 
-                <section class="impressum-section">
-                    <h2>2. Datenschutzbeauftragter</h2>
+                    <h3 id="ds-dsb">2. Datenschutzbeauftragter</h3>
                     <p>
-                        Da wir weniger als 10 Mitarbeiter beschäftigen und nur personenbezogene Daten von 
-                        geringem Umfang verarbeiten, haben wir gemäß § 38 BDSG keinen Datenschutzbeauftragten bestellt.
+                        Da wir weniger als 20 Personen ständig mit der Verarbeitung personenbezogener Daten beschäftigen,
+                        haben wir gemäß § 38 BDSG keinen Datenschutzbeauftragten bestellt.
                     </p>
-                </section>
 
-                <section class="impressum-section">
-                    <h2>3. Allgemeines zur Datenverarbeitung</h2>
+                    <h3 id="ds-allgemein">3. Allgemeines zur Datenverarbeitung</h3>
                     <p>
-                        Wir verarbeiten personenbezogene Daten unserer Nutzer grundsätzlich nur, soweit dies zur 
-                        Bereitstellung einer funktionsfähigen Website sowie unserer Inhalte und Leistungen erforderlich ist. 
-                        Die Verarbeitung personenbezogener Daten unserer Nutzer erfolgt regelmäßig nur nach Einwilligung des Nutzers. 
-                        Eine Ausnahme gilt in solchen Fällen, in denen eine vorherige Einwilligung aus tatsächlichen Gründen nicht 
+                        Wir verarbeiten personenbezogene Daten unserer Nutzer grundsätzlich nur, soweit dies zur
+                        Bereitstellung einer funktionsfähigen Website sowie unserer Inhalte und Leistungen erforderlich ist.
+                        Die Verarbeitung personenbezogener Daten unserer Nutzer erfolgt regelmäßig nur nach Einwilligung des Nutzers.
+                        Eine Ausnahme gilt in solchen Fällen, in denen eine vorherige Einwilligung aus tatsächlichen Gründen nicht
                         möglich ist und die Verarbeitung der Daten durch gesetzliche Vorschriften gestattet ist.
                     </p>
-                </section>
 
-                <section class="impressum-section">
-                    <h2>4. Rechtsgrundlage der Verarbeitung</h2>
-                    <p>Die Datenverarbeitung erfolgt auf Grundlage folgender Rechtsgrundlagen:</p>
+                    <h3 id="ds-rechtsgrundlage">4. Rechtsgrundlagen der Verarbeitung</h3>
                     <ul>
-                        <p><strong>Art. 6 Abs. 1 lit. f DSGVO</strong> (berechtigte Interessen): Für die technische Bereitstellung der Website</p>
-                        <p><strong>Art. 6 Abs. 1 lit. b DSGVO</strong> (Vertragserfüllung): Für die Bearbeitung von Kontaktanfragen</p>
+                        <li><strong>Art. 6 Abs. 1 lit. a DSGVO</strong> (Einwilligung): für Analyse- und Statistikdienste, erst nach Ihrer Zustimmung über das Cookie-Banner.</li>
+                        <li><strong>Art. 6 Abs. 1 lit. f DSGVO</strong> (berechtigte Interessen): für die technische Bereitstellung der Website sowie lokal gespeicherte Einstellungen (z. B. zuletzt gehörter Sender, Benachrichtigungspräferenz).</li>
+                        <li><strong>Art. 6 Abs. 1 lit. b DSGVO</strong> (Vertragserfüllung): für die Bearbeitung von Kontaktanfragen.</li>
                     </ul>
-                </section>
 
-                <section class="impressum-section">
-                    <h2>5. Datenerfassung auf unserer Website</h2>
-                    
-                    <h3>5.1 Server-Logfiles</h3>
+                    <h3 id="ds-erfassung">5. Datenerfassung auf unserer Website</h3>
+
+                    <h4>5.1 Server-Logfiles des Hosters</h4>
                     <p>
-                        Bei jedem Zugriff auf unsere Website werden automatisch Informationen durch den Browser an den Server 
-                        gesendet. Diese sogenannten Server-Logfiles enthalten:
+                        Bei jedem Zugriff auf unsere Website werden durch den Hosting-Anbieter automatisch technische
+                        Zugriffsdaten (z. B. IP-Adresse, Datum und Uhrzeit, aufgerufene Seite, Browsertyp, Referrer-URL)
+                        in Server-Logfiles verarbeitet. Diese Daten dienen der technischen Sicherheit und Fehleranalyse.
+                        Auf Speicherdauer und Auswertung dieser Protokolle haben wir nur den Einfluss, den uns der
+                        Hosting-Anbieter einräumt; eine Zusammenführung mit anderen Datenquellen nehmen wir nicht vor.
+                    </p>
+
+                    <h3 id="ds-speicherung">6. Einwilligung, Cookies und lokale Speicherung</h3>
+                    <p>
+                        Beim ersten Besuch fragen wir über ein Banner nach Ihrer Einwilligung in Analyse- und Statistikdienste.
+                        Ihre Entscheidung (<code>cookieConsent</code>) speichern wir zusammen mit dem Entscheidungszeitpunkt
+                        (<code>consentTimestamp</code>) <strong>lokal in Ihrem Browser (localStorage)</strong> für 90 Tage,
+                        danach fragen wir erneut. Ohne Ihre Zustimmung werden keine Analyse-Skripte geladen.
+                    </p>
+                    <p>Folgende Daten bleiben ausschließlich auf Ihrem Gerät und werden nicht an uns übertragen:</p>
+                    <ul>
+                        <li><strong>Einwilligung:</strong> <code>cookieConsent</code>, <code>consentTimestamp</code> (90 Tage).</li>
+                        <li><strong>Hörverlauf:</strong> <code>station_history</code> mit Sendern und Hörsessions (automatisch nach 90 Tagen bereinigt, per Tastenkombination als Datei exportierbar).</li>
+                        <li><strong>Einstellungen:</strong> zuletzt gewählter Sender, Benachrichtigungspräferenz (<code>notificationsEnabled</code>), Datenspar- und Untertiteleinstellungen.</li>
+                    </ul>
+                    <p>
+                        <strong>Widerruf:</strong> Sie können Ihre Einwilligung jederzeit widerrufen, indem Sie die Website-Daten
+                        bzw. den localStorage im Browser für diese Domain löschen. Beim nächsten Besuch erscheint das Banner erneut.
+                        Sie können in Ihrem Browser außerdem das Speichern von Cookies und Website-Daten einschränken oder
+                        das automatische Löschen beim Schließen aktivieren; einzelne Funktionen (z. B. Verlauf, Einstellungen)
+                        stehen dann ggf. nicht zur Verfügung.
+                    </p>
+
+                    <h3 id="ds-analyse">7. Analyse und Statistik (nur nach Einwilligung)</h3>
+                    <p>
+                        Nur wenn Sie im Banner auf „Akzeptieren" klicken, laden wir zusätzlich:
                     </p>
                     <ul>
-                        <p>Browsertyp und Browserversion</p>
-                        <p>Verwendetes Betriebssystem</p>
-                        <p>Referrer URL</p>
-                        <p>Hostname des zugreifenden Rechners</p>
-                        <p>Uhrzeit der Serveranfrage</p>
+                        <li><strong>Vercel Analytics und Vercel Speed Insights</strong> (Vercel Inc., USA) zur anonymisierten Reichweiten- und Performancemessung.</li>
+                        <li><strong>Google Analytics / Google Tag</strong> (<code>gtag.js</code>, Google Ireland Ltd. / Google LLC) zur Nutzungsstatistik.</li>
                     </ul>
                     <p>
-                        Diese Daten sind nicht bestimmten Personen zuordenbar. Eine Zusammenführung dieser Daten mit anderen 
-                        Datenquellen wird nicht vorgenommen. Die Daten werden nach 7 Tagen automatisch gelöscht. 
-                        Wir behalten uns vor, diese Daten nachträglich zu prüfen, wenn uns konkrete Anhaltspunkte für eine 
-                        rechtswidrige Nutzung bekannt werden.
+                        Dabei können IP-Adresse, Geräte- und Browserinformationen sowie Nutzungsereignisse an Server der
+                        Anbieter – auch in den USA – übertragen und dort verarbeitet werden.
+                        Rechtsgrundlage ist Ihre Einwilligung gemäß Art. 6 Abs. 1 lit. a DSGVO (§ 25 TDDDG für den Zugriff
+                        auf Ihr Endgerät). Weitere Informationen finden Sie in den
+                        <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">Datenschutzhinweisen von Vercel</a>
+                        und den
+                        <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Datenschutzhinweisen von Google</a>.
                     </p>
-                    
-                    <h3>5.2 Cookies</h3>
-                    <p>
-                        Unsere Website verwendet technisch notwendige Cookies. Cookies sind kleine Textdateien, die auf Ihrem 
-                        Endgerät gespeichert werden und die Ihr Browser speichert. Diese Cookies sind für den technischen 
-                        Betrieb der Website erforderlich und ermöglichen grundlegende Funktionen (z.B. Datensparmodus-Einstellung).
-                    </p>
-                    <p>
-                        Die Cookies werden nach Schließen des Browsers gelöscht (Session-Cookies). Eine Zusammenführung dieser 
-                        Daten mit anderen Datenquellen wird nicht vorgenommen.
-                    </p>
-                    <p>
-                        <strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO (berechtigte Interessen an der technischen 
-                        Bereitstellung der Website).
-                    </p>
-                    <p>
-                        Sie können Ihren Browser so einstellen, dass Sie über das Setzen von Cookies informiert werden und Cookies 
-                        nur im Einzelfall erlauben, die Annahme von Cookies für bestimmte Fälle oder generell ausschließen sowie 
-                        das automatische Löschen der Cookies beim Schließen des Browsers aktivieren. Bei der Deaktivierung von 
-                        Cookies kann die Funktionalität dieser Website eingeschränkt sein.
-                    </p>
-                </section>
 
-                <section class="impressum-section">
-                    <h2>6. Kontaktaufnahme</h2>
+                    <h3 id="ds-kontakt">8. Kontaktaufnahme</h3>
                     <p>
-                        Wenn Sie uns per E-Mail kontaktieren, werden Ihre angegebenen Daten (Ihre E-Mail-Adresse, ggf. Ihr Name 
-                        und Ihre Nachricht) gespeichert, um Ihre Anfrage beantworten zu können. Diese Daten werden ohne Ihre 
+                        Wenn Sie uns per E-Mail kontaktieren, werden Ihre angegebenen Daten (Ihre E-Mail-Adresse, ggf. Ihr Name
+                        und Ihre Nachricht) gespeichert, um Ihre Anfrage beantworten zu können. Diese Daten werden ohne Ihre
                         Einwilligung nicht an Dritte weitergegeben.
                     </p>
                     <p>
-                        Die Daten werden gelöscht, sobald sie für die Erreichung des Zwecks ihrer Erhebung nicht mehr erforderlich 
-                        sind. Für personenbezogene Daten, die per E-Mail übersandt wurden, ist dies der Fall, wenn sich aus den 
+                        Die Daten werden gelöscht, sobald sie für die Erreichung des Zwecks ihrer Erhebung nicht mehr erforderlich
+                        sind. Für personenbezogene Daten, die per E-Mail übersandt wurden, ist dies der Fall, wenn sich aus den
                         Umständen entnehmen lässt, dass der betroffene Sachverhalt abschließend geklärt ist.
                     </p>
-                </section>
 
-                <section class="impressum-section">
-                    <h2>7. Externe Dienste</h2>
-                    <p>
-                        Unsere Website wird bei <strong>Vercel</strong> gehostet. Die Serverstandorte befinden sich primär in den USA. 
-                        Weitere Informationen zur Datenverarbeitung finden Sie in der 
-                        <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">Datenschutzerklärung von Vercel</a>.
-                    </p>
-                </section>
+                    <h3 id="ds-dienste">9. Hosting und externe Dienste</h3>
+                    <ul>
+                        <li><strong>Hosting:</strong> Unsere Website wird bei <strong>Vercel</strong> (Vercel Inc., USA) gehostet. Beim Abruf werden Verbindungsdaten technisch bedingt an Vercel-Server übertragen (auch in Drittländern; Absicherung u. a. über Standardvertragsklauseln). Siehe <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">Datenschutzerklärung von Vercel</a>.</li>
+                        <li><strong>Schriftarten:</strong> Wir laden Schriftarten (Outfit, Inter, Noto Color Emoji) von <strong>Google Fonts</strong>. Dabei wird Ihre IP-Adresse an Google übertragen. Siehe <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Datenschutzerklärung von Google</a>.</li>
+                        <li><strong>Audio- und Videostreams:</strong> Beim Abspielen verbinden Sie sich direkt mit den Servern der jeweiligen Sender bzw. Ausspielwege (u. a. Deutschlandfunk, NDR, streamabc/Regiocast, HLS-Bibliothek über jsDelivr). Dabei gelten deren Datenschutzhinweise.</li>
+                        <li><strong>Profilbild und Beta-Link:</strong> Footer-Grafik (<code>profilbild.vercel.app</code>) und Beta-Link (<code>beta0.vercel.app</code>) führen zu externen Vercel-Diensten; beim Aufruf werden Verbindungsdaten an diese Dienste übertragen.</li>
+                    </ul>
 
-                <section class="impressum-section">
-                    <h2>8. Ihre Rechte</h2>
+                    <h3 id="ds-rechte">10. Ihre Rechte</h3>
                     <p>Sie haben folgende Rechte hinsichtlich Ihrer personenbezogenen Daten:</p>
                     <ul>
-                        <p><strong>Auskunft (Art. 15 DSGVO)</strong></p>
-                        <p><strong>Berichtigung (Art. 16 DSGVO)</strong></p>
-                        <p><strong>Löschung (Art. 17 DSGVO)</strong></p>
-                        <p><strong>Einschränkung der Verarbeitung (Art. 18 DSGVO)</strong></p>
-                        <p><strong>Datenübertragbarkeit (Art. 20 DSGVO)</strong></p>
-                        <p><strong>Widerspruch (Art. 21 DSGVO)</strong></p>
+                        <li><strong>Auskunft (Art. 15 DSGVO)</strong></li>
+                        <li><strong>Berichtigung (Art. 16 DSGVO)</strong></li>
+                        <li><strong>Löschung (Art. 17 DSGVO)</strong></li>
+                        <li><strong>Einschränkung der Verarbeitung (Art. 18 DSGVO)</strong></li>
+                        <li><strong>Datenübertragbarkeit (Art. 20 DSGVO)</strong></li>
+                        <li><strong>Widerspruch (Art. 21 DSGVO)</strong> sowie <strong>Widerruf erteilter Einwilligungen (Art. 7 Abs. 3 DSGVO)</strong> mit Wirkung für die Zukunft</li>
                     </ul>
                     <p>
                         Um diese Rechte auszuüben, wenden Sie sich bitte an die im Impressum genannte E-Mail-Adresse.
                     </p>
                     <p>
-                        Zudem haben Sie das Recht, sich bei einer Datenschutz-Aufsichtsbehörde über die Verarbeitung 
+                        Zudem haben Sie das Recht, sich bei einer Datenschutz-Aufsichtsbehörde über die Verarbeitung
                         Ihrer personenbezogenen Daten zu beschweren (Art. 77 DSGVO).
                     </p>
-                </section>
 
-                <section class="impressum-section">
-                    <h2>9. Widerspruch Werbe-E-Mails</h2>
+                    <h3 id="ds-werbung">11. Widerspruch gegen Werbe-E-Mails</h3>
                     <p>
-                        Der Nutzung von im Rahmen der Impressumspflicht veröffentlichten Kontaktdaten zur Übersendung von 
-                        nicht ausdrücklich angeforderter Werbung und Informationsmaterialien wird hiermit widersprochen. 
-                        Die Betreiber der Seiten behalten sich ausdrücklich rechtliche Schritte im Falle der unverlangten 
+                        Der Nutzung von im Rahmen der Impressumspflicht veröffentlichten Kontaktdaten zur Übersendung von
+                        nicht ausdrücklich angeforderter Werbung und Informationsmaterialien wird hiermit widersprochen.
+                        Die Betreiber der Seiten behalten sich ausdrücklich rechtliche Schritte im Falle der unverlangten
                         Zusendung von Werbeinformationen, etwa durch Spam-E-Mails, vor.
                     </p>
-                </section>
 
-                <section class="impressum-section">
-                    <h2>10. Aktualität und Änderungen</h2>
+                    <h3 id="ds-stand">12. Aktualität und Änderungen</h3>
                     <p>
-                        Diese Datenschutzerklärung ist aktuell gültig (Stand: Februar 2026). Durch die Weiterentwicklung unserer 
-                        Website oder aufgrund geänderter gesetzlicher beziehungsweise behördlicher Vorgaben kann es notwendig werden, 
+                        Diese Datenschutzerklärung ist aktuell gültig (Stand: <time datetime="2026-10">Oktober 2026</time>). Durch die Weiterentwicklung unserer
+                        Website oder aufgrund geänderter gesetzlicher beziehungsweise behördlicher Vorgaben kann es notwendig werden,
                         diese Datenschutzerklärung anzupassen.
                     </p>
                 </section>
 
+                <p class="back-link"><a href="/">← Zurück zum Radio</a></p>
             </article>
         </main>
         <footer>
-            <p>2026 by<img src="https://profilbild.vercel.app/mw.svg" width="22" height="22" loading="lazy" decoding="async" alt="">| Alle Rechte vorbehalten. | <a href="/impressum" target="_blank">Impressum & Datenschutz</a></p>
+            <p>2026 by<img src="https://profilbild.vercel.app/mw.svg" width="22" height="22" loading="lazy" decoding="async" alt="Profilbild von Marian Wolf">| Alle Rechte vorbehalten. | <a href="/impressum/">Impressum &amp; Datenschutz</a></p>
         </footer>
+    </div>
+    <div class="cookie-banner" id="cookieBanner" role="dialog" aria-live="polite" aria-labelledby="cookieBannerHeading" style="display: none;">
+        <div class="cookie-banner-content">
+            <p id="cookieBannerHeading">
+                Um die Website für Sie zu optimieren, nutzen wir anonyme Nutzungsstatistiken.
+            </p>
+            <div class="cookie-buttons">
+                <button class="cookie-btn accept-btn" id="acceptCookies">Akzeptieren</button>
+                <button class="cookie-btn decline-btn" id="declineCookies">Ablehnen</button>
+            </div>
+        </div>
     </div>
 </body>
 </html>
