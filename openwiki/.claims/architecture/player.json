@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:44a87cb44fadd39cfab77f507bf2b9197e3de8432e82ff789a8ff19e9414571d",
+  "claims": [
+    {
+      "id": "claim_a027c07a62a748d89f56068ce09e1be6",
+      "statement": "PlayerCore provides a shared module that deduplicates common functionality between the audio and video players, including Media Session setup, status indicator management, and LocalStorage helpers.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player-core.js#L24-L51",
+          "version": "repo-lines-v1:sha256:d405b467f33d0906fd43b630ca2bc050f3cb96efc71dd49ec62b0040a9e0f4cf:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM5Y2JiYzY1NDY5ZGIxY2EyODQyZWZkOTdkZjdlZTJjZTZjYzE1NzE0ODJkMDFhMThiNzkwYTEwYzdjNTEwZjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkOWUxMjU0NjQyNTU3NmQzZGVhZThjOWI5ZGJmMTI4ZDVkNmRkYWY1ZDdmZTg1NzkzNDkyN2RlZmZhM2I5ZGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZhNWI2MmNjZjhlYzg0NTVjOWZhMWUzYjM2ZTAyZjZmM2JlZDJlNjU2NTU0OTg3NTQ5MTRlZTNhOGM5NDA5ODMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM4M2VmODAyZWJjNWQ4ODUwYTBhNjAwZjJkZTVmMzI0OGIwYmE5NmNkYmNlYjAyYmU4OWQ5ZTlkMzk5NTgyMzcifQ"
+        },
+        {
+          "resource": "repo://src/js/player-core.js#L59-L65",
+          "version": "repo-lines-v1:sha256:21ef19b38bafb556a15aed086272ef1b6edd961db9de8217bb5d9af7258a2aec:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZDI0MmVjYmU0NzE2OTZjOTcyYzA0OWZiOTZmNGExNGZiMzZiNGRmNWJhOTQxYzI2ZTEwZGM3NjAyZGIzNTQ4ZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYWQ5ZTEyNTQ2NDI1NTc2ZDNkZWFlOGM5YjlkYmYxMjhkNWQ2ZGRhZjVkN2ZlODU3OTM0OTI3ZGVmZmEzYjlkZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTM3ZTc0YTc0NmYzZTRmYTk4ZDdjYjk4ZGIwN2QzMGJmZjY1Y2VmNjc2ZjE3YWIxZWE0OTNhYzQ4NDkwNjgxNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDAxYTUyNWM5ZmRlOGM0MWM4MzVhZDNmNjFmZjQ1NTZiZDY1OTA3ZWI2NDhjY2I5MmZkODZmNGYxNzc1NDllNSJ9"
+        },
+        {
+          "resource": "repo://src/js/player-core.js#L67-L88",
+          "version": "repo-lines-v1:sha256:06286399dee347d828501176d708b26a57e8c996b16ad8aef1df1b982bab81bb:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjEyODIwYzMxZTI0MWIyMzg3ZjNmMzI3ZGE5ZDIxZTYzNzgxOWUyZDkwYzMwNWYxMGY3NDYyYTE4ZDAzNmVlMjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZhZWMxNmJmNTI4MDNhM2Y3Y2Q4NWFlMjA3MTMxNjQ0ZTA3YzViNzU4YTFiMGMzZjFmZTQzMTIxNThmZDU0ZDciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjI0NDk1YThiOWY4Njg5ZDMwYzA5Yzg2NTQzNWRmNjRmYTc3NTQxMDc5MzQ5M2M1YzZmYTcyYmRhNTYyMDJjZWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY2M2Q3YzUzNmQ2ZTBiNjE5MDkzNzJmYWRhY2JkM2ZmZjI0MGY2NzA5ZDA5MGRkODNjMTQwZTMyNjA0ZGRhZTYifQ"
+        },
+        {
+          "resource": "repo://src/js/player-core.js#L91-L100",
+          "version": "repo-lines-v1:sha256:7be174d15146bf4c99db33be71bf29981e97acc61beb35631c4b3fa9b1e4bede:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjMyOTBkNTdlZGM0MGNkNzkzZThkOGI2M2RhYjlmZmM3N2E4ZjUzZjdiNjRlYTI4ZTgzZGE5OTk2MzAxZjhlZTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyZDExY2FmNDNlOTdlZjM2OWU2YmVlZDFhMjY4YmQwNTgzOGYyOWI5ZGQyNTRiZjY5YmE2NDg4NDE0NzIzNGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjI1MDIwMGQ3MmU5OWYxNzRmY2Y3MjUzZWY3MzZhMDlmYjE5NmRlZTc3NzlmMTFmODMyMTI3NzQ3NjI5ZjM1YzAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQ5ZmFjNWEzMDM5YmJhZDI4N2FjODE1ZDUzM2NmM2FiZDRiNDIxNzkyMGNiZTJjOTNiYjM0YTZlMzAwMDMxNDIifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.2",
+    "at": "2026-09-27T19:48:35.317Z"
+  }
+}
