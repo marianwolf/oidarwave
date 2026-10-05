@@ -21,7 +21,7 @@
 ## 📖 Inhaltsverzeichnis
 
 - [🏠 Über das Projekt](#-über-das-projekt)
-- [💾 Installation und Nutzung](#--installation-und-nutzung)
+- [💾 Installation und Nutzung](#-installation-und-nutzung)
 - [🤝 Mitwirken](#-mitwirken)
 - [🚀 Roadmap](#-roadmap)
 

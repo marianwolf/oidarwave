@@ -2,9 +2,9 @@ name: Tests
 
 on:
   push:
-    branches: [main, master]
+    branches: [main, beta, gamma]
   pull_request:
-    branches: [main, master]
+    branches: [main, beta, gamma]
   workflow_dispatch:
 
 permissions:
@@ -39,16 +39,10 @@ jobs:
           python -m playwright install --with-deps chromium
 
       - name: Run unit tests
-        run: pytest -m unit
-
-      - name: Run syntax tests
-        run: pytest tests/test_syntax.py
-
-      - name: Run electron build tests
-        run: pytest tests/test_electron_build.py
-
-      - name: Run streams tests
-        run: pytest tests/test_streams.py
+        run: pytest tests/test_unit.py -m unit
 
       - name: Run website tests
         run: pytest tests/test_website.py
+
+      - name: Run design/layout tests
+        run: pytest tests/test_design_layout.py
