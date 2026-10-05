@@ -19,10 +19,31 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - name: Checkout gamma
+      - name: Checkout gamma (full history)
         uses: actions/checkout@v7
         with:
           ref: gamma
+          # Volle History: peter-evans/create-pull-request braucht sie,
+          # um den Update-Branch sauber auf gamma zu basieren statt zu mergen.
+          fetch-depth: 0
+
+      - name: Reset stale update branch (self-heal)
+        # Branch chore/weekly-npm-update ist ephemer (Bot-only, nie manuell
+        # pullen/mergen/pushen). Falls ein divergierter Rest existiert und kein
+        # offener PR ihn benutzt, loeschen -> naechster CPR-Schritt erstellt
+        # ihn frisch ab gamma. Verhindert Merge-Commits wie f970d71/57bf2e8.
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          git fetch origin --prune
+          OPEN_PRS="$(gh pr list --head chore/weekly-npm-update --state open --json number --jq length)"
+          if [ "$OPEN_PRS" = "0" ] && git ls-remote --exit-code --heads origin chore/weekly-npm-update >/dev/null 2>&1; then
+            echo "Loesche stale Branch chore/weekly-npm-update (kein offener PR) fuer sauberen Lauf."
+            git push origin --delete chore/weekly-npm-update
+          else
+            echo "Branch bleibt bestehen (offene PRs: $OPEN_PRS)."
+          fi
 
       - name: Setup Node.js
         uses: actions/setup-node@v6
@@ -64,6 +85,8 @@ jobs:
 
             - Erstellt: montags per Schedule, manuell via `workflow_dispatch` möglich
             - Auto-Merge: aktiviert (Squash, wartet auf erforderliche Checks)
+            - Branch `chore/weekly-npm-update` ist ephemer (Bot-only): bitte nie
+              manuell per `git pull`/Merge bespielen, nur den PR reviewen.
           branch: chore/weekly-npm-update
           base: gamma
           delete-branch: true
