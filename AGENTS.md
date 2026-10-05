@@ -17,11 +17,17 @@ The scheduled OpenWiki GitHub Actions workflow refreshes the repository wiki. Do
 * JS-Ladereihenfolge einhalten (`defer` in `index.html` / `video/index.html`): `errors.js` → `player-core.js` → `player.js`/`video.js`. Module hängen sich an `window.*` (`ErrorCode`, `PlayerCore`) und exportieren zusätzlich via `module.exports` für Electron (`src/js/errors.js:161-187`) – beim Hinzufügen neuer Module beides pflegen.
 * Absolute Asset-Pfade (`/src/...`, `/favicon/...`) nicht auf relativ umschreiben: Electron fängt sie per `file`-Protokoll-Fallback ab (`electron/main.js:200-260`). Externe `http(s)`-Links immer via `shell.openExternal` (Navigation-Guard), `sandbox:true` + `nodeIntegration:false` bleiben an.
 * Python-Umgebung: `.venv` (siehe `pyrightconfig.json`), Deps aus `requirements-dev.txt`. Browser einmalig: `python -m playwright install chromium` (CI `test.yml` nutzt `--with-deps`; Branches `main`, `beta`, `gamma`).
-* Tests: `pytest tests/test_unit.py -m unit` (schnell, ohne Browser) bzw. `pytest tests/test_website.py` (Playwright, `integration`-Marker, Fixtures `browser`/`page` aus `tests/conftest.py`). Kein `test_syntax.py` / `test_streams.py` – das ist jetzt alles in `test_unit.py`.
+* Tests: `pytest tests/test_unit.py -m unit` (schnell, ohne Browser), `pytest tests/test_website.py` (Playwright, `integration`-Marker) bzw. `pytest tests/test_design_layout.py` (Layout) — CI `test.yml` läuft alle drei. Fixtures `browser`/`page` aus `tests/conftest.py`. Kein `test_syntax.py` / `test_streams.py` – das ist jetzt alles in `test_unit.py`.
 * Fixtures in `tests/conftest.py` wiederverwenden (`base_dir`, `index_html`, `video_html`, `package_json`, `main_css_content`, `audio_stations`, `video_stations`, `page_urls`) statt lokale Pfad-/JSON-Duplikate.
 * Stream-URLs nie hardcoden: Single Source of Truth sind die `data-url`-Attribute in `index.html` / `video/index.html` (Tests: `test_audio_streams`, `test_video_streams`, `test_no_duplicate_station_urls` in `tests/test_unit.py`).
 * CSS-Tests nur strukturell (Blöcke vorhanden, Klammern balanciert, Kern-Selektoren), keine exakten Wert-Regexes — brechen bei jedem Redesign.
 * Bekannt per `xfail`: `test_no_secrets_in_station_urls` (`index.html` enthält `token=`/`sid=`/`cid=`/`tvf=`). Test nicht löschen, Fix von `index.html` ist eine Produktentscheidung.
+
+## Session-Summary (`./opencode/`)
+
+* Jede Session endet mit einer Summary-Datei in `./opencode/`: `YYYY-MM-DD-<kurzthema>.md` (Ordner anlegen falls fehlt).
+* Inhalt (kurz): Ziel, geänderte Dateien, Testergebnis (`pytest tests/test_unit.py -m unit` + ggf. Website/Design-Tests), offene Punkte.
+* Summaries werden committet, enthalten aber nie Secrets/Tokens/personenbezogene Daten.
 
 ## KI-Leitlinien
 
