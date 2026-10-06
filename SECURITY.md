@@ -6,13 +6,13 @@
 
 Wir bieten Sicherheitsupdates für die folgenden Versionen:
 
-| Version | Unterstützt |
-| :--- | :--- |
-| 0.9.16 | ✅ Ja |
-| 0.9.15 | ✅ Ja |
-| 0.9.14 | ✅ Ja |
-| 0.9.13 | ✅ Ja |
-| ≤ 0.9.12 | ❌ Nein |
+| Version  | Unterstützt |
+| :------- | :---------- |
+| 0.9.16   | ✅ Ja       |
+| 0.9.15   | ✅ Ja       |
+| 0.9.14   | ✅ Ja       |
+| 0.9.13   | ✅ Ja       |
+| ≤ 0.9.12 | ❌ Nein     |
 
 ## Schwachstellen melden
 
@@ -22,10 +22,10 @@ Wir nehmen Sicherheitsfragen sehr ernst. Bitte melde entdeckte Schwachstellen ve
 
 1. **Erstelle ein Issue** mit dem Label **`security`** im [GitHub Repository](https://github.com/marianwolf/oidarwave/issues)
 2. **Beschreibe das Problem detailliert:**
-   - Beschreibung der Sicherheitslücke
-   - Schritte zum Reproduzieren
-   - Potenzielle Auswirkungen
-   - Betroffene Komponenten/Versionen
+    - Beschreibung der Sicherheitslücke
+    - Schritte zum Reproduzieren
+    - Potenzielle Auswirkungen
+    - Betroffene Komponenten/Versionen
 3. **Warte auf unsere Bestätigung**, bevor du Informationen öffentlich machst
 
 ### Erwartete Reaktion

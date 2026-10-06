@@ -1,9 +1,9 @@
 {
-    "recommendations": [
-        "editorconfig.editorconfig",
-        "esbenp.prettier-vscode",
-        "github.vscode-pull-request-github",
-        "idered.npm",
-        "ms-python.python"
-    ]
+  "recommendations": [
+    "editorconfig.editorconfig",
+    "esbenp.prettier-vscode",
+    "github.vscode-pull-request-github",
+    "idered.npm",
+    "ms-python.python"
+  ]
 }

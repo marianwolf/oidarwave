@@ -35,7 +35,11 @@
     position: relative;
     overflow: hidden;
     cursor: pointer;
-    transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
     touch-action: manipulation;
 }
 
@@ -51,8 +55,8 @@
     transform: translateY(0) scale(0.98);
 }
 
-.data-mode-toggle[aria-pressed="true"],
-.caption-toggle[aria-pressed="true"],
+.data-mode-toggle[aria-pressed='true'],
+.caption-toggle[aria-pressed='true'],
 .caption-toggle.cc-active {
     background: linear-gradient(135deg, var(--color-brand-primary), var(--color-brand-secondary));
     border-color: transparent;
