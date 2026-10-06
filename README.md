@@ -1,9 +1,6 @@
 # 🎵 Oidarwave
 
-![Project Status](https://img.shields.io/badge/Status-Aktiv-brightgreen)
-![Datenschutz](https://img.shields.io/badge/Datenschutz-DSGVO--konform-blue)
-![License](https://img.shields.io/badge/License-MIT-yellow)
-![Version](https://img.shields.io/badge/Version-0.9.16-blue)
+![Project Status](https://img.shields.io/badge/Status-Aktiv-brightgreen) ![Datenschutz](https://img.shields.io/badge/Datenschutz-DSGVO--konform-blue) ![License](https://img.shields.io/badge/License-MIT-yellow) ![Version](https://img.shields.io/badge/Version-0.9.16-blue)
 
 <div align="center">
   <p>
@@ -41,8 +38,7 @@ Da Oidarwave eine **statische Webseite** ist, ist keine serverseitige Installati
 git clone https://github.com/marianwolf/oidarwave.git
 ```
 
-2.  **Datei öffnen:** Navigiere in das neu geklonte Verzeichnis und öffne die `index.html`-Datei in deinem bevorzugten Webbrowser. Alternativ kannst du die Live-Version jederzeit hier nutzen:
-    [https://oidarwave.vercel.app](https://oidarwave.vercel.app)
+2.  **Datei öffnen:** Navigiere in das neu geklonte Verzeichnis und öffne die `index.html`-Datei in deinem bevorzugten Webbrowser. Alternativ kannst du die Live-Version jederzeit hier nutzen: [https://oidarwave.vercel.app](https://oidarwave.vercel.app)
 
 3.  Entwicklung & Tests
 

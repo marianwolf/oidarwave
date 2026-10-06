@@ -1,7 +1,6 @@
 # Verhaltenskodex (Code of Conduct)
 
-**Version:** 2.0
-**Gültig ab:** 02.10.2026
+**Version:** 2.0 **Gültig ab:** 02.10.2026
 
 ---
 

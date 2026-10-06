@@ -22,10 +22,10 @@ Wir nehmen Sicherheitsfragen sehr ernst. Bitte melde entdeckte Schwachstellen ve
 
 1. **Erstelle ein Issue** mit dem Label **`security`** im [GitHub Repository](https://github.com/marianwolf/oidarwave/issues)
 2. **Beschreibe das Problem detailliert:**
-    - Beschreibung der Sicherheitslücke
-    - Schritte zum Reproduzieren
-    - Potenzielle Auswirkungen
-    - Betroffene Komponenten/Versionen
+   - Beschreibung der Sicherheitslücke
+   - Schritte zum Reproduzieren
+   - Potenzielle Auswirkungen
+   - Betroffene Komponenten/Versionen
 3. **Warte auf unsere Bestätigung**, bevor du Informationen öffentlich machst
 
 ### Erwartete Reaktion
