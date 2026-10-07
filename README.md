@@ -82,6 +82,10 @@ Beiträge sind jederzeit willkommen\! Ob es sich um Fehlerberichte, Funktionsvor
 - [x] Aktualisierung des Design-Systems und Verbesserung der JavaScript-Fehlerbehandlung (0.9.13)
 - [x] Elektron Build und npm (0.9.14)
 - [x] Entwicklerdokumentation, Elektron Fehlerbehebungen und Renovate Bot (0.9.15)
+- [x] Zentralisiertes Error-Handling und Logging-System (0.9.17)
+- [x] UUID-basierte Identifikation und Daten-Migration (0.9.17)
+- [x] Automatische Wiederverbindung für Audio-Streams (0.9.17)
+- [x] Impressum und Datenschutz optimieren
 - [ ] Integration weiterer Sender
 - [ ] Umschaltung zwischen Dunkel- und Hellmodus
 - [ ] Favoriten
