@@ -3,7 +3,7 @@ name: npm auto update
 on:
   schedule:
     # Montags 04:00 UTC (~05:00/06:00 Europe/Berlin)
-    - cron: "0 4 * * 1"
+    - cron: '0 4 * * 1'
   workflow_dispatch:
 
 permissions:
@@ -78,8 +78,8 @@ jobs:
         uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "chore(deps): weekly npm update"
-          title: "chore(deps): weekly npm update"
+          commit-message: 'chore(deps): weekly npm update'
+          title: 'chore(deps): weekly npm update'
           body: |
             Automatischer wöchentlicher Dependency-Update (`npm install && npm update`) nach `gamma`.
 

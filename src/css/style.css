@@ -165,7 +165,12 @@ header {
     font-weight: 700;
     line-height: 1.05;
     text-wrap: balance;
-    background: linear-gradient(120deg, var(--color-brand-primary), var(--color-brand-secondary), var(--color-brand-primary));
+    background: linear-gradient(
+        120deg,
+        var(--color-brand-primary),
+        var(--color-brand-secondary),
+        var(--color-brand-primary)
+    );
     background-size: 200% auto;
     -webkit-background-clip: text;
     background-clip: text;
@@ -192,7 +197,9 @@ nav a {
     font-weight: 500;
     padding: var(--space-sm) var(--space-lg);
     border-radius: var(--radius-full);
-    transition: color var(--transition-snappy), background var(--transition-snappy);
+    transition:
+        color var(--transition-snappy),
+        background var(--transition-snappy);
 }
 
 nav a:hover {
@@ -200,7 +207,7 @@ nav a:hover {
     background: rgba(255, 255, 255, 0.1);
 }
 
-nav a[aria-current="page"] {
+nav a[aria-current='page'] {
     color: var(--color-text-main);
     background: rgba(139, 92, 246, 0.25);
 }
@@ -251,7 +258,11 @@ nav a[aria-current="page"] {
     line-height: 1.35;
     min-height: 3.25rem;
     cursor: pointer;
-    transition: transform var(--transition-snappy), border-color var(--transition-snappy), box-shadow var(--transition-snappy), background var(--transition-snappy);
+    transition:
+        transform var(--transition-snappy),
+        border-color var(--transition-snappy),
+        box-shadow var(--transition-snappy),
+        background var(--transition-snappy);
     position: relative;
     overflow: hidden;
     text-align: center;
@@ -324,7 +335,9 @@ nav a[aria-current="page"] {
     background: var(--color-status-online);
     box-shadow: 0 0 10px var(--color-status-online);
     flex-shrink: 0;
-    transition: background var(--transition-snappy), box-shadow var(--transition-snappy);
+    transition:
+        background var(--transition-snappy),
+        box-shadow var(--transition-snappy);
 }
 
 .status-indicator.online {
@@ -378,7 +391,9 @@ nav a[aria-current="page"] {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: transform var(--transition-snappy), background var(--transition-snappy);
+    transition:
+        transform var(--transition-snappy),
+        background var(--transition-snappy);
     flex-shrink: 0;
     touch-action: manipulation;
 }
@@ -499,7 +514,9 @@ footer a:hover {
     font-family: var(--font-heading);
     font-weight: var(--font-weight-semibold);
     cursor: pointer;
-    transition: transform var(--transition-snappy), opacity var(--transition-snappy);
+    transition:
+        transform var(--transition-snappy),
+        opacity var(--transition-snappy);
     touch-action: manipulation;
 }
 
@@ -523,7 +540,6 @@ footer a:hover {
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-
 @keyframes gradient-pan {
     from {
         background-position: 0% center;
@@ -535,7 +551,6 @@ footer a:hover {
 }
 
 @keyframes pulse {
-
     0%,
     100% {
         opacity: 1;
@@ -648,7 +663,7 @@ footer a:hover {
         padding: var(--space-sm);
         font-size: 0.9rem;
     }
-    
+
     .current-station {
         font-size: 1.1rem;
         flex-wrap: wrap;

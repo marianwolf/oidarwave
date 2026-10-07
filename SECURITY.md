@@ -6,13 +6,13 @@
 
 Wir bieten Sicherheitsupdates für die folgenden Versionen:
 
-| Version | Unterstützt |
-| :--- | :--- |
-| 0.9.16 | ✅ Ja |
-| 0.9.15 | ✅ Ja |
-| 0.9.14 | ✅ Ja |
-| 0.9.13 | ✅ Ja |
-| ≤ 0.9.12 | ❌ Nein |
+| Version  | Unterstützt |
+| :------- | :---------- |
+| 0.9.16   | ✅ Ja       |
+| 0.9.15   | ✅ Ja       |
+| 0.9.14   | ✅ Ja       |
+| 0.9.13   | ✅ Ja       |
+| ≤ 0.9.12 | ❌ Nein     |
 
 ## Schwachstellen melden
 

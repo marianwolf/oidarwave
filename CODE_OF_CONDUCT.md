@@ -1,7 +1,6 @@
 # Verhaltenskodex (Code of Conduct)
 
-**Version:** 2.0
-**Gültig ab:** 02.10.2026
+**Version:** 2.0 **Gültig ab:** 02.10.2026
 
 ---
 
@@ -17,19 +16,19 @@ Werkzeugwahl (inkl. KI-Assistenten) ist frei – es zählen Verhalten und Beitra
 
 ## 1. So gehen wir miteinander um
 
-* **Respektvoll:** Kein Herabwürdigen wegen Herkunft, Geschlecht, Religion, Alter, Erfahrungsstand oder anderer Merkmale.
-* **Sachlich:** Kritik am Code, nicht an der Person. `„Diese Funktion ist fehleranfällig, weil…"` statt `„Du hast keine Ahnung"`.
-* **Hilfsbereit:** Gerade bei Newcomern: erklären statt abkanzeln. Auf Doku (`README.md`, `openwiki/`) verweisen.
-* **Geduldig:** Das Projekt wird ehrenamtlich nebenbei gepflegt. Reviews können dauern – Nachfragen nach ~1 Woche ist okay, Drängeln nicht.
+- **Respektvoll:** Kein Herabwürdigen wegen Herkunft, Geschlecht, Religion, Alter, Erfahrungsstand oder anderer Merkmale.
+- **Sachlich:** Kritik am Code, nicht an der Person. `„Diese Funktion ist fehleranfällig, weil…"` statt `„Du hast keine Ahnung"`.
+- **Hilfsbereit:** Gerade bei Newcomern: erklären statt abkanzeln. Auf Doku (`README.md`, `openwiki/`) verweisen.
+- **Geduldig:** Das Projekt wird ehrenamtlich nebenbei gepflegt. Reviews können dauern – Nachfragen nach ~1 Woche ist okay, Drängeln nicht.
 
 ## 2. Das ist nicht okay
 
-* Beleidigungen, Drohungen, Belästigung, Hate Speech, sexualisierte Inhalte
-* Trolling, Provokation, absichtliches Entgleisen von Diskussionen
-* Veröffentlichen privater Daten anderer
-* Spam, Werbung, Massen-PRs ohne Absprache (gilt auch für KI-generierte Flut)
-* Vorsätzlich schädlicher Code, Tracker/Werbung einschleusen, Lizenzverstöße
-* Vergeltung gegen Personen, die einen Verstoß melden
+- Beleidigungen, Drohungen, Belästigung, Hate Speech, sexualisierte Inhalte
+- Trolling, Provokation, absichtliches Entgleisen von Diskussionen
+- Veröffentlichen privater Daten anderer
+- Spam, Werbung, Massen-PRs ohne Absprache (gilt auch für KI-generierte Flut)
+- Vorsätzlich schädlicher Code, Tracker/Werbung einschleusen, Lizenzverstöße
+- Vergeltung gegen Personen, die einen Verstoß melden
 
 ## 3. Melden
 
@@ -54,7 +53,7 @@ Kein Arbeitsrecht, keine Abmahnungen, keine Kündigungen – das hier ist eine C
 
 ## 5. Bezug zu anderen Regeln
 
-* **Beitragen:** siehe `README.md` („Mitwirken") und Kodierhinweise in `AGENTS.md`
-* **KI-Nutzung:** siehe Abschnitt „KI-Leitlinien" in `AGENTS.md` (Kennzeichnung, Prüfpflicht, Lizenz, Datenschutz)
-* **Sicherheit:** siehe `SECURITY.md`
-* **Lizenz:** MIT – mit deinem Beitrag stimmst du zu, dass er unter MIT weitergegeben wird
+- **Beitragen:** siehe `README.md` („Mitwirken") und Kodierhinweise in `AGENTS.md`
+- **KI-Nutzung:** siehe Abschnitt „KI-Leitlinien" in `AGENTS.md` (Kennzeichnung, Prüfpflicht, Lizenz, Datenschutz)
+- **Sicherheit:** siehe `SECURITY.md`
+- **Lizenz:** MIT – mit deinem Beitrag stimmst du zu, dass er unter MIT weitergegeben wird
