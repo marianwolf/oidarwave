@@ -1,9 +1,11 @@
 {
   "recommendations": [
+    "aykutsarac.jsoncrack-vscode",
     "editorconfig.editorconfig",
     "esbenp.prettier-vscode",
     "github.vscode-pull-request-github",
     "idered.npm",
-    "ms-python.python"
+    "ms-python.python",
+    "ritwickdey.liveserver"
   ]
 }
