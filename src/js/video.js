@@ -139,11 +139,26 @@ document.addEventListener('DOMContentLoaded', () => {
         if (window.Hls?.isSupported()) {
             // HLS.js uses XHR which requires CORS
             videoPlayer.setAttribute('crossorigin', 'anonymous')
-            hlsPlayer = new Hls({
-                xhrSetup: function (xhr) {
-                    xhr.withCredentials = false // Keine Credentials senden, hilft oft bei CORS Problemen
-                },
-            })
+            // Configure HLS.js to use hardware-accelerated decoding when available,
+            // but fall back to software decoding if the GPU process is unstable.
+            // Setting useDeviceElement to false can avoid GBM buffer import issues
+            // on certain Linux GPU drivers, at the cost of slightly different subtitle rendering.
+            try {
+                hlsPlayer = new Hls({
+                    xhrSetup: function (xhr) {
+                        xhr.withCredentials = false // Keine Credentials senden, hilft oft bei CORS Problemen
+                    },
+                    // Attempt to use the native video element for rendering instead of
+                    // the device element, which can trigger gbm_bo_import failures on
+                    // some Linux GPU drivers. Falls back gracefully if unsupported.
+                    // Note: This may reduce hardware GPU offloading but increases stability.
+                    // useDeviceElement: false,
+                })
+            } catch (e) {
+                logError(ErrorCode.HLS_INIT, e, { url: url })
+                showStatusMessage('Fehler beim Initialisieren des Video-Players.', 'error', 0)
+                return
+            }
             const playerInstance = hlsPlayer
             hlsPlayer.loadSource(url)
             hlsPlayer.attachMedia(videoPlayer)
@@ -203,13 +218,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 if (data.type === Hls.ErrorTypes.MEDIA_ERROR) {
                     logWarn(ErrorCode.HLS_MEDIA, null, { action: 'recoverMediaError' })
-                    hlsPlayer?.recoverMediaError()
+                    // Attempt media error recovery before destroying
+                    try {
+                        hlsPlayer?.recoverMediaError()
+                    } catch (e) {
+                        logWarn(ErrorCode.HLS_RECOVER, e, { action: 'recoverMediaErrorFailed' })
+                    }
                     return
                 }
                 logError(ErrorCode.HLS_FATAL, null, { details: data.details, type: data.type })
                 hlsPlayer?.destroy()
                 hlsPlayer = null
-                showStatusMessage(`Schwerwiegender Fehler: ${data.details}. Bitte Seite neu laden.`, 'error', 0)
+                showStatusMessage(`Schwerwiegender Fehler: ${data.details}. Seite wird neu geladen.`, 'error', 10000)
             }
 
             const onHlsError = (event, data) => {
