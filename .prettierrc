@@ -1,17 +1,11 @@
 {
-    "arrowParens": "always",
-    "bracketSameLine": false,
     "htmlWhitespaceSensitivity": "css",
-    "quoteProps": "as-needed",
-    "singleQuote": true,
-    "trailingComma": "es5",
     "printWidth": 120,
-    "tabWidth": 4,
-    "semi": false,
     "proseWrap": "never",
-    "bracketSpacing": true,
-    "endOfLine": "lf",
-    "singleAttributePerLine": false,
+    "semi": false,
+    "singleQuote": true,
+    "tabWidth": 4,
+    "trailingComma": "es5",
     "overrides": [
         {
             "files": "*.{json,md,yml,yaml}",
