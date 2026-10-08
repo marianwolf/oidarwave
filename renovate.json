@@ -5,7 +5,7 @@
   "timezone": "Europe/Berlin",
   "schedule": ["at any time"],
   "dependencyDashboard": true,
-  "platformAutomerge": false,
+  "platformAutomerge": true,
   "automergeType": "pr",
   "semanticCommits": "enabled",
   "semanticCommitType": "chore",
