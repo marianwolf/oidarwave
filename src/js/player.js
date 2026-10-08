@@ -203,8 +203,12 @@ function initializePlayer() {
         clearAudioRetry()
         wasPlayingBeforeError = true
 
-        stationButtons.forEach((btn) => btn.classList.remove('active'))
+        stationButtons.forEach((btn) => {
+            btn.classList.remove('active')
+            btn.setAttribute('aria-pressed', 'false')
+        })
         button.classList.add('active')
+        button.setAttribute('aria-pressed', 'true')
 
         const { url, name, metadataUrl } = button.dataset
         if (currentStationDisplay) currentStationDisplay.textContent = name
