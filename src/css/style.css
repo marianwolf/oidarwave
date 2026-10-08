@@ -7,6 +7,7 @@
     --color-brand-primary: hsl(270, 100%, 70%);
     --color-brand-secondary: hsl(345, 100%, 70%);
     --color-accent-blue: #60a5fa;
+    --color-media-panel: #111827;
 
     --color-glass-bg: rgba(30, 41, 59, 0.4);
     --color-glass-border: rgba(255, 255, 255, 0.1);
@@ -37,6 +38,7 @@
 
     --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     --shadow-glow: 0 0 20px rgba(139, 92, 246, 0.5);
+    --shadow-card: 0 18px 45px rgba(0, 0, 0, 0.2);
 
     --transition-snappy: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -92,12 +94,12 @@ body::before {
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 1240px;
     margin: 0 auto;
     padding: var(--space-xl) var(--space-md);
     display: flex;
     flex-direction: column;
-    gap: var(--space-2xl);
+    gap: clamp(var(--space-xl), 4vw, var(--space-2xl));
     position: relative;
     z-index: 1;
 }
@@ -137,7 +139,7 @@ header,
     -webkit-backdrop-filter: blur(24px);
     border: 1px solid var(--color-glass-border);
     border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-glass);
+    box-shadow: var(--shadow-card);
 }
 
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
@@ -154,7 +156,7 @@ header {
     flex-direction: column;
     align-items: center;
     gap: var(--space-lg);
-    padding: var(--space-xl);
+    padding: clamp(var(--space-lg), 4vw, var(--space-2xl));
     content-visibility: auto;
     contain-intrinsic-size: auto 220px;
 }
@@ -195,6 +197,9 @@ nav a {
     color: var(--color-text-muted);
     text-decoration: none;
     font-weight: 500;
+    min-height: 2.75rem;
+    display: inline-flex;
+    align-items: center;
     padding: var(--space-sm) var(--space-lg);
     border-radius: var(--radius-full);
     transition:
@@ -214,8 +219,8 @@ nav a[aria-current='page'] {
 
 .player-section {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-xl);
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: clamp(var(--space-lg), 3vw, var(--space-xl));
     align-items: start;
 }
 
@@ -226,6 +231,11 @@ nav a[aria-current='page'] {
     flex-direction: column;
     gap: var(--space-lg);
     min-width: 0;
+    box-shadow: var(--shadow-card);
+}
+
+.station-selector {
+    align-self: stretch;
 }
 
 .station-selector h2 {
@@ -236,14 +246,24 @@ nav a[aria-current='page'] {
     display: flex;
     align-items: center;
     gap: var(--space-sm);
-    justify-content: center;
+    justify-content: flex-start;
     text-wrap: balance;
+}
+
+.station-selector h2::after {
+    content: 'Live hören';
+    margin-left: auto;
+    color: var(--color-text-muted);
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    white-space: nowrap;
 }
 
 .station-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: var(--space-md);
+    gap: var(--space-sm);
 }
 
 .station-btn {
@@ -256,7 +276,7 @@ nav a[aria-current='page'] {
     font-size: 0.95rem;
     font-weight: var(--font-weight-medium);
     line-height: 1.35;
-    min-height: 3.25rem;
+    min-height: 3.5rem;
     cursor: pointer;
     transition:
         transform var(--transition-snappy),
@@ -265,7 +285,10 @@ nav a[aria-current='page'] {
         background var(--transition-snappy);
     position: relative;
     overflow: hidden;
-    text-align: center;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     text-wrap: balance;
     accent-color: var(--color-brand-primary);
     touch-action: manipulation;
@@ -282,6 +305,15 @@ nav a[aria-current='page'] {
     pointer-events: none;
 }
 
+.station-btn::after {
+    content: '›';
+    color: var(--color-text-muted);
+    font-size: 1.25rem;
+    line-height: 1;
+    opacity: 0.65;
+    transition: transform var(--transition-snappy), color var(--transition-snappy);
+}
+
 .station-btn:hover {
     transform: translateY(-2px);
     border-color: rgba(255, 255, 255, 0.3);
@@ -290,6 +322,12 @@ nav a[aria-current='page'] {
 
 .station-btn:hover::before {
     opacity: 1;
+}
+
+.station-btn:hover::after,
+.station-btn.active::after {
+    color: currentColor;
+    transform: translateX(2px);
 }
 
 .station-btn:active {
@@ -306,19 +344,33 @@ nav a[aria-current='page'] {
 .current-station {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: var(--space-md);
     font-family: var(--font-heading);
     font-size: 1.5rem;
     font-weight: 700;
     line-height: 1.3;
     background: rgba(0, 0, 0, 0.2);
-    padding: var(--space-md) var(--space-lg);
+    padding: var(--space-sm) var(--space-md);
     border-radius: var(--radius-full);
     border: 1px solid rgba(255, 255, 255, 0.06);
     min-height: 3.5rem;
     text-wrap: balance;
     overflow-wrap: anywhere;
+}
+
+.player-controls {
+    gap: var(--space-md);
+}
+
+.player-controls::before {
+    content: 'Wiedergabe';
+    color: var(--color-text-muted);
+    font-family: var(--font-heading);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
 }
 
 #currentStation {
@@ -422,6 +474,7 @@ audio {
     border-radius: var(--radius-full);
     outline: none;
     accent-color: var(--color-brand-primary);
+    min-height: 3.5rem;
     background-color: var(--color-media-panel);
     filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
 }
@@ -435,7 +488,10 @@ audio::-webkit-media-controls-panel {
     font-size: 1rem;
     color: var(--color-text-muted);
     text-align: center;
-    min-height: 1.5rem;
+    min-height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     animation: fade-in 0.3s ease;
     background: rgba(0, 0, 0, 0.15);
     padding: var(--space-sm) var(--space-md);
@@ -451,6 +507,11 @@ footer {
     font-size: 0.875rem;
     margin-top: auto;
     padding: var(--space-xl) 0;
+}
+
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
 }
 
 footer img {
@@ -617,6 +678,14 @@ footer a:hover {
         padding: var(--space-lg);
     }
 
+    .player-controls {
+        order: -1;
+    }
+
+    .station-selector h2::after {
+        content: none;
+    }
+
     .current-station {
         font-size: 1.25rem;
     }
@@ -655,13 +724,14 @@ footer a:hover {
     }
 
     .station-grid {
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        grid-template-columns: 1fr;
         gap: var(--space-sm);
     }
 
     .station-btn {
         padding: var(--space-sm);
         font-size: 0.9rem;
+        min-height: 3.25rem;
     }
 
     .current-station {
