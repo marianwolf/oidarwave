@@ -266,6 +266,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const selectStation = (button) => {
         clearStatusMessage()
+        stationButtons.forEach((stationButton) => {
+            stationButton.classList.toggle('active', stationButton === button)
+            stationButton.setAttribute('aria-pressed', String(stationButton === button))
+        })
         currentStationDisplay.textContent = button.dataset.name
         setupHlsPlayer(button.dataset.url)
         setupMediaSession({
