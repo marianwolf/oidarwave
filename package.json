@@ -122,6 +122,7 @@
     }
   },
   "devDependencies": {
+    "@openai/codex": "^0.161.0",
     "@opencode/cli": "^2.0.23",
     "electron": "^44.5.1",
     "electron-builder": "^26.17.0",
