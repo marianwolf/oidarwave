@@ -1,3 +1,8 @@
+.main-section {
+    width: min(100%, 78ch);
+    margin-inline: auto;
+}
+
 .impressum-content {
     display: flex;
     flex-direction: column;
@@ -8,8 +13,8 @@
     -webkit-backdrop-filter: blur(24px);
     border: 1px solid var(--color-glass-border);
     border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-glass);
-    padding: var(--space-xl);
+    box-shadow: var(--shadow-card);
+    padding: clamp(var(--space-lg), 4vw, var(--space-2xl));
     min-width: 0;
 }
 
@@ -30,10 +35,16 @@
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-sm);
+    padding: var(--space-sm);
+    background: rgba(0, 0, 0, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius-md);
 }
 
 .impressum-toc a {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.5rem;
     padding: var(--space-xs) var(--space-md);
     border: 1px solid var(--color-glass-border);
     border-radius: var(--radius-full);
@@ -63,6 +74,11 @@
     min-width: 0;
 }
 
+.impressum-section[id],
+.impressum-section [id] {
+    scroll-margin-top: var(--space-xl);
+}
+
 .impressum-section h2 {
     font-family: var(--font-heading);
     font-size: 1.5rem;
@@ -89,6 +105,12 @@
     margin: 0;
     color: var(--color-text-muted);
     overflow-wrap: anywhere;
+}
+
+.impressum-section > p,
+.impressum-section > address,
+.impressum-section > ul {
+    max-width: 72ch;
 }
 
 .impressum-section strong {
@@ -155,9 +177,23 @@
     text-underline-offset: 3px;
 }
 
+@media (max-width: 768px) {
+    .main-section {
+        width: 100%;
+    }
+}
+
 @media (max-width: 480px) {
     .impressum-content {
         padding: var(--space-md);
+    }
+
+    .impressum-toc {
+        flex-direction: column;
+    }
+
+    .impressum-toc a {
+        width: 100%;
     }
 
     .impressum-content h1 {
