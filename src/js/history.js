@@ -1,274 +1,257 @@
-const StationHistory = (function () {
-    const HISTORY_KEY = 'station_history'
+;(function () {
+    'use strict'
+
     const EXPIRY_DAYS = 90
     const EXPIRY_TIME_MS = EXPIRY_DAYS * 24 * 60 * 60 * 1000
+    /** Sitzungen unter 1s gelten als Fehlstart und werden verworfen. */
+    const MIN_SESSION_MS = 1000
 
-    let historyCache = { stations: {} }
-    let urlToIdMap = {}
-    let stationsCache = null
-    let isCacheValid = false
-    let activeStationUrl = null
-    let initPromise = null
+    const storage = () => window.PlayerCore
+    const historyKey = () => storage()?.HISTORY_KEY || 'station_history'
+    const uuid = () => (typeof generateUUID === 'function' ? generateUUID() : `fallback-${Date.now()}-${Math.random()}`)
 
-    function isOldFormat(history) {
-        const keys = Object.keys(history.stations || {})
-        return keys.length > 0 && keys[0].startsWith('http')
-    }
+    const StationHistory = (function () {
+        let historyCache = { stations: {} }
+        let urlToIdMap = {}
+        let stationsCache = null
+        let isCacheValid = false
+        let activeStationUrl = null
+        let initPromise = null
 
-    function migrateOldHistory(oldHistory) {
-        const newStations = {}
-        for (const [url, station] of Object.entries(oldHistory.stations || {})) {
-            const id = generateUUID()
-            newStations[id] = {
-                url,
-                name: station.name,
-                sessions: station.sessions || [],
-                favicon: station.favicon,
+        // --- Migration & Laden ---
+
+        function isOldFormat(history) {
+            const keys = Object.keys(history.stations || {})
+            return keys.length > 0 && keys[0].startsWith('http')
+        }
+
+        function migrateOldHistory(oldHistory) {
+            const newStations = {}
+            for (const [url, station] of Object.entries(oldHistory.stations || {})) {
+                newStations[uuid()] = {
+                    url,
+                    name: station.name,
+                    sessions: station.sessions || [],
+                    favicon: station.favicon,
+                }
+            }
+            return { ...oldHistory, stations: newStations }
+        }
+
+        function buildUrlMap() {
+            urlToIdMap = {}
+            for (const [id, station] of Object.entries(historyCache.stations)) {
+                if (station.url) urlToIdMap[station.url] = id
             }
         }
-        return {
-            ...oldHistory,
-            stations: newStations,
-        }
-    }
 
-    function buildUrlMap() {
-        urlToIdMap = {}
-        for (const [id, station] of Object.entries(historyCache.stations)) {
-            if (station.url) {
-                urlToIdMap[station.url] = id
+        async function loadHistory() {
+            const stored = storage()?.readJSON(historyKey(), null)
+            if (!stored) {
+                const raw = storage() ? null : readLegacyRaw()
+                return raw || { stations: {} }
             }
-        }
-    }
-
-    async function loadHistory() {
-        try {
-            const historyStr = localStorage.getItem(HISTORY_KEY)
-            if (!historyStr) return { stations: {} }
-            const history = JSON.parse(historyStr)
-            if (history.activeStationUrl !== undefined) {
-                activeStationUrl = history.activeStationUrl
-            }
-            if (isOldFormat(history)) {
-                const migrated = migrateOldHistory(history)
+            if (stored.activeStationUrl !== undefined) activeStationUrl = stored.activeStationUrl
+            if (isOldFormat(stored)) {
+                const migrated = migrateOldHistory(stored)
                 await saveHistoryDirect(migrated)
                 return migrated
             }
-            return { stations: history.stations || {} }
-        } catch (e) {
-            const errType = e?.name || 'UnknownError'
-            const ctx = { key: HISTORY_KEY, type: errType }
-            if (errType === 'SyntaxError') ctx.reason = 'corrupt-json'
-            if (errType === 'QuotaExceededError' || e?.code === 22) ctx.reason = 'quota-exceeded'
-            logError(ErrorCode.STORAGE_READ, e, ctx)
-            return { stations: {} }
+            return { stations: stored.stations || {} }
         }
-    }
 
-    async function saveHistoryDirect(history) {
-        try {
-            localStorage.setItem(HISTORY_KEY, JSON.stringify(history))
-        } catch (e) {
-            logStorageError(ErrorCode.STORAGE_WRITE, e, HISTORY_KEY)
-        }
-    }
-
-    async function saveHistory() {
-        const dataToSave = {
-            ...historyCache,
-            activeStationUrl: activeStationUrl,
-        }
-        try {
-            localStorage.setItem(HISTORY_KEY, JSON.stringify(dataToSave))
-        } catch (e) {
-            logStorageError(ErrorCode.STORAGE_WRITE, e, HISTORY_KEY)
-        }
-    }
-
-    function stopAndFinalizeSession(station, timestamp) {
-        const openSessionIndex = station.sessions.findIndex((s) => s.end === null)
-        if (openSessionIndex === -1) return
-
-        const currentSession = station.sessions[openSessionIndex]
-        currentSession.end = timestamp
-        const duration = currentSession.end - currentSession.start
-
-        if (duration < 1000) {
-            station.sessions.splice(openSessionIndex, 1)
-        }
-    }
-
-    async function startStation(url, name, options = {}) {
-        if (initPromise) await initPromise
-        const now = Date.now()
-
-        if (activeStationUrl !== null && activeStationUrl !== url) {
-            const prevStationId = urlToIdMap[activeStationUrl]
-            if (prevStationId) {
-                stopAndFinalizeSession(historyCache.stations[prevStationId], now)
+        /** Fallback, falls PlayerCore (noch) nicht geladen ist – sonst immer über PlayerCore. */
+        function readLegacyRaw() {
+            try {
+                const raw = localStorage.getItem(historyKey())
+                return raw ? JSON.parse(raw) : { stations: {} }
+            } catch (e) {
+                window.logError?.(window.ErrorCode?.STORAGE_READ, e, { key: historyKey() })
+                return { stations: {} }
             }
         }
 
-        let stationId = urlToIdMap[url]
-        if (!stationId) {
-            stationId = generateUUID()
-            historyCache.stations[stationId] = {
-                url,
-                name,
-                sessions: [],
-                favicon: options.favicon,
-            }
-            urlToIdMap[url] = stationId
+        async function saveHistoryDirect(history) {
+            storage()?.writeJSON(historyKey(), history)
         }
 
-        const station = historyCache.stations[stationId]
-        station.name = name
-        if (options.favicon) station.favicon = options.favicon
+        async function saveHistory() {
+            await saveHistoryDirect({ ...historyCache, activeStationUrl })
+        }
 
-        const openSession = station.sessions.find((s) => s.end === null)
-        if (openSession) {
+        // --- Sitzungen ---
+
+        function stopAndFinalizeSession(station, timestamp) {
+            const openIndex = station.sessions.findIndex((s) => s.end === null)
+            if (openIndex === -1) return
+            const session = station.sessions[openIndex]
+            session.end = timestamp
+            if (session.end - session.start < MIN_SESSION_MS) {
+                station.sessions.splice(openIndex, 1)
+            }
+        }
+
+        function getOrCreateStation(url, name, favicon) {
+            let stationId = urlToIdMap[url]
+            if (!stationId) {
+                stationId = uuid()
+                historyCache.stations[stationId] = { url, name, sessions: [], favicon }
+                urlToIdMap[url] = stationId
+            }
+            const station = historyCache.stations[stationId]
+            station.name = name
+            if (favicon) station.favicon = favicon
+            return station
+        }
+
+        function stopPreviousStation(url, now) {
+            if (activeStationUrl === null || activeStationUrl === url) return
+            const prevId = urlToIdMap[activeStationUrl]
+            if (prevId && historyCache.stations[prevId]) {
+                stopAndFinalizeSession(historyCache.stations[prevId], now)
+            }
+        }
+
+        async function startStation(url, name, options = {}) {
+            if (initPromise) await initPromise
+            const now = Date.now()
+            stopPreviousStation(url, now)
+
+            const station = getOrCreateStation(url, name, options.favicon)
             stopAndFinalizeSession(station, now)
-        }
-
-        station.sessions.unshift({ start: now, end: null })
-        activeStationUrl = url
-        await saveHistory()
-        invalidateCache()
-    }
-
-    async function stopStation(url) {
-        if (initPromise) await initPromise
-        const stationId = urlToIdMap[url]
-        if (!stationId) return
-        const station = historyCache.stations[stationId]
-        if (!station) return
-
-        stopAndFinalizeSession(station, Date.now())
-        if (activeStationUrl === url) {
-            activeStationUrl = null
-        }
-        await saveHistory()
-        invalidateCache()
-    }
-
-    async function pruneHistory(isInternal = false) {
-        if (!isInternal && initPromise) await initPromise
-        const history = historyCache
-        const now = Date.now()
-        const expiryLimit = now - EXPIRY_TIME_MS
-        let hasChanged = false
-
-        let mostRecentOpenStationUrl = null
-        let mostRecentOpenTime = 0
-
-        for (const [id, station] of Object.entries(history.stations)) {
-            let lastPlayed = 0
-            let validSessions = []
-
-            for (const session of station.sessions) {
-                const time = session.end !== null ? session.end : session.start
-                if (time > lastPlayed) {
-                    lastPlayed = time
-                }
-
-                if (session.end === null && session.start > mostRecentOpenTime) {
-                    mostRecentOpenTime = session.start
-                    mostRecentOpenStationUrl = station.url
-                }
-
-                if (session.end === null || session.end > expiryLimit) {
-                    validSessions.push(session)
-                }
-            }
-
-            if (validSessions.length !== station.sessions.length) {
-                station.sessions = validSessions
-                hasChanged = true
-            }
-
-            if (validSessions.length === 0 && lastPlayed < expiryLimit) {
-                delete history.stations[id]
-                delete urlToIdMap[station.url]
-                hasChanged = true
-            } else {
-                // Finalize stale open sessions for any station other than the most recently opened one
-                if (station.url !== mostRecentOpenStationUrl) {
-                    for (const session of station.sessions) {
-                        if (session.end === null) {
-                            stopAndFinalizeSession(station, now)
-                            hasChanged = true
-                        }
-                    }
-                }
-            }
-        }
-
-        if (mostRecentOpenStationUrl) {
-            activeStationUrl = mostRecentOpenStationUrl
-        }
-
-        if (hasChanged) {
+            station.sessions.unshift({ start: now, end: null })
+            activeStationUrl = url
             await saveHistory()
             invalidateCache()
         }
-    }
 
-    function invalidateCache() {
-        isCacheValid = false
-    }
-
-    function computeLastStations() {
-        return Object.values(historyCache.stations)
-            .map((station) => {
-                let totalDurationMs = 0
-                let playCount = 0
-                let lastPlayed = 0
-
-                for (const session of station.sessions) {
-                    const start = session.start
-                    const end = session.end
-                    const hasEnd = end !== null
-                    const time = hasEnd ? end : start
-
-                    if (time > lastPlayed) {
-                        lastPlayed = time
-                    }
-
-                    if (hasEnd) {
-                        totalDurationMs += end - start
-                        playCount++
-                    }
-                }
-
-                return {
-                    displayName: station.name,
-                    details: {
-                        favicon: station.favicon,
-                        playCount,
-                        totalDurationMs,
-                        lastPlayed,
-                    },
-                }
-            })
-            .sort((a, b) => b.details.lastPlayed - a.details.lastPlayed)
-    }
-
-    async function getLastStations() {
-        if (initPromise) await initPromise
-        if (!isCacheValid) {
-            stationsCache = computeLastStations()
-            isCacheValid = true
+        async function stopStation(url) {
+            if (initPromise) await initPromise
+            const station = historyCache.stations[urlToIdMap[url]]
+            if (!station) return
+            stopAndFinalizeSession(station, Date.now())
+            if (activeStationUrl === url) activeStationUrl = null
+            await saveHistory()
+            invalidateCache()
         }
-        return stationsCache
+
+        // --- Aufräumen ---
+
+        async function pruneHistory(isInternal = false) {
+            if (!isInternal && initPromise) await initPromise
+            const now = Date.now()
+            const expiryLimit = now - EXPIRY_TIME_MS
+            let hasChanged = false
+            let mostRecentOpenUrl = null
+            let mostRecentOpenTime = 0
+
+            for (const [id, station] of Object.entries(historyCache.stations)) {
+                const { validSessions, lastPlayed, newestOpen } = splitSessions(station, expiryLimit)
+                if (newestOpen.start > mostRecentOpenTime) {
+                    mostRecentOpenTime = newestOpen.start
+                    mostRecentOpenUrl = station.url
+                }
+                if (validSessions.length !== station.sessions.length) {
+                    station.sessions = validSessions
+                    hasChanged = true
+                }
+                if (validSessions.length === 0 && lastPlayed < expiryLimit) {
+                    delete historyCache.stations[id]
+                    delete urlToIdMap[station.url]
+                    hasChanged = true
+                }
+            }
+
+            hasChanged = finalizeStaleSessions(mostRecentOpenUrl, now) || hasChanged
+            if (mostRecentOpenUrl) activeStationUrl = mostRecentOpenUrl
+            if (hasChanged) {
+                await saveHistory()
+                invalidateCache()
+            }
+        }
+
+        function splitSessions(station, expiryLimit) {
+            let lastPlayed = 0
+            const validSessions = []
+            const newestOpen = { start: 0 }
+            for (const session of station.sessions) {
+                const time = session.end !== null ? session.end : session.start
+                if (time > lastPlayed) lastPlayed = time
+                if (session.end === null && session.start > newestOpen.start) newestOpen.start = session.start
+                if (session.end === null || session.end > expiryLimit) validSessions.push(session)
+            }
+            return { validSessions, lastPlayed, newestOpen }
+        }
+
+        function finalizeStaleSessions(mostRecentOpenUrl, now) {
+            let changed = false
+            for (const station of Object.values(historyCache.stations)) {
+                if (station.url === mostRecentOpenUrl) continue
+                for (const session of station.sessions) {
+                    if (session.end === null) {
+                        stopAndFinalizeSession(station, now)
+                        changed = true
+                    }
+                }
+            }
+            return changed
+        }
+
+        // --- Abfrage mit Cache ---
+
+        function invalidateCache() {
+            isCacheValid = false
+        }
+
+        function summarizeStation(station) {
+            let totalDurationMs = 0
+            let playCount = 0
+            let lastPlayed = 0
+            for (const session of station.sessions) {
+                const hasEnd = session.end !== null
+                const time = hasEnd ? session.end : session.start
+                if (time > lastPlayed) lastPlayed = time
+                if (hasEnd) {
+                    totalDurationMs += session.end - session.start
+                    playCount += 1
+                }
+            }
+            return {
+                displayName: station.name,
+                details: { favicon: station.favicon, playCount, totalDurationMs, lastPlayed },
+            }
+        }
+
+        function computeLastStations() {
+            return Object.values(historyCache.stations)
+                .map(summarizeStation)
+                .sort((a, b) => b.details.lastPlayed - a.details.lastPlayed)
+        }
+
+        async function getLastStations() {
+            if (initPromise) await initPromise
+            if (!isCacheValid) {
+                stationsCache = computeLastStations()
+                isCacheValid = true
+            }
+            return stationsCache
+        }
+
+        async function init() {
+            historyCache = await loadHistory()
+            buildUrlMap()
+            await pruneHistory(true)
+        }
+
+        initPromise = init()
+
+        return { startStation, stopStation, getLastStations, pruneHistory, init }
+    })()
+
+    if (typeof window !== 'undefined') {
+        window.StationHistory = StationHistory
     }
-
-    async function init() {
-        historyCache = await loadHistory()
-        buildUrlMap()
-        await pruneHistory(true)
+    if (typeof module !== 'undefined' && module.exports) {
+        module.exports = { StationHistory }
     }
-
-    initPromise = init()
-
-    return { startStation, stopStation, getLastStations, pruneHistory, init }
 })()

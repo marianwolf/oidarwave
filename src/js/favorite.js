@@ -1,12 +1,9 @@
-/**
- * favorite.js - Verwaltung von Benutzerfavoriten und Präferenzen
- * Nutzt den bestehenden Verlauf aus localStorage
- */
-const FavoriteManager = (() => {
-    const FAVORITES_KEY = 'user_favorites'
-    const HISTORY_KEY = 'station_history'
+;(function () {
+    'use strict'
 
-    const defaultPreferences = {
+    const FAVORITES_KEY = 'user_favorites'
+
+    const defaultPreferences = () => ({
         version: 1,
         favoriteStation: null,
         favoriteStationName: null,
@@ -15,234 +12,241 @@ const FavoriteManager = (() => {
         totalPlayCount: 0,
         totalStations: 0,
         lastUpdated: Date.now(),
-    }
+    })
 
-    let favoritesCache
-    let preferencesCache
-    let favoriteIdsSet
-    let favoriteUrlsMap
+    const storage = () => window.PlayerCore
+    const historyKey = () => storage()?.HISTORY_KEY || 'station_history'
+    const uuid = () => (typeof generateUUID === 'function' ? generateUUID() : `fav-${Date.now()}`)
 
-    function isUrl(value) {
-        return typeof value === 'string' && (value.startsWith('http://') || value.startsWith('https://'))
-    }
+    const FavoriteManager = (() => {
+        let favoritesCache
+        let preferencesCache
+        let favoriteIdsSet
+        let favoriteUrlsMap
 
-    function isOldFavorite(favorite) {
-        return !!favorite.id && isUrl(favorite.id)
-    }
+        // --- Format & Migration ---
 
-    function migrateOldFavorites(data) {
-        if (!data.favorites) return data
-        const migrated = data.favorites.map((f) =>
-            isOldFavorite(f) ? { id: generateUUID(), url: f.id, name: f.name, data: f.data, addedAt: f.addedAt } : f
-        )
-        return migrated
-    }
+        function isUrl(value) {
+            return typeof value === 'string' && (value.startsWith('http://') || value.startsWith('https://'))
+        }
 
-    function loadFavorites() {
-        try {
-            const favoritesStr = localStorage.getItem(FAVORITES_KEY)
-            if (!favoritesStr) {
-                return { version: 1, favorites: [], preferences: {} }
+        function migrateFavorite(favorite) {
+            if (favorite.id && isUrl(favorite.id)) {
+                return {
+                    id: uuid(),
+                    url: favorite.id,
+                    name: favorite.name,
+                    data: favorite.data,
+                    addedAt: favorite.addedAt,
+                }
             }
-            const favorites = JSON.parse(favoritesStr)
-            const migrated = migrateOldFavorites(favorites)
-            if (migrated !== favorites) {
-                favoritesCache = migrated
-                saveFavoritesDirect(migrated)
-            }
+            return favorite
+        }
+
+        function migrateOldFavorites(data) {
+            if (!data.favorites) return data
+            const migrated = data.favorites.map(migrateFavorite)
+            return migrated.some((f, i) => f !== data.favorites[i]) ? { ...data, favorites: migrated } : data
+        }
+
+        // --- Laden & Speichern (einzige Storage-Stelle dieses Moduls) ---
+
+        function emptyFavorites() {
+            return { version: 1, favorites: [], preferences: {} }
+        }
+
+        function loadFavorites() {
+            const stored = storage()?.readJSON(FAVORITES_KEY, null)
+            if (!stored) return emptyFavorites()
+            const migrated = migrateOldFavorites(stored)
+            if (migrated !== stored) saveFavoritesDirect(migrated)
             return {
                 version: migrated.version || 1,
                 favorites: migrated.favorites || [],
                 preferences: migrated.preferences || {},
             }
-        } catch (e) {
-            logError(ErrorCode.FAVORITE_LOAD, e, { source: 'loadFavorites' })
-            return { version: 1, favorites: [], preferences: {} }
         }
-    }
 
-    function saveFavorites() {
-        if (favoritesCache) {
-            try {
-                localStorage.setItem(FAVORITES_KEY, JSON.stringify(favoritesCache))
-            } catch (e) {
-                logError(ErrorCode.FAVORITE_SAVE, e, { source: 'saveFavorites' })
-            }
+        function persist(cache) {
+            storage()?.writeJSON(FAVORITES_KEY, cache)
         }
-    }
 
-    function saveFavoritesDirect(data) {
-        try {
-            localStorage.setItem(FAVORITES_KEY, JSON.stringify(data))
-        } catch (e) {
-            logError(ErrorCode.FAVORITE_SAVE, e, { source: 'saveFavoritesDirect' })
+        function saveFavorites() {
+            if (favoritesCache) persist(favoritesCache)
         }
-    }
 
-    function updateFavoriteLookups() {
-        favoriteIdsSet = new Set()
-        favoriteUrlsMap = {}
-        favoritesCache.favorites.forEach((f) => {
-            favoriteIdsSet.add(f.id)
-            if (f.url) {
-                favoriteUrlsMap[f.url] = f.id
-            }
-        })
-    }
+        function saveFavoritesDirect(data) {
+            persist(data)
+        }
 
-    function loadPreferencesFromHistory() {
-        try {
-            const historyStr = localStorage.getItem(HISTORY_KEY)
-            if (!historyStr) {
-                return { ...defaultPreferences }
-            }
-            const history = JSON.parse(historyStr)
-            const stations = Object.values(history.stations || {})
+        function updateFavoriteLookups() {
+            favoriteIdsSet = new Set()
+            favoriteUrlsMap = {}
+            favoritesCache.favorites.forEach((f) => {
+                favoriteIdsSet.add(f.id)
+                if (f.url) favoriteUrlsMap[f.url] = f.id
+            })
+        }
 
-            if (stations.length === 0) {
-                return { ...defaultPreferences }
-            }
+        // --- Präferenzen aus dem Verlauf ---
 
+        function summarizeHistoryStations(stations) {
             let mostPlayed = stations[0]
             let lastPlayed = stations[0]
-
-            for (let i = 1; i < stations.length; i++) {
+            for (let i = 1; i < stations.length; i += 1) {
                 const station = stations[i]
-                const pC = station.playCount || 0
-                const mPC = mostPlayed.playCount || 0
-
-                if (pC > mPC || (pC === mPC && (station.lastPlayed || 0) > (mostPlayed.lastPlayed || 0))) {
+                const playCount = station.playCount || 0
+                const bestCount = mostPlayed.playCount || 0
+                if (
+                    playCount > bestCount ||
+                    (playCount === bestCount && (station.lastPlayed || 0) > (mostPlayed.lastPlayed || 0))
+                ) {
                     mostPlayed = station
                 }
-
-                const lP = station.lastPlayed || 0
-                const mLP = lastPlayed.lastPlayed || 0
-
-                if (lP > mLP) {
+                if ((station.lastPlayed || 0) > (lastPlayed.lastPlayed || 0)) {
                     lastPlayed = station
                 }
             }
+            return { mostPlayed, lastPlayed }
+        }
 
-            return {
-                version: history.version || 1,
-                favoriteStation: mostPlayed?.url || null,
-                favoriteStationName: mostPlayed?.name || null,
-                lastPlayedStation: lastPlayed?.url || null,
-                lastPlayedStationName: lastPlayed?.name || null,
-                totalPlayCount: stations.reduce((sum, s) => sum + (s.playCount || 0), 0),
-                totalStations: stations.length,
-                lastUpdated: Date.now(),
+        function loadPreferencesFromHistory() {
+            try {
+                const history = storage()?.readJSON(historyKey(), null)
+                const stations = Object.values(history?.stations || {})
+                if (stations.length === 0) return defaultPreferences()
+                const { mostPlayed, lastPlayed } = summarizeHistoryStations(stations)
+                return {
+                    version: history.version || 1,
+                    favoriteStation: mostPlayed?.url || null,
+                    favoriteStationName: mostPlayed?.name || null,
+                    lastPlayedStation: lastPlayed?.url || null,
+                    lastPlayedStationName: lastPlayed?.name || null,
+                    totalPlayCount: stations.reduce((sum, s) => sum + (s.playCount || 0), 0),
+                    totalStations: stations.length,
+                    lastUpdated: Date.now(),
+                }
+            } catch (e) {
+                window.logError?.(window.ErrorCode?.FAVORITE_LOAD, e, { source: 'loadPreferencesFromHistory' })
+                return defaultPreferences()
             }
-        } catch (e) {
-            logError(ErrorCode.FAVORITE_LOAD, e, { source: 'loadPreferencesFromHistory' })
-            return { ...defaultPreferences }
-        }
-    }
-
-    function addFavorite(name, data = {}, url = null) {
-        const id = generateUUID()
-
-        const favorite = { id, name, data, addedAt: Date.now() }
-        if (url) {
-            favorite.url = url
         }
 
-        if (favoriteIdsSet.has(id)) {
-            logWarn(ErrorCode.FAVORITE_DUPLICATE_ID, null, { id })
-            return false
+        // --- Öffentliche API ---
+
+        function addFavorite(name, data = {}, url = null) {
+            const id = uuid()
+            if (favoriteIdsSet.has(id)) {
+                window.logWarn?.(window.ErrorCode?.FAVORITE_DUPLICATE_ID, null, { id })
+                return false
+            }
+            if (url && favoriteUrlsMap[url]) {
+                window.logWarn?.(window.ErrorCode?.FAVORITE_DUPLICATE_URL, null, { url })
+                return false
+            }
+            const favorite = { id, name, data, addedAt: Date.now() }
+            if (url) favorite.url = url
+            favoritesCache.favorites.push(favorite)
+            updateFavoriteLookups()
+            saveFavorites()
+            return true
         }
 
-        if (url && favoriteUrlsMap[url]) {
-            logWarn(ErrorCode.FAVORITE_DUPLICATE_URL, null, { url })
-            return false
+        function findFavoriteIndex(urlOrId) {
+            if (isUrl(urlOrId)) {
+                const id = favoriteUrlsMap[urlOrId]
+                return favoritesCache.favorites.findIndex((f) => f.id === id)
+            }
+            return favoritesCache.favorites.findIndex((f) => f.id === urlOrId)
         }
 
-        favoritesCache.favorites.push(favorite)
+        function removeFavorite(urlOrId) {
+            const index = findFavoriteIndex(urlOrId)
+            if (index === -1) {
+                window.logWarn?.(window.ErrorCode?.FAVORITE_NOT_FOUND, null, { urlOrId })
+                return false
+            }
+            favoritesCache.favorites.splice(index, 1)
+            updateFavoriteLookups()
+            saveFavorites()
+            return true
+        }
+
+        function isFavorite(urlOrId) {
+            return isUrl(urlOrId) ? !!favoriteUrlsMap[urlOrId] : favoriteIdsSet.has(urlOrId)
+        }
+
+        function getAllFavorites() {
+            return favoritesCache.favorites
+        }
+
+        function refreshPreferences() {
+            preferencesCache = loadPreferencesFromHistory()
+            return preferencesCache
+        }
+
+        function ensurePreferencesObject() {
+            return (favoritesCache.preferences ||= {})
+        }
+
+        function setPreference(key, value) {
+            ensurePreferencesObject()[key] = value
+            saveFavorites()
+        }
+
+        function getPreference(key, defaultValue = null) {
+            if (favoritesCache.preferences && Object.prototype.hasOwnProperty.call(favoritesCache.preferences, key)) {
+                return favoritesCache.preferences[key]
+            }
+            if (preferencesCache && Object.prototype.hasOwnProperty.call(preferencesCache, key)) {
+                return preferencesCache[key]
+            }
+            return defaultValue
+        }
+
+        function getAllPreferences() {
+            return { ...preferencesCache, ...(favoritesCache.preferences || {}) }
+        }
+
+        function setPreferences(prefs) {
+            Object.assign(ensurePreferencesObject(), prefs)
+            saveFavorites()
+        }
+
+        function clearFavorites() {
+            favoritesCache.favorites = []
+            updateFavoriteLookups()
+            saveFavorites()
+        }
+
+        function resetPreferences() {
+            favoritesCache.preferences = {}
+            saveFavorites()
+        }
+
+        favoritesCache = loadFavorites()
         updateFavoriteLookups()
-        saveFavorites()
-        return true
-    }
-
-    function removeFavorite(urlOrId) {
-        let index
-        if (isUrl(urlOrId)) {
-            const id = favoriteUrlsMap[urlOrId]
-            index = favoritesCache.favorites.findIndex((f) => f.id === id)
-        } else {
-            index = favoritesCache.favorites.findIndex((f) => f.id === urlOrId)
-        }
-
-        if (index === -1) {
-            logWarn(ErrorCode.FAVORITE_NOT_FOUND, null, { urlOrId })
-            return false
-        }
-        favoritesCache.favorites.splice(index, 1)
-        updateFavoriteLookups()
-        saveFavorites()
-        return true
-    }
-
-    function isFavorite(urlOrId) {
-        return isUrl(urlOrId) ? !!favoriteUrlsMap[urlOrId] : favoriteIdsSet.has(urlOrId)
-    }
-
-    function getAllFavorites() {
-        return favoritesCache.favorites
-    }
-
-    function refreshPreferences() {
         preferencesCache = loadPreferencesFromHistory()
-        return preferencesCache
+
+        return {
+            addFavorite,
+            removeFavorite,
+            isFavorite,
+            getAllFavorites,
+            clearFavorites,
+            refreshPreferences,
+            setPreference,
+            getPreference,
+            setPreferences,
+            getAllPreferences,
+            resetPreferences,
+        }
+    })()
+
+    if (typeof window !== 'undefined') {
+        window.FavoriteManager = FavoriteManager
     }
-
-    function setPreference(key, value) {
-        ;(favoritesCache.preferences || (favoritesCache.preferences = {}))[key] = value
-        saveFavorites()
-    }
-
-    function getPreference(key, defaultValue = null) {
-        if (favoritesCache.preferences && Object.prototype.hasOwnProperty.call(favoritesCache.preferences, key))
-            return favoritesCache.preferences[key]
-        if (preferencesCache && Object.prototype.hasOwnProperty.call(preferencesCache, key))
-            return preferencesCache[key]
-        return defaultValue
-    }
-
-    function getAllPreferences() {
-        return { ...preferencesCache, ...(favoritesCache.preferences || {}) }
-    }
-
-    function setPreferences(prefs) {
-        favoritesCache.preferences = favoritesCache.preferences || {}
-        Object.assign(favoritesCache.preferences, prefs)
-        saveFavorites()
-    }
-
-    function clearFavorites() {
-        favoritesCache.favorites = []
-        saveFavorites()
-    }
-
-    function resetPreferences() {
-        favoritesCache.preferences = {}
-        saveFavorites()
-    }
-
-    favoritesCache = loadFavorites()
-    updateFavoriteLookups()
-    preferencesCache = loadPreferencesFromHistory()
-
-    return {
-        addFavorite,
-        removeFavorite,
-        isFavorite,
-        getAllFavorites,
-        clearFavorites,
-        refreshPreferences,
-        setPreference,
-        getPreference,
-        setPreferences,
-        getAllPreferences,
-        resetPreferences,
+    if (typeof module !== 'undefined' && module.exports) {
+        module.exports = { FavoriteManager }
     }
 })()
