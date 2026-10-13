@@ -1,0 +1,4 @@
+# Vendorisierte Drittanbieter-Dateien: unveraendert eingebunden (Bootstrap 5.3.8, MIT).
+# Nicht von `npm run format` anfassen lassen – sonst ist der Diffs zur Upstream-Version laut.
+src/vendor/bootstrap/bootstrap.min.css
+openwiki/

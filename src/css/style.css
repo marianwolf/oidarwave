@@ -40,6 +40,48 @@
 
     --transition-snappy: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+    color-scheme: dark;
+}
+
+/* Bootstrap-Reboot angleichen.
+   bootstrap.min.css wird vor style.css geladen; der Reboot setzt aber Werte, die
+   unsere bestehende Optik verschieben wuerden. Diese Elementregeln haben die
+   niedrigste moegliche Spezifitaet (0,0,1) – Bootstrap-Komponentenregeln
+   (.card, .btn, ...) schlagen sie damit immer noch problemlos. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 700; /* Reboot: 500 – unser Design erwartet UA-Bold */
+    line-height: inherit; /* Reboot: 1.2 – wir erben weiter body (1.6) */
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+dl,
+dd,
+address,
+figure,
+blockquote {
+    margin: 0; /* Reboot: 1rem – unser Layout arbeitet mit Flex-Gaps statt Margen */
+}
+
+hr {
+    opacity: 1; /* Reboot: 0.25 – wuerde unsere Trennlinien fast unsichtbar machen */
+}
+
+code {
+    color: inherit; /* Reboot faerbte <code> ueber --bs-code-color */
 }
 
 * {
@@ -180,10 +222,9 @@ header {
     letter-spacing: -1px;
 }
 
+/* Pillen-Container; die Links liegen in der Bootstrap-.nav-Liste (nav .nav) */
 nav {
     display: flex;
-    gap: var(--space-sm);
-    flex-wrap: wrap;
     justify-content: center;
     background: rgba(255, 255, 255, 0.03);
     padding: var(--space-xs);
@@ -191,7 +232,13 @@ nav {
     border: 1px solid var(--color-glass-border);
 }
 
-nav a {
+nav .nav {
+    gap: var(--space-sm);
+}
+
+/* Bootstrap .nav-link hat hoehere Spezifitaet als nav a – Selektoren entsprechend
+   anheben, sonst uebernehmen Bootstraps Paddings/Hover unseren Pillen-Look. */
+nav .nav-link {
     color: var(--color-text-muted);
     text-decoration: none;
     font-weight: 500;
@@ -202,21 +249,21 @@ nav a {
         background var(--transition-snappy);
 }
 
-nav a:hover {
+nav .nav-link:hover {
     color: var(--color-text-main);
     background: rgba(255, 255, 255, 0.1);
 }
 
-nav a[aria-current='page'] {
+nav .nav-link[aria-current='page'] {
     color: var(--color-text-main);
     background: rgba(139, 92, 246, 0.25);
 }
 
+/* Spaltenabstand ueber Bootstraps Gutter-Variablen (Design-Tokens);
+   die Spaltenlogik steckt in den Klassen der HTML-Seite (col-12 col-md-6). */
 .player-section {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-xl);
-    align-items: start;
+    --bs-gutter-x: var(--space-xl);
+    --bs-gutter-y: var(--space-xl);
 }
 
 .station-selector,
@@ -491,19 +538,9 @@ footer a:hover {
     display: none;
 }
 
-.cookie-banner-content {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-lg);
-    align-items: center;
-    text-align: center;
-}
-
-.cookie-buttons {
-    display: flex;
-    gap: var(--space-md);
-    width: 100%;
-}
+/* Layout (Flex/Gap/Ausrichtung) des Banners kommt ueber Bootstrap-Utilities
+   im HTML: .cookie-banner-content (d-flex/flex-column/gap-4) und
+   .cookie-buttons (d-flex/flex-column/flex-md-row/gap-3/w-100). */
 
 .cookie-btn {
     flex: 1;
@@ -587,7 +624,8 @@ footer a:hover {
 
 @media (max-width: 1024px) {
     .player-section {
-        gap: var(--space-lg);
+        --bs-gutter-x: var(--space-lg);
+        --bs-gutter-y: var(--space-lg);
     }
 
     .station-grid {
@@ -600,8 +638,10 @@ footer a:hover {
         padding: var(--space-lg) var(--space-md);
     }
 
-    .player-section {
-        grid-template-columns: 1fr;
+    /* Wir stapeln ab 768px; Bootstraps .col-md-6 waere erst ab 768px zweispaltig. */
+    .player-section > * {
+        flex: 0 0 auto;
+        width: 100%;
     }
 
     header {
@@ -620,10 +660,6 @@ footer a:hover {
     .current-station {
         font-size: 1.25rem;
     }
-
-    .cookie-buttons {
-        flex-direction: column;
-    }
 }
 
 @media (max-width: 480px) {
@@ -641,13 +677,19 @@ footer a:hover {
     }
 
     nav {
-        flex-direction: column;
         width: 100%;
         border-radius: var(--radius-md);
+    }
+
+    nav .nav {
         gap: 0;
     }
 
-    nav a {
+    nav .nav > li {
+        width: 100%;
+    }
+
+    nav .nav-link {
         text-align: center;
         width: 100%;
         border-radius: var(--radius-sm);
