@@ -30,7 +30,17 @@ let ignoredDirsPromise = null
 async function getIgnoredDirs(appDir) {
     if (!ignoredDirsPromise) {
         ignoredDirsPromise = (async () => {
-            const defaultIgnored = ['node_modules', '.git', 'dist', 'electron']
+            const defaultIgnored = [
+                'node_modules',
+                '.git',
+                'dist',
+                'electron',
+                '.venv',
+                'openwiki',
+                'tests',
+                '__pycache__',
+                '.pytest_cache',
+            ]
             const ignoreFilePath = path.join(appDir, '.npmignore')
             try {
                 const content = await fs.promises.readFile(ignoreFilePath, 'utf8')
@@ -71,7 +81,7 @@ async function discoverPages(dir, basePath = '', appDir) {
 
                 const fullPath = path.join(dir, item.name)
                 const resolvedPath = path.resolve(fullPath)
-                if (!resolvedPath.startsWith(appDir)) return
+                if (resolvedPath !== appDir && !resolvedPath.startsWith(appDir + path.sep)) return
 
                 const routePath = path.join(basePath, item.name).replace(/\\/g, '/')
 
@@ -162,8 +172,11 @@ async function createWindow() {
         const handleNavigation = (event, url) => {
             if (url.startsWith('http://') || url.startsWith('https://')) {
                 event.preventDefault()
-                shell.openExternal(url)
-            } else if (!url.startsWith('mailto:')) {
+                shell.openExternal(url).catch((err) => logWarn(ErrorCode.INVALID_NAVIGATION_URL, err, { url }))
+            } else if (url.startsWith('mailto:')) {
+                event.preventDefault()
+                shell.openExternal(url).catch((err) => logWarn(ErrorCode.INVALID_NAVIGATION_URL, err, { url }))
+            } else {
                 event.preventDefault()
                 if (!tryLoadSubpage(win, url)) {
                     win.loadFile(path.join(appDir, 'index.html'))
@@ -173,10 +186,11 @@ async function createWindow() {
 
         win.webContents.on('will-navigate', handleNavigation)
         win.webContents.on('will-redirect', handleNavigation) // Prevent redirect bypasses
+        win.webContents.on('will-frame-navigate', handleNavigation) // Prevent iframe bypasses
 
         win.webContents.setWindowOpenHandler(({ url }) => {
             if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('mailto:')) {
-                shell.openExternal(url)
+                shell.openExternal(url).catch((err) => logWarn(ErrorCode.INVALID_NAVIGATION_URL, err, { url }))
             } else if (url.startsWith('file://') || url.startsWith('oidarwave://')) {
                 const newWin = new BrowserWindow(WINDOW_OPTIONS)
                 newWin.once('ready-to-show', () => newWin.show())
@@ -197,6 +211,7 @@ async function createWindow() {
 app.whenReady().then(async () => {
     // Register or override the 'file' protocol securely
     protocol.handle('file', async (request) => {
+        let resolvedPath = null
         try {
             const parsedUrl = new URL(request.url)
 
@@ -218,16 +233,16 @@ app.whenReady().then(async () => {
                 }
             }
 
-            const resolvedPath = path.resolve(filePath)
+            const resolvedPathInner = path.resolve(filePath)
 
-            const relative = path.relative(appDir, resolvedPath)
+            const relative = path.relative(appDir, resolvedPathInner)
             const isSafe = !relative.startsWith('..') && !path.isAbsolute(relative)
 
             // Check that the resolved path is under the appDir to prevent directory traversal
             if (!isSafe) {
                 logError(ErrorCode.PATH_TRAVERSAL, null, {
                     url: request.url,
-                    resolvedPath,
+                    resolvedPath: resolvedPathInner,
                     appDir,
                     referer: request.headers.get('referer'),
                 })
@@ -237,6 +252,7 @@ app.whenReady().then(async () => {
                 })
             }
 
+            resolvedPath = resolvedPathInner
             const fileUrl = pathToFileURL(resolvedPath).toString()
             return net.fetch(fileUrl, { bypassCustomProtocolHandlers: true })
         } catch (err) {
