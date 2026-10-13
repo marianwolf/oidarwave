@@ -30,7 +30,17 @@ let ignoredDirsPromise = null
 async function getIgnoredDirs(appDir) {
     if (!ignoredDirsPromise) {
         ignoredDirsPromise = (async () => {
-            const defaultIgnored = ['node_modules', '.git', 'dist', 'electron', '.venv', 'openwiki', 'tests', '__pycache__', '.pytest_cache']
+            const defaultIgnored = [
+                'node_modules',
+                '.git',
+                'dist',
+                'electron',
+                '.venv',
+                'openwiki',
+                'tests',
+                '__pycache__',
+                '.pytest_cache',
+            ]
             const ignoreFilePath = path.join(appDir, '.npmignore')
             try {
                 const content = await fs.promises.readFile(ignoreFilePath, 'utf8')
