@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
+    'use strict'
+
     // === KONSTANTEN ===
     const SEEK_TIME = 10
     const DATA_SAVE_MODE_KEY = 'dataSaveMode'
@@ -7,9 +9,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const MAX_RETRIES = 3
     const RETRY_BASE_DELAY = 1000 // 1 Sekunde Basis-Wartezeit
 
-    const { setupMediaSession, clearMediaSession, readBoolSetting, writeSetting } = window.PlayerCore
+    const {
+        setupMediaSession,
+        clearMediaSession,
+        readBoolSetting,
+        writeSetting,
+        createStatusDisplay,
+        createRetryState,
+        getRetryDelay,
+        scheduleRetry,
+        resetRetry,
+        isEditableTarget,
+    } = window.PlayerCore
 
-    // === DOM-REFERENZEN CACHEN ===
+    // === DOM-REFERENZEN ===
     const dataModeToggle = document.getElementById('dataModeToggle')
     const captionToggle = document.getElementById('captionToggle')
     const stationButtons = document.querySelectorAll('.station-btn')
@@ -28,80 +41,42 @@ document.addEventListener('DOMContentLoaded', () => {
     videoPlayer.setAttribute('playsinline', '')
     videoPlayer.setAttribute('webkit-playsinline', '')
 
-    // === STATE CACHING ===
+    // === STATE ===
     let hlsPlayer = null
-    let retryState = {
-        count: 0,
-        timerId: null,
-    }
-
-    let settingsCache = {
+    const retryState = createRetryState()
+    const statusDisplay = createStatusDisplay(statusIndicator)
+    const settingsCache = {
         dataSaveMode: readBoolSetting(DATA_SAVE_MODE_KEY),
         captionsEnabled: readBoolSetting(CAPTION_ENABLED_KEY),
     }
 
-    // Speichert eine Einstellung und synchronisiert den zugehörigen Toggle-Button
+    /** Speichert eine Einstellung und synchronisiert den Toggle-Button. */
     const saveSetting = (key, value, toggleElement) => {
-        if (toggleElement) toggleElement.setAttribute('aria-pressed', String(value))
+        toggleElement?.setAttribute('aria-pressed', String(value))
         writeSetting(key, value)
     }
 
-    let statusMessageTimeout = null
-
-    // Zeigt eine nicht-blockierende Statusmeldung im Status-Indicator
-    const showStatusMessage = (message, type = 'error', duration = 5000) => {
-        if (statusMessageTimeout) {
-            clearTimeout(statusMessageTimeout)
-            statusMessageTimeout = null
-        }
-        statusIndicator.textContent = message
-        statusIndicator.classList.add('text', type)
-        if (duration > 0) {
-            statusMessageTimeout = setTimeout(() => {
-                statusIndicator.textContent = ''
-                statusIndicator.classList.remove('text', type)
-                statusMessageTimeout = null
-            }, duration)
-        }
-    }
-
-    const clearStatusMessage = () => {
-        if (statusMessageTimeout) {
-            clearTimeout(statusMessageTimeout)
-            statusMessageTimeout = null
-        }
-        statusIndicator.textContent = ''
-        PlayerCore.setStatusClass(statusIndicator, null)
-    }
-
-    // Automatisch alle neuen Tracks deaktivieren
+    // Automatisch alle neuen Tracks deaktivieren, wenn CC ausgeschaltet ist.
     videoPlayer.textTracks.addEventListener('addtrack', (event) => {
-        if (!settingsCache.captionsEnabled && event.track) {
-            event.track.mode = 'disabled'
-        }
+        if (!settingsCache.captionsEnabled && event.track) event.track.mode = 'disabled'
     })
 
-    // === HELPER FUNCTIONS ===
+    // === UNTERTITEL-HELFER ===
 
     const disableAllTextTracks = () => {
         if (hlsPlayer) hlsPlayer.subtitleDisplay = false
-        for (const track of videoPlayer.textTracks) {
-            track.mode = 'disabled'
-        }
+        for (const track of videoPlayer.textTracks) track.mode = 'disabled'
     }
 
-    const findCaptionTrack = () => {
-        return Array.from(videoPlayer.textTracks).find((track) => CAPTION_TRACK_KINDS.includes(track?.kind)) ?? null
-    }
+    const findCaptionTrack = () =>
+        Array.from(videoPlayer.textTracks).find((track) => CAPTION_TRACK_KINDS.includes(track?.kind)) ?? null
 
     const updateQualityLevel = () => {
         if (!hlsPlayer || hlsPlayer.levels.length === 0) return
         hlsPlayer.currentLevel = settingsCache.dataSaveMode ? 0 : -1
     }
 
-    // === CAPTION MANAGEMENT ===
-
-    // Wendet die aktuelle Untertitel-Einstellung an (statt enable/disable doppelt zu pflegen)
+    /** Wendet die CC-Einstellung an (einzige Stelle statt enable/disable-Duplikat). */
     const applyCaptions = () => {
         if (hlsPlayer) hlsPlayer.subtitleDisplay = settingsCache.captionsEnabled
         const track = findCaptionTrack()
@@ -120,161 +95,134 @@ document.addEventListener('DOMContentLoaded', () => {
         applyCaptions()
     }
 
-    // === HLS PLAYER SETUP ===
+    // === HLS-SETUP ===
 
     const setupHlsPlayer = (url) => {
-        // Cleanup vorheriger Player
+        destroyHlsPlayer()
+        resetRetry(retryState)
+        disableAllTextTracks()
+
+        if (window.Hls?.isSupported()) {
+            setupHlsJsPlayer(url)
+        } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
+            setupNativePlayer(url)
+        } else {
+            logError(ErrorCode.HLS_FATAL, null, { reason: 'HLS not supported by browser' })
+            statusDisplay.showMessage('Ihr Browser unterstützt dieses Videoformat nicht.', 'error', 0)
+        }
+    }
+
+    const destroyHlsPlayer = () => {
         if (hlsPlayer) {
             hlsPlayer.destroy()
             hlsPlayer = null
         }
-        // Retry-Zustand zurücksetzen
-        if (retryState.timerId) {
-            clearTimeout(retryState.timerId)
-            retryState.timerId = null
-        }
-        retryState.count = 0
-        disableAllTextTracks()
-
-        if (window.Hls?.isSupported()) {
-            // HLS.js uses XHR which requires CORS
-            videoPlayer.setAttribute('crossorigin', 'anonymous')
-            // Configure HLS.js to use hardware-accelerated decoding when available,
-            // but fall back to software decoding if the GPU process is unstable.
-            // Setting useDeviceElement to false can avoid GBM buffer import issues
-            // on certain Linux GPU drivers, at the cost of slightly different subtitle rendering.
-            try {
-                hlsPlayer = new Hls({
-                    xhrSetup: function (xhr) {
-                        xhr.withCredentials = false // Keine Credentials senden, hilft oft bei CORS Problemen
-                    },
-                    // Attempt to use the native video element for rendering instead of
-                    // the device element, which can trigger gbm_bo_import failures on
-                    // some Linux GPU drivers. Falls back gracefully if unsupported.
-                    // Note: This may reduce hardware GPU offloading but increases stability.
-                    // useDeviceElement: false,
-                })
-            } catch (e) {
-                logError(ErrorCode.HLS_INIT, e, { url: url })
-                showStatusMessage('Fehler beim Initialisieren des Video-Players.', 'error', 0)
-                return
-            }
-            const playerInstance = hlsPlayer
-            hlsPlayer.loadSource(url)
-            hlsPlayer.attachMedia(videoPlayer)
-
-            const onManifestParsed = () => {
-                if (hlsPlayer !== playerInstance) return
-                clearStatusMessage()
-                videoPlayer.play().catch((e) => handlePlayError(e, 'manifest-parsed'))
-                updateQualityLevel()
-                applyCaptions()
-            }
-
-            const buildHlsErrorContext = (data) => {
-                const ctx = {
-                    type: data.type,
-                    mappedType: HlsErrorMap[data.type] || data.type,
-                    fatal: data.fatal,
-                    details: data.details,
-                    url: hlsPlayer?.url,
-                }
-                if (data.response) {
-                    ctx.httpStatus = data.response.code
-                    ctx.httpUrl = data.response.url
-                }
-                if (data.error && data.error.code !== undefined) {
-                    ctx.systemErrorCode = data.error.code
-                }
-                return ctx
-            }
-
-            const handleNetworkRetry = () => {
-                if (retryState.count >= MAX_RETRIES) {
-                    logError(ErrorCode.HLS_NETWORK, null, { retries: MAX_RETRIES, url: hlsPlayer?.url })
-                    hlsPlayer?.destroy()
-                    hlsPlayer = null
-                    showStatusMessage(
-                        `Netzwerkfehler: Nach ${MAX_RETRIES} Versuchen keine Verbindung. Bitte Internetverbindung prüfen und Seite neu laden.`,
-                        'error',
-                        0
-                    )
-                    return
-                }
-                const delay = RETRY_BASE_DELAY * Math.pow(2, retryState.count)
-                logWarn('HLS_NETWORK_RETRY', null, { attempt: retryState.count + 1, max: MAX_RETRIES, delayMs: delay })
-                retryState.timerId = setTimeout(() => {
-                    retryState.count++
-                    if (hlsPlayer === playerInstance) {
-                        hlsPlayer.startLoad()
-                    }
-                }, delay)
-            }
-
-            const handleFatalHlsError = (data) => {
-                if (data.type === Hls.ErrorTypes.NETWORK_ERROR) {
-                    handleNetworkRetry()
-                    return
-                }
-                if (data.type === Hls.ErrorTypes.MEDIA_ERROR) {
-                    logWarn(ErrorCode.HLS_MEDIA, null, { action: 'recoverMediaError' })
-                    // Attempt media error recovery before destroying
-                    try {
-                        hlsPlayer?.recoverMediaError()
-                    } catch (e) {
-                        logWarn(ErrorCode.HLS_RECOVER, e, { action: 'recoverMediaErrorFailed' })
-                    }
-                    return
-                }
-                logError(ErrorCode.HLS_FATAL, null, { details: data.details, type: data.type })
-                hlsPlayer?.destroy()
-                hlsPlayer = null
-                showStatusMessage(`Schwerwiegender Fehler: ${data.details}. Seite wird neu geladen.`, 'error', 10000)
-            }
-
-            const onHlsError = (event, data) => {
-                if (hlsPlayer !== playerInstance) return
-
-                const ctx = buildHlsErrorContext(data)
-                const code = data.fatal ? ErrorCode.HLS_FATAL : ErrorCode[`HLS_${ctx.mappedType}`] || 'HLS_ERROR'
-
-                logError(code, null, ctx)
-
-                if (data.fatal) {
-                    handleFatalHlsError(data)
-                }
-                // HLS.js handles non-fatal errors automatically; no manual recovery needed for bufferAppendError
-            }
-
-            hlsPlayer.on(Hls.Events.MANIFEST_PARSED, onManifestParsed)
-            hlsPlayer.on(Hls.Events.ERROR, onHlsError)
-        } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
-            // Native Safari HLS: Remove crossorigin to avoid CORS enforcement for streams without headers
-            videoPlayer.removeAttribute('crossorigin')
-            videoPlayer.src = url
-            videoPlayer.addEventListener(
-                'loadedmetadata',
-                () => {
-                    clearStatusMessage()
-                    videoPlayer.play().catch((e) => handlePlayError(e, 'native-player'))
-                    applyCaptions()
-                },
-                { once: true }
-            )
-        } else {
-            logError(ErrorCode.HLS_FATAL, null, { reason: 'HLS not supported by browser' })
-            showStatusMessage('Ihr Browser unterstützt dieses Videoformat nicht.', 'error', 0)
-        }
     }
 
-    // === SEEK FUNCTIONALITY ===
+    const setupHlsJsPlayer = (url) => {
+        // HLS.js nutzt XHR und braucht CORS.
+        videoPlayer.setAttribute('crossorigin', 'anonymous')
+        hlsPlayer = new Hls({
+            xhrSetup: (xhr) => {
+                xhr.withCredentials = false // Keine Credentials senden, hilft oft bei CORS-Problemen
+            },
+        })
+        const playerInstance = hlsPlayer
+        hlsPlayer.loadSource(url)
+        hlsPlayer.attachMedia(videoPlayer)
+
+        hlsPlayer.on(Hls.Events.MANIFEST_PARSED, () => {
+            if (hlsPlayer !== playerInstance) return
+            statusDisplay.clearMessage()
+            videoPlayer.play().catch((e) => handlePlayError(e, 'manifest-parsed'))
+            updateQualityLevel()
+            applyCaptions()
+        })
+        hlsPlayer.on(Hls.Events.ERROR, (event, data) => {
+            if (hlsPlayer !== playerInstance) return
+            const ctx = buildHlsErrorContext(data, hlsPlayer)
+            const code = data.fatal ? ErrorCode.HLS_FATAL : ErrorCode[`HLS_${ctx.mappedType}`] || 'HLS_ERROR'
+            logError(code, null, ctx)
+            if (data.fatal) handleFatalHlsError(data, playerInstance)
+            // Nicht-fatale Fehler behandelt Hls.js selbst (kein manuelles Recovery nötig).
+        })
+    }
+
+    const buildHlsErrorContext = (data, player) => {
+        const map = window.HlsErrorMap || {}
+        const ctx = {
+            type: data.type,
+            mappedType: map[data.type] || data.type,
+            fatal: data.fatal,
+            details: data.details,
+            url: player?.url,
+        }
+        if (data.response) {
+            ctx.httpStatus = data.response.code
+            ctx.httpUrl = data.response.url
+        }
+        if (data.error?.code !== undefined) ctx.systemErrorCode = data.error.code
+        return ctx
+    }
+
+    const handleNetworkRetry = (playerInstance) => {
+        if (retryState.count >= MAX_RETRIES) {
+            logError(ErrorCode.HLS_NETWORK, null, { retries: MAX_RETRIES, url: hlsPlayer?.url })
+            destroyHlsPlayer()
+            statusDisplay.showMessage(
+                `Netzwerkfehler: Nach ${MAX_RETRIES} Versuchen keine Verbindung. Bitte Internetverbindung prüfen und Seite neu laden.`,
+                'error',
+                0
+            )
+            return
+        }
+        const delay = getRetryDelay(retryState.count, RETRY_BASE_DELAY)
+        logWarn('HLS_NETWORK_RETRY', null, { attempt: retryState.count + 1, max: MAX_RETRIES, delayMs: delay })
+        scheduleRetry(
+            retryState,
+            () => {
+                if (hlsPlayer === playerInstance) hlsPlayer.startLoad()
+            },
+            RETRY_BASE_DELAY
+        )
+    }
+
+    const handleFatalHlsError = (data, playerInstance) => {
+        if (data.type === Hls.ErrorTypes.NETWORK_ERROR) {
+            handleNetworkRetry(playerInstance)
+            return
+        }
+        if (data.type === Hls.ErrorTypes.MEDIA_ERROR) {
+            logWarn(ErrorCode.HLS_MEDIA, null, { action: 'recoverMediaError' })
+            hlsPlayer?.recoverMediaError()
+            return
+        }
+        logError(ErrorCode.HLS_FATAL, null, { details: data.details, type: data.type })
+        destroyHlsPlayer()
+        statusDisplay.showMessage(`Schwerwiegender Fehler: ${data.details}. Bitte Seite neu laden.`, 'error', 0)
+    }
+
+    const setupNativePlayer = (url) => {
+        // Natives Safari-HLS: crossorigin entfernen, sonst scheitern Streams ohne CORS-Header.
+        videoPlayer.removeAttribute('crossorigin')
+        videoPlayer.src = url
+        videoPlayer.addEventListener(
+            'loadedmetadata',
+            () => {
+                statusDisplay.clearMessage()
+                videoPlayer.play().catch((e) => handlePlayError(e, 'native-player'))
+                applyCaptions()
+            },
+            { once: true }
+        )
+    }
+
+    // === SEEK & DATENSPARMODUS ===
 
     const seek = (seconds) => {
         const { currentTime, duration } = videoPlayer
         videoPlayer.currentTime = Math.max(0, Math.min(duration || Infinity, currentTime + seconds))
     }
-
-    // === DATA SAVE MODE ===
 
     const toggleDataSaveMode = () => {
         settingsCache.dataSaveMode = !settingsCache.dataSaveMode
@@ -282,10 +230,10 @@ document.addEventListener('DOMContentLoaded', () => {
         updateQualityLevel()
     }
 
-    // === STATION SELECTION (dedupliziert gegenüber player.js über gemeinsames Setup) ===
+    // === STATIONS-AUSWAHL ===
 
     const selectStation = (button) => {
-        clearStatusMessage()
+        statusDisplay.clearMessage()
         currentStationDisplay.textContent = button.dataset.name
         setupHlsPlayer(button.dataset.url)
         setupMediaSession({
@@ -297,20 +245,17 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
 
-    // === EVENT LISTENERS ===
+    // === EVENTS ===
 
     const initializeEventListeners = () => {
-        // Station buttons - Event Delegation für bessere Performance
         stationButtons.forEach((button) => {
             button.addEventListener('click', () => selectStation(button), { passive: true })
         })
-
         dataModeToggle.addEventListener('click', toggleDataSaveMode, { passive: true })
         captionToggle.addEventListener('click', toggleCaptions, { passive: true })
-        if (rewindButton) rewindButton.addEventListener('click', () => seek(-SEEK_TIME), { passive: true })
-        if (forwardButton) forwardButton.addEventListener('click', () => seek(SEEK_TIME), { passive: true })
+        rewindButton?.addEventListener('click', () => seek(-SEEK_TIME), { passive: true })
+        forwardButton?.addEventListener('click', () => seek(SEEK_TIME), { passive: true })
 
-        // Visibility change - mit passiven Optionen
         document.addEventListener(
             'visibilitychange',
             () => {
@@ -321,24 +266,17 @@ document.addEventListener('DOMContentLoaded', () => {
             { passive: true }
         )
 
-        // Update Media Session when playback state changes
         videoPlayer.addEventListener('pause', () => {
             logDebug(ErrorCode.MEDIA_SESSION_SETUP, null, { state: 'paused' })
         })
-
         videoPlayer.addEventListener('playing', () => {
             logDebug(ErrorCode.MEDIA_SESSION_SETUP, null, { state: 'playing' })
         })
 
-        // Tastatur-Navigation
         document.addEventListener(
             'keydown',
             (event) => {
-                const activeElement = document.activeElement
-                const isInputFocused = activeElement?.tagName === 'INPUT' || activeElement?.tagName === 'TEXTAREA'
-
-                if (isInputFocused) return
-
+                if (isEditableTarget(document.activeElement)) return
                 switch (event.key) {
                     case 'ArrowLeft':
                         event.preventDefault()
@@ -354,19 +292,14 @@ document.addEventListener('DOMContentLoaded', () => {
         )
     }
 
-    // === INITIALIZATION ===
+    // === START ===
 
     const initializePlayer = () => {
         dataModeToggle.setAttribute('aria-pressed', String(settingsCache.dataSaveMode))
         initializeCaptions()
-
-        const firstStationButton = stationButtons[0]
-        if (firstStationButton) {
-            selectStation(firstStationButton)
-        }
+        if (stationButtons[0]) selectStation(stationButtons[0])
     }
 
-    // === START ===
     initializeEventListeners()
     initializePlayer()
 })

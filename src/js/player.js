@@ -1,4 +1,6 @@
 function initializePlayer() {
+    'use strict'
+
     // === KONSTANTEN ===
     const METADATA_REFRESH_INTERVAL = 3000
     const VOLUME_STEP = 0.1
@@ -7,14 +9,24 @@ function initializePlayer() {
     const MAX_RETRIES = 3
     const RETRY_BASE_DELAY = 1000
 
-    const { setupMediaSession, clearMediaSession, readSetting, writeSetting } = window.PlayerCore
+    const {
+        setupMediaSession,
+        clearMediaSession,
+        setStatusClass,
+        readSetting,
+        writeSetting,
+        createRetryState,
+        getRetryDelay,
+        scheduleRetry,
+        resetRetry,
+        setActiveStation,
+        isEditableTarget,
+        clamp,
+        getMusicInfo,
+        formatTrackDisplay,
+    } = window.PlayerCore
 
-    let hasError = false
-    let isStalled = false
-    let metadataInterval = null
-    let wasPlayingBeforeError = false
-    let isAutoRetry = false
-    let retryState = { count: 0, timerId: null }
+    // === DOM & STATE ===
     const currentPlayer = document.getElementById('audioPlayer')
     const stationButtons = document.querySelectorAll('.station-btn')
     const currentStationDisplay = document.getElementById('currentStation')
@@ -25,22 +37,104 @@ function initializePlayer() {
         logError(ErrorCode.PLAYER_INIT_NO_ELEMENT, null, { selector: '#audioPlayer', page: location.pathname })
         return
     }
-
     currentPlayer.volume = 1
 
-    // === MEDIA SESSION (dedupliziert, siehe player-core.js) ===
+    let hasError = false
+    let isStalled = false
+    let metadataInterval = null
+    let wasPlayingBeforeError = false
+    let isAutoRetry = false
+    const retryState = createRetryState()
+
+    // === MEDIA SESSION ===
+
+    const stationName = () => (currentStationDisplay ? currentStationDisplay.textContent : '')
+
     const updateMediaSession = (title, artist) => {
-        const stationName = currentStationDisplay ? currentStationDisplay.textContent : ''
         setupMediaSession({
             title,
             artist,
-            album: stationName || 'Oidarwave',
+            album: stationName() || 'Oidarwave',
             media: currentPlayer,
             onStop: clearMediaSession,
         })
     }
 
-    // === EVENT LISTENER ===
+    // === STATUS & RETRY ===
+
+    /** Leitet den Gesamtstatus aus Netzwerk, Fehler und Player-Zustand ab. */
+    function updateOverallStatus() {
+        let status = 'online'
+        if (!navigator.onLine || hasError) status = 'error'
+        else if (currentPlayer.paused) status = 'paused'
+        else if (isStalled) status = 'buffering'
+        // Einen aktiven Retry-Countdown-Text nicht überschreiben.
+        if (!retryState.timerId && statusIndicator?.classList.contains('text')) {
+            statusIndicator.textContent = ''
+        }
+        setStatusClass(statusIndicator, status)
+    }
+
+    function clearStatusText() {
+        if (statusIndicator?.classList.contains('text')) statusIndicator.textContent = ''
+    }
+
+    function clearAudioRetry() {
+        resetRetry(retryState)
+        isAutoRetry = false
+        clearStatusText()
+    }
+
+    function showRetryText() {
+        const delay = getRetryDelay(retryState.count, RETRY_BASE_DELAY)
+        logWarn(ErrorCode.AUDIO_RECONNECT_RETRY, null, {
+            attempt: retryState.count + 1,
+            max: MAX_RETRIES,
+            delayMs: delay,
+            src: currentPlayer?.src,
+        })
+        if (statusIndicator) {
+            statusIndicator.textContent = `Versuch ${retryState.count + 1}/${MAX_RETRIES} in ${delay / 1000}s…`
+            setStatusClass(statusIndicator, 'buffering')
+            statusIndicator.classList.add('text')
+        }
+        return delay
+    }
+
+    function showExhaustedText() {
+        logError(ErrorCode.AUDIO_RECONNECT_FAILED, null, { retries: MAX_RETRIES, src: currentPlayer?.src })
+        if (statusIndicator) {
+            statusIndicator.textContent = 'Verbindung verloren – erneut versuchen'
+            statusIndicator.classList.add('text', 'error')
+        }
+    }
+
+    function scheduleAudioRetry() {
+        if (!wasPlayingBeforeError || !navigator.onLine) return
+        if (retryState.count >= MAX_RETRIES) {
+            showExhaustedText()
+            return
+        }
+        showRetryText()
+        scheduleRetry(retryState, retryAudio, RETRY_BASE_DELAY)
+    }
+
+    function retryAudio() {
+        if (!currentPlayer.src) return
+        hasError = false
+        isAutoRetry = true
+        updateOverallStatus()
+        currentPlayer.load()
+        playMedia()
+    }
+
+    function playMedia() {
+        wasPlayingBeforeError = true
+        currentPlayer.play().catch((e) => handlePlayError(e, 'audio-player'))
+    }
+
+    // === MEDIA-EVENTS ===
+
     const mediaEvents = {
         loadstart: () => {
             isStalled = false
@@ -94,14 +188,11 @@ function initializePlayer() {
             scheduleAudioRetry()
         },
     }
+    Object.entries(mediaEvents).forEach(([event, handler]) => currentPlayer.addEventListener(event, handler))
 
-    Object.entries(mediaEvents).forEach(([event, handler]) => {
-        currentPlayer.addEventListener(event, handler)
-    })
+    stationButtons.forEach((button) => button.addEventListener('click', () => selectStation(button)))
 
-    stationButtons.forEach((button) => {
-        button.addEventListener('click', () => selectStation(button))
-    })
+    // === NETZWERK-WECHSEL ===
 
     window.addEventListener('offline', () => {
         // Pending Retry pausieren, Count behalten für Resume bei 'online'.
@@ -129,128 +220,58 @@ function initializePlayer() {
 
     document.addEventListener('keydown', handleKeyDown)
 
-    function updateOverallStatus() {
-        let status = 'online'
-        if (!navigator.onLine || hasError) status = 'error'
-        else if (currentPlayer.paused) status = 'paused'
-        else if (isStalled) status = 'buffering'
-        // Retry-Text nicht überschreiben, nur Klasse setzen.
-        if (!retryState.timerId && statusIndicator && statusIndicator.classList.contains('text')) {
-            statusIndicator.textContent = ''
-        }
-        PlayerCore.setStatusClass(statusIndicator, status)
-    }
-
-    function clearAudioRetry() {
-        if (retryState.timerId) {
-            clearTimeout(retryState.timerId)
-            retryState.timerId = null
-        }
-        retryState.count = 0
-        isAutoRetry = false
-        if (statusIndicator && statusIndicator.classList.contains('text')) {
-            statusIndicator.textContent = ''
-        }
-    }
-
-    function scheduleAudioRetry() {
-        if (!wasPlayingBeforeError) return
-        if (!navigator.onLine) return
-        if (retryState.count >= MAX_RETRIES) {
-            logError(ErrorCode.AUDIO_RECONNECT_FAILED, null, { retries: MAX_RETRIES, src: currentPlayer?.src })
-            if (statusIndicator) {
-                statusIndicator.textContent = 'Verbindung verloren – erneut versuchen'
-                statusIndicator.classList.add('text', 'error')
-            }
-            return
-        }
-        const delay = RETRY_BASE_DELAY * Math.pow(2, retryState.count)
-        logWarn(ErrorCode.AUDIO_RECONNECT_RETRY, null, {
-            attempt: retryState.count + 1,
-            max: MAX_RETRIES,
-            delayMs: delay,
-            src: currentPlayer?.src,
-        })
-        if (statusIndicator) {
-            statusIndicator.textContent = `Versuch ${retryState.count + 1}/${MAX_RETRIES} in ${delay / 1000}s…`
-            PlayerCore.setStatusClass(statusIndicator, 'buffering')
-            statusIndicator.classList.add('text')
-        }
-        retryState.timerId = setTimeout(() => {
-            retryState.timerId = null
-            retryState.count++
-            retryAudio()
-        }, delay)
-    }
-
-    function retryAudio() {
-        if (!currentPlayer.src) return
-        hasError = false
-        isAutoRetry = true
-        updateOverallStatus()
-        currentPlayer.load()
-        playMedia()
-    }
-
-    function playMedia() {
-        wasPlayingBeforeError = true
-        currentPlayer.play().catch((e) => handlePlayError(e, 'audio-player'))
-    }
+    // === STATIONS-AUSWAHL ===
 
     function selectStation(button) {
         if (!button) return
-
         clearAudioRetry()
         wasPlayingBeforeError = true
-
-        stationButtons.forEach((btn) => btn.classList.remove('active'))
-        button.classList.add('active')
+        setActiveStation(stationButtons, button)
 
         const { url, name, metadataUrl } = button.dataset
         if (currentStationDisplay) currentStationDisplay.textContent = name
-
         writeSetting(AUDIO_STORAGE_KEY, url)
+        restartMetadataPolling(metadataUrl)
+        clearMediaSession()
 
+        currentPlayer.src = url
+        currentPlayer.load()
+    }
+
+    function restartMetadataPolling(metadataUrl) {
         if (metadataInterval) {
             clearInterval(metadataInterval)
             metadataInterval = null
         }
-
-        clearMediaSession()
-
         if (metadataUrl) {
             fetchMetadata(metadataUrl)
             metadataInterval = setInterval(() => fetchMetadata(metadataUrl), METADATA_REFRESH_INTERVAL)
         } else if (currentSongTitleDisplay) {
             currentSongTitleDisplay.textContent = 'Metadaten nicht verfügbar'
         }
-
-        currentPlayer.src = url
-        currentPlayer.load()
     }
 
-    function handleKeyDown(e) {
-        const tag = e.target.tagName
-        if (tag === 'INPUT' || tag === 'BUTTON' || tag === 'TEXTAREA') return
+    // === TASTATUR ===
 
+    function handleKeyDown(e) {
+        if (isEditableTarget(e.target)) return
         switch (e.code) {
             case 'Space':
                 e.preventDefault()
-                currentPlayer.paused ? playMedia() : currentPlayer.pause()
+                if (currentPlayer.paused) playMedia()
+                else currentPlayer.pause()
                 break
             case 'ArrowUp':
-            case 'ArrowDown':
+            case 'ArrowDown': {
                 e.preventDefault()
-                currentPlayer.volume = clampVolume(
-                    currentPlayer.volume + (e.code === 'ArrowUp' ? VOLUME_STEP : -VOLUME_STEP)
-                )
+                const delta = e.code === 'ArrowUp' ? VOLUME_STEP : -VOLUME_STEP
+                currentPlayer.volume = clamp(currentPlayer.volume + delta, 0, 1, VOLUME_PRECISION)
                 break
+            }
         }
     }
 
-    function clampVolume(value) {
-        return parseFloat(Math.max(0, Math.min(1, value)).toFixed(VOLUME_PRECISION))
-    }
+    // === METADATEN ===
 
     function fetchMetadata(metadataUrl) {
         fetch(metadataUrl)
@@ -262,62 +283,43 @@ function initializePlayer() {
             })
             .then(({ data, type }) => {
                 const trackInfo =
-                    type === 'text' ? { title: data.split('\n')[0].trim(), artist: '' } : getMusicInfoWithArtist(data)
-
-                const displayText =
-                    trackInfo.title && trackInfo.artist
-                        ? `${trackInfo.title} - ${trackInfo.artist}`
-                        : trackInfo.title || trackInfo.artist || ''
-
+                    type === 'text' ? { title: data.split('\n')[0].trim(), artist: '' } : getMusicInfo(data)
+                const displayText = formatTrackDisplay(trackInfo)
                 if (currentSongTitleDisplay) {
                     currentSongTitleDisplay.innerText = displayText || 'Keine Titelinformationen'
                 }
-
-                if (window.notificationManager) {
-                    window.notificationManager.handleTrackChange(
-                        displayText,
-                        currentStationDisplay ? currentStationDisplay.textContent : ''
-                    )
-                }
-
-                // Media Session mit Titel und Interpret aktualisieren
+                window.notificationManager?.handleTrackChange(displayText, stationName())
                 updateMediaSession(trackInfo.title, trackInfo.artist)
             })
             .catch((error) => {
-                const errType = error?.name || 'UnknownError'
-                const errCtx = {
-                    metadataUrl,
-                    station: currentStationDisplay ? currentStationDisplay.textContent : '',
-                    type: errType,
-                }
-                if (error?.message?.includes('JSON')) {
-                    errCtx.reason = 'invalid-json'
-                } else if (error?.message?.includes('NetworkError') || error?.message?.includes('Failed to fetch')) {
-                    errCtx.reason = 'network-error'
-                }
-                logError(ErrorCode.METADATA_FETCH, error, errCtx)
+                logError(ErrorCode.METADATA_FETCH, error, buildMetadataErrorContext(error, metadataUrl))
                 if (currentSongTitleDisplay) currentSongTitleDisplay.innerText = 'Metadaten nicht verfügbar'
                 clearMediaSession()
             })
     }
 
-    function getMusicInfoWithArtist(data) {
-        const title = data?.song_now_title || data?.playlistItem?.title || ''
-        const artist = data?.name || data?.subtitle || data?.song_now_interpret || data?.playlistItem?.artist || ''
-        return { title, artist }
+    function buildMetadataErrorContext(error, metadataUrl) {
+        const ctx = {
+            metadataUrl,
+            station: stationName(),
+            type: error?.name || 'UnknownError',
+        }
+        if (error?.message?.includes('JSON')) ctx.reason = 'invalid-json'
+        else if (error?.message?.includes('NetworkError') || error?.message?.includes('Failed to fetch')) {
+            ctx.reason = 'network-error'
+        }
+        return ctx
     }
 
-    // Letzte Station wiederherstellen oder erste Station starten
+    // === START: letzte Station wiederherstellen oder erste starten ===
+
     const lastStationUrl = readSetting(AUDIO_STORAGE_KEY)
     const lastStationButton = lastStationUrl
         ? document.querySelector(`.station-btn[data-url="${lastStationUrl}"]`)
         : null
 
-    if (lastStationButton) {
-        selectStation(lastStationButton)
-    } else if (stationButtons.length > 0) {
-        selectStation(stationButtons[0])
-    }
+    if (lastStationButton) selectStation(lastStationButton)
+    else if (stationButtons.length > 0) selectStation(stationButtons[0])
 
     updateOverallStatus()
 }

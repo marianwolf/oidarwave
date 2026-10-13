@@ -123,7 +123,8 @@
   },
   "devDependencies": {
     "@openai/codex": "^0.161.0",
-    "@opencode/cli": "^2.0.23",
+    "@opencode/cli": "^2.0.26",
+    "bootstrap": "^6.0.0-alpha.1",
     "electron": "^44.5.1",
     "electron-builder": "^26.17.0",
     "electron-log": "^5.4.4",
