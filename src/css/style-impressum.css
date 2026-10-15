@@ -42,8 +42,8 @@
     text-decoration: none;
     font-size: var(--font-size-sm);
     transition:
-        color var(--transition-snappy),
-        border-color var(--transition-snappy);
+        color var(--transition-color),
+        border-color var(--transition-color);
 }
 
 .impressum-toc a:hover {

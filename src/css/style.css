@@ -38,8 +38,18 @@
     --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     --shadow-glow: 0 0 20px rgba(139, 92, 246, 0.5);
 
-    --transition-snappy: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    /* Fluidere Bewegungen: sanftes Auslaufen fuer Transform-Bewegungen,
+       leichter Overshoot fuer Hover-Lifts, schnelles Druck-Feedback.
+       Trennung nach Property-Typ: Position/Skala darf schnell wirken,
+       Farben/Schatten laufen weicher, ohne den Fokus zu ziehen.
+       --transition-press ist nur eine Duration (fuer transition-duration);
+       die Timing-Function erbt die jeweilige Basis-Transition. */
+    --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --transition-tactile: 0.18s var(--ease-out-quint);
+    --transition-lift: 0.28s var(--ease-spring);
+    --transition-press: 0.08s;
+    --transition-color: 0.3s ease;
 
     color-scheme: dark;
 }
@@ -116,7 +126,9 @@ body {
 }
 
 /* Maus-Glow auf eigener Compositing-Ebene: nur transform/opacity,
-   kein Repaint des Body-Hintergrunds pro Mousemove. */
+   kein Repaint des Body-Hintergrunds pro Mousemove. Die kurze lineare
+   Interpolation glaettet die rAF-getakteten Mausspruenge (Flussgehalt),
+   ohne spuerbare Latenz zu erzeugen. */
 body::before {
     content: '';
     position: fixed;
@@ -130,6 +142,7 @@ body::before {
     pointer-events: none;
     z-index: 0;
     transform: translate3d(var(--mouse-x, 50vw), var(--mouse-y, 30vh), 0);
+    transition: transform 30ms linear;
     will-change: transform;
 }
 
@@ -218,7 +231,7 @@ header {
     background-clip: text;
     -webkit-text-fill-color: transparent;
     color: transparent;
-    animation: gradient-pan 6s linear infinite alternate;
+    animation: gradient-pan 6s ease-in-out infinite alternate;
     letter-spacing: -1px;
 }
 
@@ -245,18 +258,20 @@ nav .nav-link {
     padding: var(--space-sm) var(--space-lg);
     border-radius: var(--radius-full);
     transition:
-        color var(--transition-snappy),
-        background var(--transition-snappy);
+        color var(--transition-color),
+        background-color var(--transition-color);
 }
 
-nav .nav-link:hover {
-    color: var(--color-text-main);
-    background: rgba(255, 255, 255, 0.1);
+@media (hover: hover) and (pointer: fine) {
+    nav .nav-link:hover {
+        color: var(--color-text-main);
+        background-color: rgba(255, 255, 255, 0.1);
+    }
 }
 
 nav .nav-link[aria-current='page'] {
     color: var(--color-text-main);
-    background: rgba(139, 92, 246, 0.25);
+    background-color: rgba(139, 92, 246, 0.25);
 }
 
 /* Spaltenabstand ueber Bootstraps Gutter-Variablen (Design-Tokens);
@@ -294,7 +309,9 @@ nav .nav-link[aria-current='page'] {
 }
 
 .station-btn {
-    background: rgba(255, 255, 255, 0.03);
+    /* Basis als Gradient mit gleicher Struktur wie der aktive Zustand –
+       nur so interpoliert die Flaeche beim Senderwechsel weich statt zu springen. */
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.03));
     border: 1px solid rgba(255, 255, 255, 0.08);
     color: var(--color-text-main);
     padding: var(--space-md);
@@ -305,18 +322,23 @@ nav .nav-link[aria-current='page'] {
     line-height: 1.35;
     min-height: 3.25rem;
     cursor: pointer;
+    /* Transform (Compositor) schnell & mit sanftem Auslaufen,
+       Farben/Schatten/Gradient (Paint) etwas ruhiger – wirkt fluessiger
+       als ein einheitlicher Duration fuer alle Properties. */
     transition:
-        transform var(--transition-snappy),
-        border-color var(--transition-snappy),
-        box-shadow var(--transition-snappy),
-        background var(--transition-snappy);
+        transform var(--transition-tactile),
+        border-color var(--transition-color),
+        box-shadow var(--transition-color),
+        background-color var(--transition-color);
     position: relative;
     overflow: hidden;
     text-align: center;
     text-wrap: balance;
     accent-color: var(--color-brand-primary);
     touch-action: manipulation;
-    will-change: transform;
+    /* Kein will-change: Dauerhaft eine eigene Ebene pro Button waere
+       Speicher-/Rasterisierungskosten ohne Nutzen (Hover-Transitions
+       werden beim Start automatisch auf den Compositor gehoben). */
 }
 
 .station-btn::before {
@@ -325,22 +347,27 @@ nav .nav-link[aria-current='page'] {
     inset: 0;
     background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(236, 72, 153, 0.2));
     opacity: 0;
-    transition: opacity var(--transition-smooth);
+    transition: opacity var(--transition-color);
     pointer-events: none;
 }
 
-.station-btn:hover {
-    transform: translateY(-2px);
-    border-color: rgba(255, 255, 255, 0.3);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
+/* Hover nur bei feinem Zeiger: auf Touch-Geraeten klebt :hover sonst
+   nach dem Tippen und wirkt dann rueckstaendig. */
+@media (hover: hover) and (pointer: fine) {
+    .station-btn:hover {
+        transform: translateY(-2px);
+        border-color: rgba(255, 255, 255, 0.3);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
 
-.station-btn:hover::before {
-    opacity: 1;
+    .station-btn:hover::before {
+        opacity: 1;
+    }
 }
 
 .station-btn:active {
     transform: translateY(0) scale(0.98);
+    transition-duration: var(--transition-press);
 }
 
 .station-btn.active {
@@ -383,17 +410,17 @@ nav .nav-link[aria-current='page'] {
     box-shadow: 0 0 10px var(--color-status-online);
     flex-shrink: 0;
     transition:
-        background var(--transition-snappy),
-        box-shadow var(--transition-snappy);
+        background-color var(--transition-color),
+        box-shadow var(--transition-color);
 }
 
 .status-indicator.online {
-    background: var(--color-status-online);
+    background-color: var(--color-status-online);
     box-shadow: 0 0 10px var(--color-status-online);
 }
 
 .status-indicator.error {
-    background: var(--color-status-error);
+    background-color: var(--color-status-error);
     box-shadow: 0 0 10px var(--color-status-error);
 }
 
@@ -412,18 +439,20 @@ nav .nav-link[aria-current='page'] {
 }
 
 .status-indicator.text.error {
-    background: var(--color-status-error);
+    background-color: var(--color-status-error);
     box-shadow: 0 0 10px var(--color-status-error);
 }
 
 .status-indicator.buffering {
-    background: var(--color-status-buffering);
+    background-color: var(--color-status-buffering);
     box-shadow: 0 0 10px var(--color-status-buffering);
-    animation: pulse 1.5s infinite;
+    /* Opacity ist Compositor-Property; ease-in-out erzeugt beim Atmen
+       sanfte Umkehrpunkte statt harter Knicke. */
+    animation: pulse 1.5s ease-in-out infinite;
 }
 
 .status-indicator.paused {
-    background: var(--color-status-paused);
+    background-color: var(--color-status-paused);
     box-shadow: none;
 }
 
@@ -439,19 +468,26 @@ nav .nav-link[aria-current='page'] {
     justify-content: center;
     cursor: pointer;
     transition:
-        transform var(--transition-snappy),
-        background var(--transition-snappy);
+        transform var(--transition-lift),
+        background-color var(--transition-color);
     flex-shrink: 0;
     touch-action: manipulation;
 }
 
-.notification-toggle:hover {
-    background: rgba(255, 255, 255, 0.15);
-    transform: scale(1.05);
+@media (hover: hover) and (pointer: fine) {
+    .notification-toggle:hover {
+        background-color: rgba(255, 255, 255, 0.15);
+        transform: scale(1.05);
+    }
+}
+
+.notification-toggle:active {
+    transform: scale(0.95);
+    transition-duration: var(--transition-press);
 }
 
 .notification-toggle.active {
-    background: var(--color-brand-primary);
+    background-color: var(--color-brand-primary);
     border-color: var(--color-brand-primary);
     box-shadow: var(--shadow-glow);
     color: white;
@@ -483,7 +519,7 @@ audio::-webkit-media-controls-panel {
     color: var(--color-text-muted);
     text-align: center;
     min-height: 1.5rem;
-    animation: fade-in 0.3s ease;
+    animation: fade-in 0.35s var(--ease-out-quint);
     background: rgba(0, 0, 0, 0.15);
     padding: var(--space-sm) var(--space-md);
     border-radius: var(--radius-md);
@@ -512,7 +548,7 @@ footer img {
 footer a {
     color: var(--color-text-main);
     text-decoration: none;
-    transition: color var(--transition-snappy);
+    transition: color var(--transition-color);
 }
 
 footer a:hover {
@@ -531,7 +567,9 @@ footer a:hover {
     max-width: 600px;
     z-index: 50;
     padding: var(--space-lg);
-    animation: banner-in 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+    /* Nur transform/opacity animiert -> Browser promoviert die Ebene waehrend
+       des Einfliegens automatisch; kein dauerhaftes will-change noetig. */
+    animation: banner-in 0.45s var(--ease-out-quint) both;
 }
 
 .cookie-banner[hidden] {
@@ -552,18 +590,21 @@ footer a:hover {
     font-weight: var(--font-weight-semibold);
     cursor: pointer;
     transition:
-        transform var(--transition-snappy),
-        opacity var(--transition-snappy);
+        transform var(--transition-tactile),
+        opacity var(--transition-color);
     touch-action: manipulation;
 }
 
-.cookie-btn:hover {
-    transform: translateY(-2px);
-    opacity: 0.9;
+@media (hover: hover) and (pointer: fine) {
+    .cookie-btn:hover {
+        transform: translateY(-2px);
+        opacity: 0.9;
+    }
 }
 
 .cookie-btn:active {
     transform: translateY(0) scale(0.98);
+    transition-duration: var(--transition-press);
 }
 
 .accept-btn {
@@ -601,24 +642,24 @@ footer a:hover {
 @keyframes fade-in {
     from {
         opacity: 0;
-        transform: translateY(5px);
+        transform: translate3d(0, 5px, 0);
     }
 
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translate3d(0, 0, 0);
     }
 }
 
 @keyframes banner-in {
     from {
         opacity: 0;
-        transform: translate(-50%, 12px);
+        transform: translate3d(-50%, 12px, 0);
     }
 
     to {
         opacity: 1;
-        transform: translate(-50%, 0);
+        transform: translate3d(-50%, 0, 0);
     }
 }
 

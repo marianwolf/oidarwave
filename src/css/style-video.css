@@ -22,7 +22,7 @@
 
 .data-mode-toggle,
 .caption-toggle {
-    background: rgba(255, 255, 255, 0.05);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05));
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: var(--radius-md);
     padding: var(--space-sm) var(--space-md);
@@ -35,24 +35,30 @@
     position: relative;
     overflow: hidden;
     cursor: pointer;
+    /* Basis als Gradient mit gleicher Struktur wie Hover/Aktiv – nur so
+       interpoliert die Flaeche weich, statt beim Zustandswechsel zu springen.
+       Transform schnell mit sanftem Auslaufen, Farben/Schatten ruhiger. */
     transition:
-        transform 0.2s ease,
-        background 0.2s ease,
-        border-color 0.2s ease,
-        box-shadow 0.2s ease;
+        transform var(--transition-tactile),
+        background-color var(--transition-color),
+        border-color var(--transition-color),
+        box-shadow var(--transition-color);
     touch-action: manipulation;
 }
 
-.data-mode-toggle:hover,
-.caption-toggle:hover {
-    background: rgba(255, 255, 255, 0.12);
-    border-color: rgba(255, 255, 255, 0.3);
-    transform: translateY(-1px);
+@media (hover: hover) and (pointer: fine) {
+    .data-mode-toggle:hover,
+    .caption-toggle:hover {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.12));
+        border-color: rgba(255, 255, 255, 0.3);
+        transform: translateY(-1px);
+    }
 }
 
 .data-mode-toggle:active,
 .caption-toggle:active {
     transform: translateY(0) scale(0.98);
+    transition-duration: var(--transition-press);
 }
 
 .data-mode-toggle[aria-pressed='true'],
