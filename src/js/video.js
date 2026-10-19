@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const initializeCaptions = () => {
-        captionToggle.setAttribute('aria-pressed', String(settingsCache.captionsEnabled))
+        captionToggle?.setAttribute('aria-pressed', String(settingsCache.captionsEnabled))
         applyCaptions()
     }
 
@@ -251,8 +251,8 @@ document.addEventListener('DOMContentLoaded', () => {
         stationButtons.forEach((button) => {
             button.addEventListener('click', () => selectStation(button), { passive: true })
         })
-        dataModeToggle.addEventListener('click', toggleDataSaveMode, { passive: true })
-        captionToggle.addEventListener('click', toggleCaptions, { passive: true })
+        dataModeToggle?.addEventListener('click', toggleDataSaveMode, { passive: true })
+        captionToggle?.addEventListener('click', toggleCaptions, { passive: true })
         rewindButton?.addEventListener('click', () => seek(-SEEK_TIME), { passive: true })
         forwardButton?.addEventListener('click', () => seek(SEEK_TIME), { passive: true })
 
@@ -276,7 +276,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.addEventListener(
             'keydown',
             (event) => {
-                if (isEditableTarget(document.activeElement)) return
+                if (isEditableTarget(event.target)) return
                 switch (event.key) {
                     case 'ArrowLeft':
                         event.preventDefault()
@@ -295,7 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // === START ===
 
     const initializePlayer = () => {
-        dataModeToggle.setAttribute('aria-pressed', String(settingsCache.dataSaveMode))
+        dataModeToggle?.setAttribute('aria-pressed', String(settingsCache.dataSaveMode))
         initializeCaptions()
         if (stationButtons[0]) selectStation(stationButtons[0])
     }

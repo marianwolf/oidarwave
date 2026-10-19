@@ -5,7 +5,7 @@
     margin: auto;
     border-radius: var(--radius-md);
     overflow: hidden;
-    background: #000;
+    background-color: #000;
     border: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow: var(--shadow-glass);
 }
@@ -16,13 +16,15 @@
     display: block;
     border: none;
     border-radius: inherit;
-    background: #000;
+    background-color: #000;
     object-fit: contain;
 }
 
 .data-mode-toggle,
 .caption-toggle {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05));
+    /* Flaeche als background-color, Gradient als Overlay: background-image
+       laesst sich nicht animieren, Opacity schon (Compositor). */
+    background-color: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: var(--radius-md);
     padding: var(--space-sm) var(--space-md);
@@ -33,23 +35,40 @@
     font-weight: var(--font-weight-medium);
     text-align: center;
     position: relative;
+    isolation: isolate;
     overflow: hidden;
     cursor: pointer;
-    /* Basis als Gradient mit gleicher Struktur wie Hover/Aktiv – nur so
-       interpoliert die Flaeche weich, statt beim Zustandswechsel zu springen.
-       Transform schnell mit sanftem Auslaufen, Farben/Schatten ruhiger. */
+    /* Transform schnell mit sanftem Auslaufen, Farben/Schatten ruhiger.
+       Die Flaeche selbst wechselt ueber die Opacity des Overlays. */
     transition:
         transform var(--transition-tactile),
-        background-color var(--transition-color),
         border-color var(--transition-color),
         box-shadow var(--transition-color);
     touch-action: manipulation;
 }
 
+/* Hover- und Aktiv-Flaeche als ein Overlay: gleiche Gradient-Struktur, nur
+   die Opacity wird animiert. z-index: -1 haelt den Verlauf hinter dem Text. */
+.data-mode-toggle::before,
+.caption-toggle::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(135deg, var(--color-brand-primary), var(--color-brand-secondary));
+    opacity: 0;
+    transition: opacity var(--transition-color);
+    pointer-events: none;
+}
+
 @media (hover: hover) and (pointer: fine) {
+    .data-mode-toggle:hover::before,
+    .caption-toggle:hover::before {
+        opacity: 0.16;
+    }
+
     .data-mode-toggle:hover,
     .caption-toggle:hover {
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.12));
         border-color: rgba(255, 255, 255, 0.3);
         transform: translateY(-1px);
     }
@@ -64,11 +83,16 @@
 .data-mode-toggle[aria-pressed='true'],
 .caption-toggle[aria-pressed='true'],
 .caption-toggle.cc-active {
-    background: linear-gradient(135deg, var(--color-brand-primary), var(--color-brand-secondary));
     border-color: transparent;
     color: #fff;
     box-shadow: var(--shadow-glow);
     font-weight: var(--font-weight-semibold);
+}
+
+.data-mode-toggle[aria-pressed='true']::before,
+.caption-toggle[aria-pressed='true']::before,
+.caption-toggle.cc-active::before {
+    opacity: 1;
 }
 
 @media (max-width: 780px) {

@@ -44,6 +44,9 @@
 
     // === MEDIA SESSION API (Android/iOS Lock Screen & Systemsteuerung) ===
 
+    /** Letzter gesetzter Track – verhindert identische MediaMetadata-Objekte im Polling. */
+    let lastMediaSessionKey = null
+
     /**
      * Setzt MediaMetadata und Action-Handler für die System-Steuerung.
      * @param {Object} options
@@ -55,6 +58,8 @@
      */
     const setupMediaSession = ({ title, artist, album, media, onStop } = {}) => {
         if (typeof navigator === 'undefined' || !('mediaSession' in navigator)) return
+        const sessionKey = `${title || ''}|${artist || ''}|${album || ''}`
+        if (sessionKey === lastMediaSessionKey) return
         try {
             navigator.mediaSession.metadata = new MediaMetadata({
                 title: title || 'Livestream',
@@ -70,6 +75,7 @@
                 media?.pause()
                 onStop?.()
             })
+            lastMediaSessionKey = sessionKey
         } catch (e) {
             logWarnSafe(errorCodeSafe('MEDIA_SESSION_SETUP', 'MEDIA_SESSION_SETUP_FAILED'), e, {
                 page: typeof location !== 'undefined' ? location.pathname : '',
@@ -78,6 +84,7 @@
     }
 
     const clearMediaSession = () => {
+        lastMediaSessionKey = null
         if (typeof navigator === 'undefined') return
         if ('mediaSession' in navigator && navigator.mediaSession?.metadata) {
             navigator.mediaSession.metadata = null
@@ -112,14 +119,22 @@
             set(status) {
                 setStatusClass(el, status)
             },
-            /** Zeigt eine nicht-blockierende Textmeldung; duration<=0 = dauerhaft. */
-            showMessage(message, type = 'error', duration = 5000) {
+            /**
+             * Zeigt eine nicht-blockierende Textmeldung; duration<=0 = dauerhaft.
+             * `nextStatus` bestimmt den Zustand nach dem Ausblenden (z. B. 'error'),
+             * damit die Anzeige nicht faelschlich wieder gruen wird.
+             */
+            showMessage(message, type = 'error', duration = 5000, nextStatus = null) {
                 if (!el) return
                 clearTimer()
+                // Erst den Status setzen (entfernt alte Klassen inkl. 'text'),
+                // dann die Text-Klasse ergaenzen – sonst bleiben z. B. 'buffering'
+                // und 'error' gleichzeitig aktiv.
+                setStatusClass(el, type)
                 el.textContent = message
-                el.classList.add('text', type)
+                el.classList.add('text')
                 if (duration > 0) {
-                    messageTimer = setTimeout(() => this.clearMessage(), duration)
+                    messageTimer = setTimeout(() => this.clearMessage(nextStatus), duration)
                 }
             },
             /** Löscht Text + Timeout und setzt die Klasse zurück. */

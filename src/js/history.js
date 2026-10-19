@@ -54,7 +54,7 @@
             if (stored.activeStationUrl !== undefined) activeStationUrl = stored.activeStationUrl
             if (isOldFormat(stored)) {
                 const migrated = migrateOldHistory(stored)
-                await saveHistoryDirect(migrated)
+                saveHistoryDirect(migrated)
                 return migrated
             }
             return { stations: stored.stations || {} }
@@ -71,12 +71,13 @@
             }
         }
 
-        async function saveHistoryDirect(history) {
+        /** Storage ist synchron – kein unnoetiger Promise-/Microtask-Umweg. */
+        function saveHistoryDirect(history) {
             storage()?.writeJSON(historyKey(), history)
         }
 
-        async function saveHistory() {
-            await saveHistoryDirect({ ...historyCache, activeStationUrl })
+        function saveHistory() {
+            saveHistoryDirect({ ...historyCache, activeStationUrl })
         }
 
         // --- Sitzungen ---
@@ -121,7 +122,7 @@
             stopAndFinalizeSession(station, now)
             station.sessions.unshift({ start: now, end: null })
             activeStationUrl = url
-            await saveHistory()
+            saveHistory()
             invalidateCache()
         }
 
@@ -131,7 +132,7 @@
             if (!station) return
             stopAndFinalizeSession(station, Date.now())
             if (activeStationUrl === url) activeStationUrl = null
-            await saveHistory()
+            saveHistory()
             invalidateCache()
         }
 
@@ -165,7 +166,7 @@
             hasChanged = finalizeStaleSessions(mostRecentOpenUrl, now) || hasChanged
             if (mostRecentOpenUrl) activeStationUrl = mostRecentOpenUrl
             if (hasChanged) {
-                await saveHistory()
+                saveHistory()
                 invalidateCache()
             }
         }

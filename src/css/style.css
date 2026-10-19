@@ -108,29 +108,43 @@ html {
 
 body {
     font-family: var(--font-body);
+    /* Nur die Basisflaeche hier; der Verlauf liegt auf einer fixierten,
+       einmal gerasterten Ebene (body::after). */
     background-color: var(--color-bg-base);
-    background-attachment: fixed;
     color: var(--color-text-main);
     min-height: 100vh;
     min-height: 100dvh;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    background:
-        radial-gradient(circle at 85% 30%, rgba(236, 72, 153, 0.1) 0%, transparent 40%),
-        linear-gradient(135deg, var(--color-bg-base) 0%, #1e293b 50%, var(--color-bg-base) 100%);
     overflow-x: hidden;
     overflow-y: auto;
     position: relative;
     overscroll-behavior-y: contain;
 }
 
-/* Maus-Glow auf eigener Compositing-Ebene: nur transform/opacity,
-   kein Repaint des Body-Hintergrunds pro Mousemove. Die kurze lineare
-   Interpolation glaettet die rAF-getakteten Mausspruenge (Flussgehalt),
-   ohne spuerbare Latenz zu erzeugen. */
-body::before {
+/* Seitenverlauf als eigene, fixierte Ebene.
+   Ersetzt `background-attachment: fixed` (erzwingt Scroll-Repaints und war
+   hier ohnehin durch die spaetere `background`-Shorthand wirkungslos).
+   Die Ebene wird einmal in Viewport-Groesse gerastert und danach beim
+   Scrollen nur noch komponiert statt neu gezeichnet. */
+body::after {
     content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+        radial-gradient(circle at 85% 30%, rgba(236, 72, 153, 0.1) 0%, transparent 40%),
+        linear-gradient(135deg, var(--color-bg-base) 0%, #1e293b 50%, var(--color-bg-base) 100%);
+}
+
+/* Maus-Glow auf eigener Compositing-Ebene: nur transform/opacity,
+   kein Repaint des Body-Hintergrunds pro Mousemove. Das Element wird von
+   mouse.js erzeugt und direkt per transform positioniert; damit bleibt die
+   Style-Invalidierung auf dieses eine Element beschraenkt (Custom Properties
+   auf :root wuerden den ganzen Baum neu berechnen). */
+.mouse-glow {
     position: fixed;
     top: 0;
     left: 0;
@@ -141,8 +155,7 @@ body::before {
     background: radial-gradient(circle, rgba(139, 92, 246, 0.16) 0%, transparent 65%);
     pointer-events: none;
     z-index: 0;
-    transform: translate3d(var(--mouse-x, 50vw), var(--mouse-y, 30vh), 0);
-    transition: transform 30ms linear;
+    transform: translate3d(50vw, 30vh, 0);
     will-change: transform;
 }
 
@@ -158,7 +171,7 @@ body::before {
 }
 
 ::selection {
-    background: rgba(139, 92, 246, 0.45);
+    background-color: rgba(139, 92, 246, 0.45);
     color: #fff;
 }
 
@@ -172,15 +185,15 @@ body::before {
     width: 10px;
 }
 ::-webkit-scrollbar-track {
-    background: var(--color-bg-base);
+    background-color: var(--color-bg-base);
 }
 ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.16);
+    background-color: rgba(255, 255, 255, 0.16);
     border-radius: var(--radius-full);
     border: 2px solid var(--color-bg-base);
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.28);
+    background-color: rgba(255, 255, 255, 0.28);
 }
 
 header,
@@ -231,15 +244,26 @@ header {
     background-clip: text;
     -webkit-text-fill-color: transparent;
     color: transparent;
+    /* `background-position` ist keine Compositor-Property: eine Daueranimation
+       wuerde den Textverlauf permanent neu rastern. Deshalb laeuft sie nur bei
+       Hover/Fokus; im Leerlauf steht der Gradient still (gleiche Optik). */
     animation: gradient-pan 6s ease-in-out infinite alternate;
+    animation-play-state: paused;
     letter-spacing: -1px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .logo:hover,
+    .logo:focus-visible {
+        animation-play-state: running;
+    }
 }
 
 /* Pillen-Container; die Links liegen in der Bootstrap-.nav-Liste (nav .nav) */
 nav {
     display: flex;
     justify-content: center;
-    background: rgba(255, 255, 255, 0.03);
+    background-color: rgba(255, 255, 255, 0.03);
     padding: var(--space-xs);
     border-radius: var(--radius-full);
     border: 1px solid var(--color-glass-border);
@@ -309,9 +333,11 @@ nav .nav-link[aria-current='page'] {
 }
 
 .station-btn {
-    /* Basis als Gradient mit gleicher Struktur wie der aktive Zustand –
-       nur so interpoliert die Flaeche beim Senderwechsel weich statt zu springen. */
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.03));
+    /* Flaeche als background-color; der Gradient liegt im ::before-Overlay.
+       `background-image` ist nicht animierbar – die frueheren Gradient-Basen
+       sind beim Zustandswechsel deshalb hart gesprungen. Opacity blendet
+       dagegen auf dem Compositor weich zwischen Hover/Aktiv. */
+    background-color: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.08);
     color: var(--color-text-main);
     padding: var(--space-md);
@@ -328,9 +354,9 @@ nav .nav-link[aria-current='page'] {
     transition:
         transform var(--transition-tactile),
         border-color var(--transition-color),
-        box-shadow var(--transition-color),
-        background-color var(--transition-color);
+        box-shadow var(--transition-color);
     position: relative;
+    isolation: isolate;
     overflow: hidden;
     text-align: center;
     text-wrap: balance;
@@ -341,11 +367,15 @@ nav .nav-link[aria-current='page'] {
        werden beim Start automatisch auf den Compositor gehoben). */
 }
 
+/* Eine gemeinsame Gradient-Flaeche fuer Hover und Aktiv-Zustand: gleiche
+   Struktur, nur die Opacity aendert sich -> kein Farb-Sprung. z-index: -1
+   haelt den Verlauf hinter der Beschriftung (Text bleibt kontrastreich). */
 .station-btn::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(236, 72, 153, 0.2));
+    z-index: -1;
+    background: linear-gradient(135deg, var(--color-brand-primary), var(--color-brand-secondary));
     opacity: 0;
     transition: opacity var(--transition-color);
     pointer-events: none;
@@ -361,7 +391,7 @@ nav .nav-link[aria-current='page'] {
     }
 
     .station-btn:hover::before {
-        opacity: 1;
+        opacity: 0.22;
     }
 }
 
@@ -371,10 +401,13 @@ nav .nav-link[aria-current='page'] {
 }
 
 .station-btn.active {
-    background: linear-gradient(135deg, var(--color-brand-primary), var(--color-brand-secondary));
     border-color: transparent;
     box-shadow: var(--shadow-glow);
     font-weight: var(--font-weight-semibold);
+}
+
+.station-btn.active::before {
+    opacity: 1;
 }
 
 .current-station {
@@ -386,7 +419,7 @@ nav .nav-link[aria-current='page'] {
     font-size: 1.5rem;
     font-weight: 700;
     line-height: 1.3;
-    background: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.2);
     padding: var(--space-md) var(--space-lg);
     border-radius: var(--radius-full);
     border: 1px solid rgba(255, 255, 255, 0.06);
@@ -406,9 +439,12 @@ nav .nav-link[aria-current='page'] {
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background: var(--color-status-online);
+    background-color: var(--color-status-online);
     box-shadow: 0 0 10px var(--color-status-online);
     flex-shrink: 0;
+    /* Sicherheitsnetz: ein versehentlich gesetzter Text darf nicht aus dem
+       12-px-Punkt in die Senderzeile laufen. */
+    overflow: hidden;
     transition:
         background-color var(--transition-color),
         box-shadow var(--transition-color);
@@ -428,14 +464,23 @@ nav .nav-link[aria-current='page'] {
     width: auto;
     height: auto;
     min-width: 12px;
-    padding: var(--space-sm) var(--space-md);
+    max-width: 100%;
+    padding: var(--space-xs) var(--space-md);
     border-radius: var(--radius-full);
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-medium);
     font-family: var(--font-body);
+    line-height: 1.45;
     color: white;
     text-align: center;
-    white-space: nowrap;
+    /* Umbruch statt nowrap: die Meldung darf die Senderzeile auf schmalen
+       Viewports nicht sprengen. `wrap` neutralisiert das geerbte
+       `text-wrap: balance` der Senderzeile, das kurze Meldungen sonst
+       kuenstlich zweizeilig umbricht. */
+    white-space: normal;
+    text-wrap: wrap;
+    overflow-wrap: anywhere;
+    flex-shrink: 1;
 }
 
 .status-indicator.text.error {
@@ -457,7 +502,7 @@ nav .nav-link[aria-current='page'] {
 }
 
 .notification-toggle {
-    background: rgba(255, 255, 255, 0.05);
+    background-color: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: var(--color-text-main);
     width: 36px;
@@ -505,7 +550,7 @@ audio {
     border-radius: var(--radius-full);
     outline: none;
     accent-color: var(--color-brand-primary);
-    background-color: var(--color-media-panel);
+    background-color: var(--color-bg-elevated);
     filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
 }
 
@@ -520,7 +565,7 @@ audio::-webkit-media-controls-panel {
     text-align: center;
     min-height: 1.5rem;
     animation: fade-in 0.35s var(--ease-out-quint);
-    background: rgba(0, 0, 0, 0.15);
+    background-color: rgba(0, 0, 0, 0.15);
     padding: var(--space-sm) var(--space-md);
     border-radius: var(--radius-md);
     border: 1px solid rgba(255, 255, 255, 0.05);
@@ -608,12 +653,12 @@ footer a:hover {
 }
 
 .accept-btn {
-    background: var(--color-text-main);
+    background-color: var(--color-text-main);
     color: var(--color-bg-base);
 }
 
 .decline-btn {
-    background: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.1);
     color: var(--color-text-main);
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -771,7 +816,7 @@ footer a:hover {
         scroll-behavior: auto !important;
     }
 
-    body::before {
+    .mouse-glow {
         display: none;
     }
 }

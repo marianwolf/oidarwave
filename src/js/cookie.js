@@ -55,10 +55,15 @@
         })
     }
 
+    /** `hidden` statt Inline-Style: CSS ([hidden]) bleibt die einzige Sichtbarkeitsquelle. */
+    function setBannerVisible(visible) {
+        const banner = document.getElementById('cookieBanner')
+        if (banner) banner.hidden = !visible
+    }
+
     function updateBannerVisibility() {
         const consent = readConsent()
-        const banner = document.getElementById('cookieBanner')
-        if (banner) banner.style.display = consent === null ? 'block' : 'none'
+        setBannerVisible(consent === null)
         if (consent === 'true') enableAnalyticsScripts()
     }
 
@@ -66,13 +71,11 @@
         document.getElementById('acceptCookies')?.addEventListener('click', () => {
             writeConsent('true')
             enableAnalyticsScripts()
-            const banner = document.getElementById('cookieBanner')
-            if (banner) banner.style.display = 'none'
+            setBannerVisible(false)
         })
         document.getElementById('declineCookies')?.addEventListener('click', () => {
             writeConsent('false')
-            const banner = document.getElementById('cookieBanner')
-            if (banner) banner.style.display = 'none'
+            setBannerVisible(false)
         })
     }
 
