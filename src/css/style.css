@@ -104,6 +104,8 @@ html {
     color-scheme: dark;
     scroll-behavior: smooth;
     text-size-adjust: 100%;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) var(--color-bg-base);
 }
 
 body {
@@ -818,5 +820,56 @@ footer a:hover {
 
     .mouse-glow {
         display: none;
+    }
+}
+
+@media (forced-colors: active) {
+    .station-btn.active,
+    .notification-toggle.active {
+        outline: 2px solid Highlight;
+        outline-offset: 2px;
+    }
+
+    .status-indicator {
+        border: 1px solid CanvasText;
+    }
+
+    .logo {
+        forced-color-adjust: none;
+    }
+}
+
+@media print {
+    body {
+        background: #fff !important;
+        color: #000 !important;
+    }
+
+    body::after,
+    .mouse-glow,
+    .cookie-banner,
+    .audio-controls,
+    .notification-toggle {
+        display: none !important;
+    }
+
+    header,
+    .station-selector,
+    .player-controls {
+        background: transparent !important;
+        border: 1px solid #ccc !important;
+        box-shadow: none !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+
+    .station-btn {
+        border: 1px solid #666 !important;
+        color: #000 !important;
+        background: transparent !important;
+    }
+
+    .station-btn::before {
+        display: none !important;
     }
 }

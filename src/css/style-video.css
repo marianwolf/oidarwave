@@ -95,8 +95,19 @@
     opacity: 1;
 }
 
-@media (max-width: 780px) {
-    .video-container {
-        width: 100%;
+@media (forced-colors: active) {
+    .data-mode-toggle[aria-pressed='true'],
+    .caption-toggle[aria-pressed='true'],
+    .caption-toggle.cc-active {
+        outline: 2px solid Highlight;
+        outline-offset: 2px;
+    }
+}
+
+@media print {
+    .video-controls,
+    .data-mode-toggle,
+    .caption-toggle {
+        display: none !important;
     }
 }

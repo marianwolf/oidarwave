@@ -165,3 +165,22 @@
         font-size: 1.6rem;
     }
 }
+
+@media print {
+    body {
+        background: #fff !important;
+        color: #000 !important;
+    }
+
+    .impressum-content {
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+    }
+
+    .back-link,
+    .impressum-toc {
+        display: none !important;
+    }
+}
