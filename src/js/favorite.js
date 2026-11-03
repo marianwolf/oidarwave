@@ -16,7 +16,9 @@
 
     const storage = () => window.PlayerCore
     const historyKey = () => storage()?.HISTORY_KEY || 'station_history'
-    const uuid = () => (typeof generateUUID === 'function' ? generateUUID() : `fav-${Date.now()}`)
+    // Identisch zu history.js: generateUUID (uuid.js) hat bereits eigene Fallbacks,
+    // dieser Wrapper faengt nur den Fall ab, dass uuid.js (noch) nicht geladen ist.
+    const uuid = () => (typeof generateUUID === 'function' ? generateUUID() : `fallback-${Date.now()}-${Math.random()}`)
 
     const FavoriteManager = (() => {
         let favoritesCache

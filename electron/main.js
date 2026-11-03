@@ -24,6 +24,24 @@ const WINDOW_OPTIONS = {
     icon: path.join(__dirname, '..', 'favicon/favicon.svg'),
 }
 
+const APP_DIR = path.resolve(path.join(__dirname, '..'))
+const INDEX_HTML = path.join(APP_DIR, 'index.html')
+
+/** Externe Ziele (Web/Mail) duerfen nie in der App geladen werden. */
+const isExternalUrl = (url) => url.startsWith('http://') || url.startsWith('https://') || url.startsWith('mailto:')
+
+/** Oeffnet externe Links im System-Browser statt im App-Fenster. */
+function openExternalSafe(url) {
+    shell.openExternal(url).catch((err) => logWarn(ErrorCode.INVALID_NAVIGATION_URL, err, { url }))
+}
+
+/** Fenster aus den Standard-Optionen; erst nach ready-to-show anzeigen (kein Weiss-Blitz). */
+function createBrowserWindow() {
+    const win = new BrowserWindow(WINDOW_OPTIONS)
+    win.once('ready-to-show', () => win.show())
+    return win
+}
+
 // Directories that should never be scanned during page discovery
 let ignoredDirsPromise = null
 
@@ -138,14 +156,9 @@ function getAvailablePages(appDir) {
 }
 
 async function createWindow() {
-    const appDir = path.resolve(path.join(__dirname, '..'))
-    const availablePages = await getAvailablePages(appDir)
+    const availablePages = await getAvailablePages(APP_DIR)
 
-    const mainWindow = new BrowserWindow(WINDOW_OPTIONS)
-
-    mainWindow.once('ready-to-show', () => {
-        mainWindow.show()
-    })
+    const mainWindow = createBrowserWindow()
 
     function tryLoadSubpage(targetWin, url) {
         let targetUrl = url
@@ -170,17 +183,15 @@ async function createWindow() {
 
     function setupWindow(win) {
         const handleNavigation = (event, url) => {
-            if (url.startsWith('http://') || url.startsWith('https://')) {
-                event.preventDefault()
-                shell.openExternal(url).catch((err) => logWarn(ErrorCode.INVALID_NAVIGATION_URL, err, { url }))
-            } else if (url.startsWith('mailto:')) {
-                event.preventDefault()
-                shell.openExternal(url).catch((err) => logWarn(ErrorCode.INVALID_NAVIGATION_URL, err, { url }))
-            } else {
-                event.preventDefault()
-                if (!tryLoadSubpage(win, url)) {
-                    win.loadFile(path.join(appDir, 'index.html'))
-                }
+            // Jede Navigation wird abgefangen: externe Links im System-Browser,
+            // interne über tryLoadSubpage – so bleibt die App der Kontrollpunkt.
+            event.preventDefault()
+            if (isExternalUrl(url)) {
+                openExternalSafe(url)
+                return
+            }
+            if (!tryLoadSubpage(win, url)) {
+                win.loadFile(INDEX_HTML)
             }
         }
 
@@ -189,15 +200,14 @@ async function createWindow() {
         win.webContents.on('will-frame-navigate', handleNavigation) // Prevent iframe bypasses
 
         win.webContents.setWindowOpenHandler(({ url }) => {
-            if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('mailto:')) {
-                shell.openExternal(url).catch((err) => logWarn(ErrorCode.INVALID_NAVIGATION_URL, err, { url }))
+            if (isExternalUrl(url)) {
+                openExternalSafe(url)
             } else if (url.startsWith('file://') || url.startsWith('oidarwave://')) {
-                const newWin = new BrowserWindow(WINDOW_OPTIONS)
-                newWin.once('ready-to-show', () => newWin.show())
+                const newWin = createBrowserWindow()
                 setupWindow(newWin)
 
                 if (!tryLoadSubpage(newWin, url)) {
-                    newWin.loadFile(path.join(appDir, 'index.html'))
+                    newWin.loadFile(INDEX_HTML)
                 }
             }
             return { action: 'deny' }
@@ -205,7 +215,7 @@ async function createWindow() {
     }
 
     setupWindow(mainWindow)
-    mainWindow.loadFile(path.join(appDir, 'index.html'))
+    mainWindow.loadFile(INDEX_HTML)
 }
 
 app.whenReady().then(async () => {
@@ -219,7 +229,6 @@ app.whenReady().then(async () => {
             parsedUrl.search = ''
             parsedUrl.hash = ''
 
-            const appDir = path.resolve(path.join(__dirname, '..'))
             let filePath = fileURLToPath(parsedUrl.href)
 
             // HTML pages use absolute paths (e.g. /src/css/style.css) which resolve to the
@@ -227,7 +236,7 @@ app.whenReady().then(async () => {
             // fall back to resolving it relative to the app directory so Electron can serve
             // bundled assets just like a web server would.
             if (!fs.existsSync(filePath) && parsedUrl.pathname.startsWith('/')) {
-                const candidatePath = path.join(appDir, parsedUrl.pathname)
+                const candidatePath = path.join(APP_DIR, parsedUrl.pathname)
                 if (fs.existsSync(candidatePath)) {
                     filePath = candidatePath
                 }
@@ -235,7 +244,7 @@ app.whenReady().then(async () => {
 
             const resolvedPathInner = path.resolve(filePath)
 
-            const relative = path.relative(appDir, resolvedPathInner)
+            const relative = path.relative(APP_DIR, resolvedPathInner)
             const isSafe = !relative.startsWith('..') && !path.isAbsolute(relative)
 
             // Check that the resolved path is under the appDir to prevent directory traversal
@@ -243,7 +252,7 @@ app.whenReady().then(async () => {
                 logError(ErrorCode.PATH_TRAVERSAL, null, {
                     url: request.url,
                     resolvedPath: resolvedPathInner,
-                    appDir,
+                    appDir: APP_DIR,
                     referer: request.headers.get('referer'),
                 })
                 return new Response(JSON.stringify({ code: ErrorCode.PATH_TRAVERSAL, url: request.url }), {

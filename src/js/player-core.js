@@ -203,6 +203,11 @@
 
     // === RETRY MIT EXPONENTIELLEM BACKOFF (player.js + video.js) ===
 
+    /** Maximale Auto-Retry-Versuche, bevor aufgegeben wird. */
+    const MAX_RETRIES = 3
+    /** Basis-Wartezeit vor dem ersten Retry (Verdopplung je Versuch). */
+    const RETRY_BASE_DELAY = 1000
+
     const createRetryState = () => ({ count: 0, timerId: null })
 
     /** delay = baseDelay * 2^attempt (attempt = bisherige Versuche). */
@@ -287,6 +292,8 @@
         readJSON,
         writeJSON,
         removeSetting,
+        MAX_RETRIES,
+        RETRY_BASE_DELAY,
         createRetryState,
         getRetryDelay,
         clearRetry,

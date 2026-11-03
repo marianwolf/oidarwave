@@ -6,8 +6,6 @@ function initializePlayer() {
     const VOLUME_STEP = 0.1
     const VOLUME_PRECISION = 1
     const AUDIO_STORAGE_KEY = 'lastStationAudioUrl'
-    const MAX_RETRIES = 3
-    const RETRY_BASE_DELAY = 1000
 
     const {
         setupMediaSession,
@@ -17,6 +15,7 @@ function initializePlayer() {
         writeSetting,
         createRetryState,
         getRetryDelay,
+        clearRetry,
         scheduleRetry,
         resetRetry,
         setActiveStation,
@@ -24,6 +23,8 @@ function initializePlayer() {
         clamp,
         getMusicInfo,
         formatTrackDisplay,
+        MAX_RETRIES,
+        RETRY_BASE_DELAY,
     } = window.PlayerCore
 
     // === DOM & STATE ===
@@ -203,10 +204,7 @@ function initializePlayer() {
 
     window.addEventListener('offline', () => {
         // Pending Retry pausieren, Count behalten für Resume bei 'online'.
-        if (retryState.timerId) {
-            clearTimeout(retryState.timerId)
-            retryState.timerId = null
-        }
+        clearRetry(retryState)
         // Ohne Verbindung gibt es keinen Countdown mehr – Meldung sofort
         // aufloesen, statt einen eingefrorenen Versuch-Text stehen zu lassen.
         statusDisplay.clearMessage('error')
@@ -230,10 +228,7 @@ function initializePlayer() {
         if (hasError && wasPlayingBeforeError && currentPlayer.src) {
             // Ein sofortiger Retry bei Netzrückkehr (zählt als ein Versuch).
             if (retryState.count >= MAX_RETRIES) retryState.count = MAX_RETRIES - 1
-            if (retryState.timerId) {
-                clearTimeout(retryState.timerId)
-                retryState.timerId = null
-            }
+            clearRetry(retryState)
             retryAudio()
         } else {
             updateOverallStatus()

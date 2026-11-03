@@ -6,8 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const DATA_SAVE_MODE_KEY = 'dataSaveMode'
     const CAPTION_ENABLED_KEY = 'captionsEnabled'
     const CAPTION_TRACK_KINDS = ['subtitles', 'captions', 'metadata']
-    const MAX_RETRIES = 3
-    const RETRY_BASE_DELAY = 1000 // 1 Sekunde Basis-Wartezeit
 
     const {
         setupMediaSession,
@@ -20,6 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
         scheduleRetry,
         resetRetry,
         isEditableTarget,
+        MAX_RETRIES,
+        RETRY_BASE_DELAY,
     } = window.PlayerCore
 
     // === DOM-REFERENZEN ===

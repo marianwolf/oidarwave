@@ -6,7 +6,7 @@
     const EXPIRY_DAYS = 90
     const EXPIRY_MS = EXPIRY_DAYS * 24 * 60 * 60 * 1000
 
-    const storage = () => window.PlayerCore || null
+    const storage = () => window.PlayerCore
 
     function readConsent() {
         return storage() ? storage().readSetting(CONSENT_KEY) : null
