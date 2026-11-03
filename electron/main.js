@@ -160,7 +160,8 @@ async function createWindow() {
 
     const mainWindow = createBrowserWindow()
 
-    function tryLoadSubpage(targetWin, url) {
+    /** Findet die bekannte Seite fuer eine URL (inkl. oidarwave://-Routen) oder null. */
+    function matchPage(url) {
         let targetUrl = url
         if (url.startsWith('oidarwave://')) {
             const route = url.replace('oidarwave://', '').replace(/^\/+/, '')
@@ -171,25 +172,47 @@ async function createWindow() {
 
             for (const page of availablePages) {
                 if (matchesRoute(pathname, page)) {
-                    targetWin.loadFile(page.file)
-                    return true
+                    return page
                 }
             }
         } catch (err) {
             logWarn(ErrorCode.INVALID_NAVIGATION_URL, err, { url })
         }
-        return false
+        return null
+    }
+
+    function tryLoadSubpage(targetWin, url) {
+        const page = matchPage(url)
+        if (!page) return false
+        targetWin.loadFile(page.file)
+        return true
     }
 
     function setupWindow(win) {
         const handleNavigation = (event, url) => {
-            // Jede Navigation wird abgefangen: externe Links im System-Browser,
-            // interne über tryLoadSubpage – so bleibt die App der Kontrollpunkt.
-            event.preventDefault()
+            // Externe Ziele (Web/Mail) immer abfangen und im System-Browser oeffnen.
             if (isExternalUrl(url)) {
+                event.preventDefault()
                 openExternalSafe(url)
                 return
             }
+            // Sub-Frames (isMainFrame === false; will-navigate/will-redirect haben
+            // das Feld nicht und betreffen ohnehin nur den Main-Frame) laden im
+            // Frame selbst: bekannte Routen durchlassen (der file-Protokoll-Handler
+            // resolviert absolute Pfade gegen APP_DIR), unbekannte nur blocken –
+            // niemals das ganze Fenster einreissen.
+            if (event.isMainFrame === false) {
+                if (matchPage(url)) return // Navigation im Frame zulassen
+                event.preventDefault()
+                logWarn(ErrorCode.INVALID_NAVIGATION_URL, null, {
+                    url,
+                    reason: 'frame-navigation-blocked',
+                })
+                return
+            }
+            // Jede Main-Frame-Navigation wird abgefangen: interne Ziele über
+            // tryLoadSubpage – so bleibt die App der Kontrollpunkt.
+            event.preventDefault()
             if (!tryLoadSubpage(win, url)) {
                 win.loadFile(INDEX_HTML)
             }
@@ -236,7 +259,13 @@ app.whenReady().then(async () => {
             // fall back to resolving it relative to the app directory so Electron can serve
             // bundled assets just like a web server would.
             if (!fs.existsSync(filePath) && parsedUrl.pathname.startsWith('/')) {
-                const candidatePath = path.join(APP_DIR, parsedUrl.pathname)
+                let candidatePath = path.join(APP_DIR, parsedUrl.pathname)
+                // Routen (/impressum, /video, ...) zielen auf Verzeichnisse –
+                // genau wie ein Webserver served die Directory-Default index.html.
+                // Ohne diesen Schritt scheitert z.B. ein Frame-Load mit ERR_UNEXPECTED.
+                if (fs.existsSync(candidatePath) && fs.statSync(candidatePath).isDirectory()) {
+                    candidatePath = path.join(candidatePath, 'index.html')
+                }
                 if (fs.existsSync(candidatePath)) {
                     filePath = candidatePath
                 }
