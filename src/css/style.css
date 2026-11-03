@@ -339,6 +339,10 @@ nav .nav-link[aria-current='page'] {
        `background-image` ist nicht animierbar – die frueheren Gradient-Basen
        sind beim Zustandswechsel deshalb hart gesprungen. Opacity blendet
        dagegen auf dem Compositor weich zwischen Hover/Aktiv. */
+    /* appearance: none deaktiviert die UA-/Bootstrap-Chrome (bootstrap.min.css
+       setzt `button{-webkit-appearance:button}`); damit sind background, border
+       und radius die einzige Quelle fuer die Optik – unabhaengig vom Engine. */
+    appearance: none;
     background-color: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.08);
     color: var(--color-text-main);
@@ -362,7 +366,8 @@ nav .nav-link[aria-current='page'] {
     overflow: hidden;
     text-align: center;
     text-wrap: balance;
-    accent-color: var(--color-brand-primary);
+    /* Kein accent-color: wirkt nur auf Formular-Widgets (Checkbox, Radio,
+       Select, Meter), nie auf einem schlichten <button>. */
     touch-action: manipulation;
     /* Kein will-change: Dauerhaft eine eigene Ebene pro Button waere
        Speicher-/Rasterisierungskosten ohne Nutzen (Hover-Transitions
@@ -867,6 +872,8 @@ footer a:hover {
         border: 1px solid #666 !important;
         color: #000 !important;
         background: transparent !important;
+        /* Aktiv-Glow ist Screen-Feedback und druckt sonst als grauen Hof. */
+        box-shadow: none !important;
     }
 
     .station-btn::before {
