@@ -1,120 +1,268 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:306651102985cd89cbef2e6a8e9717a4bab2482aa901fa6fc38c8fdbccfa8ff1",
+  "pageVersion": "sha256:977b3e8487e00e13ed4fe1812d4c58cb79e0726305643cebb96cc0b2b2144971",
   "claims": [
     {
       "id": "claim_bd6619f54f0c49949f5b083b7e239c7c",
-      "statement": "In the audio player, selecting a station via a button click clears any existing retry state, updates the UI to reflect the selected station, persists the station URL to localStorage, and initiates metadata fetching if a metadata URL is provided.",
+      "statement": "In the audio player, selecting a station via a button click clears any existing retry state (clearAudioRetry), marks the station as actively wanted (wasPlayingBeforeError = true), updates the active button and currentStation display, persists the station URL to localStorage under AUDIO_STORAGE_KEY = 'lastStationAudioUrl', restarts metadata polling if a data-metadata-url is present (otherwise shows 'Metadaten nicht verfügbar'), clears the Media Session, and sets audioPlayer.src followed by load().",
       "evidence": [
         {
-          "resource": "repo://src/js/player.js#L183-L213",
-          "version": "repo-lines-v1:sha256:9f76fb9f162f17da155c3473b3c99e212f49eb57472effcc2affc3a4a4be6bf5:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc4MGE3ZGE3NGEyZmY2ODMwZDZjMjRlYTc2ZjQ2YjE3YWIzMTMzN2I1MGNlNTVhMjUyMDM4MjU5YjZjMDlhZDgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjAyZjEzZjdlYjE1Y2I5MzYzZjA2ZjkyNjgwYzhmYzdkOWQ5M2RiMjMxZTgzMDc3NGE3NWE5MjQ2NWYyNDA3YTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImRlMWU5NmIzNTFmMTlmOWUxNzBkNTc1NTBkM2QwNjk1YmRjZjY3N2MwMzkzN2UwNDM5NDNhMWMxZGIzMTY2MzkifQ"
+          "resource": "repo://src/js/player.js#L247-L261",
+          "version": "repo-lines-v1:sha256:a0ee376fd7eeceb4de9afca9612eaab6d173f9f265e8a03a485c089944e45a96:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc4MGE3ZGE3NGEyZmY2ODMwZDZjMjRlYTc2ZjQ2YjE3YWIzMTMzN2I1MGNlNTVhMjUyMDM4MjU5YjZjMDlhZDgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE4ZTEzNDI0M2QzYTQ5MTI2MjZmMTIwNjA1NzlmNGQzZTNkODZhZDBkMzM1MGIyZTI3MDI1Nzk0MmVjZmNhNDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJmMjdiYTUwYjcxZmU4MGY2OTk2ZDY3NjZhMWZhZGM1NTllYzY4YjY1MGQ4ZDhjNDlmYzZlMGVmMjIzMTkxZGQifQ"
+        },
+        {
+          "resource": "repo://src/js/player.js#L263-L272",
+          "version": "repo-lines-v1:sha256:719c97195cac45366dd71d0663c76dd1fec5c4b279612f37dc9c9bc37cb8cb47:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ5ZjkxMDJhZTE2OTIzOTY0MTc2YmQ1YTVlOGRkZmMxYmY0M2U4MmMxOTliMTM4YWFiMzQzMzM4OGY5YTkzMjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcxNGU4OWMzY2Y5OWIwZmU0MmQ3NWI2NGU4NzFkYzQzZWRlOWRlOWNkMzUzYzZmNThmYzc4NGVkNmFmZmRiYjQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA1N2ZjOTQxM2RjODRlMzdhMGEyNmY1YmQ3ZTcwYjZhODdiY2YwNzgxYTk3M2Q2YjQ2MTg4MTRhNGViNmU3OTIifQ"
+        },
+        {
+          "resource": "repo://src/js/player.js#L8-L8",
+          "version": "repo-lines-v1:sha256:359b2a097c7e8ec9e78e522f73c6e11e4497c68cdd8499278028c9e791b48ee4:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzU5YjJhMDk3YzdlOGVjOWU3OGU1MjJmNzNjNmUxMWU0NDk3YzY4Y2RkODQ5OTI3ODAyOGM5ZTc5MWI0OGVlNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzU5YjJhMDk3YzdlOGVjOWU3OGU1MjJmNzNjNmUxMWU0NDk3YzY4Y2RkODQ5OTI3ODAyOGM5ZTc5MWI0OGVlNCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMGUyOTY1ZDQzOWEyMGZmODFlN2IwNzczZWI3YTVhM2ZiZTZiMzg2NTJiN2I4MDQ0OTM2NDA1MzNkZjY3ZTY0NCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjY0M2E4ZGZkNTY4NDU2NjdmMGM2YmUxMDZlMWViODhhN2JiNjcyMWU3YjM5YTc3ZjViMTRhMjIzY2ExM2ZhZiJ9"
+        },
+        {
+          "resource": "repo://src/js/player.js#L83-L88",
+          "version": "repo-lines-v1:sha256:0778d18a37c68c24b6e43de51ab0250b27822a2f8acd16e00a927ef1ea2fe090:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjlhYmM3MzdiNTQ0NjA2Zjk3MzE4MjQ2NDZiNGJkMWZlNTAyYWUyNTdkNGJhZGI1OTU4NTAxOTNkOWY2YjhhMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjVhMjU5MzAzODdhNTNjZjhhNmVhZDU0NzA3ZGQ2MDEwNzY4M2VkMTI5YzRhYWZlM2Y3YjAwOGY5ZDYyYTA2OSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMmYzOGJiYTljOWI1MDU1ZjBmMjYzNjhmZTYwNGI2Nzg1NDYwYTNhYTY1YjEwMzhiZTgxZWI2MzU1MTYzYzFmMSJ9"
         }
       ]
     },
     {
       "id": "claim_cbfb1d8df7f04de68b6fc3f27ce38dec",
-      "statement": "In the video player, selecting a station via a button click clears status messages, updates the current station display, and initializes HLS playback via the setupHlsPlayer function while configuring the Media Session with station-specific metadata.",
+      "statement": "In the video player, selecting a station via a button click clears status messages, updates the currentStation display, initializes HLS playback via setupHlsPlayer (hls.js, native Safari HLS, or an unsupported-format message), and configures the Media Session with station name as title, 'Livestream' as artist, album 'Oidarwave Video', the video element as media, and clearMediaSession as onStop.",
       "evidence": [
         {
-          "resource": "repo://src/js/video.js#L263-L274",
-          "version": "repo-lines-v1:sha256:ad1a92362212d545a6f5a0b67ceae046fabb4d96c3f6be2a9aa3631385162693:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNmMmFmYjNhYzg2YjRmZDJmYWZmNDkwOThhZGExODRhZGVmNjg1NmViYTI3ZjZiNmMzNzc1MjE5YWZjOGE3MDciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkOWUxMjU0NjQyNTU3NmQzZGVhZThjOWI5ZGJmMTI4ZDVkNmRkYWY1ZDdmZTg1NzkzNDkyN2RlZmZhM2I5ZGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZjMDIwM2NmMjQxZmQ5OGU0NWM4OWQ3OWMxMjg3OWVlMTc1NGY4ZTllY2ZhYzBkNjFmODRkMDMwYmIzMWM3M2MiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA2MzhiZWY2ZTc2Y2Q5ZWY2ZjRjZDFjZTg4MmJlYmNkYTFjNmRmNTNhNWM1YzM0MDE1ZTBmY2NjMzM3OGE4NTcifQ"
+          "resource": "repo://src/js/player-core.js#L59-L84",
+          "version": "repo-lines-v1:sha256:7b2f284d03a41eef7ff256425c591e21606629a7ce8f7a330f03f18e34c72335:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBkZWY4NjFkYjQ5ZmYzNTI4Y2JhZWFkZTlkNzZkNGM0N2M3YTBiOWRiNDI4ZDNlZmI4Mzg2OWEwN2YxNzM5MmQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhlYzE1NzNhNmNiZWFiZDY0NWIyZjlhZjU1OGQ5ODdiOGRlZWZmMGNkZGUzN2NlOGQ5MTAyM2Y3MWUxYmU2ZmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk4ZTM2YWIxZGNhNjcxYTI2YzNjZjZhY2Y3YmViMDY5ODJiZjQyNTdiYjZmOGUyY2E2OGQ4MTJmMDBjMjgwYzEifQ"
+        },
+        {
+          "resource": "repo://src/js/video.js#L100-L113",
+          "version": "repo-lines-v1:sha256:33d26ce6bfc0bf2c8d5c90a7bafd37c2cff2a2c025a7bac60b89567b93dfa579:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY1MGFkZjg3Y2IyNjAxM2NjZTk1NWRkNDIzMGI4MmNkMTczOGIwNTY2MWIxM2MyODFhNjc5NTEzMDA5ZjQ5YjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRmOTJkY2RmNjhkNDlmOTEzMjI4NDZhZjZjMGJlY2VhZGQwZmY3MWY0ODg1ZmQ4MWU1NDY4NzBjM2JhYmFlNDMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhjMDExZmM5MTVjM2FlYjQ4YTAxODMxZTM0NzExMDI3YzM5MmU2ODRjYjg0NWQzNDljOGJjZDc3MDg0OWEwNDcifQ"
+        },
+        {
+          "resource": "repo://src/js/video.js#L235-L246",
+          "version": "repo-lines-v1:sha256:b2733a0320787642b8d01b41d20b0e1ab1a85c28bf344da79796640f3f0c2fb7:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNmMmFmYjNhYzg2YjRmZDJmYWZmNDkwOThhZGExODRhZGVmNjg1NmViYTI3ZjZiNmMzNzc1MjE5YWZjOGE3MDciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE4ZTEzNDI0M2QzYTQ5MTI2MjZmMTIwNjA1NzlmNGQzZTNkODZhZDBkMzM1MGIyZTI3MDI1Nzk0MmVjZmNhNDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIwNWQxMWQ5YmNjNDBkYzBmMjNmNmU0ZGU3YTZlZmI4OGEwMzdjMGZlMzA3ZmRhMDEwNWRhMDdlYzIxZTEwMDUifQ"
         }
       ]
     },
     {
       "id": "claim_6bae1c69027f4e2888266956d65d2423",
-      "statement": "The audio player responds to media events (loadstart, canplay, playing) by updating the status indicator, resetting error and attempting playback on canplay, and starting station history tracking and clearing media session metadata on playing.",
+      "statement": "The audio player reacts to media events: loadstart clears the stalled flag and updates the overall status; canplay starts playback via playMedia() if paused and resets error/retry state; playing clears error/retry flags, sets wasPlayingBeforeError, starts StationHistory.startStation(src) and sets a baseline Media Session; pause (without error) cancels pending retries and stops history; waiting marks buffering; error sets hasError, stops history, and schedules an auto-retry.",
       "evidence": [
         {
-          "resource": "repo://src/js/player.js#L38-L57",
-          "version": "repo-lines-v1:sha256:c4664d10105a190bc8965d5986b19fadf4e02823380c33abef56c55066980586:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI4NWZhZjQ1Yzg3ZTc3OGU4MWQyYTU5NzlhZGI3ZTcyNGM2OTI2Y2ZjZGRhYzNiMjA1YTA4NjE3YmQzMTc1NTIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFlNjczYWJkNDU3YTk3ZWVhMTdhNjAwNjJlYjBmYWVhNmJkZjA5NDg2OGNjNmI4ZjhjMGViZGEyZjYxZWQ0MmYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjMzOTdkZmU1OWNjZjE0YjY3NjNkYTM1NjM0ODhiZDc1NWVjMTIxZGI0OTE1MWUzYmRiYzkzZTA5NDQ5NzYzY2QiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImVlMmYyYjZkYmZiYjczNTBlYzM0MjE2ZjFhNTE2ZThjMWQxZjQ2MjYyYTA5NjYxNzgyODc5NWJkYjliZjcxODcifQ"
+          "resource": "repo://src/js/history.js#L116-L127",
+          "version": "repo-lines-v1:sha256:47d3accc9f650a917702ab1ae51703eb8ae0b3b373e6d9880987b8d465383750:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFlM2MyNjE0MDgzMmFkZjRjNjA4Njc3NDI5N2RjY2NhNzZkMTZhNzVmMGJmMzliMDg3MjhlMjliMDVhOGMwMWUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRhOWY4NmQyOGU3ODRmOWZkMzFmYjcyZDE1ZjYwY2JjZWFhZmRkNjY5Y2JkNWI2ZGE3ODg4YTAyMzMyMWViYjkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjgwOWJiMDFiNjhmYmJmOTQ0YmU4NjhiYTQ4ZDM1YzQ3YWZmOGRlYTQyNDAyZjBlY2NmOTU4ZDYzODQxZDZlZTUifQ"
+        },
+        {
+          "resource": "repo://src/js/player.js#L138-L141",
+          "version": "repo-lines-v1:sha256:86a76dff258fd6bafbf4647975898d32cd96151005ba8d8694faa5ebb367c283:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMmJiMjMxNDU1YWIzMTU4NGQxZjk3YWMwZDVhN2M5YTVmZGFjNWIzODBiZmYyZGE2ZDAzZmRlNDQyOThjYjZhMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZDM4MzU0OTExNTQxZTkxNmNjMmE5YzdhNzY3MWFhNTVjMGVlYTI3YTU2NTZhNDRhNTQ4OGQxZjk1ZmJkZmViNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTUzYzQ5MWE4OGI0YTcwMWQwMWUzYTIwZTdhYjVmYjRjMTRlZjc0ODE3MzdjYmQ1MTZjZjJjMmM0NGI3ZDNkYiJ9"
+        },
+        {
+          "resource": "repo://src/js/player.js#L145-L198",
+          "version": "repo-lines-v1:sha256:49e01e4541870368c89abf062ac67fb9e60064dc6b52b8158b2a48c7beb2fb86:eyJzZWxlY3RlZExpbmVDb3VudCI6NTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI4NWZhZjQ1Yzg3ZTc3OGU4MWQyYTU5NzlhZGI3ZTcyNGM2OTI2Y2ZjZGRhYzNiMjA1YTA4NjE3YmQzMTc1NTIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRjNDE5MGIxNGJhYWYxMWE3OGE0ZjlhY2YyYmFkMTYzZmFiZDE3ZmNkYmJiM2M5YzhjNDRhNDFmMzljOTI4ZGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU1M2M0OTFhODhiNGE3MDFkMDFlM2EyMGU3YWI1ZmI0YzE0ZWY3NDgxNzM3Y2JkNTE2Y2YyYzJjNDRiN2QzZGIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIxMDhlOTU2ODNjNmU2OWIwN2QyNzExYzNmM2Q1N2JkZmNkMTU1MWNjMTMxMWJhYWEzNGRlMmQzNWUzNzM1YjEifQ"
+        },
+        {
+          "resource": "repo://src/js/player.js#L70-L81",
+          "version": "repo-lines-v1:sha256:ab19035f7cde73d0cc94954f9af87ea525b83bcf6d90f472671f2148cdb97f4e:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI2NzY3OTVkNWM5MTRiYTk1ZjlhNDI2ZDRhYTcwNmU5MjRlNGU5ZDcwYWExOThkMDQ0YmRhYjY1NzJhYmNhMTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjUwM2QwMzEwZjMzOGZiMjg2N2FkMWJmZDc5ZDg1ZWY1OGU2MDU1MGQ3ZmU4NzQxNWM1MjUxNjM0OWNiMDUxNzMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjY5YWUzYzgxMTUzYzhhMGNlMTYzYTU1ZWQ4MGE5NzQyODZiYjVlNzBkMDE0NTI3NTgwOGE3MTE1N2QxNWNhMDAifQ"
         }
       ]
     },
     {
       "id": "claim_cc674c567cf4429e84e26e70405c4683",
-      "statement": "The video player initializes HLS playback by either using Hls.js (with XHR configuration and event listeners for manifest parsing and errors) or falling back to native Safari HLS support, and upon successful manifest load, attempts playback and applies caption and quality settings.",
+      "statement": "The video player initializes HLS playback either with hls.js (loaded from CDN on video/index.html; crossorigin=anonymous, xhrSetup with withCredentials=false, loadSource + attachMedia, MANIFEST_PARSED handler that plays, applies the data-save quality level and captions) or, on Safari, natively (crossorigin removed, src set directly, one-shot loadedmetadata handler that plays and applies captions); if neither is supported it logs HLS_FATAL and shows a persistent unsupported-format message. ERROR events are logged with codes mapped via window.HlsErrorMap and only fatal errors trigger recovery.",
       "evidence": [
         {
-          "resource": "repo://src/js/video.js#L126-L244",
-          "version": "repo-lines-v1:sha256:6a4a553b317a80dd82ecb51e3fe7c1add13334458b33f5b29e3dcb4f23c4e7ab:eyJzZWxlY3RlZExpbmVDb3VudCI6MTE5LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJmNTBhZGY4N2NiMjYwMTNjY2U5NTVkZDQyMzBiODJjZDE3MzhiMDU2NjFiMTNjMjgxYTY3OTUxMzAwOWY0OWIzIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiJhZDllMTI1NDY0MjU1NzZkM2RlYWU4YzliOWRiZjEyOGQ1ZDZkZGFmNWQ3ZmU4NTc5MzQ5MjdkZWZmYTNiOWRkIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJkM2IwNTNjY2I0M2M3ODlmYjI0MjM0ZDYwNmE3ZDI0NmM3OWIyOGRlNDgzZjUxM2JlMWQxZjY2OTUyMDM2MTg5IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJiNDkxZWQ4YzEyMDRhZjNmNzQ4NmQwODBiMzlmYTNhZTU0MWVmYzdlMmIwMThjYjQ5NzE5YjQzMzQ4NDY5MGNjIn0"
+          "resource": "repo://src/js/video.js#L100-L113",
+          "version": "repo-lines-v1:sha256:33d26ce6bfc0bf2c8d5c90a7bafd37c2cff2a2c025a7bac60b89567b93dfa579:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY1MGFkZjg3Y2IyNjAxM2NjZTk1NWRkNDIzMGI4MmNkMTczOGIwNTY2MWIxM2MyODFhNjc5NTEzMDA5ZjQ5YjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRmOTJkY2RmNjhkNDlmOTEzMjI4NDZhZjZjMGJlY2VhZGQwZmY3MWY0ODg1ZmQ4MWU1NDY4NzBjM2JhYmFlNDMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhjMDExZmM5MTVjM2FlYjQ4YTAxODMxZTM0NzExMDI3YzM5MmU2ODRjYjg0NWQzNDljOGJjZDc3MDg0OWEwNDcifQ"
+        },
+        {
+          "resource": "repo://src/js/video.js#L122-L149",
+          "version": "repo-lines-v1:sha256:9fa1a8450c495f87255d67640e0ad7bc2fa2b60fa23502a13eb51da27f808fea:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkZTRhYWY1NGEyZGEwOTdmNTcyMjlkY2M5MWIzNjk0NDE2Y2RlOWRhNTYyMGYyNGNkNmE3NDZjNTljYmEzZjYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk5OWJkZWZlZWFjYTYzNDBlMDI5MGRjODZlODg5Yzg5ZDVlMTg5YWE1YmE0NGI1ODViM2I3MDczNGY0YTYyZDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNkODhjZmRiMTFlMGRkZDhjMWI3ZTdhY2FhODg3ZWQ5MDc4MjdiNWE0NjA3N2NkNDdjMzUzODMxNjNhNTY2ZjAifQ"
+        },
+        {
+          "resource": "repo://src/js/video.js#L205-L218",
+          "version": "repo-lines-v1:sha256:789ef1cafc79689051e35bd5d53ac079b1bcd5d52bfc54d9ba68f04735a33fcb:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZhOTM4ZTRmNzc1MmU0OGZjODcwMjAyY2RkZDkxMWY1YmJhNzdhMGFjNzY1ZTcwZmM2OTc4N2Y3NGRiYWM2YjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ4NzU3Yzk0OWRiOGI4OThhODkwMzgzNTdjNDA1MmIxMjZlMzVlY2I4ZDJhYjczZjQ1MmJhNDE4YjhiYWEyOWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjYzMzJkNmEwMjE3ZGQ3NTM0YThmM2I5ZjZlNWUzN2E0NDhiNWRmODZjZjFhYjZjNDM3N2YxNmVlMjMxZjYxZjAifQ"
+        },
+        {
+          "resource": "repo://src/js/video.js#L74-L96",
+          "version": "repo-lines-v1:sha256:90361af8ae84bcb1f93cd9f6ab76fbcc94b85f7ee67e3b9727bdc77dc2815599:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY1MWVlMTZiOTY1NmQ5NzcyNGY1NzYyNTM3MGZhNDM4YThjMTVlNDY3NzU2MzY4YjE4Nzc4OGY1NTUxY2Y2ZmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImM1YjNiNTJmYzI0NGE4NTMyNmQ5ZWRhODE2YjllMGE0NTlkMmI0MDU3YzA2YWNiZjQwNGM0Y2ZhYzkxMGQ3YTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjRmOTJkY2RmNjhkNDlmOTEzMjI4NDZhZjZjMGJlY2VhZGQwZmY3MWY0ODg1ZmQ4MWU1NDY4NzBjM2JhYmFlNDMifQ"
+        },
+        {
+          "resource": "repo://video/index.html#L53-L53",
+          "version": "repo-lines-v1:sha256:048e311c1724589f370d23a9ec1f7cfcc79539afc6307a589ff5f09d89264372:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDQ4ZTMxMWMxNzI0NTg5ZjM3MGQyM2E5ZWMxZjdjZmNjNzk1MzlhZmM2MzA3YTU4OWZmNWYwOWQ4OTI2NDM3MiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDQ4ZTMxMWMxNzI0NTg5ZjM3MGQyM2E5ZWMxZjdjZmNjNzk1MzlhZmM2MzA3YTU4OWZmNWYwOWQ4OTI2NDM3MiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTQ3YWNiMDdmMTU1NGE4NjRjYjBhYTcwNGQwOTU5ZDc3YzIwNGZmZDUxNGYzMWEwZWI4M2JlNjU0YjQ4N2Y5YyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODFiYTMyZTdkZTU2ZjQ3NTg0ZjY2YzBhZjM0N2Y1NmNhYmFjMzM1ZjI2YTY2YTQ4YzMwZmZhNzM0MGFlY2FhMyJ9"
         }
       ]
     },
     {
       "id": "claim_85138beba3b04e06952441df47ce573a",
-      "statement": "The audio player fetches metadata from a configured URL at regular intervals, parses the response as text or JSON to extract track information, updates the UI and Media Session with the current track details, and handles errors by clearing the Media Session and showing an error message.",
+      "statement": "The audio player polls metadata every METADATA_REFRESH_INTERVAL = 3000 ms only while the page is visible and online, aborting the previous in-flight request via AbortController; it parses .txt as text (first line = title) or JSON via getMusicInfo (song_now_title/playlistItem.title and artist fields), formats 'title - artist', updates #currentSongTitle only on change, notifies window.notificationManager.handleTrackChange, and updates the Media Session; on failure it logs METADATA_FETCH, shows 'Metadaten nicht verfügbar', and clears the Media Session.",
       "evidence": [
         {
-          "resource": "repo://src/js/player.js#L236-L280",
-          "version": "repo-lines-v1:sha256:faba321be223df481e86a3db41fddfac916b2617a3ec7667dfa2a948f5d12d88:eyJzZWxlY3RlZExpbmVDb3VudCI6NDUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRmNjg2YjRiZjFiZTBjYjVkNGJlYzkzNWQ3MmQxMjE3MmVmZGNjOTcyOGI4ZjA2NzRjOTA2ZGI3NmEwOTUxYzciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImVlNDgyY2E2NDUzNTQ4ZDRiOGRmZjIzZDkyZmNkMzc5MWFkMGIwOTBjYmE2OGNjODRiMjQ4MmJkZDcyODQ5ZjUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI4YzMwZDg0ODQ0YzI4MWI1YzBkNDU5YTBlODQ1MThiYjFhOTRiNDcwYTVhMmM1NmYyZDk0NzhiZjhhYTViNzEifQ"
+          "resource": "repo://src/js/errors.js#L46-L74",
+          "version": "repo-lines-v1:sha256:1c25c1c4dbbd3e05ed5cd7e5bcf6dd79a6fde6c0a96a37d85e937a3a0a5ecaf8:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZlOGFiNGI0MDNmOWQ4OWEwNTRkODQ4ODY3NWViMDUwZmUwOTIzZmQzY2I0YjllOTZiMTA4MjQ3YmNlY2FmY2EiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg1ODBiNzY1MThkYWU5NzlmYWViZDAyMzY3YTI5MjkyYTUwZDk3NjA5MjI1MWEzOGE2Y2UzMDg4MGJhNDI4MjUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjAzZDZkYzUzMmJkOGI3M2Q1OWM1NzlmNTgzZWU0MmYwNzYwNmRlZTU5YzA1NTg1M2NhOGEwYWEyZGMzZjkyNzUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjcwZmY5MDZkY2Y1YjU3ZmUwYTc1NzEzMWI1YmVhZDM1ZWVhYTJhODVjMGQ0NjE1NTY0ZGM2YTBlYmYyYjMxMWIifQ"
+        },
+        {
+          "resource": "repo://src/js/notification.js#L87-L102",
+          "version": "repo-lines-v1:sha256:c644b94f10c2dc2c1e373cc775f8a86fb41365cc67d1c41286a3da0d91f1e1dc:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE4ZDY2MGZhNDMyMzkzMGQ2OWFhOTBmNjVmYzcyYjgzZmE4MGNkYWM1YTYzMzY5ZTNjZTY1NTUwY2I2NDNmNmEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRkZWUwNmQ1MzU1NzVjMjA2YTM0Y2Y0M2MwZGUzZjRmNTVkYWVhZGI4NTc5ZjdlMDE5NWMwODU3MmNjZDgyZTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ4MWFlZTYyYzY1MWFjMjYwZjhiN2EwMTkzNDE5ZWI2N2EyN2Q4NjEwZjk1NTcxYTQ4OWQzZjI0OWQzOTFiZGMifQ"
+        },
+        {
+          "resource": "repo://src/js/player-core.js#L261-L271",
+          "version": "repo-lines-v1:sha256:3a72a453e847fb8841f912e867528b9fcb1a779bd6040bedd575fc2983d83335:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxNjQxNzAxY2U3ZTU5OWNhNTgzYjExOWZkNjUzMWQzOGE4YzRhYmUxYzFiOTE3NWE1ZTIwZjE0MTcxODlmMzIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZjMDExOTBjMDE0MzZkOTRkNzI3MmU0MTdjMTYyODAzYjc0YjBjMTA5MDQ3N2ExYjdiZDQ4OGQ2M2VmMTBjOTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjViYmRlZTJiNmUwZjgzYmMxZmUyM2YwN2M2MDM2ZDllOTY4YTkxZjRiMmU0NTIwMWRmZGM3YTdiYWE0ZTIzY2YifQ"
+        },
+        {
+          "resource": "repo://src/js/player.js#L275-L303",
+          "version": "repo-lines-v1:sha256:4e9f8de3b53dc26d6019d87e6982a77d8976535472edf67d89e9d511b12926a7:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjgwOWYyNzU4MmY1YTFiYmZmMjJiYTJjNWZkNDhkNGRiOWYzYWE4MGQ2YTRmYjM4MDg1ZWM1NzFiZjUzOTIxODMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjFiN2Y3NDFlYTk3MmZmOWIwNWRjNWEyZmQzZjY3NmIyM2FiZjZmZjM3OWQ2Yzk0NmEzNmUzNGM1NmNkMjkwODIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjllMTM5NTc2MWQ0YWJhOGFiZjc5N2FhZGM4YzBiNjUwY2QyZjUwNzkxNzBiMmU4MzQyMWMxNGI3YjA5NjI4MDMifQ"
+        },
+        {
+          "resource": "repo://src/js/player.js#L327-L359",
+          "version": "repo-lines-v1:sha256:a46c06be05b0e336449c5e772a4746285a957172f8a95ab842f6e311e6038149:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRmNjg2YjRiZjFiZTBjYjVkNGJlYzkzNWQ3MmQxMjE3MmVmZGNjOTcyOGI4ZjA2NzRjOTA2ZGI3NmEwOTUxYzciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjEwZGQ5ODVlNGI1ZjZiZDg3ZGQxNTZkYTE1OTg4ZDA0ZDA4YTU2ZGQwN2IxZGJmYjAwMDEwYzM1NjQ5NzYyNDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk3YWE3ZDdmNjY1MDk1YjFjNzUyZDI5NjU4MGI2YTNjNTUwM2I5Y2EyNDE1OWI5Nzg3M2UxNGM4NWQxNzcyNzQifQ"
         }
       ]
     },
     {
       "id": "claim_ac69a1ffc3e6431cb484122b34762c74",
-      "statement": "Both players integrate with the Media Session API to set metadata (title, artist, album, artwork) and configure action handlers for play, pause, and stop commands, enabling system-level media controls.",
+      "statement": "Both players integrate with the Media Session API through PlayerCore.setupMediaSession, which sets MediaMetadata (title/artist/album with fallbacks Livestream/Oidarwave Radio/Oidarwave, artwork from FAVICON_ARTWORK), de-duplicates identical metadata via lastMediaSessionKey, and registers play/pause/stop action handlers (stop also runs onStop, which both players set to clearMediaSession); clearMediaSession resets the key and sets metadata to null. The audio player updates it with track metadata on playing and on each successful metadata poll, the video player sets static station metadata on selectStation.",
       "evidence": [
         {
-          "resource": "repo://src/js/player-core.js#L24-L57",
-          "version": "repo-lines-v1:sha256:a0ebea2d5faced08c08ad909c3aa5fc168b334809251ec6005f8f38cc2895431:eyJzZWxlY3RlZExpbmVDb3VudCI6MzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM5Y2JiYzY1NDY5ZGIxY2EyODQyZWZkOTdkZjdlZTJjZTZjYzE1NzE0ODJkMDFhMThiNzkwYTEwYzdjNTEwZjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkOWUxMjU0NjQyNTU3NmQzZGVhZThjOWI5ZGJmMTI4ZDVkNmRkYWY1ZDdmZTg1NzkzNDkyN2RlZmZhM2I5ZGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZhNWI2MmNjZjhlYzg0NTVjOWZhMWUzYjM2ZTAyZjZmM2JlZDJlNjU2NTU0OTg3NTQ5MTRlZTNhOGM5NDA5ODMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImI4MzFhYTQ0Y2U5OThjNjJhZjY0ODU1OTEwNDQyYjJlZjU1ZjRkNGY3OTgxZTNjMGM3ZTYwMDRiY2MxMGQxMDEifQ"
+          "resource": "repo://src/js/player-core.js#L34-L38",
+          "version": "repo-lines-v1:sha256:53eac727e784eefb7e4842705691fbdee73609c62811e839be0249d55a5611a4:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWIyMDNkMTdhMDBmOTFlMGNjZGQ5NzJhNDg2NzY1NzM2NDFkNmE1MThlMmFhOGNiNDhlNTYwN2ZiNTQ5ZmZmZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZGQ0Y2E0ZjhiZWZiNDNmYjE3NTI5N2RkMDVjYjcyMDQ1MGViOWI3YmI2YzRkOWZiYWYxODVmYjFlYzM1Zjc5ZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDg2YWRiYzA5Y2YxY2U4N2U0NTFlNzZiOGJhZjMxMTUwMzkyMjgxZWMxZDg2MGEwNzQ4ODI1NGI0ZDc2ZGUxMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYTA0YzVlNGJjMmFiMzgyZDAzYTE5ZjYwNTAyMTExOWJmZTJlMjBmOThlODgwZTE2N2Q0Nzc4Y2FhMWM0N2I5NSJ9"
+        },
+        {
+          "resource": "repo://src/js/player-core.js#L47-L92",
+          "version": "repo-lines-v1:sha256:72f1bcdceef89ae742af19d201d8f31ca09aa0367e590e4cfe3b0d9a6e07efda:eyJzZWxlY3RlZExpbmVDb3VudCI6NDYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE5OTIyN2ExNmYzYTc4MzcwZWU1YjEzYzZmMTg5MDA1ZTU2M2U1NjhjN2VhN2FhMzQ1ZmE4NTVjMDY0MTVmOGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZhNWI2MmNjZjhlYzg0NTVjOWZhMWUzYjM2ZTAyZjZmM2JlZDJlNjU2NTU0OTg3NTQ5MTRlZTNhOGM5NDA5ODMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImI4MzFhYTQ0Y2U5OThjNjJhZjY0ODU1OTEwNDQyYjJlZjU1ZjRkNGY3OTgxZTNjMGM3ZTYwMDRiY2MxMGQxMDEifQ"
+        },
+        {
+          "resource": "repo://src/js/player.js#L57-L65",
+          "version": "repo-lines-v1:sha256:97a84cdc2abe7a29c46e7546ae49137d1fd02b90e19d07305ba18ac7646a20fd:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzg4ZTA1ZjhjMjMyZDQ0MDkwODViOGIzOTIzNjYwZWEzNzU0NTY4NDhmNjE2MzBhMDVjMzk0Y2VhZWIzYjQ3OSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTQ1NmQ0ZmFkMWE5ZTdjMTM2MDFhZWEyNzM4YWUxMTZmNWViMjc1YTFjZjI3Mjg5ZjE0M2M0ZGJkYTBlN2ZmMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzk1YjZjZDE2ZTJkNjU0YzhmZDFkNWMzNDc5YjRmMzVkMGQ3ZWE5ODQ2NGFlMzhkZDA4MjQ1MGJlZDk2YzA5NCJ9"
+        },
+        {
+          "resource": "repo://src/js/video.js#L239-L245",
+          "version": "repo-lines-v1:sha256:99d444e0b1f7deae185d8e2d56e0d7a15d6b6b34c43cc819ea51b7646fd7e95b:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZGU2NDdlNDUyNzVkM2ZjZDA3OGU2ZThmYmNkNTNmYWE4OGI2NTA5ZjFjNjEwNGMwMTMzOWM2NzRkMDNhNTQ5YiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZjliMTk4MmU4ZGQ3NDgxMTgxNDZiMzlhMmQwMDYyZjQwODFlMzQ3NzliODY3NWMyMzRjNGZiMTI0ZGMzOTM5MCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZGVjODYwYTNmYWRmZTExOWQ4YmZhNmQzOWJkMTRhZGZmN2E1M2JhNzk1ODRjOTU1YmVkN2MyZGI1NjViNjMyOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDI1MDQ1NTNlYzFhNjA0MDc2MWRhM2I1MDViMDMxZjVhODY3MDJiNjZmMzJlMzU3NmJlZDA3ODA2ZDliODBjYyJ9"
         }
       ]
     },
     {
       "id": "claim_dc5ba2ef2cd34708898d94a3dee4ff5f",
-      "statement": "The audio player implements automatic error recovery with exponential backoff retry logic, distinguishing between user-initiated and automatic retry attempts, and persisting retry state across online/offline events.",
+      "statement": "The audio player implements automatic error recovery with exponential backoff (getRetryDelay = base * 2^count giving 1s/2s/4s, MAX_RETRIES = 3): an error event sets hasError and calls scheduleAudioRetry only when wasPlayingBeforeError and navigator.onLine; each attempt shows a persistent 'Versuch n/3 in x s' buffering pill; retryAudio clears hasError, sets isAutoRetry (so the next error does not reset the count), reloads and plays; canplay clears the retry state; after the count is exhausted showExhaustedText shows 'Stream nicht erreichbar' for 6s and leaves a persistent error dot. The offline event clears the pending timer and message while keeping the count; the online event triggers an immediate retryAudio with the count clamped to MAX_RETRIES - 1 when exhausted.",
       "evidence": [
         {
-          "resource": "repo://src/js/player.js#L144-L167",
-          "version": "repo-lines-v1:sha256:ec69bcac07a8030cb4dc722795ee3eb0cec4fadd7eb886d0dd09afab15eddfce:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQyZjliYzllZTNkZDI4NjExZGJmNzVjYWNmNmI1YjViYjI0M2QyMDc0NTIwMTk3N2VhZGIwMzY5ODk5MjUxMjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk5OWJkZWZlZWFjYTYzNDBlMDI5MGRjODZlODg5Yzg5ZDVlMTg5YWE1YmE0NGI1ODViM2I3MDczNGY0YTYyZDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg1NWZkNzcwMDBjZjVkYmNlM2U1OTA4NWJjYzc5Y2FiZWQ3NzMzNTRkYjJhNTAxNzM5NTM1YWFiNDRmMzI2ZWIifQ"
+          "resource": "repo://src/js/player-core.js#L206-L238",
+          "version": "repo-lines-v1:sha256:49bbb8c840c9693b1605fe824b8647dadbc9536e89a48db9b5ebeb493f383425:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFhNTk1NTQyMWU2ZGYxMGEzYjdlMjMzZDU3ZTJmOWJiODI1ZmZkMWI0Y2E1YjNjN2M1MjAxZDdmNDFlNmY1ZjIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjIyN2IxOGM1ZGUzYzBhNGJjMmExYzgwYTA3NGJkM2IyYTZlOGRkZDA5YWYwZWYxYjhhNzI0MTZiMmFmNDg0MjkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM1ZTgyZWY5NzJmYzc0YmQzYjYwMDdlZmJlNjk0NTY3MWY0N2YxM2FlNDNiOTA2NGQxNTJmZmVjMzVhN2Q2YzkifQ"
         },
         {
-          "resource": "repo://src/js/player.js#L169-L176",
-          "version": "repo-lines-v1:sha256:c09a85013598bbe3129d9395c9feed6bab1d013e0679c7240cd62136fa960be4:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTM4MWRhN2Y3ZWViODFiMjdjNDIwNTkwZjRhOTUwNWU4ODgwNDU5ZTRmNDU1NjU4YmMzY2U3OTgwYWVlN2Q1NiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTViMzdhZWVhNzRlZjcyOTIxYTg0NWYxMzdkMjc2YmI3YTRhY2U3Mjg1MjIyMTY5NGJiYWRiNjI3MzllZWU4YSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYWIyOGU0YWJiMjcwYzMxNzgwODQyYWY5MTBkOGMyYTE5YWY3N2YxNjVmODJlYWQyOTdjMTA3N2QwOWViYmQ0YyJ9"
+          "resource": "repo://src/js/player.js#L116-L136",
+          "version": "repo-lines-v1:sha256:bf4344b8f8c6bf0a9919b6e495901a49b0120343f85fc435a6a80318e4ed7cd8:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQyZjliYzllZTNkZDI4NjExZGJmNzVjYWNmNmI1YjViYjI0M2QyMDc0NTIwMTk3N2VhZGIwMzY5ODk5MjUxMjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQwODQwZDA0MzIyYzFkMjFmZWY2N2U4MjA1YmRmNjE5MWZkYWVjMmVlNWMzMDIzOWZlMmRiMDM1ZDkyMGE2MjQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjEyYWNmZmI5NGRmZDNjMGRmZWI2ZDRhMDYxMzk4ZDYyOWQ3YjU5MmQxMWM3ZDg2OWQ4ZjE5ZGI5ZTY2MTRkYTIifQ"
         },
         {
-          "resource": "repo://src/js/player.js#L68-L83",
-          "version": "repo-lines-v1:sha256:d7bac4250e4f10836a63206b563f4f8a990f5f3ef55e9f18f2af911f602a0d81:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2MWQ3N2E5OGFmOTU1MDRmZTE3YjY1NWZjOWIzODE5ZDI0YTUyNzlhNjI2MWYwZDhjOTViYjlmMzRmODZiZjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImM0YzUwNTUwMWExNzU3YzhjNTU5NzQyMTM2ZjZmMDZiMDliZmY0ZTBiYTNjNzA5ZmQwOTg2ZDAwOGM5N2ZiNWYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjcyOTY1ODQ5ZDdmMTI3YjdhNGNkMzUyN2IyMzI2MmQ0NTgwZGFhZDczZmE0M2ZlZGY5ZDAxNzBmZDViM2FiZjUifQ"
+          "resource": "repo://src/js/player.js#L181-L196",
+          "version": "repo-lines-v1:sha256:6b8ca71df5672215f9d7fd62bbdb664ebf1388ab4fcf8f3460b0d110d4ddc983:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2MWQ3N2E5OGFmOTU1MDRmZTE3YjY1NWZjOWIzODE5ZDI0YTUyNzlhNjI2MWYwZDhjOTViYjlmMzRmODZiZjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFlNjczYWJkNDU3YTk3ZWVhMTdhNjAwNjJlYjBmYWVhNmJkZjA5NDg2OGNjNmI4ZjhjMGViZGEyZjYxZWQ0MmYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA2ZmNmMDI3ZjFkN2JhNmRkNDc5MDViYzYyNGQ4Nzc0MjcyNGU0YTcwZGE0Njk2ZTc0YzYzYTQ1OGVjY2ZkNmUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE2OGFkMmFmZThmOGM3OTM4MmFmYzk5N2M2ZDA0YTQ5NDc3NzU0YzdiZThjMDZmMjc5MjkwNzFjYjBlM2EzMDkifQ"
         },
         {
-          "resource": "repo://src/js/player.js#L94-L116",
-          "version": "repo-lines-v1:sha256:a62c1e63b0937ef376eebb124ca5101bbe36df192eb454c50768a5140e5d78cf:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhMjk3YWI0NGY2YmU0MmZmODhhYTBlNGQwNmZiYzE5MWFhNGE5YTM4YjEwZWQ3M2JkYmY1MGQ0MzI3Y2ZlNTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyZDExY2FmNDNlOTdlZjM2OWU2YmVlZDFhMjY4YmQwNTgzOGYyOWI5ZGQyNTRiZjY5YmE2NDg4NDE0NzIzNGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImIxZGJjZmVhNjYwOGNhMWZlZWEyYjU0ZGIyNjYyNjE0MDhkY2Q3YWRhZjM1YmE2ZDQyOTRhYmUxNGE0ZWVlYjEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE2OTkyZWM2YzNlZTQ2NjBmOTMzZGM3MmJmNTI1MWM0OWQwYWVlZTgyNzc3MTk4NzYyMzU5MTVmNDg5YjRhZWEifQ"
+          "resource": "repo://src/js/player.js#L204-L241",
+          "version": "repo-lines-v1:sha256:8235eac8c165b22222ee8bb0eaced84cfc3d65422a73a2eb1c48e62a405d1be4:eyJzZWxlY3RlZExpbmVDb3VudCI6MzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhMjk3YWI0NGY2YmU0MmZmODhhYTBlNGQwNmZiYzE5MWFhNGE5YTM4YjEwZWQ3M2JkYmY1MGQ0MzI3Y2ZlNTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY0NzVlOTRhOTA0YWM0OWIzMTU0ZDQ2NzJhNjZlODYyOWI4NmRhYzc0ZTNlMjkzN2JlNjkyN2FlM2RhMTFjNTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVlZDNkMDVkMTRjOTQ0MGI5N2YwZWQwODNmZjQ1MTA3OTFkZTNkYjRiYjljM2Y2MjBjZTNkMjE1ZTVkNjA3NjkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU3MmMyZjJlZjMxY2Q5MTgyMGMxODk1MzFmMjY5Y2FhMjJmMWNmYzZmM2FlZTlhZTFmNjk4MGQ0ZjkxMDc4N2EifQ"
+        },
+        {
+          "resource": "repo://src/js/player.js#L90-L114",
+          "version": "repo-lines-v1:sha256:39d7898628494ef67ff2261278de95ae102dd43f87956a03e3c8de8d64c02948:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZiYjBhODcwNjMyOGYwMGUyNjE3MzI1YmRlMDViZGY2MGViNTIzYmVhNmM0MjMyODVlZGNmMjMwMDE3YmExOWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg3ODlmYzNiZTMzNjQ5Mjg1Nzc1N2M3NWE4NGUwZjI1ZTBkNmQwN2JiZDhhZjU4YzY4MDZhNTdlODhjY2NlZmMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImJiYzYyZDJmYTk0YThiZWViZWVlZTliODFiNDI1MzIwMTFhNTU1ZjRiZDU0MWY5YWUzNDQ0YzQzNjg3ZjA4YjcifQ"
         }
       ]
     },
     {
       "id": "claim_9c45cf0d78c2470db730a63271bfe4ec",
-      "statement": "The video player handles HLS errors by retrying network errors with exponential backoff, attempting recovery for media errors, and destroying the HLS instance on fatal errors, while providing user feedback via status messages.",
+      "statement": "The video player handles HLS errors in the Hls.Events.ERROR handler: the error type is mapped through window.HlsErrorMap to an HLS_* log code (HLS_FATAL when fatal); fatal NETWORK_ERROR retries via handleNetworkRetry with the same exponential backoff (hlsPlayer.startLoad(), destroying the instance and showing a persistent network-error message after MAX_RETRIES = 3), fatal MEDIA_ERROR calls recoverMediaError(), and any other fatal error destroys the HLS instance and shows a persistent 'Schwerwiegender Fehler' message; non-fatal errors are left to hls.js.",
       "evidence": [
         {
-          "resource": "repo://src/js/video.js#L178-L226",
-          "version": "repo-lines-v1:sha256:c876f6ac73274afd7cfe6e78f76d04cbf5648c0a0b96577ce9b3e09227e37632:eyJzZWxlY3RlZExpbmVDb3VudCI6NDksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQwMmQ4N2M4M2U1NzI3YmQxYzk0MDQ5ZDUwNThhOGYzMmRmZmJjNzM3OGRhZTNlYjA1NWRmYjg1MTkyZThlMDgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJhYzJiYzc1YjdhMWI4N2QwZjFlMjJjMGMyNDVmYmM5MzZiNmVkYzAyYzI2NjQ4OWMxMzliYWMxNjJhMjIwNzciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY2YjQxYzZlOTgzMWUyMzE5MTE2MTJiODdiMTNlMmVhMzg2YTljNDYwOTU3NTdlMjJmMjU2Mjc2YTNiOGIyNTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImJlNDAwZTkxMzFkZjNkNDEwNGY1OGI1MGFjM2YyMTg2OWQwOGZhMGMwZWNiNzRmY2Y0MTg3M2RjNmE2NGYyMjkifQ"
+          "resource": "repo://src/js/errors.js#L76-L85",
+          "version": "repo-lines-v1:sha256:ac3c906e6ea8088414729b53520a9523bfd5df21de1ef26ffa8c14be8aa54b19:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM2MDlmNjY1OWFiMzM0NjBkN2YxYzU1ZDg1OWFlZjllZmU4ZTAyOWJiZGJjNzI3Y2YxZDQ0ODg3OGNlOWM3OTAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZhZmJhMDUyN2MzOTUzYzRiNmUwZTViNTczOWJhODM2MTJmODA1M2JjZGM5NDY2NzMwMTkzY2QxZDU5MGI0MDgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJhYjM4MjFlNDFhZTNlNmFiNWQ4OTBlYjJjZWY2ZGNjMTQ0NTU2ZjFjNDAzODEyODVjOGE4MzNmNzRkMTljMjIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImJlZGVlM2E4MzJiMDBjOTFjNmU2OWU5MmNlMTg4MDJlMjVlYzc2Nzc1MDcxODgwYmVlYjJmNWY5NWRkNDUwMjMifQ"
+        },
+        {
+          "resource": "repo://src/js/player-core.js#L230-L238",
+          "version": "repo-lines-v1:sha256:d5fb161da96ff9e0024ed4dd7d2300883bb0ce1ab639640517036dc4ab3c25db:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNTAxZTc5NjJmZTk4MGIwYTE2ODk5NGY3ZWU5NTU4MzJjN2I3NDUxMzU0MjhjOWJmNTczNjM1YjUwOWRhZjZlZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTA0ODczZDQzYzhiMzRlODQzZTc0NDdkMTBhNjdlMjdmMjRiMjkzNWJjNjIyNTlhODMxZjdmYjMxY2M1YTdlZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzVlODJlZjk3MmZjNzRiZDNiNjAwN2VmYmU2OTQ1NjcxZjQ3ZjEzYWU0M2I5MDY0ZDE1MmZmZWMzNWE3ZDZjOSJ9"
+        },
+        {
+          "resource": "repo://src/js/video.js#L141-L203",
+          "version": "repo-lines-v1:sha256:fde7b649a395fddd01cc78800705fbb69d4e5bbd6cb16276f14a678828ceb5be:eyJzZWxlY3RlZExpbmVDb3VudCI6NjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJjZGFlOGEwNGZlN2M5YTQ2OWMyMjk0NWRmNTdkZTIwMTQzZTFkODczNDE4NGFhODBiMmNhNGEyZTdjMDlhY2EiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjIwZmM1NWE5N2VlZWJlOThhM2Q2NjQ1ZWZiYjlmZTVhMTNlN2Q1ZjM1YmI3ZjA3Y2U1NDk2YzNmZDEzMjMxMTEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImI5M2Y3NzI1NzMxODhiYzM5YWRjNjY1MTM4MDRjZmE1ZWI3ZDQwZjUxMTQzM2VhNDgxOWE4YjRmZTNjOGZmNTAifQ"
         }
       ]
     },
     {
       "id": "claim_453dde01cb134ddaa3854939eb65c9fc",
-      "statement": "The playback workflow integrates with page visibility and online/offline events to pause retries when offline and attempt immediate retry when online if playback was active before an error, and updates the Media Session on play and pause events.",
+      "statement": "The playback workflow integrates with page visibility and online/offline events: on the radio page, hiding the tab stops metadata polling (interval cleared and in-flight fetch aborted) and showing it refreshes metadata and restarts the interval; offline clears the retry timer/message and stops the history session while online triggers refreshMetadata and, if hasError && wasPlayingBeforeError && src, an immediate retryAudio with the count clamped to MAX_RETRIES-1; on the video page, becoming visible resumes playback if not paused. Media Session metadata/action handlers are configured via PlayerCore.setupMediaSession and updated by the audio player on playing and metadata changes, and by the video player on station selection.",
       "evidence": [
         {
-          "resource": "repo://src/js/player-core.js#L33-L51",
-          "version": "repo-lines-v1:sha256:78d257726199d3a6271458303756e217f336acb1265429092261fb3be6d5ffb7:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBkZWY4NjFkYjQ5ZmYzNTI4Y2JhZWFkZTlkNzZkNGM0N2M3YTBiOWRiNDI4ZDNlZmI4Mzg2OWEwN2YxNzM5MmQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkOWUxMjU0NjQyNTU3NmQzZGVhZThjOWI5ZGJmMTI4ZDVkNmRkYWY1ZDdmZTg1NzkzNDkyN2RlZmZhM2I5ZGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY5M2FiNDUzZTJkZjQ5YTcwNTY1Y2YwMTFhOGM0MWI5MGNjZDFiZTFkZDU3ZjVkN2Y0MzZlN2Y0YmViMzhjMjkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM4M2VmODAyZWJjNWQ4ODUwYTBhNjAwZjJkZTVmMzI0OGIwYmE5NmNkYmNlYjAyYmU4OWQ5ZTlkMzk5NTgyMzcifQ"
+          "resource": "repo://src/js/history.js#L129-L137",
+          "version": "repo-lines-v1:sha256:0495ceb8db7ab7cc2f3257c6f0fd3e4a586be8329487374e394e4a23dbadc088:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiM2I0NWY0OTMxNDc2OWZlMzNjYWFhNDRmZDE4NWRkMWI3YjNmNGE1MDM4MDRkMWU4NjA0Y2FiYzM4NGI2N2U5ZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTZiMDQ0OTE0Njk3MjJlODM2M2E5NGU0MDQ0NTM4ZTAxM2EyYTIxN2UzNmIxZTU2OGJhNjBhY2I3YjRjOGYyZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjU3MGIyZjBkZTcwMDEwMDBhM2Q3NTYzMzM5YzRlMTMzMzhmNjg2NDQxYzk0ZjI1YTdkZGZmNTliNDVjY2FiNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYWY0MjZhMDRmZjEyODM2YTVhM2E4N2ZlNzQ2Y2QwYjJlZTJkYjNmMzBhNzYxM2IwODc2ZDBlYTAyZjZlNTNjZSJ9"
         },
         {
-          "resource": "repo://src/js/player.js#L94-L116",
-          "version": "repo-lines-v1:sha256:a62c1e63b0937ef376eebb124ca5101bbe36df192eb454c50768a5140e5d78cf:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhMjk3YWI0NGY2YmU0MmZmODhhYTBlNGQwNmZiYzE5MWFhNGE5YTM4YjEwZWQ3M2JkYmY1MGQ0MzI3Y2ZlNTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyZDExY2FmNDNlOTdlZjM2OWU2YmVlZDFhMjY4YmQwNTgzOGYyOWI5ZGQyNTRiZjY5YmE2NDg4NDE0NzIzNGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImIxZGJjZmVhNjYwOGNhMWZlZWEyYjU0ZGIyNjYyNjE0MDhkY2Q3YWRhZjM1YmE2ZDQyOTRhYmUxNGE0ZWVlYjEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE2OTkyZWM2YzNlZTQ2NjBmOTMzZGM3MmJmNTI1MWM0OWQwYWVlZTgyNzc3MTk4NzYyMzU5MTVmNDg5YjRhZWEifQ"
+          "resource": "repo://src/js/player-core.js#L59-L84",
+          "version": "repo-lines-v1:sha256:7b2f284d03a41eef7ff256425c591e21606629a7ce8f7a330f03f18e34c72335:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBkZWY4NjFkYjQ5ZmYzNTI4Y2JhZWFkZTlkNzZkNGM0N2M3YTBiOWRiNDI4ZDNlZmI4Mzg2OWEwN2YxNzM5MmQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhlYzE1NzNhNmNiZWFiZDY0NWIyZjlhZjU1OGQ5ODdiOGRlZWZmMGNkZGUzN2NlOGQ5MTAyM2Y3MWUxYmU2ZmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk4ZTM2YWIxZGNhNjcxYTI2YzNjZjZhY2Y3YmViMDY5ODJiZjQyNTdiYjZmOGUyY2E2OGQ4MTJmMDBjMjgwYzEifQ"
         },
         {
-          "resource": "repo://src/js/video.js#L289-L294",
-          "version": "repo-lines-v1:sha256:8850869f9fc2245d6d169cef4e7a6879c322b1e7b69eb3526beb547af2ec145e:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYmJmZGNhMzYzZWMyZWFjYzgxZDBlZmFkMTQ3OTQ4ZTE5NGU3ZGE0NTU1MDQ1MjEzNWRiZmQ1MjRjMjViMTFmMSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiODQwNTE2ZjVlOTRiZjBlNTlmNTExNTJjOGRlNzJiMDg0ZTVkYjZiMDlkZjRhZWIzZDM5NGMzNzgyOGVmMTljZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMGUwMWU5NzA3M2U5ZmM4OWE5ZTdmNTFhODc2YTJjOTczMjJkMTYxZjI2MjI3Y2JmOTgyNTVjNWEwOGZhNmNjMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYWFmYzE3ZTA1ZWRiNTU2YTJjNmY4ZGMwOTAwZjgxZWU3M2Q0YmY4ZWUxZDFlNTgyY2JjZmU3NTA3MTY0OGY4NSJ9"
+          "resource": "repo://src/js/player.js#L219-L241",
+          "version": "repo-lines-v1:sha256:7c312bc22da9f6893860a929ecf600d9578e1fb0d679df049536e83f2ff33da8:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI4MDJmOTBkYTM5YWFjMDVmODVmNDU5OTg5YmMxOWRmYTg5ZDg4ODUzNzY3NTZjYjQwNTJkNDdkODQ0MWI0YTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY0NzVlOTRhOTA0YWM0OWIzMTU0ZDQ2NzJhNjZlODYyOWI4NmRhYzc0ZTNlMjkzN2JlNjkyN2FlM2RhMTFjNTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ0OGQ2NmY0YmRjZDVjZWJhZTBiOTcwY2Q1YWYzZGU4YjA2NDVlNzE2NWY1N2U0Mzg0NGJlNjdkNjBlYjQyNjciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU3MmMyZjJlZjMxY2Q5MTgyMGMxODk1MzFmMjY5Y2FhMjJmMWNmYzZmM2FlZTlhZTFmNjk4MGQ0ZjkxMDc4N2EifQ"
+        },
+        {
+          "resource": "repo://src/js/player.js#L275-L296",
+          "version": "repo-lines-v1:sha256:25c44479a3b8fae0963ebafce4cf630c8a8316e799f7d59c11f1673ac0ac3cbc:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjgwOWYyNzU4MmY1YTFiYmZmMjJiYTJjNWZkNDhkNGRiOWYzYWE4MGQ2YTRmYjM4MDg1ZWM1NzFiZjUzOTIxODMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjFiN2Y3NDFlYTk3MmZmOWIwNWRjNWEyZmQzZjY3NmIyM2FiZjZmZjM3OWQ2Yzk0NmEzNmUzNGM1NmNkMjkwODIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNiN2I5OGNhZDFlMzU0NmViMDMwNTU4MmJjYjA2MDJmN2JkYmQ2ZWE1N2VmN2JlNTI1ZTIwMGRjZDYzMDMyNmEifQ"
+        },
+        {
+          "resource": "repo://src/js/video.js#L259-L267",
+          "version": "repo-lines-v1:sha256:6299c0fda2495561f7925c23bb6d13b2ca8657ce530aedf82ccc66fbdc65d9f3:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZDM2ZjczN2FkYzA4Y2UwMDk4NWRkMWM2N2U1YjhjZjcyY2JkNTUxNTkxMDg4NzhmNWMyMjc5ZjNlMWYzYTc2ZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTkwOWE1M2E2MThkMDI4ZTFkMzAwMGMwYTdhYmNlZWNiZTVmYjM3ZjRlNTExZWZlNDY2NDNmYWQ2ZTY2ODcyZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYWUxNjFlZGJkOWFiOWJjZTA5YjY1YWUxNzBlNmNjNmJjOThhNDM4MjIwOTJiNzAxOGQ1NGVmMTVkOGNkYzMxNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzJmMWZjMmY0ZTdkZDdhZjYxYWMzMmExMDhhNTc0NDY0MDk0Mjk1YTM3MmQzMjQ0MzhkNDQxODNkNjUzNzA4ZCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_06a5079ab487429ebf75ef7699b5b9dc",
+      "statement": "On the radio page, initializePlayer restores the last played station on load by readSetting(AUDIO_STORAGE_KEY = 'lastStationAudioUrl') matched against buttons via dataset.url equality (not an attribute selector, because URLs contain selector-hostile characters) and calls selectStation on the matching button, falling back to the first station button; the video page has no restore and always selects the first station button on load.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player-core.js#L156-L163",
+          "version": "repo-lines-v1:sha256:8f4895dfc40c21bc10c3b5f5302c4b9fd379a4b94c33d92b2099320676a35a5e:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWVhNDQ4YzgyMjI5NzVkM2EzMmE3NzBlNzJkYTg5YzlkNDk2ZDhmNjM2N2I3YjQ0NGU1NjE1YTczYjkwMGEwZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiM2M3ZjBiMmM3NTgxMGY1NmYyNGEwYjgwNjQ3OGEwZGE5OWQ1ZjVlMDRlMzQ3NzA1YjY2MzBjODE0NTBjYmJhNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNWNkZWJhY2I2OWE2YWI0OGExOTE0ODJkMDllOTExNTcwODY4NDQ4YjJlMmRkZWU4OGNiOGQ0N2FjNGNhODhhNCJ9"
+        },
+        {
+          "resource": "repo://src/js/player.js#L374-L384",
+          "version": "repo-lines-v1:sha256:c2aedd5d7a966fb7c3cbaf8bd457534b435b2ef33cdec2f07797b4b3b97dc1b6:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJmMTNkNWQyNjY2MjAxM2JiZThlZDY5OTYyZWMyMWU5NmNkMzI1YjliZjFlMjFjZGE4MTBjZWQwYzFhN2UwZjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkwOTgzZGIzZDA0NTZhNDI3ZWY0ZGZhMzIyOGM1OTRkNDdhYTFiZWUxYWE1ZmNlNTIwMDFhNzg1ZjNkNjQ0ZmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVlYjc4YTdiYWRlNmQyYjg5OGMxZTlmZjA5Y2NmYmVhMjM2ZWIwZTNiNzA5MWNjOWY0NGNhMDI3NTliZGI0ZDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI1MGM1NmUyMTdiNmEzMzQ2YjQ3Nzg3MDE2ZmQ3MzBhMWJkNjNlNTgzYmIzM2U4YWU3OTMzNTUyOGI4NjlkNTUifQ"
+        },
+        {
+          "resource": "repo://src/js/player.js#L8-L8",
+          "version": "repo-lines-v1:sha256:359b2a097c7e8ec9e78e522f73c6e11e4497c68cdd8499278028c9e791b48ee4:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzU5YjJhMDk3YzdlOGVjOWU3OGU1MjJmNzNjNmUxMWU0NDk3YzY4Y2RkODQ5OTI3ODAyOGM5ZTc5MWI0OGVlNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzU5YjJhMDk3YzdlOGVjOWU3OGU1MjJmNzNjNmUxMWU0NDk3YzY4Y2RkODQ5OTI3ODAyOGM5ZTc5MWI0OGVlNCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMGUyOTY1ZDQzOWEyMGZmODFlN2IwNzczZWI3YTVhM2ZiZTZiMzg2NTJiN2I4MDQ0OTM2NDA1MzNkZjY3ZTY0NCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjY0M2E4ZGZkNTY4NDU2NjdmMGM2YmUxMDZlMWViODhhN2JiNjcyMWU3YjM5YTc3ZjViMTRhMjIzY2ExM2ZhZiJ9"
+        },
+        {
+          "resource": "repo://src/js/video.js#L297-L304",
+          "version": "repo-lines-v1:sha256:02c672dac80c24ff8806bd23f8c4b1f8ffb9cc9592fad571a85ba5e54349bf8e:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTUwZmMxMjgwOTczOTg3MTBlMzY4Nzg4ODM2ZTA3NDE2ZDdiODhjYjlkNGFkZWZiNjgzZWEzMGUwOWRkZDZjMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2JkMzM4NTcyZTg4OGJmN2JlYjc1MDM3ZjEwZjFmMmYzMDkxOTc5MjczYWRiODk0ZGM2Mjg5NzVmNGMxODk5MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDg0OGU5NDkwZjU1ZjZjNjg5YTg2OTc2OWNjODQ4MmUwMmU5ODI4ZmRiYzdiMDEyZmI1MDJhZWZiN2QyNmVjMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjEsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODU4MGI3NjUxOGRhZTk3OWZhZWJkMDIzNjdhMjkyOTJhNTBkOTc2MDkyMjUxYTM4YTZjZTMwODgwYmE0MjgyNSJ9"
+        },
+        {
+          "resource": "repo://video/index.html#L92-L123",
+          "version": "repo-lines-v1:sha256:45983d355d56e5de4a1773ee3536bae2d8aef20300e4c96241c9e75f696f4317:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjgyNGFjMjVkZWE2Y2RlN2UyMzRhZWI3NGE3NTJmNTgyZTQ5NzYxZTI5NWNmZGYyMmZkMWM2YWRjZThkMDM0ZmEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg2ODMzZTcwNGNiYWRiYjI5NWUzNzI3OTEzNjhlOTVjNjk3ZGYzZjdhODFkN2U1NjFlMWM2ZDkwZDhjMzhlMDMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImNmMDc5MDc1Yzc2NTJiMDU2OGJhNDFmMjNhNDhhMmE5ZDhhYWIxYTlkYjk3ZDJjMWM2M2JjYWY0OWQwMzMxNDYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjZkZjhkNjQxZDc3YjU0NWIzNzNlYWIyYWFlNzY2YmI5OTgwNjQ1N2JkYjRmZDEyZjE2YWY3NjlkNjYwZDQ3NjgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_85dc33075890449091895bbf63d5a515",
+      "statement": "The radio-page selectStation performs the full chain in order: clearAudioRetry, wasPlayingBeforeError = true, setActiveStation, update currentStation display, writeSetting(lastStationAudioUrl), restartMetadataPolling (immediate fetch plus 3000 ms interval, or 'Metadaten nicht verfügbar'), clearMediaSession, then src = url and load; the playing event then starts StationHistory.startStation(src) and a baseline Media Session, and each successful metadata poll updates the title display, calls notificationManager.handleTrackChange, and refreshes the Media Session with track title/artist.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/history.js#L116-L127",
+          "version": "repo-lines-v1:sha256:47d3accc9f650a917702ab1ae51703eb8ae0b3b373e6d9880987b8d465383750:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFlM2MyNjE0MDgzMmFkZjRjNjA4Njc3NDI5N2RjY2NhNzZkMTZhNzVmMGJmMzliMDg3MjhlMjliMDVhOGMwMWUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRhOWY4NmQyOGU3ODRmOWZkMzFmYjcyZDE1ZjYwY2JjZWFhZmRkNjY5Y2JkNWI2ZGE3ODg4YTAyMzMyMWViYjkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjgwOWJiMDFiNjhmYmJmOTQ0YmU4NjhiYTQ4ZDM1YzQ3YWZmOGRlYTQyNDAyZjBlY2NmOTU4ZDYzODQxZDZlZTUifQ"
+        },
+        {
+          "resource": "repo://src/js/notification.js#L87-L102",
+          "version": "repo-lines-v1:sha256:c644b94f10c2dc2c1e373cc775f8a86fb41365cc67d1c41286a3da0d91f1e1dc:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE4ZDY2MGZhNDMyMzkzMGQ2OWFhOTBmNjVmYzcyYjgzZmE4MGNkYWM1YTYzMzY5ZTNjZTY1NTUwY2I2NDNmNmEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRkZWUwNmQ1MzU1NzVjMjA2YTM0Y2Y0M2MwZGUzZjRmNTVkYWVhZGI4NTc5ZjdlMDE5NWMwODU3MmNjZDgyZTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ4MWFlZTYyYzY1MWFjMjYwZjhiN2EwMTkzNDE5ZWI2N2EyN2Q4NjEwZjk1NTcxYTQ4OWQzZjI0OWQzOTFiZGMifQ"
+        },
+        {
+          "resource": "repo://src/js/player-core.js#L59-L84",
+          "version": "repo-lines-v1:sha256:7b2f284d03a41eef7ff256425c591e21606629a7ce8f7a330f03f18e34c72335:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBkZWY4NjFkYjQ5ZmYzNTI4Y2JhZWFkZTlkNzZkNGM0N2M3YTBiOWRiNDI4ZDNlZmI4Mzg2OWEwN2YxNzM5MmQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhlYzE1NzNhNmNiZWFiZDY0NWIyZjlhZjU1OGQ5ODdiOGRlZWZmMGNkZGUzN2NlOGQ5MTAyM2Y3MWUxYmU2ZmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk4ZTM2YWIxZGNhNjcxYTI2YzNjZjZhY2Y3YmViMDY5ODJiZjQyNTdiYjZmOGUyY2E2OGQ4MTJmMDBjMjgwYzEifQ"
+        },
+        {
+          "resource": "repo://src/js/player.js#L158-L167",
+          "version": "repo-lines-v1:sha256:3dd03752a152e2f52c69396e53df23010da745407fca611387849e3873017567:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ3OTMzYmE4NGY2NWEzNDI3YjgzZTQ5OTRiYWI5NWM3YTFkYTc2MDYwODgwMjYxNDk1ZTZhYzIzOWU2MDYzMzYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFlNjczYWJkNDU3YTk3ZWVhMTdhNjAwNjJlYjBmYWVhNmJkZjA5NDg2OGNjNmI4ZjhjMGViZGEyZjYxZWQ0MmYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjJjMWVmOWVkMTRmOTlkNTMyYTg1NDkwZWY1ZGRhOWQ1MDI3YzU0MTlhMDQzYWNjOWEyMjZmNDQ1MGI4YjM2MDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImVlMmYyYjZkYmZiYjczNTBlYzM0MjE2ZjFhNTE2ZThjMWQxZjQ2MjYyYTA5NjYxNzgyODc5NWJkYjliZjcxODcifQ"
+        },
+        {
+          "resource": "repo://src/js/player.js#L247-L261",
+          "version": "repo-lines-v1:sha256:a0ee376fd7eeceb4de9afca9612eaab6d173f9f265e8a03a485c089944e45a96:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc4MGE3ZGE3NGEyZmY2ODMwZDZjMjRlYTc2ZjQ2YjE3YWIzMTMzN2I1MGNlNTVhMjUyMDM4MjU5YjZjMDlhZDgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE4ZTEzNDI0M2QzYTQ5MTI2MjZmMTIwNjA1NzlmNGQzZTNkODZhZDBkMzM1MGIyZTI3MDI1Nzk0MmVjZmNhNDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJmMjdiYTUwYjcxZmU4MGY2OTk2ZDY3NjZhMWZhZGM1NTllYzY4YjY1MGQ4ZDhjNDlmYzZlMGVmMjIzMTkxZGQifQ"
         }
       ]
     }
   ],
   "verification": {
-    "by": "openwiki/0.5.2",
-    "at": "2026-09-27T19:48:35.317Z"
+    "by": "openwiki/0.7.2",
+    "at": "2026-11-03T19:02:34.893Z"
   }
 }

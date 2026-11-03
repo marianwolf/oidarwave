@@ -1,36 +1,208 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:4c2f5883791829e2c2e1c1f60d165100e200ef1012056edea26600f75350e2b2",
+  "pageVersion": "sha256:5c2e06133cfc552d553f66d53011e777e175186d830820f3934ddc9215be8c14",
   "claims": [
     {
       "id": "claim_0ed48737ad97483f9e514745cacd6cf2",
-      "statement": "Error handling in the application involves detection via media element events and global handlers, centralized logging with error codes, automatic retry mechanisms with exponential backoff for audio and HLS video, and user feedback via status indicator.",
+      "statement": "Error handling in the application involves detection via media element events, HLS error events, play() promise rejections, and global handlers (window.onerror/unhandledrejection in the renderer, process unhandledRejection/uncaughtException in the Electron main process), centralized structured logging with ErrorCode codes in src/js/errors.js, automatic retry with exponential backoff (base * 2^attempt, MAX_RETRIES = 3) for audio reconnects and HLS network errors, and user feedback via the shared status indicator.",
       "evidence": [
         {
-          "resource": "repo://src/js/errors.js#L130-L145",
-          "version": "repo-lines-v1:sha256:8ef8c6b40b63ad1c3fda383bb5e3aeae3745e47fe9fde2f3a7d3baded9c3d8c8:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFmNzg2NzM0ODgzYjkwN2QxODFkMjIyMzNjZTkxNGI4ODU5OThmNDAyOGUxNmRhZTliN2E0ZjNlNjFkYWFjMGMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyZDExY2FmNDNlOTdlZjM2OWU2YmVlZDFhMjY4YmQwNTgzOGYyOWI5ZGQyNTRiZjY5YmE2NDg4NDE0NzIzNGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRmNGQxN2Y2YjgyNjdmNmFiN2RkYWQwYzZhNDY4NWU0OTRhYTUwZjBhNTQzZmFjNDAzZTg5Mjk5NjBhN2E4MjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk4NjJjNmFiOGVmOTZlNDhhN2I3NTc3MjliZTkwOWVkNGE0NGY4NGZmN2Q2NzYwMmU3OWNlZDdiZDZjNmU1N2UifQ"
+          "resource": "repo://src/js/errors.js#L120-L175",
+          "version": "repo-lines-v1:sha256:d3f1b2635544d47dde8f6e4c9b7575a321999b039785bd22f9a11708d2a4cac5:eyJzZWxlY3RlZExpbmVDb3VudCI6NTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQyZTliMjZmN2Q3NTE5ZDAyZjJhMWE4N2E1ZTFlNGUyMGY1NDBjYWRlNWE3YzU3MDY3NWE2MmI4Mjk4ZDllNTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImViNjNmNjljMTc2NDFiMmFjOTliNjMyYTg1NTJkZTc1MjQzMjdkMGRlMTBkZGE4MDRhMDBiNmU2NjIyZjUyMmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBkNzJjMjc3Njc5Nzc2ZWNlNzkyZDUwYTQzMDk1NmIyZjBjMTA4YjU0YTJiM2JkYzU0ZDQ1MTgxM2YwOTgwOTkifQ"
         },
         {
-          "resource": "repo://src/js/player.js#L120-L130",
-          "version": "repo-lines-v1:sha256:ad21ac35ef21d971c907b0722acc26699ab96efc6f5362215404a77c3118216e:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI2NzY3OTVkNWM5MTRiYTk1ZjlhNDI2ZDRhYTcwNmU5MjRlNGU5ZDcwYWExOThkMDQ0YmRhYjY1NzJhYmNhMTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE2OTkyZWM2YzNlZTQ2NjBmOTMzZGM3MmJmNTI1MWM0OWQwYWVlZTgyNzc3MTk4NzYyMzU5MTVmNDg5YjRhZWEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYwZWVmMjcyOWVjMDFmMWUxZGE5NzRlMTQ3MDhhYTJhN2Y5ZjUxYzY2NmE2MDg3MGE3YmJhOTVlMWVjYTE5ZGIifQ"
+          "resource": "repo://src/js/player-core.js#L206-L238",
+          "version": "repo-lines-v1:sha256:49bbb8c840c9693b1605fe824b8647dadbc9536e89a48db9b5ebeb493f383425:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFhNTk1NTQyMWU2ZGYxMGEzYjdlMjMzZDU3ZTJmOWJiODI1ZmZkMWI0Y2E1YjNjN2M1MjAxZDdmNDFlNmY1ZjIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjIyN2IxOGM1ZGUzYzBhNGJjMmExYzgwYTA3NGJkM2IyYTZlOGRkZDA5YWYwZWYxYjhhNzI0MTZiMmFmNDg0MjkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM1ZTgyZWY5NzJmYzc0YmQzYjYwMDdlZmJlNjk0NTY3MWY0N2YxM2FlNDNiOTA2NGQxNTJmZmVjMzVhN2Q2YzkifQ"
         },
         {
-          "resource": "repo://src/js/player.js#L68-L82",
-          "version": "repo-lines-v1:sha256:630a4e9c638ba955205ef969e3072f00970401dbc06b42737804a50ff6f23c92:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2MWQ3N2E5OGFmOTU1MDRmZTE3YjY1NWZjOWIzODE5ZDI0YTUyNzlhNjI2MWYwZDhjOTViYjlmMzRmODZiZjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJiNDMzNjE5NWRmMDQ4MzU3MzczYjM5NjQ3MGYyNzEyMmM3OWZkNDQ4ZmJhMmJjYzYyY2MwNjEyYzEzMjk4ZDgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImM0YzUwNTUwMWExNzU3YzhjNTU5NzQyMTM2ZjZmMDZiMDliZmY0ZTBiYTNjNzA5ZmQwOTg2ZDAwOGM5N2ZiNWYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjEzN2U3NGE3NDZmM2U0ZmE5OGQ3Y2I5OGRiMDdkMzBiZmY2NWNlZjY3NmYxN2FiMWVhNDkzYWM0ODQ5MDY4MTQifQ"
+          "resource": "repo://src/js/player.js#L181-L196",
+          "version": "repo-lines-v1:sha256:6b8ca71df5672215f9d7fd62bbdb664ebf1388ab4fcf8f3460b0d110d4ddc983:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2MWQ3N2E5OGFmOTU1MDRmZTE3YjY1NWZjOWIzODE5ZDI0YTUyNzlhNjI2MWYwZDhjOTViYjlmMzRmODZiZjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFlNjczYWJkNDU3YTk3ZWVhMTdhNjAwNjJlYjBmYWVhNmJkZjA5NDg2OGNjNmI4ZjhjMGViZGEyZjYxZWQ0MmYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA2ZmNmMDI3ZjFkN2JhNmRkNDc5MDViYzYyNGQ4Nzc0MjcyNGU0YTcwZGE0Njk2ZTc0YzYzYTQ1OGVjY2ZkNmUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE2OGFkMmFmZThmOGM3OTM4MmFmYzk5N2M2ZDA0YTQ5NDc3NzU0YzdiZThjMDZmMjc5MjkwNzFjYjBlM2EzMDkifQ"
         },
         {
-          "resource": "repo://src/js/video.js#L178-L193",
-          "version": "repo-lines-v1:sha256:85139428f2df94ac92f7ad2dee244b1e17e6cc9b3fd79a2de5422de6dc8b754a:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQwMmQ4N2M4M2U1NzI3YmQxYzk0MDQ5ZDUwNThhOGYzMmRmZmJjNzM3OGRhZTNlYjA1NWRmYjg1MTkyZThlMDgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJlNmFiYzk1OTZkNTZjN2UzMzI1NzRkMjM0ZDU1OTYzN2ZiZDU3ZmI4YWZhZWRhZTAxYWZiOGY2YjFkYWMwYzMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY2YjQxYzZlOTgzMWUyMzE5MTE2MTJiODdiMTNlMmVhMzg2YTljNDYwOTU3NTdlMjJmMjU2Mjc2YTNiOGIyNTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjlkODFlYjIzMTM2MDdmNDg4NjQxMTQ2YTNiODlkOTRmZDQ2YTI4NzMyNjU5NzY1MGIzNDg3OTM1NDgzZWNjMmYifQ"
+          "resource": "repo://src/js/player.js#L90-L124",
+          "version": "repo-lines-v1:sha256:d4a69f024bfe70cc313487ea3051f496f073bf6da69c2270aeed49de6513c3a9:eyJzZWxlY3RlZExpbmVDb3VudCI6MzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZiYjBhODcwNjMyOGYwMGUyNjE3MzI1YmRlMDViZGY2MGViNTIzYmVhNmM0MjMyODVlZGNmMjMwMDE3YmExOWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg3ODlmYzNiZTMzNjQ5Mjg1Nzc1N2M3NWE4NGUwZjI1ZTBkNmQwN2JiZDhhZjU4YzY4MDZhNTdlODhjY2NlZmMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJjMDdlZWQ1NGM4MzQzNmM5NmEyZjdjMGM5ODBlZGEwMDI3ZjlmZTRmODA5NjdmNmIxY2YzNDBkZmM0OGQ0NzQifQ"
         },
         {
-          "resource": "repo://src/js/video.js#L52-L65",
-          "version": "repo-lines-v1:sha256:978b26821a601e1cf62ebe7cd4654baa31db37e119d44c6dd1a614a2a7214afa:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM4OWIzMzUwZTQyNjhkNGE1ZTI3MWY5ODczY2UxNTMwNWYxZmJmNmQ1MDRkMjkxOGYyNzA1MzYzOGJkYzk4ZjYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE0OTQ3ODMyMGY1M2E2OGE1YjIzN2ZjNjJjMGQzMWE1OTZlNjZjYjgwZjIxZjgzYmMxZDc0MGJhMzViNzNkMzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBhYjA2MGIzM2VhNGFiMzNjMzk4MTE1ZTA4ZmUyZDY4ZjE3ZGQ4YzgxMjEwN2Q0MzllNzU2YzcyNWIyNTRmMWMifQ"
+          "resource": "repo://src/js/video.js#L141-L148",
+          "version": "repo-lines-v1:sha256:a9e90fd63c6bf4a70d1412c5d6748fc0e53ff177343e6aefda90bc946f680c93:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYmNkYWU4YTA0ZmU3YzlhNDY5YzIyOTQ1ZGY1N2RlMjAxNDNlMWQ4NzM0MTg0YWE4MGIyY2E0YTJlN2MwOWFjYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZjliMTk4MmU4ZGQ3NDgxMTgxNDZiMzlhMmQwMDYyZjQwODFlMzQ3NzliODY3NWMyMzRjNGZiMTI0ZGMzOTM5MCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjBmYzU1YTk3ZWVlYmU5OGEzZDY2NDVlZmJiOWZlNWExM2U3ZDVmMzViYjdmMDdjZTU0OTZjM2ZkMTMyMzExMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiM2Q5NjdiNDYxY2I5NTY3YjZkNjEzMTBiODNmYmRhZDZhYzE0ZjE4ZGY5MWI4ZWJiYmZmYWE4MTYwY2ExZDkwOCJ9"
+        },
+        {
+          "resource": "repo://src/js/video.js#L168-L203",
+          "version": "repo-lines-v1:sha256:0cc9cb40e1b2d7bd1df3c9a8bc6224a1de4faac28af50f3eaee75a010eff3704:eyJzZWxlY3RlZExpbmVDb3VudCI6MzYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYzNTJiNDM4ZDNiM2VmZjg3N2I0ZmNkNmRjMDA0ZDI5MWI4YzNiZGIzMzY2NmY2MmZkZjFkN2E1ZGMzNjU4YTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVlYjc4YTdiYWRlNmQyYjg5OGMxZTlmZjA5Y2NmYmVhMjM2ZWIwZTNiNzA5MWNjOWY0NGNhMDI3NTliZGI0ZDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImI5M2Y3NzI1NzMxODhiYzM5YWRjNjY1MTM4MDRjZmE1ZWI3ZDQwZjUxMTQzM2VhNDgxOWE4YjRmZTNjOGZmNTAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_f06fb7b2851c4cfbb2bcd3077a22ce15",
+      "statement": "src/js/errors.js is the single shared error/logging hub for both the renderer and the Electron main process: it defines the frozen ErrorCode taxonomy (27 codes grouped by storage, metadata, media/autoplay, HLS, electron file/navigation, player/reconnect, favorites, media session, download history, and global domains) plus HlsErrorMap, exposes leveled loggers logError/logWarn/logInfo/logDebug via window.* and module.exports, and is require()d by electron/main.js which calls initMainProcessErrorHandlers() at startup.",
+      "evidence": [
+        {
+          "resource": "repo://electron/main.js#L10-L11",
+          "version": "repo-lines-v1:sha256:24d98e3c57bb51a6d54c2f9d575b3d315aa19f391f267d16d49a149688478e44:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZDA0MDY3MGNhYTQzOWU2NTYxMDVlYjNmNWEwNjExYWMwODM3ZGEyMzRmZGFiNGQyNzg2OGIzOGQzYzE2ZTM2YiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGUxYmVhYWQ5NWZmNjIyY2I3YzA4YWY5NmFkN2IxNTM1OThiNDJkN2E2ZWM4YjBlZTZjY2FlZWM5ZjQwNzU5YSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiM2FjMGEwYzU1ZDI1NDc0YTIxMjBiOGNmOTA1ZjZhZjZkOGJjMWJlOTdkMzBiZjMwYTBmMmMwMzE0YTdkMzM1OSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjNhZTYwYjRmYzUzZjdkOWJhMTA3NTk2MDQwODA2MzFiNzIzYmVhYTdiNDdkMGFhNzQxYjJlN2UzOGZhOTliZSJ9"
+        },
+        {
+          "resource": "repo://src/js/errors.js#L177-L203",
+          "version": "repo-lines-v1:sha256:9b64e09e5f89549c1c9574333b5ebe6e5b1e6c9391eb92f7586bdddfcbf29e9b:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNlMDIzZGE5YTcyMWNkMGVmYzAxMzY0NjE1MTE4MDBmYjI2NDhmNWU2ZWY1ZDI3NDczNzFmYjYzOTQ0NTRmZmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYwNjNjNGQxYWY4Y2Q4OWJiMGJkZDc2NTdmZmNiZjY4MDZhNjEwZDc5ZDZjOGQ0YzMwN2MyNDFkZjM5MDA1MjIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://src/js/errors.js#L46-L98",
+          "version": "repo-lines-v1:sha256:a808201d0aca46acb904dfa28a7975f1525f392c2ece1ad2e415deb4fbf4a23a:eyJzZWxlY3RlZExpbmVDb3VudCI6NTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZlOGFiNGI0MDNmOWQ4OWEwNTRkODQ4ODY3NWViMDUwZmUwOTIzZmQzY2I0YjllOTZiMTA4MjQ3YmNlY2FmY2EiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjAzZDZkYzUzMmJkOGI3M2Q1OWM1NzlmNTgzZWU0MmYwNzYwNmRlZTU5YzA1NTg1M2NhOGEwYWEyZGMzZjkyNzUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjMxYzA3NmNjMzE2MWMyMTlhMjZmNmI2MzZlNDY4N2M1YjFkM2I3ODIwOWNkMGM2OGJjNWIyMjNlNjRiODk2NTQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_8f0c281365454bf8b997cd7ed87b5b00",
+      "statement": "The effective log level is resolved once at script load by getLogLevel in priority order window.LOG_LEVEL, then localStorage 'logLevel', then default WARN; parseLogLevelName parses case-insensitive names and shouldLog gates every log call as level >= currentLogLevel; formatLogEntry produces {timestamp, code, message, name, ...ctx, stack} and createLogger emits '[CODE]' prefixed entries to electron-log when require('electron-log') succeeds (Electron main) and to console otherwise (renderer).",
+      "evidence": [
+        {
+          "resource": "repo://electron/main.js#L5-L8",
+          "version": "repo-lines-v1:sha256:104b7b228fe10f66b1f4cf871e567ac77704244b76792d7f74c2760bba45f711:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZjYxZjliMzU0YjJjYWQ4ZDk3NTg2ZTVhMmM3YThlYzQ2MGY1YmRlM2RhNTcwYTM4OTRiZjk1OGNlNWEyNTJjOCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZjUyZWZhN2Y1NGVjMTEzNTE4ZWZmYTdiMjM2MDIxOGFmNmZlMDdhOWE0MWIwNDBmMGY3ZjI1YWFlODcxZjU0MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTFiZDIxMTNlZjI0MTdiODk3Yjc5MjFhMjA0MThhYjZiOGJmYjA2YWE3ZmNiOTRlYmJmMWIzYjRhZDBlZWU1YSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjhhMGE1ZmZhOTczOTUyYTFlZTg4MmQ5MDE2N2E4NzMwYjA1MjAyYjU4MDdlOTA4NDRjNDY3Yzk5ZGYyZTRhYiJ9"
+        },
+        {
+          "resource": "repo://src/js/errors.js#L1-L29",
+          "version": "repo-lines-v1:sha256:b808b7e2628392e79761ed5e783a3ec2b1a1e98771821b8578db5651bfb220cb:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ0NTM3ZmYwNzMwYzhiNjZjMTkyZjU1YjdmMzdhMmU4ZWRjMWEwNmMzNDMwZDg3YWYzOGFlNmFkMTA0ZDgwZjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU5ZDliZmMwOGE3MjI2ZWExMjIwNjRhMDI4MmJkYWI2ZDQwZWI3ZmQ2YzM1MGRiYTFhMWVlY2ExNzBkM2Y4MGMifQ"
+        },
+        {
+          "resource": "repo://src/js/errors.js#L32-L44",
+          "version": "repo-lines-v1:sha256:f0d62285b8883022cdc688f27a2276be8fca08b01a1ec47a76962661d405bd79:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY5NGQyMTlkNjg2OWI3N2NmNzY3NTkyOGRhZDc3NjE0ODEzOTBmMWQ0MDIxNWUxYTkxYmIyOGM5YzgyN2Y5M2YiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI0MGViM2RhNmY2NzVkMTU4NTMzY2QwMjNhYTFjZjU1NTMxYjdmNjljNDFkMzk5NTdjZmIyYmI4MTVhYjkwMzkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg2NDcyMzU5ZTYwNDE0NDU1NDJhNjk2NGMzOTQ3NjFhYTRkNGQzMWE5ZTM1MTg2M2I5MjgxMmYyMGY2ZjU2NjkifQ"
+        },
+        {
+          "resource": "repo://src/js/errors.js#L87-L117",
+          "version": "repo-lines-v1:sha256:fe1f529c6e6b24aa3bbb92fdca605a873e8a42b583e276fef5dc830138dba2c1:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQwMDM3MmVmYThjNzk3ODAxZDZlMDcxYWUyYmNhYzFhYjY1NmQ3ZGI4Y2YyYTRiNTU4ZmQ5ZTQyZGJkNDk2YjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFjMGNiYjc1NTNmMDZhOWRjMzJiZDUwZDE3OWRhZWJhMTJlNGNkOTBjNWJhOGE0OTVlNzMyOWYwMGJmMDFlMjYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJmOTA2OTQwMWE4MmJjNDMxZTIzMmFhOTEyZTVlZGFmMjZlZDA1NzM1YzAzZmYwMDFmNjNkNWRlNDkwYjNhMWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdkMDQwZmU2NDU1NWVlYjE4MjliMGIyODgyZDUwZGE0YmNlNWE0ZDY3NGI5MjRlY2FkODlmODJjNjE5YTk4ODcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_047771e3a0e64749836b6bf7075d8ec2",
+      "statement": "handlePlayError classifies play()/autoplay rejections by error name: NotAllowedError is logged at debug level as MEDIA_AUTOPLAY with reason 'Browser policy blocked autoplay (missing user gesture)', while NotSupportedError and all other errors are logged at error level as MEDIA_AUTOPLAY; every media.play().catch() in player.js, video.js, and the PlayerCore media-session handlers routes through it.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/errors.js#L120-L132",
+          "version": "repo-lines-v1:sha256:2948bac5666936fe772d258baf3f2b8008c956fe1547c08e05fb207383ff4592:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQyZTliMjZmN2Q3NTE5ZDAyZjJhMWE4N2E1ZTFlNGUyMGY1NDBjYWRlNWE3YzU3MDY3NWE2MmI4Mjk4ZDllNTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImViNjNmNjljMTc2NDFiMmFjOTliNjMyYTg1NTJkZTc1MjQzMjdkMGRlMTBkZGE4MDRhMDBiNmU2NjIyZjUyMmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjViMzViMDlkYjI3YjUwNjY1NDJlYTRjYWViZGM4ODExNGM3MjVlZDQ4YmVhMTMwMWQ3NjU5ZDdhZGIzOTMwNmQifQ"
+        },
+        {
+          "resource": "repo://src/js/player-core.js#L70-L72",
+          "version": "repo-lines-v1:sha256:2e0a417f2429f0d66e93a89497702cec98225e77c7b9e1542852ae643fffd5c8:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOWQ2OWNkNDVhMTQ2MDI5OTNiMTQwMjU0N2M0NjAxMTI1NTcwZDI3MWQyZDEwYjU1MTYyOWExMmM0ZDJjYzk2OSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTUwMzJlOTY0ZDA5MzIzNTFlNWQxODUyNjkyODFiMTcxYTNhMDliMDhiMjg2ZTY2MWVhNDcwMzIzYzgyZWI0ZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNmRhNmJhNzZlMTdmYWUxZDM0NTIyNzhhZTUzMDVkMGI5YzcyOWNiOTM2M2NlMWY2MWEzZjY5YjgyYzFkMWNjNiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYWYwOWUzODAxN2RmZTY5ZTM5OGRmMTYzMmU0OGU2OGE1NDI5MDlkN2YzOTYzY2UxMGM4YjMyMDNkYmNhMTY0OCJ9"
+        },
+        {
+          "resource": "repo://src/js/player.js#L138-L141",
+          "version": "repo-lines-v1:sha256:86a76dff258fd6bafbf4647975898d32cd96151005ba8d8694faa5ebb367c283:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMmJiMjMxNDU1YWIzMTU4NGQxZjk3YWMwZDVhN2M5YTVmZGFjNWIzODBiZmYyZGE2ZDAzZmRlNDQyOThjYjZhMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZDM4MzU0OTExNTQxZTkxNmNjMmE5YzdhNzY3MWFhNTVjMGVlYTI3YTU2NTZhNDRhNTQ4OGQxZjk1ZmJkZmViNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTUzYzQ5MWE4OGI0YTcwMWQwMWUzYTIwZTdhYjVmYjRjMTRlZjc0ODE3MzdjYmQ1MTZjZjJjMmM0NGI3ZDNkYiJ9"
+        },
+        {
+          "resource": "repo://src/js/video.js#L134-L140",
+          "version": "repo-lines-v1:sha256:b4be5a10ab55813cb4956a7768f7c346451e027eef7075c561a10be61502cee8:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjVjYjI0NDU4ODdhZDQ4OWNhMGQ3NzJmMzVkMDhmYjdiOTFhNDI0YzkwMzI4YzkyM2Y3MTYyMzY5OTQ0N2I2NSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZjliMTk4MmU4ZGQ3NDgxMTgxNDZiMzlhMmQwMDYyZjQwODFlMzQ3NzliODY3NWMyMzRjNGZiMTI0ZGMzOTM5MCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOWQ0OGE3NDZlZjgzMGY5YTMzZGNmMzA0MjRlMTYzYjJiODM4NjQ5MmY5ZTBhYTdmYzdjODVhMDY3ZjgxNjY1MSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODE1Zjc0MjFmZmUzNjQzYzYwZDNiMGUwMDhjYjU4YTFjOTkxODliZGRkMTcwODY4MjFkM2JkODU4YmI0NGE4NSJ9"
+        },
+        {
+          "resource": "repo://src/js/video.js#L205-L218",
+          "version": "repo-lines-v1:sha256:789ef1cafc79689051e35bd5d53ac079b1bcd5d52bfc54d9ba68f04735a33fcb:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZhOTM4ZTRmNzc1MmU0OGZjODcwMjAyY2RkZDkxMWY1YmJhNzdhMGFjNzY1ZTcwZmM2OTc4N2Y3NGRiYWM2YjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ4NzU3Yzk0OWRiOGI4OThhODkwMzgzNTdjNDA1MmIxMjZlMzVlY2I4ZDJhYjczZjQ1MmJhNDE4YjhiYWEyOWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjYzMzJkNmEwMjE3ZGQ3NTM0YThmM2I5ZjZlNWUzN2E0NDhiNWRmODZjZjFhYjZjNDM3N2YxNmVlMjMxZjYxZjAifQ"
+        },
+        {
+          "resource": "repo://src/js/video.js#L259-L267",
+          "version": "repo-lines-v1:sha256:6299c0fda2495561f7925c23bb6d13b2ca8657ce530aedf82ccc66fbdc65d9f3:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZDM2ZjczN2FkYzA4Y2UwMDk4NWRkMWM2N2U1YjhjZjcyY2JkNTUxNTkxMDg4NzhmNWMyMjc5ZjNlMWYzYTc2ZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTkwOWE1M2E2MThkMDI4ZTFkMzAwMGMwYTdhYmNlZWNiZTVmYjM3ZjRlNTExZWZlNDY2NDNmYWQ2ZTY2ODcyZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYWUxNjFlZGJkOWFiOWJjZTA5YjY1YWUxNzBlNmNjNmJjOThhNDM4MjIwOTJiNzAxOGQ1NGVmMTVkOGNkYzMxNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzJmMWZjMmY0ZTdkZDdhZjYxYWMzMmExMDhhNTc0NDY0MDk0Mjk1YTM3MmQzMjQ0MzhkNDQxODNkNjUzNzA4ZCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_56638c9764a34e5bb0201cd1190e7be0",
+      "statement": "logStorageError types localStorage failures via getStorageErrorType as QUOTA_EXCEEDED (QuotaExceededError or legacy code 22), SECURITY_ERROR, or UNKNOWN, and logs them with {key, type} at error level; PlayerCore's readSetting/writeSetting/readJSON/writeJSON/removeSetting form the single try/catch storage boundary and report through the defensive logStorageErrorSafe, which resolves window.logStorageError lazily and falls back to console.error.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/errors.js#L134-L143",
+          "version": "repo-lines-v1:sha256:603f28de7836c85d9fbd5805bcce7c600f90fad26c1d1c25c7d7a9b2cc99d469:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ2MWZmOWRhNzQyMDhkZGU5MTFmYzRiMzJhNmFjNmEyYTgwOTA4ZTQ5ZWUzMTM5OTIzNWI1NTdkYmU1YzU1ZWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5ZTc2MzU1Y2YxMTk5NDgwYzNmOTk4MzZiMTQ4NmM4NDFkODkxZmFhZDkwNGM2MDhlMDkzMDIyZDM3NTdhZWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI4MGIyMTg2ZjkyMzM4YmUyY2E0NDUzYWMyMzUyYjBhZjM1MjMzMmE1ZTJmYzZmMTZjOGZiNzkxOTA5YzY3NjEifQ"
+        },
+        {
+          "resource": "repo://src/js/player-core.js#L156-L202",
+          "version": "repo-lines-v1:sha256:04d89264e5d57e6466f58d99d990eabf8cac325cfa6245d2ff98ccc3d06e900e:eyJzZWxlY3RlZExpbmVDb3VudCI6NDcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVlYTQ0OGM4MjIyOTc1ZDNhMzJhNzcwZTcyZGE4OWM5ZDQ5NmQ4ZjYzNjdiN2I0NDRlNTYxNWE3M2I5MDBhMGUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNjN2YwYjJjNzU4MTBmNTZmMjRhMGI4MDY0NzhhMGRhOTlkNWY1ZTA0ZTM0NzcwNWI2NjMwYzgxNDUwY2JiYTQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIyN2IxOGM1ZGUzYzBhNGJjMmExYzgwYTA3NGJkM2IyYTZlOGRkZDA5YWYwZWYxYjhhNzI0MTZiMmFmNDg0MjkifQ"
+        },
+        {
+          "resource": "repo://src/js/player-core.js#L6-L30",
+          "version": "repo-lines-v1:sha256:a39d8a9da8f5363260fa2758b2b61d910f29c74608f4894950193fa64658ddd1:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJkNmNlZjM0MDhkODBiNzE0YjEzOTY5MzFhMGM5YjY1MGE4ZjIxODkzOTMxODI3MjYxYWQ4YTFhMzhhY2E4NDQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQyMTY4OTBkMjRiYzlhM2Y5OTdjZTllYzJiNThmYTE1NTFlNWFlZDRkZDVkOWU3MTczZjU1MjBhODg4MDFhNzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA4NmFkYmMwOWNmMWNlODdlNDUxZTc2YjhiYWYzMTE1MDM5MjI4MWVjMWQ4NjBhMDc0ODgyNTRiNGQ3NmRlMTAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_4d4d681807194ca289f66e57a7e3f5fc",
+      "statement": "Global handlers log errors that escape component handling: in the renderer initGlobalErrorHandlers (auto-invoked when window exists) sets window.onerror to log UNHANDLED_ERROR with source/lineno/colno and listens for 'unhandledrejection' to log UNHANDLED_REJECTION; in the Electron main process initMainProcessErrorHandlers registers process.on('unhandledRejection') and process.on('uncaughtException') with the same codes.",
+      "evidence": [
+        {
+          "resource": "repo://electron/main.js#L10-L11",
+          "version": "repo-lines-v1:sha256:24d98e3c57bb51a6d54c2f9d575b3d315aa19f391f267d16d49a149688478e44:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZDA0MDY3MGNhYTQzOWU2NTYxMDVlYjNmNWEwNjExYWMwODM3ZGEyMzRmZGFiNGQyNzg2OGIzOGQzYzE2ZTM2YiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGUxYmVhYWQ5NWZmNjIyY2I3YzA4YWY5NmFkN2IxNTM1OThiNDJkN2E2ZWM4YjBlZTZjY2FlZWM5ZjQwNzU5YSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiM2FjMGEwYzU1ZDI1NDc0YTIxMjBiOGNmOTA1ZjZhZjZkOGJjMWJlOTdkMzBiZjMwYTBmMmMwMzE0YTdkMzM1OSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjNhZTYwYjRmYzUzZjdkOWJhMTA3NTk2MDQwODA2MzFiNzIzYmVhYTdiNDdkMGFhNzQxYjJlN2UzOGZhOTliZSJ9"
+        },
+        {
+          "resource": "repo://src/js/errors.js#L146-L175",
+          "version": "repo-lines-v1:sha256:c96d184f6d6fb31d73d878a088fb3ada9fd1ffbf6d3797d24a0dd804834c3836:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFmNzg2NzM0ODgzYjkwN2QxODFkMjIyMzNjZTkxNGI4ODU5OThmNDAyOGUxNmRhZTliN2E0ZjNlNjFkYWFjMGMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE4NzFhOGVlOWI3NTNiZGU2ZGZlZDZmZjlhZWY5MmJkNjI5NzUzZTRlMmZhMDNmOTA4NDJjNTI4NmI5M2JlNTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBkNzJjMjc3Njc5Nzc2ZWNlNzkyZDUwYTQzMDk1NmIyZjBjMTA4YjU0YTJiM2JkYzU0ZDQ1MTgxM2YwOTgwOTkifQ"
+        },
+        {
+          "resource": "repo://src/js/errors.js#L177-L188",
+          "version": "repo-lines-v1:sha256:77496d5f25a4459f47d1d568ce9950abc4ccf2ffb68061834937dc6159cbd7d6:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNlMDIzZGE5YTcyMWNkMGVmYzAxMzY0NjE1MTE4MDBmYjI2NDhmNWU2ZWY1ZDI3NDczNzFmYjYzOTQ0NTRmZmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYwNjNjNGQxYWY4Y2Q4OWJiMGJkZDc2NTdmZmNiZjY4MDZhNjEwZDc5ZDZjOGQ0YzMwN2MyNDFkZjM5MDA1MjIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYzMjkyZjMzZmZmNGJhOWQ2OWI0NmYwZDhmNWJkZWVjMWYxMzI5ZjlmMmRkNDFiY2I4ZjVmYjViYmI3ZjMxN2MifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_1745dd46169b427ca6bdffce7cfb9d94",
+      "statement": "The audio player recovers from a media error event by logging PLAYER_MEDIA_ERROR (with MediaError code/message, src, page) and scheduling retryAudio via PlayerCore.scheduleRetry with exponential backoff getRetryDelay = base * 2^attempt (1000/2000/4000 ms) up to MAX_RETRIES = 3; exhaustion logs AUDIO_RECONNECT_FAILED and shows a persistent error status, and an 'online' event triggers an immediate retry counted as one attempt.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player-core.js#L206-L238",
+          "version": "repo-lines-v1:sha256:49bbb8c840c9693b1605fe824b8647dadbc9536e89a48db9b5ebeb493f383425:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFhNTk1NTQyMWU2ZGYxMGEzYjdlMjMzZDU3ZTJmOWJiODI1ZmZkMWI0Y2E1YjNjN2M1MjAxZDdmNDFlNmY1ZjIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjIyN2IxOGM1ZGUzYzBhNGJjMmExYzgwYTA3NGJkM2IyYTZlOGRkZDA5YWYwZWYxYjhhNzI0MTZiMmFmNDg0MjkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM1ZTgyZWY5NzJmYzc0YmQzYjYwMDdlZmJlNjk0NTY3MWY0N2YxM2FlNDNiOTA2NGQxNTJmZmVjMzVhN2Q2YzkifQ"
+        },
+        {
+          "resource": "repo://src/js/player.js#L181-L196",
+          "version": "repo-lines-v1:sha256:6b8ca71df5672215f9d7fd62bbdb664ebf1388ab4fcf8f3460b0d110d4ddc983:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2MWQ3N2E5OGFmOTU1MDRmZTE3YjY1NWZjOWIzODE5ZDI0YTUyNzlhNjI2MWYwZDhjOTViYjlmMzRmODZiZjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFlNjczYWJkNDU3YTk3ZWVhMTdhNjAwNjJlYjBmYWVhNmJkZjA5NDg2OGNjNmI4ZjhjMGViZGEyZjYxZWQ0MmYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA2ZmNmMDI3ZjFkN2JhNmRkNDc5MDViYzYyNGQ4Nzc0MjcyNGU0YTcwZGE0Njk2ZTc0YzYzYTQ1OGVjY2ZkNmUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE2OGFkMmFmZThmOGM3OTM4MmFmYzk5N2M2ZDA0YTQ5NDc3NzU0YzdiZThjMDZmMjc5MjkwNzFjYjBlM2EzMDkifQ"
+        },
+        {
+          "resource": "repo://src/js/player.js#L228-L241",
+          "version": "repo-lines-v1:sha256:cf7044d2a97a1d8acd4374ed66cdf36657e0ee60605604aa348c15dd23869402:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBmY2M4MGNkMzhmYWYxOWVkOGUyN2I3YjJjNGYyYmM4Mjk3ZWFjMWNmMjUyNjM1OWM4MGRlYTY5MTA3N2RiYTAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY0NzVlOTRhOTA0YWM0OWIzMTU0ZDQ2NzJhNjZlODYyOWI4NmRhYzc0ZTNlMjkzN2JlNjkyN2FlM2RhMTFjNTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJhN2NmZjc1NjU5YzQ5ZDhlMTYzZmY2Yjg2YjY2ZGZiN2ZjZTYyM2UxYjAxMWE1YTNmY2I1MTY4Nzg3NTNmNmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU3MmMyZjJlZjMxY2Q5MTgyMGMxODk1MzFmMjY5Y2FhMjJmMWNmYzZmM2FlZTlhZTFmNjk4MGQ0ZjkxMDc4N2EifQ"
+        },
+        {
+          "resource": "repo://src/js/player.js#L90-L124",
+          "version": "repo-lines-v1:sha256:d4a69f024bfe70cc313487ea3051f496f073bf6da69c2270aeed49de6513c3a9:eyJzZWxlY3RlZExpbmVDb3VudCI6MzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZiYjBhODcwNjMyOGYwMGUyNjE3MzI1YmRlMDViZGY2MGViNTIzYmVhNmM0MjMyODVlZGNmMjMwMDE3YmExOWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg3ODlmYzNiZTMzNjQ5Mjg1Nzc1N2M3NWE4NGUwZjI1ZTBkNmQwN2JiZDhhZjU4YzY4MDZhNTdlODhjY2NlZmMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJjMDdlZWQ1NGM4MzQzNmM5NmEyZjdjMGM5ODBlZGEwMDI3ZjlmZTRmODA5NjdmNmIxY2YzNDBkZmM0OGQ0NzQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_0ad57ca1d1524be7820e136b82ae897d",
+      "statement": "The video page classifies Hls.Events.ERROR data through window.HlsErrorMap (NETWORK_ERROR/MEDIA_ERROR/KEY_ERROR/MUX_ERROR to HLS_* codes), logging HLS_FATAL for fatal and ErrorCode['HLS_' + mappedType] otherwise; fatal network errors trigger handleNetworkRetry with startLoad() retries and the same exponential backoff (destroying the HLS instance and showing a persistent message after 3 attempts), fatal media errors call recoverMediaError(), and all other fatal errors destroy the HLS instance and show 'Schwerwiegender Fehler' via the status display.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/errors.js#L76-L85",
+          "version": "repo-lines-v1:sha256:ac3c906e6ea8088414729b53520a9523bfd5df21de1ef26ffa8c14be8aa54b19:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM2MDlmNjY1OWFiMzM0NjBkN2YxYzU1ZDg1OWFlZjllZmU4ZTAyOWJiZGJjNzI3Y2YxZDQ0ODg3OGNlOWM3OTAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZhZmJhMDUyN2MzOTUzYzRiNmUwZTViNTczOWJhODM2MTJmODA1M2JjZGM5NDY2NzMwMTkzY2QxZDU5MGI0MDgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJhYjM4MjFlNDFhZTNlNmFiNWQ4OTBlYjJjZWY2ZGNjMTQ0NTU2ZjFjNDAzODEyODVjOGE4MzNmNzRkMTljMjIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImJlZGVlM2E4MzJiMDBjOTFjNmU2OWU5MmNlMTg4MDJlMjVlYzc2Nzc1MDcxODgwYmVlYjJmNWY5NWRkNDUwMjMifQ"
+        },
+        {
+          "resource": "repo://src/js/video.js#L141-L148",
+          "version": "repo-lines-v1:sha256:a9e90fd63c6bf4a70d1412c5d6748fc0e53ff177343e6aefda90bc946f680c93:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYmNkYWU4YTA0ZmU3YzlhNDY5YzIyOTQ1ZGY1N2RlMjAxNDNlMWQ4NzM0MTg0YWE4MGIyY2E0YTJlN2MwOWFjYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZjliMTk4MmU4ZGQ3NDgxMTgxNDZiMzlhMmQwMDYyZjQwODFlMzQ3NzliODY3NWMyMzRjNGZiMTI0ZGMzOTM5MCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjBmYzU1YTk3ZWVlYmU5OGEzZDY2NDVlZmJiOWZlNWExM2U3ZDVmMzViYjdmMDdjZTU0OTZjM2ZkMTMyMzExMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiM2Q5NjdiNDYxY2I5NTY3YjZkNjEzMTBiODNmYmRhZDZhYzE0ZjE4ZGY5MWI4ZWJiYmZmYWE4MTYwY2ExZDkwOCJ9"
+        },
+        {
+          "resource": "repo://src/js/video.js#L151-L166",
+          "version": "repo-lines-v1:sha256:b4f635d1989e0ae5f283d2807094d73bd5b775afb01834e410641f15007badca:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRhM2ViMDI0ZmM2YjgxNTg4ZmM5OTM1NmQ3NGUzNDIwZjEwMzI0NTkxZDAzZGJjM2YxNzVlMTQyZWJhOWFlYzYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImViOWEwOGJjMjlmNmViZWJlOWE1ZjAxOTAzZDk4NDVkYmNiNTg0MmE0NTVmMDdkNWY0MDAyZGFjMzJhNWM2MDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFlMGI5ODJjNzFlYWNhNjRhN2YwZDJiODQ0OGE4YzA3MTYwM2U1NTZjMjJlODExNGJmZWNiMzY3ZGNjMTFlMmUifQ"
+        },
+        {
+          "resource": "repo://src/js/video.js#L168-L203",
+          "version": "repo-lines-v1:sha256:0cc9cb40e1b2d7bd1df3c9a8bc6224a1de4faac28af50f3eaee75a010eff3704:eyJzZWxlY3RlZExpbmVDb3VudCI6MzYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYzNTJiNDM4ZDNiM2VmZjg3N2I0ZmNkNmRjMDA0ZDI5MWI4YzNiZGIzMzY2NmY2MmZkZjFkN2E1ZGMzNjU4YTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVlYjc4YTdiYWRlNmQyYjg5OGMxZTlmZjA5Y2NmYmVhMjM2ZWIwZTNiNzA5MWNjOWY0NGNhMDI3NTliZGI0ZDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImI5M2Y3NzI1NzMxODhiYzM5YWRjNjY1MTM4MDRjZmE1ZWI3ZDQwZjUxMTQzM2VhNDgxOWE4YjRmZTNjOGZmNTAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c1d99f10bec3432ea6dda036c5870b92",
+      "statement": "The Electron main process confines the custom file protocol to the app directory: a resolved path outside appDir logs PATH_TRAVERSAL and returns a 403 JSON body, while ENOENT/EACCES/EPERM and other fs or net failures log FILE_REQUEST and return 404/403/500 JSON; navigation guards on will-navigate/will-redirect/will-frame-navigate/setWindowOpenHandler route http(s)/mailto to shell.openExternal (logging INVALID_NAVIGATION_URL on failure) and load discovered subpages or fall back to index.html, and page discovery plus .npmignore read failures log PAGE_DISCOVERY and NPMIGNORE_READ.",
+      "evidence": [
+        {
+          "resource": "repo://electron/main.js#L150-L205",
+          "version": "repo-lines-v1:sha256:80b7aa8ada8f2f5d631715911479f3edd5ed91a3367758f3119ebc22424f795b:eyJzZWxlY3RlZExpbmVDb3VudCI6NTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVjMzQ4YWIzNThlYzhjMWQwMjJkZDRiMzZlMTFhNmQwMjc5YThjZWJmMzdkOWQxZDg3NzEyYmZjZTZiYjFiZmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE3OTY0YTc5YzU1NDZmZWYwNWE5ZmQwZGFkN2U2N2Q0ZTdhNGUyMjYyNDZhMjZjYjdjYjczNjJlNGUyMDc2OWIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg4Mjg4MjAxYWE2OTU5NzYyOGRlYTFhNjVmOGNiNjgyOWJiOTBkYWM5YzkwM2NiNDJhNTUzM2FiODVkN2E4YmMifQ"
+        },
+        {
+          "resource": "repo://electron/main.js#L213-L275",
+          "version": "repo-lines-v1:sha256:8f1a96316015a903d5d4d2c2cdc9dfdf578e35152bbd1d0ccc4a6907e4824380:eyJzZWxlY3RlZExpbmVDb3VudCI6NjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBjNzJkYzA5YTM2NTFjZWQ2YmNiY2FkMGQxY2Y1MDc3ZmFmZDQxNDUxYzcwNTA1NzY4MmQyZTAyNDE0YzI4NGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY0NzVlOTRhOTA0YWM0OWIzMTU0ZDQ2NzJhNjZlODYyOWI4NmRhYzc0ZTNlMjkzN2JlNjkyN2FlM2RhMTFjNTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImExNTY5Y2Y0MGI0ZmU0MGYzNTEyNTMxYjM1MWZlNTVjNjg2OGY3NDBiM2Y4ZTczYmNiOGNkYTFkMTA5MThlYTAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjYxZTg4OGM4NThjNDVjNGU5YTI2NzA1OWQ2NWJhZTkyYWVmN2M5Y2M2M2VmMjAyY2M3NWUxZjlkMjJlMzJkMjEifQ"
+        },
+        {
+          "resource": "repo://electron/main.js#L30-L102",
+          "version": "repo-lines-v1:sha256:8c2b85c32cbcaae1a002e85fdfab77f13f2cf5afd437e80ed88bc77fc0b6fab7:eyJzZWxlY3RlZExpbmVDb3VudCI6NzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjUzNjM1NzZjZjEyZDBlY2FiZDlmZjRlNmRlMTAzZDgyZWFjMWZjMjAzMDhhNzQ0MWQ2YjMyZjAwYzA5MGYwY2QiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFmYmNhYThkYmZhMTAxOGY1N2FlZGQyOGU2MDVkZTlhODJiOWQ1MmYwNTdlNzAyMzEzOGM0YjAzOTUzYjVhMDIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc1ODA1ZWFlMWQ3YTJmNjMwMzQ3ZTUzOGYwYjI0OWZlZDZjMTJjNTNkOTQ5ZjYyNmI5ZjQ3YTBkZGM3ZWQ5ODYifQ"
         }
       ]
     }
   ],
   "verification": {
-    "by": "openwiki/0.5.2",
-    "at": "2026-09-27T19:48:35.317Z"
+    "by": "openwiki/0.7.2",
+    "at": "2026-11-03T19:02:34.893Z"
   }
 }

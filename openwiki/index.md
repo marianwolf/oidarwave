@@ -4,7 +4,7 @@ okf_version: "0.2"
 
 # Files
 
-- [Quickstart](quickstart.md) - Introduction to Oidarwave project structure and how to get started with development, including cloning, running, testing, and building the application.
+- [Quickstart: Oidarwave Development Entry Point](quickstart.md)
 
 # Directories
 

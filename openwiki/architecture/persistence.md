@@ -3,9 +3,6 @@ type: concept
 title: Persistence Layer
 description: How user settings, station history, download history, and favorites are stored using cookies and localStorage.
 tags: [persistence, localStorage, storage, architecture]
-verified:
-  - by: openwiki/0.5.2
-    at: 2026-09-27T19:48:35.317Z
 sources:
   - id: openwiki-source-f5dd57353d17e5dc5ea58a83
     resource: repo://src/js/cookie.js

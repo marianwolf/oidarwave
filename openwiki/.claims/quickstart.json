@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:145a819a1ab04f3d0f2968490d09aa2b5ef5ccbb0f4880a3039fb968b8bfb042",
+  "pageVersion": "sha256:e5e74e62d2e57a50c379b8280fafe5b41c0d6249699f74d1ed86c45ab9e4b743",
   "claims": [
     {
       "id": "claim_4c5205490b5c422f98a1eafa7ba61c4f",
       "statement": "Oidarwave is a minimalist, ad-free webradio application that runs in the browser and as a desktop application via Electron.",
       "evidence": [
         {
-          "resource": "repo://README.md#L8-L12",
+          "resource": "repo://README.md#L5-L9",
           "version": "repo-lines-v1:sha256:a434252816537288a1de526e422aad2d9312bbc643149e9ecdf8bf6da1543d0a:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWM5OTY2MGRhYzJkY2Y3YTYwY2EwMjJlZTA2MzYwNTdmMmJmZTU1MTRiODViYmRkNDYzZTRlMzNkYjc0N2U0ZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMThjYWE0MjZmNzRjNzgyMmVkMzVkNzUzMWQxODBiZTgwMTM4N2UwNDlhYWM5NWQ4MGVjZGU5NTg1ODI0YTcyYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMGQ4NGMwYjY4NDEzNWIyNWMwODY1ZmMxODM4ZDI5MWEzODA5MDNjMTQ1OWM3MTQ0Nzc3MjkyOTdmYjgzZDZjNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzBjYmExNDM5ODBjNzQyOWJhMmJiN2MzNDEyOTZlOWQ1YTc3NjIwZTcyMTRmMGRhYzFmZjU4M2JiODAzMmE3NyJ9"
         },
         {
@@ -18,15 +18,15 @@
     },
     {
       "id": "claim_0a00006566d04e2cb6fd4dbb6a78868c",
-      "statement": "The static web application can be run by opening index.html in a web browser.",
+      "statement": "The static web application can be run by opening index.html in a web browser (no server or build step required).",
       "evidence": [
         {
-          "resource": "repo://README.md#L38-L43",
-          "version": "repo-lines-v1:sha256:51ebab8e2315ee5f75e198bf6d62898a969eea04cef846268305c9fec9ef017a:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNmU0YWI2NDJkYmQ3ZTRkYWUwYTdlM2MzNzA2ODM1OTA1ZmI1MWU2NjI1ZjI4ODc4ZGQwY2VlNGRiM2RmMDc2NyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMGNiYTU3NDhlYmE5ZGU4NTY5Y2NlZGExODZkMTk5MTY5ZWEwNTA4ZDBkZTQxZjNjZGZlMTc3ZjMwZTFhMGIzZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiY2QwNmNmMjlkNzc1MTQwMGE0Njg4OTJhOTRlMWQ2YWQ3ZWI2MWMxYTMyMmQ4OGI4MDUxODVlZjcwNzFmZTQ5NyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzQ0ZTZjYzg4MDIyMWJjZWEyN2MyYTYyYzQyOTRhZTg3ZWJjYzM4OTkzYmI3YWVkNTYxYWVhNjFlMmVhNmZiNCJ9"
+          "resource": "repo://README.md#L33-L41",
+          "version": "repo-lines-v1:sha256:5e5698067ba65ce7181c98f499c10e71592b87f5bd8f56b919f5c550adb24b0c:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTY1MTYxZGYyNmZjNGI0OThiYTM3YjE5YzQwZmRkMTI4NDM3NDE1YTI5YWNlOTk5MTEwNzU4MzlkMThlYzQ2ZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTcxZTA1ZmM1MDljZTUwZGEyNDdjYWZiM2RiMmNiZjM4ODk2ZjM4ZWE3NDk2MzNlZTlhNjNmNjliYWM1ODNkNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTQxMTQ2ZWUwZjBlYjQwOThiMGNhYWY2NGY5YzQ4ZGJmOWE1NWRlZmRkNGVmOWNmMjJmOWEzYzE2NWE3NWFlMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNWMwYWQ5YjQwNTNiZDBjYTM5MjY5NmIzOTIxZjc4YzI0ZDE2ODEwNGJiZWZmNjhmYzNjODRjMmUwMTMwNjIwNCJ9"
         },
         {
           "resource": "repo://index.html",
-          "version": "repo-file-v1:sha256:79a5b37926108d278024e5aa037290b35e38d1fdcf56a20ea7a59097185fa7fb"
+          "version": "repo-file-v1:sha256:b7b7b5bbb300bc19057f4816b305108187dba67f7427839bb7c6112ad57772dd"
         }
       ]
     },
@@ -35,7 +35,7 @@
       "statement": "To run the test suite, one must set up a Python virtual environment, install dependencies from requirements-dev.txt, and install Playwright browsers.",
       "evidence": [
         {
-          "resource": "repo://README.md#L49-L55",
+          "resource": "repo://README.md#L47-L53",
           "version": "repo-lines-v1:sha256:b06ca5cbdb8f579de632fc9a74d5a1069e5720b43da47a8c25db0862fa83b353:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNWRlMmY1MzI4ZWU2ZTgwNTBlOGFhZmQ4ZGM4NjlhMDY5Y2Q5NTg0ZWRhYWY1NGZlNTg5ZDczYzNiN2RjZDc5OSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDdjMDZjNTYxZDVjMzI3MzQzNjg1MjY4YTQ2YjMzOTFmMzk5OGVlZTg5MGQyYmU1MWYwZDIxY2M0YTUzYWU2ZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDlhNzNkNmEyMjZkMzEzYzk2NjMyOGNjYjE3ODk5NTRjZWM5ZTA5ODYyZmRjYTk5Mzc5Nzc5NTdhZWY4ZmY2NiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODQzYmVkNjlhMjVhZmJlMjZiYjM1YjFmY2EyNzU3YjFlMzYyY2JkZDQwMDY0MjQ0ODI2ZjAwNjBmYWQ4YjYxNCJ9"
         },
         {
@@ -46,31 +46,105 @@
     },
     {
       "id": "claim_f6c791682b8e44739299cd9d5628e655",
-      "statement": "The test suite can be executed using the command `pytest`.",
+      "statement": "The test suite can be executed with `pytest`; it consists of exactly three files (tests/test_unit.py, tests/test_website.py, tests/test_design_layout.py) selected via the unit/integration markers in pytest.ini, and CI runs all three.",
       "evidence": [
         {
-          "resource": "repo://README.md#L57-L61",
-          "version": "repo-lines-v1:sha256:64040cc43828686979fdd43ebc28bbff7313c9d90c39ffacb2815efded5d4771:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZGQxNTk2N2NkNzllMzM2YzViMDJiNDQ1NjNhN2ZlNzQ4MTBkZDdmODE1ZjFhZWRhNjhiNTU0MDFlMWE1ODA2MiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDdjMDZjNTYxZDVjMzI3MzQzNjg1MjY4YTQ2YjMzOTFmMzk5OGVlZTg5MGQyYmU1MWYwZDIxY2M0YTUzYWU2ZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNWQ0NDBlYjgxMDUxM2RjNjBhYjczM2QxYjMzM2Y3OWE4NjJkNWQ1NmVhZGFkNGNiOWU5ZDRiN2RjNGFmMmJmNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYjA1MDViZWI0YTE2MzQ0ZThkMGFkYmRhZjkzMTE2YWVlMzYyYTM4NWRjMzAwNzM0OTUyZGM2YWQzZWZjMDQ4ZCJ9"
+          "resource": "repo://.github/workflows/test.yml#L41-L48",
+          "version": "repo-lines-v1:sha256:336585af479950eccdb473ef1e3b62647fe690d0f1f7ce8fb8aec02638470ba4:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzY0ZjZjNmVjMzRlZGVhMzE1MDMxYzFkNzMzMjE1Mjk2NmQxODAyYTE5Mjk3MDEyMTBjZjY2ODUyZGFkNDJkNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNjYwZjkxMjllYzgwNzA5NmM3Y2JkYjc2Yjk4OGEyZmU2YTU3MWNlNmIwZmRiMGZlNTc1YTRmMjBlNDg0NTQ0NCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOWFiMmEzNTU4Mzc2YWRkNzY1MDA5Y2Y2YWY5MmU1ZTQ3MTRhODczYjNlMWIwMWViNDY3MGNmYzI2MDBhZDUzMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        },
+        {
+          "resource": "repo://pytest.ini",
+          "version": "repo-file-v1:sha256:87c5bf0bde59829437d686ce86705d2e840f1ea75cdc9d9c0846a6a0c4851d0a"
+        },
+        {
+          "resource": "repo://tests/test_design_layout.py#L1-L9",
+          "version": "repo-lines-v1:sha256:0439a9882adecf570835536e3af614e3afda5f15ebcd6fc6bc0dfa921535b0c8:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDgyZWFkNjRkOTlmNmI2ZGRmYjMzZmFlZTE3ZDcyY2ExOGViOTEwMTg2NThmMmVkNDczMTQyYzQ5MDliZWI5ZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiY2VmN2Y3NzNiYTk4M2FiYmFiMThkM2ZlZGZmNjZiYjg1ODA2ZjA2MzQ1NjAzOGU4YmQwMGMwNTYyNzE4YWYwMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjNjYTY4NmFiNTRlYzI2ZjRmMDg0OGE3ZTIxMzE5ZjVkOWZjZDc3OGEwNDlmZGNkN2JhNGUwZjkwMmYwODA1MSJ9"
+        },
+        {
+          "resource": "repo://tests/test_unit.py#L1-L14",
+          "version": "repo-lines-v1:sha256:55a1c1f5f1409d741dca423fc1d70609a09099bbecaa1f83e4c95f9d902e2e59:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdiODIxYWJiZjhlNThjM2FjN2VlYmJhZDg1ODBmZDcxODRmMDllYjMxZmM2MjQzMDliYmRhODcwNGQ1NGQ1YzUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjlkNjYyZTM3NmQ3NGYyYmE2NWFmMTMwOGU4MTAyNGNkOTI4NDU0YTMyNDc5ZmExNmQ5NDVjMzBjMDRmOWYzYTgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg4ZmY2ODM5MDdkMWVhNTJkMDRmMGU3OTE2NGZiNWU2ZGQxZGJjOGZmZmM2YTNkOGQxZjQwODQ1NTcxM2U3ZDIifQ"
+        },
+        {
+          "resource": "repo://tests/test_website.py#L1-L6",
+          "version": "repo-lines-v1:sha256:5f9a1401e8cb4c4dfe7003aff3d9f453b6443b63e5e7f564ab470e02dee6e6c6:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzM4ODhmNTM2ODAwYTE2OTg5MmM3NzUzMGI1ZmU5MjM0Y2YzN2FjNTFlYjMzY2Y3NTZhYTYwZmE2OWUyZDc5YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiY2VmN2Y3NzNiYTk4M2FiYmFiMThkM2ZlZGZmNjZiYjg1ODA2ZjA2MzQ1NjAzOGU4YmQwMGMwNTYyNzE4YWYwMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTg0N2ViNDMzYmZjZGMxMGIzZGFiMjJhNzM2OWI0MDdhNzk5MDY1NTIzMmVjNjFiNGI5Nzk1NjZiZDk1MzQ4ZiJ9"
         }
       ]
     },
     {
       "id": "claim_6d62ff4b8ba344899578342065ceb71c",
-      "statement": "Electron applications can be built using the npm scripts defined in package.json, such as `npm run dist` for creating distributable packages.",
+      "statement": "Electron applications are built/packaged via the npm scripts in package.json — start, pack, dist, dist:linux, dist:win, dist:mac, format — driven by the electron-builder config (appId, files allowlist, asar, per-OS targets).",
       "evidence": [
         {
-          "resource": "repo://package.json#L17-L31",
-          "version": "repo-lines-v1:sha256:c61a2cc249fce7558ab9f85f7ff83e5035107231fbf88aafd61c9d796689dec7:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdiMDcyMDFiZGI2YmMwNTkyMDg0OTYzNjgxODYxYTRmYTE0YWZkYTU5MWI2ZDU2NjFiNzQ1OGQ5MjFkNWQwZWIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM2M2Q1MzVjZTM4MDYzZDZiNGM1MWQ4YzM4NmE3ZjliM2U1ODBhMTRhMTBjMDdiMTk4ZGZhZjE5YzkzYTNiZmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImM0N2Q0NGQ2OGMxMzE4MGM2Yjg3ZTZiN2YxNTZlZDZiMDM1YmQ3ZjdjZTc3ZjhhYzZlZGY0MjJmMWU2OWVkYjgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA1ZTQxODc2NWE3MDA0Y2E2MTI1NzVjMTRmNjVmOTI5MmZkMGFiYWVjOTI1OTFkOTRiYjEwOTliMDBhMzczOWIifQ"
+          "resource": "repo://package.json#L18-L34",
+          "version": "repo-lines-v1:sha256:33718f30b24a22ad979e7e7ba8e6ac5eacb0f0e0816fc5866d007a19b07b77f5:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdiMDcyMDFiZGI2YmMwNTkyMDg0OTYzNjgxODYxYTRmYTE0YWZkYTU5MWI2ZDU2NjFiNzQ1OGQ5MjFkNWQwZWIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjgwYjk3YTNiNmZkYWRjNzVkNjAyZmY3YzRmZjRhZDlhOWRiZjA4YmVlMjdhNDFkMWI3YTUwNWY1YjZlZDZlZDAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImM0N2Q0NGQ2OGMxMzE4MGM2Yjg3ZTZiN2YxNTZlZDZiMDM1YmQ3ZjdjZTc3ZjhhYzZlZGY0MjJmMWU2OWVkYjgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVjMmIyMGVhNjQ5OTgxMWZlYWYwMzcyN2U0OWNjNTMyMDg5NmE2N2JhZmFiNDk4MDA0NDU1ZTNjNTA1NjJjZGEifQ"
         },
         {
-          "resource": "repo://package.json#L7-L13",
-          "version": "repo-lines-v1:sha256:6521320a5066a6fc389ce16a693bf3ee13732860a41747896b4a2c2465229c2c:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzQ4MzNkNTk0OWMwM2E0MGNhOTUyNDkxNjEwYTY2NTk2NDRiM2FhNDY2MzYyZjc5OTAyMGRiZjE5ODE1NDdkYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTMyNzdiOTQ3MjRkYTFjZmIyYTcwNTU3MmFmMmQ5NWNiMDkyNGZhN2IxMGM0MDc1NDA5Nzk2OWY2MDlkYTcwOCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNmYyMmFlZTg5YTZjYmE3ZGZlN2FkMjEzODIyMWY0MWM3OWExMWZlOTkyMjM0NmY2YjhkMzc5N2ZkNTI1ZGFhNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzQ3ZDQ0ZDY4YzEzMTgwYzZiODdlNmI3ZjE1NmVkNmIwMzViZDdmN2NlNzdmOGFjNmVkZjQyMmYxZTY5ZWRiOCJ9"
+          "resource": "repo://package.json#L7-L15",
+          "version": "repo-lines-v1:sha256:540b857a3c023f65bb32fd0d118e1da0681df5263f1fa4d6f3af83e1da659aed:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzQ4MzNkNTk0OWMwM2E0MGNhOTUyNDkxNjEwYTY2NTk2NDRiM2FhNDY2MzYyZjc5OTAyMGRiZjE5ODE1NDdkYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGQ1Y2QyZmI0ZjNkZjg4NDUxNTI1NWIzOTUyM2YyZjhiNTQ3MmJlZWE5ZjU2NmZmY2EyMDRkYjgwMjU2MTA0MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNmYyMmFlZTg5YTZjYmE3ZGZlN2FkMjEzODIyMWY0MWM3OWExMWZlOTkyMjM0NmY2YjhkMzc5N2ZkNTI1ZGFhNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiN2ZjY2ZhYzY3MzJiNjkxMTIyY2UzYzZhOTQwN2RlYWE4NTZlZDY4ZWY0YWNjZmU3ZmFhM2I5NThkZDQ0MDg2YSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_eaa0104635ad410ca85c4e1debb5b6dd",
+      "statement": "Both pages load scripts with `defer` in a fixed order — errors.js → player-core.js → the page module (player.js on index.html, video.js on video/index.html) — because modules expose window.* globals, and this order must be preserved.",
+      "evidence": [
+        {
+          "resource": "repo://AGENTS.md#L21-L21",
+          "version": "repo-lines-v1:sha256:768eff2c310a6bfd27bcdd34071b57bae282fa85550e13c88bed7f0b8b995658:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzY4ZWZmMmMzMTBhNmJmZDI3YmNkZDM0MDcxYjU3YmFlMjgyZmE4NTU1MGUxM2M4OGJlZDdmMGI4Yjk5NTY1OCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNzY4ZWZmMmMzMTBhNmJmZDI3YmNkZDM0MDcxYjU3YmFlMjgyZmE4NTU1MGUxM2M4OGJlZDdmMGI4Yjk5NTY1OCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYWQyZmQyM2E4ZTg1YmZmODRmMTBiOGVkNWNjZGY0ZjFlMzBiMDU5MWVmODQyODRkMGI4NWE1ZmVkODliNGQwYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTFmMzZlOWNjNjc2ZTc2MzQzM2ViNjJkNGRmYmU0YWUyZDVhYWFlNWM3MmJjNzUxZjY3OWUyYzZmYTJhYzcyYiJ9"
+        },
+        {
+          "resource": "repo://index.html#L52-L60",
+          "version": "repo-lines-v1:sha256:5a32f43d96bb2a147192d36351add602b551ba7d9a2f7772824fb2d70ce7f1d4:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODZmYzUyZGY1MTE3YmRmMDA5NWJiMDMzODg4NmY2YTNjM2JkZjY5OTRlZDZiMjNlMWRiNWYwOWM4YmZiOGViOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDdhN2Y4M2E1MzBiZDhkMzJhZmZjNzFkMGUzYjk1Mjg5ZjZlOGI1OTM5NzliOTY3ZjJlYzc3Y2NiOGE2N2I4ZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTQ3YWNiMDdmMTU1NGE4NjRjYjBhYTcwNGQwOTU5ZDc3YzIwNGZmZDUxNGYzMWEwZWI4M2JlNjU0YjQ4N2Y5YyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNmRiMTQyNzRiYmQwOGMxM2QyMjJkMzcxODkyYzczZTk1NDA1ZTBiOTEwMDA1M2Q4N2JlNDllOWUyOGU0MTdkZiJ9"
+        },
+        {
+          "resource": "repo://video/index.html#L55-L63",
+          "version": "repo-lines-v1:sha256:4f3bfe6ff689b12bbe99bda5bbe2fc53f6de923a1dc62e8459766d8d1acf4357:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODZmYzUyZGY1MTE3YmRmMDA5NWJiMDMzODg4NmY2YTNjM2JkZjY5OTRlZDZiMjNlMWRiNWYwOWM4YmZiOGViOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDdhN2Y4M2E1MzBiZDhkMzJhZmZjNzFkMGUzYjk1Mjg5ZjZlOGI1OTM5NzliOTY3ZjJlYzc3Y2NiOGE2N2I4ZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNzJlN2Y2OWFmYjMyNzc1ZWE0N2VkNGZkYzhiOWM5OTE4MjNmODJlNzAwYTc3YzYyYmVjZWNiZjZiMWQzOWU5YyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNmRiMTQyNzRiYmQwOGMxM2QyMjJkMzcxODkyYzczZTk1NDA1ZTBiOTEwMDA1M2Q4N2JlNDllOWUyOGU0MTdkZiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_039cf5ec8998487db483c39faec0f478",
+      "statement": "Stream URLs are never hardcoded in JavaScript or tests: the single source of truth is the data-url attribute on each .station-btn in index.html and video/index.html, which the player reads from the DOM and the unit tests parse and validate.",
+      "evidence": [
+        {
+          "resource": "repo://AGENTS.md#L26-L26",
+          "version": "repo-lines-v1:sha256:2ec5fd035a114cfff6e7188ed4195dca152c9bcbe82d01284e71af7fa78699ad:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMmVjNWZkMDM1YTExNGNmZmY2ZTcxODhlZDQxOTVkY2ExNTJjOWJjYmU4MmQwMTI4NGU3MWFmN2ZhNzg2OTlhZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMmVjNWZkMDM1YTExNGNmZmY2ZTcxODhlZDQxOTVkY2ExNTJjOWJjYmU4MmQwMTI4NGU3MWFmN2ZhNzg2OTlhZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjhiNzYwNWRmM2NiYTcxZjMzYmQ2MDMwNWZiYWM2YWY1NTY1YWRiMjI1MjZhODAzOWQwMzcyZDY4YjE4MDMwMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjM2MmIxZGYxMzJmMmM5MDJlZTU0ZjIyNDMwZWUyZDQyYjk3NmQ0NThjYmY5NDM0Njg4NTJhMTllYmM2NWUxMSJ9"
+        },
+        {
+          "resource": "repo://index.html",
+          "version": "repo-file-v1:sha256:b7b7b5bbb300bc19057f4816b305108187dba67f7427839bb7c6112ad57772dd"
+        },
+        {
+          "resource": "repo://tests/conftest.py#L11-L20",
+          "version": "repo-lines-v1:sha256:bf124abdfb1a0193027b1b01b52dbe24426b9c379352062e083eff9a3f7c7c55:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI4ZTc0ODMzZWY3N2RhZGM0NGFmMDRiZjllNDc1ODY0N2IxYWRhZDFhMjMxODRlZTVjOWI4OWE1YzgyMjUxNjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkZDI0NDU4MmI2ZmIwM2QyM2I4NDE1YWJlY2QzNDZiMGM5ZjQ2NmI2Zjc1MmIwNjgxODljZTdlOWEyZGMzNTAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU5ZGRmNDJkZjY5MzhmOTE1OTc3NTQ0ZjczMGUyMjhjODA4MmQyYzkxN2U5NTJkZGJiZWFjZGU3NDQ1OTlmMmYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjcyMzc1ZjdjZDVkMWMzYWI1YzFlMjE1N2ViNjFhNjRhMDRlOTZiZDA1YTg1NThkYmY0MWRmZWUxMTE4YjcxMDcifQ"
+        },
+        {
+          "resource": "repo://video/index.html",
+          "version": "repo-file-v1:sha256:3f933fba7e945b2d6642a0ccef55ce3262e4140ac220c3ca4c0dad969fe036af"
+        }
+      ]
+    },
+    {
+      "id": "claim_833dfe258ad2413e83b51e3d8dc7d9ef",
+      "statement": "The test environment is a Python venv at .venv with dependencies from requirements-dev.txt (pytest, playwright) plus a one-time `playwright install chromium` browser download.",
+      "evidence": [
+        {
+          "resource": "repo://AGENTS.md#L23-L23",
+          "version": "repo-lines-v1:sha256:012e945510154323832f9a51e9bb296480e029bce71dd0174a82e02c6e9f025c:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDEyZTk0NTUxMDE1NDMyMzgzMmY5YTUxZTliYjI5NjQ4MGUwMjliY2U3MWRkMDE3NGE4MmUwMmM2ZTlmMDI1YyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDEyZTk0NTUxMDE1NDMyMzgzMmY5YTUxZTliYjI5NjQ4MGUwMjliY2U3MWRkMDE3NGE4MmUwMmM2ZTlmMDI1YyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNzY2YThhZjFiY2FiOWIyZjk0NTVhNWI2OWQwYTZlZWE1OTRjMmU2Nzg4NTUwZjQzNWEwYTRlOGFiYWU1NjMxMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTBlMTVkZmJiYmIzYzRkNjZjNGVhOTM5MzZkNzVjOTU3ZDIwMjQ2MjYwNDFmZDEwODFmYTFiODkwYzY5ZDE2NiJ9"
+        },
+        {
+          "resource": "repo://README.md#L47-L53",
+          "version": "repo-lines-v1:sha256:b06ca5cbdb8f579de632fc9a74d5a1069e5720b43da47a8c25db0862fa83b353:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNWRlMmY1MzI4ZWU2ZTgwNTBlOGFhZmQ4ZGM4NjlhMDY5Y2Q5NTg0ZWRhYWY1NGZlNTg5ZDczYzNiN2RjZDc5OSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDdjMDZjNTYxZDVjMzI3MzQzNjg1MjY4YTQ2YjMzOTFmMzk5OGVlZTg5MGQyYmU1MWYwZDIxY2M0YTUzYWU2ZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDlhNzNkNmEyMjZkMzEzYzk2NjMyOGNjYjE3ODk5NTRjZWM5ZTA5ODYyZmRjYTk5Mzc5Nzc5NTdhZWY4ZmY2NiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDA2N2QzZTAzMjFlMGI3M2Y1NGZmN2Q4NmFmNjA2MWQyMmExMDZlOThhMjdmMmIzZGYwNDZhMjBiNWJmNjFiMSJ9"
+        },
+        {
+          "resource": "repo://requirements-dev.txt",
+          "version": "repo-file-v1:sha256:02b1814466bd92ae9fb83c3c612808072489d9745f53eeb3fb430774b2ee922b"
         }
       ]
     }
   ],
   "verification": {
-    "by": "openwiki/0.5.2",
-    "at": "2026-09-27T19:48:35.317Z"
+    "by": "openwiki/0.7.2",
+    "at": "2026-11-03T19:02:34.893Z"
   }
 }

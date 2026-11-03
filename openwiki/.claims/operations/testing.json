@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:17bb1c5ae7a85a63da782c27608457e0d8cfa78ef5514b566a6362364359ce5e",
+  "pageVersion": "sha256:11861093d11e47fbffcf413ab1b2dc4eb93dfe538b23dfd7d318b7657dea3573",
   "claims": [
     {
       "id": "claim_c0f7c638df1940a4b37da0fdc7f13c9b",
@@ -23,42 +23,12 @@
       ]
     },
     {
-      "id": "claim_db644bdecc854a8b900b0fc09856279c",
-      "statement": "Stream validation tests in tests/test_streams.py verify the structure of stream URLs in index.html and video/index.html without requiring network access.",
-      "evidence": [
-        {
-          "resource": "repo://tests/test_streams.py",
-          "version": "repo-file-v1:sha256:ad1d080ff362d8991495c2dd87e02563830826f4ca2f16ab39ff564b46fc2a53"
-        }
-      ]
-    },
-    {
-      "id": "claim_c838305ea7ec4878b94b3fe9f24f8a99",
-      "statement": "Syntax check tests in tests/test_syntax.py validate HTML, JavaScript, Markdown, and CSS files for balanced tags and proper syntax, excluding directories like .venv, node_modules, __pycache__, .git, dist, build, and .pytest_cache.",
-      "evidence": [
-        {
-          "resource": "repo://tests/test_syntax.py",
-          "version": "repo-file-v1:sha256:72fd310035e31ac4a9a47928b28149374396f41fd25f63486197b2da0779d867"
-        }
-      ]
-    },
-    {
       "id": "claim_cd2adc25878c4a7bb1011cc4fa885ff7",
       "statement": "Website integration tests in tests/test_website.py use Playwright to test index.html, video/index.html, and impressum/index.html rendering and functionality.",
       "evidence": [
         {
           "resource": "repo://tests/test_website.py",
-          "version": "repo-file-v1:sha256:ad68060e2fc94b31d070194dcd947f8482ab3639358ef2606ae8f233d1750cf3"
-        }
-      ]
-    },
-    {
-      "id": "claim_90d614fb8e1f4e4b9df599ddf7bde4af",
-      "statement": "Electron build verification tests in tests/test_electron_build.py validate that package.json contains proper Electron builder configuration and that required files and dependencies are present.",
-      "evidence": [
-        {
-          "resource": "repo://tests/test_electron_build.py",
-          "version": "repo-file-v1:sha256:6a643688e455e0a77b65c2a7d9f9b24cd93f2a008ea5c67e2ea8c97388cc8c39"
+          "version": "repo-file-v1:sha256:f83c3539d198a66b8bf16dec192dcfb076c832c95f7028ddd0c2fbcdde492b5d"
         }
       ]
     },
@@ -71,10 +41,118 @@
           "version": "repo-file-v1:sha256:87c5bf0bde59829437d686ce86705d2e840f1ea75cdc9d9c0846a6a0c4851d0a"
         }
       ]
+    },
+    {
+      "id": "claim_c867c4717bd3456cb0eb4d7bbbd32493",
+      "statement": "The test suite is a pytest suite in tests/ with exactly three test files — tests/test_unit.py (unit marker), tests/test_website.py and tests/test_design_layout.py (integration marker) — configured by pytest.ini with testpaths=tests, addopts=-v --tb=short, and registered unit/integration markers; tests/test_syntax.py, tests/test_streams.py, and tests/test_electron_build.py no longer exist and their coverage was consolidated into test_unit.py.",
+      "evidence": [
+        {
+          "resource": "repo://pytest.ini#L1-L6",
+          "version": "repo-lines-v1:sha256:87c5bf0bde59829437d686ce86705d2e840f1ea75cdc9d9c0846a6a0c4851d0a:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODI1MGQyMGY0MmI0MTlhZjQwNzA2NDkwZWFkNzhhYWJhYjlmZWJhOTNlYWIwOWEzZjYyNmUzZGU1MjU2ZTFmNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOGQwZjIxZDI4NzhjNDQ0M2Y1YTEyMjMwYzMxY2YzOTgwZjk4MTUzNWE4ODNmNDljYTY4YzRjMzdiOGE4Njk4YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        },
+        {
+          "resource": "repo://tests/test_design_layout.py#L1-L9",
+          "version": "repo-lines-v1:sha256:0439a9882adecf570835536e3af614e3afda5f15ebcd6fc6bc0dfa921535b0c8:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDgyZWFkNjRkOTlmNmI2ZGRmYjMzZmFlZTE3ZDcyY2ExOGViOTEwMTg2NThmMmVkNDczMTQyYzQ5MDliZWI5ZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiY2VmN2Y3NzNiYTk4M2FiYmFiMThkM2ZlZGZmNjZiYjg1ODA2ZjA2MzQ1NjAzOGU4YmQwMGMwNTYyNzE4YWYwMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjNjYTY4NmFiNTRlYzI2ZjRmMDg0OGE3ZTIxMzE5ZjVkOWZjZDc3OGEwNDlmZGNkN2JhNGUwZjkwMmYwODA1MSJ9"
+        },
+        {
+          "resource": "repo://tests/test_unit.py#L1-L11",
+          "version": "repo-lines-v1:sha256:b8c2c90fc50d9967c9f410621635572eb6ba4635f4aa452129b185d79df6fe58:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdiODIxYWJiZjhlNThjM2FjN2VlYmJhZDg1ODBmZDcxODRmMDllYjMxZmM2MjQzMDliYmRhODcwNGQ1NGQ1YzUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA4NzI0MzIzZTRjNWMxMDNiNTU1MTZhMGQ3MzQzMDcwOTkxYjY1OGY3NGFlMTI1NTE0NmRiMWY1NzA0YzNiODQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQ0NDEzMzE1Nzc1Y2FjODMzMWYwNDM5MmM2MTllNDk0NTQ4NTY1NmNiN2NlM2MzYmRlZjk0YjNkMDE4ZDg3YWIifQ"
+        },
+        {
+          "resource": "repo://tests/test_website.py#L1-L6",
+          "version": "repo-lines-v1:sha256:5f9a1401e8cb4c4dfe7003aff3d9f453b6443b63e5e7f564ab470e02dee6e6c6:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzM4ODhmNTM2ODAwYTE2OTg5MmM3NzUzMGI1ZmU5MjM0Y2YzN2FjNTFlYjMzY2Y3NTZhYTYwZmE2OWUyZDc5YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiY2VmN2Y3NzNiYTk4M2FiYmFiMThkM2ZlZGZmNjZiYjg1ODA2ZjA2MzQ1NjAzOGU4YmQwMGMwNTYyNzE4YWYwMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTg0N2ViNDMzYmZjZGMxMGIzZGFiMjJhNzM2OWI0MDdhNzk5MDY1NTIzMmVjNjFiNGI5Nzk1NjZiZDk1MzQ4ZiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_7fca8cc2ede54fc3b63ff7ed877375f1",
+      "statement": "tests/conftest.py provides session-scoped shared fixtures — base_dir, browser (headless Chromium, skips if not installed), page, index_html, video_html, package_json, main_css_content, page_urls, audio_stations, video_stations — and project rules require reusing them instead of duplicating paths or parsing; audio_stations and video_stations are parsed from data-name/data-url attribute pairs in the HTML, which are the single source of truth for stream URLs (never hardcoded).",
+      "evidence": [
+        {
+          "resource": "repo://AGENTS.md#L25-L26",
+          "version": "repo-lines-v1:sha256:e66ab7dcc1625c82bbec53bd391a77dd7d3bbd7855eec58d506aebfbe1f91ac1:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYWY4Yzg0ZjI1YWM1MzJiYTNkMWE3NGZlZWJjMzc4MmU5MzVlYWI5ZTRkNTQ5ODkwMjU4MjBlNGEzZjdhZmFjNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMmVjNWZkMDM1YTExNGNmZmY2ZTcxODhlZDQxOTVkY2ExNTJjOWJjYmU4MmQwMTI4NGU3MWFmN2ZhNzg2OTlhZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTFmMzZlOWNjNjc2ZTc2MzQzM2ViNjJkNGRmYmU0YWUyZDVhYWFlNWM3MmJjNzUxZjY3OWUyYzZmYTJhYzcyYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjM2MmIxZGYxMzJmMmM5MDJlZTU0ZjIyNDMwZWUyZDQyYjk3NmQ0NThjYmY5NDM0Njg4NTJhMTllYmM2NWUxMSJ9"
+        },
+        {
+          "resource": "repo://tests/conftest.py#L23-L90",
+          "version": "repo-lines-v1:sha256:68e9daab8233ff6465ae2dda316e149a746e7d6a10b76250ed251f732c01a9b3:eyJzZWxlY3RlZExpbmVDb3VudCI6NjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjUzMDM2NWQxNGM3ZGFiM2Q2NWIyMGVlYjNhZmU3ZTVkNGUzMGU4Zjc5OGU3OWFkMDZlNTk0MjI4Nzc0YTc0ODYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg4MmMwOGRlYmExNjg3MDllYmY0ZDQ5Mzg2ODM0YjZkNzcyYjAwN2U5ZThiOGI0Yzg5ZjQ1NmQwNDQxZWI0M2UiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjlhODJlYmU5ZWQ0MDdjM2E2YmE0YjAwMzQyOTJiYWE1MmMxMWNlNWFlMjg2MTA3NDAyZGU0NzkyZWVlY2FjZmMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_854faf8b72e845f184a0d9eda0598d9e",
+      "statement": "tests/test_unit.py (module-level unit marker) covers: syntax/balance validation of all .html/.js/.css/.md/.json files excluding node_modules, .venv, .git, __pycache__, dist, build, .pytest_cache; structural-only CSS breakpoint checks for the 768px and 480px media blocks; stream URL validation without network access (>=5 audio stations including hosts st01.sslstream.dlf.de, rndfnk.com, streamabc.net; >=4 video stations all http(s) and .m3u8; no duplicate URLs) plus the non-strict xfail test_no_secrets_in_station_urls for token=/sid=/cid=/tvf= session params in index.html, which is a deliberate product decision not to be fixed by deleting the test; and Electron build config checks (electron/main.js exists, package.json build block has appId/productName/directories/files with the required file patterns, electron and electron-builder in devDependencies).",
+      "evidence": [
+        {
+          "resource": "repo://AGENTS.md#L27-L28",
+          "version": "repo-lines-v1:sha256:55d3156d7a7ae9b175e8e0f0e1e22ab3dbb9b2b8e40a841f4d479c39aa75b214:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzIyNzMzOWQzZDJjODFmNzE1NmM0MmVkOGQ1ZmFmNzIyYTM4NWY3ZDRlOGE3MzYxMGViZjVmNmU1NWRjMDAzZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiN2JkYTY3NTAwMzU1NzAyMGY3ZmNkYTE5M2YxNTZiZjliNjhlOTRlNjUzMTI0ODQ3ODc4ZjBiZjliZTY4M2M4NSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTBlMTVkZmJiYmIzYzRkNjZjNGVhOTM5MzZkNzVjOTU3ZDIwMjQ2MjYwNDFmZDEwODFmYTFiODkwYzY5ZDE2NiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTk1NTFjODI3NDkyNzQ3MDUwYWI0MGFiZTUzNDA0Njg2YmVkYzgyODA0OWQ1Zjc0ZWI4MGQ5YjlhYWI4NjIyMyJ9"
+        },
+        {
+          "resource": "repo://tests/test_unit.py#L106-L134",
+          "version": "repo-lines-v1:sha256:91a93c157609525d25f2048173ddddd5feacc23661c082fa8cf77ea43ba212d8:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg2NDJiNGQ0ZGU0ZTJkNzJjYWFmZGI3MzBkMjcyMWJhYWIxOGZlNGQ4ZWIyNjVjMDE0ZTk1MDJiMWM5ZDY4ZDkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxZjA4YTM0ZjYyYmI5MDIyMzViMTdkNzllMDk4NjJmOTdlNzI0NTc1NDg2YWRkYmNkMDZkZWMwZThlYzhiMmEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ5ZTM1OTZkNTA0NmYyZTk3YjRkYjRhYTYwYzExMTBjY2EzZDhmYzkyNTBhNmNiYTNhY2Y5NWY3OWU1MjIxMGQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU2NWY0ODVmYTc1MjAwYjg3Njk2OTliMjdhNThkMGM5N2U1ZTM2ZjdhMTc2YjExZTM3ZThjZWIxMmUwYmU3MmUifQ"
+        },
+        {
+          "resource": "repo://tests/test_unit.py#L137-L171",
+          "version": "repo-lines-v1:sha256:ac08bd50ed0a6f0f39f9e5147095cd9a30617154b3f405bd5940c52693d74d0c:eyJzZWxlY3RlZExpbmVDb3VudCI6MzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjllYjZlM2Y5MDFhYmM4YTVhODljZWVhYmY3MzIxNjNkNWFkYzkzMTI3ZGEwZmZiYzU3MzgzOTc2ODljNWFjNTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUyMjdmMTZiYmFmZGVlYjJlMTczMjAzN2NiYmUxY2VjNDAzNWYwMzk2MDQxMmQ4MDA4MTJjYmExMzI1MTI5NzgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjBmNzY4ZDAyMjFhNjZkZWIwOGE0MjE4ZWI1YTg3ZGMyOTBlNGRjODQ1NTc5NGNkMDM2MzQyNTQ1MDE0ZTYyMzkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjljNThhM2NiY2FiNmI1NDAyOGQ5NTI0YmIzMTQ5MzliNDcxODk0YTBkOGJhNjg2ZDE3M2ZiNTY0YWE3MGRlNWIifQ"
+        },
+        {
+          "resource": "repo://tests/test_unit.py#L14-L14",
+          "version": "repo-lines-v1:sha256:9d662e376d74f2ba65af1308e81024cd928454a32479fa16d945c30c04f9f3a8:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOWQ2NjJlMzc2ZDc0ZjJiYTY1YWYxMzA4ZTgxMDI0Y2Q5Mjg0NTRhMzI0NzlmYTE2ZDk0NWMzMGMwNGY5ZjNhOCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOWQ2NjJlMzc2ZDc0ZjJiYTY1YWYxMzA4ZTgxMDI0Y2Q5Mjg0NTRhMzI0NzlmYTE2ZDk0NWMzMGMwNGY5ZjNhOCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMGQ0YmJlMmYxMTJmZWQwMzA0MzFiNzg5YzdmOTEzNzc1ZTRkNTNlNTQ3MDliMWI1Y2JjNmE0ZTdlOGY4OThkMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODhmZjY4MzkwN2QxZWE1MmQwNGYwZTc5MTY0ZmI1ZTZkZDFkYmM4ZmZmYzZhM2Q4ZDFmNDA4NDU1NzEzZTdkMiJ9"
+        },
+        {
+          "resource": "repo://tests/test_unit.py#L177-L186",
+          "version": "repo-lines-v1:sha256:59dace2ff6d04098b55cb8adddf22154b24d0802e3ed65968d5fe4eb08b64f03:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAzYWZmODY1MTNmNjAzMTBjMGZhMDczOTViN2NiNTQ1ODI5OGFhYTRmOTczZDdlOGE4ZTdmN2Y3ZGRhMzYzYzYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdiODFjMzE2NzM3ZTE1ZWEyMTM2MDEyZGRjN2I4YWQwZjcxZDc1ZTcxOGJjYzI5NDZlMmQ3NDBjYTg2NjFiNGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA0NDJhNDRmMGI5ODdmZGFiNTMwN2E0MGU0Njk5MTk0YjhkOGQwYmFlNDEyZjBjZGI2M2ExODVhMTg4ZDVjMWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://tests/test_unit.py#L82-L103",
+          "version": "repo-lines-v1:sha256:f245965caa411b96a439ca9ded7e918c4e38deb000365b4b2e8d15ec0d2c49d8:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdhMzJlNDk4MDVlNDYwYTg1MzU0MDUwZGI1NmNjYzEyODg5OGUxZTYyYmQ1YWU3YWJlNTExZDAyYjRhNzU3OWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNjMzRhZDhjMzIxMjhhNDBmYTFiNWExZGRkMGUyNTU3ZjE0ZDg4NmZlMjMxMDkwMzgzYjMzNjg1ZDgyZDQ4ZTkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZkYzA1M2M5NmIxMTljMDA5Yzc5MjgxNjk2Zjk4YjUwMTUwYzhiNDdhY2U4ZjY2ZmFlN2UwYThiOTI5Zjk2NTIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImI5YjZkYzZhOWQzYzhkOTY3OTAwMDRkM2ZmNzkwZmIwMmFkNGU4YzJjYzFiOTIyNzE4NjkwOTc1OGJhYzdjZTkifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_45722f9fcf00439c891d4407945cc72f",
+      "statement": "tests/test_design_layout.py contains two non-strict xfail warning groups: test_design_layout_no_shift loads index/video/impressum at mobile (375x667) and desktop (1280x800) viewports in Playwright and asserts viewport meta, no horizontal overflow, visible design anchors within the viewport width, no src-bearing media without fixed dimensions, and measured CLS <= 0.1; test_design_regex_guard performs static structural checks on the HTML/CSS (img width+height, no absolute/float inline styles, overflow-x guard, size reserves, fixed .cookie-banner, prefers-reduced-motion, 768/480 media blocks, aspect-ratio for video).",
+      "evidence": [
+        {
+          "resource": "repo://tests/test_design_layout.py#L101-L152",
+          "version": "repo-lines-v1:sha256:b50cf823c7f5cbe047e5fabc03065276f09eef1c06ad74b65f822c421f03b1f6:eyJzZWxlY3RlZExpbmVDb3VudCI6NTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA2ZDk0NWIwMTBjOTNjMjIzOWViNTVlYThhNjcxNDEyZjNmODVkYWVjMTI5MWM2ZTI0YzA2MWM0ZjFhZDY3ZjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk1ZGEyNThiMTg3MjJhZmQyYTBlZTA5NTZmOTIwZTdkNzg5ZjNmNDk2NDk0YTE1Mjg3ZjE1NjI0NGY5MmZiZmQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjUwOGRiMWJmMTFmYmY3MDBiN2RlOTE4MTRkYWZkODBhMmUxNWJmMjFmMGUwYzY2YWEwNTc1OWJkYzc0MjM3NWIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://tests/test_design_layout.py#L11-L98",
+          "version": "repo-lines-v1:sha256:e875c854f8c149c348fb670eb9e150eab17be1e6d9ba1f7e41ce2ff69350d612:eyJzZWxlY3RlZExpbmVDb3VudCI6ODgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjlhMDA3MjBkZDU1NDNkNGY2OTY2N2U3ODJhZjg3Nzg5NWNkZTk2OTIyN2ZkYTUxMzFjMjc3NjBhMGFjNzlhNDUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjMwNDBhMGQ2ZGYzYjgzMWMzZTIzMGNkOTNkMDRmZGE0ZTcyNzRhYTg5YTY0MDYzOTUyZDlmNDc5MDEwODFmZTQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijc1MzhjY2MyMGU0MTYzZGVjNGVmYmU4MWRlMzIyNTVjMTZhYzhkMzU4OTI3ODgzMWUxYzc3MzE3ZmQwNGM3Y2YiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdiMmE4ODA1OTdkYmFlNWNiODUzZjg5Y2E1YjM4M2EzMTg0MmVmYmIyYmZlYTczZTAzMjQwNDYwMWQ0NDE5MTIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_81c48056203b49188f5716758eed64fc",
+      "statement": "Local setup is python3 -m venv .venv, pip install -r requirements-dev.txt (pinning pytest==9.1.1 and playwright==1.62.0), and playwright install chromium; tests are run via pytest -m unit, pytest tests/test_website.py, pytest tests/test_design_layout.py, or plain pytest.",
+      "evidence": [
+        {
+          "resource": "repo://AGENTS.md#L23-L23",
+          "version": "repo-lines-v1:sha256:012e945510154323832f9a51e9bb296480e029bce71dd0174a82e02c6e9f025c:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDEyZTk0NTUxMDE1NDMyMzgzMmY5YTUxZTliYjI5NjQ4MGUwMjliY2U3MWRkMDE3NGE4MmUwMmM2ZTlmMDI1YyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDEyZTk0NTUxMDE1NDMyMzgzMmY5YTUxZTliYjI5NjQ4MGUwMjliY2U3MWRkMDE3NGE4MmUwMmM2ZTlmMDI1YyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNzY2YThhZjFiY2FiOWIyZjk0NTVhNWI2OWQwYTZlZWE1OTRjMmU2Nzg4NTUwZjQzNWEwYTRlOGFiYWU1NjMxMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTBlMTVkZmJiYmIzYzRkNjZjNGVhOTM5MzZkNzVjOTU3ZDIwMjQ2MjYwNDFmZDEwODFmYTFiODkwYzY5ZDE2NiJ9"
+        },
+        {
+          "resource": "repo://README.md#L47-L53",
+          "version": "repo-lines-v1:sha256:b06ca5cbdb8f579de632fc9a74d5a1069e5720b43da47a8c25db0862fa83b353:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNWRlMmY1MzI4ZWU2ZTgwNTBlOGFhZmQ4ZGM4NjlhMDY5Y2Q5NTg0ZWRhYWY1NGZlNTg5ZDczYzNiN2RjZDc5OSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDdjMDZjNTYxZDVjMzI3MzQzNjg1MjY4YTQ2YjMzOTFmMzk5OGVlZTg5MGQyYmU1MWYwZDIxY2M0YTUzYWU2ZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDlhNzNkNmEyMjZkMzEzYzk2NjMyOGNjYjE3ODk5NTRjZWM5ZTA5ODYyZmRjYTk5Mzc5Nzc5NTdhZWY4ZmY2NiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDA2N2QzZTAzMjFlMGI3M2Y1NGZmN2Q4NmFmNjA2MWQyMmExMDZlOThhMjdmMmIzZGYwNDZhMjBiNWJmNjFiMSJ9"
+        },
+        {
+          "resource": "repo://requirements-dev.txt#L1-L2",
+          "version": "repo-lines-v1:sha256:02b1814466bd92ae9fb83c3c612808072489d9745f53eeb3fb430774b2ee922b:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOTNjNGFiNWYxNzVkMjQyMjllNDZlYzcwYThlY2FlYjZkYjhiMzZlM2Y1NGQ4MDA1ODA4MDQ0YzA2MGFjYmM5MiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiY2ZhMjE4NmMwNDcwZmVhYzgxM2YxYWM2N2M3MWU1NGE1MzAyMWVjOTQ5MDI2OTQ2MjU1ODc0OTU4ZDI0NWU4MiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_d6288c856c2c4ec9a967382129b383b5",
+      "statement": "The GitHub Actions workflow .github/workflows/test.yml (name 'Tests') runs on push/pull_request to main, beta, gamma and on workflow_dispatch on ubuntu-latest with contents:read, a cancel-in-progress concurrency group, and a 15-minute timeout; it sets up Python 3.14 with pip cache keyed on requirements-dev.txt, installs requirements-dev.txt plus 'python -m playwright install --with-deps chromium', then runs 'pytest tests/test_unit.py -m unit', 'pytest tests/test_website.py', and 'pytest tests/test_design_layout.py' as separate steps.",
+      "evidence": [
+        {
+          "resource": "repo://.github/workflows/test.yml#L1-L48",
+          "version": "repo-lines-v1:sha256:0dbcdf7142eee265e8b8e457d27d53d9e006a4955462a6adfd0a59a1dad4c8dd:eyJzZWxlY3RlZExpbmVDb3VudCI6NDgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJiZmNhNTkzNzZhODE4MTVkNzg5NDRkZGVjNzhkYzEyNGQ4ODNiOTZjNWQ5YmU0ODJlNDZiYjU3ZTRkZmJjMjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY2MGY5MTI5ZWM4MDcwOTZjN2NiZGI3NmI5ODhhMmZlNmE1NzFjZTZiMGZkYjBmZTU3NWE0ZjIwZTQ4NDU0NDQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
     }
   ],
   "verification": {
-    "by": "openwiki/0.5.2",
-    "at": "2026-09-27T19:48:35.317Z"
+    "by": "openwiki/0.7.2",
+    "at": "2026-11-03T19:02:34.893Z"
   }
 }

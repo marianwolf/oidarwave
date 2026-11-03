@@ -3,9 +3,6 @@ type: architecture
 title: User Interface Components
 description: Description of DOM structure, station selector, controls, notifications, history, and favorites UI elements.
 tags: [frontend, user-interface, components]
-verified:
-  - by: openwiki/0.5.2
-    at: 2026-09-27T19:48:35.317Z
 sources:
   - id: openwiki-source-f8d10828394c4129061d5b0e
     resource: repo://index.html
