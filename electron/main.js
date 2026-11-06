@@ -2,10 +2,26 @@ const { app, BrowserWindow, protocol, shell, net } = require('electron')
 const path = require('path')
 const fs = require('fs')
 const { fileURLToPath, pathToFileURL } = require('url')
-const log = require('electron-log')
-log.transports.file.level = 'debug'
-log.transports.file.format = '{y}-{m}-{d} {h}:{i}:{s}.{ms} {level}: {msg}'
-log.transports.console.level = 'debug'
+
+/**
+ * Optionaler Logger mit Fallback: electron-log kann im gepackten asar-Build fehlen
+ * (devDependencies landen nicht in app.asar). Ein ungeschuetztes wuerde den
+ * Main-Prozess mit "Cannot find module" toeten — Fenster geht nie auf (siehe
+ * src/js/errors.js:88-94, das genau dafuer denselben try/catch-Fallback nutzt).
+ */
+function createLoggerFallback() {
+    try {
+        const log = require('electron-log')
+        log.transports.file.level = 'debug'
+        log.transports.file.format = '{y}-{m}-{d} {h}:{i}:{s}.{ms} {level}: {msg}'
+        log.transports.console.level = 'debug'
+        return log
+    } catch (err) {
+        console.debug('[oidarwave] electron-log nicht verfuegbar, verbleibe bei Konsolen-Logging:', err?.code || err)
+        return console
+    }
+}
+const log = createLoggerFallback()
 
 const { ErrorCode, logError, logWarn, initMainProcessErrorHandlers } = require('../src/js/errors.js')
 initMainProcessErrorHandlers()
