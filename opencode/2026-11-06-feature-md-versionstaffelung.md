@@ -2,8 +2,7 @@
 
 ## Ziel
 
-`FEATURE.md` geprüft und neu strukturiert: Feature-Vorschläge gestaffelt nach
-Nebenversionen (0.9.x, 0.10.0) und Hauptversionen (1.0.0, 1.1.x).
+`FEATURE.md` geprüft und neu strukturiert: Feature-Vorschläge gestaffelt nach Nebenversionen (0.9.x, 0.10.0) und Hauptversionen (1.0.0, 1.1.x).
 
 ## Geänderte Dateien
 
@@ -11,10 +10,8 @@ Nebenversionen (0.9.x, 0.10.0) und Hauptversionen (1.0.0, 1.1.x).
 
 ## Recherche-Ergebnis
 
-- Umgesetzt/Teilstand bestätigt: Favoriten (`src/js/favorite.js`), Media Session
-  Background-Audio, `manifest.json` + Link in `index.html:21`
-- Fehlt: Service Worker/`offline.html`, Theme-Umschaltung, Sleep-Timer,
-  Skeleton-CSS, i18n, Weckfunktion
+- Umgesetzt/Teilstand bestätigt: Favoriten (`src/js/favorite.js`), Media Session Background-Audio, `manifest.json` + Link in `index.html:21`
+- Fehlt: Service Worker/`offline.html`, Theme-Umschaltung, Sleep-Timer, Skeleton-CSS, i18n, Weckfunktion
 - Version laut `package.json`: 0.9.18
 
 ## Testergebnis

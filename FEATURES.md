@@ -1,7 +1,6 @@
 ## 🎯 Feature-Vorschläge für Oidarwave
 
-> **Stand:** November 2026 – aktuelle Version: **0.9.18** (siehe `package.json`)
-> Abgehakt = im Code umgesetzt, „Teilstand" = in Teilen vorhanden. Die Vorschläge sind nach Nebenversionen (klein, einzeln auslieferbar) und Hauptversionen (größere Umbauten) gestaffelt. Bei Umsetzung jeweils die [Roadmap im README](README.md#-roadmap) mitpflegen.
+> **Stand:** November 2026 – aktuelle Version: **0.9.18** (siehe `package.json`) Abgehakt = im Code umgesetzt, „Teilstand" = in Teilen vorhanden. Die Vorschläge sind nach Nebenversionen (klein, einzeln auslieferbar) und Hauptversionen (größere Umbauten) gestaffelt. Bei Umsetzung jeweils die [Roadmap im README](README.md#-roadmap) mitpflegen.
 
 ---
 
@@ -17,7 +16,7 @@
 
 ### Version 0.10.0 – mittlere Nebenversion: PWA-Offensive
 
-*(bisheriger Punkt 8 „PWA-Optimierung", Stand am 6. November 2026 geprüft)*
+_(bisheriger Punkt 8 „PWA-Optimierung", Stand am 6. November 2026 geprüft)_
 
 - [x] **Background-Audio-Wiedergabe** – umgesetzt via Media Session API (`src/js/player-core.js:33`, genutzt in `src/js/player.js:32`, `src/js/video.js:267`)
 - [ ] **Offline-Fallback-Seite** – fehlt: kein Service Worker, keine `offline.html`, keine SW-Registrierung im Code (`index.html` bindet nur die neun App-Module ein)
