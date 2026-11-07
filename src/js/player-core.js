@@ -7,8 +7,7 @@
         if (typeof window !== 'undefined' && typeof window[name] === 'function') return window[name].bind(window)
         return fallback
     }
-    // Hinweis: Diese Wrapper werden erst beim Aufruf aufgelöst, damit ein später
-    // geladenes errors.js trotzdem gefunden wird.
+    // Wrapper lösen die Log-Funktionen erst beim Aufruf auf: errors.js darf später laden.
     const logWarnSafe = (code, err, ctx) => getLogFn('logWarn', console.warn)(code, err, ctx)
     const logStorageErrorSafe = (code, err, key) => {
         if (typeof window !== 'undefined' && typeof window.logStorageError === 'function') {
@@ -39,23 +38,16 @@
 
     const STATUS_CLASSES = Object.freeze(['online', 'error', 'buffering', 'paused', 'text'])
 
-    /** Single Source of Truth für den Verlaufs-Schlüssel (history.js, favorite.js, download_history.js). */
+    // Verlaufs-Schlüssel – Single Source of Truth (history.js, favorite.js, download_history.js)
     const HISTORY_KEY = 'station_history'
 
     // === MEDIA SESSION API (Android/iOS Lock Screen & Systemsteuerung) ===
 
-    /** Letzter gesetzter Track – verhindert identische MediaMetadata-Objekte im Polling. */
+    // Letzter gesetzter Track – blockiert identische MediaMetadata-Writes im Polling
     let lastMediaSessionKey = null
 
-    /**
-     * Setzt MediaMetadata und Action-Handler für die System-Steuerung.
-     * @param {Object} options
-     * @param {string} [options.title] Titel (z. B. Trackname)
-     * @param {string} [options.artist] Interpret
-     * @param {string} [options.album] Album/Sektion (z. B. 'Oidarwave Video')
-     * @param {HTMLMediaElement} [options.media] Element für Play/Pause-Handler
-     * @param {Function} [options.onStop] Optionaler Stop-Handler
-     */
+    // Setzt MediaMetadata und Action-Handler (Play/Pause/Stop) für die Systemsteuerung
+    // Optionen: { title, artist, album, media, onStop }
     const setupMediaSession = ({ title, artist, album, media, onStop } = {}) => {
         if (typeof navigator === 'undefined' || !('mediaSession' in navigator)) return
         const sessionKey = `${title || ''}|${artist || ''}|${album || ''}`
@@ -99,11 +91,8 @@
         if (className) el.classList.add(className)
     }
 
-    /**
-     * Fabrik für Status-Anzeigen mit optionaler Textmeldung und Timeout.
-     * Fasst die vorher in player.js / video.js duplizierte Logik zusammen.
-     * @param {HTMLElement|null} el Status-Element
-     */
+    // Fabrik für Status-Anzeigen mit optionalem Text + Timeout
+    // Ersetzt die duplizierte Logik aus player.js / video.js
     const createStatusDisplay = (el) => {
         let messageTimer = null
 
@@ -115,21 +104,17 @@
         }
 
         return {
-            /** Setzt nur die Status-Klasse (ohne Text anzufassen, wenn ein Retry-Text aktiv ist). */
+            // Setzt nur die Status-Klasse (aktiver Retry-Text bleibt unangetastet)
             set(status) {
                 setStatusClass(el, status)
             },
-            /**
-             * Zeigt eine nicht-blockierende Textmeldung; duration<=0 = dauerhaft.
-             * `nextStatus` bestimmt den Zustand nach dem Ausblenden (z. B. 'error'),
-             * damit die Anzeige nicht faelschlich wieder gruen wird.
-             */
+            // Nicht-blockierende Textmeldung; duration <= 0 = dauerhaft
+            // nextStatus folgt nach dem Ausblenden (z. B. 'error')
             showMessage(message, type = 'error', duration = 5000, nextStatus = null) {
                 if (!el) return
                 clearTimer()
-                // Erst den Status setzen (entfernt alte Klassen inkl. 'text'),
-                // dann die Text-Klasse ergaenzen – sonst bleiben z. B. 'buffering'
-                // und 'error' gleichzeitig aktiv.
+                // Erst Status setzen (entfernt 'text'), dann Text-Klasse ergänzen
+                // – sonst bleiben z. B. 'buffering' und 'error' gleichzeitig aktiv
                 setStatusClass(el, type)
                 el.textContent = message
                 el.classList.add('text')
@@ -137,14 +122,14 @@
                     messageTimer = setTimeout(() => this.clearMessage(nextStatus), duration)
                 }
             },
-            /** Löscht Text + Timeout und setzt die Klasse zurück. */
+            // Text + Timeout löschen, Klasse auf nextStatus zurücksetzen
             clearMessage(nextStatus = null) {
                 clearTimer()
                 if (!el) return
                 el.textContent = ''
                 setStatusClass(el, nextStatus)
             },
-            /** true, wenn gerade eine Textmeldung (z. B. Retry-Countdown) angezeigt wird. */
+            // true, solange eine Textmeldung (z. B. Retry-Countdown) sichtbar ist
             hasMessage() {
                 return !!el?.classList.contains('text')
             },
@@ -203,14 +188,14 @@
 
     // === RETRY MIT EXPONENTIELLEM BACKOFF (player.js + video.js) ===
 
-    /** Maximale Auto-Retry-Versuche, bevor aufgegeben wird. */
+    // Maximale Auto-Retry-Versuche, bevor aufgegeben wird
     const MAX_RETRIES = 3
-    /** Basis-Wartezeit vor dem ersten Retry (Verdopplung je Versuch). */
+    // Wartezeit vor dem ersten Retry (Verdopplung je Versuch)
     const RETRY_BASE_DELAY = 1000
 
     const createRetryState = () => ({ count: 0, timerId: null })
 
-    /** delay = baseDelay * 2^attempt (attempt = bisherige Versuche). */
+    // Verzögerung: baseDelay * 2^attempt (attempt = bisherige Versuche)
     const getRetryDelay = (attempt, baseDelay) => baseDelay * Math.pow(2, attempt)
 
     const clearRetry = (state) => {
@@ -228,10 +213,8 @@
         return state
     }
 
-    /**
-     * Plant einen Retry und inkrementiert den Zähler beim Auslösen.
-     * @returns {number} die verwendete Verzögerung in ms
-     */
+    // Plant einen Retry und zählt den Versuch beim Auslösen hoch
+    // Rückgabe: verwendete Verzögerung in ms
     const scheduleRetry = (state, fn, baseDelay) => {
         const delay = getRetryDelay(state.count, baseDelay)
         state.timerId = setTimeout(() => {
@@ -244,12 +227,12 @@
 
     // === KLEINE UI-/DATEN-HELFER ===
 
-    /** Markiert genau einen Stations-Button als aktiv. */
+    // Markiert genau einen Stations-Button als aktiv
     const setActiveStation = (buttons, activeButton) => {
         buttons.forEach((btn) => btn.classList.toggle('active', btn === activeButton))
     }
 
-    /** true, wenn Tastatur-Shortcuts ignoriert werden sollen (Fokus in Eingabefeld/Button). */
+    // Tastatur-Shortcuts ignorieren, wenn Fokus in Eingabefeld/Button liegt
     const isEditableTarget = (target) => {
         if (!target || !target.tagName) return false
         const tag = target.tagName.toUpperCase()
@@ -262,14 +245,14 @@
         return parseFloat(bounded.toFixed(precision))
     }
 
-    /** Extrahiert {title, artist} aus den heterogenen Metadaten-Formaten der Sender. */
+    // Extrahiert {title, artist} aus den unterschiedlichen Metadaten-Formaten der Sender
     const getMusicInfo = (data) => {
         const title = data?.song_now_title || data?.playlistItem?.title || ''
         const artist = data?.name || data?.subtitle || data?.song_now_interpret || data?.playlistItem?.artist || ''
         return { title, artist }
     }
 
-    /** Formatiert "Titel - Interpret" oder den jeweils vorhandenen Teil. */
+    // Formatiert "Titel - Interpret" oder den jeweils vorhandenen Teil
     const formatTrackDisplay = ({ title = '', artist = '' } = {}) => {
         if (title && artist) return `${title} - ${artist}`
         return title || artist || ''

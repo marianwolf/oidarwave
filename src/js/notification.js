@@ -88,7 +88,7 @@
             if (!newTitle || (newTitle === this.currentTrackTitle && stationName === this.currentTrackStation)) return
             if (newTitle === 'Keine Titelinformationen' || newTitle === 'Metadaten nicht verfügbar') return
 
-            // Senderwechsel nur übernehmen, ohne zu benachrichtigen.
+            // Bei Senderwechsel nur Station + Titel übernehmen, keine Benachrichtigung senden
             if (stationName !== this.currentTrackStation) {
                 this.clearDebounceTimer()
                 this.currentTrackStation = stationName

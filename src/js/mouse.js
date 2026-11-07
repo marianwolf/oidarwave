@@ -14,11 +14,9 @@
 
     const isEnabled = () => !motionQuery.matches && !coarsePointerQuery.matches
 
-    /**
-     * Ein rAF pro Frame: mehrere pointermove-Events werden zusammengefasst.
-     * Direktes transform-Setzen invalidert nur dieses Element – Custom
-     * Properties auf :root wuerden den kompletten Baum neu berechnen.
-     */
+    // Ein rAF pro Frame: mehrere pointermove-Events werden zusammengefasst.
+    // Direktes transform-Setzen invalidiert nur dieses Element – Custom
+    // Properties auf :root würden den kompletten Baum neu berechnen.
     const applyPosition = () => {
         frameId = 0
         if (glow) glow.style.transform = `translate3d(${pointerX}px, ${pointerY}px, 0)`
@@ -46,7 +44,7 @@
         glow = null
     }
 
-    /** Reagiert auf Medien-Query-Wechsel (z. B. Reduced-Motion nachtraeglich aktiviert). */
+    // Reagiert auf Medien-Query-Wechsel (z. B. Reduced-Motion nachträglich aktiviert)
     const sync = () => {
         document.removeEventListener('pointermove', onPointerMove)
         removeGlow()

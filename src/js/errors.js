@@ -1,6 +1,6 @@
 const LOG_LEVELS = Object.freeze({ DEBUG: 0, INFO: 1, WARN: 2, ERROR: 3 })
 
-/** Liest eine Level-Bezeichnung (case-insensitiv) oder gibt undefined zurück. */
+// Level-Bezeichnung (case-insensitiv) lesen oder undefined zurückgeben
 function parseLogLevelName(value) {
     if (value === undefined || value === null) return undefined
     const level = String(value).toUpperCase()
@@ -16,7 +16,7 @@ function getLogLevel() {
             const stored = localStorage.getItem('logLevel')
             if (stored) return parseLogLevelName(stored) ?? LOG_LEVELS.WARN
         } catch {
-            // localStorage kann blockiert sein (Privatmodus) – Default verwenden.
+            // localStorage kann blockiert sein (Privatmodus) – Default verwenden
         }
     }
     return LOG_LEVELS.WARN
@@ -28,7 +28,7 @@ function shouldLog(level) {
     return level >= currentLogLevel
 }
 
-/** Baut einen einheitlichen Log-Eintrag aus Code, Fehler und Kontext. */
+// Einheitlichen Log-Eintrag aus Code, Fehler und Kontext bauen
 function formatLogEntry(code, err, ctx, timestamp) {
     const entry = {
         timestamp: timestamp || new Date().toISOString(),
@@ -97,7 +97,7 @@ function getLogger() {
     return electronLog ? electronLog : console
 }
 
-/** Erzeugt logError/logWarn/logInfo/logDebug mit Level-Filter und Format. */
+// Erzeugt logError/logWarn/logInfo/logDebug mit Level-Filter und Format
 function createLogger(method, level) {
     return (code, err, ctx = {}) => {
         if (!shouldLog(level)) return
@@ -116,7 +116,7 @@ const logWarn = createLogger('warn', LOG_LEVELS.WARN)
 const logInfo = createLogger('info', LOG_LEVELS.INFO)
 const logDebug = createLogger('debug', LOG_LEVELS.DEBUG)
 
-/** Klassifiziert Autoplay-/Play-Fehler, damit nur echte Fehler als Error landen. */
+// Autoplay-/Play-Fehler klassifizieren: nur echte Fehler als Error loggen
 function handlePlayError(e, context = '') {
     const name = e?.name || e?.constructor?.name || 'UnknownError'
     if (name === 'NotAllowedError') {
@@ -142,7 +142,7 @@ function logStorageError(code, err, key = '') {
     logError(code, err, { key, type: getStorageErrorType(err) })
 }
 
-/** Fängt unbehandelte Fenster-Fehler und Promise-Rejections für das Logging ab. */
+// Unbehandelte Fenster-Fehler und Promise-Rejections für das Logging abfangen
 function initGlobalErrorHandlers() {
     if (typeof window === 'undefined') return
 

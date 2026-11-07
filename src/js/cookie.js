@@ -55,7 +55,7 @@
         })
     }
 
-    /** `hidden` statt Inline-Style: CSS ([hidden]) bleibt die einzige Sichtbarkeitsquelle. */
+    // `hidden` statt Inline-Style: CSS ([hidden]) bleibt die einzige Sichtbarkeitsquelle
     function setBannerVisible(visible) {
         const banner = document.getElementById('cookieBanner')
         if (banner) banner.hidden = !visible

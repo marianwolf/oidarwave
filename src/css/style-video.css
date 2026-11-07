@@ -4,7 +4,7 @@
     display: block;
     margin: auto;
     border-radius: var(--radius-md);
-    /* Anker fuer das Skeleton-Overlay (Stream-Vorbereitung). */
+    /* Anker für das Skeleton-Overlay (Stream-Vorbereitung). */
     position: relative;
     overflow: hidden;
     background-color: #000;
@@ -12,22 +12,21 @@
     box-shadow: var(--shadow-glass);
 }
 
-/* Skeleton-Overlay: Shimmer-Flaeche ueber dem Video-Block, solange der
-   HLS-Stream vorbereitet wird. JS steuert die Sichtbarkeit ueber `.is-active`
-   (statt `hidden`-Attribut), damit das Overlay weich ein- und ausblendet:
-   Crossfade in die Wiedergabe statt hartem Flip. */
+/* === Skeleton-Overlay === */
+/* Shimmer-Fläche über dem Video-Block, solange der HLS-Stream vorbereitet wird.
+   JS steuert die Sichtbarkeit über `.is-active` (statt `hidden`-Attribut),
+   damit das Overlay weich ein- und ausblendet (Crossfade in die Wiedergabe). */
 .video-skeleton {
     position: absolute;
     inset: 0;
     border-radius: inherit;
-    /* Hauchzart aufhellende Flaeche statt reines Schwarz: der Sweep liest
-       sich sonst als Textur in der Leere. */
+    /* Hauchzart aufhellend statt reines Schwarz – sonst liest sich der Sweep als Textur. */
     background-color: rgba(255, 255, 255, 0.03);
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    /* Opacity weich (Compositor), visibility verzögert, damit die Ausblendung
-       fertig ist, bevor das Overlay aus dem Hit-Testing faellt. */
+    /* Opacity weich (Compositor), visibility verzögert: Ausblendung fertig,
+       bevor das Overlay aus dem Hit-Testing fällt. */
     transition:
         opacity 0.45s var(--ease-out-quint),
         visibility 0s linear 0.45s;
@@ -51,8 +50,8 @@
 
 .data-mode-toggle,
 .caption-toggle {
-    /* Flaeche als background-color, Gradient als Overlay: background-image
-       laesst sich nicht animieren, Opacity schon (Compositor). */
+    /* Fläche als background-color, Gradient als Overlay:
+       background-image ist nicht animierbar, Opacity schon (Compositor). */
     background-color: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: var(--radius-md);
@@ -67,8 +66,8 @@
     isolation: isolate;
     overflow: hidden;
     cursor: pointer;
-    /* Transform schnell mit sanftem Auslaufen, Farben/Schatten ruhiger.
-       Die Flaeche selbst wechselt ueber die Opacity des Overlays. */
+    /* Transform schnell mit sanftem Auslaufen, Farben/Schatten ruhiger;
+       die Fläche selbst wechselt über die Opacity des Overlays. */
     transition:
         transform var(--transition-tactile),
         border-color var(--transition-color),
@@ -76,8 +75,8 @@
     touch-action: manipulation;
 }
 
-/* Hover- und Aktiv-Flaeche als ein Overlay: gleiche Gradient-Struktur, nur
-   die Opacity wird animiert. z-index: -1 haelt den Verlauf hinter dem Text. */
+/* Hover- und Aktiv-Fläche als ein Overlay: gleiche Gradient-Struktur, nur
+   die Opacity wird animiert. z-index: -1 hält den Verlauf hinter dem Text. */
 .data-mode-toggle::before,
 .caption-toggle::before {
     content: '';

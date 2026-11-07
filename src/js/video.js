@@ -51,13 +51,13 @@ document.addEventListener('DOMContentLoaded', () => {
         captionsEnabled: readBoolSetting(CAPTION_ENABLED_KEY),
     }
 
-    /** Speichert eine Einstellung und synchronisiert den Toggle-Button. */
+    // Einstellung speichern und Toggle-Button synchronisieren
     const saveSetting = (key, value, toggleElement) => {
         toggleElement?.setAttribute('aria-pressed', String(value))
         writeSetting(key, value)
     }
 
-    // Automatisch alle neuen Tracks deaktivieren, wenn CC ausgeschaltet ist.
+    // Neue Tracks automatisch deaktivieren, wenn CC ausgeschaltet ist
     videoPlayer.textTracks.addEventListener('addtrack', (event) => {
         if (!settingsCache.captionsEnabled && event.track) event.track.mode = 'disabled'
     })
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
         hlsPlayer.currentLevel = settingsCache.dataSaveMode ? 0 : -1
     }
 
-    /** Wendet die CC-Einstellung an (einzige Stelle statt enable/disable-Duplikat). */
+    // Wendet die CC-Einstellung an (einzige Stelle statt enable/disable-Duplikat)
     const applyCaptions = () => {
         if (hlsPlayer) hlsPlayer.subtitleDisplay = settingsCache.captionsEnabled
         const track = findCaptionTrack()
@@ -98,9 +98,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // === HLS-SETUP ===
 
-    // Skeleton-Overlay waehrend der Stream-Vorbereitung (bis Manifest/Video bereit).
-    // Sichtbarkeit ueber Klasse statt `hidden`-Attribut: .video-skeleton blendet
-    // per opacity/visibility sanft ein und aus (Crossfade in die Wiedergabe).
+    // Skeleton-Overlay während der Stream-Vorbereitung; Sichtbarkeit über Klasse
+    // (statt `hidden`), damit .video-skeleton per opacity/visibility ein-/ausblendet.
     const showSkeleton = () => videoSkeleton?.classList.add('is-active')
     const hideSkeleton = () => videoSkeleton?.classList.remove('is-active')
 
@@ -128,11 +127,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const setupHlsJsPlayer = (url) => {
-        // HLS.js nutzt XHR und braucht CORS.
+        // HLS.js nutzt XHR und braucht CORS
         videoPlayer.setAttribute('crossorigin', 'anonymous')
         hlsPlayer = new Hls({
             xhrSetup: (xhr) => {
-                xhr.withCredentials = false // Keine Credentials senden, hilft oft bei CORS-Problemen
+                xhr.withCredentials = false // keine Credentials senden
             },
         })
         const playerInstance = hlsPlayer
@@ -153,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const code = data.fatal ? ErrorCode.HLS_FATAL : ErrorCode[`HLS_${ctx.mappedType}`] || 'HLS_ERROR'
             logError(code, null, ctx)
             if (data.fatal) handleFatalHlsError(data, playerInstance)
-            // Nicht-fatale Fehler behandelt Hls.js selbst (kein manuelles Recovery nötig).
+            // Nicht-fatale Fehler behandelt Hls.js selbst (kein manuelles Recovery)
         })
     }
 
@@ -214,7 +213,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const setupNativePlayer = (url) => {
-        // Natives Safari-HLS: crossorigin entfernen, sonst scheitern Streams ohne CORS-Header.
+        // Natives Safari-HLS: crossorigin entfernen, sonst scheitern Streams ohne CORS-Header
         videoPlayer.removeAttribute('crossorigin')
         videoPlayer.src = url
         videoPlayer.addEventListener(
@@ -282,8 +281,8 @@ document.addEventListener('DOMContentLoaded', () => {
         videoPlayer.addEventListener('pause', () => {
             logDebug(ErrorCode.MEDIA_SESSION_SETUP, null, { state: 'paused' })
         })
-        // Sicherheitsnetz beim Wiedergabestart: falls weder MANIFEST_PARSED
-        // noch loadedmetadata feuerte, bleibt das Skeleton da nicht haengen.
+        // Sicherheitsnetz beim Wiedergabestart: falls weder MANIFEST_PARSED noch
+        // loadedmetadata feuerte, bleibt das Skeleton sonst hängen.
         videoPlayer.addEventListener('playing', hideSkeleton)
         videoPlayer.addEventListener('playing', () => {
             logDebug(ErrorCode.MEDIA_SESSION_SETUP, null, { state: 'playing' })

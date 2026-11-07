@@ -38,12 +38,9 @@
     --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     --shadow-glow: 0 0 20px rgba(139, 92, 246, 0.5);
 
-    /* Fluidere Bewegungen: sanftes Auslaufen fuer Transform-Bewegungen,
-       leichter Overshoot fuer Hover-Lifts, schnelles Druck-Feedback.
-       Trennung nach Property-Typ: Position/Skala darf schnell wirken,
-       Farben/Schatten laufen weicher, ohne den Fokus zu ziehen.
-       --transition-press ist nur eine Duration (fuer transition-duration);
-       die Timing-Function erbt die jeweilige Basis-Transition. */
+    /* Timing-Tokens:
+       Transform/Position schnell, Farben/Schatten weicher – wirkt fluessiger.
+       --transition-press ist nur eine Duration (Timing erbt die Basis-Transition). */
     --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
     --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
     --transition-tactile: 0.18s var(--ease-out-quint);
@@ -54,11 +51,8 @@
     color-scheme: dark;
 }
 
-/* Bootstrap-Reboot angleichen.
-   bootstrap.min.css wird vor style.css geladen; der Reboot setzt aber Werte, die
-   unsere bestehende Optik verschieben wuerden. Diese Elementregeln haben die
-   niedrigste moegliche Spezifitaet (0,0,1) – Bootstrap-Komponentenregeln
-   (.card, .btn, ...) schlagen sie damit immer noch problemlos. */
+/* Gegen Bootstrap-Reboot: Werte an unsere Optik angleichen.
+   Elementregeln mit Spezifitaet 0,0,1 – Bootstrap-Komponenten schlagen sie weiter. */
 h1,
 h2,
 h3,
@@ -87,11 +81,11 @@ blockquote {
 }
 
 hr {
-    opacity: 1; /* Reboot: 0.25 – wuerde unsere Trennlinien fast unsichtbar machen */
+    opacity: 1; /* Reboot: 0.25 – würde unsere Trennlinien fast unsichtbar machen */
 }
 
 code {
-    color: inherit; /* Reboot faerbte <code> ueber --bs-code-color */
+    color: inherit; /* Reboot färbte <code> über --bs-code-color */
 }
 
 * {
@@ -110,8 +104,7 @@ html {
 
 body {
     font-family: var(--font-body);
-    /* Nur die Basisflaeche hier; der Verlauf liegt auf einer fixierten,
-       einmal gerasterten Ebene (body::after). */
+    /* Nur die Basisfläche hier – der Verlauf liegt auf fixierter Ebene (body::after). */
     background-color: var(--color-bg-base);
     color: var(--color-text-main);
     min-height: 100vh;
@@ -125,11 +118,8 @@ body {
     overscroll-behavior-y: contain;
 }
 
-/* Seitenverlauf als eigene, fixierte Ebene.
-   Ersetzt `background-attachment: fixed` (erzwingt Scroll-Repaints und war
-   hier ohnehin durch die spaetere `background`-Shorthand wirkungslos).
-   Die Ebene wird einmal in Viewport-Groesse gerastert und danach beim
-   Scrollen nur noch komponiert statt neu gezeichnet. */
+/* Seitenverlauf auf fixierter Ebene statt `background-attachment: fixed`:
+   einmal gerastert, beim Scrollen nur noch komponiert statt neu gezeichnet. */
 body::after {
     content: '';
     position: fixed;
@@ -141,11 +131,8 @@ body::after {
         linear-gradient(135deg, var(--color-bg-base) 0%, #1e293b 50%, var(--color-bg-base) 100%);
 }
 
-/* Maus-Glow auf eigener Compositing-Ebene: nur transform/opacity,
-   kein Repaint des Body-Hintergrunds pro Mousemove. Das Element wird von
-   mouse.js erzeugt und direkt per transform positioniert; damit bleibt die
-   Style-Invalidierung auf dieses eine Element beschraenkt (Custom Properties
-   auf :root wuerden den ganzen Baum neu berechnen). */
+/* Maus-Glow auf eigener Compositing-Ebene (Element von mouse.js, per transform
+   positioniert): nur transform/opacity – kein Repaint des Body-Hintergrunds. */
 .mouse-glow {
     position: fixed;
     top: 0;
@@ -246,9 +233,8 @@ header {
     background-clip: text;
     -webkit-text-fill-color: transparent;
     color: transparent;
-    /* `background-position` ist keine Compositor-Property: eine Daueranimation
-       wuerde den Textverlauf permanent neu rastern. Deshalb laeuft sie nur bei
-       Hover/Fokus; im Leerlauf steht der Gradient still (gleiche Optik). */
+    /* Gradient-Animation nur bei Hover/Fokus: background-position ist keine
+       Compositor-Property – Daueranimation würde den Textverlauf neu rastern. */
     animation: gradient-pan 6s ease-in-out infinite alternate;
     animation-play-state: paused;
     letter-spacing: -1px;
@@ -275,8 +261,8 @@ nav .nav {
     gap: var(--space-sm);
 }
 
-/* Bootstrap .nav-link hat hoehere Spezifitaet als nav a – Selektoren entsprechend
-   anheben, sonst uebernehmen Bootstraps Paddings/Hover unseren Pillen-Look. */
+/* Spezifität: Bootstrap .nav-link schlägt nav a – Selektoren entsprechend
+   anheben, sonst übernehmen Bootstraps Paddings/Hover unseren Pillen-Look. */
 nav .nav-link {
     color: var(--color-text-muted);
     text-decoration: none;
@@ -300,8 +286,8 @@ nav .nav-link[aria-current='page'] {
     background-color: rgba(139, 92, 246, 0.25);
 }
 
-/* Spaltenabstand ueber Bootstraps Gutter-Variablen (Design-Tokens);
-   die Spaltenlogik steckt in den Klassen der HTML-Seite (col-12 col-md-6). */
+/* Spaltenabstand über Bootstraps Gutter-Variablen (Design-Tokens);
+   Spaltenlogik in den HTML-Klassen (col-12 col-md-6). */
 .player-section {
     --bs-gutter-x: var(--space-xl);
     --bs-gutter-y: var(--space-xl);
@@ -335,13 +321,10 @@ nav .nav-link[aria-current='page'] {
 }
 
 .station-btn {
-    /* Flaeche als background-color; der Gradient liegt im ::before-Overlay.
-       `background-image` ist nicht animierbar – die frueheren Gradient-Basen
-       sind beim Zustandswechsel deshalb hart gesprungen. Opacity blendet
-       dagegen auf dem Compositor weich zwischen Hover/Aktiv. */
-    /* appearance: none deaktiviert die UA-/Bootstrap-Chrome (bootstrap.min.css
-       setzt `button{-webkit-appearance:button}`); damit sind background, border
-       und radius die einzige Quelle fuer die Optik – unabhaengig vom Engine. */
+    /* Fläche als background-color, Gradient im ::before-Overlay:
+       background-image ist nicht animierbar – Opacity blendet weich. */
+    /* appearance: none deaktiviert UA-/Bootstrap-Chrome; background, border
+       und radius bleiben die einzige Quelle für die Optik. */
     appearance: none;
     background-color: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -354,9 +337,7 @@ nav .nav-link[aria-current='page'] {
     line-height: 1.35;
     min-height: 3.25rem;
     cursor: pointer;
-    /* Transform (Compositor) schnell & mit sanftem Auslaufen,
-       Farben/Schatten/Gradient (Paint) etwas ruhiger – wirkt fluessiger
-       als ein einheitlicher Duration fuer alle Properties. */
+    /* Transform (Compositor) schnell, Farben/Schatten (Paint) ruhiger. */
     transition:
         transform var(--transition-tactile),
         border-color var(--transition-color),
@@ -366,17 +347,13 @@ nav .nav-link[aria-current='page'] {
     overflow: hidden;
     text-align: center;
     text-wrap: balance;
-    /* Kein accent-color: wirkt nur auf Formular-Widgets (Checkbox, Radio,
-       Select, Meter), nie auf einem schlichten <button>. */
+    /* Kein accent-color: wirkt nie auf einem schlichten <button>. */
     touch-action: manipulation;
-    /* Kein will-change: Dauerhaft eine eigene Ebene pro Button waere
-       Speicher-/Rasterisierungskosten ohne Nutzen (Hover-Transitions
-       werden beim Start automatisch auf den Compositor gehoben). */
+    /* Kein will-change: dauerhafte eigene Ebene pro Button ohne Nutzen. */
 }
 
-/* Eine gemeinsame Gradient-Flaeche fuer Hover und Aktiv-Zustand: gleiche
-   Struktur, nur die Opacity aendert sich -> kein Farb-Sprung. z-index: -1
-   haelt den Verlauf hinter der Beschriftung (Text bleibt kontrastreich). */
+/* Gemeinsame Gradient-Fläche für Hover + Aktiv: nur die Opacity ändert sich
+   (kein Farb-Sprung). z-index: -1 hält den Verlauf hinter der Beschriftung. */
 .station-btn::before {
     content: '';
     position: absolute;
@@ -388,8 +365,7 @@ nav .nav-link[aria-current='page'] {
     pointer-events: none;
 }
 
-/* Hover nur bei feinem Zeiger: auf Touch-Geraeten klebt :hover sonst
-   nach dem Tippen und wirkt dann rueckstaendig. */
+/* Hover nur bei feinem Zeiger: auf Touch-Geräten klebt :hover sonst nach dem Tippen. */
 @media (hover: hover) and (pointer: fine) {
     .station-btn:hover {
         transform: translateY(-2px);
@@ -449,8 +425,7 @@ nav .nav-link[aria-current='page'] {
     background-color: var(--color-status-online);
     box-shadow: 0 0 10px var(--color-status-online);
     flex-shrink: 0;
-    /* Sicherheitsnetz: ein versehentlich gesetzter Text darf nicht aus dem
-       12-px-Punkt in die Senderzeile laufen. */
+    /* Sicherheitsnetz: versehentlich gesetzter Text darf nicht aus dem 12-px-Punkt laufen. */
     overflow: hidden;
     transition:
         background-color var(--transition-color),
@@ -481,9 +456,7 @@ nav .nav-link[aria-current='page'] {
     color: white;
     text-align: center;
     /* Umbruch statt nowrap: die Meldung darf die Senderzeile auf schmalen
-       Viewports nicht sprengen. `wrap` neutralisiert das geerbte
-       `text-wrap: balance` der Senderzeile, das kurze Meldungen sonst
-       kuenstlich zweizeilig umbricht. */
+       Viewports nicht sprengen; `wrap` neutralisiert das geerbte `balance`. */
     white-space: normal;
     text-wrap: wrap;
     overflow-wrap: anywhere;
@@ -498,8 +471,7 @@ nav .nav-link[aria-current='page'] {
 .status-indicator.buffering {
     background-color: var(--color-status-buffering);
     box-shadow: 0 0 10px var(--color-status-buffering);
-    /* Opacity ist Compositor-Property; ease-in-out erzeugt beim Atmen
-       sanfte Umkehrpunkte statt harter Knicke. */
+    /* Opacity (Compositor) + ease-in-out: sanfte Umkehrpunkte beim Atmen. */
     animation: pulse 1.5s ease-in-out infinite;
 }
 
@@ -580,23 +552,20 @@ audio::-webkit-media-controls-panel {
     overflow-wrap: anywhere;
 }
 
-/* Generische Skeleton-Flaeche (u. a. #currentSongTitle, Video-Overlay, fuer
-   0.10.0 Cache-Strategie wiederverwendbar). Der Sweep laeuft auf einem
-   Pseudo-Element via transform (Compositor) statt background-position
-   (Repaint pro Frame) – dadurch no mutation of layout, keine Paint-Last. */
+/* Generische Skeleton-Fläche (u. a. #currentSongTitle, Video-Overlay).
+   Sweep auf ::after via transform (Compositor) statt background-position. */
 .skeleton {
     color: transparent;
     position: relative;
     overflow: hidden;
-    /* isolation haelt das ::after-Sweep im eigenen Stacking-Kontext
-       (z-index: -1 => ueber der Flaeche, unter dem Inhalt). */
+    /* isolation hält das ::after-Sweep im eigenen Stacking-Kontext. */
     isolation: isolate;
     pointer-events: none;
     user-select: none;
 }
 
 /* Sweep-Layer: weicher Lichtbalken mit auslaufenden Kanten (keine harten
-   Gradient-Stufen), faehrt in einem Durchlauf von links nach rechts. */
+   Gradient-Stufen), ein Durchlauf von links nach rechts. */
 .skeleton::after {
     content: '';
     position: absolute;
@@ -643,7 +612,7 @@ footer a:hover {
     text-underline-offset: 3px;
 }
 
-/* Cookie Banner */
+/* === Cookie-Banner === */
 .cookie-banner {
     position: fixed;
     bottom: var(--space-lg);
@@ -653,8 +622,7 @@ footer a:hover {
     max-width: 600px;
     z-index: 50;
     padding: var(--space-lg);
-    /* Nur transform/opacity animiert -> Browser promoviert die Ebene waehrend
-       des Einfliegens automatisch; kein dauerhaftes will-change noetig. */
+    /* Nur transform/opacity animiert – Browser promoviert die Ebene beim Einfliegen. */
     animation: banner-in 0.45s var(--ease-out-quint) both;
 }
 
@@ -662,9 +630,8 @@ footer a:hover {
     display: none;
 }
 
-/* Layout (Flex/Gap/Ausrichtung) des Banners kommt ueber Bootstrap-Utilities
-   im HTML: .cookie-banner-content (d-flex/flex-column/gap-4) und
-   .cookie-buttons (d-flex/flex-column/flex-md-row/gap-3/w-100). */
+/* Layout (Flex/Gap/Ausrichtung) des Banners kommt über Bootstrap-Utilities im HTML
+   (.cookie-banner-content, .cookie-buttons). */
 
 .cookie-btn {
     flex: 1;
@@ -775,7 +742,7 @@ footer a:hover {
         padding: var(--space-lg) var(--space-md);
     }
 
-    /* Wir stapeln ab 768px; Bootstraps .col-md-6 waere erst ab 768px zweispaltig. */
+    /* Ab 768px ein-spaltig stapeln (Bootstraps .col-md-6 wäre erst hier zweispaltig). */
     .player-section > * {
         flex: 0 0 auto;
         width: 100%;
@@ -871,8 +838,7 @@ footer a:hover {
         display: none;
     }
 
-    /* Shimmer statisch machen: Sweep-Layer ohne Animation und aus der
-       Flaeche geschoben => ruhige, gleichmaessige Skeleton-Flaeche. */
+    /* Shimmer statisch machen: ruhige, gleichmäßige Skeleton-Fläche. */
     .skeleton::after {
         animation: none;
     }

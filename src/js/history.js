@@ -3,7 +3,7 @@
 
     const EXPIRY_DAYS = 90
     const EXPIRY_TIME_MS = EXPIRY_DAYS * 24 * 60 * 60 * 1000
-    /** Sitzungen unter 1s gelten als Fehlstart und werden verworfen. */
+    // Sitzungen unter 1s gelten als Fehlstart und werden verworfen
     const MIN_SESSION_MS = 1000
 
     const storage = () => window.PlayerCore
@@ -18,7 +18,7 @@
         let activeStationUrl = null
         let initPromise = null
 
-        // --- Migration & Laden ---
+        // === MIGRATION & LADEN ===
 
         function isOldFormat(history) {
             const keys = Object.keys(history.stations || {})
@@ -60,7 +60,7 @@
             return { stations: stored.stations || {} }
         }
 
-        /** Fallback, falls PlayerCore (noch) nicht geladen ist – sonst immer über PlayerCore. */
+        // Fallback, falls PlayerCore (noch) nicht geladen ist – sonst immer über PlayerCore
         function readLegacyRaw() {
             try {
                 const raw = localStorage.getItem(historyKey())
@@ -71,7 +71,7 @@
             }
         }
 
-        /** Storage ist synchron – kein unnoetiger Promise-/Microtask-Umweg. */
+        // Storage ist synchron – kein unnötiger Promise-/Microtask-Umweg
         function saveHistoryDirect(history) {
             storage()?.writeJSON(historyKey(), history)
         }
@@ -80,7 +80,7 @@
             saveHistoryDirect({ ...historyCache, activeStationUrl })
         }
 
-        // --- Sitzungen ---
+        // === SITZUNGEN ===
 
         function stopAndFinalizeSession(station, timestamp) {
             const openIndex = station.sessions.findIndex((s) => s.end === null)
@@ -136,7 +136,7 @@
             invalidateCache()
         }
 
-        // --- Aufräumen ---
+        // === AUFRÄUMEN ===
 
         async function pruneHistory(isInternal = false) {
             if (!isInternal && initPromise) await initPromise
@@ -198,7 +198,7 @@
             return changed
         }
 
-        // --- Abfrage mit Cache ---
+        // === ABFRAGE MIT CACHE ===
 
         function invalidateCache() {
             isCacheValid = false

@@ -16,8 +16,8 @@
 
     const storage = () => window.PlayerCore
     const historyKey = () => storage()?.HISTORY_KEY || 'station_history'
-    // Identisch zu history.js: generateUUID (uuid.js) hat bereits eigene Fallbacks,
-    // dieser Wrapper faengt nur den Fall ab, dass uuid.js (noch) nicht geladen ist.
+    // Gleiches Muster wie history.js: generateUUID (uuid.js) hat eigene Fallbacks,
+    // dieser Wrapper greift nur bei noch nicht geladenem uuid.js.
     const uuid = () => (typeof generateUUID === 'function' ? generateUUID() : `fallback-${Date.now()}-${Math.random()}`)
 
     const FavoriteManager = (() => {
@@ -26,7 +26,7 @@
         let favoriteIdsSet
         let favoriteUrlsMap
 
-        // --- Format & Migration ---
+        // === FORMAT & MIGRATION ===
 
         function isUrl(value) {
             return typeof value === 'string' && (value.startsWith('http://') || value.startsWith('https://'))
@@ -51,7 +51,7 @@
             return migrated.some((f, i) => f !== data.favorites[i]) ? { ...data, favorites: migrated } : data
         }
 
-        // --- Laden & Speichern (einzige Storage-Stelle dieses Moduls) ---
+        // === LADEN & SPEICHERN (einzige Storage-Stelle dieses Moduls) ===
 
         function emptyFavorites() {
             return { version: 1, favorites: [], preferences: {} }
@@ -90,7 +90,7 @@
             })
         }
 
-        // --- Präferenzen aus dem Verlauf ---
+        // === PRAEFERENZEN AUS DEM VERLAUF ===
 
         function summarizeHistoryStations(stations) {
             let mostPlayed = stations[0]
@@ -134,7 +134,7 @@
             }
         }
 
-        // --- Öffentliche API ---
+        // === OEFFENTLICHE API ===
 
         function addFavorite(name, data = {}, url = null) {
             const id = uuid()

@@ -67,16 +67,14 @@ function initializePlayer() {
 
     // === STATUS & RETRY ===
 
-    /** Leitet den Gesamtstatus aus Netzwerk, Fehler und Player-Zustand ab. */
+    // Gesamtstatus aus Netzwerk, Fehler- und Player-Zustand ableiten
     function updateOverallStatus() {
         let status = 'online'
         if (!navigator.onLine || hasError) status = 'error'
         else if (currentPlayer.paused) status = 'paused'
         else if (isStalled) status = 'buffering'
-        // Eine sichtbare Meldung (Retry-Countdown oder Fehlerhinweis) nicht
-        // ueberschreiben: sonst verliert sie ihre Pill-Formatierung und bleibt
-        // als unformatierter Text ueber dem Status-Punkt stehen. Sie loest sich
-        // ueber ihren eigenen Timeout bzw. clearAudioRetry() auf.
+        // Sichtbare Meldung (Retry-Countdown/Fehler) nicht überschreiben:
+        // sie löst sich über ihren eigenen Timeout bzw. clearAudioRetry() auf.
         if (statusDisplay.hasMessage()) return
         statusDisplay.clearMessage(status)
     }
@@ -107,9 +105,7 @@ function initializePlayer() {
 
     function showExhaustedText() {
         logError(ErrorCode.AUDIO_RECONNECT_FAILED, null, { retries: MAX_RETRIES, src: currentPlayer?.src })
-        // Klare, kurze Meldung, die nach einigen Sekunden wieder verschwindet;
-        // der rote Status-Punkt bleibt als dauerhafter Fehlerhinweis.
-        // Kurz genug, um auch neben dem Sendernamen einzeilig zu bleiben.
+        // Kurz, verschwindet nach wenigen Sekunden; der rote Status-Punkt bleibt als Fehlerhinweis.
         statusDisplay.showMessage('Stream nicht erreichbar', 'error', 6000, 'error')
         statusIndicator?.setAttribute('title', 'Keine Verbindung zum Stream – bitte Sender neu wählen')
     }
@@ -128,8 +124,7 @@ function initializePlayer() {
         if (!currentPlayer.src) return
         hasError = false
         isAutoRetry = true
-        // Countdown-Pill sofort aufloesen: waehrend des Versuchs pulsiert der
-        // Status-Punkt, statt einen veralteten Countdown stehen zu lassen.
+        // Countdown-Pill sofort auflösen: während des Versuchs pulsiert der Status-Punkt.
         statusDisplay.clearMessage('buffering')
         statusIndicator?.removeAttribute('title')
         currentPlayer.load()
@@ -143,7 +138,7 @@ function initializePlayer() {
 
     // === SKELETON-LOADING ===
 
-    /** Shimmer-Skeleton auf der Titelpill waehrend der Stream-Vorbereitung. */
+    // Shimmer-Skeleton auf der Titelpill während der Stream-Vorbereitung
     const setSongTitleSkeleton = (loading) => {
         currentSongTitleDisplay?.classList.toggle('skeleton', loading)
     }
@@ -199,7 +194,7 @@ function initializePlayer() {
             })
             hasError = true
             setSongTitleSkeleton(false)
-            // Neuer User-Versuch (kein Auto-Retry) startet eine frische Sequenz.
+            // Neuer User-Versuch (kein Auto-Retry) startet eine frische Sequenz
             if (!isAutoRetry) clearAudioRetry()
             isAutoRetry = false
             updateOverallStatus()
@@ -214,17 +209,16 @@ function initializePlayer() {
     // === NETZWERK-WECHSEL ===
 
     window.addEventListener('offline', () => {
-        // Pending Retry pausieren, Count behalten für Resume bei 'online'.
+        // Pending Retry pausieren, Zähler für Resume bei 'online' behalten
         clearRetry(retryState)
-        // Ohne Verbindung gibt es keinen Countdown mehr – Meldung sofort
-        // aufloesen, statt einen eingefrorenen Versuch-Text stehen zu lassen.
+        // Ohne Verbindung keinen Countdown weiterlaufen lassen – Meldung sofort auflösen
         statusDisplay.clearMessage('error')
         statusIndicator?.removeAttribute('title')
         updateOverallStatus()
         StationHistory.stopStation(currentPlayer.src)
     })
 
-    // Polling pausiert im Hintergrund und holt beim Zurueckkommen sofort frische Daten.
+    // Polling pausiert im Hintergrund, Rückkehr holt sofort frische Daten
     document.addEventListener('visibilitychange', () => {
         if (document.hidden) {
             stopMetadataPolling()
@@ -237,7 +231,7 @@ function initializePlayer() {
     window.addEventListener('online', () => {
         refreshMetadata()
         if (hasError && wasPlayingBeforeError && currentPlayer.src) {
-            // Ein sofortiger Retry bei Netzrückkehr (zählt als ein Versuch).
+            // Sofortiger Retry bei Netzrückkehr (zählt als ein Versuch)
             if (retryState.count >= MAX_RETRIES) retryState.count = MAX_RETRIES - 1
             clearRetry(retryState)
             retryAudio()
@@ -277,7 +271,7 @@ function initializePlayer() {
         startMetadataInterval()
     }
 
-    /** Polling nur bei sichtbarer Seite – im Hintergrund laufen sonst alle 3s Requests. */
+    // Polling nur bei sichtbarer Seite – im Hintergrund sonst alle 3s Requests
     function startMetadataInterval() {
         if (metadataInterval || !currentMetadataUrl || document.hidden) return
         metadataInterval = setInterval(refreshMetadata, METADATA_REFRESH_INTERVAL)
@@ -288,8 +282,8 @@ function initializePlayer() {
             clearInterval(metadataInterval)
             metadataInterval = null
         }
-        // Laufende Anfrage abbrechen: sonst kann eine verspaetete Antwort der
-        // alten Station den Titel der neuen Station ueberschreiben.
+        // Laufende Anfrage abbrechen: eine verspätete Antwort der alten
+        // Station könnte sonst den Titel der neuen Station überschreiben.
         if (metadataAbortController) {
             metadataAbortController.abort()
             metadataAbortController = null
@@ -301,7 +295,7 @@ function initializePlayer() {
         fetchMetadata(currentMetadataUrl)
     }
 
-    /** Schreibt den Titel nur bei echter Aenderung (spart Layout/Paint beim Polling). */
+    // Titel nur bei echter Änderung schreiben (spart Layout/Paint beim Polling)
     function updateSongTitle(text) {
         if (currentSongTitleDisplay && currentSongTitleDisplay.textContent !== text) {
             currentSongTitleDisplay.textContent = text
@@ -353,7 +347,7 @@ function initializePlayer() {
                 updateMediaSession(trackInfo.title, trackInfo.artist)
             })
             .catch((error) => {
-                // Abgebrochene Anfragen (Senderwechsel/Hidden) sind keine Fehler.
+                // Abgebrochene Anfragen (Senderwechsel/Hidden) sind keine Fehler
                 if (controller.signal.aborted || error?.name === 'AbortError') return
                 logError(ErrorCode.METADATA_FETCH, error, buildMetadataErrorContext(error, metadataUrl))
                 updateSongTitle('Metadaten nicht verfügbar')
@@ -380,8 +374,7 @@ function initializePlayer() {
     // === START: letzte Station wiederherstellen oder erste starten ===
 
     const lastStationUrl = readSetting(AUDIO_STORAGE_KEY)
-    // Ueber dataset vergleichen statt per Attribut-Selektor (URLs koennen Zeichen
-    // enthalten, die im CSS-Selektor maskiert werden muessten).
+    // Vergleich über dataset statt Attribut-Selektor (URLs könnten CSS-Sonderzeichen enthalten)
     const lastStationButton = lastStationUrl
         ? Array.from(stationButtons).find((button) => button.dataset.url === lastStationUrl) || null
         : null

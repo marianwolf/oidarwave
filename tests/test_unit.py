@@ -13,7 +13,7 @@ pytestmark = pytest.mark.unit
 BASE_DIR = Path(__file__).resolve().parent.parent
 EXCLUDE = {"node_modules", ".venv", ".git", "__pycache__", "dist", "build", ".pytest_cache"}
 
-# --- Syntax-Helfer ---
+# === Syntax-Helfer ===
 
 
 def _balanced(content: str, *pairs: tuple[str, str]) -> list[str]:
@@ -103,7 +103,7 @@ def test_syntax_valid(ext: str):
     assert not errors, f"{ext} Syntax-Fehler: {errors}"
 
 
-# --- CSS-Breakpoints (strukturell, keine Wert-Regexes) ---
+# === CSS-Breakpoints (strukturell, keine Wert-Regexes) ===
 
 
 def _media_block(css: str, width: int) -> str:
@@ -134,7 +134,7 @@ def test_css_480_structure(main_css_content: str):
     assert "prefers-reduced-motion" not in block, "reduced-motion gehoert nicht in den 480px-Block"
 
 
-# --- Streams (Source of Truth: data-url in index.html / video/index.html) ---
+# === Streams (Single Source of Truth: data-url in index.html / video/index.html) ===
 
 EXPECTED_HOSTS = {"st01.sslstream.dlf.de", "rndfnk.com", "streamabc.net"}
 
@@ -171,7 +171,7 @@ def test_no_secrets_in_station_urls(index_html: str):
         assert param not in index_html, f"Session-Parameter {param!r} in index.html"
 
 
-# --- Electron-Build ---
+# === Electron-Build ===
 
 
 def test_electron_build(base_dir: Path, package_json: dict):
