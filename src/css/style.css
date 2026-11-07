@@ -580,6 +580,40 @@ audio::-webkit-media-controls-panel {
     overflow-wrap: anywhere;
 }
 
+/* Generische Skeleton-Flaeche (u. a. #currentSongTitle, Video-Overlay, fuer
+   0.10.0 Cache-Strategie wiederverwendbar). Der Sweep laeuft auf einem
+   Pseudo-Element via transform (Compositor) statt background-position
+   (Repaint pro Frame) – dadurch no mutation of layout, keine Paint-Last. */
+.skeleton {
+    color: transparent;
+    position: relative;
+    overflow: hidden;
+    /* isolation haelt das ::after-Sweep im eigenen Stacking-Kontext
+       (z-index: -1 => ueber der Flaeche, unter dem Inhalt). */
+    isolation: isolate;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* Sweep-Layer: weicher Lichtbalken mit auslaufenden Kanten (keine harten
+   Gradient-Stufen), faehrt in einem Durchlauf von links nach rechts. */
+.skeleton::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image: linear-gradient(
+        100deg,
+        rgba(255, 255, 255, 0) 24%,
+        rgba(255, 255, 255, 0.05) 40%,
+        rgba(255, 255, 255, 0.13) 50%,
+        rgba(255, 255, 255, 0.05) 60%,
+        rgba(255, 255, 255, 0) 76%
+    );
+    transform: translate3d(-100%, 0, 0);
+    animation: shimmer 1.8s linear infinite;
+}
+
 footer {
     text-align: center;
     color: var(--color-text-muted);
@@ -715,6 +749,16 @@ footer a:hover {
     }
 }
 
+@keyframes shimmer {
+    from {
+        transform: translate3d(-100%, 0, 0);
+    }
+
+    to {
+        transform: translate3d(100%, 0, 0);
+    }
+}
+
 @media (max-width: 1024px) {
     .player-section {
         --bs-gutter-x: var(--space-lg);
@@ -825,6 +869,12 @@ footer a:hover {
 
     .mouse-glow {
         display: none;
+    }
+
+    /* Shimmer statisch machen: Sweep-Layer ohne Animation und aus der
+       Flaeche geschoben => ruhige, gleichmaessige Skeleton-Flaeche. */
+    .skeleton::after {
+        animation: none;
     }
 }
 

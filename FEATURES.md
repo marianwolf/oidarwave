@@ -12,7 +12,7 @@
 - [x] **Favoriten** – umgesetzt via `src/js/favorite.js` (inkl. Migration alter Favoriten-Formate)
 - [ ] **Hell-/Dunkelmodus-Umschaltung** – fehlt: kein `prefers-color-scheme`-Handling, keine Theme-Klasse in `src/css/` bzw. `index.html`. Umschalter in `index.html` ergänzen und Wahl im `localStorage` persistent speichern.
 - [ ] **Sleep-Timer** – fehlt: kein Timer-Code. Wählbare Zeitspannen (z. B. 15/30/60 min) mit sanftem Lautstärke-Ausblenden vor dem Stop.
-- [ ] **Skeleton-Loading** – fehlt: kein Skeleton-Markup, keine `.skeleton`-/Shimmer-CSS in `src/css/`. Zeigt Ladezustände während der Stream-Vorbereitung.
+- [x] **Skeleton-Loading** – umgesetzt via `.skeleton`-Shimmer-CSS in `src/css/style.css` (Radio: `#currentSongTitle`, Video: `.video-skeleton`-Overlay in `video/index.html` + `src/css/style-video.css`); Statuswechsel in `src/js/player.js` (loadstart/canplay/error/pause) und `src/js/video.js` (Senderwahl/MANIFEST_PARSED/loadedmetadata/Fehler). Verfeinert: Sweep läuft GPU-freundlich über `transform` auf einem `::after`-Layer statt `background-position`, weiche Gradient-Kanten, Crossfade des Video-Overlays (`.is-active`), statische Variante unter `prefers-reduced-motion`.
 - [ ] **Lautstärke per Mausrad** – fehlt: `src/js/mouse.js` behandelt kein `wheel`-Event auf dem Lautstärke-Regler.
 
 ### Version 0.10.0 – mittlere Nebenversion: PWA-Offensive
@@ -22,7 +22,7 @@
 - [x] **Background-Audio-Wiedergabe** – umgesetzt via Media Session API (`src/js/player-core.js:33`, genutzt in `src/js/player.js:32`, `src/js/video.js:267`)
 - [ ] **Offline-Fallback-Seite** – fehlt: kein Service Worker, keine `offline.html`, keine SW-Registrierung im Code (`index.html` bindet nur die neun App-Module ein)
 - [ ] **Installierbare App** – Teilstand: `manifest.json` + `<link rel="manifest">` in `index.html:21` vorhanden, aber ohne Service Worker nicht nach PWA-Kriterien installierbar
-- [ ] **Cache-Strategie** – App-Shell cache-first, Stream-URLs immer network-only; Skeleton-Rendering dafür in 0.9.x vorbereiten
+- [ ] **Cache-Strategie** – App-Shell cache-first, Stream-URLs immer network-only; Skeleton-Rendering dafür ist seit 0.9.18 vorhanden (`.skeleton` wiederverwendbar)
 - [ ] **Push-Benachrichtigungen** – bewusst hinten: nur lokale `Notification`-API bei Titelwechsel (`src/js/notification.js:72`); Push bräuchte Service Worker + VAPID-Schlüssel und widerspricht dem DSGVO-minimalen Ansatz. Erst umsetzen, wenn das Datenschutz-Budget bewusst entschieden ist.
 
 **Empfohlene Reihenfolge:** Service Worker + `offline.html` → installierbar machen → Cache-Strategie verfeinern → Push-Abwägung.

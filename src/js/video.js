@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const statusIndicator = document.getElementById('statusIndicator')
     const rewindButton = document.getElementById('rewindButton')
     const forwardButton = document.getElementById('forwardButton')
+    const videoSkeleton = document.getElementById('videoSkeleton')
 
     if (!videoPlayer) {
         logError(ErrorCode.PLAYER_INIT_NO_ELEMENT, null, { selector: '#videoPlayer', page: location.pathname })
@@ -97,6 +98,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // === HLS-SETUP ===
 
+    // Skeleton-Overlay waehrend der Stream-Vorbereitung (bis Manifest/Video bereit).
+    // Sichtbarkeit ueber Klasse statt `hidden`-Attribut: .video-skeleton blendet
+    // per opacity/visibility sanft ein und aus (Crossfade in die Wiedergabe).
+    const showSkeleton = () => videoSkeleton?.classList.add('is-active')
+    const hideSkeleton = () => videoSkeleton?.classList.remove('is-active')
+
     const setupHlsPlayer = (url) => {
         destroyHlsPlayer()
         resetRetry(retryState)
@@ -108,6 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
             setupNativePlayer(url)
         } else {
             logError(ErrorCode.HLS_FATAL, null, { reason: 'HLS not supported by browser' })
+            hideSkeleton()
             statusDisplay.showMessage('Ihr Browser unterstützt dieses Videoformat nicht.', 'error', 0)
         }
     }
@@ -133,6 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         hlsPlayer.on(Hls.Events.MANIFEST_PARSED, () => {
             if (hlsPlayer !== playerInstance) return
+            hideSkeleton()
             statusDisplay.clearMessage()
             videoPlayer.play().catch((e) => handlePlayError(e, 'manifest-parsed'))
             updateQualityLevel()
@@ -169,6 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (retryState.count >= MAX_RETRIES) {
             logError(ErrorCode.HLS_NETWORK, null, { retries: MAX_RETRIES, url: hlsPlayer?.url })
             destroyHlsPlayer()
+            hideSkeleton()
             statusDisplay.showMessage(
                 `Netzwerkfehler: Nach ${MAX_RETRIES} Versuchen keine Verbindung. Bitte Internetverbindung prüfen und Seite neu laden.`,
                 'error',
@@ -199,6 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         logError(ErrorCode.HLS_FATAL, null, { details: data.details, type: data.type })
         destroyHlsPlayer()
+        hideSkeleton()
         statusDisplay.showMessage(`Schwerwiegender Fehler: ${data.details}. Bitte Seite neu laden.`, 'error', 0)
     }
 
@@ -209,6 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
         videoPlayer.addEventListener(
             'loadedmetadata',
             () => {
+                hideSkeleton()
                 statusDisplay.clearMessage()
                 videoPlayer.play().catch((e) => handlePlayError(e, 'native-player'))
                 applyCaptions()
@@ -235,6 +247,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const selectStation = (button) => {
         statusDisplay.clearMessage()
         currentStationDisplay.textContent = button.dataset.name
+        showSkeleton()
         setupHlsPlayer(button.dataset.url)
         setupMediaSession({
             title: button.dataset.name,
@@ -269,6 +282,9 @@ document.addEventListener('DOMContentLoaded', () => {
         videoPlayer.addEventListener('pause', () => {
             logDebug(ErrorCode.MEDIA_SESSION_SETUP, null, { state: 'paused' })
         })
+        // Sicherheitsnetz beim Wiedergabestart: falls weder MANIFEST_PARSED
+        // noch loadedmetadata feuerte, bleibt das Skeleton da nicht haengen.
+        videoPlayer.addEventListener('playing', hideSkeleton)
         videoPlayer.addEventListener('playing', () => {
             logDebug(ErrorCode.MEDIA_SESSION_SETUP, null, { state: 'playing' })
         })

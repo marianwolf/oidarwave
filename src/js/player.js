@@ -141,14 +141,23 @@ function initializePlayer() {
         currentPlayer.play().catch((e) => handlePlayError(e, 'audio-player'))
     }
 
+    // === SKELETON-LOADING ===
+
+    /** Shimmer-Skeleton auf der Titelpill waehrend der Stream-Vorbereitung. */
+    const setSongTitleSkeleton = (loading) => {
+        currentSongTitleDisplay?.classList.toggle('skeleton', loading)
+    }
+
     // === MEDIA-EVENTS ===
 
     const mediaEvents = {
         loadstart: () => {
+            setSongTitleSkeleton(true)
             isStalled = false
             updateOverallStatus()
         },
         canplay: () => {
+            setSongTitleSkeleton(false)
             if (currentPlayer.paused) playMedia()
             isStalled = false
             hasError = false
@@ -167,6 +176,7 @@ function initializePlayer() {
             updateMediaSession('', '')
         },
         pause: () => {
+            setSongTitleSkeleton(false)
             // Nur User-Pause bricht Retry ab (kein Fehlerzustand).
             if (!hasError && !currentPlayer.error) {
                 wasPlayingBeforeError = false
@@ -188,6 +198,7 @@ function initializePlayer() {
                 page: location.pathname,
             })
             hasError = true
+            setSongTitleSkeleton(false)
             // Neuer User-Versuch (kein Auto-Retry) startet eine frische Sequenz.
             if (!isAutoRetry) clearAudioRetry()
             isAutoRetry = false
