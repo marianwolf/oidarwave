@@ -26,11 +26,12 @@ The scheduled OpenWiki GitHub Actions workflow refreshes the repository wiki. Do
 - Stream-URLs nie hardcoden: Single Source of Truth sind die `data-url`-Attribute in `index.html` / `video/index.html` (Tests: `test_audio_streams`, `test_video_streams`, `test_no_duplicate_station_urls` in `tests/test_unit.py`).
 - CSS-Tests nur strukturell (Blöcke vorhanden, Klammern balanciert, Kern-Selektoren), keine exakten Wert-Regexes — brechen bei jedem Redesign.
 - Bekannt per `xfail`: `test_no_secrets_in_station_urls` (`index.html` enthält `token=`/`sid=`/`cid=`/`tvf=`). Test nicht löschen, Fix von `index.html` ist eine Produktentscheidung.
+- **Formatierung:** Nach jeder Session einmal `npm run format` ausführen (Prettier, `prettier --write .`). Ausnahmen via `.prettierignore`: `src/vendor/bootstrap/bootstrap.min.css`, `openwiki/`.
 
 ## Session-Summary (`./opencode/`)
 
 - Jede Session endet mit einer Summary-Datei in `./opencode/`: `YYYY-MM-DD-<kurzthema>.md` (Ordner anlegen falls fehlt).
-- Inhalt (kurz): Ziel, geänderte Dateien, Testergebnis (`pytest tests/test_unit.py -m unit` + ggf. Website/Design-Tests), offene Punkte.
+- Inhalt (kurz): Ziel, geänderte Dateien, Testergebnis (`pytest tests/test_unit.py -m unit` + ggf. Website/Design-Tests), `npm run format` ausgeführt?, offene Punkte.
 - Summaries werden committet, enthalten aber nie Secrets/Tokens/personenbezogene Daten.
 
 ## KI-Leitlinien
