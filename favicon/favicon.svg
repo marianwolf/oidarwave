@@ -6,8 +6,8 @@
    sodipodi:docname="favicon.svg"
    inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
    inkscape:export-filename="favicon.png"
-   inkscape:export-xdpi="122.88"
-   inkscape:export-ydpi="122.88"
+   inkscape:export-xdpi="245.75999"
+   inkscape:export-ydpi="245.75999"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -20,13 +20,13 @@
      id="title1442">Favicon</title>
   <path
      style="display:inline;mix-blend-mode:normal;fill:url(#linearGradient312);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
-     d="M 99.195947,0.21038256 C 100.40987,4.3849055 101.37466,16.960477 93.240008,17.869693 77.201608,19.662318 78.848658,31.622032 80.908992,46.205432 83.166422,62.183926 87.040626,83.750135 71.862694,93.41523 58.70049,101.79673 42.975114,95.07109 43.855403,81.4951 45.344622,58.528043 70.024349,81.982213 62.622048,45.639277 58.707735,26.421249 51.652316,-2.7616405 99.195947,0.21038256 Z"
+     d="M 99.194475,0.21017594 C 100.41062,4.380599 101.37717,16.94382 93.227645,17.852143 77.159919,19.643007 78.168528,30.817604 80.232629,45.386681 82.494187,61.349482 87.016928,83.667882 71.811243,93.323485 58.624972,101.69675 42.870842,94.977718 43.752741,81.415062 45.244683,58.470561 69.969536,81.901696 62.5537,45.594454 58.63223,26.3953 51.56391,-2.7589282 99.194475,0.21017594 Z"
      id="note1"
      sodipodi:nodetypes="csssssc"
-     inkscape:label="note1" />
+     inkscape:label="note2" />
   <path
-     style="display:inline;mix-blend-mode:normal;fill:url(#linearGradient1124);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
-     d="M 55.375908,3.1075757 C 56.589831,7.2820992 57.554621,19.85767 49.419969,20.766886 33.381569,22.559512 35.028619,34.519225 37.088953,49.102625 39.346383,65.081119 43.220587,86.64733 28.042655,96.312427 14.880451,104.69393 -0.8449246,97.968284 0.0353644,84.392294 1.5245834,61.425237 26.20431,84.879402 18.802009,48.53647 14.887696,29.318442 7.8322774,0.13555335 55.375908,3.1075757 Z"
+     style="display:inline;mix-blend-mode:normal;fill:url(#linearGradient1705);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+     d="M 55.477163,3.2027386 C 56.693305,7.3731616 57.659859,19.936383 49.510333,20.844706 33.442607,22.63557 34.451216,33.810167 36.515317,48.379244 38.776875,64.342045 43.299616,86.660445 28.093931,96.316048 14.90766,104.68932 -0.84646954,97.970281 0.03542906,84.407625 1.5273711,61.463124 26.252224,84.894259 18.836388,48.587017 14.914918,29.387863 7.8465987,0.23363444 55.477163,3.2027386 Z"
      id="note1-7"
      sodipodi:nodetypes="csssssc"
      inkscape:label="note1" />
@@ -34,15 +34,15 @@
      id="defs48">
     <linearGradient
        inkscape:collect="always"
-       id="linearGradient1131">
+       id="linearGradient1712">
       <stop
          style="stop-color:#b266ff;stop-opacity:1;"
          offset="0.1"
-         id="stop1127" />
+         id="stop1708" />
       <stop
          style="stop-color:#ff668c;stop-opacity:1;"
          offset="0.89999998"
-         id="stop1129" />
+         id="stop1710" />
     </linearGradient>
     <linearGradient
        inkscape:collect="always"
@@ -61,17 +61,17 @@
        xlink:href="#linearGradient1019"
        id="linearGradient312"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(1.5239128,0.04717952,0,1.2584188,26.009548,-17.26538)"
+       gradientTransform="matrix(1.5266993,0.04713318,0,1.2571829,25.874255,-17.248423)"
        x1="11.698959"
        y1="13.295821"
        x2="48.538429"
        y2="89.048676" />
     <linearGradient
        inkscape:collect="always"
-       xlink:href="#linearGradient1131"
-       id="linearGradient1124"
+       xlink:href="#linearGradient1712"
+       id="linearGradient1705"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(1.5239128,0.04717952,0,1.2584188,-17.810491,-14.368187)"
+       gradientTransform="matrix(1.5266993,0.04713318,0,1.2571829,-17.843057,-14.25586)"
        x1="11.698959"
        y1="13.295821"
        x2="48.538429"

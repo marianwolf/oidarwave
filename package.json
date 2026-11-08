@@ -7,7 +7,7 @@
   "scripts": {
     "start": "electron .",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder",
+    "dist": "electron-builder -lmw",
     "dist:linux": "electron-builder -l",
     "dist:win": "electron-builder -w",
     "dist:mac": "electron-builder -m",
@@ -49,7 +49,7 @@
           ]
         }
       ],
-      "icon": "favicon/favicon.ico",
+      "icon": "favicon/favicon.png",
       "requestedExecutionLevel": "asInvoker"
     },
     "nsis": {
