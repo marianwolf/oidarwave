@@ -126,13 +126,12 @@
     }
   },
   "devDependencies": {
-    "@openai/codex": "^0.161.0",
     "@opencode/cli": "^2.2.5",
     "bootstrap": "^5.3.8",
-    "electron": "^45.2.1",
-    "electron-builder": "^26.18.0",
+    "electron": "^45.2.3",
+    "electron-builder": "^26.18.1",
     "freebuff": "^0.0.177",
-    "openwiki": "^0.7.3",
+    "openwiki": "^0.9.0",
     "prettier": "^3.9.10"
   },
   "allowScripts": {
