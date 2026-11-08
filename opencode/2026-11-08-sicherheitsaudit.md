@@ -138,3 +138,12 @@ keine Sicherheitslücke).
    getroffen ist.
 3. Fixes für Befunde 1, 2 und 4 sind klein und unabhängig umsetzbar; sie wurden in dieser Session bewusst
    nicht angewendet, weil nur die Analyse beauftragt war.
+
+## Nachtrag: Dependency-Bump pytest/playwright
+
+- `requirements-dev.txt`: `pytest==9.1.1` → `9.2.0`, `playwright==1.62.0` → `1.64.1` (jeweils aktuellste
+  PyPI-Version, beide `requires_python >=3.10`, passend zu Python 3.12 lokal und 3.14 in CI).
+- `.venv` neu installiert, Chromium für Playwright 1.64.1 (chromium-headless-shell v1248) nachgeladen.
+- Testergebnis: `pytest tests/test_unit.py -m unit` → 11 passed, 1 xfailed; `tests/test_website.py` →
+  4 passed; `tests/test_design_layout.py` → 9 xpassed (`xfail(strict=False)`-Warnungen, Exit 0).
+- Offen: CI nutzt Python 3.14 — dort noch nicht gelaufen, der nächste Workflow-Lauf bestätigt es.
