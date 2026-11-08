@@ -147,3 +147,14 @@ keine Sicherheitslücke).
 - Testergebnis: `pytest tests/test_unit.py -m unit` → 11 passed, 1 xfailed; `tests/test_website.py` →
   4 passed; `tests/test_design_layout.py` → 9 xpassed (`xfail(strict=False)`-Warnungen, Exit 0).
 - Offen: CI nutzt Python 3.14 — dort noch nicht gelaufen, der nächste Workflow-Lauf bestätigt es.
+
+## Nachtrag 2: Design-Tests von xfail auf harte Checks
+
+- `tests/test_design_layout.py`: beide `@pytest.mark.xfail(strict=False, …)`-Marker entfernt, Docstrings und
+  CLS-Kommentar angepasst (kein „nur Warnung" mehr).
+- Testregeln geprüft, keine inhaltliche Änderung nötig: Overflow-Toleranz 1 px, Elementbreite ≤ Viewport
+  + 1 px, CLS-Budget 0.1 und die statischen CSS-Muster sind korrekt und stabil (5 Läufe grün).
+- Testergebnis: `pytest tests/test_design_layout.py` → 9 passed (vorher 9 xpassed), Exit 0;
+  `tests/test_unit.py -m unit` → 11 passed, 1 xfailed; `tests/test_website.py` → 4 passed.
+- Hinweis: Die Regex-Checks auf Breakpoints (768/480 px) und Reserven (`min-height`,
+  `contain-intrinsic-size`) brechen bei einem bewussten Redesign und müssen dann mitgezogen werden.

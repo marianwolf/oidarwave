@@ -1,4 +1,4 @@
-"""Design-/Layoutshift-Warntest fuer Mobil & Desktop (nur Hinweis, kein harter Fehler)."""
+"""Design-/Layoutshift-Test fuer Mobil & Desktop (harte Checks, kein xfail)."""
 
 import re
 from pathlib import Path
@@ -20,11 +20,10 @@ DESIGN_CHECKS = {
     "impressum": ["h1"],
 }
 
-# CLS-Schwelle nach Web-Vitals ("good" <= 0.1); nur Warnung via xfail(strict=False).
+# CLS-Schwelle nach Web-Vitals ("good" <= 0.1).
 CLS_BUDGET = 0.1
 
 
-@pytest.mark.xfail(strict=False, reason="Design-/Layoutshift-Warnung: Hinweis, kein harter Fehler")
 @pytest.mark.parametrize("viewport_name", ["mobile", "desktop"])
 @pytest.mark.parametrize("page_name", ["index", "video", "impressum"])
 def test_design_layout_no_shift(browser: Browser, page_urls: dict[str, str], page_name: str, viewport_name: str):
@@ -133,11 +132,10 @@ def _regex_findings(html: str, css: str, name: str) -> list[str]:
     return findings
 
 
-@pytest.mark.xfail(strict=False, reason="Design-Regex-Warnung: Hinweis, kein harter Fehler")
 @pytest.mark.parametrize("page_name", ["index", "video", "impressum"])
 def test_design_regex_guard(base_dir: Path, index_html: str, video_html: str,
                             main_css_content: str, page_name: str):
-    """Regex-Guard: statische Design-/Layoutshift-Muster, warnt nur (xfail, nie rot)."""
+    """Regex-Guard: statische Design-/Layoutshift-Muster (harte Checks)."""
     pages = {
         "index": index_html,
         "video": video_html,
