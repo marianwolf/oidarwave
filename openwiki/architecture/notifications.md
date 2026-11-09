@@ -1,124 +1,113 @@
 ---
-type: architecture
-title: Notifications System
-description: Implementation of browser notifications for track changes and user interaction in the Oidarwave web player.
-tags: [frontend, notifications, user-interface]
+type: "Reference"
+title: "Notifications: Browser Notification Manager"
+openwiki_generated: true
 verified:
-  - by: openwiki/0.5.2
-    at: 2026-09-27T19:48:35.317Z
+  - by: openwiki/0.7.2
+    at: 2026-11-03T19:02:34.893Z
 sources:
+  - id: openwiki-source-f8d10828394c4129061d5b0e
+    resource: repo://index.html
   - id: openwiki-source-399a6a20fee1e90b61c555cb
     resource: repo://src/js/notification.js
-generated: { by: "openwiki/0.5.2", at: "2026-09-27T19:48:35.317Z" }
+  - id: openwiki-source-1a9f6af1ced29c441771d294
+    resource: repo://src/js/player-core.js
+  - id: openwiki-source-85af3a53f2cd35307c2af95c
+    resource: repo://src/js/player.js
+  - id: openwiki-source-344a605cf9b55b2039c6ed87
+    resource: repo://video/index.html
+generated: { by: "openwiki/0.7.2", at: "2026-11-03T19:02:34.893Z" }
 ---
-# Notifications System
+
+
+# Notifications: Browser Notification Manager
 
 ## Purpose
-Provides browser-based notifications when the currently playing track changes, allowing users to be informed of new songs without actively viewing the player interface.
+`src/js/notification.js` implements a small singleton, `window.notificationManager`, that shows a browser notification whenever the currently playing track changes, so users learn about new songs without watching the player. It owns the Notification API permission flow, the persisted on/off toggle, and the filtering/debouncing logic that decides when a metadata update is worth a notification.
 
 ## Responsibilities
-- Detect browser notification API support and permission status
-- Request and manage notification permissions from the user
-- Store user notification preferences in localStorage
-- Send notifications for track changes with debouncing to prevent spamming
-- Filter notifications to only alert on title changes within the same station (not station switches)
-- Provide UI toggle for enabling/disabling notifications
-- Handle notification lifecycle (auto-close after 10 seconds, click-to-focus)
+- Detect browser Notification API support (`'Notification' in window`) at construction time
+- Initialize on `DOMContentLoaded` and wire the `#notificationToggle` button
+- Hide the toggle when the API is unsupported or the page has no `#audioPlayer` (audio-page-only rule, e.g. `video/index.html`)
+- Request Notification permission, including the denied-permission alert path
+- Persist the user's on/off preference under the `notificationsEnabled` key via `PlayerCore` (localStorage `'true'`/`'false'`)
+- Send notifications for track changes, debounced by 2000 ms, only for same-station title changes
+- Filter out empty and placeholder titles and silently adopt station changes without notifying
+- Manage notification lifetime: auto-close after 10 s, click focuses the window and closes
 
 ## Entrypoints
-- `NotificationManager.handleTrackChange(newTitle, stationName)`: Called from player.js when metadata updates
-- Notification toggle click handler: Manages user preference for enabling/disabling notifications
-- DOMContentLoaded event: Initializes the notification manager when the page loads
+- `window.notificationManager.handleTrackChange(newTitle, stationName)` — called from `player.js` on every successful metadata refresh (see [Relationships](#relationships))
+- `#notificationToggle` click — runs `toggleNotifications()`, which flips the persisted preference after ensuring permission
+- `DOMContentLoaded` — the constructor registers a listener that runs `init()` once the DOM is ready
+- Script evaluation — creates the singleton `window.notificationManager` (and exposes the class as `window.NotificationManager`; also `module.exports` for tests)
 
 ## Mechanisms & Control Flow
 
-### Initialization
-1. On DOMContentLoaded, NotificationManager constructor:
-   - Checks for `Notification` in window API support
-   - Initializes state variables (notification support/enabled flags, debounce timer, current track/station)
-   - Sets up event listener for DOMContentLoaded to call `init()`
+### Lifecycle / Initialization
+1. The IIFE runs at script load (both `index.html` and `video/index.html` load `notification.js` with `defer`, before `player.js`/`video.js`). It creates `window.notificationManager = new NotificationManager()` unless one already exists.
+2. The constructor sets `notificationsSupported = 'Notification' in window`, initial state (`notificationsEnabled = false`, `notificationDebounceTimer = null`, `currentTrackTitle = ''`, `currentTrackStation = ''`), and registers `document.addEventListener('DOMContentLoaded', () => this.init())`.
+3. `init()`:
+   - Looks up `#notificationToggle`; returns immediately if absent.
+   - Computes `isAudioPlayer = !!document.getElementById('audioPlayer')`.
+   - **Visibility rule:** if `!notificationsSupported || !isAudioPlayer`, sets `notificationToggle.style.display = 'none'` and returns — so on the video page (which has no `#audioPlayer`) the toggle never appears.
+   - Otherwise loads the persisted preference via `window.PlayerCore?.readBoolSetting('notificationsEnabled') ?? false`, updates the toggle UI, and attaches the click handler that calls `toggleNotifications()`.
 
-2. `init()` method:
-   - Finds notification toggle button in DOM
-   - Determines if current page is audio player page
-   - Hides toggle if notifications unsupported or not on player page
-   - Loads saved notification preference from localStorage
-   - Updates toggle UI to reflect current state
-   - Attaches click handler to toggle button for enabling/disabling notifications
+### Permission flow and toggle
+`toggleNotifications()` (async):
+1. If notifications are currently disabled, call `ensurePermission()`; abort if not granted.
+2. Flip `notificationsEnabled`, persist via `saveNotificationPreference()` → `window.PlayerCore?.writeSetting('notificationsEnabled', String(this.notificationsEnabled))` (stores `'true'`/`'false'`), and refresh the toggle UI (`active` class, `title`, `aria-label`).
 
-### Permission Handling
-When user clicks notification toggle to enable:
-1. If permission is 'denied', show browser-specific alert
-2. If permission is not 'granted', request permission via `Notification.requestPermission()`
-3. Only proceed if permission granted
-4. Update `notificationsEnabled` flag and save to localStorage
-5. Update toggle UI (label, title, aria-label, active class)
+`ensurePermission()`:
+- `Notification.permission === 'denied'` → shows a German `alert(...)` telling the user to allow notifications in browser settings and returns `false` (the toggle stays off; the user must change browser settings).
+- `Notification.permission !== 'granted'` → `await Notification.requestPermission()`; granted only if the result is `'granted'`.
+- Already `'granted'` → `true`.
 
-### Track Change Handling
-`handleTrackChange(newTitle, stationName)`:
-1. Early exit if:
-   - No new title provided
-   - Title and station identical to current state (no change)
-   - Title is placeholder text ("Keine Titelinformationen", "Metadaten nicht verfügbar")
-2. If station changed:
-   - Clear any existing debounce timer
-   - Update current station and title state
-   - Exit without sending notification (avoid alerts on station switches)
-3. If same station but title changed:
-   - Clear existing debounce timer
-   - Set new debounce timer (2000ms) to call `sendNotification`
-   - Update current track title state
+### Track-change handling: `handleTrackChange(newTitle, stationName)`
+1. **Early exits (no notification, no state change):**
+   - `!newTitle` (empty/undefined title)
+   - `newTitle === currentTrackTitle && stationName === currentTrackStation` (nothing changed)
+   - Placeholder titles `'Keine Titelinformationen'` or `'Metadaten nicht verfügbar'` (the values `player.js` uses when metadata is missing or the fetch failed)
+2. **Station change** (`stationName !== currentTrackStation`): clears any pending debounce timer, adopts the new station and title into state, and returns **without notifying** — switching stations must not pop a notification.
+3. **Same station, new title:** clears the previous debounce timer, starts a new `setTimeout(..., 2000)` that calls `sendNotification(newTitle, stationName)`, and updates `currentTrackTitle`. The 2000 ms debounce collapses rapid metadata updates (the player polls every 3 s, but streams can deliver several updates in quick succession) into at most one notification per settled title.
 
-### Notification Sending
-`sendNotification(title, stationName)`:
-1. Verify notifications are supported, enabled, and permission granted
-2. Create new Notification with:
-   - Title: "Oidarwave - Neuer Titel"
-   - Body: `${title}\nSender: ${stationName}`
-   - Icon: '/favicon/favicon.svg'
-   - Tag: 'oidarwave-notification' (replaces previous notifications)
-   - requireInteraction: false
-3. Set onclick handler to focus window and close notification
-4. Auto-close notification after 10 seconds via setTimeout
+### Notification sending: `sendNotification(title, stationName)`
+1. Guards: returns unless `notificationsSupported && notificationsEnabled && Notification.permission === 'granted'`.
+2. Creates `new Notification('Oidarwave - Neuer Titel', { body: `${title}\nSender: ${stationName}`, icon: '/favicon/favicon.svg', tag: 'oidarwave-notification', requireInteraction: false })`. The fixed `tag` makes each new notification replace the previous one instead of stacking.
+3. `notification.onclick` → `window.focus()` then `notification.close()` (click-to-focus).
+4. `setTimeout(() => notification.close(), 10000)` — auto-close after 10 s.
 
-## State Management
-- `notificationsSupported`: Boolean from API detection
-- `notificationsEnabled`: User preference stored in localStorage
-- `notificationDebounceTimer`: ID for active debounce timeout
-- `currentTrackTitle`: Last notified track title
-- `currentTrackStation`: Last notified station name
+## State
+- `notificationsSupported` — boolean, from API detection in the constructor
+- `notificationsEnabled` — user preference; mirrored into localStorage key `notificationsEnabled` (`'true'`/`'false'`) via `PlayerCore`
+- `notificationDebounceTimer` — handle of the pending 2000 ms debounce timeout (`null` when idle)
+- `currentTrackTitle` / `currentTrackStation` — last adopted track/station, used for change detection and station-switch suppression
 
 ## Relationships
-- **Player Integration**: Called from `player.js` metadata update handler (line 258) when song info refreshes
-- **Storage**: Uses localStorage key 'notificationsEnabled' to persist user preference
-- **DOM**: Interacts with notification toggle button (ID: 'notificationToggle') for UI state
-- **Browser API**: Direct interface with Notification API for permission and display
-
-## Lifecycle
-1. **Initialization**: Creates singleton instance at page load (`window.notificationManager`)
-2. **Permission State**: Persists across sessions via localStorage
-3. **Active State**: Enabled/disabled toggled by user, requires granted permission
-4. **Notification Lifetime**: Individual notifications auto-close after 10 seconds or on click
+- **Caller — `player.js`:** on each successful metadata fetch, `fetchMetadata()` formats the track (`formatTrackDisplay`) and calls `window.notificationManager?.handleTrackChange(displayText, stationName())` (`repo://src/js/player.js#L346`). `stationName()` reads the text of `#currentStation`, so a station switch changes the station argument and is adopted silently by the manager. The metadata is polled every 3000 ms (`METADATA_REFRESH_INTERVAL`) but only while the page is visible (`document.hidden` check) and online, so `handleTrackChange` is not invoked in background tabs.
+- **Persistence — `player-core.js`:** `notification.js` never touches `localStorage` directly; it uses `PlayerCore.readBoolSetting('notificationsEnabled')` (true only for the exact string `'true'`) and `PlayerCore.writeSetting('notificationsEnabled', String(...))`, which wrap the single try/catch storage helpers in `player-core.js` (`repo://src/js/player-core.js#L156-L175`). See [Persistence Layer](persistence.md).
+- **DOM contract:** `#notificationToggle` (button in `index.html`, `repo://index.html#L185-L191`) and `#audioPlayer` (`repo://index.html#L209`) are the two elements the visibility rule depends on. `video/index.html` loads `notification.js` (`repo://video/index.html#L60`) but contains neither element, so `init()` exits at the missing-toggle check and the feature stays invisible there. See [UI Architecture](ui.md).
+- **Workflows:** the notification fires as part of the metadata-refresh step of [playback](../workflows/playback.md); the toggle is part of the [settings surface](../workflows/settings.md).
 
 ## Failure Handling & Invariants
-- **No API Support**: Toggle hidden silently if `Notification` not in window
-- **Permission Denied**: User must re-enable via browser settings; system respects denial
-- **Storage Errors**: Failures to read/write localStorage logged but don't break functionality
-- **Invalid Titles**: Placeholder metadata values suppress notifications
-- **Debouncing**: Prevents excessive notifications during rapid metadata updates
-- **Station Change Filtering**: Avoids notifying when user manually switches stations
+- **No Notification API:** `notificationsSupported` is false; the toggle is hidden and `toggleNotifications`/`sendNotification` no-op.
+- **Permission denied:** `alert(...)` is shown, the preference is not persisted, and the system respects the denial until the user changes browser settings.
+- **Storage errors:** `PlayerCore` helpers catch and log storage failures (`STORAGE_READ_FAILED`/`STORAGE_WRITE_FAILED`) and degrade to `null`/`false`, so a broken localStorage never breaks playback.
+- **Placeholder/empty metadata:** suppressed before any state change or notification.
+- **Station switches never notify**; only same-station title changes do, at most one notification per 2000 ms debounce window.
+- **Duplicate suppression:** the `oidarwave-notification` tag replaces the previous notification rather than stacking.
 
-## Configuration
-- **Debounce Delay**: 2000ms (hardcoded in `handleTrackChange`)
-- **Notification Duration**: 10000ms (hardcoded in `sendNotification`)
-- **Storage Key**: 'notificationsEnabled' (used in `saveNotificationPreference`/`init`)
-- **Notification Tag**: 'oidarwave-notification' (ensures replacement of prior notifications)
+## Configuration (hardcoded constants)
+- Debounce delay: `2000` ms in `handleTrackChange`
+- Notification lifetime: `10000` ms in `sendNotification`
+- Storage key: `'notificationsEnabled'` (value `'true'`/`'false'` via `PlayerCore`)
+- Notification title: `'Oidarwave - Neuer Titel'`; tag: `'oidarwave-notification'`; icon: `/favicon/favicon.svg`
+- Toggle element: `#notificationToggle`; page marker: `#audioPlayer`
 
 ## Testing Considerations
-- Verify toggle visibility based on API support and page type
-- Confirm permission request flow when enabling notifications
-- Test debounce behavior with rapid title changes
-- Ensure no notifications fire on station switches
-- Validate notification content matches current track/station
-- Check localStorage persistence of user preference
-- Test notification click behavior focuses window
+- Toggle hidden when the Notification API is missing or `#audioPlayer` is absent (video page), visible on the radio page
+- Enable flow: permission request → granted persists `'true'`; denied shows the alert and leaves the preference off
+- Rapid same-station title changes collapse into a single notification after 2000 ms
+- Station switch produces no notification but resets the debounce timer and state
+- Placeholder titles (`'Keine Titelinformationen'`, `'Metadaten nicht verfügbar'`) and empty titles are ignored
+- Notification content, 10 s auto-close, and click-to-focus behavior
+- `module.exports = { NotificationManager }` allows unit-testing the class outside the browser

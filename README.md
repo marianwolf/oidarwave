@@ -86,6 +86,8 @@ Beiträge sind jederzeit willkommen\! Ob es sich um Fehlerberichte, Funktionsvor
 - [x] UUID-basierte Identifikation und Daten-Migration (0.9.17)
 - [x] Automatische Wiederverbindung für Audio-Streams (0.9.17)
 - [x] Impressum und Datenschutz optimieren
+- [x] Bootstrap 5.3 als lokale CSS-Basis (Grid und Utilities, Design bleibt)
+- [x] Skeleton-Loading während der Stream-Vorbereitung (0.9.18)
 - [ ] Integration weiterer Sender
 - [ ] Umschaltung zwischen Dunkel- und Hellmodus
 - [ ] Favoriten

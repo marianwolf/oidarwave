@@ -3,7 +3,7 @@
 
     const EXPIRY_DAYS = 90
     const EXPIRY_TIME_MS = EXPIRY_DAYS * 24 * 60 * 60 * 1000
-    /** Sitzungen unter 1s gelten als Fehlstart und werden verworfen. */
+    // Sitzungen unter 1s gelten als Fehlstart und werden verworfen
     const MIN_SESSION_MS = 1000
 
     const storage = () => window.PlayerCore
@@ -18,7 +18,7 @@
         let activeStationUrl = null
         let initPromise = null
 
-        // --- Migration & Laden ---
+        // === MIGRATION & LADEN ===
 
         function isOldFormat(history) {
             const keys = Object.keys(history.stations || {})
@@ -54,13 +54,13 @@
             if (stored.activeStationUrl !== undefined) activeStationUrl = stored.activeStationUrl
             if (isOldFormat(stored)) {
                 const migrated = migrateOldHistory(stored)
-                await saveHistoryDirect(migrated)
+                saveHistoryDirect(migrated)
                 return migrated
             }
             return { stations: stored.stations || {} }
         }
 
-        /** Fallback, falls PlayerCore (noch) nicht geladen ist – sonst immer über PlayerCore. */
+        // Fallback, falls PlayerCore (noch) nicht geladen ist – sonst immer über PlayerCore
         function readLegacyRaw() {
             try {
                 const raw = localStorage.getItem(historyKey())
@@ -71,15 +71,16 @@
             }
         }
 
-        async function saveHistoryDirect(history) {
+        // Storage ist synchron – kein unnötiger Promise-/Microtask-Umweg
+        function saveHistoryDirect(history) {
             storage()?.writeJSON(historyKey(), history)
         }
 
-        async function saveHistory() {
-            await saveHistoryDirect({ ...historyCache, activeStationUrl })
+        function saveHistory() {
+            saveHistoryDirect({ ...historyCache, activeStationUrl })
         }
 
-        // --- Sitzungen ---
+        // === SITZUNGEN ===
 
         function stopAndFinalizeSession(station, timestamp) {
             const openIndex = station.sessions.findIndex((s) => s.end === null)
@@ -121,7 +122,7 @@
             stopAndFinalizeSession(station, now)
             station.sessions.unshift({ start: now, end: null })
             activeStationUrl = url
-            await saveHistory()
+            saveHistory()
             invalidateCache()
         }
 
@@ -131,11 +132,11 @@
             if (!station) return
             stopAndFinalizeSession(station, Date.now())
             if (activeStationUrl === url) activeStationUrl = null
-            await saveHistory()
+            saveHistory()
             invalidateCache()
         }
 
-        // --- Aufräumen ---
+        // === AUFRÄUMEN ===
 
         async function pruneHistory(isInternal = false) {
             if (!isInternal && initPromise) await initPromise
@@ -165,7 +166,7 @@
             hasChanged = finalizeStaleSessions(mostRecentOpenUrl, now) || hasChanged
             if (mostRecentOpenUrl) activeStationUrl = mostRecentOpenUrl
             if (hasChanged) {
-                await saveHistory()
+                saveHistory()
                 invalidateCache()
             }
         }
@@ -197,7 +198,7 @@
             return changed
         }
 
-        // --- Abfrage mit Cache ---
+        // === ABFRAGE MIT CACHE ===
 
         function invalidateCache() {
             isCacheValid = false

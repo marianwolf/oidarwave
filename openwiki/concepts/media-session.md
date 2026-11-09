@@ -3,9 +3,6 @@ type: concept
 title: Media Session Concept
 description: The Media Session API integration allows the web player to interact with system media controls and lock screen interfaces, providing metadata and handling play/pause/stop actions from the system.
 tags: [media-session, audio-player, video-player, system-integration]
-verified:
-  - by: openwiki/0.5.2
-    at: 2026-09-27T19:48:35.317Z
 sources:
   - id: openwiki-source-1a9f6af1ced29c441771d294
     resource: repo://src/js/player-core.js

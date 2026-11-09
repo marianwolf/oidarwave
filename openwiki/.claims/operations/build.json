@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:7acbba1b79c03f75fa61c70eed18593a7ed91aea9d8ad7cd1cecb675542cd8c4",
+  "pageVersion": "sha256:dda37efc636c943e1eb237b64279301fe94cd171b332c66af57b0f07152abd15",
   "claims": [
     {
       "id": "claim_1337f21a423a45e8b8ed8b455b676392",
@@ -8,17 +8,17 @@
       "evidence": [
         {
           "resource": "repo://package.json",
-          "version": "repo-file-v1:sha256:0762942cfd6967989b416df61a94ecd6fb2ccd903863c8cae139edc1a91c1c9d"
+          "version": "repo-file-v1:sha256:fea77222399c60d9e87169a6cd105f97e0366b456d46f03d93b94ae124666574"
         }
       ]
     },
     {
       "id": "claim_87c8e2e22f894eda8291b5de64e2ac46",
-      "statement": "The npm script \"dist\" runs electron-builder to build distributable packages for all platforms.",
+      "statement": "The npm script \"dist\" runs plain \"electron-builder\" with no platform flag, so it builds distributables for the host platform only; the platform-specific scripts dist:linux (-l), dist:win (-w), and dist:mac (-m) select the target OS.",
       "evidence": [
         {
-          "resource": "repo://package.json",
-          "version": "repo-file-v1:sha256:0762942cfd6967989b416df61a94ecd6fb2ccd903863c8cae139edc1a91c1c9d"
+          "resource": "repo://package.json#L7-L15",
+          "version": "repo-lines-v1:sha256:540b857a3c023f65bb32fd0d118e1da0681df5263f1fa4d6f3af83e1da659aed:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzQ4MzNkNTk0OWMwM2E0MGNhOTUyNDkxNjEwYTY2NTk2NDRiM2FhNDY2MzYyZjc5OTAyMGRiZjE5ODE1NDdkYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGQ1Y2QyZmI0ZjNkZjg4NDUxNTI1NWIzOTUyM2YyZjhiNTQ3MmJlZWE5ZjU2NmZmY2EyMDRkYjgwMjU2MTA0MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNmYyMmFlZTg5YTZjYmE3ZGZlN2FkMjEzODIyMWY0MWM3OWExMWZlOTkyMjM0NmY2YjhkMzc5N2ZkNTI1ZGFhNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiN2ZjY2ZhYzY3MzJiNjkxMTIyY2UzYzZhOTQwN2RlYWE4NTZlZDY4ZWY0YWNjZmU3ZmFhM2I5NThkZDQ0MDg2YSJ9"
         }
       ]
     },
@@ -28,7 +28,7 @@
       "evidence": [
         {
           "resource": "repo://package.json",
-          "version": "repo-file-v1:sha256:0762942cfd6967989b416df61a94ecd6fb2ccd903863c8cae139edc1a91c1c9d"
+          "version": "repo-file-v1:sha256:fea77222399c60d9e87169a6cd105f97e0366b456d46f03d93b94ae124666574"
         }
       ]
     },
@@ -38,7 +38,7 @@
       "evidence": [
         {
           "resource": "repo://package.json",
-          "version": "repo-file-v1:sha256:0762942cfd6967989b416df61a94ecd6fb2ccd903863c8cae139edc1a91c1c9d"
+          "version": "repo-file-v1:sha256:fea77222399c60d9e87169a6cd105f97e0366b456d46f03d93b94ae124666574"
         }
       ]
     },
@@ -48,7 +48,7 @@
       "evidence": [
         {
           "resource": "repo://package.json",
-          "version": "repo-file-v1:sha256:0762942cfd6967989b416df61a94ecd6fb2ccd903863c8cae139edc1a91c1c9d"
+          "version": "repo-file-v1:sha256:fea77222399c60d9e87169a6cd105f97e0366b456d46f03d93b94ae124666574"
         }
       ]
     },
@@ -58,7 +58,7 @@
       "evidence": [
         {
           "resource": "repo://package.json",
-          "version": "repo-file-v1:sha256:0762942cfd6967989b416df61a94ecd6fb2ccd903863c8cae139edc1a91c1c9d"
+          "version": "repo-file-v1:sha256:fea77222399c60d9e87169a6cd105f97e0366b456d46f03d93b94ae124666574"
         }
       ]
     },
@@ -68,7 +68,7 @@
       "evidence": [
         {
           "resource": "repo://package.json",
-          "version": "repo-file-v1:sha256:0762942cfd6967989b416df61a94ecd6fb2ccd903863c8cae139edc1a91c1c9d"
+          "version": "repo-file-v1:sha256:fea77222399c60d9e87169a6cd105f97e0366b456d46f03d93b94ae124666574"
         }
       ]
     },
@@ -78,7 +78,7 @@
       "evidence": [
         {
           "resource": "repo://package.json",
-          "version": "repo-file-v1:sha256:0762942cfd6967989b416df61a94ecd6fb2ccd903863c8cae139edc1a91c1c9d"
+          "version": "repo-file-v1:sha256:fea77222399c60d9e87169a6cd105f97e0366b456d46f03d93b94ae124666574"
         }
       ]
     },
@@ -88,7 +88,7 @@
       "evidence": [
         {
           "resource": "repo://package.json",
-          "version": "repo-file-v1:sha256:0762942cfd6967989b416df61a94ecd6fb2ccd903863c8cae139edc1a91c1c9d"
+          "version": "repo-file-v1:sha256:fea77222399c60d9e87169a6cd105f97e0366b456d46f03d93b94ae124666574"
         }
       ]
     },
@@ -98,13 +98,113 @@
       "evidence": [
         {
           "resource": "repo://package.json",
-          "version": "repo-file-v1:sha256:0762942cfd6967989b416df61a94ecd6fb2ccd903863c8cae139edc1a91c1c9d"
+          "version": "repo-file-v1:sha256:fea77222399c60d9e87169a6cd105f97e0366b456d46f03d93b94ae124666574"
+        }
+      ]
+    },
+    {
+      "id": "claim_1a3e31743b7d408ca4fbca07589c5d9e",
+      "statement": "package.json defines the npm scripts start (\"electron .\"), pack (\"electron-builder --dir\"), dist, dist:linux, dist:win, dist:mac, and format (\"prettier --write .\"), and sets \"main\" to electron/main.js with desktopName app.oidarwave.vercel.",
+      "evidence": [
+        {
+          "resource": "repo://package.json#L5-L15",
+          "version": "repo-lines-v1:sha256:f28f0e05fea06acb57fb9963e9744a20bcf63d1fbd0cbb405432b9731addf461:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVjYzNkZTk4YTFkMzM2MWIzNjY4MDcwODc4NWZjZjE1NGIzMDYzZWZlMDliODEwN2MwYmMyM2IzZjQyY2U3MTAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRkNWNkMmZiNGYzZGY4ODQ1MTUyNTViMzk1MjNmMmY4YjU0NzJiZWVhOWY1NjZmZmNhMjA0ZGI4MDI1NjEwNDEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImIzZmM5MWU1N2U2YWFiODZkOTY0ZWNlNjI2OWJlYmY1NzY5MmRkMTA4NjdhMjRmNjI1M2RkYzExM2I4YjY0YzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdmY2NmYWM2NzMyYjY5MTEyMmNlM2M2YTk0MDdkZWFhODU2ZWQ2OGVmNGFjY2ZlN2ZhYTNiOTU4ZGQ0NDA4NmEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_da349e93e41f4cd0adf9f4a384c5e10a",
+      "statement": "Formatting is handled by Prettier: npm run format runs \"prettier --write .\", options are configured in .prettierrc (printWidth 120, semi false, singleQuote true, tabWidth 4 with a tabWidth-2 override for json/md/yml), and .prettierignore excludes the vendored src/vendor/bootstrap/bootstrap.min.css and the openwiki/ directory.",
+      "evidence": [
+        {
+          "resource": "repo://.prettierignore",
+          "version": "repo-file-v1:sha256:ebb6ce3cbae79d7f1cd8a36437b26db917cfb3a929ae2e567c692d094e9dbd79"
+        },
+        {
+          "resource": "repo://.prettierrc",
+          "version": "repo-file-v1:sha256:9a5ea433e04dd9ba89ea83d80f9adab68ed613cc432e2d8ef53a1a40ae879fd4"
+        },
+        {
+          "resource": "repo://package.json#L14-L14",
+          "version": "repo-lines-v1:sha256:893558275449dd29cabd595eb06e920b3a54f9a7fd0ff5ae83902a55dd74fe45:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODkzNTU4Mjc1NDQ5ZGQyOWNhYmQ1OTVlYjA2ZTkyMGIzYTU0ZjlhN2ZkMGZmNWFlODM5MDJhNTVkZDc0ZmU0NSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiODkzNTU4Mjc1NDQ5ZGQyOWNhYmQ1OTVlYjA2ZTkyMGIzYTU0ZjlhN2ZkMGZmNWFlODM5MDJhNTVkZDc0ZmU0NSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDE5MGNhMGMxOGE0ZjMyMzI4ZDRhYzU0N2E5NDg4YTY3OGU0YWMyNjAzYmNlY2YzODU5Y2Y1NTgwZDM0ZWQ2MiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzQ3ZDQ0ZDY4YzEzMTgwYzZiODdlNmI3ZjE1NmVkNmIwMzViZDdmN2NlNzdmOGFjNmVkZjQyMmYxZTY5ZWRiOCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_ba0eea5d48aa47e586c14acf081e6443",
+      "statement": "Renovate (renovate.json) keeps dependencies current: electron and electron-builder are grouped and never auto-merged (assigned to marianwolf for manual review), other npm dev tooling, pip requirements, and GitHub Actions minor/patch updates are grouped and auto-merged via PR, majors are manual, lockfile maintenance is auto-merged weekly, and OSV vulnerability alerts with minimumReleaseAge \"2 days\" are enabled.",
+      "evidence": [
+        {
+          "resource": "repo://renovate.json",
+          "version": "repo-file-v1:sha256:4dfd29f2c441bc67e29895cd789f95cf22561e8e39addd84b5a5061d5a902f39"
+        }
+      ]
+    },
+    {
+      "id": "claim_88b505a696224df09de092557ce0938f",
+      "statement": "A weekly GitHub Actions workflow (.github/workflows/npm-auto-update.yml, Mondays 04:00 UTC on branch gamma) runs \"npm install && npm update\" and opens an auto-merging PR chore/weekly-npm-update (base gamma) when package.json or package-lock.json changed.",
+      "evidence": [
+        {
+          "resource": "repo://.github/workflows/npm-auto-update.yml#L1-L101",
+          "version": "repo-lines-v1:sha256:7b3f98a40778576dfa5c368744a57abf7c058198253ab85808f2e4cd961d8ec6:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAxLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI1MGJkM2NkZWI3YzMyNjY4NmZjZjA0ZmFlY2E0NzdjMTYxZTUxYmE0MTZkYTZmZDdkOWQ2NWY0OGQ1OTFjMDU0IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiIzMzNmNzIzOTI5MTYyMTdlYTY0Y2E4NjFhMzBkMTljNjY1MDBjY2E1MGE1Nzg5YzM5NWY5NDkwODg1MDhmYjRhIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MCwicHJlY2VkaW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MCwiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1In0"
+        }
+      ]
+    },
+    {
+      "id": "claim_87410657bdea4f889b142c2bd5d23fa1",
+      "statement": "The release workflow (.github/workflows/release.yml) triggers on v* tags and publishes the static web assets (all *.html/*.js/*.css files plus manifest.json and README.md, excluding node_modules/.venv/.git) as a GitHub Release with generated notes via softprops/action-gh-release; refs containing beta/gamma are marked prerelease. It does not run electron-builder — desktop distributables come from the local dist:* npm scripts.",
+      "evidence": [
+        {
+          "resource": "repo://.github/workflows/release.yml#L1-L55",
+          "version": "repo-lines-v1:sha256:f47288ee7692e83129645cafc01a3ba546d5ac8b94b518884b0902bb93de7e32:eyJzZWxlY3RlZExpbmVDb3VudCI6NTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjEyZWVmOTAzMGQwYzcwMjkwMTBjNDYzNTY4OWY1ODMyOGQxMDllNmE4NWVkMWE5MjQ1YjIwZjM5NTViN2RiMzkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkyZDYxZWQwNzg3MzRlMzM2ZGIyYWU5YjIyYTY4ZjNmOTZlNGUxMTQ3MDE3YmQxZDZlNzg5NDAwOTYwYzc3OTAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://package.json#L10-L13",
+          "version": "repo-lines-v1:sha256:5cf06e35e8d531cf4dbbd6fd2d8fdd5ce24d79a741b425b42b0ac6367521cbdd:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTM2ZTZkOGRkZjM3NGFiMTMwN2E1YWZkYWMxZTFiMGE4OTcxNGFmYjZjNTRjNDk2ZmZmMGUzZmJmNWIyNDg4YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTFhY2FlOWI5YWI4NTg3YmM3YjIxZWQwNDE1MzYyNzBiNzBkMTVjMDA1Yzg3NzVjOTI1ZDMwMzFmNGFlMTE5YyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDAzOGYzNmRiN2FkOGYzNGQ4NWQ4MDQ3NTk4YjQ2YTlmYjJmZmNmMTM5NWQ4ZGFhYzQ5OTY3NTQ2Zjk3OWFhMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOWIyMmE3MTNjMDFmMDM4MzYzMGY4NGJjZGU4OTU2ZDU3NDc3YTEyM2MwZTRjOTI3M2U4NWQzN2Q4M2UzMjQ5NiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_8b20219b9c8c4ade821ae9e3283d1882",
+      "statement": "The test workflow (.github/workflows/test.yml) runs on pushes/PRs to main, beta, gamma and executes pytest tests/test_unit.py -m unit, tests/test_website.py, and tests/test_design_layout.py on ubuntu-latest with Python 3.14 and Playwright Chromium; tests/test_unit.py::test_electron_build asserts that electron/main.js exists, that package.json's build block has appId/productName/directories/files with all seven allowlist patterns, and that electron and electron-builder are in devDependencies.",
+      "evidence": [
+        {
+          "resource": "repo://.github/workflows/test.yml",
+          "version": "repo-file-v1:sha256:0dbcdf7142eee265e8b8e457d27d53d9e006a4955462a6adfd0a59a1dad4c8dd"
+        },
+        {
+          "resource": "repo://tests/test_unit.py#L177-L186",
+          "version": "repo-lines-v1:sha256:59dace2ff6d04098b55cb8adddf22154b24d0802e3ed65968d5fe4eb08b64f03:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAzYWZmODY1MTNmNjAzMTBjMGZhMDczOTViN2NiNTQ1ODI5OGFhYTRmOTczZDdlOGE4ZTdmN2Y3ZGRhMzYzYzYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdiODFjMzE2NzM3ZTE1ZWEyMTM2MDEyZGRjN2I4YWQwZjcxZDc1ZTcxOGJjYzI5NDZlMmQ3NDBjYTg2NjFiNGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA0NDJhNDRmMGI5ODdmZGFiNTMwN2E0MGU0Njk5MTk0YjhkOGQwYmFlNDEyZjBjZGI2M2ExODVhMTg4ZDVjMWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_4e4ebc80c7b84deab6a078c2e42bba03",
+      "statement": "The packaged file allowlist (electron/**, src/**, index.html, favicon/**, manifest.json, video/**, impressum/**) means any new runtime asset must be added to build.files in package.json or it will be missing from the packaged app; at runtime electron/main.js additionally skips an optional root .npmignore list (plus defaults like node_modules, .git, dist, electron, openwiki, tests) during HTML page discovery, and no root .npmignore currently exists.",
+      "evidence": [
+        {
+          "resource": "repo://electron/main.js#L30-L62",
+          "version": "repo-lines-v1:sha256:9371fe6f63044af0ca64ec431c2b8d9806be66200934b72307d2d69f895de141:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjUzNjM1NzZjZjEyZDBlY2FiZDlmZjRlNmRlMTAzZDgyZWFjMWZjMjAzMDhhNzQ0MWQ2YjMyZjAwYzA5MGYwY2QiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFmYmNhYThkYmZhMTAxOGY1N2FlZGQyOGU2MDVkZTlhODJiOWQ1MmYwNTdlNzAyMzEzOGM0YjAzOTUzYjVhMDIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI1NGZmMmFmMWUyYmIwZjFiY2FmMmM3NzliYTVkNGE5MjU5NGJjZjVjMjgwYTkxMTU0YjJhOWM2YTQ3MTMxOWMifQ"
+        },
+        {
+          "resource": "repo://package.json#L24-L32",
+          "version": "repo-lines-v1:sha256:03f798e0d22535f09cd2db99c00016732a7bd0af416f493f3fed4a05c9b3b069:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjllYjJhMDAzZDIyNGRiMDU0NTE5ODIxZTg1NWUwN2Q1MmI5OTQ4OTA3MDBkZjNlYTk0ZTQ2MTlmMzgzOGZhMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYzYzZDUzNWNlMzgwNjNkNmI0YzUxZDhjMzg2YTdmOWIzZTU4MGExNGExMGMwN2IxOThkZmFmMTljOTNhM2JmZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDZhZjU4MjViNzFhZWVhMDg5NWJlMDkxZGJkOGJkNTk5ODk5ZTgzY2Q3MzM0ODI1MjYxYWQzYzYxN2ZhMjRkYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDVlNDE4NzY1YTcwMDRjYTYxMjU3NWMxNGY2NWY5MjkyZmQwYWJhZWM5MjU5MWQ5NGJiMTA5OWIwMGEzNzM5YiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_6745c8dd94d44db0b67f0d8b32f10ca1",
+      "statement": "No code-signing configuration exists in the build block of package.json, so dist:* builds produce unsigned artifacts; signing would require additional certificate configuration.",
+      "evidence": [
+        {
+          "resource": "repo://package.json#L18-L123",
+          "version": "repo-lines-v1:sha256:840edb21fe5d8869f8743f4b3899294a0bb07b8dfda7945fa4c15c6180e9b4c2:eyJzZWxlY3RlZExpbmVDb3VudCI6MTA2LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI3YjA3MjAxYmRiNmJjMDU5MjA4NDk2MzY4MTg2MWE0ZmExNGFmZGE1OTFiNmQ1NjYxYjc0NThkOTIxZDVkMGViIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0ZDVjZDJmYjRmM2RmODg0NTE1MjU1YjM5NTIzZjJmOGI1NDcyYmVlYTlmNTY2ZmZjYTIwNGRiODAyNTYxMDQxIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJjNDdkNDRkNjhjMTMxODBjNmI4N2U2YjdmMTU2ZWQ2YjAzNWJkN2Y3Y2U3N2Y4YWM2ZWRmNDIyZjFlNjllZGI4IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJjMTAwZjk4NWRjNjZkNjRhZjczYmI3MjM0M2E2NDRjMzllNDJhNTgzN2VjZjdhOTk5NjRmMjM3ZTYxNjI5ODhiIn0"
         }
       ]
     }
   ],
   "verification": {
-    "by": "openwiki/0.5.2",
-    "at": "2026-09-27T19:48:35.317Z"
+    "by": "openwiki/0.7.2",
+    "at": "2026-11-03T19:02:34.893Z"
   }
 }

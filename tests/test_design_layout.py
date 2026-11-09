@@ -1,4 +1,4 @@
-"""Design-/Layoutshift-Warntest fuer Mobil & Desktop (nur Hinweis, kein harter Fehler)."""
+"""Design-/Layoutshift-Test fuer Mobil & Desktop (harte Checks, kein xfail)."""
 
 import re
 from pathlib import Path
@@ -13,18 +13,17 @@ VIEWPORTS: dict[str, ViewportSize] = {
     "desktop": {"width": 1280, "height": 800},
 }
 
-# Kern-Elemente je Seite (Design-Anker, muessen sichtbar und im Viewport liegen).
+# Kern-Elemente je Seite (Design-Anker, müssen sichtbar und im Viewport liegen).
 DESIGN_CHECKS = {
     "index": [".logo", "nav", ".station-btn"],
     "video": ["#videoPlayer", ".station-btn"],
     "impressum": ["h1"],
 }
 
-# CLS-Schwelle nach Web-Vitals ("good" <= 0.1). Nur Warnung via xfail(strict=False).
+# CLS-Schwelle nach Web-Vitals ("good" <= 0.1).
 CLS_BUDGET = 0.1
 
 
-@pytest.mark.xfail(strict=False, reason="Design-/Layoutshift-Warnung: Hinweis, kein harter Fehler")
 @pytest.mark.parametrize("viewport_name", ["mobile", "desktop"])
 @pytest.mark.parametrize("page_name", ["index", "video", "impressum"])
 def test_design_layout_no_shift(browser: Browser, page_urls: dict[str, str], page_name: str, viewport_name: str):
@@ -32,7 +31,7 @@ def test_design_layout_no_shift(browser: Browser, page_urls: dict[str, str], pag
     viewport = VIEWPORTS[viewport_name]
     context = browser.new_context(viewport=viewport)
     layout_page = context.new_page()
-    # CLS-Observer vor dem Seitenaufruf installieren, damit fruehe Shifts erfasst werden.
+    # CLS-Observer vor dem Seitenaufruf installieren, damit frühe Shifts erfasst werden.
     layout_page.add_init_script(
         """window.__clsValue = 0;
         try {
@@ -41,7 +40,7 @@ def test_design_layout_no_shift(browser: Browser, page_urls: dict[str, str], pag
                     if (!e.hadRecentInput) window.__clsValue += e.value;
                 }
             }).observe({type: 'layout-shift', buffered: true});
-        } catch (err) { /* PerformanceObserver nicht verfuegbar */ }"""
+        } catch (err) { /* PerformanceObserver nicht verfügbar */ }"""
     )
     try:
         layout_page.goto(page_urls[page_name])
@@ -56,7 +55,7 @@ def test_design_layout_no_shift(browser: Browser, page_urls: dict[str, str], pag
         viewport_meta = layout_page.locator('meta[name="viewport"]').count()
         assert viewport_meta > 0, f"{page_name}/{viewport_name}: <meta name=viewport> fehlt"
 
-        # 2. Kein horizontaler Overflow (= haeufigster Mobil-Designfehler).
+        # 2. Kein horizontaler Overflow (häufigster Mobil-Designfehler).
         overflow = layout_page.evaluate(
             "document.documentElement.scrollWidth - document.documentElement.clientWidth"
         )
@@ -119,8 +118,8 @@ def _regex_findings(html: str, css: str, name: str) -> list[str]:
         if selector in css and reserve not in css:
             findings.append(f"{name}: {selector} ohne {reserve}-Reserve")
     banners = list(re.finditer(r"\.cookie-banner\s*\{([^}]*)\}", css, re.S))
-    # .cookie-banner kommt auch in Gruppen-Selektoren vor (ohne position);
-    # entscheidend ist, dass mindestens ein Block ihn fixiert (kein Layout-Push).
+    # .cookie-banner taucht auch in Gruppen-Selektoren auf (ohne position):
+    # entscheidend ist, dass mindestens ein Block es fixiert (kein Layout-Push).
     if not banners:
         findings.append(f"{name}: .cookie-banner-Regel fehlt (Banner schiebt Layout)")
     elif not any("position" in b.group(1) and "fixed" in b.group(1) for b in banners):
@@ -133,11 +132,10 @@ def _regex_findings(html: str, css: str, name: str) -> list[str]:
     return findings
 
 
-@pytest.mark.xfail(strict=False, reason="Design-Regex-Warnung: Hinweis, kein harter Fehler")
 @pytest.mark.parametrize("page_name", ["index", "video", "impressum"])
 def test_design_regex_guard(base_dir: Path, index_html: str, video_html: str,
                             main_css_content: str, page_name: str):
-    """Regex-Guard: statische Design-/Layoutshift-Muster, warnt nur (xfail, nie rot)."""
+    """Regex-Guard: statische Design-/Layoutshift-Muster (harte Checks)."""
     pages = {
         "index": index_html,
         "video": video_html,

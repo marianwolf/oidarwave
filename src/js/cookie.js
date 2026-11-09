@@ -6,7 +6,7 @@
     const EXPIRY_DAYS = 90
     const EXPIRY_MS = EXPIRY_DAYS * 24 * 60 * 60 * 1000
 
-    const storage = () => window.PlayerCore || null
+    const storage = () => window.PlayerCore
 
     function readConsent() {
         return storage() ? storage().readSetting(CONSENT_KEY) : null
@@ -55,10 +55,15 @@
         })
     }
 
+    // `hidden` statt Inline-Style: CSS ([hidden]) bleibt die einzige Sichtbarkeitsquelle
+    function setBannerVisible(visible) {
+        const banner = document.getElementById('cookieBanner')
+        if (banner) banner.hidden = !visible
+    }
+
     function updateBannerVisibility() {
         const consent = readConsent()
-        const banner = document.getElementById('cookieBanner')
-        if (banner) banner.style.display = consent === null ? 'block' : 'none'
+        setBannerVisible(consent === null)
         if (consent === 'true') enableAnalyticsScripts()
     }
 
@@ -66,13 +71,11 @@
         document.getElementById('acceptCookies')?.addEventListener('click', () => {
             writeConsent('true')
             enableAnalyticsScripts()
-            const banner = document.getElementById('cookieBanner')
-            if (banner) banner.style.display = 'none'
+            setBannerVisible(false)
         })
         document.getElementById('declineCookies')?.addEventListener('click', () => {
             writeConsent('false')
-            const banner = document.getElementById('cookieBanner')
-            if (banner) banner.style.display = 'none'
+            setBannerVisible(false)
         })
     }
 

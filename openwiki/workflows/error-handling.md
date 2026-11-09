@@ -1,176 +1,167 @@
 ---
-type: Workflow
-title: Error Handling Workflow
-description: Describes how errors are detected, logged, and recovered from during media playback and resource loading in the Oidarwave application.
-tags: ["error-handling", "player", "video", "logging", "retry"]
+type: "Reference"
+title: "Centralized Error Handling and Logging"
+openwiki_generated: true
 verified:
-  - by: openwiki/0.5.2
-    at: 2026-09-27T19:48:35.317Z
+  - by: openwiki/0.7.2
+    at: 2026-11-03T19:02:34.893Z
 sources:
+  - id: openwiki-source-3d9e72730d09405d8d9107c1
+    resource: repo://electron/main.js
   - id: openwiki-source-e3726842692e514285f87c42
     resource: repo://src/js/errors.js
+  - id: openwiki-source-1a9f6af1ced29c441771d294
+    resource: repo://src/js/player-core.js
   - id: openwiki-source-85af3a53f2cd35307c2af95c
     resource: repo://src/js/player.js
   - id: openwiki-source-ae0af3fbadd75265cd996542
     resource: repo://src/js/video.js
-generated: { by: "openwiki/0.5.2", at: "2026-09-27T19:48:35.317Z" }
+generated: { by: "openwiki/0.7.2", at: "2026-11-03T19:02:34.893Z" }
 ---
 
-# Error Handling Workflow
 
-This document outlines the error handling mechanisms used throughout the Oidarwave application, covering detection, logging, recovery, and user feedback for media playback (audio and video) and resource loading operations.
+# Centralized Error Handling and Logging
 
-## Overview
+All error detection, classification, logging, and recovery in Oidarwave funnels through one shared hub, `src/js/errors.js`. The same module is loaded as a deferred browser script in every page (`index.html`, `video/index.html`, …) and `require()`d by the Electron main process (`electron/main.js`), so renderer and main process share one `ErrorCode` taxonomy and one set of leveled loggers. Scripts are loaded in the fixed order `errors.js` → `player-core.js` → page module (`player.js` or `video.js`), and `errors.js` additionally exposes its API both as `window.*` globals and via `module.exports` for Electron.
 
-Error handling is centralized through a shared error logging module (`src/js/errors.js`) that provides:
-- Structured error codes (`ErrorCode`) for categorizing failures
-- Leveled logging (`logError`, `logWarn`, `logInfo`, `logDebug`) with configurable thresholds
-- Automatic attachment of contextual information (timestamp, stack trace, custom properties)
-- Integration with `electron-log` in Electron builds or `console` in browser environments
-- Global handlers for uncaught exceptions and unhandled promise rejections
+Related pages: [Architecture Overview](../architecture/overview.md), [Persistence](../architecture/persistence.md), [Electron Integration](../integrations/electron.md), [Playback Workflow](playback.md).
 
-Media-specific components (`src/js/player.js` for audio, `src/js/video.js` for video) integrate with this logging system to detect playback errors, implement retry strategies, and update the user interface.
+## Error Code Taxonomy
 
-## Error Detection
+`ErrorCode` is a frozen map of symbolic names to string values (`src/js/errors.js#L46-L74`), grouped here by domain:
 
-Errors are detected at multiple points in the application lifecycle:
+| Domain | Codes | Primary emitters |
+| --- | --- | --- |
+| Storage | `STORAGE_READ` (`STORAGE_READ_FAILED`), `STORAGE_WRITE` (`STORAGE_WRITE_FAILED`) | `PlayerCore` storage helpers (`player-core.js#L156-L202`), `history.js` |
+| Metadata | `METADATA_FETCH` (`METADATA_FETCH_FAILED`) | `player.js` metadata polling |
+| Media / autoplay | `MEDIA_AUTOPLAY` (`MEDIA_AUTOPLAY_BLOCKED`) | `handlePlayError` from every `play().catch()` |
+| HLS | `HLS_NETWORK`, `HLS_MEDIA`, `HLS_FATAL`, `HLS_KEY_ERROR`, `HLS_MUX_ERROR` | `video.js` `Hls.Events.ERROR` handler |
+| Electron file / navigation | `PATH_TRAVERSAL` (`PATH_TRAVERSAL_BLOCKED`), `FILE_REQUEST` (`FILE_REQUEST_FAILED`), `NPMIGNORE_READ`, `PAGE_DISCOVERY`, `INVALID_NAVIGATION_URL` | `electron/main.js` `protocol.handle`, page discovery, navigation guards |
+| Player / reconnect | `PLAYER_INIT_NO_ELEMENT`, `PLAYER_MEDIA_ERROR`, `AUDIO_RECONNECT_RETRY`, `AUDIO_RECONNECT_FAILED` | `player.js`, `video.js` init |
+| Favorites | `FAVORITE_LOAD`, `FAVORITE_SAVE`, `FAVORITE_DUPLICATE_ID`, `FAVORITE_DUPLICATE_URL`, `FAVORITE_NOT_FOUND` | `favorite.js` |
+| Media Session | `MEDIA_SESSION_SETUP` (`MEDIA_SESSION_SETUP_FAILED`) | `player-core.js` `setupMediaSession`, `video.js` play-state debug logs |
+| Download history | `DOWNLOAD_HISTORY` (`DOWNLOAD_HISTORY_FAILED`) | `download_history.js` |
+| Global | `UNHANDLED_ERROR`, `UNHANDLED_REJECTION` | `initGlobalErrorHandlers`, `initMainProcessErrorHandlers` |
 
-### Media Playback Errors
-- **Audio player** (`player.js`): Listens for the `error` event on the HTMLAudioElement (`#audioPlayer`). When triggered, it logs `ErrorCode.PLAYER_MEDIA_ERROR` with details from `mediaError` (code, message, current source, and page path)【{"L":68,"L":83}】.
-- **Video player** (`video.js`): Uses HLS.js to monitor stream health. Fatal and non-fatal errors from HLS.js are captured via `hlsPlayer.on(Hls.Events.ERROR)`【{"L":228,"L":229}】. Native HLS playback in Safari also delegates errors to `handlePlayError`【{"L":237】.
+`HlsErrorMap` (`src/js/errors.js#L76-L85`) additionally maps `Hls.ErrorTypes` (`NETWORK_ERROR`, `MEDIA_ERROR`, `KEY_ERROR`, `MUX_ERROR`) to the `HLS_*` code names; it is built only when the global `Hls` is present (i.e. on the video page) and is empty otherwise.
 
-### Resource Loading Errors
-- **Metadata fetch** (`video.js`): Failed `fetch` requests for metadata (JSON or text) are caught and logged as `ErrorCode.METADATA_FETCH` with context including the metadata URL, station name, and error type【{"L":264,"L":276】.
-- **Storage operations** (`errors.js`): Explicit storage read/write failures are logged via `logStorageError`, which categorizes the error (e.g., `QUOTA_EXCEEDED`, `SECURITY_ERROR`)【{"L":126,"L":128】.
+## Logger Plumbing
 
-### Global Error Handlers
-- **Browser**: `window.onerror` logs uncaught exceptions as `ErrorCode.UNHANDLED_ERROR`【{"L":133,"L":139】. `window.addEventListener('unhandledrejection')` logs promise rejections as `ErrorCode.UNHANDLED_REJECTION`【{"L":142,"L":145】.
-- **Electron/Node**: `process.on('unhandledRejection')` and `process.on('uncaughtException')` perform equivalent logging for the main process【{"L":151,"L":158】.
+### Log levels and threshold
 
-### Autoplay Blocking
-- Audio playback attempts that fail due to browser policies (e.g., missing user gesture) are handled by `handlePlayError`, which distinguishes `NotAllowedError` (logged at `debug` level) from `NotSupportedError` and other errors (logged at `error` level)【{"L":108,"L":116】.
+- `LOG_LEVELS` freezes the levels `DEBUG: 0`, `INFO: 1`, `WARN: 2`, `ERROR: 3` (`src/js/errors.js#L1`).
+- `parseLogLevelName` parses a case-insensitive level name, returning `undefined` for unknown values (`src/js/errors.js#L4-L8`).
+- `getLogLevel` resolves the effective level in order: `window.LOG_LEVEL` → `localStorage.getItem('logLevel')` → default `WARN`; a blocked `localStorage` (private mode) falls through to the default (`src/js/errors.js#L10-L23`). The resolved level is captured once at script load into `currentLogLevel` (`src/js/errors.js#L25`), so changing `localStorage.logLevel` takes effect on the next page load, not at runtime.
+- `shouldLog(level)` gates every log call: a message is emitted only if `level >= currentLogLevel` (`src/js/errors.js#L27-L29`).
 
-## Logging
+### Log entry format and output
 
-All detected errors funnel through the logging functions in `errors.js`:
+- `formatLogEntry(code, err, ctx, timestamp)` builds a structured entry `{ timestamp, code, message, name, ...ctx }` with an ISO timestamp, `code` defaulting to `'UNKNOWN'`, and `err.stack` appended when `err` is an `Error` with a stack (`src/js/errors.js#L32-L44`).
+- `createLogger(method, level)` produces `logError` / `logWarn` / `logInfo` / `logDebug` (`src/js/errors.js#L101-L117`). Each applies the level filter, then calls the sink as `log[method]('[CODE]', entry)` when a string code is given, or `log[method](entry)` without one.
+- The sink comes from `getLogger()`: if `typeof module !== 'undefined'`, the module tries `require('electron-log')` in a `try/catch` and uses it when available (Electron main process); otherwise it uses `console` (`src/js/errors.js#L87-L98`). In the renderer this means `console`, so `window.LOG_LEVEL = 'DEBUG'` (or `localStorage.logLevel`) is what makes debug output visible in DevTools.
+- The API is attached to `window` (`ErrorCode`, `HlsErrorMap`, the four loggers, `handlePlayError`, `logStorageError`, `initGlobalErrorHandlers`) and `initGlobalErrorHandlers()` is invoked immediately in browser environments (`src/js/errors.js#L177-L188`); in module environments everything is exported via `module.exports` including `initMainProcessErrorHandlers` (`src/js/errors.js#L190-L203`).
 
-### Log Levels and Configuration
-- Log levels (`DEBUG`, `INFO`, `WARN`, `ERROR`) are defined in `LOG_LEVELS`【{"L":1】.
-- The effective level is determined by (in order): `window.LOG_LEVEL`, `localStorage.getItem('logLevel')`, defaulting to `WARN`【{"L":3,"L":15】.
-- `shouldLog(level)` compares the requested level against the current threshold【{"L":20,"L":21】.
+### Defensive wiring in `player-core.js`
 
-### Log Entry Structure
-- `formatLogEntry` creates a consistent object with `timestamp`, `code`, `message`, `name`, and any additional context (`ctx`)【{"L":24,"L":35】.
-- If the error is an `Error` instance with a `stack`, it is included【{"L":32,"L":34】.
+Because `player-core.js` is loaded right after `errors.js` and shared by all pages, it does not capture the logger functions at load time. Instead it resolves them lazily on every call: `getLogFn(name, fallback)` binds `window[name]` if it is a function, `errorCodeSafe(name, fallback)` reads `window.ErrorCode[name]`, and `logStorageErrorSafe` / `handlePlayErrorSafe` fall back to `console.error` when the globals are absent (`src/js/player-core.js#L6-L30`). This keeps logging correct even if `errors.js` loads later than expected, and `player-core.js` itself is the single `try/catch` boundary for all `localStorage` access (`readSetting`/`writeSetting`/`readJSON`/`writeJSON`/`removeSetting`, `player-core.js#L156-L202`), reporting failures through `logStorageErrorSafe` with `STORAGE_READ`/`STORAGE_WRITE`.
 
-### Output Destinations
-- In Electron environments, `electron-log` is used if available【{"L":77,"L":88】.
-- Otherwise, the standard `console` methods (`error`, `warn`, `info`, `debug`) are used【{"L":87】.
-- Functions `logError` through `logDebug` are created via `createLogger`, which prepends the error code to the log entry when a code is provided【{"L":90,"L":100】.
+## Classification Helpers
 
-### Exported Interface
-- The logging functions, error code map, and HLS error map are attached to `window` for debugging accessibility【{"L":161,"L":171】.
-- In module environments (Electron/Node), they are exported via `module.exports`【{"L":174,"L":186】.
+### `handlePlayError(e, context)` — play()/autoplay failures
 
-## Recovery Strategies
+Every `media.play()` promise in the app is routed through `handlePlayError` (audio player `player.js#L138-L141`, HLS manifest parsed / native HLS / visibility resume in `video.js#L134-L140`, `#L205-L218`, `#L259-L267`, and Media Session action handlers in `player-core.js#L70-L72`). It classifies by error name (`src/js/errors.js#L120-L132`):
 
-Recovery mechanisms vary by error type and media subsystem.
+- `NotAllowedError` → `logDebug(ErrorCode.MEDIA_AUTOPLAY, …)` with `reason: 'Browser policy blocked autoplay (missing user gesture)'` — autoplay blocking is expected without a user gesture, so it is logged at debug level and never surfaces as an error.
+- `NotSupportedError` → `logError(ErrorCode.MEDIA_AUTOPLAY, …)` with `reason: 'Browser does not support playback'`.
+- Any other error → `logError(ErrorCode.MEDIA_AUTOPLAY, …)` with `reason: <name>`.
 
-### Audio Player Retry Logic (`player.js`)
-- Upon a media error, `hasError` is set to `true` and `isAutoRetry` is reset【{"L":68,"L":82】.
-- `scheduleAudioRetry` implements exponential backoff (`RETRY_BASE_DELAY * 2^count`) up to `MAX_RETRIES` (3) attempts【{"L":144,"L":166】.
-  - If the player is offline, retries are delayed until connectivity returns【{"L":146】.
-  - Exceeding `MAX_RETRIES` logs `ErrorCode.AUDIO_RECONNECT_FAILED` and updates the status indicator to prompt manual retry【{"L":147,"L":152】.
-- On `online` events, if the player was previously playing and has an error, an immediate retry is triggered (counting as one attempt)【{"L":104,"L":112】.
-- User-initiated actions (e.g., `selectStation`, `clearAudioRetry`) reset the retry state and counter【{"L":132,"L":138】,【{"L":186】.
-- Successful recovery (`canplay` or `playing` events) clears the retry state and error flags【{"L":40,"L":56】.
+### `logStorageError(code, err, key)` — storage failure typing
 
-### Video Player HLS Recovery (`video.js`)
-- **Network errors** (`Hls.ErrorTypes.NETWORK_ERROR`): Trigger `handleNetworkRetry`, which retries `hlsPlayer.startLoad()` with exponential backoff (same parameters as audio)【{"L":178,"L":193】. After `MAX_RETRIES` failures, the HLS player is destroyed and a persistent error message is shown【{"L":179,"L":183】.
-- **Media errors** (`Hls.ErrorTypes.MEDIA_ERROR`): Attempt automatic recovery via `hlsPlayer.recoverMediaError()`【{"L":201,"L":203】.
-- **Fatal errors**: For non-network/media fatal errors (or after exhausting retries), the HLS player is destroyed, set to `null`, and an error message is displayed via `showStatusMessage`【{"L":206,"L":209】.
-- On successful manifest parsing (`Hls.Events.MANIFEST_PARSED`), the player attempts to play the video, catching any errors with `handlePlayError`【{"L":152,"L":155】.
-- Visibility change events (`visibilitychange`) also trigger a play attempt with error handling when the page becomes visible【{"L":290,"L":294】.
+`getStorageErrorType` types the failure as `QUOTA_EXCEEDED` (`QuotaExceededError` or legacy `code === 22`), `SECURITY_ERROR`, or `UNKNOWN` (`src/js/errors.js#L134-L139`); `logStorageError` then emits `logError(code, err, { key, type })` (`src/js/errors.js#L141-L143`). All `PlayerCore` storage helpers call it from their `catch` blocks, so quota and privacy-mode failures are distinguishable in the logs.
 
-## User Interface Feedback
+## Global Handlers
 
-Error and retry states are communicated to the user through the status indicator (`#statusIndicator`).
+### Renderer (`initGlobalErrorHandlers`, auto-invoked on load)
 
-### Audio Player (`player.js`)
-- `updateOverallStatus` determines a status string based on `navigator.onLine`, `hasError`, `currentPlayer.paused`, and `isStalled`【{"L":120,"L":124】.
-- `PlayerCore.setStatusClass` applies CSS classes to reflect the status (e.g., `error`, `buffering`, `paused`, `online`)【{"L":129】.
-- During retries, the status indicator shows a countdown message (e.g., `"Versuch 2/3 in 4s…"`) and gains the `text` and `buffering` classes【{"L":155,"L":161】.
-- Upon permanent failure, the indicator displays a static message like `"Verbindung verloren – erneut versuchen"` with the `error` class【{"L":149,"L":151】.
+- `window.onerror` logs uncaught exceptions as `UNHANDLED_ERROR` with `source`, `lineno`, `colno`, and the message (`src/js/errors.js#L149-L156`).
+- `window.addEventListener('unhandledrejection', …)` wraps non-`Error` rejection reasons in an `Error` and logs them as `UNHANDLED_REJECTION` (`src/js/errors.js#L158-L161`).
 
-### Video Player (`video.js`)
-- `showStatusMessage` displays transient messages (default 5 seconds) with a specified type (`error`, etc.)【{"L":52,"L":65】.
-- `clearStatusMessage` removes any active message and resets the indicator【{"L":68,"L":75】.
-- HLS-specific errors result in messages such as:
-  - Network failure after retries: `"Netzwerkfehler: Nach {MAX_RETRIES} Versuchen keine Verbindung. Bitte Internetverbindung prüfen und Seite neu laden."`【{"L":183】.
-  - Fatal HLS error: `"Schwerwiegender Fehler: {details}. Bitte Seite neu laden."`【{"L":209】.
-  - Unsupported browser: `"Ihr Browser unterstützt dieses Videoformat nicht."`【{"L":242】.
+### Electron main process (`initMainProcessErrorHandlers`)
 
-## Global Error Handling
+`electron/main.js` requires `ErrorCode`, `logError`, `logWarn`, and `initMainProcessErrorHandlers` from `../src/js/errors.js` and calls the initializer at startup (`electron/main.js#L10-L11`). It registers `process.on('unhandledRejection')` → `UNHANDLED_REJECTION` and `process.on('uncaughtException')` → `UNHANDLED_ERROR` (`src/js/errors.js#L164-L175`). Because `module` exists in the main process, `getLogger()` resolves `electron-log`, whose file and console transports are set to `debug` level in `electron/main.js#L5-L8` — so the main process logs everything regardless of the renderer threshold.
 
-Uncaught errors and promise rejections that escape component-specific handling are logged globally to prevent silent failures.
+## Error Classification and Routing
 
-### Browser Environment
-- `window.onerror` captures runtime errors, providing the error message, source URL, line/column numbers, and the error object【{"L":133,"L":139】.
-- `window.addEventListener('unhandledrejection')` catches rejected promises that lack a `.catch()` handler【{"L":142,"L":145】.
+```mermaid
+flowchart TD
+    SRC["Error source"] --> DET{"Detection point"}
+    DET -->|"media element error event"| PM["player.js error handler"]
+    DET -->|"Hls.Events.ERROR"| VE["video.js HLS handler"]
+    DET -->|"play promise rejection"| HP["handlePlayError"]
+    DET -->|"localStorage try catch"| ST["logStorageError"]
+    DET -->|"uncaught error or rejection"| GL["global handlers"]
+    DET -->|"file protocol request"| EL["electron main protocol handler"]
+    PM --> LOG["createLogger sinks logError logWarn logDebug"]
+    VE --> LOG
+    ST --> LOG
+    GL --> LOG
+    HP -->|"NotAllowedError"| DBG["logDebug MEDIA_AUTOPLAY"]
+    HP -->|"NotSupportedError or other"| ERR["logError MEDIA_AUTOPLAY"]
+    EL -->|"resolved path outside appDir"| PT["logError PATH_TRAVERSAL and return 403"]
+    EL -->|"fs or net failure"| FR["logError FILE_REQUEST and return 404 403 or 500"]
+    LOG --> OUT["electron-log in main process, console in renderer"]
+    PM --> RETRY["scheduleAudioRetry with exponential backoff"]
+    VE -->|"fatal NETWORK_ERROR"| HNET["handleNetworkRetry startLoad backoff"]
+    VE -->|"fatal MEDIA_ERROR"| HMED["recoverMediaError"]
+    VE -->|"other fatal"| HFAT["destroy HLS instance and show status message"]
+```
 
-### Electron/Node Environment
-- `process.on('unhandledRejection')` and `process.on('uncaughtException')` serve analogous roles for the main process【{"L":151,"L":158】.
-- Both paths log using `ErrorCode.UNHANDLED_ERROR` or `ErrorCode.UNHANDLED_REJECTION` as appropriate.
+Error classification and routing from detection point to log sink and recovery action.
 
-## Configuration
+## Representative Flows
 
-Error handling behavior can be adjusted via:
+### Audio media error → log → retry (`player.js`)
 
-### Log Level
-- Set `window.LOG_LEVEL` (e.g., `"DEBUG"`) before scripts load, or modify `localStorage.logLevel` at runtime to control verbosity【{"L":3,"L":15】.
+1. The `error` event on `#audioPlayer` fires; the handler logs `PLAYER_MEDIA_ERROR` with the `MediaError` code/message, current `src`, and page path (`src/js/player.js#L181-L188`), sets `hasError = true`, resets `isAutoRetry`, stops history tracking, and calls `scheduleAudioRetry()` (`src/js/player.js#L189-L196`).
+2. `scheduleAudioRetry` does nothing if playback was not active before the error or the browser is offline; if `retryState.count >= MAX_RETRIES` it calls `showExhaustedText()` (logs `AUDIO_RECONNECT_FAILED`, shows a 6-second "Stream nicht erreichbar" message with persistent `error` status class); otherwise it shows the countdown pill (`Versuch n/3 in x s`, logs `AUDIO_RECONNECT_RETRY` at warn level) and schedules `retryAudio` via `PlayerCore.scheduleRetry` (`src/js/player.js#L90-L124`).
+3. The backoff itself lives in `PlayerCore`: `getRetryDelay(attempt, base) = base * 2^attempt` and `scheduleRetry` increments the counter when the timer fires, so delays are 1000 / 2000 / 4000 ms for `RETRY_BASE_DELAY = 1000` and `MAX_RETRIES = 3` (`src/js/player-core.js#L206-L238`, constants in `src/js/player.js#L9-L10`). `retryAudio` reloads the element and calls `playMedia()`, whose `play()` rejection goes back to `handlePlayError` (`src/js/player.js#L126-L141`).
+4. On the `online` event, an immediate `retryAudio()` is triggered when the player had an error (count capped at `MAX_RETRIES - 1`); the `offline` handler freezes any pending retry timer and switches the status to `error` (`src/js/player.js#L204-L241`).
 
-### Retry Parameters
-- In `player.js`: `MAX_RETRIES` (default 3) and `RETRY_BASE_DELAY` (default 1000 ms) govern audio retry backoff【{"L":7","L":8】.
-- In `video.js`: Identical constants (`MAX_RETRIES`, `RETRY_BASE_DELAY`) control HLS network retry behavior【{"L":7","L":8】.
+### HLS errors (`video.js` via `HlsErrorMap`)
 
-### Storage Keys
-- Audio player persists the last station URL under `lastStationAudioUrl` (used for error recovery and restoration)【{"L":6】.
-- Video player uses `dataSaveMode` and `captionsEnabled` booleans, which are unrelated to error handling but affect stream selection and caption display.
+`setupHlsJsPlayer` subscribes to `Hls.Events.ERROR`; for each event it builds a context (`type`, `mappedType` from `window.HlsErrorMap`, `fatal`, `details`, `url`, optional `httpStatus`/`httpUrl`/`systemErrorCode`) and logs `HLS_FATAL` for fatal errors or `ErrorCode['HLS_' + mappedType]` otherwise (`src/js/video.js#L141-L148`, `#L151-L166`). Fatal errors then route in `handleFatalHlsError` (`src/js/video.js#L190-L203`):
 
-## Testing Considerations
+- `NETWORK_ERROR` → `handleNetworkRetry`: after `MAX_RETRIES` (3) attempts it logs `HLS_NETWORK`, destroys the HLS instance, and shows a persistent network-error message; otherwise it logs a warn and retries `hlsPlayer.startLoad()` with the same exponential backoff (`src/js/video.js#L168-L188`).
+- `MEDIA_ERROR` → logs `HLS_MEDIA` (warn) and calls `hlsPlayer.recoverMediaError()`.
+- anything else → logs `HLS_FATAL`, destroys the HLS instance, and shows `Schwerwiegender Fehler: …` via the status display.
 
-While not explicitly detailed in the source, effective testing of error handling would involve:
+Non-fatal HLS errors are left to Hls.js itself. If neither Hls.js nor native HLS is supported, `setupHlsPlayer` logs `HLS_FATAL` with `reason: 'HLS not supported by browser'` and shows a permanent "Ihr Browser unterstützt dieses Videoformat nicht." message (`src/js/video.js#L100-L113`).
 
-1. **Unit tests** for `errors.js`:
-   - Verify log level selection from various sources.
-   - Confirm `formatLogEntry` includes expected fields.
-   - Check that `logError`/`logWarn` etc. call the appropriate logger method with correct formatting.
+### Metadata fetch (`player.js`)
 
-2. **Integration tests** for media components:
-   - Simulate `error` events on audio/video elements and assert that `logError` is called with the correct `ErrorCode`.
-   - Mock network failures to trigger HLS retries and verify exponential backoff timing.
-   - Test that exceeding retry counts results in appropriate user messages and state updates.
-   - Validate that `online` events trigger retries when warranted.
-   - Ensure autoplay blocking scenarios are logged at the correct level.
+Failed metadata polls log `METADATA_FETCH` with `{ metadataUrl, station, type, reason }` (`reason` is `invalid-json` or `network-error` when detectable) and set the song title to "Metadaten nicht verfügbar"; aborted requests (station switch, hidden tab) are ignored (`src/js/player.js#L327-L372`).
 
-3. **Global handler tests**:
-   - Dispatch synthetic errors or unhandled rejections and confirm they are logged as `UNHANDLED_ERROR`/`UNHANDLED_REJECTION`.
+### Electron file protocol and navigation (`electron/main.js`)
 
-## Extension Points
+The custom `file` protocol handler (`electron/main.js#L213-L275`) resolves each request, falls back to app-relative paths for absolute URL pathnames, and confines the result to the app directory: a resolved path outside `appDir` logs `PATH_TRAVERSAL` and returns a 403 JSON response (`electron/main.js#L236-L253`); `ENOENT`/`EACCES`/`EPERM`/other failures log `FILE_REQUEST` and return 404/403/500 JSON (`electron/main.js#L258-L274`). Navigation guards (`will-navigate`, `will-redirect`, `will-frame-navigate`, `setWindowOpenHandler`) prevent bypasses, route `http(s)`/`mailto:` to `shell.openExternal` (logging `INVALID_NAVIGATION_URL` on failure), and load discovered subpages or fall back to `index.html` (`electron/main.js#L150-L205`); page discovery and `.npmignore` read failures log `PAGE_DISCOVERY` and `NPMIGNORE_READ` (`electron/main.js#L30-L102`).
 
-- **Logger swap**: Replace `electronLog`/`console` with a custom logger by modifying `getLogger()` in `errors.js`【{"L":86,"L":88】.
-- **Error code expansion**: Add new entries to the `ErrorCode` enum for additional subsystems【{"L":38,"L":66】.
-- **HLS error mapping**: Extend `HlsErrorMap` if new Hls.ErrorTypes are introduced【{"L":68,"L":75】.
-- **Retry customization**: Adjust `MAX_RETRIES` or `RETRY_BASE_DELAY` constants, or replace the retry logic entirely in `scheduleAudioRetry`/`handleNetworkRetry`【{"L":144,"L":166】,【{"L":178,"L":193】.
-- **UI feedback**: Alter `showStatusMessage`, `updateOverallStatus`, or direct DOM manipulation of `#statusIndicator` to change how errors are presented to the user【{"L":52,"L":65】,【{"L":120,"L":130】.
+## Recovery and User Feedback Summary
+
+- **Audio**: automatic retry with exponential backoff up to 3 attempts while the stream was playing and the network is up; persistent `error` status plus a short message after exhaustion; immediate retry on `online`; user actions (`selectStation`, `clearAudioRetry`, user pause) reset the retry state; `canplay`/`playing` clear all error flags (`src/js/player.js#L83-L88`, `#L116-L124`, `#L150-L176`).
+- **Video (HLS)**: `startLoad()` retries for fatal network errors, `recoverMediaError()` for fatal media errors, destroy + persistent message otherwise.
+- **Feedback**: all player pages share `PlayerCore.createStatusDisplay` / `setStatusClass` (`src/js/player-core.js#L40`, `#L96-L152`), which manage the `#statusIndicator` CSS classes (`online`, `error`, `buffering`, `paused`, `text`) and transient text messages, so retry countdowns and fatal-error texts are presented consistently (`src/js/player.js#L70-L114`, `src/js/video.js#L47`, `#L168-L203`).
+
+## Configuration and Extension Points
+
+- **Log level**: set `window.LOG_LEVEL` before the scripts load or `localStorage.logLevel` (applies from the next page load) to any of `DEBUG`/`INFO`/`WARN`/`ERROR`; default `WARN`. In Electron main, `electron-log` transports are independently set to `debug` (`electron/main.js#L5-L8`).
+- **Retry parameters**: `MAX_RETRIES` (3) and `RETRY_BASE_DELAY` (1000 ms) in both `player.js` and `video.js`; the backoff formula itself is `PlayerCore.getRetryDelay`.
+- **Logger swap**: replace the `require('electron-log')` attempt or `console` in `getLogger()` (`src/js/errors.js#L87-L98`).
+- **New error domains**: extend the frozen `ErrorCode` map (`src/js/errors.js#L46-L74`) and, for new HLS error types, `HlsErrorMap` (`src/js/errors.js#L76-L85`); new modules must read them via `window.ErrorCode` / `window.logError` (as `favorite.js`, `history.js`, `download_history.js` do with optional chaining) or via the defensive `player-core.js` helpers.
+- **UI feedback**: alter `PlayerCore.createStatusDisplay` or the status class set to change how errors surface.
 
 ## Summary
 
-The Oidarwave application employs a layered error handling strategy:
-1. **Detection** occurs at the point of failure (media elements, network requests, storage, global events).
-2. **Logging** is centralized, structured, and configurable, ensuring consistent capture of diagnostics.
-3. **Recovery** is attempted automatically with exponential backoff where appropriate, distinguishing between transient and fatal conditions.
-4. **Feedback** is provided via the status indicator, keeping the user informed of playback issues and recovery attempts.
-5. **Global safeguards** catch any errors that escape component-specific handling, preventing silent failures.
-
-This workflow aims to maintain playback resilience while providing clear diagnostics for developers and actionable feedback for users.
+1. **Detection** happens at the point of failure: media element events, HLS error events, `play()` promise rejections, `fetch` catch blocks, `localStorage` `try/catch`, the Electron `file` protocol handler, and global uncaught handlers in both renderer and main process.
+2. **Classification** assigns a stable `ErrorCode` string (plus `HlsErrorMap` for HLS types and `getStorageErrorType` for storage failures), with `handlePlayError` keeping expected autoplay blocks out of the error level.
+3. **Logging** is centralized in `errors.js`: leveled, level-gated, structured entries (`{timestamp, code, message, name, ...ctx, stack}`) with a `[CODE]` prefix, written to `electron-log` when available (Electron main) and `console` otherwise.
+4. **Recovery** uses exponential backoff (`base * 2^attempt`, max 3 attempts) for audio reconnects and HLS network errors, MediaError recovery for HLS, and deterministic teardown + user-facing status messages for fatal cases.

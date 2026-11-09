@@ -6,7 +6,7 @@
 
     --color-brand-primary: hsl(270, 100%, 70%);
     --color-brand-secondary: hsl(345, 100%, 70%);
-    --color-accent-blue: #60a5fa;
+    --color-accent-blue: hsl(220, 100%, 70%);
 
     --color-glass-bg: rgba(30, 41, 59, 0.4);
     --color-glass-border: rgba(255, 255, 255, 0.1);
@@ -38,8 +38,54 @@
     --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     --shadow-glow: 0 0 20px rgba(139, 92, 246, 0.5);
 
-    --transition-snappy: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    /* Timing-Tokens:
+       Transform/Position schnell, Farben/Schatten weicher – wirkt fluessiger.
+       --transition-press ist nur eine Duration (Timing erbt die Basis-Transition). */
+    --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --transition-tactile: 0.18s var(--ease-out-quint);
+    --transition-lift: 0.28s var(--ease-spring);
+    --transition-press: 0.08s;
+    --transition-color: 0.3s ease;
+
+    color-scheme: dark;
+}
+
+/* Gegen Bootstrap-Reboot: Werte an unsere Optik angleichen.
+   Elementregeln mit Spezifitaet 0,0,1 – Bootstrap-Komponenten schlagen sie weiter. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 700; /* Reboot: 500 – unser Design erwartet UA-Bold */
+    line-height: inherit; /* Reboot: 1.2 – wir erben weiter body (1.6) */
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+dl,
+dd,
+address,
+figure,
+blockquote {
+    margin: 0; /* Reboot: 1rem – unser Layout arbeitet mit Flex-Gaps statt Margen */
+}
+
+hr {
+    opacity: 1; /* Reboot: 0.25 – würde unsere Trennlinien fast unsichtbar machen */
+}
+
+code {
+    color: inherit; /* Reboot färbte <code> über --bs-code-color */
 }
 
 * {
@@ -52,31 +98,42 @@ html {
     color-scheme: dark;
     scroll-behavior: smooth;
     text-size-adjust: 100%;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) var(--color-bg-base);
 }
 
 body {
     font-family: var(--font-body);
+    /* Nur die Basisfläche hier – der Verlauf liegt auf fixierter Ebene (body::after). */
     background-color: var(--color-bg-base);
-    background-attachment: fixed;
     color: var(--color-text-main);
     min-height: 100vh;
     min-height: 100dvh;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    background:
-        radial-gradient(circle at 85% 30%, rgba(236, 72, 153, 0.1) 0%, transparent 40%),
-        linear-gradient(135deg, var(--color-bg-base) 0%, #1e293b 50%, var(--color-bg-base) 100%);
     overflow-x: hidden;
     overflow-y: auto;
     position: relative;
     overscroll-behavior-y: contain;
 }
 
-/* Maus-Glow auf eigener Compositing-Ebene: nur transform/opacity,
-   kein Repaint des Body-Hintergrunds pro Mousemove. */
-body::before {
+/* Seitenverlauf auf fixierter Ebene statt `background-attachment: fixed`:
+   einmal gerastert, beim Scrollen nur noch komponiert statt neu gezeichnet. */
+body::after {
     content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+        radial-gradient(circle at 85% 30%, rgba(236, 72, 153, 0.1) 0%, transparent 40%),
+        linear-gradient(135deg, var(--color-bg-base) 0%, #1e293b 50%, var(--color-bg-base) 100%);
+}
+
+/* Maus-Glow auf eigener Compositing-Ebene (Element von mouse.js, per transform
+   positioniert): nur transform/opacity – kein Repaint des Body-Hintergrunds. */
+.mouse-glow {
     position: fixed;
     top: 0;
     left: 0;
@@ -87,7 +144,7 @@ body::before {
     background: radial-gradient(circle, rgba(139, 92, 246, 0.16) 0%, transparent 65%);
     pointer-events: none;
     z-index: 0;
-    transform: translate3d(var(--mouse-x, 50vw), var(--mouse-y, 30vh), 0);
+    transform: translate3d(50vw, 30vh, 0);
     will-change: transform;
 }
 
@@ -103,7 +160,7 @@ body::before {
 }
 
 ::selection {
-    background: rgba(139, 92, 246, 0.45);
+    background-color: rgba(139, 92, 246, 0.45);
     color: #fff;
 }
 
@@ -117,15 +174,15 @@ body::before {
     width: 10px;
 }
 ::-webkit-scrollbar-track {
-    background: var(--color-bg-base);
+    background-color: var(--color-bg-base);
 }
 ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.16);
+    background-color: rgba(255, 255, 255, 0.16);
     border-radius: var(--radius-full);
     border: 2px solid var(--color-bg-base);
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.28);
+    background-color: rgba(255, 255, 255, 0.28);
 }
 
 header,
@@ -176,47 +233,64 @@ header {
     background-clip: text;
     -webkit-text-fill-color: transparent;
     color: transparent;
-    animation: gradient-pan 6s linear infinite alternate;
+    /* Gradient-Animation nur bei Hover/Fokus: background-position ist keine
+       Compositor-Property – Daueranimation würde den Textverlauf neu rastern. */
+    animation: gradient-pan 6s ease-in-out infinite alternate;
+    animation-play-state: paused;
     letter-spacing: -1px;
 }
 
+@media (hover: hover) and (pointer: fine) {
+    .logo:hover,
+    .logo:focus-visible {
+        animation-play-state: running;
+    }
+}
+
+/* Pillen-Container; die Links liegen in der Bootstrap-.nav-Liste (nav .nav) */
 nav {
     display: flex;
-    gap: var(--space-sm);
-    flex-wrap: wrap;
     justify-content: center;
-    background: rgba(255, 255, 255, 0.03);
+    background-color: rgba(255, 255, 255, 0.03);
     padding: var(--space-xs);
     border-radius: var(--radius-full);
     border: 1px solid var(--color-glass-border);
 }
 
-nav a {
+nav .nav {
+    gap: var(--space-sm);
+}
+
+/* Spezifität: Bootstrap .nav-link schlägt nav a – Selektoren entsprechend
+   anheben, sonst übernehmen Bootstraps Paddings/Hover unseren Pillen-Look. */
+nav .nav-link {
     color: var(--color-text-muted);
     text-decoration: none;
     font-weight: 500;
     padding: var(--space-sm) var(--space-lg);
     border-radius: var(--radius-full);
     transition:
-        color var(--transition-snappy),
-        background var(--transition-snappy);
+        color var(--transition-color),
+        background-color var(--transition-color);
 }
 
-nav a:hover {
+@media (hover: hover) and (pointer: fine) {
+    nav .nav-link:hover {
+        color: var(--color-text-main);
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+}
+
+nav .nav-link[aria-current='page'] {
     color: var(--color-text-main);
-    background: rgba(255, 255, 255, 0.1);
+    background-color: rgba(139, 92, 246, 0.25);
 }
 
-nav a[aria-current='page'] {
-    color: var(--color-text-main);
-    background: rgba(139, 92, 246, 0.25);
-}
-
+/* Spaltenabstand über Bootstraps Gutter-Variablen (Design-Tokens);
+   Spaltenlogik in den HTML-Klassen (col-12 col-md-6). */
 .player-section {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-xl);
-    align-items: start;
+    --bs-gutter-x: var(--space-xl);
+    --bs-gutter-y: var(--space-xl);
 }
 
 .station-selector,
@@ -247,7 +321,12 @@ nav a[aria-current='page'] {
 }
 
 .station-btn {
-    background: rgba(255, 255, 255, 0.03);
+    /* Fläche als background-color, Gradient im ::before-Overlay:
+       background-image ist nicht animierbar – Opacity blendet weich. */
+    /* appearance: none deaktiviert UA-/Bootstrap-Chrome; background, border
+       und radius bleiben die einzige Quelle für die Optik. */
+    appearance: none;
+    background-color: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.08);
     color: var(--color-text-main);
     padding: var(--space-md);
@@ -258,49 +337,60 @@ nav a[aria-current='page'] {
     line-height: 1.35;
     min-height: 3.25rem;
     cursor: pointer;
+    /* Transform (Compositor) schnell, Farben/Schatten (Paint) ruhiger. */
     transition:
-        transform var(--transition-snappy),
-        border-color var(--transition-snappy),
-        box-shadow var(--transition-snappy),
-        background var(--transition-snappy);
+        transform var(--transition-tactile),
+        border-color var(--transition-color),
+        box-shadow var(--transition-color);
     position: relative;
+    isolation: isolate;
     overflow: hidden;
     text-align: center;
     text-wrap: balance;
-    accent-color: var(--color-brand-primary);
+    /* Kein accent-color: wirkt nie auf einem schlichten <button>. */
     touch-action: manipulation;
-    will-change: transform;
+    /* Kein will-change: dauerhafte eigene Ebene pro Button ohne Nutzen. */
 }
 
+/* Gemeinsame Gradient-Fläche für Hover + Aktiv: nur die Opacity ändert sich
+   (kein Farb-Sprung). z-index: -1 hält den Verlauf hinter der Beschriftung. */
 .station-btn::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(236, 72, 153, 0.2));
+    z-index: -1;
+    background: linear-gradient(135deg, var(--color-brand-primary), var(--color-brand-secondary));
     opacity: 0;
-    transition: opacity var(--transition-smooth);
+    transition: opacity var(--transition-color);
     pointer-events: none;
 }
 
-.station-btn:hover {
-    transform: translateY(-2px);
-    border-color: rgba(255, 255, 255, 0.3);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
+/* Hover nur bei feinem Zeiger: auf Touch-Geräten klebt :hover sonst nach dem Tippen. */
+@media (hover: hover) and (pointer: fine) {
+    .station-btn:hover {
+        transform: translateY(-2px);
+        border-color: rgba(255, 255, 255, 0.3);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
 
-.station-btn:hover::before {
-    opacity: 1;
+    .station-btn:hover::before {
+        opacity: 0.22;
+    }
 }
 
 .station-btn:active {
     transform: translateY(0) scale(0.98);
+    transition-duration: var(--transition-press);
 }
 
 .station-btn.active {
-    background: linear-gradient(135deg, var(--color-brand-primary), var(--color-brand-secondary));
     border-color: transparent;
     box-shadow: var(--shadow-glow);
     font-weight: var(--font-weight-semibold);
+}
+
+.station-btn.active::before {
+    opacity: 1;
 }
 
 .current-station {
@@ -312,7 +402,7 @@ nav a[aria-current='page'] {
     font-size: 1.5rem;
     font-weight: 700;
     line-height: 1.3;
-    background: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.2);
     padding: var(--space-md) var(--space-lg);
     border-radius: var(--radius-full);
     border: 1px solid rgba(255, 255, 255, 0.06);
@@ -332,21 +422,23 @@ nav a[aria-current='page'] {
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background: var(--color-status-online);
+    background-color: var(--color-status-online);
     box-shadow: 0 0 10px var(--color-status-online);
     flex-shrink: 0;
+    /* Sicherheitsnetz: versehentlich gesetzter Text darf nicht aus dem 12-px-Punkt laufen. */
+    overflow: hidden;
     transition:
-        background var(--transition-snappy),
-        box-shadow var(--transition-snappy);
+        background-color var(--transition-color),
+        box-shadow var(--transition-color);
 }
 
 .status-indicator.online {
-    background: var(--color-status-online);
+    background-color: var(--color-status-online);
     box-shadow: 0 0 10px var(--color-status-online);
 }
 
 .status-indicator.error {
-    background: var(--color-status-error);
+    background-color: var(--color-status-error);
     box-shadow: 0 0 10px var(--color-status-error);
 }
 
@@ -354,34 +446,42 @@ nav a[aria-current='page'] {
     width: auto;
     height: auto;
     min-width: 12px;
-    padding: var(--space-sm) var(--space-md);
+    max-width: 100%;
+    padding: var(--space-xs) var(--space-md);
     border-radius: var(--radius-full);
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-medium);
     font-family: var(--font-body);
+    line-height: 1.45;
     color: white;
     text-align: center;
-    white-space: nowrap;
+    /* Umbruch statt nowrap: die Meldung darf die Senderzeile auf schmalen
+       Viewports nicht sprengen; `wrap` neutralisiert das geerbte `balance`. */
+    white-space: normal;
+    text-wrap: wrap;
+    overflow-wrap: anywhere;
+    flex-shrink: 1;
 }
 
 .status-indicator.text.error {
-    background: var(--color-status-error);
+    background-color: var(--color-status-error);
     box-shadow: 0 0 10px var(--color-status-error);
 }
 
 .status-indicator.buffering {
-    background: var(--color-status-buffering);
+    background-color: var(--color-status-buffering);
     box-shadow: 0 0 10px var(--color-status-buffering);
-    animation: pulse 1.5s infinite;
+    /* Opacity (Compositor) + ease-in-out: sanfte Umkehrpunkte beim Atmen. */
+    animation: pulse 1.5s ease-in-out infinite;
 }
 
 .status-indicator.paused {
-    background: var(--color-status-paused);
+    background-color: var(--color-status-paused);
     box-shadow: none;
 }
 
 .notification-toggle {
-    background: rgba(255, 255, 255, 0.05);
+    background-color: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: var(--color-text-main);
     width: 36px;
@@ -392,19 +492,26 @@ nav a[aria-current='page'] {
     justify-content: center;
     cursor: pointer;
     transition:
-        transform var(--transition-snappy),
-        background var(--transition-snappy);
+        transform var(--transition-lift),
+        background-color var(--transition-color);
     flex-shrink: 0;
     touch-action: manipulation;
 }
 
-.notification-toggle:hover {
-    background: rgba(255, 255, 255, 0.15);
-    transform: scale(1.05);
+@media (hover: hover) and (pointer: fine) {
+    .notification-toggle:hover {
+        background-color: rgba(255, 255, 255, 0.15);
+        transform: scale(1.05);
+    }
+}
+
+.notification-toggle:active {
+    transform: scale(0.95);
+    transition-duration: var(--transition-press);
 }
 
 .notification-toggle.active {
-    background: var(--color-brand-primary);
+    background-color: var(--color-brand-primary);
     border-color: var(--color-brand-primary);
     box-shadow: var(--shadow-glow);
     color: white;
@@ -422,7 +529,7 @@ audio {
     border-radius: var(--radius-full);
     outline: none;
     accent-color: var(--color-brand-primary);
-    background-color: var(--color-media-panel);
+    background-color: var(--color-bg-elevated);
     filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
 }
 
@@ -436,13 +543,44 @@ audio::-webkit-media-controls-panel {
     color: var(--color-text-muted);
     text-align: center;
     min-height: 1.5rem;
-    animation: fade-in 0.3s ease;
-    background: rgba(0, 0, 0, 0.15);
+    animation: fade-in 0.35s var(--ease-out-quint);
+    background-color: rgba(0, 0, 0, 0.15);
     padding: var(--space-sm) var(--space-md);
     border-radius: var(--radius-md);
     border: 1px solid rgba(255, 255, 255, 0.05);
     width: 100%;
     overflow-wrap: anywhere;
+}
+
+/* Generische Skeleton-Fläche (u. a. #currentSongTitle, Video-Overlay).
+   Sweep auf ::after via transform (Compositor) statt background-position. */
+.skeleton {
+    color: transparent;
+    position: relative;
+    overflow: hidden;
+    /* isolation hält das ::after-Sweep im eigenen Stacking-Kontext. */
+    isolation: isolate;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* Sweep-Layer: weicher Lichtbalken mit auslaufenden Kanten (keine harten
+   Gradient-Stufen), ein Durchlauf von links nach rechts. */
+.skeleton::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image: linear-gradient(
+        100deg,
+        rgba(255, 255, 255, 0) 24%,
+        rgba(255, 255, 255, 0.05) 40%,
+        rgba(255, 255, 255, 0.13) 50%,
+        rgba(255, 255, 255, 0.05) 60%,
+        rgba(255, 255, 255, 0) 76%
+    );
+    transform: translate3d(-100%, 0, 0);
+    animation: shimmer 1.8s linear infinite;
 }
 
 footer {
@@ -465,7 +603,7 @@ footer img {
 footer a {
     color: var(--color-text-main);
     text-decoration: none;
-    transition: color var(--transition-snappy);
+    transition: color var(--transition-color);
 }
 
 footer a:hover {
@@ -474,7 +612,7 @@ footer a:hover {
     text-underline-offset: 3px;
 }
 
-/* Cookie Banner */
+/* === Cookie-Banner === */
 .cookie-banner {
     position: fixed;
     bottom: var(--space-lg);
@@ -484,26 +622,16 @@ footer a:hover {
     max-width: 600px;
     z-index: 50;
     padding: var(--space-lg);
-    animation: banner-in 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+    /* Nur transform/opacity animiert – Browser promoviert die Ebene beim Einfliegen. */
+    animation: banner-in 0.45s var(--ease-out-quint) both;
 }
 
 .cookie-banner[hidden] {
     display: none;
 }
 
-.cookie-banner-content {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-lg);
-    align-items: center;
-    text-align: center;
-}
-
-.cookie-buttons {
-    display: flex;
-    gap: var(--space-md);
-    width: 100%;
-}
+/* Layout (Flex/Gap/Ausrichtung) des Banners kommt über Bootstrap-Utilities im HTML
+   (.cookie-banner-content, .cookie-buttons). */
 
 .cookie-btn {
     flex: 1;
@@ -515,27 +643,30 @@ footer a:hover {
     font-weight: var(--font-weight-semibold);
     cursor: pointer;
     transition:
-        transform var(--transition-snappy),
-        opacity var(--transition-snappy);
+        transform var(--transition-tactile),
+        opacity var(--transition-color);
     touch-action: manipulation;
 }
 
-.cookie-btn:hover {
-    transform: translateY(-2px);
-    opacity: 0.9;
+@media (hover: hover) and (pointer: fine) {
+    .cookie-btn:hover {
+        transform: translateY(-2px);
+        opacity: 0.9;
+    }
 }
 
 .cookie-btn:active {
     transform: translateY(0) scale(0.98);
+    transition-duration: var(--transition-press);
 }
 
 .accept-btn {
-    background: var(--color-text-main);
+    background-color: var(--color-text-main);
     color: var(--color-bg-base);
 }
 
 .decline-btn {
-    background: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.1);
     color: var(--color-text-main);
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -564,30 +695,41 @@ footer a:hover {
 @keyframes fade-in {
     from {
         opacity: 0;
-        transform: translateY(5px);
+        transform: translate3d(0, 5px, 0);
     }
 
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translate3d(0, 0, 0);
     }
 }
 
 @keyframes banner-in {
     from {
         opacity: 0;
-        transform: translate(-50%, 12px);
+        transform: translate3d(-50%, 12px, 0);
     }
 
     to {
         opacity: 1;
-        transform: translate(-50%, 0);
+        transform: translate3d(-50%, 0, 0);
+    }
+}
+
+@keyframes shimmer {
+    from {
+        transform: translate3d(-100%, 0, 0);
+    }
+
+    to {
+        transform: translate3d(100%, 0, 0);
     }
 }
 
 @media (max-width: 1024px) {
     .player-section {
-        gap: var(--space-lg);
+        --bs-gutter-x: var(--space-lg);
+        --bs-gutter-y: var(--space-lg);
     }
 
     .station-grid {
@@ -600,8 +742,10 @@ footer a:hover {
         padding: var(--space-lg) var(--space-md);
     }
 
-    .player-section {
-        grid-template-columns: 1fr;
+    /* Ab 768px ein-spaltig stapeln (Bootstraps .col-md-6 wäre erst hier zweispaltig). */
+    .player-section > * {
+        flex: 0 0 auto;
+        width: 100%;
     }
 
     header {
@@ -620,10 +764,6 @@ footer a:hover {
     .current-station {
         font-size: 1.25rem;
     }
-
-    .cookie-buttons {
-        flex-direction: column;
-    }
 }
 
 @media (max-width: 480px) {
@@ -641,13 +781,19 @@ footer a:hover {
     }
 
     nav {
-        flex-direction: column;
         width: 100%;
         border-radius: var(--radius-md);
+    }
+
+    nav .nav {
         gap: 0;
     }
 
-    nav a {
+    nav .nav > li {
+        width: 100%;
+    }
+
+    nav .nav-link {
         text-align: center;
         width: 100%;
         border-radius: var(--radius-sm);
@@ -688,7 +834,65 @@ footer a:hover {
         scroll-behavior: auto !important;
     }
 
-    body::before {
+    .mouse-glow {
         display: none;
+    }
+
+    /* Shimmer statisch machen: ruhige, gleichmäßige Skeleton-Fläche. */
+    .skeleton::after {
+        animation: none;
+    }
+}
+
+@media (forced-colors: active) {
+    .station-btn.active,
+    .notification-toggle.active {
+        outline: 2px solid Highlight;
+        outline-offset: 2px;
+    }
+
+    .status-indicator {
+        border: 1px solid CanvasText;
+    }
+
+    .logo {
+        forced-color-adjust: none;
+    }
+}
+
+@media print {
+    body {
+        background: #fff !important;
+        color: #000 !important;
+    }
+
+    body::after,
+    .mouse-glow,
+    .cookie-banner,
+    .audio-controls,
+    .notification-toggle {
+        display: none !important;
+    }
+
+    header,
+    .station-selector,
+    .player-controls {
+        background: transparent !important;
+        border: 1px solid #ccc !important;
+        box-shadow: none !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+
+    .station-btn {
+        border: 1px solid #666 !important;
+        color: #000 !important;
+        background: transparent !important;
+        /* Aktiv-Glow ist Screen-Feedback und druckt sonst als grauen Hof. */
+        box-shadow: none !important;
+    }
+
+    .station-btn::before {
+        display: none !important;
     }
 }

@@ -1,122 +1,212 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:0a2c6a8a06906a1c161731f07f68e73e64630a4167cbc3996589ad4891173fc5",
+  "pageVersion": "sha256:c634442bff5176d54cb65e249eefb48194603f9af977f78830c20603333a0ca5",
   "claims": [
     {
       "id": "claim_2691601690d04961b240edb36a8ae7fc",
-      "statement": "In the audio player (player.js), the volume is set to 1.0 on every session start and is not stored in localStorage.",
+      "statement": "In the audio player (player.js), the volume is set to 1.0 on every session start and is not stored in localStorage; ArrowUp/ArrowDown adjust it by 0.1 clamped to [0,1] with one-decimal precision via PlayerCore.clamp, and Space toggles play/pause, all guarded by isEditableTarget.",
       "evidence": [
         {
-          "resource": "repo://src/js/player.js#L224-L230",
-          "version": "repo-lines-v1:sha256:911879fc9f738f210d5a35ee4c6ba394670b975839abd0971b51da1aabcb7603:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiY2RiZGIwMDY2YThkMmZlODNmYmIzNmU3NzE3MTNmYWI3MGJmZmJlM2FiZDAxYWJkOTQzNDlkNzM3OWIyMGE5NSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZDllMDgxODRhOTAwMWI5NTVmNzZkOGE4ZDczMjJkMzI0ODcyMTg4ZTMxM2VjYjVjOTljYmViY2RkOTMwYzQ2YyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMGZmOTAwZjY3ODhjZTJjZmJiZWNlOWQ1MjUzNWZkYjkxODhkMThmNmZiNzRiODFhMzdhMGZhZmJjMjMxYzJhZCJ9"
+          "resource": "repo://src/js/player-core.js#L255-L258",
+          "version": "repo-lines-v1:sha256:151f6fa975d2c4d0e6917b2ccb9910cc56e227bb323425a842a4cd63522fafe0:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMGMwMzcwNTg3ODE0NzMyMzY5ZmM4OTE1ZDQ1MDdhNTA3NTRjOTcwNzE4MDE1ZTkyNTYzNDhkODZiYmUzYTA5YiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjJjMWY0MmJmODVkNDI5OTVmMjRmNTc1ODc5ZmYyY2I0ZjNiNmJiMWIwMzdkMTk5MGVjOGIxZDEwMmVkMDIxOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTU3MzcwMDk3NzA2YTg1ZjAwNzNiODZlZmM5YTYxMWNhNmFiMjIzNzkyYTU3NjdmZjkwNTJhZWNiYzgwZDM0OCJ9"
         },
         {
-          "resource": "repo://src/js/player.js#L29-L29",
-          "version": "repo-lines-v1:sha256:0e3c5a693876eb5a899b2a9d20effe1810ac8bcea27ca8595326af5e152a96f1:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMGUzYzVhNjkzODc2ZWI1YTg5OWIyYTlkMjBlZmZlMTgxMGFjOGJjZWEyN2NhODU5NTMyNmFmNWUxNTJhOTZmMSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMGUzYzVhNjkzODc2ZWI1YTg5OWIyYTlkMjBlZmZlMTgxMGFjOGJjZWEyN2NhODU5NTMyNmFmNWUxNTJhOTZmMSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTQ3MzVmMWY2NGVjMTllYzMzZmYyNWVlM2JkMjc0YjEzMzQyNzQxNjE1YmM4NTNiY2IyZjhlNTkyZDhjYTA5YSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYjVhMTI2OTYzYzQ0ZDA0OGY0YTNjYzMyNDc4ZjVmYmFmMmU4MTFiYjk1YTM1MTA2NmI4MTFmMTAyYWM0YTA4NyJ9"
+          "resource": "repo://src/js/player.js#L307-L323",
+          "version": "repo-lines-v1:sha256:d99c4ee57a18ed10aa1c9555ea08cf1becf6b4ee64f39d5eda5893b7e74ad384:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMzY2QyNTkyMGZmZThjOTQ3ZGYwMjEyY2VmMTIzZDI5Y2JhN2M1YTIzODMzMzg5ZTA3NTA4ZGM1MjI4MjY0ODIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjllMTM5NTc2MWQ0YWJhOGFiZjc5N2FhZGM4YzBiNjUwY2QyZjUwNzkxNzBiMmU4MzQyMWMxNGI3YjA5NjI4MDMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjEwZGQ5ODVlNGI1ZjZiZDg3ZGQxNTZkYTE1OTg4ZDA0ZDA4YTU2ZGQwN2IxZGJmYjAwMDEwYzM1NjQ5NzYyNDAifQ"
+        },
+        {
+          "resource": "repo://src/js/player.js#L40-L40",
+          "version": "repo-lines-v1:sha256:107ffedddd35a2519f6eb0e990aa2dc7e739b80fc74892c8cdc816b9c3d6a277:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMTA3ZmZlZGRkZDM1YTI1MTlmNmViMGU5OTBhYTJkYzdlNzM5YjgwZmM3NDg5MmM4Y2RjODE2YjljM2Q2YTI3NyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMTA3ZmZlZGRkZDM1YTI1MTlmNmViMGU5OTBhYTJkYzdlNzM5YjgwZmM3NDg5MmM4Y2RjODE2YjljM2Q2YTI3NyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTRkYzljMWI4MjRmYTc1Yzg4MDRiMDAwNmVmNDlhY2JlOWIyMDExZTc3ZjExZjM2MGMyZTYwMDFmYTUxZjNlNiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZWE0MDNkMWJkNGQyYjU0MzRiMjAwZTBmYjVhZTg1YmFlNDAzMzJkZWMwM2RlZDNhYmI0ODdjNGI1MDc2NzEwMiJ9"
         }
       ]
     },
     {
       "id": "claim_8cdf23297473488d98166472351e216b",
-      "statement": "The audio player persists the last selected station URL in localStorage under the key 'lastStationAudioUrl' and restores it on startup.",
+      "statement": "The audio player persists the last selected station URL in localStorage under the key 'lastStationAudioUrl' (written in selectStation) and restores it on startup by matching the stored URL against station buttons' dataset.url, falling back to the first station.",
       "evidence": [
         {
-          "resource": "repo://src/js/player.js#L195-L195",
-          "version": "repo-lines-v1:sha256:a69374c5b4d2db156a92751f7e960282063a2f06f8ecb86056be75b8ebd52909:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTY5Mzc0YzViNGQyZGIxNTZhOTI3NTFmN2U5NjAyODIwNjNhMmYwNmY4ZWNiODYwNTZiZTc1YjhlYmQ1MjkwOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYTY5Mzc0YzViNGQyZGIxNTZhOTI3NTFmN2U5NjAyODIwNjNhMmYwNmY4ZWNiODYwNTZiZTc1YjhlYmQ1MjkwOSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTcyNjBmNTkxOGNkN2NjMTQyZjI2OTYzN2I5NTMwNjNkZGY3M2U0ZDAyMTc2NWQ0N2MyYTY1NzczNDIwMDFkOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNmI3YjBiMTNjYjgxZDQ1MjNhNTM4ZDhmM2NiMTYyYWJlN2VmNzU0ZDIyNzlmNDI3M2U4NDAzOWNmZDZlZjA5MiJ9"
+          "resource": "repo://src/js/player.js#L255-L255",
+          "version": "repo-lines-v1:sha256:8a0eb8d849d412a5ddf85de0a113d1e41306ff79c00c89d617caee03f6c33c69:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOGEwZWI4ZDg0OWQ0MTJhNWRkZjg1ZGUwYTExM2QxZTQxMzA2ZmY3OWMwMGM4OWQ2MTdjYWVlMDNmNmMzM2M2OSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOGEwZWI4ZDg0OWQ0MTJhNWRkZjg1ZGUwYTExM2QxZTQxMzA2ZmY3OWMwMGM4OWQ2MTdjYWVlMDNmNmMzM2M2OSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNWQ3MjU2MzdlZjQwMmU3MjIzZTYyNTExMTU1YjQyY2FkNTMzZGFiNzRiYzVmMjU0MzA1YTdhY2IxYTE4MDU3OSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNmY2NmUxYzBmMGViOTNmMTg4NGU1ODM3ZmRjOWExM2ZlNGM5MDEyYTY1NTA2YjEwMjRlN2RjNDBlMzdmZDNkMCJ9"
         },
         {
-          "resource": "repo://src/js/player.js#L289-L289",
-          "version": "repo-lines-v1:sha256:f694b6783d6ecd55474a313c87df137c692eb40312c6179d571e5017baa7c2a5:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZjY5NGI2NzgzZDZlY2Q1NTQ3NGEzMTNjODdkZjEzN2M2OTJlYjQwMzEyYzYxNzlkNTcxZTUwMTdiYWE3YzJhNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZjY5NGI2NzgzZDZlY2Q1NTQ3NGEzMTNjODdkZjEzN2M2OTJlYjQwMzEyYzYxNzlkNTcxZTUwMTdiYWE3YzJhNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNmFjNWE4ZDEwNzlhMTY3NTZhMWJhZDRlMDQxMzA1MGU4ODk2MGNiYjgzOGE3OWU1MDY0MzNlM2M5YmY2MzU3NCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjdhYTRjNGJjZDA4Y2U5MmY0MWI1Yzg0YmJlMDlhMDRlNDk0MDMyYWQ3NWRjNmQ2OGIwN2EwMjc0YzIzMjUxNyJ9"
+          "resource": "repo://src/js/player.js#L376-L384",
+          "version": "repo-lines-v1:sha256:54ee8adf81594013c0b818cf677bdcb22991963841d4fdd00f36b23fd50306bf:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjQzMjI2NWIyNzhiYzU4YjAxOWIyNWE3MzM2YTNiY2UyZjk2YTU0MzY3ODg4OTBiYTYzMmJjMzIzMWE4N2M2MyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTA5ODNkYjNkMDQ1NmE0MjdlZjRkZmEzMjI4YzU5NGQ0N2FhMWJlZTFhYTVmY2U1MjAwMWE3ODVmM2Q2NDRmYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTBkNDdmYTcwYTQ1Mjg4NTMwZjg5MmFkYTI0ZGY4NTFkODUxYjU4MDIxNDg0NTVmYTNhYzk2MjI2MjZiYjdkZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjUwYzU2ZTIxN2I2YTMzNDZiNDc3ODcwMTZmZDczMGExYmQ2M2U1ODNiYjMzZThhZTc5MzM1NTI4Yjg2OWQ1NSJ9"
         },
         {
-          "resource": "repo://src/js/player.js#L6-L6",
-          "version": "repo-lines-v1:sha256:df6b5af8e7d91de790b2d5f45736e10fad75e2744d7f9e091c9e0fbfdb93bcfe:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZGY2YjVhZjhlN2Q5MWRlNzkwYjJkNWY0NTczNmUxMGZhZDc1ZTI3NDRkN2Y5ZTA5MWM5ZTBmYmZkYjkzYmNmZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZGY2YjVhZjhlN2Q5MWRlNzkwYjJkNWY0NTczNmUxMGZhZDc1ZTI3NDRkN2Y5ZTA5MWM5ZTBmYmZkYjkzYmNmZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNGJmYTMxZGY0YjZmNzNkMWIyNjc3NzZiMDQzODA4MDM1OGM5ZTE1MjEwZmQwYWYzZGIxMzJhN2Y2Yjg3NDJmNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMWVmNzMwZTAxY2QwODQ2NDg5Zjc4ZThkZTM3MTc5YTA4MWNjZTBlZjQxYTZkNjkwNmNlZmMxMzAxZmIzZjgzNCJ9"
+          "resource": "repo://src/js/player.js#L8-L8",
+          "version": "repo-lines-v1:sha256:359b2a097c7e8ec9e78e522f73c6e11e4497c68cdd8499278028c9e791b48ee4:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzU5YjJhMDk3YzdlOGVjOWU3OGU1MjJmNzNjNmUxMWU0NDk3YzY4Y2RkODQ5OTI3ODAyOGM5ZTc5MWI0OGVlNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzU5YjJhMDk3YzdlOGVjOWU3OGU1MjJmNzNjNmUxMWU0NDk3YzY4Y2RkODQ5OTI3ODAyOGM5ZTc5MWI0OGVlNCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMGUyOTY1ZDQzOWEyMGZmODFlN2IwNzczZWI3YTVhM2ZiZTZiMzg2NTJiN2I4MDQ0OTM2NDA1MzNkZjY3ZTY0NCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjY0M2E4ZGZkNTY4NDU2NjdmMGM2YmUxMDZlMWViODhhN2JiNjcyMWU3YjM5YTc3ZjViMTRhMjIzY2ExM2ZhZiJ9"
         }
       ]
     },
     {
       "id": "claim_66473ea9ec364c09b6e51d05bb411dcc",
-      "statement": "The video player persists the data save mode setting in localStorage under the key 'dataSaveMode' and uses it to set the HLS quality level (0 for data saver, -1 for automatic).",
+      "statement": "The video player persists the data save mode setting in localStorage under the key 'dataSaveMode' (read into settingsCache at init, written by toggleDataSaveMode via saveSetting) and uses it in updateQualityLevel to set the HLS quality level: currentLevel = 0 for data saver, -1 for automatic.",
       "evidence": [
         {
-          "resource": "repo://src/js/video.js#L255-L259",
-          "version": "repo-lines-v1:sha256:9e5d8e94b62c9c8e8b4673a444e2675b9553a3d27f73d8f42a9a2df1e58d4ca1:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNTlmZGY2Y2VlYTBjYjI3ZmNiNDRkNGU4NTI3NTQzYjIxNGMxODU3Y2JlZDM5NjU4ZGFlMTI0Zjg3ZmJiNzIwZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYWQ5ZTEyNTQ2NDI1NTc2ZDNkZWFlOGM5YjlkYmYxMjhkNWQ2ZGRhZjVkN2ZlODU3OTM0OTI3ZGVmZmEzYjlkZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTI4YWE4YjNlNGNkNDg1MDQ5ZWU3MjEzM2FhYjFkODQ5ZmE3ZWRkYWZjMDY0MTk2NmU0YjU0NWIyODk5N2NmNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZmMwMjAzY2YyNDFmZDk4ZTQ1Yzg5ZDc5YzEyODc5ZWUxNzU0ZjhlOWVjZmFjMGQ2MWY4NGQwMzBiYjMxYzczYyJ9"
+          "resource": "repo://src/js/video.js#L227-L231",
+          "version": "repo-lines-v1:sha256:910cddd6398976a240acbdf87653dec155d7f70e4b6c08ee5e90b75154f17c7f:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNTlmZGY2Y2VlYTBjYjI3ZmNiNDRkNGU4NTI3NTQzYjIxNGMxODU3Y2JlZDM5NjU4ZGFlMTI0Zjg3ZmJiNzIwZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjA3ODU3OTg1Yzk3YmQ2Y2EzZmY1YjE4Yjc5OGYwNjgzYTAxY2VmMmQxY2IzNTZjMjFhNzA5ODg0MGIzYWE2ZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMThlMTM0MjQzZDNhNDkxMjYyNmYxMjA2MDU3OWY0ZDNlM2Q4NmFkMGQzMzUwYjJlMjcwMjU3OTQyZWNmY2E0MCJ9"
         },
         {
-          "resource": "repo://src/js/video.js#L39-L39",
-          "version": "repo-lines-v1:sha256:65b870072a79a274299b0eb7570d22f10b14dec8083b552f29f348b0980944e8:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjViODcwMDcyYTc5YTI3NDI5OWIwZWI3NTcwZDIyZjEwYjE0ZGVjODA4M2I1NTJmMjlmMzQ4YjA5ODA5NDRlOCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNjViODcwMDcyYTc5YTI3NDI5OWIwZWI3NTcwZDIyZjEwYjE0ZGVjODA4M2I1NTJmMjlmMzQ4YjA5ODA5NDRlOCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMGZjMTI2MTZlNmYyYWI5MWQ1OGVmMjdjMGJhZDEzZjBkMWNiNWU3ZWYwYTEzMTlkZTlhMzA0ZmQ2ZDhlYTM3MyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTMwMDExMDg3NDNmMjM3N2M1OTFjYmFlZjUzMmQ4MzZmZTU4Njg3NDRiZDRmNjZkZjY3ODMyOGFiMGUwNmJiNyJ9"
+          "resource": "repo://src/js/video.js#L48-L51",
+          "version": "repo-lines-v1:sha256:5693b00f8c95214fc26350415ceb521a6983f75b2d6716ef56056ff3e779111b:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiY2U4OWRkYTdiNTg3OWMwYzJhMTgxNzZmNzljNzcwZGM5YTVmMTdmODE1OGY2MDg3MGRiZmJjMDU4NGMzMzY3ZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTZkZDExMDAyMGM0NWExNDdhY2I0N2MyMWM4NzdjMTM0ZjI4OTNkNGQ3NWQ2NWQ3NzdhYWRlYmU0ZDZmNjUwNiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOGJkZjdkYmJhMWY4MzNkMjFjZWIxZTNlZDI1ZGEzMTIxZTFkZWRlMjg2YzJjMGU4MDI1OGE4ZDBkZjE4Yjc2YyJ9"
         },
         {
-          "resource": "repo://src/js/video.js#L4-L4",
-          "version": "repo-lines-v1:sha256:9a1c05e092591356cc1a9956f807e17f79e23603f0568eff633c5e5f9cfaa276:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOWExYzA1ZTA5MjU5MTM1NmNjMWE5OTU2ZjgwN2UxN2Y3OWUyMzYwM2YwNTY4ZWZmNjMzYzVlNWY5Y2ZhYTI3NiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOWExYzA1ZTA5MjU5MTM1NmNjMWE5OTU2ZjgwN2UxN2Y3OWUyMzYwM2YwNTY4ZWZmNjMzYzVlNWY5Y2ZhYTI3NiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOGJhMzQ2MWVjNmU2NWMwM2Y2YWQ0ODgwYzA2YWU3YTlmZGNlMzg4YmM4Zjg0MWJmYjBiZmVkZTU2ZWRiNjEzNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjgwYmEzN2NkMTUyNzU2N2JmZmQxMWRkYWNkOWQyYWJiZDcwMWFhMGE1OWMwNDI3YzE2YjE3ZGE1ODM2ODA1YSJ9"
+          "resource": "repo://src/js/video.js#L6-L6",
+          "version": "repo-lines-v1:sha256:fc7ad1ec89bc9b2b13024f4a1ca0811dcc20bf1dd5ad1c5f4936975c8976ea94:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZmM3YWQxZWM4OWJjOWIyYjEzMDI0ZjRhMWNhMDgxMWRjYzIwYmYxZGQ1YWQxYzVmNDkzNjk3NWM4OTc2ZWE5NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZmM3YWQxZWM4OWJjOWIyYjEzMDI0ZjRhMWNhMDgxMWRjYzIwYmYxZGQ1YWQxYzVmNDkzNjk3NWM4OTc2ZWE5NCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiM2NlYjcxMjQzMzM3YWY5Nzg4ODU4MGUwYzMxNDkxODAyYjJiZDU5ZjRlNGYwNGU5Y2UwOGY2MGM2YzM3NWVlNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzJhYjA5YTNmNWM5NjM2ZDliN2MxMzYyNDkzZjMyZjJlZDNjNTdkNjdhYzIyOTQxYmNkZTVjMDI2MGNlYjdjNyJ9"
         },
         {
-          "resource": "repo://src/js/video.js#L98-L100",
-          "version": "repo-lines-v1:sha256:dda26bd704273f021b82ac82e2817b3916664509d7edc4af490ed292a0ac6538:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjUxZWUxNmI5NjU2ZDk3NzI0ZjU3NjI1MzcwZmE0MzhhOGMxNWU0Njc3NTYzNjhiMTg3Nzg4ZjU1NTFjZjZmZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTA3NDRlMGY4YTVjYjYyYTFhMWM3NTZmN2M0MjFlMDAyYjhhZjlhYzZiODk1YmZjNDczMDI4MmM2OGJiNDg1ZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiY2I0OWEyZWYyZWE2NzY3MzVhNDQ1NDU3OWEyODlkNmUwNThkZjZhNjU2MTE4YWVhYzY3NzQ1MDJlZjIyMDRhYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDI3OGVlYWQ3YmEzOThiYjcxYTU4ZDk2ZWZkMGQ0NGM5N2ExMTNmMjc4M2FjMWE4M2IyYWUxOTRhYzViYzNkZSJ9"
+          "resource": "repo://src/js/video.js#L74-L77",
+          "version": "repo-lines-v1:sha256:bc88868023218c41759875ecb54f61c1e721965ba8c3bca7751bc39fad17c12d:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjUxZWUxNmI5NjU2ZDk3NzI0ZjU3NjI1MzcwZmE0MzhhOGMxNWU0Njc3NTYzNjhiMTg3Nzg4ZjU1NTFjZjZmZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzViM2I1MmZjMjQ0YTg1MzI2ZDllZGE4MTZiOWUwYTQ1OWQyYjQwNTdjMDZhY2JmNDA0YzRjZmFjOTEwZDdhMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjM0MGNhMjQ2Y2MwYjhhYzkwNzEwYWI1YTg1NmY1ZTk1N2YzOGY5NDQ4ZmMxZTZmMjM5YWU3MTkwNzBlZjA1YiJ9"
         }
       ]
     },
     {
       "id": "claim_44cf3de24a514e10842c3574fa029dd9",
-      "statement": "The video player persists the caption enablement setting in localStorage under the key 'captionsEnabled' and applies it to control the display of text tracks.",
+      "statement": "The video player persists the caption enablement setting in localStorage under the key 'captionsEnabled' and applies it via applyCaptions (the single application point) to control text tracks: hlsPlayer.subtitleDisplay plus the first matching text track's mode ('showing'/'disabled'); an addtrack listener additionally disables newly added tracks while captions are off.",
       "evidence": [
         {
-          "resource": "repo://src/js/video.js#L106-L111",
-          "version": "repo-lines-v1:sha256:5258d15ad01596f61047a01a453b28d55e59b808bd60037825ddeb4089fabe4a:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNWNmNGQ4NmI3Zjg3NTlmNDRhYzgzMjBjNmI3MjUxMjVmNGY4YWNjNzU5ZDdkZGM1MWZmMTlmMWE1OTBkMGZmYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYWQ5ZTEyNTQ2NDI1NTc2ZDNkZWFlOGM5YjlkYmYxMjhkNWQ2ZGRhZjVkN2ZlODU3OTM0OTI3ZGVmZmEzYjlkZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZDllNmUxZGZkODg5YjhkZTY4YTgwYWJlYTBjN2JkNzk5M2Q2ZjI2MjRjODc2Zjg2MDhkN2ViNGNlZjFiNWJlNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDljZmM0MWI3NzQwM2E5YmU5NDhmODFhNjRhNGE0ZjIzOGY3OGI2ZDE2NjgyZTExZWE2YTIxMWI3NmMxMWVkOSJ9"
+          "resource": "repo://src/js/video.js#L50-L50",
+          "version": "repo-lines-v1:sha256:370713b65f321dddf9109bbc05dbfef4348a5053efea1d0bc3aa4c55f63b566c:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzcwNzEzYjY1ZjMyMWRkZGY5MTA5YmJjMDVkYmZlZjQzNDhhNTA1M2VmZWExZDBiYzNhYTRjNTVmNjNiNTY2YyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzcwNzEzYjY1ZjMyMWRkZGY5MTA5YmJjMDVkYmZlZjQzNDhhNTA1M2VmZWExZDBiYzNhYTRjNTVmNjNiNTY2YyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNGY0MTdlNzQzZDNiZWVjZjA5OTc1NThmNzgxZTgzNjVmMmViMDhkODMyYzM5YzMxNjcyNTNkMTQ5NmE5Y2I2OCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzMyOWU3NjJjYmI1MTZmODkwMzM5MDA4YzVmYmZjMDcwMmJhODdkMTZiMzc0MDMzNTU3YmI2M2UwNGE1NzMyNSJ9"
         },
         {
-          "resource": "repo://src/js/video.js#L113-L117",
-          "version": "repo-lines-v1:sha256:8e0d5d1353002dc417be4577746723e28b4cb09c91f78d69d6475e7158b5f30f:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjM1NzNmMWUwYjViZjRjOTE1OTRiZDcxMWEyY2UxOWZiODE0Yjk0NjU3M2NlZmQ4M2JmM2NlZjRkYTVlZGQyMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYWQ5ZTEyNTQ2NDI1NTc2ZDNkZWFlOGM5YjlkYmYxMjhkNWQ2ZGRhZjVkN2ZlODU3OTM0OTI3ZGVmZmEzYjlkZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDYxNTRhMWFkZTA5ZGMzMDUwYWMzZTM2MGFkMTc0OTIwZGNmOTE0ZWJkZGE0MzYwNTgzMDFmNjg2YTNhZTc0NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMmZkMDFkZjI5YjY2ZGYxMWMyZTc0YWNlOTQ3OTBiM2IxMmY0ZGEzNjIzYjQxZTE2NmY4ZjUyMWE0YWEzZTgzOCJ9"
+          "resource": "repo://src/js/video.js#L60-L62",
+          "version": "repo-lines-v1:sha256:db9d943a707023c110fbbeb44fa438f29c0cbe2b82bdf2208ce842f95bbfd635:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOWY1OGQ0OTI5OTdiN2YxNmNmZTRmZGE2ZGIwZmQxZTFjZTNjYzFhOWQ1OTdhYzgwMjdhNTYyZTg0MDdjNDY4MCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNjQ3NWU5NGE5MDRhYzQ5YjMxNTRkNDY3MmE2NmU4NjI5Yjg2ZGFjNzRlM2UyOTM3YmU2OTI3YWUzZGExMWM1MyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjZjODNhMGYxZWFhZThkMjIxMTEzMWRmYjMzZmQ1MWE5N2MwZGNjNDcxZGU2NWFjOTVmNjE3NzM5ZDczNjE2MyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTI3MDc4OGE5NTI0YWM0NDA1YmU0Njc3ZjQ0NmYzOWEzMjMyM2IxOWMzMjBkMTY4NmUxYzAxZTkzNDMzNzk1NCJ9"
         },
         {
-          "resource": "repo://src/js/video.js#L40-L40",
-          "version": "repo-lines-v1:sha256:a516ff6cfa38fc309876815632250712a0d1360f2f0478bd6e8cb2e036c69b1a:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTUxNmZmNmNmYTM4ZmMzMDk4NzY4MTU2MzIyNTA3MTJhMGQxMzYwZjJmMDQ3OGJkNmU4Y2IyZTAzNmM2OWIxYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYTUxNmZmNmNmYTM4ZmMzMDk4NzY4MTU2MzIyNTA3MTJhMGQxMzYwZjJmMDQ3OGJkNmU4Y2IyZTAzNmM2OWIxYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNmRlYWEyYjIxM2RmM2FmYmEwMzM5NjJhYzczMjYzYmIyMGJhZjU0M2FhZmJmNDZiMGZiM2Y3MjQxMTU1MDlmMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDk0MGUzMWFlYzM2MDE2MWI1NWE2NWQyODNhMzc4NzY5ZWJiMjMzYzcxMDNiZWM0ZWZiMjJjMzliY2M4ZmRiNiJ9"
+          "resource": "repo://src/js/video.js#L7-L8",
+          "version": "repo-lines-v1:sha256:366c5e23a975a288b17bebdb7900d11d70be573b0106cad3753bdc309f9d621d:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTlkNTA3MjA2NWQxNWYxYTliOTFmMjUwNGMxMWI5NTkxNmU4ZTEzYjFiMjY0OTIxZTZjNTZiYmE2ZDFiMDdhMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYzg5NzdkMTgwM2E5MDQ3ZDM4N2U3NTIyNzMzMzEwYWIyYmU4YWU4NDhhZGZjNjNiZDNhYTliY2FkOWRkYzBiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjM4YjJjNTYyNDU1Y2FiMDQ0YWYzMjViNTA5ZmFhMjI4NjkzYjNjODNkYmQyMGM2NzYzMWY4NTA3ZDMyMzBmNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjY4MGQzMDYwZTVhMTM1NWZiODgzZjEwZTkwYzRhNmNkYzI2NjUzNDJlNmY0YWVhMzgzYmQyNDRlN2YwYTQzZSJ9"
         },
         {
-          "resource": "repo://src/js/video.js#L5-L5",
-          "version": "repo-lines-v1:sha256:f6cce3272f3ce9f4bc71a12882ff22b39dfa0517e3d295524671a439519c2e96:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZjZjY2UzMjcyZjNjZTlmNGJjNzFhMTI4ODJmZjIyYjM5ZGZhMDUxN2UzZDI5NTUyNDY3MWE0Mzk1MTljMmU5NiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZjZjY2UzMjcyZjNjZTlmNGJjNzFhMTI4ODJmZjIyYjM5ZGZhMDUxN2UzZDI5NTUyNDY3MWE0Mzk1MTljMmU5NiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiY2Y3NDU1N2E2YTQzZDQzMDVlMGMwOTMwNDNlZmM3OTJlNjViODI2ZjY4ZGM5NTgyZWE2NGMzOWJkODJjY2Q0NiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzc4Nzk1MWZhYTZiOWI3ODMyMWQzNzQ3MmNlM2E3NWNjY2VjYmU4MzYyOGNkYTRlOGQ1MWEwNTdiYzg1ZDI2YyJ9"
+          "resource": "repo://src/js/video.js#L80-L91",
+          "version": "repo-lines-v1:sha256:a0683942adda0f7f5ec26caa782b6879f26b5bd61723ed5a6421dd02404c4659:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVjZjRkODZiN2Y4NzU5ZjQ0YWM4MzIwYzZiNzI1MTI1ZjRmOGFjYzc1OWQ3ZGRjNTFmZjE5ZjFhNTkwZDBmZmMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjBmZGE3YzE5YzJmZThhMmUxMmZhNmRjODA1ZDYxMjM0N2RjY2Q1MjI1Yjg4MmIyZjU1NDA1ZTQ3M2UwODMxM2MiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjRmZTU5MDQ0NTRiN2Q1MDJjYTkxMWUyMDAyMjFkMGE3MGUxZGI4OTUxMTlmNThhY2FkM2UzZTU4NDVmYjVlMjgifQ"
         }
       ]
     },
     {
       "id": "claim_874259a8daee40de82a3feda36cca2ff",
-      "statement": "The PlayerCore module (player-core.js) provides helper functions for reading and writing settings to localStorage, including type-safe boolean handling, and logs errors without interrupting the UI.",
+      "statement": "The PlayerCore module (player-core.js) is the single try/catch-guarded localStorage access layer, providing readSetting/readBoolSetting/writeSetting/writeBoolSetting (plus readJSON/writeJSON/removeSetting) with type-safe boolean handling; storage failures are logged via logStorageError without interrupting the UI.",
       "evidence": [
         {
-          "resource": "repo://src/js/player-core.js#L69-L88",
-          "version": "repo-lines-v1:sha256:a3dfe508f7686e0196e07d83e9adf3709d4db691ec1a8858f4852a026fb5fd4d:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVlYTQ0OGM4MjIyOTc1ZDNhMzJhNzcwZTcyZGE4OWM5ZDQ5NmQ4ZjYzNjdiN2I0NDRlNTYxNWE3M2I5MDBhMGUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZhZWMxNmJmNTI4MDNhM2Y3Y2Q4NWFlMjA3MTMxNjQ0ZTA3YzViNzU4YTFiMGMzZjFmZTQzMTIxNThmZDU0ZDciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQwMWE1MjVjOWZkZThjNDFjODM1YWQzZjYxZmY0NTU2YmQ2NTkwN2ViNjQ4Y2NiOTJmZDg2ZjRmMTc3NTQ5ZTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY2M2Q3YzUzNmQ2ZTBiNjE5MDkzNzJmYWRhY2JkM2ZmZjI0MGY2NzA5ZDA5MGRkODNjMTQwZTMyNjA0ZGRhZTYifQ"
+          "resource": "repo://src/js/player-core.js#L154-L202",
+          "version": "repo-lines-v1:sha256:7d13d779c095b6e70cc070ff3e7953419b6cb5bda05572b64b9830b7f5d8c57e:eyJzZWxlY3RlZExpbmVDb3VudCI6NDksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkwYWFjOWU4OWRjNWU1YzkxM2ZiNTRjY2JhYjVhZjBmODRmYjkxMDNiNWZiMjE3OGE5MGFkZjEwN2ExYWQ2NGMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk5OWJkZWZlZWFjYTYzNDBlMDI5MGRjODZlODg5Yzg5ZDVlMTg5YWE1YmE0NGI1ODViM2I3MDczNGY0YTYyZDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIyN2IxOGM1ZGUzYzBhNGJjMmExYzgwYTA3NGJkM2IyYTZlOGRkZDA5YWYwZWYxYjhhNzI0MTZiMmFmNDg0MjkifQ"
+        },
+        {
+          "resource": "repo://src/js/player-core.js#L275-L304",
+          "version": "repo-lines-v1:sha256:da1f29910dfa76eee169588b4a94db56468de4862eac59710e5787ace5c0ea89:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg1ZTI5NmE0YzVjNGM3MGUwNDFiNWMxODI4YWVkOGQ3OGYzZjc2MjE2ODA1NjVjMzA5N2VmODQ2NDcwYjVjNmQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjViYmRlZTJiNmUwZjgzYmMxZmUyM2YwN2M2MDM2ZDllOTY4YTkxZjRiMmU0NTIwMWRmZGM3YTdiYWE0ZTIzY2YiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjEwOGNjMDEwOTQ5NDk1NWNiNmJmMmNjMTBmNzIwOTE4OTA2NzQ5YjAxZGMxMmUzOTkxYmQ2M2M2OTRlMDg1NDgifQ"
         }
       ]
     },
     {
       "id": "claim_a70096dfa2c5420d9967b58c50be11a3",
-      "statement": "Cookie consent for analytics is managed in cookie.js separately from player settings, with a 90-day expiry, and does not affect player behavior.",
+      "statement": "Cookie consent for analytics is managed in cookie.js separately from player settings: cookieConsent + consentTimestamp are written on accept/decline, clearExpiredConsent removes them after 90 days, the banner is shown exactly when consent is null, and consent gates only analytics scripts, never player behavior.",
       "evidence": [
         {
-          "resource": "repo://src/js/cookie.js#L10-L16",
-          "version": "repo-lines-v1:sha256:c9ab1cda05a9d32364e3289eb7cbf70e2b272415ee101efeeb1441e590dc2535:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjAzMjNmOTAyZTBlZjBkM2MyODJjMGVjNTdmNjkzNTkxZWZmY2JlYTg0MTBmYWRiMzU5YjA4M2NlNjUwNmJkMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTQzYjk2NTg5YzgzZDRiZWQ4OGQwZmM1ZDhjN2VjYjI0NGYzMzA1YmZjYWRmMjA2ZWM4YzVlNTJhZWI1MjRjZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzI2ZDA2ZjMyNDdlN2QzNWE5NTFiY2RiZTQyYWQyNzc2NWYyOGI1ODcyNGFhM2U4NzEwZjk1ZDgwNDdkYmM5OCJ9"
+          "resource": "repo://src/js/cookie.js#L15-L29",
+          "version": "repo-lines-v1:sha256:75ad27c11498ac73f1d20ebd7a1673d2bbf126ee21788f230e3a43e18464dbbd:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhhYzNkMmI2MTEwNTM1NWExMDhkNjBhOWRkOGFjMzlhMTQ1YjE2ZGIzYTBhYWU0NDQ2OTAyOTJjMDk4Y2I3Y2EiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ4YmFkOTA5OWZlN2JlYjliNzJmOTU1ZGI3YzBlNWQ4OTE3MGY4ODU0Y2YwMDZkOGI4NWE0Mjg2MTA2NjQxOWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZkOWMwYTY0ZTk3YjIzNTE1NTg3YTkzMDc0YjRiZjE4OGZiMWY5YTAwNTBkYjhjNDVlOThlZjU5ZDYzOGZmYmYifQ"
         },
         {
-          "resource": "repo://src/js/cookie.js#L19-L25",
-          "version": "repo-lines-v1:sha256:006af9d1d8fab9e6b907d46acc61f64dc235a7b2528aecffa82df3a5c6b3f94e:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjAyNWE0Yjc5OGYxNGIxMTU3YWIxZThkMmM0YTkzYjQwMTIyNzJjZTNhZDE3ODZkYjM0Y2M1OTkyOGY0ZjE0YiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTllNzYzNTVjZjExOTk0ODBjM2Y5OTgzNmIxNDg2Yzg0MWQ4OTFmYWFkOTA0YzYwOGUwOTMwMjJkMzc1N2FlZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNmYxNDNjNTFlOTlkZTExNzViZWFmMDAwMzc4NjQ1Y2YxOTc0NzQzZGNmYjc0MmE1NGZiMjdkMTJlYjg4YmJmMiJ9"
+          "resource": "repo://src/js/cookie.js#L4-L7",
+          "version": "repo-lines-v1:sha256:84db977e1e6c6d1e1c42b154c90edd5b21d5131c37296cfbc487cfb94f5b0472:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg0NjNjMzg0MmRhOTI4MmFlNDY1ZmE2YTNjYjEyM2E1MmYzZmJiYzliZmNkYmFkOTg2OGE0MzAzNWJiNDZiMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYTRlYzM4ZjQzYWEzMmI1YWZhYWFmYTc2MTY5MDBlMDI3MGZjZjFmMTE4ZjAzYTIxMmIwNmY5NjVjOGFiN2MxNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTk5MTFhZmU1ZDNiYzI4NjQ1YmI5ZGQ3NmRlOWY1MDIyZTlhYjhjZTlkYjA1MWEzN2ViMGEyOGM4MzY4NjVmNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTU1OGM4MTdjOGNkOTZmM2RjNDUxY2M5YzVmMWNhYTZlNzkwNTE0YWVmNjI3NjhiMzliNDVkM2JkZmRmNzhiYiJ9"
         },
         {
-          "resource": "repo://src/js/cookie.js#L28-L38",
-          "version": "repo-lines-v1:sha256:888df5f0610bc345a5722e15805aff6aae3612df1655978dd40605ff56d76e99:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJjZjBhMTMyMGZjNzkyNDU3NjI1YjA0NjZkZDM1ZDM1MzM1OTUyZGJjZDkxN2FkZDA0NDljYTA3MGUwNTRjNjEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5ZTc2MzU1Y2YxMTk5NDgwYzNmOTk4MzZiMTQ4NmM4NDFkODkxZmFhZDkwNGM2MDhlMDkzMDIyZDM3NTdhZWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM4ZDg2MjBkMTZkODE5YWUxYzdiNWQ0NWQ0YmM0OTA4YWNiODlmYWNkZjRlODNjMDY0YTgxMTY2YmJmZGFlNjMifQ"
+          "resource": "repo://src/js/cookie.js#L64-L68",
+          "version": "repo-lines-v1:sha256:dd308ba74ec0aab1d476a0659471aa3afc58219e333a9c7103b34f8bfe5d1283:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOWFmN2M3OWU0ZWIwYWRiMjRjNTQ3MTI4YjM5YjJiZDk1YTM4N2IwMzcwM2M2OWUzMzU0MzAxMzY5YmQ2MzllMSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzFhY2U5NzJiYmE2NGUzNTNhZjMyYjgyNDY5ZjZiZWQzM2JiNTY3OTA5ODQ3MzVhODYxOGM1OGUxNjg5YmNmMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTc3N2QxYmM1NmQ2MzljYjZlMGUwMGNiMjA3YjBiMTFhMmI0ODNiYjgwZGNlMmYwZWRkY2IwMjE1YjAwMTM0OSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_eae423f24cb6427b81ccf00deb55bb56",
+      "statement": "The notification toggle (#notificationToggle) persists the 'notificationsEnabled' preference via PlayerCore.readBoolSetting/writeSetting; sendNotification only fires when the persisted preference is on and browser permission is granted, and the toggle is hidden when the Notification API is unsupported or the page has no #audioPlayer.",
+      "evidence": [
+        {
+          "resource": "repo://index.html#L185-L191",
+          "version": "repo-lines-v1:sha256:e80511710fd49f076eb7bfdf57b840a2cb24ade2f2a3474bdee61c7d7b4d4a8e:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODI0YWMyNWRlYTZjZGU3ZTIzNGFlYjc0YTc1MmY1ODJlNDk3NjFlMjk1Y2ZkZjIyZmQxYzZhZGNlOGQwMzRmYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGUxZDEzNDVkNTEwOTI1NDcyOTNjNGMyZTk4ODAxZWZjZjgwM2RkZTAyMTBjZmVmNDBlODgxZDZiODg1ODI4ZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNWMzYWUyMTAwMzdjOGM4MGExOThlYTJlOTY2NDAxZTk1MWFhMzQyNDFiYmRjZWRjNTQ1MDg4ZDNlNmQxYmYzNiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiY2ViNjBkMGY5MDQ2Y2I5OGIzYTNmNzBjODM3NDI2MmQ4NTA4ZmNmYTVjNmJlOTA1OTVhMTM0MjU5MjUwOWJhYiJ9"
         },
         {
-          "resource": "repo://src/js/cookie.js#L5-L8",
-          "version": "repo-lines-v1:sha256:71f16bba1052de742dae87d77d3c01fcda38253c4ae1e6bf0a1133683d875568:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjRiZDIwMzcyYjkwMDUzN2U0MmM5M2I0ZDllYzQyYTdjYjk1N2U2NmRhOWJhZmRlMDhhNDUyNjJkNTk2NmE3ZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDU4NGUwMTEwYTdkOWJhNjcxMDZmMGIwYTIwY2U5MDRkMWM1NTIyYTgyNGQ3MjJlNjk3YWQ4ZWM3NTMzNzQ2MyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjc0ZmUxMTcyOGZkNDYxNjY3YmE2ZmZmZmM5OWQ1OTY2YjUxYTk4ODVkOWQ2ZTgwNTg3OTFiYTZiMmI4NjU2OSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTMzM2U2MTZlMGM1ZmFmYzc2MWY3ZWEyNzUyYTBkOTdkYzU2Nzg0ZjJlOGQ5ZTYxM2UxNjA4MjZhY2VlMDljZiJ9"
+          "resource": "repo://src/js/notification.js#L14-L27",
+          "version": "repo-lines-v1:sha256:f155e3e530c6f806f7b0073558e08a50bd88c05560d02946fc94ea53ca42d21e:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE1YmU0Mzk5Y2RiYzY4MzQzZWUzMTE2YmZkZjZmNTgzMjJlZTQ2MWM4ZWFhMzJjNzEwMjcxMmFhNDVjOTYxZGMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjBhYTc1ZDY0MDQyNTE1YzBjZTc3NzkxMTUzYzliY2M4ZTIzNjI5NjNmNWE0YzZkYzZhNDdlNzM2NjFjMTM0MDciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNhNWIwYzI1ZmNjNjhjZjNiNmEwMjdkYTc2ZTU1ODc2ODI3NDM2NzFjM2E0YmNjNjA1MGY4YzNhNDc2OTYyN2YifQ"
         },
         {
-          "resource": "repo://src/js/cookie.js#L66-L69",
-          "version": "repo-lines-v1:sha256:2e18902e5f849d4c4761cfd04391d612f633d9bbc8cb6de4b7021d0895b3a00e:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiY2YxMzNjZWNjZGFkY2E2MmIyYWMyOTU3ODhlOGJiZWVlNTNkMDdiNGJjMDNjNjIzM2U3NThhMmZkZjhlYzZjNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjI0Zjc3MjkwZTJkNWIxOTgwZGU3YjYzNGY4MTRkNGFmYjQ2MzhlZTJiYjg0MDJlMzBmMDNmYWFiNWQ2YjVmMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDU3ZjYzYzYyYzJlZjI0ZWM5MmVmMTA2ZWQ2NmZhNGQ1YzJiM2I3MTYyODUxNzcxZjI0NGYxZDFkNjU2ZDVjYiJ9"
+          "resource": "repo://src/js/notification.js#L57-L59",
+          "version": "repo-lines-v1:sha256:1a17ebbe585f4f8b17104f48816292b817f489595a0102b538efe8940b98d4f1:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjUyNGVhNTM0MDM1ZGQ5NGY3OGUwYjM2NDA3ZGViMTNkMzg2ZmI2YTAwNDk1NDIwNWQ0MzM2ZWRkZTI4YmYyZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTZiMDQ0OTE0Njk3MjJlODM2M2E5NGU0MDQ0NTM4ZTAxM2EyYTIxN2UzNmIxZTU2OGJhNjBhY2I3YjRjOGYyZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDE2NmViYjU0NzQyZDg0MjIwM2QzZmMwYTJiMzgzZGYyMTZhYjU1ZDE2NTQ2MmZlNDBkZDQ4OWMyZGQzZDIxNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMGExOThlMmMzNTU1MmFiNzQ3NTVlOGYxMzljMzg4NTc0YTIwZDg4MTE1NWIyZGY3Y2MzMDQxNjE4YjY3ZThhMiJ9"
+        },
+        {
+          "resource": "repo://src/js/notification.js#L70-L72",
+          "version": "repo-lines-v1:sha256:ba5c534adeb44ee4dcfe847287ddb2438d529aac3c44cd98ae264717c71d8471:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTc4NTI4ODZiMjhmYjg0Y2E5NDNkYmI5M2Y5MmU4MTBjYmY1MGMzYWVkNmY2ODcyY2FhYTE3ODllOTA1ZmJmNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNzhiNDJiNGYwY2JjYTYwYThiM2NjN2ZkZWM0N2U4MGY1YWFlYTgxY2I0ZThiMWVhMTkwYjY4ZTJiOTk1NGU1MCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzQ5ZDFiMzFiZTkzM2IzZTE0YTNiOTQwY2ZmZWIzMzMyYjU4NDQ5MGJiZmU4MmQzMGFkMDc1NDQ3NjQzNzdiOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjgzYmU5MmE4MGVlYWViNmFkODA2MjgwNjllOTNlY2Q2MTkyMjQzOTExODdkOTJlZGZlODNiMmZhNTM5OTY3YiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_4c0e06c4476743788975868513ae4646",
+      "statement": "In video.js, saveSetting is the single write path for toggles: it sets aria-pressed='true'/'false' on the toggle element and persists via PlayerCore.writeSetting, and at initialization both #dataModeToggle and #captionToggle get their aria-pressed state synced from settingsCache so the buttons reflect stored preferences.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/video.js#L297-L301",
+          "version": "repo-lines-v1:sha256:78052e162010474eef7d54cc4458d67fa26b2c762f519818c720942cd3f9d469:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTUwZmMxMjgwOTczOTg3MTBlMzY4Nzg4ODM2ZTA3NDE2ZDdiODhjYjlkNGFkZWZiNjgzZWEzMGUwOWRkZDZjMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDg0OGU5NDkwZjU1ZjZjNjg5YTg2OTc2OWNjODQ4MmUwMmU5ODI4ZmRiYzdiMDEyZmI1MDJhZWZiN2QyNmVjMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzg5OWY4NDZlOGZmZTc3MDJkMDUyODhmZTRhZjE0MGI4YjlkZjc2Nzc0NDgwMzlkZDAxNzBmMGJjYTdhZWRjYyJ9"
+        },
+        {
+          "resource": "repo://src/js/video.js#L54-L57",
+          "version": "repo-lines-v1:sha256:8e00dd2217dcdc8b4eaf3ed0178b24444ef50316b8b433ce2f09567eb134a911:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYWZiMTdmYWI2YzVjNTNiY2UzYzlkNWE5M2VkNzgwZmJkMzFmNWYyYTcxNjVlMWRmNDlhMWVjODRkZWQzYTlkOCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzMyOWU3NjJjYmI1MTZmODkwMzM5MDA4YzVmYmZjMDcwMmJhODdkMTZiMzc0MDMzNTU3YmI2M2UwNGE1NzMyNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjI4MmVmY2VkMjIzYjdlYTRmMDEyOTlhODViODJmMzcxMjU3NmJmNDk5YTEzNjMyNDc4MGJkNjZiM2Q3MWI2ZiJ9"
+        },
+        {
+          "resource": "repo://src/js/video.js#L93-L96",
+          "version": "repo-lines-v1:sha256:2bc4c7d294bafc4a62baeb86b577e86093eff34b1beb9546aa482ef04cde7f40:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZDBkMTk4ZTEzYmI4YzQ1OGRiZTYwNjQxYmZjN2IyNjUzZTgxZWQxZGZhMjExYTllYmUwOWM3ZDNmN2UzMzkxZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTEzYjFmYWZlOWU2Mzc2ZDE3M2JmODQ0NGMzZDliNTUzMzA5Y2NkZjkyMjE4ZGM1Y2UyMzI4NjcyMmI0ZDI4YSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNGY5MmRjZGY2OGQ0OWY5MTMyMjg0NmFmNmMwYmVjZWFkZDBmZjcxZjQ4ODVmZDgxZTU0Njg3MGMzYmFiYWU0MyJ9"
+        },
+        {
+          "resource": "repo://video/index.html#L124-L127",
+          "version": "repo-lines-v1:sha256:70294fd1ca8a74ee15f9cb830cefd5724ce06d1d27228e5bfc0f2cd9bc1d1587:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOGY4ZWM5NTAyZTdmYzQ5NzUxMGVjNGIyNDEwZmVhZmVlYTMyODMwYzQwZGMyZTNmNTAxNmQwMWM4MzA3ZDAxMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNzYyYzQ3YTUxYzhmMjU2NGFkMDI1YTBlOGQzZjM0ZmQyNWNhZjllMGFkOTljNDk0MTNjY2Y2MjRkYjIyNmJiNiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDI5MzY2MjQ5ZjIwNDI0OWI2MWNjNjM5NDZkZjUyNWE0YTkwZmNkN2ZiMTk1ZWExZDE2ZmEwMGIyNWMwNjIzNiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzdlYTc5N2JkMTdlNTkwMDhkOTY0ZTkyMzY1NDViNmY5MDQ1N2M4YTNmMmY5ZDZmNDU4ZjE3ZWY3N2I1ODg5NSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_cd92b152a0714938b928dd24f7661eb7",
+      "statement": "On consent 'true', cookie.js enableAnalyticsScripts injects into document.head the Vercel Analytics and Speed Insights scripts plus the Google gtag bootstrap and googletagmanager loader for measurement G-93C0KPGRPJ; it is idempotent (skips if the Vercel insights script already exists), and updateBannerVisibility shows #cookieBanner exactly when consent is null.",
+      "evidence": [
+        {
+          "resource": "repo://index.html#L231-L251",
+          "version": "repo-lines-v1:sha256:a17f16ee4a58405565885051d397a867ac8b7bfea09414946df9169d3a6d603b:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQxMWVhMWYwOGZmYTU5NjEyZGExZDNkOTk3MDlmNDMyZWFhZmQ5ODBhNjk3NDc2MmZkYmVlOTI0ZmYwNDEwZjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFmMjE1ZmQwM2NmYzJiZWViZjgwNGExN2FjNWU5NDc5NTFmN2NkMmRjMDU2MDUyMjQ5OWM2MDZmZGJjZDcxODUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY5MmI5ZGZhYmM1M2FjZTA4NGNhM2FkM2FhMjY3YjgxYzVmYTM0MzRiYjIyMDEzODRhZTBiZThjNmUwYTI4ZDQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjgzOWE0ZWVlOTM0MTY2ZWRlMzczYmVlZTU5MjNkNmQyN2U5NDAwZmMyYmQzN2Q4ODE4ZGU3YjM2ZWJkNDFjMWQifQ"
+        },
+        {
+          "resource": "repo://src/js/cookie.js#L31-L56",
+          "version": "repo-lines-v1:sha256:3561f7ea1794d1fd26766cdf80444c9babaf005be073198bce01b3b4fc56ec34:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OThlOTE3ZWUyNTMwMTAxNGU0MTVhYTEyYmM2ODIxN2IxMDI5N2QyY2QzOTU5M2UyOWYwODk4MTEwMWI2OTAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk5OWJkZWZlZWFjYTYzNDBlMDI5MGRjODZlODg5Yzg5ZDVlMTg5YWE1YmE0NGI1ODViM2I3MDczNGY0YTYyZDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdjNDZiY2ZlODZlMTYyOTU4NGJlZGQ4MzczZTk0NWFhYTUwMTk2ZGE0ZjdiYmZiNWMyYThlZDEwMzg2YjE2NDQifQ"
+        },
+        {
+          "resource": "repo://src/js/cookie.js#L59-L68",
+          "version": "repo-lines-v1:sha256:8e637474bff3b43904b2ab800be482aaa46e5c1626f6aa366b28b05be69b3b2d:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRiYjdkOWJiYjQzODI1Yjc2M2E4OWRhMDEwMDRkNDMzNTAwZmFmOTAzMDczYWUxNDI2YzZjOWVlYzgzMDAxYTgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRhMWMxMjQ4ZDM3OWNmOWFlNzI5YjllOGRmMDI1YjMxNDNjNGExYTcwYzBiODEzMDZkN2NkNjcwN2ZjNmNlMjciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE3NzdkMWJjNTZkNjM5Y2I2ZTBlMDBjYjIwN2IwYjExYTJiNDgzYmI4MGRjZTJmMGVkZGNiMDIxNWIwMDEzNDkifQ"
+        },
+        {
+          "resource": "repo://video/index.html#L159-L179",
+          "version": "repo-lines-v1:sha256:a17f16ee4a58405565885051d397a867ac8b7bfea09414946df9169d3a6d603b:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQxMWVhMWYwOGZmYTU5NjEyZGExZDNkOTk3MDlmNDMyZWFhZmQ5ODBhNjk3NDc2MmZkYmVlOTI0ZmYwNDEwZjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFmMjE1ZmQwM2NmYzJiZWViZjgwNGExN2FjNWU5NDc5NTFmN2NkMmRjMDU2MDUyMjQ5OWM2MDZmZGJjZDcxODUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY5MmI5ZGZhYmM1M2FjZTA4NGNhM2FkM2FhMjY3YjgxYzVmYTM0MzRiYjIyMDEzODRhZTBiZThjNmUwYTI4ZDQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjgzOWE0ZWVlOTM0MTY2ZWRlMzczYmVlZTU5MjNkNmQyN2U5NDAwZmMyYmQzN2Q4ODE4ZGU3YjM2ZWJkNDFjMWQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_7a81c232f57e4d6b95f0b35221a6a52a",
+      "statement": "errors.js reads the persisted 'logLevel' key directly from localStorage (not via PlayerCore), parsing the level name case-insensitively and defaulting to WARN with a try/catch fallback for blocked storage; the resulting currentLogLevel gates all shouldLog checks.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/errors.js#L10-L29",
+          "version": "repo-lines-v1:sha256:11507aafb10a0c62bee5ffd4bd47abc69fba29de07e48f4326dbbe9537f5ab01:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMDlmM2U3ZDU4NTBmMGVmZjQxMTMyNThlZDA1MzgxMzViYmQzNjhhZGM4YTU4MjMyMjkyMTIzYWIzNGQ3ZDkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImVmMTJiNjFhOGMyMTE2ODlmN2FiN2RmOWQ1MzU3MWJmYzg4ZDMxNzhkNjZkZWU3ZDRkZDhlYzIxY2U4ZTJiY2IiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU5ZDliZmMwOGE3MjI2ZWExMjIwNjRhMDI4MmJkYWI2ZDQwZWI3ZmQ2YzM1MGRiYTFhMWVlY2ExNzBkM2Y4MGMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c996f0a4175b4aa6ba36beb736fe7ff0",
+      "statement": "Audio keyboard shortcuts in player.js (Space play/pause, ArrowUp/ArrowDown volume) are ignored when isEditableTarget reports the event target as an input, textarea, select, button, or content-editable element.",
+      "evidence": [
+        {
+          "resource": "repo://src/js/player-core.js#L248-L253",
+          "version": "repo-lines-v1:sha256:12199910827529574b60f9f50235699843b666f269186047de6b261f4393a83c:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzFlYmZmODIwNDQ1MDk5NzVjNzFlZjQ1YzAxOTVkZjZiMWRmYmMyY2M1NDU1OWJhMDEwOWUzMDljNjg1Y2I1MyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzZkOTZhZDMzZTI0NjVjZDExOWJhNGQ2MjcxNzQ0Zjg5ZTg0M2I2ZGM0MTRjODYyNWRhNzc0NDBjYjRhZjQ2ZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNThiNTg0MzAzZTEzYzRkM2E0NTJhY2Q3ZWJjMWEwNzExNjVkNjUzNmJiZmE5MTI2OGIyNDcwYTBmMjllNzE4YyJ9"
+        },
+        {
+          "resource": "repo://src/js/player.js#L307-L323",
+          "version": "repo-lines-v1:sha256:d99c4ee57a18ed10aa1c9555ea08cf1becf6b4ee64f39d5eda5893b7e74ad384:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMzY2QyNTkyMGZmZThjOTQ3ZGYwMjEyY2VmMTIzZDI5Y2JhN2M1YTIzODMzMzg5ZTA3NTA4ZGM1MjI4MjY0ODIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjllMTM5NTc2MWQ0YWJhOGFiZjc5N2FhZGM4YzBiNjUwY2QyZjUwNzkxNzBiMmU4MzQyMWMxNGI3YjA5NjI4MDMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjEwZGQ5ODVlNGI1ZjZiZDg3ZGQxNTZkYTE1OTg4ZDA0ZDA4YTU2ZGQwN2IxZGJmYjAwMDEwYzM1NjQ5NzYyNDAifQ"
         }
       ]
     }
   ],
   "verification": {
-    "by": "openwiki/0.5.2",
-    "at": "2026-09-27T19:48:35.317Z"
+    "by": "openwiki/0.7.2",
+    "at": "2026-11-03T19:02:34.893Z"
   }
 }

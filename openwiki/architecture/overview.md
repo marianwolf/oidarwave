@@ -3,9 +3,6 @@ type: architecture
 title: System Architecture Overview
 description: A high-level overview of the Oidarwave system, describing the web application, Electron desktop wrapper, and PWA components, their responsibilities, and how they interact.
 tags: [architecture, system, electron, pwa]
-verified:
-  - by: openwiki/0.5.2
-    at: 2026-09-27T19:48:35.317Z
 sources:
   - id: openwiki-source-3d9e72730d09405d8d9107c1
     resource: repo://electron/main.js

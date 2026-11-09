@@ -3,9 +3,6 @@ type: concept
 title: Player Core and Media Handling
 description: Details of audio and video player implementations, media session integration, and playback controls.
 tags: [player, media, audio, video, media-session]
-verified:
-  - by: openwiki/0.5.2
-    at: 2026-09-27T19:48:35.317Z
 sources:
   - id: openwiki-source-1a9f6af1ced29c441771d294
     resource: repo://src/js/player-core.js

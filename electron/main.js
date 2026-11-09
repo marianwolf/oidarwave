@@ -2,10 +2,23 @@ const { app, BrowserWindow, protocol, shell, net } = require('electron')
 const path = require('path')
 const fs = require('fs')
 const { fileURLToPath, pathToFileURL } = require('url')
-const log = require('electron-log')
-log.transports.file.level = 'debug'
-log.transports.file.format = '{y}-{m}-{d} {h}:{i}:{s}.{ms} {level}: {msg}'
-log.transports.console.level = 'debug'
+
+// Optionaler Logger mit Fallback – electron-log kann im gepackten asar-Build fehlen
+// (devDependencies landen nicht in app.asar). Ein ungeschütztes require würde den
+// Main-Prozess mit "Cannot find module" töten; errors.js nutzt denselben try/catch-Fallback.
+function createLoggerFallback() {
+    try {
+        const log = require('electron-log')
+        log.transports.file.level = 'debug'
+        log.transports.file.format = '{y}-{m}-{d} {h}:{i}:{s}.{ms} {level}: {msg}'
+        log.transports.console.level = 'debug'
+        return log
+    } catch (err) {
+        console.debug('[oidarwave] electron-log nicht verfügbar, verbleibe bei Konsolen-Logging:', err?.code || err)
+        return console
+    }
+}
+const log = createLoggerFallback()
 
 const { ErrorCode, logError, logWarn, initMainProcessErrorHandlers } = require('../src/js/errors.js')
 initMainProcessErrorHandlers()
@@ -24,7 +37,25 @@ const WINDOW_OPTIONS = {
     icon: path.join(__dirname, '..', 'favicon/favicon.svg'),
 }
 
-// Directories that should never be scanned during page discovery
+const APP_DIR = path.resolve(path.join(__dirname, '..'))
+const INDEX_HTML = path.join(APP_DIR, 'index.html')
+
+// Externe Ziele (Web/Mail) dürfen nie in der App geladen werden
+const isExternalUrl = (url) => url.startsWith('http://') || url.startsWith('https://') || url.startsWith('mailto:')
+
+// Externe Links im System-Browser statt im App-Fenster öffnen
+function openExternalSafe(url) {
+    shell.openExternal(url).catch((err) => logWarn(ErrorCode.INVALID_NAVIGATION_URL, err, { url }))
+}
+
+// Fenster aus den Standard-Optionen erstellen und erst nach ready-to-show anzeigen
+function createBrowserWindow() {
+    const win = new BrowserWindow(WINDOW_OPTIONS)
+    win.once('ready-to-show', () => win.show())
+    return win
+}
+
+// Verzeichnisse, die bei der Seiten-Erkennung nie gescannt werden
 let ignoredDirsPromise = null
 
 async function getIgnoredDirs(appDir) {
@@ -68,13 +99,13 @@ function buildPageEntry(route, file) {
     return { route, file, pageRouteNorm, pageFileNorm, pageFileDir }
 }
 
-// Dynamically discover all available HTML subpages
+// Alle verfügbaren HTML-Unterseiten dynamisch erkennen
 async function discoverPages(dir, basePath = '', appDir) {
     const pages = []
     try {
         const items = await fs.promises.readdir(dir, { withFileTypes: true })
 
-        // Process items in parallel using Promise.all to optimize filesystem I/O
+        // Dateisystem-Zugriffe parallel verarbeiten
         await Promise.all(
             items.map(async (item) => {
                 if (item.isSymbolicLink()) return
@@ -125,7 +156,7 @@ function matchesRoute(pathname, page) {
 
 let availablePagesPromise = null
 
-// Retrieves and caches the available pages promise to avoid concurrent scans
+// Verfügbare Seiten erkennen und als Promise cachen (verhindert parallele Scans)
 function getAvailablePages(appDir) {
     if (!availablePagesPromise) {
         availablePagesPromise = (async () => {
@@ -138,16 +169,12 @@ function getAvailablePages(appDir) {
 }
 
 async function createWindow() {
-    const appDir = path.resolve(path.join(__dirname, '..'))
-    const availablePages = await getAvailablePages(appDir)
+    const availablePages = await getAvailablePages(APP_DIR)
 
-    const mainWindow = new BrowserWindow(WINDOW_OPTIONS)
+    const mainWindow = createBrowserWindow()
 
-    mainWindow.once('ready-to-show', () => {
-        mainWindow.show()
-    })
-
-    function tryLoadSubpage(targetWin, url) {
+    // Findet die bekannte Seite für eine URL (inkl. oidarwave://-Routen) oder null
+    function matchPage(url) {
         let targetUrl = url
         if (url.startsWith('oidarwave://')) {
             const route = url.replace('oidarwave://', '').replace(/^\/+/, '')
@@ -158,46 +185,63 @@ async function createWindow() {
 
             for (const page of availablePages) {
                 if (matchesRoute(pathname, page)) {
-                    targetWin.loadFile(page.file)
-                    return true
+                    return page
                 }
             }
         } catch (err) {
             logWarn(ErrorCode.INVALID_NAVIGATION_URL, err, { url })
         }
-        return false
+        return null
+    }
+
+    function tryLoadSubpage(targetWin, url) {
+        const page = matchPage(url)
+        if (!page) return false
+        targetWin.loadFile(page.file)
+        return true
     }
 
     function setupWindow(win) {
         const handleNavigation = (event, url) => {
-            if (url.startsWith('http://') || url.startsWith('https://')) {
+            // Externe Ziele (Web/Mail) immer abfangen und im System-Browser öffnen
+            if (isExternalUrl(url)) {
                 event.preventDefault()
-                shell.openExternal(url).catch((err) => logWarn(ErrorCode.INVALID_NAVIGATION_URL, err, { url }))
-            } else if (url.startsWith('mailto:')) {
+                openExternalSafe(url)
+                return
+            }
+            // Sub-Frames laden im Frame selbst: bekannte Routen zulassen
+            // (file-Protokoll-Handler resolviert absolute Pfade gegen APP_DIR),
+            // unbekannte blocken – niemals das ganze Fenster einreißen.
+            if (event.isMainFrame === false) {
+                if (matchPage(url)) return // Navigation im Frame zulassen
                 event.preventDefault()
-                shell.openExternal(url).catch((err) => logWarn(ErrorCode.INVALID_NAVIGATION_URL, err, { url }))
-            } else {
-                event.preventDefault()
-                if (!tryLoadSubpage(win, url)) {
-                    win.loadFile(path.join(appDir, 'index.html'))
-                }
+                logWarn(ErrorCode.INVALID_NAVIGATION_URL, null, {
+                    url,
+                    reason: 'frame-navigation-blocked',
+                })
+                return
+            }
+            // Jede Main-Frame-Navigation abfangen: interne Ziele über
+            // tryLoadSubpage – die App bleibt der Kontrollpunkt.
+            event.preventDefault()
+            if (!tryLoadSubpage(win, url)) {
+                win.loadFile(INDEX_HTML)
             }
         }
 
         win.webContents.on('will-navigate', handleNavigation)
-        win.webContents.on('will-redirect', handleNavigation) // Prevent redirect bypasses
-        win.webContents.on('will-frame-navigate', handleNavigation) // Prevent iframe bypasses
+        win.webContents.on('will-redirect', handleNavigation) // Redirect-Bypass verhindern
+        win.webContents.on('will-frame-navigate', handleNavigation) // iframe-Bypass verhindern
 
         win.webContents.setWindowOpenHandler(({ url }) => {
-            if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('mailto:')) {
-                shell.openExternal(url).catch((err) => logWarn(ErrorCode.INVALID_NAVIGATION_URL, err, { url }))
+            if (isExternalUrl(url)) {
+                openExternalSafe(url)
             } else if (url.startsWith('file://') || url.startsWith('oidarwave://')) {
-                const newWin = new BrowserWindow(WINDOW_OPTIONS)
-                newWin.once('ready-to-show', () => newWin.show())
+                const newWin = createBrowserWindow()
                 setupWindow(newWin)
 
                 if (!tryLoadSubpage(newWin, url)) {
-                    newWin.loadFile(path.join(appDir, 'index.html'))
+                    newWin.loadFile(INDEX_HTML)
                 }
             }
             return { action: 'deny' }
@@ -205,29 +249,33 @@ async function createWindow() {
     }
 
     setupWindow(mainWindow)
-    mainWindow.loadFile(path.join(appDir, 'index.html'))
+    mainWindow.loadFile(INDEX_HTML)
 }
 
 app.whenReady().then(async () => {
-    // Register or override the 'file' protocol securely
+    // 'file'-Protokoll sicher registrieren bzw. überschreiben
     protocol.handle('file', async (request) => {
         let resolvedPath = null
         try {
             const parsedUrl = new URL(request.url)
 
-            // Strip query parameters and hash fragments to prevent path resolution failure
+            // Query-Parameter und Hash entfernen (stören die Pfad-Auflösung)
             parsedUrl.search = ''
             parsedUrl.hash = ''
 
-            const appDir = path.resolve(path.join(__dirname, '..'))
             let filePath = fileURLToPath(parsedUrl.href)
 
-            // HTML pages use absolute paths (e.g. /src/css/style.css) which resolve to the
-            // filesystem root under file://. When the absolute path does not exist on disk,
-            // fall back to resolving it relative to the app directory so Electron can serve
-            // bundled assets just like a web server would.
+            // HTML-Seiten nutzen absolute Pfade (z. B. /src/css/style.css), die unter
+            // file:// ins Dateisystem-Root aufgelöst würden. Existiert der Pfad nicht,
+            // relativ zum App-Verzeichnis auflösen – wie bei einem Webserver.
             if (!fs.existsSync(filePath) && parsedUrl.pathname.startsWith('/')) {
-                const candidatePath = path.join(appDir, parsedUrl.pathname)
+                let candidatePath = path.join(APP_DIR, parsedUrl.pathname)
+                // Routen (/impressum, /video, ...) zielen auf Verzeichnisse –
+                // wie ein Webserver die Directory-Default index.html liefern.
+                // Ohne diesen Schritt scheitert z. B. ein Frame-Load.
+                if (fs.existsSync(candidatePath) && fs.statSync(candidatePath).isDirectory()) {
+                    candidatePath = path.join(candidatePath, 'index.html')
+                }
                 if (fs.existsSync(candidatePath)) {
                     filePath = candidatePath
                 }
@@ -235,15 +283,15 @@ app.whenReady().then(async () => {
 
             const resolvedPathInner = path.resolve(filePath)
 
-            const relative = path.relative(appDir, resolvedPathInner)
+            const relative = path.relative(APP_DIR, resolvedPathInner)
             const isSafe = !relative.startsWith('..') && !path.isAbsolute(relative)
 
-            // Check that the resolved path is under the appDir to prevent directory traversal
+            // Aufgelöster Pfad muss unter appDir liegen (Path-Traversal verhindern)
             if (!isSafe) {
                 logError(ErrorCode.PATH_TRAVERSAL, null, {
                     url: request.url,
                     resolvedPath: resolvedPathInner,
-                    appDir,
+                    appDir: APP_DIR,
                     referer: request.headers.get('referer'),
                 })
                 return new Response(JSON.stringify({ code: ErrorCode.PATH_TRAVERSAL, url: request.url }), {

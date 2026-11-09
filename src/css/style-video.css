@@ -4,10 +4,38 @@
     display: block;
     margin: auto;
     border-radius: var(--radius-md);
+    /* Anker für das Skeleton-Overlay (Stream-Vorbereitung). */
+    position: relative;
     overflow: hidden;
-    background: #000;
+    background-color: #000;
     border: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow: var(--shadow-glass);
+}
+
+/* === Skeleton-Overlay === */
+/* Shimmer-Fläche über dem Video-Block, solange der HLS-Stream vorbereitet wird.
+   JS steuert die Sichtbarkeit über `.is-active` (statt `hidden`-Attribut),
+   damit das Overlay weich ein- und ausblendet (Crossfade in die Wiedergabe). */
+.video-skeleton {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    /* Hauchzart aufhellend statt reines Schwarz – sonst liest sich der Sweep als Textur. */
+    background-color: rgba(255, 255, 255, 0.03);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    /* Opacity weich (Compositor), visibility verzögert: Ausblendung fertig,
+       bevor das Overlay aus dem Hit-Testing fällt. */
+    transition:
+        opacity 0.45s var(--ease-out-quint),
+        visibility 0s linear 0.45s;
+}
+
+.video-skeleton.is-active {
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 0s, 0s;
 }
 
 #videoPlayer {
@@ -16,13 +44,15 @@
     display: block;
     border: none;
     border-radius: inherit;
-    background: #000;
+    background-color: #000;
     object-fit: contain;
 }
 
 .data-mode-toggle,
 .caption-toggle {
-    background: rgba(255, 255, 255, 0.05);
+    /* Fläche als background-color, Gradient als Overlay:
+       background-image ist nicht animierbar, Opacity schon (Compositor). */
+    background-color: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: var(--radius-md);
     padding: var(--space-sm) var(--space-md);
@@ -33,40 +63,79 @@
     font-weight: var(--font-weight-medium);
     text-align: center;
     position: relative;
+    isolation: isolate;
     overflow: hidden;
     cursor: pointer;
+    /* Transform schnell mit sanftem Auslaufen, Farben/Schatten ruhiger;
+       die Fläche selbst wechselt über die Opacity des Overlays. */
     transition:
-        transform 0.2s ease,
-        background 0.2s ease,
-        border-color 0.2s ease,
-        box-shadow 0.2s ease;
+        transform var(--transition-tactile),
+        border-color var(--transition-color),
+        box-shadow var(--transition-color);
     touch-action: manipulation;
 }
 
-.data-mode-toggle:hover,
-.caption-toggle:hover {
-    background: rgba(255, 255, 255, 0.12);
-    border-color: rgba(255, 255, 255, 0.3);
-    transform: translateY(-1px);
+/* Hover- und Aktiv-Fläche als ein Overlay: gleiche Gradient-Struktur, nur
+   die Opacity wird animiert. z-index: -1 hält den Verlauf hinter dem Text. */
+.data-mode-toggle::before,
+.caption-toggle::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(135deg, var(--color-brand-primary), var(--color-brand-secondary));
+    opacity: 0;
+    transition: opacity var(--transition-color);
+    pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .data-mode-toggle:hover::before,
+    .caption-toggle:hover::before {
+        opacity: 0.16;
+    }
+
+    .data-mode-toggle:hover,
+    .caption-toggle:hover {
+        border-color: rgba(255, 255, 255, 0.3);
+        transform: translateY(-1px);
+    }
 }
 
 .data-mode-toggle:active,
 .caption-toggle:active {
     transform: translateY(0) scale(0.98);
+    transition-duration: var(--transition-press);
 }
 
 .data-mode-toggle[aria-pressed='true'],
 .caption-toggle[aria-pressed='true'],
 .caption-toggle.cc-active {
-    background: linear-gradient(135deg, var(--color-brand-primary), var(--color-brand-secondary));
     border-color: transparent;
     color: #fff;
     box-shadow: var(--shadow-glow);
     font-weight: var(--font-weight-semibold);
 }
 
-@media (max-width: 780px) {
-    .video-container {
-        width: 100%;
+.data-mode-toggle[aria-pressed='true']::before,
+.caption-toggle[aria-pressed='true']::before,
+.caption-toggle.cc-active::before {
+    opacity: 1;
+}
+
+@media (forced-colors: active) {
+    .data-mode-toggle[aria-pressed='true'],
+    .caption-toggle[aria-pressed='true'],
+    .caption-toggle.cc-active {
+        outline: 2px solid Highlight;
+        outline-offset: 2px;
+    }
+}
+
+@media print {
+    .video-controls,
+    .data-mode-toggle,
+    .caption-toggle {
+        display: none !important;
     }
 }

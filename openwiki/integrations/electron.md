@@ -3,9 +3,6 @@ type: integration
 title: Electron Integration
 description: Details of how the Electron wrapper adapts the web application for desktop execution, including window management, protocol handling, page discovery, and security configuration.
 tags: [electron, desktop, integration]
-verified:
-  - by: openwiki/0.5.2
-    at: 2026-09-27T19:48:35.317Z
 sources:
   - id: openwiki-source-3d9e72730d09405d8d9107c1
     resource: repo://electron/main.js

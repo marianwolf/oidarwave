@@ -6,8 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const DATA_SAVE_MODE_KEY = 'dataSaveMode'
     const CAPTION_ENABLED_KEY = 'captionsEnabled'
     const CAPTION_TRACK_KINDS = ['subtitles', 'captions', 'metadata']
-    const MAX_RETRIES = 3
-    const RETRY_BASE_DELAY = 1000 // 1 Sekunde Basis-Wartezeit
 
     const {
         setupMediaSession,
@@ -20,6 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
         scheduleRetry,
         resetRetry,
         isEditableTarget,
+        MAX_RETRIES,
+        RETRY_BASE_DELAY,
     } = window.PlayerCore
 
     // === DOM-REFERENZEN ===
@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const statusIndicator = document.getElementById('statusIndicator')
     const rewindButton = document.getElementById('rewindButton')
     const forwardButton = document.getElementById('forwardButton')
+    const videoSkeleton = document.getElementById('videoSkeleton')
 
     if (!videoPlayer) {
         logError(ErrorCode.PLAYER_INIT_NO_ELEMENT, null, { selector: '#videoPlayer', page: location.pathname })
@@ -50,13 +51,13 @@ document.addEventListener('DOMContentLoaded', () => {
         captionsEnabled: readBoolSetting(CAPTION_ENABLED_KEY),
     }
 
-    /** Speichert eine Einstellung und synchronisiert den Toggle-Button. */
+    // Einstellung speichern und Toggle-Button synchronisieren
     const saveSetting = (key, value, toggleElement) => {
         toggleElement?.setAttribute('aria-pressed', String(value))
         writeSetting(key, value)
     }
 
-    // Automatisch alle neuen Tracks deaktivieren, wenn CC ausgeschaltet ist.
+    // Neue Tracks automatisch deaktivieren, wenn CC ausgeschaltet ist
     videoPlayer.textTracks.addEventListener('addtrack', (event) => {
         if (!settingsCache.captionsEnabled && event.track) event.track.mode = 'disabled'
     })
@@ -76,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
         hlsPlayer.currentLevel = settingsCache.dataSaveMode ? 0 : -1
     }
 
-    /** Wendet die CC-Einstellung an (einzige Stelle statt enable/disable-Duplikat). */
+    // Wendet die CC-Einstellung an (einzige Stelle statt enable/disable-Duplikat)
     const applyCaptions = () => {
         if (hlsPlayer) hlsPlayer.subtitleDisplay = settingsCache.captionsEnabled
         const track = findCaptionTrack()
@@ -91,11 +92,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const initializeCaptions = () => {
-        captionToggle.setAttribute('aria-pressed', String(settingsCache.captionsEnabled))
+        captionToggle?.setAttribute('aria-pressed', String(settingsCache.captionsEnabled))
         applyCaptions()
     }
 
     // === HLS-SETUP ===
+
+    // Skeleton-Overlay während der Stream-Vorbereitung; Sichtbarkeit über Klasse
+    // (statt `hidden`), damit .video-skeleton per opacity/visibility ein-/ausblendet.
+    const showSkeleton = () => videoSkeleton?.classList.add('is-active')
+    const hideSkeleton = () => videoSkeleton?.classList.remove('is-active')
 
     const setupHlsPlayer = (url) => {
         destroyHlsPlayer()
@@ -108,6 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
             setupNativePlayer(url)
         } else {
             logError(ErrorCode.HLS_FATAL, null, { reason: 'HLS not supported by browser' })
+            hideSkeleton()
             statusDisplay.showMessage('Ihr Browser unterstützt dieses Videoformat nicht.', 'error', 0)
         }
     }
@@ -120,11 +127,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const setupHlsJsPlayer = (url) => {
-        // HLS.js nutzt XHR und braucht CORS.
+        // HLS.js nutzt XHR und braucht CORS
         videoPlayer.setAttribute('crossorigin', 'anonymous')
         hlsPlayer = new Hls({
             xhrSetup: (xhr) => {
-                xhr.withCredentials = false // Keine Credentials senden, hilft oft bei CORS-Problemen
+                xhr.withCredentials = false // keine Credentials senden
             },
         })
         const playerInstance = hlsPlayer
@@ -133,6 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         hlsPlayer.on(Hls.Events.MANIFEST_PARSED, () => {
             if (hlsPlayer !== playerInstance) return
+            hideSkeleton()
             statusDisplay.clearMessage()
             videoPlayer.play().catch((e) => handlePlayError(e, 'manifest-parsed'))
             updateQualityLevel()
@@ -144,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const code = data.fatal ? ErrorCode.HLS_FATAL : ErrorCode[`HLS_${ctx.mappedType}`] || 'HLS_ERROR'
             logError(code, null, ctx)
             if (data.fatal) handleFatalHlsError(data, playerInstance)
-            // Nicht-fatale Fehler behandelt Hls.js selbst (kein manuelles Recovery nötig).
+            // Nicht-fatale Fehler behandelt Hls.js selbst (kein manuelles Recovery)
         })
     }
 
@@ -169,6 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (retryState.count >= MAX_RETRIES) {
             logError(ErrorCode.HLS_NETWORK, null, { retries: MAX_RETRIES, url: hlsPlayer?.url })
             destroyHlsPlayer()
+            hideSkeleton()
             statusDisplay.showMessage(
                 `Netzwerkfehler: Nach ${MAX_RETRIES} Versuchen keine Verbindung. Bitte Internetverbindung prüfen und Seite neu laden.`,
                 'error',
@@ -199,16 +208,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         logError(ErrorCode.HLS_FATAL, null, { details: data.details, type: data.type })
         destroyHlsPlayer()
+        hideSkeleton()
         statusDisplay.showMessage(`Schwerwiegender Fehler: ${data.details}. Bitte Seite neu laden.`, 'error', 0)
     }
 
     const setupNativePlayer = (url) => {
-        // Natives Safari-HLS: crossorigin entfernen, sonst scheitern Streams ohne CORS-Header.
+        // Natives Safari-HLS: crossorigin entfernen, sonst scheitern Streams ohne CORS-Header
         videoPlayer.removeAttribute('crossorigin')
         videoPlayer.src = url
         videoPlayer.addEventListener(
             'loadedmetadata',
             () => {
+                hideSkeleton()
                 statusDisplay.clearMessage()
                 videoPlayer.play().catch((e) => handlePlayError(e, 'native-player'))
                 applyCaptions()
@@ -235,6 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const selectStation = (button) => {
         statusDisplay.clearMessage()
         currentStationDisplay.textContent = button.dataset.name
+        showSkeleton()
         setupHlsPlayer(button.dataset.url)
         setupMediaSession({
             title: button.dataset.name,
@@ -251,8 +263,8 @@ document.addEventListener('DOMContentLoaded', () => {
         stationButtons.forEach((button) => {
             button.addEventListener('click', () => selectStation(button), { passive: true })
         })
-        dataModeToggle.addEventListener('click', toggleDataSaveMode, { passive: true })
-        captionToggle.addEventListener('click', toggleCaptions, { passive: true })
+        dataModeToggle?.addEventListener('click', toggleDataSaveMode, { passive: true })
+        captionToggle?.addEventListener('click', toggleCaptions, { passive: true })
         rewindButton?.addEventListener('click', () => seek(-SEEK_TIME), { passive: true })
         forwardButton?.addEventListener('click', () => seek(SEEK_TIME), { passive: true })
 
@@ -269,6 +281,9 @@ document.addEventListener('DOMContentLoaded', () => {
         videoPlayer.addEventListener('pause', () => {
             logDebug(ErrorCode.MEDIA_SESSION_SETUP, null, { state: 'paused' })
         })
+        // Sicherheitsnetz beim Wiedergabestart: falls weder MANIFEST_PARSED noch
+        // loadedmetadata feuerte, bleibt das Skeleton sonst hängen.
+        videoPlayer.addEventListener('playing', hideSkeleton)
         videoPlayer.addEventListener('playing', () => {
             logDebug(ErrorCode.MEDIA_SESSION_SETUP, null, { state: 'playing' })
         })
@@ -276,7 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.addEventListener(
             'keydown',
             (event) => {
-                if (isEditableTarget(document.activeElement)) return
+                if (isEditableTarget(event.target)) return
                 switch (event.key) {
                     case 'ArrowLeft':
                         event.preventDefault()
@@ -295,7 +310,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // === START ===
 
     const initializePlayer = () => {
-        dataModeToggle.setAttribute('aria-pressed', String(settingsCache.dataSaveMode))
+        dataModeToggle?.setAttribute('aria-pressed', String(settingsCache.dataSaveMode))
         initializeCaptions()
         if (stationButtons[0]) selectStation(stationButtons[0])
     }
