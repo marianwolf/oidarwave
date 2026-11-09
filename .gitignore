@@ -21,3 +21,6 @@ Thumbs.db
 __pycache__/
 *.py[cod]
 .pytest_cache/
+
+#npm
+/package-lock.json
