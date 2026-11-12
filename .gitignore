@@ -12,6 +12,7 @@ build/
 .env
 .env.*
 !.env.example
+.freebuff
 
 # OS files
 .DS_Store
